@@ -1,13 +1,14 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light">
+    <style name="AppTheme" parent="Theme.MaterialComponents">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorHighlight</item>
         <item name="windowNoTitle">true</item>
         <item name="colorControlNormal">@color/normalColor</item>
+        <item name="android:timePickerStyle">@style/MyTimePickerTheme</item>
     </style>
     <style name="NewDialog">
         <item name="android:windowFrame">@null</item>
@@ -19,5 +20,9 @@
         <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
         <item name="android:backgroundDimEnabled">false</item>
         <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <style name="MyTimePickerTheme" parent="android:Widget.Material.Light.TimePicker">
+        <item name="android:timePickerMode">spinner</item>
     </style>
 </resources>
