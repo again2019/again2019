@@ -60,7 +60,7 @@ class TmpTimeActivity : AppCompatActivity() {
             view.startTime.text = tmpTimeDTOList[position].startTime.toString()
             view.wakeUpTime.text = simpleDate.format(tmpTimeDTOList[position].wakeUpTime).toString()
             view.saveButton.setOnClickListener {
-                
+
             }
 
 
