@@ -11,19 +11,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import com.goingbacking.goingbacking.*
 import com.goingbacking.goingbacking.Adapter.PagerAdapter
-import com.goingbacking.goingbacking.NotificationUtil
-import com.goingbacking.goingbacking.PrefUtil
-import com.goingbacking.goingbacking.R
-import com.goingbacking.goingbacking.TimerExpiredReceiver
-import com.kizitonwose.calendarview.model.CalendarDay
-import com.kizitonwose.calendarview.ui.DayBinder
-import com.kizitonwose.calendarview.ui.ViewContainer
 import kotlinx.android.synthetic.main.fragment_first_main.*
 import kotlinx.android.synthetic.main.fragment_first_main.view.*
-import java.time.YearMonth
-import java.time.temporal.WeekFields
 import java.util.*
 
 class FirstMainFragment : Fragment() {
@@ -103,6 +94,11 @@ class FirstMainFragment : Fragment() {
         view.tmptimerButton3.setOnClickListener{
             timer.cancel()
             onTimerFinished() // 1:00으로 다시 초기화함
+        }
+
+        view.tmpTimeButton.setOnClickListener {
+            val intent = Intent(requireContext(), TmpTimeActivity::class.java)
+            startActivity(intent)
         }
         return view
     }
