@@ -72,5 +72,19 @@ class PrefUtil {
             editor.putLong(ALARM_SET_TIME_ID, time)
             editor.apply()
         }
+
+
+        private const val ALARM_SET_TMP_TIME_ID = "com.resocoder.timer.save_tmptime"
+
+        fun getAlarmSetTmpTime(context: Context): Long{
+            val preferences = PreferenceManager.getDefaultSharedPreferences(context)
+            return  preferences.getLong(ALARM_SET_TMP_TIME_ID, 0)
+        }
+
+        fun setAlarmSetTmpTime(time: Long, context: Context){
+            val editor = PreferenceManager.getDefaultSharedPreferences(context).edit()
+            editor.putLong(ALARM_SET_TMP_TIME_ID, time)
+            editor.apply()
+        }
     }
 }

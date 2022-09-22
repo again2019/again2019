@@ -11,8 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-
+        <activity
+            android:name=".TmpTimeActivity"
+            android:exported="true" />
         <activity
             android:name=".MainActivityPackage.ThirdMainFragmentPackage.ScheduleInputActivity"
             android:exported="true" />
@@ -53,10 +54,11 @@
             android:exported="false" />
         <receiver
             android:name=".TimerNotificationActionReceiver"
+
             android:enabled="true"
             android:exported="false">
             <intent-filter>
-                <action android:name="stop"/>
+                <action android:name="stop" />
                 <action android:name="pause" />
                 <action android:name="resume" />
                 <action android:name="start" />

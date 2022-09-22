@@ -32,9 +32,9 @@ class NotificationUtil {
 
             val nBuilder = getBasicNotificationBuilder(context, CHANNEL_ID_TIMER, true)
             nBuilder.setContentTitle("Timer Expired!")
-                .setContentText("Start again?")
-                .setContentIntent(getPendingIntentWithStack(context, MainActivity::class.java))
-                .addAction(R.drawable.border_top_bottom, "Start", startPendingIntent)
+                .setContentText("저장하러 가실래요?")
+                .setContentIntent(getPendingIntentWithStack(context, TmpTimeActivity::class.java))
+                .addAction(R.drawable.border_top_bottom, "저장하러 가기", startPendingIntent)
 
             val nManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             nManager.createNotificationChannel(CHANNEL_ID_TIMER, CHANNEL_NAME_TIMER, true)
