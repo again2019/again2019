@@ -6,9 +6,8 @@
     tools:context=".MainActivityPackage.SecondMainFragment">
 
     <com.github.aachartmodel.aainfographics.aachartcreator.AAChartView
-        android:id="@+id/aa_chart_view"
+        android:id="@+id/AAChartView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"/>
 
-    </com.github.aachartmodel.aainfographics.aachartcreator.AAChartView>
 </FrameLayout>
