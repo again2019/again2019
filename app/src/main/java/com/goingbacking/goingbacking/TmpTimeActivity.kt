@@ -2,14 +2,17 @@ package com.goingbacking.goingbacking
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.goingbacking.goingbacking.Model.SaveTimeDayDTO
 import com.goingbacking.goingbacking.Model.TmpTimeDTO
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_tmp_time.*
 import kotlinx.android.synthetic.main.item_tmp.view.*
@@ -76,7 +79,18 @@ class TmpTimeActivity : AppCompatActivity() {
                 firebaseFirestore?.collection("SaveTimeInfo")?.document(userId!!)
                     ?.collection("Day")?.document(simpleDate2.format(tmpTimeDTOList[position].wakeUpTime).toString())
                     ?.collection(simpleDate3.format(tmpTimeDTOList[position].wakeUpTime).toString())?.document(userId!! + simpleDate3.format(tmpTimeDTOList[position].wakeUpTime).toString())
-                    ?.set(saveTimeDayDTO!!)
+                    ?.update("count", FieldValue.increment(tmpTimeDTOList[position].nowSeconds?.toDouble()!!))
+
+                firebaseFirestore?.collection("SaveTimeInfo")?.document(userId!!)
+                    ?.collection("Month")?.document(simpleDate5.format(tmpTimeDTOList[position].wakeUpTime).toString())
+                    ?.collection(simpleDate4.format(tmpTimeDTOList[position].wakeUpTime).toString())?.document(userId!! + simpleDate4.format(tmpTimeDTOList[position].wakeUpTime).toString())
+                    ?.update("count", FieldValue.increment(tmpTimeDTOList[position].nowSeconds?.toDouble()!!))
+
+
+                firebaseFirestore?.collection("SaveTimeInfo")?.document(userId!!)
+                    ?.collection("Year")?.document(simpleDate5.format(tmpTimeDTOList[position].wakeUpTime).toString())
+                    ?.update("count", FieldValue.increment(tmpTimeDTOList[position].nowSeconds?.toDouble()!!))
+
             }
 
 
