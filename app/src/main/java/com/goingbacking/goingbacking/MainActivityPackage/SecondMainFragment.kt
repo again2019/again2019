@@ -41,6 +41,9 @@ class SecondMainFragment : Fragment(), AAChartView.AAChartViewCallBack {
     var aaChartView2: AAChartView? = null
     var chartType2: String = ""
 
+    var aaChartModel3 = AAChartModel()
+    var aaChartView3: AAChartView? = null
+    var chartType3: String = ""
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_second_main, container, false)
@@ -75,7 +78,19 @@ class SecondMainFragment : Fragment(), AAChartView.AAChartViewCallBack {
                 setUpAAChartViewMonth(view)
             }
 
+        FirebaseFirestore.getInstance().collection("SaveTimeInfo").document(userId!!)
+            ?.collection("Day")?.document("2022-09")
+            ?.collection("22")?.addSnapshotListener { querySnapshot, _ -> //"22" 2022-09로 바꾸기
+                saveTimeDayDTOList.clear()
+                if(querySnapshot == null) return@addSnapshotListener
+                for(snapshot in querySnapshot!!.documents){
 
+                    Toast.makeText(requireActivity(), snapshot.toObject(SaveTimeMonthDTO::class.java)?.count!!.toString(), Toast.LENGTH_SHORT).show()
+                    saveTimeDayDTOList.add(snapshot.toObject(SaveTimeDayDTO::class.java)?.count!!)
+                }
+
+                setUpAAChartViewDay(view)
+            }
 
 
 
@@ -101,11 +116,11 @@ class SecondMainFragment : Fragment(), AAChartView.AAChartViewCallBack {
     }
 
     private fun setUpAAChartViewDay(view: View) {
-        aaChartView = view.AAChartView3
-        aaChartView?.setBackgroundColor(0)
-        aaChartView?.callBack = this
-        aaChartModel = configureAAChartModel(saveTimeMonthDTOList)
-        aaChartView?.aa_drawChartWithChartModel(aaChartModel)
+        aaChartView3 = view.AAChartView3
+        aaChartView3?.setBackgroundColor(0)
+        aaChartView3?.callBack = this
+        aaChartModel3 = configureAAChartModel(saveTimeDayDTOList)
+        aaChartView3?.aa_drawChartWithChartModel(aaChartModel3)
 
     }
 
