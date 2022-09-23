@@ -19,7 +19,8 @@ class TmpTimeActivity : AppCompatActivity() {
     var auth : FirebaseAuth? = null
     var firebaseFirestore : FirebaseFirestore? = null
     var userId : String? = null
-    var saveTimeDayDTO : SaveTimeDayDTO? = null
+    var tmpTimeDTO : TmpTimeDTO? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,12 +57,26 @@ class TmpTimeActivity : AppCompatActivity() {
             var view = (holder as CustomViewHolder).itemView
 
             val simpleDate = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
-
-            view.nowSeconds.text = simpleDate.format(tmpTimeDTOList[position].nowSeconds).toString()
-            view.startTime.text = tmpTimeDTOList[position].startTime.toString()
+            val simpleDate2 = SimpleDateFormat("yyyy-MM")
+            val simpleDate3 = SimpleDateFormat("dd")
+            val simpleDate4 = SimpleDateFormat("MM")
+            val simpleDate5 = SimpleDateFormat("yyyy")
+            view.nowSeconds.text = tmpTimeDTOList[position].nowSeconds.toString()
+            view.startTime.text = simpleDate.format(tmpTimeDTOList[position].startTime).toString()
             view.wakeUpTime.text = simpleDate.format(tmpTimeDTOList[position].wakeUpTime).toString()
             view.saveButton.setOnClickListener {
-                firebaseFirestore?.collection("UserInfo")?.document(userId!!)?.set(userInfoDTO!!)
+
+
+                var saveTimeDayDTO : SaveTimeDayDTO? = SaveTimeDayDTO()
+                saveTimeDayDTO!!.count = tmpTimeDTOList[position].nowSeconds?.toInt()
+                saveTimeDayDTO!!.day = simpleDate3.format(tmpTimeDTOList[position].wakeUpTime).toInt()
+                saveTimeDayDTO!!.month = simpleDate4.format(tmpTimeDTOList[position].wakeUpTime).toInt()
+                saveTimeDayDTO!!.year = simpleDate5.format(tmpTimeDTOList[position].wakeUpTime).toInt()
+
+                firebaseFirestore?.collection("SaveTimeInfo")?.document(userId!!)
+                    ?.collection("Day")?.document(simpleDate2.format(tmpTimeDTOList[position].wakeUpTime).toString())
+                    ?.collection(simpleDate3.format(tmpTimeDTOList[position].wakeUpTime).toString())?.document(userId!! + simpleDate3.format(tmpTimeDTOList[position].wakeUpTime).toString())
+                    ?.set(saveTimeDayDTO!!)
             }
 
 
