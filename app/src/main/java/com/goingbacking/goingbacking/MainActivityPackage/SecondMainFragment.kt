@@ -18,7 +18,7 @@ class SecondMainFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_second_main, container, false)
 
         val aaChartModel : AAChartModel = AAChartModel()
-            .chartType(AAChartType.Pie)
+            .chartType(AAChartType.Bar)
             .title("title")
             .subtitle("subtitle")
             .dataLabelsEnabled(true)
