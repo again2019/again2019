@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.goingbacking.goingbacking.Model.SaveTimeDayDTO
 import com.goingbacking.goingbacking.Model.TmpTimeDTO
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -18,7 +19,7 @@ class TmpTimeActivity : AppCompatActivity() {
     var auth : FirebaseAuth? = null
     var firebaseFirestore : FirebaseFirestore? = null
     var userId : String? = null
-    var tmpTimeDTO : TmpTimeDTO? = null
+    var saveTimeDayDTO : SaveTimeDayDTO? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,7 +61,7 @@ class TmpTimeActivity : AppCompatActivity() {
             view.startTime.text = tmpTimeDTOList[position].startTime.toString()
             view.wakeUpTime.text = simpleDate.format(tmpTimeDTOList[position].wakeUpTime).toString()
             view.saveButton.setOnClickListener {
-
+                firebaseFirestore?.collection("UserInfo")?.document(userId!!)?.set(userInfoDTO!!)
             }
 
 
