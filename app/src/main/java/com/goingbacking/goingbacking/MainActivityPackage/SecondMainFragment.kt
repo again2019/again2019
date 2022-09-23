@@ -17,6 +17,7 @@ class SecondMainFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_second_main, container, false)
 
+        // sample chartView 구현 완료
         val aaChartModel : AAChartModel = AAChartModel()
             .chartType(AAChartType.Bar)
             .title("title")
