@@ -15,13 +15,21 @@ import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import androidx.core.content.ContextCompat
+import androidx.work.*
 import com.goingbacking.goingbacking.MainActivityPackage.*
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.util.*
+import java.util.concurrent.TimeUnit
 
 class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
+    private val backgroundCoroutineScope = CoroutineScope(Dispatchers.Default)
+
+
     override fun onNavigationItemSelected(p0: MenuItem): Boolean {
         when(p0.itemId){
             R.id.action_home ->{
@@ -69,31 +77,17 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         bottom_navigation.selectedItemId = R.id.action_home
 
         //매일 0시가 되면 데이터 베이스를 초기화하는 코드
-        var sharedPreferences1 :SharedPreferences? = getSharedPreferences("daily", MODE_PRIVATE)
-        var milis :Long? = sharedPreferences1?.getLong("nextNotifyTime", Calendar.getInstance().timeInMillis)
-
-        var c = Calendar.getInstance()
-        c.set(Calendar.HOUR_OF_DAY, 14) //시
-        c.set(Calendar.MINUTE, 39)//분
-        c.set(Calendar.SECOND, 0)//초
-
-        startAlarm(c)
-        Log.d("TTTT", c.timeInMillis.toString())
-        Log.d("TTTT", System.currentTimeMillis().toString())
-    }
-
-    //알람 설정
-    private fun startAlarm(c: Calendar){
-
-        //알람매니저 선언
-        var alarmManager: AlarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
-
-        var intent = Intent(this, AlertReceiver:: class.java)
-
-        var pendingIntent = PendingIntent.getBroadcast(this, 1, intent, FLAG_MUTABLE)
+        var sharedPreferences1: SharedPreferences? = getSharedPreferences("daily", MODE_PRIVATE)
+        var milis: Long? =
+            sharedPreferences1?.getLong("nextNotifyTime", Calendar.getInstance().timeInMillis)
 
 
+        val myWorkRequest = OneTimeWorkRequestBuilder<TodoWorker>()
+            .setInitialDelay(30, TimeUnit.SECONDS)
+            .build()
 
-        alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.timeInMillis, pendingIntent)
+        WorkManager.getInstance(this).enqueue(myWorkRequest)
     }
 }
+
+

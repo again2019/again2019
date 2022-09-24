@@ -8,9 +8,6 @@ class AlertReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
 
-        var notificationHelper :NotificationHelper = NotificationHelper(context)
-        var nb: NotificationCompat.Builder = notificationHelper.getChannelNOtification()
 
-        notificationHelper.getManager().notify(1, nb.build())
     }
 }

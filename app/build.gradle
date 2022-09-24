@@ -74,6 +74,6 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
     implementation 'com.shobhitpuri.custombuttons:google-signin:1.1.0'
-
+    implementation 'androidx.work:work-runtime-ktx:2.7.1'
 
 }
