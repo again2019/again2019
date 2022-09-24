@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.github.aachartmodel.aainfographics.aachartcreator.*
+import com.github.aachartmodel.aainfographics.aaoptionsmodel.AAScrollablePlotArea
 import com.goingbacking.goingbacking.Model.SaveTimeDayDTO
 import com.goingbacking.goingbacking.Model.SaveTimeMonthDTO
 import com.goingbacking.goingbacking.Model.SaveTimeYearDTO
@@ -131,20 +132,21 @@ class SecondMainFragment : Fragment(), AAChartView.AAChartViewCallBack {
 
         Log.d("TTTT", "DTOList" + DTOList.toString())
         val aaChartModel = AAChartModel.Builder(requireActivity())
+
             .setChartType(chartTypeEnum)
             .setBackgroundColor("#4b2b7f")
             .setDataLabelsEnabled(true)
             .setYAxisGridLineWidth(0f)
-            .setLegendEnabled(true)
+            .setLegendEnabled(false)
             .setTouchEventEnabled(true)
+
             .setSeries(
                 AASeriesElement()
-                    .name("Tokyo")
                     .data(DTOList.toTypedArray()),
-
-
                 )
             .build()
+
+        aaChartModel!!.categories(arrayOf("aa", "bb", "cc", "dd"))
 
         return aaChartModel
     }
