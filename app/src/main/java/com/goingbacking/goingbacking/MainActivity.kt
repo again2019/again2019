@@ -82,11 +82,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
             sharedPreferences1?.getLong("nextNotifyTime", Calendar.getInstance().timeInMillis)
 
 
-        val myWorkRequest = OneTimeWorkRequestBuilder<TodoWorker>()
-            .setInitialDelay(30, TimeUnit.SECONDS)
-            .build()
 
-        WorkManager.getInstance(this).enqueue(myWorkRequest)
     }
 }
 

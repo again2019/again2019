@@ -12,6 +12,7 @@ import java.util.*
 class TodoWorker(val context: Context, val params: WorkerParameters):Worker(context, params) {
     override fun doWork(): Result {
 
+        Log.d("TTTT", "work?")
         NotificationHelper(context).createNotification()
 
 

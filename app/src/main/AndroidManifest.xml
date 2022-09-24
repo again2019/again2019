@@ -12,9 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <receiver
-            android:name=".AlertReceiver"
+            android:name=".Notification"
             android:enabled="true"
-            android:exported="true"></receiver>
+            android:exported="false"></receiver>
 
         <activity
             android:name=".TmpTimeActivity"

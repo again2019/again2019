@@ -34,22 +34,19 @@ class NotificationHelper(val context : Context) {
     }
 
     private fun createNotificationChannel() {
-
-        val channel = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel(CHANNEL_ID, CHANNEL_ID,
-                    NotificationManager.IMPORTANCE_DEFAULT).apply {
-                        description = "Todo channel description"
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val channel = NotificationChannel(
+                CHANNEL_ID, CHANNEL_ID,
+                NotificationManager.IMPORTANCE_DEFAULT
+            ).apply {
+                description = "Todo channel description"
             }
 
+            val notificationManager =
+                context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.createNotificationChannel(channel)
 
-        } else {
-            TODO("VERSION.SDK_INT < O")
         }
-
-        val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        notificationManager.createNotificationChannel(channel)
-
-
     }
 
 

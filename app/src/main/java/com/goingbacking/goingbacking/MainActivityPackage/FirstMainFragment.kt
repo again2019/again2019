@@ -11,11 +11,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkManager
 import com.goingbacking.goingbacking.*
 import com.goingbacking.goingbacking.Adapter.PagerAdapter
 import kotlinx.android.synthetic.main.fragment_first_main.*
 import kotlinx.android.synthetic.main.fragment_first_main.view.*
 import java.util.*
+import java.util.concurrent.TimeUnit
 
 class FirstMainFragment : Fragment() {
 
