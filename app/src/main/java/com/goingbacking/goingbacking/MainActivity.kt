@@ -81,7 +81,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         var milis: Long? =
             sharedPreferences1?.getLong("nextNotifyTime", Calendar.getInstance().timeInMillis)
 
-
+        //notification 구현 완료!! 합치기만 함녀돼
 
     }
 }
