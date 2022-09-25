@@ -84,20 +84,18 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         Log.d("TTTT", millis.toString())
 
         var date_text :String = SimpleDateFormat("yyyy년 MM월 dd일 EE요일 a hh시 mm분", Locale.getDefault()).format(millis)
-
         Toast.makeText(this,"[처음 실행시] 다음 알람은 " + date_text + "으로 알람이 설정되었습니다!", Toast.LENGTH_SHORT).show()
 
         var calendar = Calendar.getInstance()
         calendar.timeInMillis = System.currentTimeMillis()
         calendar.set(Calendar.HOUR_OF_DAY, 12)
-        calendar.set(Calendar.MINUTE, 29)
+        calendar.set(Calendar.MINUTE, 59)
         calendar.set(Calendar.SECOND, 0)
 
         if (calendar.before(Calendar.getInstance())) {
             calendar.add(Calendar.DATE, 1)
         }
         date_text = SimpleDateFormat("yyyy년 MM월 dd일 EE요일 a hh시 mm분", Locale.getDefault()).format(calendar.timeInMillis)
-
         Toast.makeText(this, date_text + "으로 알람이 설정되었습니다!", Toast.LENGTH_SHORT).show()
 
 
