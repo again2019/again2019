@@ -88,8 +88,8 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
 
         var calendar = Calendar.getInstance()
         calendar.timeInMillis = System.currentTimeMillis()
-        calendar.set(Calendar.HOUR_OF_DAY, 14)
-        calendar.set(Calendar.MINUTE, 10)
+        calendar.set(Calendar.HOUR_OF_DAY, 16)
+        calendar.set(Calendar.MINUTE, 17)
         calendar.set(Calendar.SECOND, 0)
 
         if (calendar.before(Calendar.getInstance())) {
