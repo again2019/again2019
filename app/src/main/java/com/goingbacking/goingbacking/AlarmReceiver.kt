@@ -83,35 +83,62 @@ class AlarmReceiver : BroadcastReceiver() {
         var date_text4 = SimpleDateFormat("MM", Locale.getDefault()).format(currentDateTime)
         var date_text5 = SimpleDateFormat("dd", Locale.getDefault()).format(currentDateTime)
 
+
         saveTimeDayDTO!!.day = date_text5.toInt()
         saveTimeDayDTO!!.month = date_text4.toInt()
         saveTimeDayDTO!!.year = date_text3.toInt()
         saveTimeDayDTO!!.count = 0
 
-        // 달이 바뀔 때마다 업데이트 되는 것이 필요...
         firebaseFirestore?.collection("SaveTimeInfo")?.document(userId!!)
-                ?.collection("Day")?.document(date_text1.toString())
-                ?.collection(date_text2.toString())?.document(userId!! + date_text2.toString())
-                ?.set(saveTimeDayDTO!!)
+            ?.collection("Day")?.document(date_text1.toString())
+            ?.collection(date_text2.toString())?.document(userId!! + date_text2.toString())
+            ?.set(saveTimeDayDTO!!)
 
-        saveTimeMonthDTO!!.month = date_text4.toInt()
-        saveTimeMonthDTO!!.year = date_text3.toInt()
-        saveTimeMonthDTO!!.count = 0
+
+
+
+        // 달이 바뀔 때마다 업데이트 되는 것이 필요...
+
+        var nextNotifyTime1 = Calendar.getInstance()
+        nextNotifyTime1.add(Calendar.DATE, -1)
+
+        var currentDateTime1 = nextNotifyTime1.time
+        var date_text_new1 = SimpleDateFormat("MM", Locale.getDefault()).format(currentDateTime1)
+
+        Log.d("TTTT", date_text_new1.toString() + " " + date_text4.toString())
+        if (date_text_new1 != date_text4) {
+            saveTimeMonthDTO!!.month = date_text4.toInt()
+            saveTimeMonthDTO!!.year = date_text3.toInt()
+            saveTimeMonthDTO!!.count = 0
+
+            firebaseFirestore?.collection("SaveTimeInfo")?.document(userId!!)
+                ?.collection("Month")?.document(date_text3.toString())
+                ?.collection(date_text2.toString())?.document(userId!! + date_text2.toString())
+                ?.set(saveTimeMonthDTO!!)
+        }
 
         // 년이 바뀔 때마다 업데이트 되는 것이 필요...
-        firebaseFirestore?.collection("SaveTimeInfo")?.document(userId!!)
-            ?.collection("Month")?.document(date_text3.toString())
-            ?.collection(date_text2.toString())?.document(userId!! + date_text2.toString())
-            ?.set(saveTimeMonthDTO!!)
 
-        saveTimeYearDTO!!.year = date_text3.toInt()
-        saveTimeYearDTO!!.count = 0
+        var nextNotifyTime2 = Calendar.getInstance()
+        nextNotifyTime2.add(Calendar.DATE, -1)
 
-        firebaseFirestore?.collection("SaveTimeInfo")?.document(userId!!)
-            ?.collection("Year")?.document(date_text3.toString())
-            ?.set(saveTimeYearDTO!!)
+        var currentDateTime2 = nextNotifyTime1.time
+        var date_text_new2 = SimpleDateFormat("yyyy", Locale.getDefault()).format(currentDateTime2)
+
+        Log.d("TTTT", date_text_new2.toString() + " " + date_text3.toString())
 
 
+        if (date_text_new2 != date_text2) {
+
+
+            saveTimeYearDTO!!.year = date_text3.toInt()
+            saveTimeYearDTO!!.count = 0
+
+            firebaseFirestore?.collection("SaveTimeInfo")?.document(userId!!)
+                ?.collection("Year")?.document(date_text3.toString())
+                ?.set(saveTimeYearDTO!!)
+
+        }
 
     }
 
