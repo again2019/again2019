@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.preference.PreferenceManager
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -79,6 +80,7 @@ class FirstMainFragment : Fragment() {
         val paperAdapter = PagerAdapter(childFragmentManager)
         view.view_pager.adapter = paperAdapter
         view.indicator.setViewPager(view.view_pager)
+
 
 
         view.tmptimerButton1.setOnClickListener{

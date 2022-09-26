@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.preference.PreferenceManager
 import android.util.Log
 import android.util.TypedValue
 import androidx.fragment.app.Fragment
@@ -28,6 +29,7 @@ import com.goingbacking.goingbacking.LoginActivity
 import com.goingbacking.goingbacking.MainActivityPackage.ThirdMainFragmentPackage.ScheduleInputActivity
 import com.goingbacking.goingbacking.Model.CalendarInfoDTO
 import com.goingbacking.goingbacking.Model.Event
+import com.goingbacking.goingbacking.PrefUtil
 
 import com.goingbacking.goingbacking.R
 import com.goingbacking.goingbacking.SplashActivity
@@ -89,6 +91,8 @@ class ThirdMainFragment : Fragment() {
     private val selectionFormatter = DateTimeFormatter.ofPattern("d MMM yyyy")
     private val events = mutableMapOf<LocalDate, List<Event>>()
 
+    var x :List<String>? = null
+    var document1 :String? = null
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_third_main, container, false)
 
@@ -104,7 +108,7 @@ class ThirdMainFragment : Fragment() {
 
         val daysOfWeek = daysOfWeekFromLocale()
         val currentMonth = YearMonth.now()
-        view.exThreeCalendar.setup(currentMonth.minusMonths(1), currentMonth.plusMonths(1), daysOfWeek.first())
+        view.exThreeCalendar.setup(currentMonth.minusMonths(0), currentMonth.plusMonths(0), daysOfWeek.first())
         view.exThreeCalendar.scrollToMonth(currentMonth)
 
         if (savedInstanceState == null) {
@@ -113,6 +117,10 @@ class ThirdMainFragment : Fragment() {
                 selectDate(today)
             }
         }
+
+
+        val source= Source.CACHE
+
 
 
         class DayViewContainer(view: View) : ViewContainer(view) {
@@ -129,6 +137,7 @@ class ThirdMainFragment : Fragment() {
         }
 
 
+
         view.exThreeCalendar.dayBinder = object : DayBinder<DayViewContainer> {
             override fun create(view: View) = DayViewContainer(view)
             override fun bind(container: DayViewContainer, day: CalendarDay) {
@@ -137,6 +146,8 @@ class ThirdMainFragment : Fragment() {
                 val dotView = container.view.exThreeDotView
 
                 textView.text = day.date.dayOfMonth.toString()
+
+                dotView.isVisible = false
 
                 if (day.owner == DayOwner.THIS_MONTH) {
                     textView.makeVisible()
@@ -154,8 +165,24 @@ class ThirdMainFragment : Fragment() {
                         else -> {
                             textView.setTextColorRes(R.color.example_3_black)
                             textView.background = null
-                            Log.d("TTTT", events.toString())
-                            dotView.isVisible = events[day.date].orEmpty().isNotEmpty()
+
+                            firebaseFirestore?.collection("Date")?.document(userId!!)?.get()
+                                ?.addOnSuccessListener {
+                                    document ->
+                                    document1 = document.data!!["date"].toString()
+                                    x = document1!!.split(',')
+
+
+                                    if(x!!.contains(day.date.toString())) {
+                                        Log.d("day.date", x.toString())
+                                        Log.d("day.date", day.date.toString())
+
+                                        dotView.isVisible = true
+
+                                    }
+                                }
+
+
                         }
                     }
                 } else {
@@ -288,7 +315,6 @@ class ThirdMainFragment : Fragment() {
 
 
 
-
         return view
     }
 
@@ -319,6 +345,7 @@ class ThirdMainFragment : Fragment() {
     }
 
     private fun saveEvent() {
+
 
         var now = LocalDate.now()
         var Strnow = now.format(DateTimeFormatter.ofPattern("yyyy-MM"))

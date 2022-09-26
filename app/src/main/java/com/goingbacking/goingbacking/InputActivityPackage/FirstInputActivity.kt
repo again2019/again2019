@@ -26,6 +26,8 @@ class FirstInputActivity : AppCompatActivity() {
 
         init()
 
+
+
         firstInputButton.setOnClickListener {
 
             // 만약에 edittext가 비어있다면
