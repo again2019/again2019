@@ -51,8 +51,6 @@ import kotlinx.android.synthetic.main.example_3_calendar_day.view.*
 import kotlinx.android.synthetic.main.example_3_event_item_view.view.*
 import kotlinx.android.synthetic.main.fragment_third_main.*
 import kotlinx.android.synthetic.main.fragment_third_main.view.*
-import java.lang.Thread.sleep
-import java.sql.Time
 
 import java.time.DayOfWeek
 import java.time.LocalDate
@@ -85,9 +83,6 @@ class ThirdMainFragment : Fragment() {
 
     private var selectedDate: LocalDate? = null
     private val today = LocalDate.now()
-
-    private val titleSameYearFormatter = DateTimeFormatter.ofPattern("MMMM")
-    private val titleFormatter = DateTimeFormatter.ofPattern("MMM yyyy")
     private val selectionFormatter = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일")
     private val events = mutableMapOf<LocalDate, List<Event>>()
 

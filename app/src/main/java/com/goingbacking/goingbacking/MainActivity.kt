@@ -27,7 +27,6 @@ import java.util.*
 import java.util.concurrent.TimeUnit
 
 class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
-    private val backgroundCoroutineScope = CoroutineScope(Dispatchers.Default)
 
 
     override fun onNavigationItemSelected(p0: MenuItem): Boolean {
@@ -88,8 +87,8 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
 
         var calendar = Calendar.getInstance()
         calendar.timeInMillis = System.currentTimeMillis()
-        calendar.set(Calendar.HOUR_OF_DAY, 16)
-        calendar.set(Calendar.MINUTE, 17)
+        calendar.set(Calendar.HOUR_OF_DAY, 23)
+        calendar.set(Calendar.MINUTE, 59)
         calendar.set(Calendar.SECOND, 0)
 
         if (calendar.before(Calendar.getInstance())) {

@@ -41,7 +41,7 @@ class ScheduleInputActivity : AppCompatActivity() {
     var saturday : Boolean = false
     var sunday : Boolean = false
 
-
+    private var yearList = mutableListOf<String>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_schedule_input)
@@ -149,6 +149,23 @@ class ScheduleInputActivity : AppCompatActivity() {
             for(day in list!!) {
                 var dayofweek = day.calendar.get(DAY_OF_WEEK).toString()
 
+                var year = day.calendar.get(YEAR).toString()
+                var month = (day.calendar.get(MONTH) + 1).toString()
+                var dayofmonth = day.calendar.get(DAY_OF_MONTH).toString()
+
+
+                if (month.length == 1) {
+                    month = "0" + month
+                }
+                if (dayofmonth.length == 1) {
+                    dayofmonth = "0" + dayofmonth
+                }
+
+                yearList.add(year + '-' + month + '-' + dayofmonth)
+                var x = yearList.joinToString(",")
+                Log.d("TTTT", x)
+                firebaseFirestore?.collection("TmpDate")?.document(userId!!)?.set({"date" to x})
+
                 if(dayofweek == "2" && monday) calendarInfoDatabaseInPut(day)
                 else if (dayofweek == "3" && tuesday) calendarInfoDatabaseInPut(day)
                 else if (dayofweek == "4" && wednesday) calendarInfoDatabaseInPut(day)
@@ -205,11 +222,17 @@ class ScheduleInputActivity : AppCompatActivity() {
         event3!!.end_t = convertDateToTimeStamp(year + "-" +  month + "-" + dayofmonth + "-" + dest2Text.text.toString())
 
 
-        firebaseFirestore?.collection("CalendarInfo")?.document(userId!!)?.collection(year + "-" +  month)?.document(event1!!.start_t.toString())?.set(event1)
-        firebaseFirestore?.collection("CalendarInfo")?.document(userId!!)?.collection(year + "-" +  month)?.document(event2!!.start_t.toString())?.set(event2)
-        firebaseFirestore?.collection("CalendarInfo")?.document(userId!!)?.collection(year + "-" +  month)?.document(event3!!.start_t.toString())?.set(event3)
+        firebaseFirestore?.collection("TmpCalendarInfo")?.document(userId!!)
+            ?.collection(year + "-" +  month)?.document(dayofmonth)
+            ?.collection(dayofmonth)?.document(home2time.toString())?.set(event1)
 
+        firebaseFirestore?.collection("TmpCalendarInfo")?.document(userId!!)
+            ?.collection(year + "-" +  month)?.document(dayofmonth)
+            ?.collection(dayofmonth)?.document(home1time.toString())?.set(event2)
 
+        firebaseFirestore?.collection("TmpCalendarInfo")?.document(userId!!)
+            ?.collection(year + "-" +  month)?.document(dayofmonth)
+            ?.collection(dayofmonth)?.document(dest1time.toString())?.set(event3)
     }
 
     fun init() {
