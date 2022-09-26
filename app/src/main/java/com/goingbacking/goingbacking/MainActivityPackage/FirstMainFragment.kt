@@ -81,7 +81,10 @@ class FirstMainFragment : Fragment() {
         view.view_pager.adapter = paperAdapter
         view.indicator.setViewPager(view.view_pager)
 
-
+        view.tmp.setOnClickListener {
+            val editor = PreferenceManager.getDefaultSharedPreferences(requireContext()).edit()
+            editor.putString("a", "2022-09-01")
+        }
 
         view.tmptimerButton1.setOnClickListener{
             startTimer() // 계속해서 카운트다운을 하고 UI로 보여줌
