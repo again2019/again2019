@@ -32,8 +32,6 @@ class FifthMainFragment : Fragment() {
 
         init()
 
-        val preferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
-        Log.d("aaaaa", preferences.getString("a", "0").toString())
 
         view.changeInfoTextView.setOnClickListener {
             moveChangeInfoActivity()

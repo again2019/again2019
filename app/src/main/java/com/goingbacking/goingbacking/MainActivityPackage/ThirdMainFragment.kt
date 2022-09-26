@@ -130,7 +130,6 @@ class ThirdMainFragment : Fragment() {
                 view.setOnClickListener {
                     if (day.owner == DayOwner.THIS_MONTH) {
                         selectDate(day.date)
-                        selectDate(day.date)
                     }
                 }
             }
