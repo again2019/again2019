@@ -88,7 +88,7 @@ class ThirdMainFragment : Fragment() {
 
     private val titleSameYearFormatter = DateTimeFormatter.ofPattern("MMMM")
     private val titleFormatter = DateTimeFormatter.ofPattern("MMM yyyy")
-    private val selectionFormatter = DateTimeFormatter.ofPattern("d MMM yyyy")
+    private val selectionFormatter = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일")
     private val events = mutableMapOf<LocalDate, List<Event>>()
 
     var x :List<String>? = null
@@ -193,30 +193,9 @@ class ThirdMainFragment : Fragment() {
         }
 
         view.exThreeCalendar.monthScrollListener = {
-            if (exThreeCalendar.maxRowCount == 6) {
-                titleFormatter.format(it.yearMonth)
-                // Select the first day of the month when
-                // we scroll to a new month.
-                selectDate(it.yearMonth.atDay(1))
-            } else {
-                // In week mode, we show the header a bit differently.
-                // We show indices with dates from different months since
-                // dates overflow and cells in one index can belong to different
-                // months/years.
-                val firstDate = it.weekDays.first().first().date
-                val lastDate = it.weekDays.last().last().date
-                if (firstDate.yearMonth == lastDate.yearMonth) {
-                    exThreeSelectedDateText.text = firstDate.yearMonth.year.toString()
-                } else {
 
-                    if (firstDate.year == lastDate.year) {
-                        exThreeSelectedDateText.text = firstDate.yearMonth.year.toString()
-                    } else {
-                        exThreeSelectedDateText.text = "${firstDate.yearMonth.year} - ${lastDate.yearMonth.year}"
-                    }
-                }
-            }
 
+                exThreeSelectedDateText.text = selectionFormatter.format(today)
 
 
         }
@@ -291,7 +270,7 @@ class ThirdMainFragment : Fragment() {
                 if (monthToWeek) {
                     // We want the first visible day to remain
                     // visible when we change to week mode.
-                    exThreeCalendar.scrollToDate(firstDate)
+                    exThreeCalendar.scrollToDate(today)
                 } else {
                     // When changing to month mode, we choose current
                     // month if it is the only one in the current frame.
@@ -305,7 +284,7 @@ class ThirdMainFragment : Fragment() {
                     }
                 }
             }
-            animator.duration = 250
+            animator.duration = 300
             animator.start()
         }
 
@@ -333,6 +312,8 @@ class ThirdMainFragment : Fragment() {
 
 
 
+
+
     private fun selectDate(date: LocalDate) {
         if (selectedDate != date) {
             val oldDate = selectedDate
@@ -340,6 +321,8 @@ class ThirdMainFragment : Fragment() {
             oldDate?.let { exThreeCalendar.notifyDateChanged(it) }
             exThreeCalendar.notifyDateChanged(date)
             updateAdapterForDate(date)
+            exThreeSelectedDateText.text = selectionFormatter.format(date)
+
         }
     }
 
@@ -395,7 +378,6 @@ class ThirdMainFragment : Fragment() {
             events.addAll(this@ThirdMainFragment.events[date].orEmpty())
             notifyDataSetChanged()
         }
-        exThreeSelectedDateText.text = selectionFormatter.format(date)
     }
 
 
