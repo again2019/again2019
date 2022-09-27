@@ -10,6 +10,7 @@ import com.goingbacking.goingbacking.R
 import com.applikeysolutions.cosmocalendar.model.Day
 import com.applikeysolutions.cosmocalendar.selection.OnDaySelectedListener
 import com.applikeysolutions.cosmocalendar.selection.RangeSelectionManager
+import com.goingbacking.goingbacking.Model.DateDTO
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_schedule_input.*
@@ -32,6 +33,7 @@ class ScheduleInputActivity : AppCompatActivity() {
     var dest2time: Int? = null
     val cal = Calendar.getInstance()
     var yearmonthday : String? = null
+    var dateDTO : DateDTO? = null
 
     var monday : Boolean = false
     var tuesday : Boolean = false
@@ -42,6 +44,11 @@ class ScheduleInputActivity : AppCompatActivity() {
     var sunday : Boolean = false
 
     private var yearList = mutableListOf<String>()
+
+
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_schedule_input)
@@ -164,7 +171,10 @@ class ScheduleInputActivity : AppCompatActivity() {
                 yearList.add(year + '-' + month + '-' + dayofmonth)
                 var x = yearList.joinToString(",")
                 Log.d("TTTT", x)
-                firebaseFirestore?.collection("TmpDate")?.document(userId!!)?.set({"date" to x})
+
+                dateDTO!!.date = x
+
+                firebaseFirestore?.collection("TmpDate")?.document(userId!!)?.set(dateDTO!!)
 
                 if(dayofweek == "2" && monday) calendarInfoDatabaseInPut(day)
                 else if (dayofweek == "3" && tuesday) calendarInfoDatabaseInPut(day)
@@ -195,6 +205,14 @@ class ScheduleInputActivity : AppCompatActivity() {
             dayofmonth =  "0" +dayofmonth
         }
 
+
+
+
+
+
+
+
+
         // destination start-end
         var event1 = Event()
         event1!!.dest = destinationPlace.toString()
@@ -205,41 +223,34 @@ class ScheduleInputActivity : AppCompatActivity() {
         event1!!.end_t = convertDateToTimeStamp(year + "-" +  month + "-" + dayofmonth + "-" + dest1Text.text.toString())
 
 
-        var event2 = Event()
-        event2!!.dest = "move"
-        event2!!.date = year + "-" +  month + "-" + dayofmonth
-        event2!!.start = home1time
-        event2!!.end = home2time
-        event2!!.start_t = convertDateToTimeStamp(year + "-" +  month + "-" + dayofmonth + "-" + home1Text.text.toString())
-        event2!!.end_t = convertDateToTimeStamp(year + "-" +  month + "-" + dayofmonth + "-" + home2Text.text.toString())
-
-        var event3 = Event()
-        event3!!.dest = "move"
-        event3!!.date = year + "-" +  month + "-" + dayofmonth
-        event3!!.start = dest1time
-        event3!!.end = dest2time
-        event3!!.start_t = convertDateToTimeStamp(year + "-" +  month + "-" + dayofmonth + "-" + dest1Text.text.toString())
-        event3!!.end_t = convertDateToTimeStamp(year + "-" +  month + "-" + dayofmonth + "-" + dest2Text.text.toString())
-
-
-        firebaseFirestore?.collection("TmpCalendarInfo")?.document(userId!!)
-            ?.collection(year + "-" +  month)?.document(dayofmonth)
-            ?.collection(dayofmonth)?.document(home2time.toString())?.set(event1)
+//        var event2 = Event()
+//        event2!!.dest = "move1"
+//        event2!!.date = year + "-" +  month + "-" + dayofmonth
+//        event2!!.start = home1time
+//        event2!!.end = home2time
+//        event2!!.start_t = convertDateToTimeStamp(year + "-" +  month + "-" + dayofmonth + "-" + home1Text.text.toString())
+//        event2!!.end_t = convertDateToTimeStamp(year + "-" +  month + "-" + dayofmonth + "-" + home2Text.text.toString())
+//
+//        var event3 = Event()
+//        event3!!.dest = "move2"
+//        event3!!.date = year + "-" +  month + "-" + dayofmonth
+//        event3!!.start = dest1time
+//        event3!!.end = dest2time
+//        event3!!.start_t = convertDateToTimeStamp(year + "-" +  month + "-" + dayofmonth + "-" + dest1Text.text.toString())
+//        event3!!.end_t = convertDateToTimeStamp(year + "-" +  month + "-" + dayofmonth + "-" + dest2Text.text.toString())
 
         firebaseFirestore?.collection("TmpCalendarInfo")?.document(userId!!)
             ?.collection(year + "-" +  month)?.document(dayofmonth)
-            ?.collection(dayofmonth)?.document(home1time.toString())?.set(event2)
+            ?.collection(dayofmonth)?.document(home2time.toString()+ '-' + dest1time.toString())?.set(event1)
 
-        firebaseFirestore?.collection("TmpCalendarInfo")?.document(userId!!)
-            ?.collection(year + "-" +  month)?.document(dayofmonth)
-            ?.collection(dayofmonth)?.document(dest1time.toString())?.set(event3)
+
     }
 
     fun init() {
         auth = FirebaseAuth.getInstance()
         firebaseFirestore = FirebaseFirestore.getInstance()
         userId = auth?.currentUser?.uid
-
+        dateDTO = DateDTO()
     }
 
     fun convertDateToTimeStamp(date: String) : Long {

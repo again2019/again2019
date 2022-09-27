@@ -86,13 +86,23 @@ class ThirdMainFragment : Fragment() {
     private val selectionFormatter = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일")
     private val events = mutableMapOf<LocalDate, List<Event>>()
 
+    private var yearList = mutableListOf<String>()
+
+
     var x :List<String>? = null
     var document1 :String? = null
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_third_main, container, false)
 
         init()
+        firebaseFirestore?.collection("TmpDate")?.document(userId!!)
+            ?.get()?.addOnSuccessListener { document ->
+                Log.d("AAAAAA", document.data!!["date"].toString())
+                yearList = document.data!!["date"].toString().split(',').toMutableList()
 
+                saveEvent(yearList)
+
+            }
 
         view.exThreeRv.apply {
             layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
@@ -321,40 +331,53 @@ class ThirdMainFragment : Fragment() {
         }
     }
 
-    private fun saveEvent() {
+    private fun saveEvent(yearList : MutableList<String>) {
 
 
         var now = LocalDate.now()
         var Strnow = now.format(DateTimeFormatter.ofPattern("yyyy-MM"))
 
+        Log.d("AAAAAA", yearList.toString())
+        events.clear()
+        for (i in yearList) {
 
-        firebaseFirestore
-            ?.collection("CalendarInfo")?.document(userId!!)?.collection(Strnow)
-                    ?.get(Source.CACHE)?.addOnSuccessListener { querySnapshot ->
-
-                        events.clear()
-                        if (querySnapshot == null) return@addOnSuccessListener
-
-                        for (snapshot in querySnapshot!!) {
-                            var x = LocalDate.parse(snapshot["date"].toString(), DateTimeFormatter.ISO_DATE)
-                            Log.d("TTTT", snapshot["dest"].toString())
-                            Log.d("TTTT", snapshot["date"].toString())
+            firebaseFirestore
+                ?.collection("CalendarInfo")?.document(userId!!)?.collection(Strnow)
+                ?.whereEqualTo("date", i)?.get()?.addOnSuccessListener { querySnapshot ->
 
 
-                            events[x] = events[x].orEmpty().plus(Event(
+                    if (querySnapshot == null) return@addOnSuccessListener
+
+
+
+
+                    for (snapshot in querySnapshot!!) {
+                        var x =
+                            LocalDate.parse(snapshot["date"].toString(), DateTimeFormatter.ISO_DATE)
+
+
+                        Log.d("AAAAAAAAAAAA", snapshot.count().toString())
+
+                       // Log.d("AAAAAAAAAAAA", snapshot["dest"].toString())
+                        Log.d("AAAAAAAAAAAA", snapshot["date"].toString())
+
+
+                        events[x] = events[x].orEmpty().plus(
+                            Event(
                                 snapshot["dest"].toString(),
                                 snapshot["date"].toString(),
-                                snapshot["start"].toString().toInt() ,
-                                snapshot["start_t"].toString().toLong() ,
-                                snapshot["end"].toString().toInt() ,
+                                snapshot["start"].toString().toInt(),
+                                snapshot["start_t"].toString().toLong(),
+                                snapshot["end"].toString().toInt(),
                                 snapshot["end_t"].toString().toLong()
-                            ))
+                            )
+                        )
 
-                            updateAdapterForDate(x)
-                        }
+                        updateAdapterForDate(x)
                     }
+                }
 
-
+        }
 
 
 
@@ -405,7 +428,6 @@ class ThirdMainFragment : Fragment() {
     override fun onStart() {
         super.onStart()
 
-        saveEvent()
     }
 
 }
