@@ -350,17 +350,30 @@ class ThirdMainFragment : Fragment() {
 
 
 
+                    var count = 1
+                    
 
                     for (snapshot in querySnapshot!!) {
                         var x =
                             LocalDate.parse(snapshot["date"].toString(), DateTimeFormatter.ISO_DATE)
 
 
-                        Log.d("AAAAAAAAAAAA", snapshot.count().toString())
-
                        // Log.d("AAAAAAAAAAAA", snapshot["dest"].toString())
                         Log.d("AAAAAAAAAAAA", snapshot["date"].toString())
 
+
+                        if (count == 1) {
+                            events[x] = events[x].orEmpty().plus(
+                                Event(
+                                    "move",
+                                    snapshot["date"].toString(),
+                                    snapshot["start"].toString().toInt() - snapshot["start_t"].toString().toInt(),
+                                    0,
+                                    snapshot["end"].toString().toInt() + snapshot["end_t"].toString().toInt(),
+                                    0
+                                )
+                            )
+                        }
 
                         events[x] = events[x].orEmpty().plus(
                             Event(
