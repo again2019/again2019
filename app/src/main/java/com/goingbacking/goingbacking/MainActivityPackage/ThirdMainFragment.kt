@@ -95,7 +95,7 @@ class ThirdMainFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_third_main, container, false)
 
         init()
-        firebaseFirestore?.collection("TmpDate")?.document(userId!!)
+        firebaseFirestore?.collection("Date")?.document(userId!!)
             ?.get()?.addOnSuccessListener { document ->
                 Log.d("AAAAAA", document.data!!["date"].toString())
                 yearList = document.data!!["date"].toString().split(',').toMutableList()
@@ -348,45 +348,167 @@ class ThirdMainFragment : Fragment() {
 
                     if (querySnapshot == null) return@addOnSuccessListener
 
+                    Log.d("third", querySnapshot.count().toString() + " " +querySnapshot.size().toString())
+                    if (querySnapshot.count() == 1) {
+                        for (snapshot in querySnapshot!!) {
+                            var x = LocalDate.parse(snapshot["date"].toString(), DateTimeFormatter.ISO_DATE)
+                                events[x] = events[x].orEmpty().plus(
+                                    Event(
+                                        "move",
+                                        snapshot["date"].toString(),
+                                        snapshot["start"].toString().toInt() - snapshot["start_t"].toString().toInt(),
+                                        0,
+                                        snapshot["start"].toString().toInt(),
+                                        0
+                                    )
+                                )
+                            Log.d("third", events[x].toString())
 
+                                events[x] = events[x].orEmpty().plus(
+                                    Event(
+                                        snapshot["dest"].toString(),
+                                        snapshot["date"].toString(),
+                                        snapshot["start"].toString().toInt(),
+                                        snapshot["start_t"].toString().toInt(),
+                                        snapshot["end"].toString().toInt(),
+                                        snapshot["end_t"].toString().toInt()
+                                    )
+                                )
+                            Log.d("third", events[x].toString())
 
-                    var count = 1
-                    
-
-                    for (snapshot in querySnapshot!!) {
-                        var x =
-                            LocalDate.parse(snapshot["date"].toString(), DateTimeFormatter.ISO_DATE)
-
-
-                       // Log.d("AAAAAAAAAAAA", snapshot["dest"].toString())
-                        Log.d("AAAAAAAAAAAA", snapshot["date"].toString())
-
-
-                        if (count == 1) {
                             events[x] = events[x].orEmpty().plus(
                                 Event(
                                     "move",
                                     snapshot["date"].toString(),
-                                    snapshot["start"].toString().toInt() - snapshot["start_t"].toString().toInt(),
+                                    snapshot["end"].toString().toInt(),
                                     0,
                                     snapshot["end"].toString().toInt() + snapshot["end_t"].toString().toInt(),
                                     0
                                 )
                             )
-                        }
 
-                        events[x] = events[x].orEmpty().plus(
-                            Event(
+                            Log.d("third", events[x].toString())
+
+                            updateAdapterForDate(x)
+
+
+                        }
+                    }
+
+                    else {
+                        var count = 1
+                        var before = Event("", "", 0,0,0)
+                        for (snapshot in querySnapshot!!) {
+                            var x = LocalDate.parse(snapshot["date"].toString(), DateTimeFormatter.ISO_DATE)
+
+                            if (count == 1) {
+                                events[x] = events[x].orEmpty().plus(
+                                    Event(
+                                        "move",
+                                        snapshot["date"].toString(),
+                                        snapshot["start"].toString().toInt() - snapshot["start_t"].toString().toInt(),
+                                        0,
+                                        snapshot["start"].toString().toInt(),
+                                        0
+                                    )
+                                )
+                                Log.d("third", events[x].toString())
+
+                                events[x] = events[x].orEmpty().plus(
+                                    Event(
+                                        snapshot["dest"].toString(),
+                                        snapshot["date"].toString(),
+                                        snapshot["start"].toString().toInt(),
+                                        snapshot["start_t"].toString().toInt(),
+                                        snapshot["end"].toString().toInt(),
+                                        snapshot["end_t"].toString().toInt()
+                                    )
+                                )
+
+                                Log.d("third", events[x].toString())
+
+                            } else if (count == querySnapshot.count()) {
+                                events[x] = events[x].orEmpty().plus(
+                                    Event(
+                                        "move",
+                                        snapshot["date"].toString(),
+                                        before.end!!.toInt(),
+                                        0,
+                                        snapshot["start"].toString().toInt(),
+                                        0,
+                                    )
+                                )
+                                Log.d("third", events[x].toString())
+
+
+                                events[x] = events[x].orEmpty().plus(
+                                    Event(
+                                        snapshot["dest"].toString(),
+                                        snapshot["date"].toString(),
+                                        snapshot["start"].toString().toInt(),
+                                        snapshot["start_t"].toString().toInt(),
+                                        snapshot["end"].toString().toInt(),
+                                        snapshot["end_t"].toString().toInt()
+                                    )
+                                )
+                                Log.d("third", events[x].toString())
+
+                                events[x] = events[x].orEmpty().plus(
+                                    Event(
+                                        "move",
+                                        snapshot["date"].toString(),
+                                        snapshot["end"].toString().toInt(),
+                                        0,
+                                        snapshot["end"].toString().toInt() + snapshot["end_t"].toString().toInt(),
+                                        0
+                                    )
+                                )
+                                Log.d("third", events[x].toString())
+
+                            } else {
+
+                                events[x] = events[x].orEmpty().plus(
+                                    Event(
+                                        "move",
+                                        snapshot["date"].toString(),
+                                        before.end!!.toInt(),
+                                        0,
+                                        snapshot["start"].toString().toInt(),
+                                        0,
+                                    )
+                                )
+                                Log.d("third", events[x].toString())
+
+
+
+                                events[x] = events[x].orEmpty().plus(
+                                    Event(
+                                        snapshot["dest"].toString(),
+                                        snapshot["date"].toString(),
+                                        snapshot["start"].toString().toInt(),
+                                        snapshot["start_t"].toString().toInt(),
+                                        snapshot["end"].toString().toInt(),
+                                        snapshot["end_t"].toString().toInt()
+                                    )
+                                )
+                                Log.d("third", events[x].toString())
+
+
+                            }
+
+
+
+                            updateAdapterForDate(x)
+                            count = count + 1
+                            before = Event(
                                 snapshot["dest"].toString(),
                                 snapshot["date"].toString(),
                                 snapshot["start"].toString().toInt(),
-                                snapshot["start_t"].toString().toLong(),
+                                snapshot["start_t"].toString().toInt(),
                                 snapshot["end"].toString().toInt(),
-                                snapshot["end_t"].toString().toLong()
+                                snapshot["end_t"].toString().toInt()
                             )
-                        )
-
-                        updateAdapterForDate(x)
+                        }
                     }
                 }
 

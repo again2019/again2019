@@ -215,12 +215,16 @@ class ScheduleInputActivity : AppCompatActivity() {
 
         // destination start-end
         var event1 = Event()
-        event1!!.dest = destinationPlace.toString()
+        event1!!.dest = "임시"
         event1!!.date = year + "-" +  month + "-" + dayofmonth
         event1!!.start = home2time
         event1!!.end = dest1time
-        event1!!.start_t = convertDateToTimeStamp(year + "-" +  month + "-" + dayofmonth + "-" + home2Text.text.toString())
-        event1!!.end_t = convertDateToTimeStamp(year + "-" +  month + "-" + dayofmonth + "-" + dest1Text.text.toString())
+        event1!!.start_t = home2time!!-home1time!!
+        event1!!.end_t = dest2time!! - dest1time!!
+
+
+//        event1!!.start_t = convertDateToTimeStamp(year + "-" +  month + "-" + dayofmonth + "-" + home2Text.text.toString())
+//        event1!!.end_t = convertDateToTimeStamp(year + "-" +  month + "-" + dayofmonth + "-" + dest1Text.text.toString())
 
 
 //        var event2 = Event()
@@ -239,10 +243,13 @@ class ScheduleInputActivity : AppCompatActivity() {
 //        event3!!.start_t = convertDateToTimeStamp(year + "-" +  month + "-" + dayofmonth + "-" + dest1Text.text.toString())
 //        event3!!.end_t = convertDateToTimeStamp(year + "-" +  month + "-" + dayofmonth + "-" + dest2Text.text.toString())
 
-        firebaseFirestore?.collection("TmpCalendarInfo")?.document(userId!!)
-            ?.collection(year + "-" +  month)?.document(dayofmonth)
-            ?.collection(dayofmonth)?.document(home2time.toString()+ '-' + dest1time.toString())?.set(event1)
+//        firebaseFirestore?.collection("TmpCalendarInfo")?.document(userId!!)
+//            ?.collection(year + "-" +  month)?.document(dayofmonth)
+//            ?.collection(dayofmonth)?.document(home2time.toString()+ '-' + dest1time.toString())?.set(event1)
 
+        firebaseFirestore?.collection("CalendarInfo")?.document(userId!!)
+            ?.collection(year + "-" +  month)?.document(convertDateToTimeStamp(year + "-" +  month + "-" + dayofmonth + "-" + home2Text.text.toString()).toString())
+            ?.set(event1)
 
     }
 
