@@ -223,7 +223,7 @@ class FirstMainFragment : Fragment() {
     }
 
     private fun setNewTimerLength() {
-        val lengthInMinutes = exp1
+        val lengthInMinutes = 60 //exp1
         // 1을 return 한다.
         Log.d("AAAAAAAA", " -> lengthInMinutes" + lengthInMinutes.toString())
         timerLengthSeconds = (lengthInMinutes!! * 60L)
