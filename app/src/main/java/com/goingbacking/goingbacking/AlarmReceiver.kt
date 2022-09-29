@@ -96,12 +96,14 @@ class AlarmReceiver : BroadcastReceiver() {
 
         var time = 0
         var time_str = ""
+
+        Log.d("AAAAAAAA", "date1: " + date_text1.toString())
         firebaseFirestore?.collection("CalendarInfo")?.document(userId!!)
-            ?.collection(date_text1.toString())?.whereEqualTo("date", date_text1_1)?.get()
+            ?.collection(date_text1.toString())?.whereEqualTo("date", "2022-09")?.get()
             ?.addOnSuccessListener { documents ->
                 if (documents.count() == 1) {
                     for(document in documents) {
-
+                        Log.d("AAAAAAAA", "time: " + document.toString())
                         time = time +  document["end_t"].toString().toInt() + document["start_t"].toString().toInt()
                         time_str = time_str + ',' + (document["start"].toString().toInt()-document["start_t"].toString().toInt()).toString() + '-' + document["start"].toString()
 
@@ -112,6 +114,7 @@ class AlarmReceiver : BroadcastReceiver() {
                     var before = Event("", "", 0,0,0)
 
                     for(document in documents) {
+                        Log.d("AAAAAAAA", "time: " + document.toString())
 
                         if (count == 1) {
                             time = time + document["start_t"].toString().toInt()
