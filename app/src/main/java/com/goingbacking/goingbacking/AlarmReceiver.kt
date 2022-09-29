@@ -101,8 +101,7 @@ class AlarmReceiver : BroadcastReceiver() {
             ?.addOnSuccessListener { documents ->
                 if (documents.count() == 1) {
                     for(document in documents) {
-                        Log.d("AAAAAAAA", document["end_t"].toString())
-                        Log.d("AAAAAAAA", document["start_t"].toString())
+
                         time = time +  document["end_t"].toString().toInt() + document["start_t"].toString().toInt()
                         time_str = time_str + ',' + (document["start"].toString().toInt()-document["start_t"].toString().toInt()).toString() + '-' + document["start"].toString()
 
@@ -120,18 +119,17 @@ class AlarmReceiver : BroadcastReceiver() {
 
                         } else if (count == documents.count()) {
                             time = time +  (document["start"].toString().toInt()- before.end!!) + (document["end_t"].toString().toInt())
-                            time_str = time_str + ',' + (document["start"].toString().toInt()-before.end!!).toString() + '-' + document["start"].toString() + ',' + document["end"].toString() + '-' + (document["end"].toString().toInt() + document["end_t"].toString().toInt()).toString()
+                            time_str = time_str + ',' + before.end!!.toString() + '-' + document["start"].toString() + ',' + document["end"].toString() + '-' + (document["end"].toString().toInt() + document["end_t"].toString().toInt()).toString()
 
                         } else {
                             time = time +  (document["start"].toString().toInt()- before.end!!)
-                            time_str = time_str + ',' + (document["start"].toString().toInt()-before.end!!).toString() + '-' + document["start"].toString()
+                            time_str = time_str + ',' + before.end!!.toString() + '-' + document["start"].toString()
 
                         }
 
 
-                       // Log.d("AAAAAAAA", document["end_t"].toString())
-                       // Log.d("AAAAAAAA", document["start_t"].toString())
 
+                        count = count + 1
                         before = Event(
                             document["dest"].toString(),
                             document["date"].toString(),
@@ -144,6 +142,13 @@ class AlarmReceiver : BroadcastReceiver() {
 
 
                 }
+
+                Log.d("AAAAAAAA", "time: " + time.toString())
+                Log.d("AAAAAAAA", "time_str: " +  time_str)
+                val editor :SharedPreferences.Editor = context.getSharedPreferences("time", AppCompatActivity.MODE_PRIVATE).edit()
+                editor.putInt("TodayTime", time )
+                editor.putString("TodayStrTime", time_str)
+                editor.apply()
 
 
 

@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import com.goingbacking.goingbacking.*
@@ -81,7 +82,17 @@ class FirstMainFragment : Fragment() {
         view.view_pager.adapter = paperAdapter
         view.indicator.setViewPager(view.view_pager)
 
+        view.tmp.setOnClickListener {
+            var sharedPreferences = requireActivity().getSharedPreferences("time",
+                AppCompatActivity.MODE_PRIVATE
+            )
+            var exp1 :Int? = sharedPreferences.getInt("TodayTime", 0)
+            var exp2 : String? = sharedPreferences.getString("TodayStrTime", "")
 
+            Log.d("AAAAAAAA", exp1.toString())
+            Log.d("AAAAAAAA", exp2!!)
+
+        }
 
         view.tmptimerButton1.setOnClickListener{
             startTimer() // 계속해서 카운트다운을 하고 UI로 보여줌
