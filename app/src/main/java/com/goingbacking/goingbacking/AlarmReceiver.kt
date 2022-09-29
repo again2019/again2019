@@ -10,13 +10,12 @@ import android.content.SharedPreferences
 import android.os.Build
 import android.util.Log
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
-import com.goingbacking.goingbacking.Model.SaveTimeDayDTO
-import com.goingbacking.goingbacking.Model.SaveTimeMonthDTO
-import com.goingbacking.goingbacking.Model.SaveTimeYearDTO
-import com.goingbacking.goingbacking.Model.UserInfoDTO
+import com.goingbacking.goingbacking.Model.*
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.QueryDocumentSnapshot
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -74,6 +73,7 @@ class AlarmReceiver : BroadcastReceiver() {
         editor.apply()
 
         var currentDateTime = nextNotifyTime.time
+        var date_text1_1 = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(currentDateTime)
 
         var date_text1 = SimpleDateFormat("yyyy-MM", Locale.getDefault()).format(currentDateTime)
         Toast.makeText(context, date_text1.toString(), Toast.LENGTH_SHORT).show()
@@ -94,8 +94,64 @@ class AlarmReceiver : BroadcastReceiver() {
             ?.collection(date_text2.toString())?.document(userId!! + date_text2.toString())
             ?.set(saveTimeDayDTO!!)
 
+        var time = 0
+        var time_str = ""
+        firebaseFirestore?.collection("CalendarInfo")?.document(userId!!)
+            ?.collection(date_text1.toString())?.whereEqualTo("date", date_text1_1)?.get()
+            ?.addOnSuccessListener { documents ->
+                if (documents.count() == 1) {
+                    for(document in documents) {
+                        Log.d("AAAAAAAA", document["end_t"].toString())
+                        Log.d("AAAAAAAA", document["start_t"].toString())
+                        time = time +  document["end_t"].toString().toInt() + document["start_t"].toString().toInt()
+                        time_str = time_str + ',' + (document["start"].toString().toInt()-document["start_t"].toString().toInt()).toString() + '-' + document["start"].toString()
+
+                    }
+                }
+                else {
+                    var count = 1
+                    var before = Event("", "", 0,0,0)
+
+                    for(document in documents) {
+
+                        if (count == 1) {
+                            time = time + document["start_t"].toString().toInt()
+                            time_str = time_str + ',' + (document["start"].toString().toInt()-document["start_t"].toString().toInt()).toString() + '-' + document["start"].toString()
+
+                        } else if (count == documents.count()) {
+                            time = time +  (document["start"].toString().toInt()- before.end!!) + (document["end_t"].toString().toInt())
+                            time_str = time_str + ',' + (document["start"].toString().toInt()-before.end!!).toString() + '-' + document["start"].toString() + ',' + document["end"].toString() + '-' + (document["end"].toString().toInt() + document["end_t"].toString().toInt()).toString()
+
+                        } else {
+                            time = time +  (document["start"].toString().toInt()- before.end!!)
+                            time_str = time_str + ',' + (document["start"].toString().toInt()-before.end!!).toString() + '-' + document["start"].toString()
+
+                        }
 
 
+                       // Log.d("AAAAAAAA", document["end_t"].toString())
+                       // Log.d("AAAAAAAA", document["start_t"].toString())
+
+                        before = Event(
+                            document["dest"].toString(),
+                            document["date"].toString(),
+                            document["start"].toString().toInt(),
+                            document["start_t"].toString().toInt(),
+                            document["end"].toString().toInt(),
+                            document["end_t"].toString().toInt()
+                        )
+                    }
+
+
+                }
+
+
+
+            }
+
+
+
+        //Log.d("AAAAAAAAAA", stateQuery.toString())
 
         // 달이 바뀔 때마다 업데이트 되는 것이 필요...
 
