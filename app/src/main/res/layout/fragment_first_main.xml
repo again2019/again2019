@@ -7,6 +7,17 @@
     tools:context=".MainActivityPackage.FirstMainFragment"
     android:orientation="vertical">
 
+
+    <TextView
+        android:text="오늘의 버려지는 시간은"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/num"
+        android:text="___"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
     <Button
         android:id="@+id/tmp"
         android:layout_width="wrap_content"

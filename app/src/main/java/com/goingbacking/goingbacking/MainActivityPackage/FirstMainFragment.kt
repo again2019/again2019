@@ -3,7 +3,9 @@ package com.goingbacking.goingbacking.MainActivityPackage
 import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
+import android.content.Context.MODE_PRIVATE
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.preference.PreferenceManager
@@ -82,15 +84,30 @@ class FirstMainFragment : Fragment() {
         view.view_pager.adapter = paperAdapter
         view.indicator.setViewPager(view.view_pager)
 
+
+        var sharedPreferences = requireActivity().getSharedPreferences("time",
+            AppCompatActivity.MODE_PRIVATE
+        )
+        var exp1 :Int? = sharedPreferences.getInt("TodayTime", 0)
+        var exp2 : String? = sharedPreferences.getString("TodayStrTime", "")
+
+        view.num.text = (exp1!! / 60).toString()
+
         view.tmp.setOnClickListener {
             var sharedPreferences = requireActivity().getSharedPreferences("time",
                 AppCompatActivity.MODE_PRIVATE
             )
             var exp1 :Int? = sharedPreferences.getInt("TodayTime", 0)
             var exp2 : String? = sharedPreferences.getString("TodayStrTime", "")
+            var exp2_split = exp2!!.split(',')
+
 
             Log.d("AAAAAAAA", exp1.toString())
             Log.d("AAAAAAAA", exp2!!)
+            Log.d("AAAAAAAA", exp2_split!!.toString())
+
+
+
 
         }
 
