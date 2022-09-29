@@ -73,6 +73,12 @@ class FirstMainFragment : Fragment() {
     private var timerLengthSeconds = 0L
     private var timerState = TimerState.Stopped
     private var secondsRemaining = 0L
+
+    var sharedPreferences :SharedPreferences? = null
+    var exp1 :Int? = null
+    var exp2 : String? = null
+
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -84,13 +90,12 @@ class FirstMainFragment : Fragment() {
         view.view_pager.adapter = paperAdapter
         view.indicator.setViewPager(view.view_pager)
 
+        sharedPreferences = requireActivity().getSharedPreferences("time", AppCompatActivity.MODE_PRIVATE)
+        exp1 = sharedPreferences!!.getInt("TodayTime", 0)
+        exp2 = sharedPreferences!!.getString("TodayStrTime", "")
 
-        var sharedPreferences = requireActivity().getSharedPreferences("time",
-            AppCompatActivity.MODE_PRIVATE
-        )
-        var exp1 :Int? = sharedPreferences.getInt("TodayTime", 0)
-        var exp2 : String? = sharedPreferences.getString("TodayStrTime", "")
         var exp2_split = exp2!!.split(',').toMutableList()
+
         exp2_split.removeAt(0)
 
         var exp3 = mutableListOf<Any>()
@@ -126,9 +131,7 @@ class FirstMainFragment : Fragment() {
 //        }
 
 
-        startTimer() // 계속해서 카운트다운을 하고 UI로 보여줌
-        timerState = TimerState.Running
-        updateButtons()
+
 
 
         view.tmptimerButton1.setOnClickListener{
@@ -170,7 +173,7 @@ class FirstMainFragment : Fragment() {
         timerState = PrefUtil.getTimerState(requireActivity())
         // 처음 시작할 경우 timeState는 멈춰져 있음
 
-        Log.d("TTTT", "initTimer -> timeState " + timerState.toString())
+        Log.d("AAAAAAAA", "initTimer -> timeState " + timerState.toString())
 
         if(timerState == TimerState.Stopped) setNewTimerLength() //만약에 아무것도 안하고 있을 경우 setNewTimerLength 호출
         else setPreviousTimerLength() //
@@ -220,12 +223,12 @@ class FirstMainFragment : Fragment() {
     }
 
     private fun setNewTimerLength() {
-        val lengthInMinutes = PrefUtil.getTimerLength(requireActivity())
+        val lengthInMinutes = exp1
         // 1을 return 한다.
-        Log.d("setNewTimerLength -> lengthInMinutes", lengthInMinutes.toString())
-        timerLengthSeconds = (lengthInMinutes * 60L)
+        Log.d("AAAAAAAA", " -> lengthInMinutes" + lengthInMinutes.toString())
+        timerLengthSeconds = (lengthInMinutes!! * 60L)
         // timeLengthSeconds = 60이 됨
-        Log.d("setNewTimerLength -> timerLengthSeconds", timerLengthSeconds.toString())
+        Log.d("AAAAAAAA"," -> lengthInMinutes" +  timerLengthSeconds.toString())
 
     }
 
