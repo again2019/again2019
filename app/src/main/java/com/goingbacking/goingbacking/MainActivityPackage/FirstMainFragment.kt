@@ -90,26 +90,46 @@ class FirstMainFragment : Fragment() {
         )
         var exp1 :Int? = sharedPreferences.getInt("TodayTime", 0)
         var exp2 : String? = sharedPreferences.getString("TodayStrTime", "")
+        var exp2_split = exp2!!.split(',').toMutableList()
+        exp2_split.removeAt(0)
+
+        var exp3 = mutableListOf<Any>()
+        for(i in exp2_split) {
+            Log.d("AAAAAAAA", i)
+            var xx = i.split('-')
+            exp3.add(xx)
+        }
+
+        Log.d("AAAAAAAA", exp1.toString())
+        Log.d("AAAAAAAA", exp2!!)
+        Log.d("AAAAAAAA", exp2_split!!.toString())
+        Log.d("AAAAAAAA", exp3!!.toString())
+
+
 
         view.num.text = (exp1!! / 60).toString()
 
-        view.tmp.setOnClickListener {
-            var sharedPreferences = requireActivity().getSharedPreferences("time",
-                AppCompatActivity.MODE_PRIVATE
-            )
-            var exp1 :Int? = sharedPreferences.getInt("TodayTime", 0)
-            var exp2 : String? = sharedPreferences.getString("TodayStrTime", "")
-            var exp2_split = exp2!!.split(',')
 
 
-            Log.d("AAAAAAAA", exp1.toString())
-            Log.d("AAAAAAAA", exp2!!)
-            Log.d("AAAAAAAA", exp2_split!!.toString())
+//        view.tmp.setOnClickListener {
+//            var sharedPreferences = requireActivity().getSharedPreferences("time",
+//                AppCompatActivity.MODE_PRIVATE
+//            )
+//            var exp1 :Int? = sharedPreferences.getInt("TodayTime", 0)
+//            var exp2 : String? = sharedPreferences.getString("TodayStrTime", "")
+//            var exp2_split = exp2!!.split(',')
+//
+//
+//            Log.d("AAAAAAAA", exp1.toString())
+//            Log.d("AAAAAAAA", exp2!!)
+//            Log.d("AAAAAAAA", exp2_split!!.toString())
+//        }
 
 
+        startTimer() // 계속해서 카운트다운을 하고 UI로 보여줌
+        timerState = TimerState.Running
+        updateButtons()
 
-
-        }
 
         view.tmptimerButton1.setOnClickListener{
             startTimer() // 계속해서 카운트다운을 하고 UI로 보여줌
