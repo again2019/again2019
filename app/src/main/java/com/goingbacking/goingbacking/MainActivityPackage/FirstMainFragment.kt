@@ -101,14 +101,23 @@ class FirstMainFragment : Fragment() {
         var exp3 = mutableListOf<Any>()
         for(i in exp2_split) {
             Log.d("AAAAAAAA", i)
-            var xx = i.split('-')
+            var xx = i.split('-').toMutableList()
             exp3.add(xx)
         }
 
         Log.d("AAAAAAAA", exp1.toString())
         Log.d("AAAAAAAA", exp2!!)
         Log.d("AAAAAAAA", exp2_split!!.toString())
-        Log.d("AAAAAAAA", exp3!!.toString())
+        Log.d("AAAAAAAA", exp3[0]!!.toString())
+
+        var a = exp3[0] as List<Int>
+
+        var calendar = Calendar.getInstance()
+        calendar.timeInMillis = System.currentTimeMillis()
+
+
+
+
 
 
 

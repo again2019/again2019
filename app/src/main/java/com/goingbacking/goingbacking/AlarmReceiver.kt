@@ -99,7 +99,7 @@ class AlarmReceiver : BroadcastReceiver() {
 
         Log.d("AAAAAAAA", "date1: " + date_text1.toString())
         firebaseFirestore?.collection("CalendarInfo")?.document(userId!!)
-            ?.collection(date_text1.toString())?.whereEqualTo("date", "2022-09-10")?.get()
+            ?.collection("2022-09")?.whereEqualTo("date", "2022-09-03")?.get()
             ?.addOnSuccessListener { documents ->
                 if (documents.count() == 1) {
                     for(document in documents) {

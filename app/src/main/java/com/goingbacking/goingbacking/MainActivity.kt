@@ -27,9 +27,11 @@ import java.util.*
 import java.util.concurrent.TimeUnit
 
 class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
+    var exp1 :Int? = null
+    var exp2 : String? = null
+    var sharedPreferences :SharedPreferences? = null
 
-
-    override fun onNavigationItemSelected(p0: MenuItem): Boolean {
+        override fun onNavigationItemSelected(p0: MenuItem): Boolean {
         when(p0.itemId){
             R.id.action_home ->{
                 var firstMainFragment = FirstMainFragment()
@@ -85,10 +87,11 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         var date_text :String = SimpleDateFormat("yyyy년 MM월 dd일 EE요일 a hh시 mm분", Locale.getDefault()).format(millis)
         Toast.makeText(this,"[처음 실행시] 다음 알람은 " + date_text + "으로 알람이 설정되었습니다!", Toast.LENGTH_SHORT).show()
 
+        //=====================================================
         var calendar = Calendar.getInstance()
         calendar.timeInMillis = System.currentTimeMillis()
-        calendar.set(Calendar.HOUR_OF_DAY, 18)
-        calendar.set(Calendar.MINUTE, 11)
+        calendar.set(Calendar.HOUR_OF_DAY, 16)
+        calendar.set(Calendar.MINUTE, 1)
         calendar.set(Calendar.SECOND, 0)
 
         if (calendar.before(Calendar.getInstance())) {
@@ -104,7 +107,96 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         editor.apply()
 
         diaryNotification(calendar)
+
+
+
+
+        //=====================================================
+        sharedPreferences = getSharedPreferences("time", AppCompatActivity.MODE_PRIVATE)
+        exp1 = sharedPreferences!!.getInt("TodayTime", 0)
+        exp2 = sharedPreferences!!.getString("TodayStrTime", "")
+
+        // diaryNotification2(exp1!!, exp2!!)
+
+
+        diaryNotification3()
+
+
     }
+
+    private fun diaryNotification3() {
+        var calendar = Calendar.getInstance()
+        calendar.timeInMillis = System.currentTimeMillis()
+        calendar.set(Calendar.HOUR_OF_DAY, 16)
+        calendar.set(Calendar.MINUTE, 30)
+        calendar.set(Calendar.SECOND, 0)
+
+        var dailyNotify = true
+
+        var pm : PackageManager = this.packageManager
+        var receiver = ComponentName(this, DeviceBootReceiver::class.java)
+        var alarmIntent  = Intent(this, AlarmReceiver::class.java)
+        var pendingIntent : PendingIntent = PendingIntent.getBroadcast(this, 3000, alarmIntent, PendingIntent.FLAG_MUTABLE)
+        var alarmManager :AlarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        if(dailyNotify) {
+            if(alarmManager != null) {
+                alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, AlarmManager.INTERVAL_DAY, pendingIntent)
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
+                }
+            }
+            // 뷩후 실행되는 리시버
+            pm.setComponentEnabledSetting(receiver, PackageManager.COMPONENT_ENABLED_STATE_ENABLED,PackageManager.DONT_KILL_APP)
+        }
+
+
+    }
+
+    private fun diaryNotification2(exp1: Int, exp2: String?) {
+        var exp2_split = exp2!!.split(',').toMutableList()
+
+        exp2_split.removeAt(0)
+        for(i in exp2_split) {
+            var xx = i.split('-').toMutableList()
+            Log.d("xxxx", xx.toString())
+
+            var hour = xx[0].toInt() / 60
+            var minute = xx[0].toInt() % 60
+
+
+
+            var calendar = Calendar.getInstance()
+            calendar.timeInMillis = System.currentTimeMillis()
+            calendar.set(Calendar.HOUR_OF_DAY, hour)
+            calendar.set(Calendar.MINUTE, minute)
+            calendar.set(Calendar.SECOND, 0)
+
+            var dailyNotify = true
+
+            var pm : PackageManager = this.packageManager
+            var receiver = ComponentName(this, DeviceBootReceiver::class.java)
+            var alarmIntent  = Intent(this, AlarmReceiver::class.java)
+            var pendingIntent : PendingIntent = PendingIntent.getBroadcast(this, xx[0].toInt(), alarmIntent, PendingIntent.FLAG_MUTABLE)
+            var alarmManager :AlarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+            if(dailyNotify) {
+                if(alarmManager != null) {
+                    alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, AlarmManager.INTERVAL_DAY, pendingIntent)
+
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
+                    }
+                }
+                // 뷩후 실행되는 리시버
+                pm.setComponentEnabledSetting(receiver, PackageManager.COMPONENT_ENABLED_STATE_ENABLED,PackageManager.DONT_KILL_APP)
+            }
+
+
+        }
+
+
+    }
+
 
     private fun diaryNotification (calendar: Calendar) {
         var dailyNotify = true
@@ -114,7 +206,6 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         var alarmIntent  = Intent(this, AlarmReceiver::class.java)
         var pendingIntent : PendingIntent = PendingIntent.getBroadcast(this, 0, alarmIntent, PendingIntent.FLAG_MUTABLE)
         var alarmManager :AlarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
-
         if(dailyNotify) {
             if(alarmManager != null) {
                 alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, AlarmManager.INTERVAL_DAY, pendingIntent)
