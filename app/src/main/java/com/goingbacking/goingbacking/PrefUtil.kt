@@ -1,7 +1,9 @@
 package com.goingbacking.goingbacking
 
 import android.content.Context
+import android.content.Context.MODE_PRIVATE
 import android.preference.PreferenceManager
+import androidx.appcompat.app.AppCompatActivity
 import com.goingbacking.goingbacking.MainActivityPackage.FirstMainFragment
 import java.util.prefs.PreferenceChangeEvent
 
@@ -85,6 +87,19 @@ class PrefUtil {
             val editor = PreferenceManager.getDefaultSharedPreferences(context).edit()
             editor.putLong(ALARM_SET_TMP_TIME_ID, time)
             editor.apply()
+        }
+
+
+        fun getTodayTime(context:Context) : Int {
+            val sharedPreferences = context.getSharedPreferences("time", MODE_PRIVATE)
+            return sharedPreferences!!.getInt("TodayTime", 0)
+
+        }
+
+        fun getTodayStrTime(context:Context) : String {
+            val sharedPreferences = context.getSharedPreferences("time", MODE_PRIVATE)
+            return sharedPreferences!!.getString("TodayStrTime", "")!!
+
         }
     }
 }

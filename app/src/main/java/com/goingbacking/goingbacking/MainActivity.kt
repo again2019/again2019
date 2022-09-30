@@ -10,6 +10,7 @@ import android.content.pm.PackageManager
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.util.Log
 import android.view.MenuItem
 import android.widget.Toast
@@ -113,11 +114,10 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
 
         //=====================================================
         sharedPreferences = getSharedPreferences("time", AppCompatActivity.MODE_PRIVATE)
-        exp1 = sharedPreferences!!.getInt("TodayTime", 0)
-        exp2 = sharedPreferences!!.getString("TodayStrTime", "")
-
+        exp1 = PrefUtil.getTodayTime(this)
+        exp2 = PrefUtil.getTodayStrTime(this)
+        Log.d("exp", exp1.toString() + exp2)
         // diaryNotification2(exp1!!, exp2!!)
-
 
         diaryNotification3()
 
@@ -127,15 +127,20 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
     private fun diaryNotification3() {
         var calendar = Calendar.getInstance()
         calendar.timeInMillis = System.currentTimeMillis()
-        calendar.set(Calendar.HOUR_OF_DAY, 16)
-        calendar.set(Calendar.MINUTE, 30)
+        var n1 = 17
+        var n2 = 47
+
+        calendar.set(Calendar.HOUR_OF_DAY, n1)
+        calendar.set(Calendar.MINUTE, n2)
         calendar.set(Calendar.SECOND, 0)
 
         var dailyNotify = true
 
         var pm : PackageManager = this.packageManager
         var receiver = ComponentName(this, DeviceBootReceiver::class.java)
-        var alarmIntent  = Intent(this, AlarmReceiver::class.java)
+        var alarmIntent  = Intent(this, CountReceiver::class.java)
+        alarmIntent.action = AppConstants.ACTION_READY
+
         var pendingIntent : PendingIntent = PendingIntent.getBroadcast(this, 3000, alarmIntent, PendingIntent.FLAG_MUTABLE)
         var alarmManager :AlarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
         if(dailyNotify) {
@@ -218,6 +223,8 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
             pm.setComponentEnabledSetting(receiver, PackageManager.COMPONENT_ENABLED_STATE_ENABLED,PackageManager.DONT_KILL_APP)
         }
     }
+
+
 }
 
 

@@ -93,6 +93,28 @@ class NotificationUtil {
             nManager.notify(TIMER_ID, nBuilder.build())
         }
 
+        // 시간이 되었을 때 ready
+        fun showTimerReady(context: Context){
+            // 알림창에 발생하는 resume 버튼의 이벤트
+            val readyIntent = Intent(context, CountReceiver::class.java)
+            readyIntent.action = AppConstants.ACTION_START
+            val readyPendingIntent = PendingIntent.getBroadcast(context,
+                0, readyIntent, PendingIntent.FLAG_MUTABLE)
+
+            val nBuilder = getBasicNotificationBuilder(context, CHANNEL_ID_TIMER, true)
+            nBuilder.setContentTitle("시작?")
+                .setContentText("시작?")
+                .setContentIntent(getPendingIntentWithStack(context, MainActivity::class.java))
+                .setOngoing(true)
+                .addAction(R.drawable.btn_google_signin_dark_focus, "Start?", readyPendingIntent)
+
+            val nManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            nManager.createNotificationChannel(CHANNEL_ID_TIMER, CHANNEL_NAME_TIMER, true)
+
+            nManager.notify(TIMER_ID, nBuilder.build())
+        }
+
+
         fun hideTimerNotification(context: Context){
             val nManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             nManager.cancel(TIMER_ID)

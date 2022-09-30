@@ -12,9 +12,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <receiver
-            android:name=".Notification"
+            android:name=".CountReceiver"
             android:enabled="true"
             android:exported="false"></receiver>
+        <receiver
+            android:name=".Notification"
+            android:enabled="true"
+            android:exported="false" />
 
         <activity
             android:name=".TmpTimeActivity"
@@ -52,10 +56,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <receiver
             android:name=".AlarmReceiver"
             android:enabled="true"
-            android:exported="false"></receiver>
+            android:exported="false" />
         <receiver
             android:name=".DeviceBootReceiver"
             android:enabled="true"
