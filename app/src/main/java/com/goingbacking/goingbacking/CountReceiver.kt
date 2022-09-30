@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.widget.Toast
+import com.goingbacking.goingbacking.MainActivityPackage.FirstMainFragment
 
 class CountReceiver : BroadcastReceiver() {
 
@@ -18,7 +19,10 @@ class CountReceiver : BroadcastReceiver() {
             }
 
             AppConstants.ACTION_START -> {
-            
+                FirstMainFragment.startTimer()
+                FirstMainFragment.timerState = FirstMainFragment.TimerState.Running
+                NotificationUtil.showTimerRunning(context, 50)
+
 
 
 

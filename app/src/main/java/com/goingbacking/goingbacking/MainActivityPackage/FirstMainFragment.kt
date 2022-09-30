@@ -27,6 +27,11 @@ import java.util.concurrent.TimeUnit
 class FirstMainFragment : Fragment() {
 
     companion object {
+        private lateinit var timer: CountDownTimer // 순서대로 얼마나 타이머를 진행할지 나타냄, thread 사용할 필요 없음
+        private var timerLengthSeconds = 0L
+         var timerState = TimerState.Stopped
+        private var secondsRemaining = 0L
+
         fun setAlarm(context: Context, nowSeconds: Long, secondsRemaining:Long) : Long {
             val wakeUpTime = (nowSeconds + secondsRemaining) * 1000 // 끝이나는 시간
             val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
@@ -58,6 +63,50 @@ class FirstMainFragment : Fragment() {
             //-> 위에 두 코드는 아마 알림을 발생시키는 것을 하기 전에 초기화를 시키는 행위인 듯 하다.
         }
 
+        fun startTimer() {
+            timerState = TimerState.Running // timer 상태를 running으로 바꾼다
+            timer = object : CountDownTimer(secondsRemaining * 1000, 1000) {
+                override fun onFinish() = onTimerFinished()
+                override fun onTick(millisUntilFinished: Long) { // millisUntilFinished: 남아있는 시간, 수행간격 마다 호출
+                    secondsRemaining = millisUntilFinished / 1000 // 남아있는 시간  =
+                    updateCountdownUI() // UI에 표시됨
+                }
+
+            }.start()
+        }
+
+        fun onTimerFinished() {
+            timerState = TimerState.Stopped
+            // timerState =  Stop으로 둔다
+            setNewTimerLength()
+            // 다시 1초로 초기화한다.
+            PrefUtil.setSecondsRemaining(timerLengthSeconds, requireActivity())
+            secondsRemaining = timerLengthSeconds // 남아있는 시간 = 1분(60초)
+
+            updateCountdownUI()
+        }
+
+        fun setNewTimerLength() {
+            val lengthInMinutes = 60 //exp1
+            // 1을 return 한다.
+            Log.d("AAAAAAAA", " -> lengthInMinutes" + lengthInMinutes.toString())
+            timerLengthSeconds = (lengthInMinutes!! * 60L)
+            // timeLengthSeconds = 60이 됨
+            Log.d("AAAAAAAA"," -> lengthInMinutes" +  timerLengthSeconds.toString())
+
+        }
+
+        fun setPreviousTimerLength() {
+            timerLengthSeconds = PrefUtil.getPreviousTimerLengthSeconds(requireActivity())
+            Log.d("setPreviousTimerLength -> TTTT", timerLengthSeconds.toString())
+        }
+
+        fun updateCountdownUI() { //실제로 표기되는 부분을 보여주는 것
+            val minutesUntilFinished = secondsRemaining/60
+            val secondsInMinuteUtilFinished = secondsRemaining - minutesUntilFinished * 60
+            val secondsStr = secondsInMinuteUtilFinished.toString()
+            textView_countdown.text = "$minutesUntilFinished:${if (secondsStr.length == 2) secondsStr else "0" + secondsStr}"
+        }
 
         val nowSeconds: Long
             get() = Calendar.getInstance().timeInMillis / 1000
@@ -207,7 +256,7 @@ class FirstMainFragment : Fragment() {
 
     }
 
-    private fun onTimerFinished() {
+    fun onTimerFinished() {
         timerState = TimerState.Stopped
         // timerState =  Stop으로 둔다
         setNewTimerLength()
@@ -231,27 +280,7 @@ class FirstMainFragment : Fragment() {
         }.start()
     }
 
-    private fun setNewTimerLength() {
-        val lengthInMinutes = 60 //exp1
-        // 1을 return 한다.
-        Log.d("AAAAAAAA", " -> lengthInMinutes" + lengthInMinutes.toString())
-        timerLengthSeconds = (lengthInMinutes!! * 60L)
-        // timeLengthSeconds = 60이 됨
-        Log.d("AAAAAAAA"," -> lengthInMinutes" +  timerLengthSeconds.toString())
 
-    }
-
-    private fun setPreviousTimerLength() {
-        timerLengthSeconds = PrefUtil.getPreviousTimerLengthSeconds(requireActivity())
-        Log.d("setPreviousTimerLength -> TTTT", timerLengthSeconds.toString())
-    }
-
-    private fun updateCountdownUI() { //실제로 표기되는 부분을 보여주는 것
-        val minutesUntilFinished = secondsRemaining/60
-        val secondsInMinuteUtilFinished = secondsRemaining - minutesUntilFinished * 60
-        val secondsStr = secondsInMinuteUtilFinished.toString()
-        textView_countdown.text = "$minutesUntilFinished:${if (secondsStr.length == 2) secondsStr else "0" + secondsStr}"
-    }
 
     private fun updateButtons(){ // 버튼의 상태를 바꾸기
         when (timerState) {
