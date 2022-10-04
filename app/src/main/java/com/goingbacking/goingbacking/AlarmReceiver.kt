@@ -29,6 +29,8 @@ class AlarmReceiver : BroadcastReceiver() {
 
 
     override fun onReceive(context: Context, intent: Intent) {
+
+
         init()
 
         var notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
@@ -76,7 +78,6 @@ class AlarmReceiver : BroadcastReceiver() {
         var date_text1_1 = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(currentDateTime)
 
         var date_text1 = SimpleDateFormat("yyyy-MM", Locale.getDefault()).format(currentDateTime)
-        Toast.makeText(context, date_text1.toString(), Toast.LENGTH_SHORT).show()
 
         var date_text2 = SimpleDateFormat("dd", Locale.getDefault()).format(currentDateTime)
         var date_text3 = SimpleDateFormat("yyyy", Locale.getDefault()).format(currentDateTime)
