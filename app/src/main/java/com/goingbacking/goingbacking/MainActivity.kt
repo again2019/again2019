@@ -84,8 +84,8 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         // 없으면 디폴트 값은 현재 시간
         var calendar = Calendar.getInstance()
         calendar.timeInMillis = System.currentTimeMillis()
-        calendar.set(Calendar.HOUR_OF_DAY, 9)
-        calendar.set(Calendar.MINUTE, 58)
+        calendar.set(Calendar.HOUR_OF_DAY, 11)
+        calendar.set(Calendar.MINUTE, 48)
         calendar.set(Calendar.SECOND, 0)
         calendar.set(Calendar.MILLISECOND, 0)
         var dailyNotify = true
@@ -96,7 +96,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         alarmIntent.putExtra("id", 3000)
         alarmIntent.putExtra("type", "channel")
         alarmIntent.putExtra("repeat", true)
-        alarmIntent.putExtra("interval", 1)
+        alarmIntent.putExtra("interval", 2)
         var pendingIntent : PendingIntent = PendingIntent.getBroadcast(this, 3000, alarmIntent, FLAG_MUTABLE)
         var alarmManager :AlarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
         if(dailyNotify) {

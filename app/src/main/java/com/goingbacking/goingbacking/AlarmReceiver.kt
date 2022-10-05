@@ -29,7 +29,8 @@ class AlarmReceiver : BroadcastReceiver() {
 
 
     override fun onReceive(context: Context, intent: Intent) {
-
+        Toast.makeText(context, "count receiverstart2222222",Toast.LENGTH_SHORT).show()
+        Log.d("experiment", "okay222222")
 
         init()
 
@@ -39,14 +40,16 @@ class AlarmReceiver : BroadcastReceiver() {
         notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP )
         notificationIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
 
-        var pendingI = PendingIntent.getActivity(context, 0, notificationIntent, PendingIntent.FLAG_MUTABLE)
-        var builder :NotificationCompat.Builder = NotificationCompat.Builder(context, "default")
+        var pendingI = PendingIntent.getActivity(context, 2999, notificationIntent, PendingIntent.FLAG_MUTABLE)
+        var builder :NotificationCompat.Builder = NotificationCompat.Builder(context,
+            "channeljust alarm"
+        )
 
         var channelName = "매일 알람 채널"
         var description = "ssss"
         var importance = NotificationManager.IMPORTANCE_HIGH
         var channel : NotificationChannel = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel("default", channelName, importance)
+            NotificationChannel("channeljust alarm", channelName, importance)
         } else {
             TODO("VERSION.SDK_INT < O")
         }

@@ -27,6 +27,10 @@ class CountReceiver : BroadcastReceiver() {
         Log.d("experiment", "okay")
 
         notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
+        beforefireReminder(context, intent)
+
+
         createNotificationChannel(intent)
         fireReminder(context, intent)
 
@@ -34,6 +38,44 @@ class CountReceiver : BroadcastReceiver() {
 
     }
 
+    private fun beforefireReminder(context: Context, intent: Intent) {
+        val id = intent.getIntExtra("id", 0) - 1
+        val type = intent.getStringExtra("type") + "just alarm"
+        val isRepeat = intent.getBooleanExtra("repeat", false)
+        val dateTime = try {
+            intent.getSerializableExtra("time") as LocalDateTime
+        } catch(e: NullPointerException) {
+            LocalDateTime.now()
+        }
+
+        if(!isRepeat) return
+        val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val nextIntent = Intent(context, AlarmReceiver::class.java)
+
+        val pendingIntent = PendingIntent.getBroadcast(context, id, nextIntent, PendingIntent.FLAG_MUTABLE)
+        //val nextDate = dateTime.plusDays(interval.toLong())
+        val interval  = intent.getIntExtra("interval", 1) -1
+        val nextDate = dateTime.plusMinutes(interval.toLong())
+        nextIntent.putExtra("id", id)
+        nextIntent.putExtra("type", type)
+
+        Log.d(
+            "experiment",
+            "just alarm SET:$id | type: $type |time:$nextDate |interval $interval| isRepeat:true|"
+        )
+
+        Log.d("experiment", nextDate.hour.toString() + nextDate.minute.toString() + nextDate.second.toString())
+        var calendar = Calendar.getInstance()
+        calendar.timeInMillis = System.currentTimeMillis()
+        calendar.set(Calendar.HOUR_OF_DAY, nextDate.hour)
+        calendar.set(Calendar.MINUTE, nextDate.minute)
+        calendar.set(Calendar.SECOND, nextDate.second)
+        calendar.set(Calendar.MILLISECOND, 0)
+
+        alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP,
+            calendar.timeInMillis, pendingIntent)
+
+    }
 
 
     private fun createNotificationChannel(intent:Intent) {
@@ -87,7 +129,7 @@ class CountReceiver : BroadcastReceiver() {
         val nextDate = dateTime.plusMinutes(interval.toLong())
         Log.d(
             "experiment",
-        "SET:$id | type: $type |time:$nextDate |interval $interval| isRepeat:true|"
+        "recursive SET:$id | type: $type |time:$nextDate |interval $interval| isRepeat:true|"
         )
 
         Log.d("experiment", nextDate.hour.toString() + nextDate.minute.toString() + nextDate.second.toString())
