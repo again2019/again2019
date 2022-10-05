@@ -96,7 +96,7 @@ class NotificationUtil {
         // 시간이 되었을 때 ready
         fun showTimerReady(context: Context){
             // 알림창에 발생하는 resume 버튼의 이벤트
-            val readyIntent = Intent(context, CountReceiver::class.java)
+            val readyIntent = Intent(context, DoingReceiver::class.java)
             readyIntent.action = AppConstants.ACTION_START
             val readyPendingIntent = PendingIntent.getBroadcast(context,
                 0, readyIntent, PendingIntent.FLAG_MUTABLE)

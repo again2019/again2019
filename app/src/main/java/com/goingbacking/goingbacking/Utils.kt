@@ -24,7 +24,7 @@ class Utils {
                 override fun onFinish() = onTimerFinished(context)
                 override fun onTick(millisUntilFinished: Long) { // millisUntilFinished: 남아있는 시간, 수행간격 마다 호출
                     secondsRemaining = millisUntilFinished / 1000 // 남아있는 시간  =
-                    Log.d("new", " -> lengthInMinutes" + secondsRemaining.toString())
+                    Log.d("experiment", " -> lengthInMinutes" + secondsRemaining.toString())
 
                 }
 
@@ -44,12 +44,13 @@ class Utils {
         fun setNewTimerLength() {
             val lengthInMinutes = 60 //exp1
             // 1을 return 한다.
-            Log.d("new", " -> lengthInMinutes" + lengthInMinutes.toString())
+            Log.d("experiment", " -> lengthInMinutes" + lengthInMinutes.toString())
             timerLengthSeconds = (lengthInMinutes!! * 60L)
             // timeLengthSeconds = 60이 됨
-            Log.d("new", " -> lengthInMinutes" + timerLengthSeconds.toString())
+            Log.d("experiment", " -> lengthInMinutes" + timerLengthSeconds.toString())
 
         }
+
 
 
     }

@@ -50,14 +50,15 @@ class CountReceiver : BroadcastReceiver() {
 
         if(!isRepeat) return
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        val nextIntent = Intent(context, AlarmReceiver::class.java)
-
+        val nextIntent = Intent(context, DoingReceiver::class.java)
+        nextIntent.putExtra("id", id)
+        nextIntent.putExtra("type", type)
+        nextIntent.action = AppConstants.ACTION_READY
         val pendingIntent = PendingIntent.getBroadcast(context, id, nextIntent, PendingIntent.FLAG_MUTABLE)
         //val nextDate = dateTime.plusDays(interval.toLong())
         val interval  = intent.getIntExtra("interval", 1) -1
         val nextDate = dateTime.plusMinutes(interval.toLong())
-        nextIntent.putExtra("id", id)
-        nextIntent.putExtra("type", type)
+
 
         Log.d(
             "experiment",
