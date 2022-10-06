@@ -27,10 +27,6 @@ import java.util.concurrent.TimeUnit
 class FirstMainFragment : Fragment() {
 
     companion object {
-        private lateinit var timer: CountDownTimer // 순서대로 얼마나 타이머를 진행할지 나타냄, thread 사용할 필요 없음
-        private var timerLengthSeconds = 0L
-         var timerState = TimerState.Stopped
-        private var secondsRemaining = 0L
 
         fun setAlarm(context: Context, nowSeconds: Long, secondsRemaining:Long) : Long {
             val wakeUpTime = (nowSeconds + secondsRemaining) * 1000 // 끝이나는 시간
@@ -75,11 +71,6 @@ class FirstMainFragment : Fragment() {
         Stopped, Paused, Running
     }
 
-    private lateinit var timer: CountDownTimer // 순서대로 얼마나 타이머를 진행할지 나타냄, thread 사용할 필요 없음
-    private var timerLengthSeconds = 0L
-    private var timerState = TimerState.Stopped
-    private var secondsRemaining = 0L
-
 
 
     override fun onCreateView(
@@ -120,7 +111,7 @@ class FirstMainFragment : Fragment() {
 //        }
 
 
-        
+
 
         view.tmpTimeButton.setOnClickListener {
             val intent = Intent(requireContext(), TmpTimeActivity::class.java)
