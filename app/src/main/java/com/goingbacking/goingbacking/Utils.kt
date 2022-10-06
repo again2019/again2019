@@ -33,26 +33,17 @@ class Utils {
             }.start()
         }
 
+        fun pauseTimer() {
+            timer.cancel()
+        }
+
         fun onTimerFinished(context: Context) {
             timerState = TimerState.Stopped
             // timerState =  Stop으로 둔다
-            setNewTimerLength()
-            // 다시 1초로 초기화한다.
-            PrefUtil.setSecondsRemaining(timerLengthSeconds, context)
-            secondsRemaining = timerLengthSeconds // 남아있는 시간 = 1분(60초)
+            NotificationUtil.showTimerExpired(context)
+
 
         }
-
-        fun setNewTimerLength() {
-            val lengthInMinutes = 1 //exp1
-            // 1을 return 한다.
-            Log.d("experiment", " -> lengthInMinutes" + lengthInMinutes.toString())
-            timerLengthSeconds = (lengthInMinutes!! * 60L)
-            // timeLengthSeconds = 60이 됨
-            Log.d("experiment", " -> lengthInMinutes" + timerLengthSeconds.toString())
-
-        }
-
 
 
     }

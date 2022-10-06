@@ -47,15 +47,11 @@ class NotificationUtil {
         //실행 중일 경우에 발생하는 function
         fun showTimerRunning(context: Context, wakeUpTime: Long){
             // 알림창에 발생하는 stop 버튼의 이벤트
-            val stopIntent = Intent(context, TimerNotificationActionReceiver::class.java)
+            val stopIntent = Intent(context, DoingReceiver::class.java)
             stopIntent.action = AppConstants.ACTION_STOP
             val stopPendingIntent = PendingIntent.getBroadcast(context,
                 0, stopIntent, PendingIntent.FLAG_MUTABLE)
             // 알림창에 발생하는 pause 버튼의 이벤트
-            val pauseIntent = Intent(context, TimerNotificationActionReceiver::class.java)
-            pauseIntent.action = AppConstants.ACTION_PAUSE
-            val pausePendingIntent = PendingIntent.getBroadcast(context,
-                0, pauseIntent, PendingIntent.FLAG_MUTABLE)
 
             val df = SimpleDateFormat("HH:mm:ss")
 
@@ -65,7 +61,6 @@ class NotificationUtil {
                 .setContentIntent(getPendingIntentWithStack(context, MainActivity::class.java))
                 .setOngoing(true)
                 .addAction(R.drawable.bottom_sheet_unclicked, "Stop", stopPendingIntent)
-                .addAction(R.drawable.bottom_sheet_clicked, "Pause", pausePendingIntent)
 
             val nManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             nManager.createNotificationChannel(CHANNEL_ID_TIMER, CHANNEL_NAME_TIMER, true)
