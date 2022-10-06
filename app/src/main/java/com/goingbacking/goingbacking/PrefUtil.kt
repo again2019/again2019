@@ -53,7 +53,7 @@ class PrefUtil {
 
         fun getSecondsRemaining(context: Context): Long{
             val preferences = PreferenceManager.getDefaultSharedPreferences(context)
-            return preferences.getLong(SECONDS_REMAINING_ID, 0)
+            return preferences.getLong(SECONDS_REMAINING_ID, 4)
         }
 
         fun setSecondsRemaining(seconds: Long, context: Context){

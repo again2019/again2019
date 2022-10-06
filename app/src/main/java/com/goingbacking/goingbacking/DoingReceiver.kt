@@ -27,6 +27,7 @@ class DoingReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
         Log.d("experiment", "okay doingReceiver")
 
+        init()
         when (intent.action){
 
             AppConstants.ACTION_READY -> {
@@ -55,20 +56,24 @@ class DoingReceiver : BroadcastReceiver() {
             }
             AppConstants.ACTION_STOP -> {
                 Utils.pauseTimer()
+                Log.d("experiment",  System.currentTimeMillis().toString())
+                Log.d("experiment",  PrefUtil.getSecondsRemaining(context).toString())
 
-                tmpTimeDTO!!.nowSeconds = System.currentTimeMillis() - PrefUtil.getSecondsRemaining(context)
+                var current = System.currentTimeMillis()
+
+                tmpTimeDTO!!.nowSeconds =  current- PrefUtil.getSecondsRemaining(context)
                 tmpTimeDTO!!.startTime = PrefUtil.getSecondsRemaining(context)
-                tmpTimeDTO!!.wakeUpTime = System.currentTimeMillis()
+                tmpTimeDTO!!.wakeUpTime = current
 
                 val df = SimpleDateFormat("HH:mm:ss")
 
-                Log.d("experiment", "total: " + (System.currentTimeMillis() - PrefUtil.getSecondsRemaining(context)).toString())
+                Log.d("experiment", "total: " + (current - PrefUtil.getSecondsRemaining(context)).toString())
                 Log.d("experiment", "wakeupTime: " + PrefUtil.getSecondsRemaining(context).toString())
-                Log.d("experiment", "currentTime: " + System.currentTimeMillis())
+                Log.d("experiment", "currentTime: " + current)
 
-                val total = df.format(Date((System.currentTimeMillis() - PrefUtil.getSecondsRemaining(context))))
+                val total = df.format(Date((current - PrefUtil.getSecondsRemaining(context))))
                 val wakeUpTime = df.format(Date(PrefUtil.getSecondsRemaining(context)))
-                val currentTime = df.format(Date(System.currentTimeMillis()))
+                val currentTime = df.format(Date(current))
 
                 Log.d("experiment", "total: " +total.toString())
                 Log.d("experiment", "wakeupTime: " + wakeUpTime.toString())

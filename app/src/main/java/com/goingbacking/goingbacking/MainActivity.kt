@@ -84,8 +84,8 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         // 없으면 디폴트 값은 현재 시간
         var calendar = Calendar.getInstance()
         calendar.timeInMillis = System.currentTimeMillis()
-        calendar.set(Calendar.HOUR_OF_DAY, 14)
-        calendar.set(Calendar.MINUTE, 24)
+        calendar.set(Calendar.HOUR_OF_DAY, 16)
+        calendar.set(Calendar.MINUTE, 15)
         calendar.set(Calendar.SECOND, 0)
         calendar.set(Calendar.MILLISECOND, 0)
 
