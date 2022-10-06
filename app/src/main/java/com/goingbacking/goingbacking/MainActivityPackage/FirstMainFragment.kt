@@ -97,8 +97,8 @@ class FirstMainFragment : Fragment() {
         view.indicator.setViewPager(view.view_pager)
 
         sharedPreferences = requireActivity().getSharedPreferences("time", AppCompatActivity.MODE_PRIVATE)
-        exp1 = sharedPreferences!!.getInt("TodayTime", 0)
-        exp2 = sharedPreferences!!.getString("TodayStrTime", "")
+        exp1 = sharedPreferences!!.getInt("TodayTime", 4)
+        exp2 = sharedPreferences!!.getString("TodayStrTime", ",420-630,1080-1200")
 
         var exp2_split = exp2!!.split(',').toMutableList()
 
@@ -106,14 +106,14 @@ class FirstMainFragment : Fragment() {
 
         var exp3 = mutableListOf<Any>()
         for(i in exp2_split) {
-            Log.d("AAAAAAAA", i)
+            Log.d("experiment", i)
             var xx = i.split('-').toMutableList()
             exp3.add(xx)
         }
 
-        Log.d("AAAAAAAA", exp1.toString())
-        Log.d("AAAAAAAA", exp2!!)
-        Log.d("AAAAAAAA", exp2_split!!.toString())
+        Log.d("experiment", exp1.toString())
+        Log.d("experiment", exp2!!)
+        Log.d("experiment", exp2_split!!.toString())
 
 
         var calendar = Calendar.getInstance()

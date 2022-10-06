@@ -18,7 +18,9 @@ class Utils {
             Stopped, Paused, Running
         }
 
-        fun startTimer(context: Context) {
+        fun startTimer(context: Context, firstSecondRemaining: Int) {
+            secondsRemaining = firstSecondRemaining * 1L
+            Log.d("experiment", " -> lengthInMinutes" + secondsRemaining.toString())
             timerState = TimerState.Running // timer 상태를 running으로 바꾼다
             timer = object : CountDownTimer(secondsRemaining * 1000, 1000) {
                 override fun onFinish() = onTimerFinished(context)
@@ -42,7 +44,7 @@ class Utils {
         }
 
         fun setNewTimerLength() {
-            val lengthInMinutes = 60 //exp1
+            val lengthInMinutes = 1 //exp1
             // 1을 return 한다.
             Log.d("experiment", " -> lengthInMinutes" + lengthInMinutes.toString())
             timerLengthSeconds = (lengthInMinutes!! * 60L)

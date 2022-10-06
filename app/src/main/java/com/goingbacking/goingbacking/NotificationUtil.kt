@@ -11,6 +11,8 @@ import android.graphics.Color
 import android.media.RingtoneManager
 import android.net.Uri
 import android.os.Build
+import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import com.github.aachartmodel.aainfographics.aachartcreator.AAChartModel.Companion.Builder
 import com.goingbacking.goingbacking.MainActivityPackage.FirstMainFragment
@@ -55,7 +57,7 @@ class NotificationUtil {
             val pausePendingIntent = PendingIntent.getBroadcast(context,
                 0, pauseIntent, PendingIntent.FLAG_MUTABLE)
 
-            val df = SimpleDateFormat.getTimeInstance(SimpleDateFormat.SHORT)
+            val df = SimpleDateFormat("HH:mm:ss")
 
             val nBuilder = getBasicNotificationBuilder(context, CHANNEL_ID_TIMER, true)
             nBuilder.setContentTitle("Timer is Running.")
@@ -95,7 +97,7 @@ class NotificationUtil {
 
         // 시간이 되었을 때 ready
         fun showTimerReady(context: Context){
-            // 알림창에 발생하는 resume 버튼의 이벤트
+
             val readyIntent = Intent(context, DoingReceiver::class.java)
             readyIntent.action = AppConstants.ACTION_START
             val readyPendingIntent = PendingIntent.getBroadcast(context,

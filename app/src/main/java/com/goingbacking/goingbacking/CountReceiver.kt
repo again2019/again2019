@@ -56,8 +56,8 @@ class CountReceiver : BroadcastReceiver() {
         nextIntent.action = AppConstants.ACTION_READY
         val pendingIntent = PendingIntent.getBroadcast(context, id, nextIntent, PendingIntent.FLAG_MUTABLE)
         //val nextDate = dateTime.plusDays(interval.toLong())
-        val interval  = intent.getIntExtra("interval", 1) -1
-        val nextDate = dateTime.plusMinutes(interval.toLong())
+        val interval  = intent.getIntExtra("interval", 1) -30
+        val nextDate = dateTime.plusSeconds(interval.toLong())
 
 
         Log.d(
@@ -127,7 +127,7 @@ class CountReceiver : BroadcastReceiver() {
 
         val pendingIntent = PendingIntent.getBroadcast(context, id, nextIntent, PendingIntent.FLAG_MUTABLE)
         //val nextDate = dateTime.plusDays(interval.toLong())
-        val nextDate = dateTime.plusMinutes(interval.toLong())
+        val nextDate = dateTime.plusSeconds(interval.toLong())
         Log.d(
             "experiment",
         "recursive SET:$id | type: $type |time:$nextDate |interval $interval| isRepeat:true|"
