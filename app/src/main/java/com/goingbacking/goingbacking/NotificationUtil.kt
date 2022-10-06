@@ -27,15 +27,14 @@ class NotificationUtil {
 
         // TimerExpiredReceiver로 부터 실행되는 함수
         fun showTimerExpired(context: Context){
-            val startIntent = Intent(context, TimerNotificationActionReceiver::class.java)
-            startIntent.action = AppConstants.ACTION_START
-            val startPendingIntent = PendingIntent.getBroadcast(context,
+            val startIntent = Intent(context, TmpTimeActivity::class.java)
+            val startPendingIntent = PendingIntent.getActivity(context,
                 0, startIntent, PendingIntent.FLAG_MUTABLE)
 
             val nBuilder = getBasicNotificationBuilder(context, CHANNEL_ID_TIMER, true)
             nBuilder.setContentTitle("Timer Expired!")
                 .setContentText("저장하러 가실래요?")
-                .setContentIntent(getPendingIntentWithStack(context, TmpTimeActivity::class.java))
+                .setContentIntent(getPendingIntentWithStack(context, MainActivity::class.java))
                 .addAction(R.drawable.border_top_bottom, "저장하러 가기", startPendingIntent)
 
             val nManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager

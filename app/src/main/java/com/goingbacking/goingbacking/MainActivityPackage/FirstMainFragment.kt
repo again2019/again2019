@@ -80,9 +80,6 @@ class FirstMainFragment : Fragment() {
     private var timerState = TimerState.Stopped
     private var secondsRemaining = 0L
 
-    var sharedPreferences :SharedPreferences? = null
-    var exp1 :Int? = null
-    var exp2 : String? = null
 
 
     override fun onCreateView(
@@ -96,24 +93,6 @@ class FirstMainFragment : Fragment() {
         view.view_pager.adapter = paperAdapter
         view.indicator.setViewPager(view.view_pager)
 
-        sharedPreferences = requireActivity().getSharedPreferences("time", AppCompatActivity.MODE_PRIVATE)
-        exp1 = sharedPreferences!!.getInt("TodayTime", 4)
-        exp2 = sharedPreferences!!.getString("TodayStrTime", ",420-630,1080-1200")
-
-        var exp2_split = exp2!!.split(',').toMutableList()
-
-        exp2_split.removeAt(0)
-
-        var exp3 = mutableListOf<Any>()
-        for(i in exp2_split) {
-            Log.d("experiment", i)
-            var xx = i.split('-').toMutableList()
-            exp3.add(xx)
-        }
-
-        Log.d("experiment", exp1.toString())
-        Log.d("experiment", exp2!!)
-        Log.d("experiment", exp2_split!!.toString())
 
 
         var calendar = Calendar.getInstance()
@@ -125,7 +104,6 @@ class FirstMainFragment : Fragment() {
 
 
 
-        view.num.text = (exp1!! / 60).toString()
 
 
 

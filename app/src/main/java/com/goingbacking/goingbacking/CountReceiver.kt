@@ -4,15 +4,13 @@ import android.app.AlarmManager
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
-import android.content.BroadcastReceiver
-import android.content.ComponentName
-import android.content.Context
-import android.content.Intent
+import android.content.*
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Build.ID
 import android.util.Log
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.*
 import com.goingbacking.goingbacking.MainActivityPackage.FirstMainFragment
 import java.lang.NullPointerException
@@ -21,6 +19,9 @@ import java.util.*
 
 class CountReceiver : BroadcastReceiver() {
     lateinit var notificationManager: NotificationManager
+    var sharedPreferences : SharedPreferences? = null
+    var exp1 :Int? = null
+    var exp2 : String? = null
 
     override fun onReceive(context: Context, intent: Intent) {
         Toast.makeText(context, "count receiverstart",Toast.LENGTH_SHORT).show()
@@ -28,7 +29,43 @@ class CountReceiver : BroadcastReceiver() {
 
         notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
-        beforefireReminder(context, intent)
+        sharedPreferences = context.getSharedPreferences("time", AppCompatActivity.MODE_PRIVATE)
+        exp1 = sharedPreferences!!.getInt("TodayTime", 4)
+        exp2 = sharedPreferences!!.getString("TodayStrTime", ",420-630,1080-1200")
+
+        var exp2_split = exp2!!.split(',').toMutableList()
+
+        exp2_split.removeAt(0)
+
+        var exp3_1 = arrayListOf<Any>()
+        var exp3_2 = arrayListOf<Any>()
+
+        for(i in exp2_split) {
+            Log.d("experiment", i)
+            var xx1 = i.split('-').toMutableList().get(0)
+            var xx2 = i.split('-').toMutableList().get(1)
+
+            exp3_1.add(xx1)
+            exp3_2.add(xx2)
+
+        }
+
+        Log.d("experiment", exp1.toString())
+        Log.d("experiment", exp2!!)
+        Log.d("experiment", exp2_split!!.toString())
+        Log.d("experiment", exp3_1.size!!.toString())
+        Log.d("experiment", exp3_2!!.toString())
+
+
+        for (i in exp3_1.size-1 downTo 0 ) {
+            beforefireReminder(context, intent, i, i)
+            Log.d("experiment", "i: $i")
+        }
+
+
+
+
+
 
 
         createNotificationChannel(intent)
@@ -38,8 +75,8 @@ class CountReceiver : BroadcastReceiver() {
 
     }
 
-    private fun beforefireReminder(context: Context, intent: Intent) {
-        val id = intent.getIntExtra("id", 0) - 1
+    private fun beforefireReminder(context: Context, intent: Intent, iii: Int, idid: Int) {
+        val id = intent.getIntExtra("id", 0) - 1 - idid
         val type = intent.getStringExtra("type") + "just alarm"
         val isRepeat = intent.getBooleanExtra("repeat", false)
         val dateTime = try {
@@ -56,7 +93,8 @@ class CountReceiver : BroadcastReceiver() {
         nextIntent.action = AppConstants.ACTION_READY
         val pendingIntent = PendingIntent.getBroadcast(context, id, nextIntent, PendingIntent.FLAG_MUTABLE)
         //val nextDate = dateTime.plusDays(interval.toLong())
-        val interval  = intent.getIntExtra("interval", 1) -30
+        val interval  = intent.getIntExtra("interval", 1) -(10 * (iii+1))
+        Log.d("experiment", "interval" + interval.toString())
         val nextDate = dateTime.plusSeconds(interval.toLong())
 
 

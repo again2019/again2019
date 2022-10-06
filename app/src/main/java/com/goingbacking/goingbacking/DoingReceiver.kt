@@ -1,5 +1,6 @@
 package com.goingbacking.goingbacking
 
+import android.app.NotificationManager
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -28,6 +29,9 @@ class DoingReceiver : BroadcastReceiver() {
         Log.d("experiment", "okay doingReceiver")
 
         init()
+
+        val nm = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        nm.cancelAll()
         when (intent.action){
 
             AppConstants.ACTION_READY -> {
