@@ -59,10 +59,7 @@
             android:name=".CountReceiver"
             android:enabled="true"
             android:exported="true" />
-        <receiver
-            android:name=".Notification"
-            android:enabled="true"
-            android:exported="false" />
+
         <receiver
             android:name=".AlarmReceiver"
             android:enabled="true"
@@ -71,10 +68,7 @@
             android:name=".DeviceBootReceiver"
             android:enabled="true"
             android:exported="false" />
-        <receiver
-            android:name=".TimerExpiredReceiver"
-            android:enabled="true"
-            android:exported="false" />
+
         <receiver
             android:name=".TimerNotificationActionReceiver"
             android:enabled="true"
