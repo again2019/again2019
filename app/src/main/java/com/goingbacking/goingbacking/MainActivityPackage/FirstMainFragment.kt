@@ -93,8 +93,6 @@ class FirstMainFragment : Fragment() {
         view.view_pager.adapter = paperAdapter
         view.indicator.setViewPager(view.view_pager)
 
-
-
         var calendar = Calendar.getInstance()
         calendar.timeInMillis = System.currentTimeMillis()
 
@@ -122,26 +120,7 @@ class FirstMainFragment : Fragment() {
 //        }
 
 
-
-
-
-        view.tmptimerButton1.setOnClickListener{
-            startTimer() // 계속해서 카운트다운을 하고 UI로 보여줌
-            timerState = TimerState.Running
-            updateButtons()
-
-
-        }
-        view.tmptimerButton2.setOnClickListener{
-            timer.cancel()
-            timerState = TimerState.Paused
-            updateButtons()
-
-        }
-        view.tmptimerButton3.setOnClickListener{
-            timer.cancel()
-            onTimerFinished() // 1:00으로 다시 초기화함
-        }
+        
 
         view.tmpTimeButton.setOnClickListener {
             val intent = Intent(requireContext(), TmpTimeActivity::class.java)
@@ -150,137 +129,16 @@ class FirstMainFragment : Fragment() {
         return view
     }
 
-    override fun onResume() {
-        super.onResume()
-
-        initTimer()
-
-        removeAlarm(requireActivity()) //알림을 없애주는 기능
-        NotificationUtil.hideTimerNotification(requireActivity())
-        //notification을 없애는 기능
-    }
-
-    private fun initTimer() {
-        timerState = PrefUtil.getTimerState(requireActivity())
-        // 처음 시작할 경우 timeState는 멈춰져 있음
-
-        Log.d("AAAAAAAA", "initTimer -> timeState " + timerState.toString())
-
-        if(timerState == TimerState.Stopped) setNewTimerLength() //만약에 아무것도 안하고 있을 경우 setNewTimerLength 호출
-        else setPreviousTimerLength() //
-
-        secondsRemaining = if (timerState == TimerState.Running || timerState == TimerState.Paused)
-            PrefUtil.getSecondsRemaining(requireActivity())
-        else timerLengthSeconds
-        // 만약에 stopped 되어있을 경우 secondsRemaining = 60 이됨
-
-        val alarmSetTime = PrefUtil.getAlarmSetTime(requireContext()) // alarmSetTime = 0으로 초기화됨
-        Log.d("TTTT", "initTimer -> alarmSetTime " + alarmSetTime.toString())
-
-        if (alarmSetTime > 0) secondsRemaining -= nowSeconds - alarmSetTime
-        Log.d("TTTT", "initTimer -> secondsRemaining " + alarmSetTime.toString())
-
-
-        if (secondsRemaining <= 0) onTimerFinished()
-        else if (timerState == TimerState.Running) startTimer()
-
-        updateButtons()
-        updateCountdownUI()
-
-    }
 
 
 
-    fun setNewTimerLength() {
-        val lengthInMinutes = 60 //exp1
-        // 1을 return 한다.
-        Log.d("AAAAAAAA", " -> lengthInMinutes" + lengthInMinutes.toString())
-        Companion.timerLengthSeconds = (lengthInMinutes!! * 60L)
-        // timeLengthSeconds = 60이 됨
-        Log.d("AAAAAAAA"," -> lengthInMinutes" +  Companion.timerLengthSeconds.toString())
-
-    }
-
-    fun setPreviousTimerLength() {
-        Companion.timerLengthSeconds = PrefUtil.getPreviousTimerLengthSeconds(requireActivity())
-        Log.d("setPreviousTimerLength -> TTTT", Companion.timerLengthSeconds.toString())
-    }
-
-    fun updateCountdownUI() { //실제로 표기되는 부분을 보여주는 것
-        val minutesUntilFinished = Companion.secondsRemaining /60
-        val secondsInMinuteUtilFinished = Companion.secondsRemaining - minutesUntilFinished * 60
-        val secondsStr = secondsInMinuteUtilFinished.toString()
-        textView_countdown.text = "$minutesUntilFinished:${if (secondsStr.length == 2) secondsStr else "0" + secondsStr}"
-    }
 
 
-    fun onTimerFinished() {
-        timerState = TimerState.Stopped
-        // timerState =  Stop으로 둔다
-        setNewTimerLength()
-        // 다시 1초로 초기화한다.
-        PrefUtil.setSecondsRemaining(timerLengthSeconds, requireActivity())
-        secondsRemaining = timerLengthSeconds // 남아있는 시간 = 1분(60초)
-
-        updateButtons()
-        updateCountdownUI()
-    }
-
-    private fun startTimer() {
-        timerState = TimerState.Running // timer 상태를 running으로 바꾼다
-        timer = object : CountDownTimer(secondsRemaining * 1000, 1000) {
-            override fun onFinish()  = onTimerFinished()
-            override fun onTick(millisUntilFinished: Long) { // millisUntilFinished: 남아있는 시간, 수행간격 마다 호출
-                secondsRemaining = millisUntilFinished / 1000 // 남아있는 시간  =
-                updateCountdownUI() // UI에 표시됨
-            }
-
-        }.start()
-    }
-
-
-
-    private fun updateButtons(){ // 버튼의 상태를 바꾸기
-        when (timerState) {
-            TimerState.Running ->{
-                tmptimerButton1.isEnabled = false
-                tmptimerButton2.isEnabled = true
-                tmptimerButton3.isEnabled = true
-            }
-            TimerState.Stopped -> {
-                tmptimerButton1.isEnabled = true
-                tmptimerButton2.isEnabled = false
-                tmptimerButton3.isEnabled = false
-            }
-            TimerState.Paused -> {
-                tmptimerButton1.isEnabled = true
-                tmptimerButton2.isEnabled = false
-                tmptimerButton3.isEnabled = true
-            }
-        }
-    }
 
 
     override fun onPause() {
         super.onPause()
 
-        if (timerState == TimerState.Running) {
-            timer.cancel() // CountDown을 취소해야지 오류가 나지 않음 -> background에서 다시 돌아왔을 때 오류가 날 수 있음
-            val wakeUpTime = setAlarm(requireContext(), nowSeconds, secondsRemaining) // 이걸 해야지 백그라운드 상태에서 시간이 흘러감.
-            // Alarm을 만들어냄 nowSeconds =  지금 시간, secondsRemaining = 남아있는 시간
-            NotificationUtil.showTimerRunning(requireActivity(), wakeUpTime)
-            // notification을 만들어냄
-        // start background timer and show notification
-        } else if (timerState == TimerState.Paused) {
-            NotificationUtil.showTimerPaused(requireActivity())
-
-
-            // show notification
-        }
-
-        PrefUtil.setPreviousTimerLengthSeconds(timerLengthSeconds, requireActivity())
-        PrefUtil.setSecondsRemaining(secondsRemaining, requireActivity())
-        PrefUtil.setTimerState(timerState, requireActivity())
 
     }
 }

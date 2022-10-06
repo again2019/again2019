@@ -23,28 +23,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
-    <Button
-        android:id="@+id/tmptimerButton1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="run"/>
-    <Button
-        android:id="@+id/tmptimerButton2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="pause"/>
 
-    <Button
-        android:id="@+id/tmptimerButton3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="stop"/>
-    <TextView
-        android:id="@+id/textView_countdown"
-        android:text="10:00"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/white"/>
+
 
     <Button
         android:id="@+id/tmpTimeButton"
