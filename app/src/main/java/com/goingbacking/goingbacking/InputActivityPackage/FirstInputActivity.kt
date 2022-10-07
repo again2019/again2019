@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.KeyEvent
+import android.view.KeyEvent.KEYCODE_DEL
 import android.view.KeyEvent.KEYCODE_ENTER
+import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.lifecycle.ViewModelProvider
@@ -65,8 +67,9 @@ class FirstInputActivity : AppCompatActivity() {
             }
 
         //키보드 엔터 누르면 다음 페이지로 넘어갈 수 있는 코드
-        binding.nickNameEdittext.setOnKeyListener { v, keyCode, event ->
-            if ( keyCode == KEYCODE_ENTER) {
+        binding.nickNameEdittext.setOnEditorActionListener { v, actionId, event ->
+            var handled = false
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
                 if (TextUtils.isEmpty(nickNameEdittext.text)) {
                     Toast.makeText(this, "닉네임을 입력하세요.", Toast.LENGTH_SHORT).show()
                 }
@@ -75,10 +78,33 @@ class FirstInputActivity : AppCompatActivity() {
                 }
                 else {
                     moveSecondInputPage()
-                    }
+                    handled =true
                 }
-                true
+
             }
+            handled
+
+        }
+
+
+
+//            .setOnKeyListener { v, keyCode, event ->
+//            if ( keyCode==KeyEvent.KEYCODE_ENTER && event.getAction()==KeyEvent.ACTION_DOWN) {
+//                if (TextUtils.isEmpty(nickNameEdittext.text)) {
+//                    Toast.makeText(this, "닉네임을 입력하세요.", Toast.LENGTH_SHORT).show()
+//                }
+//                else if (nickNameEdittext.text.length >= 10) {
+//                    Toast.makeText(this, "닉네임이 너무 길어요.", Toast.LENGTH_SHORT).show()
+//                }
+//                else {
+//
+//                    moveSecondInputPage()
+//                    }
+//
+//                }
+//                true
+
+
 
 
 
