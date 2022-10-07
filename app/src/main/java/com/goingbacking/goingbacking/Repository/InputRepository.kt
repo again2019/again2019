@@ -9,11 +9,10 @@ import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_first_input.*
 
 class InputRepository(
-    val auth: FirebaseAuth,
     val firebaseFirestore: FirebaseFirestore
-
 ) :InputRepositoryIF {
     override fun addFirstInput(userInfoDTO: UserInfoDTO, result: (UiState<String>) -> Unit) {
+        val auth: FirebaseAuth = FirebaseAuth.getInstance()
         val userId = auth.currentUser?.uid
 
         firebaseFirestore?.collection("UserInfo")?.document(userId!!)?.set(userInfoDTO!!)

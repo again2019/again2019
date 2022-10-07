@@ -17,9 +17,10 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_login.*
 
-
+@AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
 
     //mvvn 패턴으로 안 짠 곳
