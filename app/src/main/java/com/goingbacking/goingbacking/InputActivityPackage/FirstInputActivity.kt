@@ -7,28 +7,53 @@ import android.text.TextUtils
 import android.view.KeyEvent
 import android.view.KeyEvent.KEYCODE_ENTER
 import android.widget.Toast
+import androidx.activity.viewModels
+import androidx.lifecycle.ViewModelProvider
 import com.goingbacking.goingbacking.LoginActivity
 import com.goingbacking.goingbacking.Model.UserInfoDTO
 import com.goingbacking.goingbacking.R
+import com.goingbacking.goingbacking.ViewModel.InputViewModel
+import com.goingbacking.goingbacking.databinding.ActivityFirstInputBinding
+import com.goingbacking.goingbacking.util.UiState
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_first_input.*
 
-
+@AndroidEntryPoint
 class FirstInputActivity : AppCompatActivity() {
     var auth : FirebaseAuth? = null
     var firebaseFirestore : FirebaseFirestore? = null
     var userId : String? = null
     var userInfoDTO : UserInfoDTO? = null
+
+    private val binding: ActivityFirstInputBinding by lazy {
+        ActivityFirstInputBinding.inflate(layoutInflater)
+    }
+
+    val viewModel: InputViewModel by viewModels()
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_first_input)
+        setContentView(binding.root)
+
 
         init()
+        viewModel.addFirstInput.observe(this) {
+            state ->
+            when(state) {
+                is UiState.Failure -> {
+                    Toast.makeText(this, "fail", Toast.LENGTH_SHORT).show()
+                }
+                is UiState.Success -> {
+                    Toast.makeText(this, "success", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
 
 
-
-        firstInputButton.setOnClickListener {
+        binding.firstInputButton.setOnClickListener {
 
             // 만약에 edittext가 비어있다면
             if (TextUtils.isEmpty(nickNameEdittext.text)) {
@@ -40,12 +65,19 @@ class FirstInputActivity : AppCompatActivity() {
             }
             // 만약에 edittext가 비어있지 않다면
             else {
-                    moveSecondInputPage()
+                    viewModel.addFirstInput(
+                        UserInfoDTO(
+                            nickNameEdittext.text.toString(),
+                            null,
+                            null,
+                            null,
+                        )
+                    )
                 }
             }
 
         //키보드 엔터 누르면 다음 페이지로 넘어갈 수 있는 코드
-        nickNameEdittext.setOnKeyListener { v, keyCode, event ->
+        binding.nickNameEdittext.setOnKeyListener { v, keyCode, event ->
             if (event.action == KeyEvent.ACTION_UP && keyCode == KEYCODE_ENTER) {
                 if (TextUtils.isEmpty(nickNameEdittext.text)) {
                     Toast.makeText(this, "닉네임을 입력하세요.", Toast.LENGTH_SHORT).show()

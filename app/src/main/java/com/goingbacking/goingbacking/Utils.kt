@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.CountDownTimer
 import android.util.Log
 import com.goingbacking.goingbacking.Model.TmpTimeDTO
+import com.goingbacking.goingbacking.Model.UserInfoDTO
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import java.text.SimpleDateFormat
@@ -26,6 +27,8 @@ class Utils {
         enum class TimerState {
             Stopped, Paused, Running
         }
+
+
 
         fun startTimer(context: Context, firstSecondRemaining: Int) {
             secondsRemaining = firstSecondRemaining * 1L
