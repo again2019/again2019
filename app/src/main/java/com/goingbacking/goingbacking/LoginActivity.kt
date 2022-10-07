@@ -116,17 +116,17 @@ class LoginActivity : AppCompatActivity() {
     //mvvn 패턴으로 안짬
 
      //이미 로그인 시 자동 로그인 하는 부분
-    override fun onStart() {
-        super.onStart()
-        val account = GoogleSignIn.getLastSignedInAccount(this)
-        // 이미 로그인 한 사용자가 있는 경우
-        if (auth?.currentUser != null) {
-            moveMainPage(auth?.currentUser)
-        } else if (account != null) {
-            moveMainPage(auth?.currentUser)
-        }
-
-    }
+//    override fun onStart() {
+//        super.onStart()
+//        val account = GoogleSignIn.getLastSignedInAccount(this)
+//        // 이미 로그인 한 사용자가 있는 경우
+//        if (auth?.currentUser != null) {
+//            moveMainPage(auth?.currentUser)
+//        } else if (account != null) {
+//            moveMainPage(auth?.currentUser)
+//        }
+//
+//    }
     fun moveMainPage(user:FirebaseUser?){
         if(user != null){
             startActivity(Intent(this,MainActivity::class.java))
@@ -139,7 +139,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun setGoogleLogin() {
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken("1036649010261-m7q5r8e2j04bqt3gnnvne9elvvetsf41.apps.googleusercontent.com")
+            .requestIdToken("1036649010261-p08hat5d9stl7qvdun1mg4fv94kj8nt6.apps.googleusercontent.com")
             .requestEmail()
             .build()
         googleSignInClient = GoogleSignIn.getClient(this, gso)
