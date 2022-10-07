@@ -33,8 +33,51 @@ class FirstInputActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        FirstInputObserver()
+
+        // 다음 버튼을 누를 경우
+        binding.firstInputButton.setOnClickListener {
+            completeAction()
+        }
+
+        //키보드 엔터 누르면 다음 페이지로 넘어갈 수 있는 코드, 다음 버튼을 누를 경우와 같음
+        binding.nickNameEdittext.setOnEditorActionListener { v, actionId, event ->
+            completeAction()
+            true
+        }
+
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        moveLoginPage()
+    }
+
+    private fun completeAction() {
+        // 만약에 edittext가 비어있다면
+        if (TextUtils.isEmpty(nickNameEdittext.text)) {
+            Toast.makeText(this, "닉네임을 입력하세요.", Toast.LENGTH_SHORT).show()
+        }
+        else if (nickNameEdittext.text.length >= 10) {
+            Toast.makeText(this, "닉네임이 너무 길어요.", Toast.LENGTH_SHORT).show()
+        }
+        // 만약에 edittext가 비어있지 않다면
+        else {
+            viewModel.addFirstInput(
+                UserInfoDTO(
+                    nickNameEdittext.text.toString(),
+                    null,
+                    null,
+                    null,
+                )
+            )
+            moveSecondInputPage()
+        }
+    }
+
+    private fun FirstInputObserver() {
         viewModel.addFirstInput.observe(this) {
-            state ->
+                state ->
             when(state) {
                 is UiState.Failure -> {
                     Toast.makeText(this, "fail", Toast.LENGTH_SHORT).show()
@@ -44,76 +87,9 @@ class FirstInputActivity : AppCompatActivity() {
                 }
             }
         }
-
-        binding.firstInputButton.setOnClickListener {
-            // 만약에 edittext가 비어있다면
-            if (TextUtils.isEmpty(nickNameEdittext.text)) {
-                Toast.makeText(this, "닉네임을 입력하세요.", Toast.LENGTH_SHORT).show()
-            }
-            else if (nickNameEdittext.text.length >= 10) {
-                Toast.makeText(this, "닉네임이 너무 길어요.", Toast.LENGTH_SHORT).show()
-            }
-            // 만약에 edittext가 비어있지 않다면
-            else {
-                    viewModel.addFirstInput(
-                        UserInfoDTO(
-                            nickNameEdittext.text.toString(),
-                            null,
-                            null,
-                            null,
-                        )
-                    )
-                }
-            }
-
-        //키보드 엔터 누르면 다음 페이지로 넘어갈 수 있는 코드
-        binding.nickNameEdittext.setOnEditorActionListener { v, actionId, event ->
-            var handled = false
-            if (actionId == EditorInfo.IME_ACTION_DONE) {
-                if (TextUtils.isEmpty(nickNameEdittext.text)) {
-                    Toast.makeText(this, "닉네임을 입력하세요.", Toast.LENGTH_SHORT).show()
-                }
-                else if (nickNameEdittext.text.length >= 10) {
-                    Toast.makeText(this, "닉네임이 너무 길어요.", Toast.LENGTH_SHORT).show()
-                }
-                else {
-                    moveSecondInputPage()
-                    handled =true
-                }
-
-            }
-            handled
-
-        }
-
-
-
-//            .setOnKeyListener { v, keyCode, event ->
-//            if ( keyCode==KeyEvent.KEYCODE_ENTER && event.getAction()==KeyEvent.ACTION_DOWN) {
-//                if (TextUtils.isEmpty(nickNameEdittext.text)) {
-//                    Toast.makeText(this, "닉네임을 입력하세요.", Toast.LENGTH_SHORT).show()
-//                }
-//                else if (nickNameEdittext.text.length >= 10) {
-//                    Toast.makeText(this, "닉네임이 너무 길어요.", Toast.LENGTH_SHORT).show()
-//                }
-//                else {
-//
-//                    moveSecondInputPage()
-//                    }
-//
-//                }
-//                true
-
-
-
-
-
     }
 
-    override fun onBackPressed() {
-        super.onBackPressed()
-        moveLoginPage()
-    }
+
 
     fun moveLoginPage() {
         val intent: Intent? = Intent(this, LoginActivity::class.java)
