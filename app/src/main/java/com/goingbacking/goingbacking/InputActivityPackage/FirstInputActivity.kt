@@ -22,24 +22,15 @@ import kotlinx.android.synthetic.main.activity_first_input.*
 
 @AndroidEntryPoint
 class FirstInputActivity : AppCompatActivity() {
-    var auth : FirebaseAuth? = null
-    var firebaseFirestore : FirebaseFirestore? = null
-    var userId : String? = null
-    var userInfoDTO : UserInfoDTO? = null
-
     private val binding: ActivityFirstInputBinding by lazy {
         ActivityFirstInputBinding.inflate(layoutInflater)
     }
-
     val viewModel: InputViewModel by viewModels()
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-
-        init()
         viewModel.addFirstInput.observe(this) {
             state ->
             when(state) {
@@ -52,16 +43,13 @@ class FirstInputActivity : AppCompatActivity() {
             }
         }
 
-
         binding.firstInputButton.setOnClickListener {
-
             // 만약에 edittext가 비어있다면
             if (TextUtils.isEmpty(nickNameEdittext.text)) {
                 Toast.makeText(this, "닉네임을 입력하세요.", Toast.LENGTH_SHORT).show()
             }
             else if (nickNameEdittext.text.length >= 10) {
                 Toast.makeText(this, "닉네임이 너무 길어요.", Toast.LENGTH_SHORT).show()
-
             }
             // 만약에 edittext가 비어있지 않다면
             else {
@@ -78,7 +66,7 @@ class FirstInputActivity : AppCompatActivity() {
 
         //키보드 엔터 누르면 다음 페이지로 넘어갈 수 있는 코드
         binding.nickNameEdittext.setOnKeyListener { v, keyCode, event ->
-            if (event.action == KeyEvent.ACTION_UP && keyCode == KEYCODE_ENTER) {
+            if ( keyCode == KEYCODE_ENTER) {
                 if (TextUtils.isEmpty(nickNameEdittext.text)) {
                     Toast.makeText(this, "닉네임을 입력하세요.", Toast.LENGTH_SHORT).show()
                 }
@@ -101,14 +89,6 @@ class FirstInputActivity : AppCompatActivity() {
         moveLoginPage()
     }
 
-
-    fun init() {
-        auth = FirebaseAuth.getInstance()
-        firebaseFirestore = FirebaseFirestore.getInstance()
-        userId = auth?.currentUser?.uid
-        userInfoDTO = UserInfoDTO()
-    }
-
     fun moveLoginPage() {
         val intent: Intent? = Intent(this, LoginActivity::class.java)
         startActivity(intent)
@@ -117,9 +97,6 @@ class FirstInputActivity : AppCompatActivity() {
     }
 
     fun moveSecondInputPage() {
-        //nickname 적는 edittext에서 정보 받아오기
-        userInfoDTO = UserInfoDTO(nickNameEdittext.text.toString(), null, null, userId)
-        firebaseFirestore?.collection("UserInfo")?.document(userId!!)?.set(userInfoDTO!!)
 
         val intent: Intent? = Intent(this, SecondInputActivity::class.java)
         startActivity(intent)
