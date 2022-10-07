@@ -4,21 +4,14 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
-import android.view.KeyEvent
-import android.view.KeyEvent.KEYCODE_DEL
-import android.view.KeyEvent.KEYCODE_ENTER
-import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.lifecycle.ViewModelProvider
 import com.goingbacking.goingbacking.LoginActivity
 import com.goingbacking.goingbacking.Model.UserInfoDTO
 import com.goingbacking.goingbacking.R
 import com.goingbacking.goingbacking.ViewModel.InputViewModel
 import com.goingbacking.goingbacking.databinding.ActivityFirstInputBinding
 import com.goingbacking.goingbacking.util.UiState
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_first_input.*
 
