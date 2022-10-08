@@ -3,18 +3,11 @@ package com.goingbacking.goingbacking.InputActivityPackage
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.Spinner
 import androidx.activity.viewModels
-import com.goingbacking.goingbacking.MainActivity
-import com.goingbacking.goingbacking.Model.UserInfoDTO
 import com.goingbacking.goingbacking.R
 import com.goingbacking.goingbacking.ViewModel.InputViewModel
 import com.goingbacking.goingbacking.databinding.ActivitySecondInputBinding
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.core.View
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_second_input.*
 

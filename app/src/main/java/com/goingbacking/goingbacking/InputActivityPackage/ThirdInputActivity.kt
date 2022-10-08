@@ -21,6 +21,10 @@ class ThirdInputActivity : AppCompatActivity() {
     var userId : String? = null
     var userInfoDTO : UserInfoDTO? = null
     var mutableList : MutableList<String>? = null
+
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_third_input)
