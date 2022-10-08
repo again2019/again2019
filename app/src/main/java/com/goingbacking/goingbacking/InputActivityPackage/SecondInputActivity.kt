@@ -11,7 +11,6 @@ import com.goingbacking.goingbacking.ViewModel.InputViewModel
 import com.goingbacking.goingbacking.databinding.ActivitySecondInputBinding
 import com.goingbacking.goingbacking.util.UiState
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.activity_second_input.*
 
 @AndroidEntryPoint
 class SecondInputActivity : AppCompatActivity() {
@@ -32,14 +31,14 @@ class SecondInputActivity : AppCompatActivity() {
         }
 
         binding.SecondInputButton2.setOnClickListener {
-            viewModel.updateSecondInput(SecondInputSpinner.selectedItem.toString())
+            viewModel.updateSecondInput(binding.SecondInputSpinner.selectedItem.toString())
             moveThirdInputPage()
         }
 
         val arrayAdapter = ArrayAdapter.createFromResource(this, R.array.type,
         android.R.layout.simple_spinner_item)
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        SecondInputSpinner.setAdapter(arrayAdapter)
+        binding.SecondInputSpinner.setAdapter(arrayAdapter)
 
     }
 

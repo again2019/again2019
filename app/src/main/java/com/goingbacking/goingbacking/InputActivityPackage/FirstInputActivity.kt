@@ -13,7 +13,6 @@ import com.goingbacking.goingbacking.ViewModel.InputViewModel
 import com.goingbacking.goingbacking.databinding.ActivityFirstInputBinding
 import com.goingbacking.goingbacking.util.UiState
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.activity_first_input.*
 
 @AndroidEntryPoint
 class FirstInputActivity : AppCompatActivity() {
@@ -48,17 +47,17 @@ class FirstInputActivity : AppCompatActivity() {
 
     private fun completeAction() {
         // 만약에 edittext가 비어있다면
-        if (TextUtils.isEmpty(nickNameEdittext.text)) {
+        if (TextUtils.isEmpty(binding.nickNameEdittext.text)) {
             Toast.makeText(this, "닉네임을 입력하세요.", Toast.LENGTH_SHORT).show()
         }
-        else if (nickNameEdittext.text.length >= 10) {
+        else if (binding.nickNameEdittext.text.length >= 10) {
             Toast.makeText(this, "닉네임이 너무 길어요.", Toast.LENGTH_SHORT).show()
         }
         // 만약에 edittext가 비어있지 않다면
         else {
             viewModel.addFirstInput(
                 UserInfoDTO(
-                    nickNameEdittext.text.toString(),
+                    binding.nickNameEdittext.text.toString(),
                     null,
                     null,
                     null,
