@@ -43,7 +43,7 @@ class InputViewModel @Inject constructor (
 
     fun updateThirdInput(whatToDo: String) {
         _updateSecondInput.value = UiState.Loading
-        inputRepository.updateSecondInput(whatToDo) {
+        inputRepository.updateThirdInput(whatToDo) {
             _updateSecondInput.value = it
         }
 
