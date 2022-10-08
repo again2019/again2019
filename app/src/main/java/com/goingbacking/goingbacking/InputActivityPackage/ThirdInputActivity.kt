@@ -16,8 +16,6 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class ThirdInputActivity : AppCompatActivity() {
-    var mutableList : MutableList<String> = mutableListOf<String>()
-
     private val binding: ActivityThirdInputBinding by lazy {
         ActivityThirdInputBinding.inflate(layoutInflater)
     }
