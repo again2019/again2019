@@ -7,9 +7,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.activity.viewModels
 import com.goingbacking.goingbacking.InputActivityPackage.FirstInputActivity
-import com.goingbacking.goingbacking.ViewModel.LoginViewModel
 import com.goingbacking.goingbacking.databinding.ActivityLoginBinding
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -18,18 +16,14 @@ import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.activity_login.*
 
 @AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
 
-    //mvvn 패턴으로 안 짠 곳
-    private var auth : FirebaseAuth? = null
+    private var auth = FirebaseAuth.getInstance()
 
 
-    // mvvn 패턴으로 짠 곳
     private lateinit var getResult: ActivityResultLauncher<Intent>
-    private val viewModel: LoginViewModel by viewModels()
     private val binding: ActivityLoginBinding by lazy {
         ActivityLoginBinding.inflate(layoutInflater)
     }
@@ -40,26 +34,16 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
         setGoogleLogin()
 
-        //
-        auth = FirebaseAuth.getInstance()
-
-        email_login_button.setOnClickListener {
+        binding.emailLoginButton.setOnClickListener {
             signinAndSignup()
         }
-        //
 
-        viewModel.userLiveData.observe(this) {
-
-        }
         binding.loginButton.setOnClickListener {
             login()
         }
         getResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             if (it.resultCode == Activity.RESULT_OK) {
-                val task = GoogleSignIn.getSignedInAccountFromIntent(it.data)
                 try {
-                    val account = task.getResult(ApiException::class.java)!!
-                    viewModel.getUser(account.idToken!!)
                     moveFirstInputPage(auth?.currentUser)
 
                     Toast.makeText(this, "로그인 성공", Toast.LENGTH_SHORT)
@@ -73,7 +57,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun signinAndSignup() {
-        auth?.createUserWithEmailAndPassword(email_edittext.text.toString(),password_edittext.text.toString())
+        auth?.createUserWithEmailAndPassword(binding.emailEdittext.text.toString(),binding.passwordEdittext.text.toString())
             ?.addOnCompleteListener {
                     task ->
                 if(task.isSuccessful){
@@ -90,7 +74,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
     fun signinEmail(){
-        auth?.signInWithEmailAndPassword(email_edittext.text.toString(),password_edittext.text.toString())
+        auth?.signInWithEmailAndPassword(binding.emailEdittext.text.toString(),binding.passwordEdittext.text.toString())
             ?.addOnCompleteListener {
                     task ->
                 if(task.isSuccessful){
@@ -114,20 +98,19 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    //mvvn 패턴으로 안짬
 
-     //이미 로그인 시 자동 로그인 하는 부분
-//    override fun onStart() {
-//        super.onStart()
-//        val account = GoogleSignIn.getLastSignedInAccount(this)
-//        // 이미 로그인 한 사용자가 있는 경우
-//        if (auth?.currentUser != null) {
-//            moveMainPage(auth?.currentUser)
-//        } else if (account != null) {
-//            moveMainPage(auth?.currentUser)
-//        }
-//
-//    }
+
+    override fun onStart() {
+        super.onStart()
+        val account = GoogleSignIn.getLastSignedInAccount(this)
+        // 이미 로그인 한 사용자가 있는 경우
+        if (auth?.currentUser != null) {
+            moveMainPage(auth?.currentUser)
+        } else if (account != null) {
+            moveMainPage(auth?.currentUser)
+        }
+
+    }
     fun moveMainPage(user:FirebaseUser?){
         if(user != null){
             startActivity(Intent(this,MainActivity::class.java))
