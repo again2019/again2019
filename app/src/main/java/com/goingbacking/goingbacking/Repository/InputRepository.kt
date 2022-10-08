@@ -1,13 +1,9 @@
 package com.goingbacking.goingbacking.Repository
 
 import com.goingbacking.goingbacking.Model.UserInfoDTO
-import com.goingbacking.goingbacking.Utils
 import com.goingbacking.goingbacking.util.UiState
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
-import kotlinx.android.synthetic.main.activity_first_input.*
-import kotlinx.android.synthetic.main.activity_second_input.*
 
 class InputRepository(
     val user: FirebaseUser?,
