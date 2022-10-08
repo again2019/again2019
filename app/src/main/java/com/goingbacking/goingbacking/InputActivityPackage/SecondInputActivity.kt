@@ -4,10 +4,12 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.activity.viewModels
 import com.goingbacking.goingbacking.R
 import com.goingbacking.goingbacking.ViewModel.InputViewModel
 import com.goingbacking.goingbacking.databinding.ActivitySecondInputBinding
+import com.goingbacking.goingbacking.util.UiState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_second_input.*
 
@@ -23,6 +25,7 @@ class SecondInputActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        SecondInputObserver()
 
         binding.SecondInputButton1.setOnClickListener {
             moveFirstInputPage()
@@ -47,7 +50,19 @@ class SecondInputActivity : AppCompatActivity() {
         moveFirstInputPage()
     }
 
-
+    private fun SecondInputObserver() {
+        viewModel.updateSecondInput.observe(this) {
+                state ->
+            when(state) {
+                is UiState.Failure -> {
+                    Toast.makeText(this, "fail", Toast.LENGTH_SHORT).show()
+                }
+                is UiState.Success -> {
+                    Toast.makeText(this, "success", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
 
     fun moveFirstInputPage() {
         val intent: Intent? = Intent(this, FirstInputActivity::class.java)

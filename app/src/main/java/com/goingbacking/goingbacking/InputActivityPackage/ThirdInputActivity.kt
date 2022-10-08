@@ -34,7 +34,7 @@ class ThirdInputActivity : AppCompatActivity() {
         setContentView(R.layout.activity_third_input)
 
         ThirdInputObserver()
-        
+
         binding.ThirdInputButton1.setOnClickListener {
             moveSecondInputPage()
         }
