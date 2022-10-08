@@ -3,6 +3,7 @@ package com.goingbacking.goingbacking.InputActivityPackage
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.view.children
@@ -12,7 +13,6 @@ import com.goingbacking.goingbacking.databinding.ActivityThirdInputBinding
 import com.goingbacking.goingbacking.util.UiState
 import com.google.android.material.chip.Chip
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.activity_third_input.*
 
 @AndroidEntryPoint
 class ThirdInputActivity : AppCompatActivity() {
@@ -34,20 +34,15 @@ class ThirdInputActivity : AppCompatActivity() {
         }
 
         binding.ThirdInputButton2.setOnClickListener {
-            viewModel.updateThirdInput(mutableList.toString())
-            val intent: Intent? = Intent(this, TutorialActivity::class.java)
-            startActivity(intent)
-            finish()
+            val selected = binding.chipGroup.children.toList()
+                .filter{ (it as Chip).isChecked}.joinToString(",")
+                {(it as Chip).text}
+
+            viewModel.updateThirdInput(selected)
+            moveTutorialPage()
         }
 
-        //눌러진 것이 있는가?
-        chip_group.children.forEach {
-            (it as Chip).setOnCheckedChangeListener {
-                buttonView, isChecked -> handleSelection()
-            }
-        }
     }
-
 
     override fun onBackPressed() {
         super.onBackPressed()
@@ -68,13 +63,6 @@ class ThirdInputActivity : AppCompatActivity() {
         }
     }
 
-    private fun handleSelection() {
-        chip_group.checkedChipIds.forEach {
-            val chip = findViewById<Chip>(it)
-            mutableList?.add("\n${chip.text}")
-        }
-    }
-
 
     fun moveSecondInputPage() {
         val intent: Intent? = Intent(this, SecondInputActivity::class.java)
@@ -82,5 +70,12 @@ class ThirdInputActivity : AppCompatActivity() {
         overridePendingTransition(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right)
         finish()
 
+    }
+
+    fun moveTutorialPage() {
+        val intent: Intent? = Intent(this, TutorialActivity::class.java)
+        startActivity(intent)
+        overridePendingTransition(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right)
+        finish()
     }
 }

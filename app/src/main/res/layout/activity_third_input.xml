@@ -27,13 +27,13 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="55dp"
         android:includeFontPadding="false"
-        android:text="자기게발 입력"
+        android:text="자기계발 입력"
         android:textSize="24dp"
-        tools:ignore="HardcodedText,SpUsage" />
+        />
 
 
     <com.google.android.material.chip.ChipGroup
-        android:id="@+id/chip_group"
+        android:id="@+id/chipGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
