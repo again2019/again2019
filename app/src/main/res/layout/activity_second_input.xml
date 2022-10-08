@@ -22,16 +22,5 @@
         android:id="@+id/SecondInputSpinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
-
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="자신의 집 주소"/>
-
-    <EditText
-        android:id="@+id/SecondInputAddress"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
+    
 </LinearLayout>

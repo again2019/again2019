@@ -21,12 +21,23 @@ class InputViewModel @Inject constructor (
     val addFirstInput: LiveData<UiState<String>>
         get() = _addFirstInput
 
+    private val _updateSecondInput = MutableLiveData<UiState<String>>()
+    val updateSecondInput: LiveData<UiState<String>>
+        get() = _updateSecondInput
 
     fun addFirstInput(userInfoDTO: UserInfoDTO) {
         _addFirstInput.value = UiState.Loading
         inputRepository.addFirstInput(userInfoDTO) {
             _addFirstInput.value = it
         }
+    }
+
+    fun updateSecondInput(userType: String) {
+        _updateSecondInput.value = UiState.Loading
+        inputRepository.updateSecondInput(userType) {
+            _updateSecondInput.value = it
+        }
+
     }
 
 

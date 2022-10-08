@@ -5,5 +5,5 @@ import com.goingbacking.goingbacking.util.UiState
 
 interface InputRepositoryIF {
     fun addFirstInput(userInfoDTO : UserInfoDTO, result: (UiState<String>) -> Unit)
-
+    fun updateSecondInput(userType: String, result: (UiState<String>) -> Unit)
 }

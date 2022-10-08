@@ -1,5 +1,6 @@
-package com.goingbacking.goingbacking
+package com.goingbacking.goingbacking.DI
 
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import dagger.Module
 import dagger.Provides
@@ -16,4 +17,14 @@ object FirebaseModule {
     fun provideFireStoreInstance(): FirebaseFirestore{
         return FirebaseFirestore.getInstance()
     }
+
+    @Provides
+    @Singleton
+    fun provideFirebaseAuthInstance() : FirebaseAuth {
+        return FirebaseAuth.getInstance()
+    }
+
+
+
+
 }
