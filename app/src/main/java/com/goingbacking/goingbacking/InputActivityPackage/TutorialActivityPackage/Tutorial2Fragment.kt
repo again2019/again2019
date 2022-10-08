@@ -1,4 +1,4 @@
-package com.goingbacking.goingbacking.TutorialActivityPackage
+package com.goingbacking.goingbacking.InputActivityPackage.TutorialActivityPackage
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

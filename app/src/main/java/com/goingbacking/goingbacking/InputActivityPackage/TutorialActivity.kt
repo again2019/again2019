@@ -5,8 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.goingbacking.goingbacking.Adapter.TutorialViewPagerAdapter
 import com.goingbacking.goingbacking.MainActivity
-import com.goingbacking.goingbacking.TutorialActivityPackage.Tutorial1Fragment
-import com.goingbacking.goingbacking.TutorialActivityPackage.Tutorial2Fragment
+import com.goingbacking.goingbacking.InputActivityPackage.TutorialActivityPackage.Tutorial1Fragment
+import com.goingbacking.goingbacking.InputActivityPackage.TutorialActivityPackage.Tutorial2Fragment
 import com.goingbacking.goingbacking.databinding.ActivityTutorialBinding
 
 class TutorialActivity : AppCompatActivity() {
