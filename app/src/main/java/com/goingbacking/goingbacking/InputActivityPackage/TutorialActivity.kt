@@ -5,28 +5,31 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.goingbacking.goingbacking.Adapter.TutorialViewPagerAdapter
 import com.goingbacking.goingbacking.MainActivity
-import com.goingbacking.goingbacking.R
 import com.goingbacking.goingbacking.TutorialActivityPackage.Tutorial1Fragment
 import com.goingbacking.goingbacking.TutorialActivityPackage.Tutorial2Fragment
 import com.goingbacking.goingbacking.databinding.ActivityTutorialBinding
-import kotlinx.android.synthetic.main.activity_tutorial.*
 
 class TutorialActivity : AppCompatActivity() {
     private lateinit var tutorialViewPagerAdapter : TutorialViewPagerAdapter
-    private lateinit var binding : ActivityTutorialBinding
+
+    private val binding:  ActivityTutorialBinding by lazy {
+        ActivityTutorialBinding.inflate(layoutInflater)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        binding = ActivityTutorialBinding.inflate(layoutInflater)
-        initAdapter()
         setContentView(binding.root)
+        initAdapter()
 
-
-        TutorialButton.setOnClickListener {
-            var intent: Intent? = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-            finish()
+        binding.TutorialButton.setOnClickListener {
+            moveMainPage()
         }
+    }
+
+    private fun moveMainPage() {
+        var intent: Intent? = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 
     private fun initAdapter() {
@@ -37,4 +40,6 @@ class TutorialActivity : AppCompatActivity() {
         binding.TutorialViewPager.adapter = tutorialViewPagerAdapter
 
     }
+
+
 }
