@@ -1,13 +1,10 @@
 package com.goingbacking.goingbacking.ViewModel
 
-import android.app.Application
 import androidx.lifecycle.*
 import com.goingbacking.goingbacking.Model.UserInfoDTO
-import com.goingbacking.goingbacking.Repository.InputRepository
 import com.goingbacking.goingbacking.Repository.InputRepositoryIF
 import com.goingbacking.goingbacking.util.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -25,6 +22,10 @@ class InputViewModel @Inject constructor (
     val updateSecondInput: LiveData<UiState<String>>
         get() = _updateSecondInput
 
+    private val _updateThirdInput = MutableLiveData<UiState<String>>()
+    val updateThirdInput: LiveData<UiState<String>>
+        get() = _updateThirdInput
+
     fun addFirstInput(userInfoDTO: UserInfoDTO) {
         _addFirstInput.value = UiState.Loading
         inputRepository.addFirstInput(userInfoDTO) {
@@ -35,6 +36,14 @@ class InputViewModel @Inject constructor (
     fun updateSecondInput(userType: String) {
         _updateSecondInput.value = UiState.Loading
         inputRepository.updateSecondInput(userType) {
+            _updateSecondInput.value = it
+        }
+
+    }
+
+    fun updateThirdInput(whatToDo: String) {
+        _updateSecondInput.value = UiState.Loading
+        inputRepository.updateSecondInput(whatToDo) {
             _updateSecondInput.value = it
         }
 
