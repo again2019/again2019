@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.goingbacking.goingbacking.R
 import com.goingbacking.goingbacking.databinding.FragmentForthMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
