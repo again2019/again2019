@@ -25,6 +25,7 @@ import androidx.core.view.updateLayoutParams
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.goingbacking.goingbacking.Adapter.CalendarEventAdapter
 import com.goingbacking.goingbacking.LoginActivity
 import com.goingbacking.goingbacking.MainActivityPackage.ThirdMainFragmentPackage.ScheduleInputActivity
 import com.goingbacking.goingbacking.Model.CalendarInfoDTO
@@ -67,7 +68,7 @@ import java.util.*
 
 @AndroidEntryPoint
 class ThirdMainFragment : Fragment() {
-    private val eventsAdapter = Example3EventsAdapter {
+    private val eventsAdapter = CalendarEventAdapter {
         AlertDialog.Builder(requireContext())
             .setMessage(R.string.example_3_dialog_delete_confirmation)
             .setPositiveButton(R.string.delete) { _, _ ->
@@ -572,36 +573,7 @@ class ThirdMainFragment : Fragment() {
         visibility = View.INVISIBLE
     }
 
-
-
 }
-
-class Example3EventsAdapter(val onClick: (Event) -> Unit) :
-    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-
-    var events = mutableListOf<Event>()
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        var view = LayoutInflater.from(parent.context).inflate(R.layout.example_3_event_item_view, parent, false)
-
-        return CustomViewHolder(view)
-    }
-
-    inner class CustomViewHolder(view : View) : RecyclerView.ViewHolder(view)
-
-    override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, position: Int) {
-        var view = (viewHolder as CustomViewHolder).itemView
-
-        view.itemEventText.text = events[position].dest
-        view.setOnClickListener { onClick(events[position]) }
-
-    }
-
-    override fun getItemCount(): Int = events.size
-
-
-}
-
 
 
 
