@@ -24,7 +24,6 @@ import java.util.Calendar.*
 
 @AndroidEntryPoint
 class ScheduleInputActivity : AppCompatActivity() {
-    var destinationPlace: String? = null
     var list : MutableList<Day>? = null
     var home1time: Int? = null
     var home2time: Int? = null
@@ -56,7 +55,7 @@ class ScheduleInputActivity : AppCompatActivity() {
         ScheduleInputObserver()
         DateObserver()
 
-        destinationPlace = binding.destinationPlaceEditText.text.toString()
+
 
         binding.durationCalendarView.selectionManager = RangeSelectionManager(OnDaySelectedListener {
             if(binding.durationCalendarView.selectedDates.size <= 0) return@OnDaySelectedListener
@@ -211,7 +210,7 @@ class ScheduleInputActivity : AppCompatActivity() {
 
         // destination start-end
         var event = Event()
-        event!!.dest = "임시"
+        event!!.dest = binding.destinationPlaceEditText.text.toString()
         event!!.date = year + "-" +  month + "-" + dayofmonth
         event!!.start = home2time
         event!!.end = dest1time
