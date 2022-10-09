@@ -99,14 +99,14 @@ class ThirdMainFragment : Fragment() {
         binding = FragmentThirdMainBinding.inflate(layoutInflater)
 
         init()
-//        firebaseFirestore?.collection("Date")?.document(userId!!)
-//            ?.get()?.addOnSuccessListener { document ->
-//                Log.d("AAAAAA", document.data!!["date"].toString())
-//                yearList = document.data!!["date"].toString().split(',').toMutableList()
-//
-//                saveEvent(yearList)
-//
-//            }
+        firebaseFirestore?.collection("Date")?.document(userId!!)
+            ?.get()?.addOnSuccessListener { document ->
+                Log.d("AAAAAA", document.data!!["date"].toString())
+                yearList = document.data!!["date"].toString().split(',').toMutableList()
+
+                saveEvent(yearList)
+
+            }
 
         binding.exThreeRv.apply {
             layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
@@ -164,21 +164,21 @@ class ThirdMainFragment : Fragment() {
                             textView.setTextColorRes(R.color.example_3_black)
                             textView.background = null
 
-//                            firebaseFirestore?.collection("Date")?.document(userId!!)?.get()
-//                                ?.addOnSuccessListener {
-//                                    document ->
-//                                    document1 = document.data!!["date"].toString()
-//                                    x = document1!!.split(',')
-//
-//
-//                                    if(x!!.contains(day.date.toString())) {
-//                                        Log.d("day.date", x.toString())
-//                                        Log.d("day.date", day.date.toString())
-//
-//                                        dotView.isVisible = true
-//
-//                                    }
-//                                }
+                            firebaseFirestore?.collection("Date")?.document(userId!!)?.get()
+                                ?.addOnSuccessListener {
+                                    document ->
+                                    document1 = document.data!!["date"].toString()
+                                    x = document1!!.split(',')
+
+
+                                    if(x!!.contains(day.date.toString())) {
+                                        Log.d("day.date", x.toString())
+                                        Log.d("day.date", day.date.toString())
+
+                                        dotView.isVisible = true
+
+                                    }
+                                }
 
 
                         }
