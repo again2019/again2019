@@ -2,6 +2,8 @@ package com.goingbacking.goingbacking.DI
 
 import com.goingbacking.goingbacking.Repository.InputRepository
 import com.goingbacking.goingbacking.Repository.InputRepositoryIF
+import com.goingbacking.goingbacking.Repository.MainRepository
+import com.goingbacking.goingbacking.Repository.MainRepositoryIF
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
@@ -27,6 +29,15 @@ object RepositoryModule {
         return InputRepository(user, firebaseFirestore)
     }
 
+
+    @Provides
+    @Singleton
+    fun provideMainRepository(
+        user: FirebaseUser?,
+        firebaseFirestore: FirebaseFirestore
+    ) : MainRepositoryIF {
+        return MainRepository(user, firebaseFirestore)
+    }
 
 
 
