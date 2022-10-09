@@ -6,8 +6,8 @@ import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.LiveData
 import com.goingbacking.goingbacking.Model.Event
-import com.goingbacking.goingbacking.R
 import com.applikeysolutions.cosmocalendar.model.Day
 import com.applikeysolutions.cosmocalendar.selection.OnDaySelectedListener
 import com.applikeysolutions.cosmocalendar.selection.RangeSelectionManager
@@ -15,8 +15,6 @@ import com.goingbacking.goingbacking.Model.DateDTO
 import com.goingbacking.goingbacking.ViewModel.MainViewModel
 import com.goingbacking.goingbacking.databinding.ActivityScheduleInputBinding
 import com.goingbacking.goingbacking.util.UiState
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
 import java.util.*
@@ -52,10 +50,8 @@ class ScheduleInputActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        ScheduleInputObserver()
-        DateObserver()
-
-
+        DateObserver(viewModel.dateDTOs)
+        DateObserver(viewModel.eventDTO)
 
         binding.durationCalendarView.selectionManager = RangeSelectionManager(OnDaySelectedListener {
             if(binding.durationCalendarView.selectedDates.size <= 0) return@OnDaySelectedListener
@@ -66,7 +62,7 @@ class ScheduleInputActivity : AppCompatActivity() {
                 home1time = (hourOfDay * 60) + minute
                 binding.home1Text.text = "${hourOfDay}-${minute}"
             }
-            TimePickerDialog(this, timeSetListener, cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE),false).show()
+            TimePickerDialog(this, timeSetListener, cal.get(HOUR_OF_DAY), cal.get(MINUTE),false).show()
         }
 
         binding.home2Button.setOnClickListener {
@@ -74,7 +70,7 @@ class ScheduleInputActivity : AppCompatActivity() {
                 home2time = (hourOfDay * 60) + minute
                 binding.home2Text.text = "${hourOfDay}-${minute}"
             }
-            TimePickerDialog(this, timeSetListener, cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE),false).show()
+            TimePickerDialog(this, timeSetListener, cal.get(HOUR_OF_DAY), cal.get(MINUTE),false).show()
         }
 
         binding.dest1Button.setOnClickListener {
@@ -82,7 +78,7 @@ class ScheduleInputActivity : AppCompatActivity() {
                 dest1time = (hourOfDay * 60) + minute
                 binding.dest1Text.text ="${hourOfDay}-${minute}"
             }
-            TimePickerDialog(this, timeSetListener, cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE),false).show()
+            TimePickerDialog(this, timeSetListener, cal.get(HOUR_OF_DAY), cal.get(MINUTE),false).show()
         }
 
         binding.dest2Button.setOnClickListener {
@@ -90,59 +86,51 @@ class ScheduleInputActivity : AppCompatActivity() {
                 dest2time = (hourOfDay * 60) + minute
                 binding.dest2Text.text = "${hourOfDay}-${minute}"
             }
-            TimePickerDialog(this, timeSetListener, cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE),false).show()
+            TimePickerDialog(this, timeSetListener, cal.get(HOUR_OF_DAY), cal.get(MINUTE),false).show()
         }
 
         binding.MondayCheckBox.setOnCheckedChangeListener{
             buttonView, isChecked ->
             if (isChecked) {
                 monday = true
-                Toast.makeText(this, "sss", Toast.LENGTH_SHORT).show()
             }
         }
         binding.TuesdayCheckBox.setOnCheckedChangeListener{
                 buttonView, isChecked ->
             if (isChecked) {
                 tuesday = true
-                Toast.makeText(this, "sss", Toast.LENGTH_SHORT).show()
             }
         }
         binding.WednesdayCheckBox.setOnCheckedChangeListener{
                 buttonView, isChecked ->
             if (isChecked) {
                 wednesday = true
-                Toast.makeText(this, "sss", Toast.LENGTH_SHORT).show()
             }
         }
         binding.ThursdayCheckBox.setOnCheckedChangeListener{
                 buttonView, isChecked ->
             if (isChecked) {
                 thursday = true
-                Toast.makeText(this, "sss", Toast.LENGTH_SHORT).show()
             }
         }
         binding.FridayCheckBox.setOnCheckedChangeListener{
                 buttonView, isChecked ->
             if (isChecked) {
                 friday = true
-                Toast.makeText(this, "sss", Toast.LENGTH_SHORT).show()
             }
         }
         binding.SaturdayCheckBox.setOnCheckedChangeListener{
                 buttonView, isChecked ->
             if (isChecked) {
                 saturday = true
-                Toast.makeText(this, "sss", Toast.LENGTH_SHORT).show()
             }
         }
         binding.SundayCheckBox.setOnCheckedChangeListener{
                 buttonView, isChecked ->
             if (isChecked) {
                 sunday = true
-                Toast.makeText(this, "sss", Toast.LENGTH_SHORT).show()
             }
         }
-
 
 
         binding.finishButton.setOnClickListener {
@@ -164,8 +152,6 @@ class ScheduleInputActivity : AppCompatActivity() {
                 yearList.add(year + '-' + month + '-' + dayofmonth)
 
 
-
-
                 if(dayofweek == "2" && monday) calendarInfoDatabaseInPut(day)
                 else if (dayofweek == "3" && tuesday) calendarInfoDatabaseInPut(day)
                 else if (dayofweek == "4" && wednesday) calendarInfoDatabaseInPut(day)
@@ -174,11 +160,8 @@ class ScheduleInputActivity : AppCompatActivity() {
                 else if (dayofweek == "7" && saturday) calendarInfoDatabaseInPut(day)
                 else if (dayofweek == "1" && sunday) calendarInfoDatabaseInPut(day)
 
-
             }
             dateDTO!!.date = yearList.joinToString(",")
-            Log.d("experiment", dateDTO!!.date.toString())
-
             viewModel.addDateInfo(dateDTO!!)
             finish()
 
@@ -202,12 +185,6 @@ class ScheduleInputActivity : AppCompatActivity() {
 
 
 
-
-
-
-
-
-
         // destination start-end
         var event = Event()
         event!!.dest = binding.destinationPlaceEditText.text.toString()
@@ -225,14 +202,13 @@ class ScheduleInputActivity : AppCompatActivity() {
     }
 
 
-
     fun convertDateToTimeStamp(date: String) : Long {
         val sdf = SimpleDateFormat("yyyy-MM-dd-hh-mm")
         return sdf.parse(date).time
     }
 
-    private fun DateObserver() {
-        viewModel.dateDTOs.observe(this) { state ->
+    private fun DateObserver(liveData: LiveData<UiState<String>>) {
+        liveData.observe(this) { state ->
             when(state) {
                 is UiState.Failure -> {
                     Toast.makeText(this, "fail", Toast.LENGTH_SHORT).show()
@@ -245,16 +221,4 @@ class ScheduleInputActivity : AppCompatActivity() {
     }
 
 
-    private fun ScheduleInputObserver() {
-        viewModel.eventDTO.observe(this) { state ->
-            when(state) {
-                is UiState.Failure -> {
-                    Toast.makeText(this, "fail", Toast.LENGTH_SHORT).show()
-                }
-                is UiState.Success -> {
-                    Toast.makeText(this, "success", Toast.LENGTH_SHORT).show()
-                }
-            }
-        }
-    }
 }
