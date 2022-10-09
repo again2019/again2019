@@ -19,79 +19,52 @@ import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import com.goingbacking.goingbacking.*
 import com.goingbacking.goingbacking.Adapter.PagerAdapter
+import com.goingbacking.goingbacking.databinding.FragmentFirstMainBinding
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_first_main.*
 import kotlinx.android.synthetic.main.fragment_first_main.view.*
 import java.util.*
 import java.util.concurrent.TimeUnit
 
+@AndroidEntryPoint
 class FirstMainFragment : Fragment() {
 
-
-
-
+    //임시 코드
     enum class TimerState {
-        Stopped, Paused, Running
+        start, stop, pause
     }
+    //임시 코드
 
-
+    lateinit var binding :FragmentFirstMainBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_first_main, container, false)
+        binding = FragmentFirstMainBinding.inflate(layoutInflater)
 
         val paperAdapter = PagerAdapter(childFragmentManager)
-        view.view_pager.adapter = paperAdapter
-        view.indicator.setViewPager(view.view_pager)
+        binding.viewPager.adapter = paperAdapter
+        binding.indicator.setViewPager(binding.viewPager)
 
-        var calendar = Calendar.getInstance()
-        calendar.timeInMillis = System.currentTimeMillis()
-
-
-
-
-
-
-
-
-
-
-//        view.tmp.setOnClickListener {
-//            var sharedPreferences = requireActivity().getSharedPreferences("time",
-//                AppCompatActivity.MODE_PRIVATE
-//            )
-//            var exp1 :Int? = sharedPreferences.getInt("TodayTime", 0)
-//            var exp2 : String? = sharedPreferences.getString("TodayStrTime", "")
-//            var exp2_split = exp2!!.split(',')
-//
-//
-//            Log.d("AAAAAAAA", exp1.toString())
-//            Log.d("AAAAAAAA", exp2!!)
-//            Log.d("AAAAAAAA", exp2_split!!.toString())
-//        }
-
-
-
-
-        view.tmpTimeButton.setOnClickListener {
-            val intent = Intent(requireContext(), TmpTimeActivity::class.java)
-            startActivity(intent)
+        binding.tmpTimeButton.setOnClickListener {
+            moveTmpActivity()
         }
-        return view
-    }
 
-
-
-
-
-
-
-
-    override fun onPause() {
-        super.onPause()
+        if (this:: binding.isInitialized) {
+            return binding.root
+        } else {
+            binding = FragmentFirstMainBinding.inflate(layoutInflater)
+            return binding.root
+        }
 
 
     }
+
+    private fun moveTmpActivity() {
+        val intent = Intent(requireContext(), TmpTimeActivity::class.java)
+        startActivity(intent)
+    }
+
 }
