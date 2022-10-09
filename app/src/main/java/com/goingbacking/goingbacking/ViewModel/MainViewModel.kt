@@ -19,8 +19,8 @@ class MainViewModel @Inject constructor (
                 get() = _userInfoDTOs
 
     fun getFifthUserInfo()  {
-            _userInfoDTOs.value = mainRepository.getFifthUserInfo()
-
+            _userInfoDTOs.value = UiState.Loading
+            mainRepository.getFifthUserInfo { _userInfoDTOs.value = it }
             }
 
 }

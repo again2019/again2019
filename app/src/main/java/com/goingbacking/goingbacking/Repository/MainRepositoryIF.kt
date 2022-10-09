@@ -5,6 +5,6 @@ import com.goingbacking.goingbacking.util.UiState
 
 interface MainRepositoryIF {
 
-    fun getFifthUserInfo() : UiState<UserInfoDTO>
+    fun getFifthUserInfo(result: (UiState<UserInfoDTO>) -> Unit)
 
 }

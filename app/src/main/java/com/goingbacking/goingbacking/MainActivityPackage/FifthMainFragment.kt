@@ -26,56 +26,37 @@ import kotlinx.android.synthetic.main.fragment_fifth_main.view.*
 
 @AndroidEntryPoint
 class FifthMainFragment : Fragment() {
-    var auth : FirebaseAuth? = null
-    var firebaseFirestore : FirebaseFirestore? = null
-    var userId : String? = null
-    var userInfoDTO : UserInfoDTO? = null
-    var userNickName: String? = null
-    var userType: String? = null
-    var whatToDo: String? = null
-
-
     lateinit var binding: FragmentFifthMainBinding
     val viewModel: MainViewModel by viewModels()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentFifthMainBinding.inflate(layoutInflater)
-
-        init()
-
-
         binding.changeInfoTextView.setOnClickListener {
             moveChangeInfoActivity()
         }
-        val source = Source.CACHE
-        firebaseFirestore?.collection("UserInfo")?.document(userId!!)
-            ?.get(source)?.addOnSuccessListener { documentSnapShot ->
 
-                userNickName = documentSnapShot.getString("userNickName")
-                userType = documentSnapShot.getString("userType")
-                whatToDo = documentSnapShot.getString("whatToDo")
-                myNickNameTextView.text = userNickName
-                myTypeTextView.text = userType
-                myWhatToDoTextView.text = whatToDo
-                return@addOnSuccessListener
-            }
-
-
-
-
-
-        return binding.root
+        if(this::binding.isInitialized) {
+            return binding.root
+        } else {
+            binding = FragmentFifthMainBinding.inflate(layoutInflater)
+            return binding.root
+        }
     }
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        observer()
+    }
+
+    private fun observer() {
         viewModel.getFifthUserInfo()
         viewModel.userInfoDTO.observe(viewLifecycleOwner) { state ->
             when(state) {
                 is UiState.Success -> {
-                    Log.e("experiment", "success")
+                    binding.myNickNameTextView.text = state.data.userNickName
+                    binding.myTypeTextView.text = state.data.userType
+                    binding.myWhatToDoTextView.text = state.data.whatToDo
                 }
                 is UiState.Failure -> {
                     Log.e("experiment", state.error.toString())
@@ -86,19 +67,11 @@ class FifthMainFragment : Fragment() {
     }
 
 
-
-    fun init() {
-        auth = FirebaseAuth.getInstance()
-        firebaseFirestore = FirebaseFirestore.getInstance()
-        userId = auth?.currentUser?.uid
-        userInfoDTO = UserInfoDTO()
-    }
-
     fun moveChangeInfoActivity() {
         val intent : Intent? = Intent(activity, ChangeInfoActivity::class.java)
-        intent?.putExtra("userNickName", userNickName)
-        intent?.putExtra("userType", userType)
-        intent?.putExtra("whatToDo", whatToDo)
+        intent?.putExtra("userNickName", "")
+        intent?.putExtra("userType", "userType")
+        intent?.putExtra("whatToDo", "whatToDo")
         startActivity(intent)
     }
 
