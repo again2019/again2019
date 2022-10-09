@@ -29,6 +29,8 @@ class FifthMainFragment : Fragment() {
     lateinit var binding: FragmentFifthMainBinding
     val viewModel: MainViewModel by viewModels()
 
+
+    // View를 생성하는 function
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentFifthMainBinding.inflate(layoutInflater)
         binding.changeInfoTextView.setOnClickListener {
@@ -43,10 +45,12 @@ class FifthMainFragment : Fragment() {
         }
     }
 
+    // 생성된 View를 처리하는 function
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         observer()
+
     }
 
     private fun observer() {
