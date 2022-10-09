@@ -4,6 +4,7 @@ import android.app.TimePickerDialog
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.goingbacking.goingbacking.Model.Event
 import com.goingbacking.goingbacking.R
@@ -11,20 +12,18 @@ import com.applikeysolutions.cosmocalendar.model.Day
 import com.applikeysolutions.cosmocalendar.selection.OnDaySelectedListener
 import com.applikeysolutions.cosmocalendar.selection.RangeSelectionManager
 import com.goingbacking.goingbacking.Model.DateDTO
+import com.goingbacking.goingbacking.ViewModel.MainViewModel
+import com.goingbacking.goingbacking.databinding.ActivityScheduleInputBinding
+import com.goingbacking.goingbacking.util.UiState
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import kotlinx.android.synthetic.main.activity_schedule_input.*
+import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.Calendar.*
 
-data class dateInfo (var year : Int? = null, var monthOfYear :Int? = null, var dayOfMonth : Int? = null)
+@AndroidEntryPoint
 class ScheduleInputActivity : AppCompatActivity() {
-    var auth : FirebaseAuth? = null
-    var firebaseFirestore : FirebaseFirestore? = null
-    var userId : String? = null
-
-
     var destinationPlace: String? = null
     var list : MutableList<Day>? = null
     var home1time: Int? = null
@@ -33,7 +32,7 @@ class ScheduleInputActivity : AppCompatActivity() {
     var dest2time: Int? = null
     val cal = Calendar.getInstance()
     var yearmonthday : String? = null
-    var dateDTO : DateDTO? = null
+    var dateDTO : DateDTO? = DateDTO()
 
     var monday : Boolean = false
     var tuesday : Boolean = false
@@ -45,104 +44,99 @@ class ScheduleInputActivity : AppCompatActivity() {
 
     private var yearList = mutableListOf<String>()
 
-
-
-
+    private val binding: ActivityScheduleInputBinding by lazy {
+        ActivityScheduleInputBinding.inflate(layoutInflater)
+    }
+    val viewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_schedule_input)
-        init()
+        setContentView(binding.root)
 
+        ScheduleInputObserver()
+        DateObserver()
 
-        destinationPlace = destinationPlaceEditText.text.toString()
+        destinationPlace = binding.destinationPlaceEditText.text.toString()
 
-        durationCalendarView.selectionManager = RangeSelectionManager(OnDaySelectedListener {
-            if(durationCalendarView.selectedDates.size <= 0) return@OnDaySelectedListener
-            list = durationCalendarView.selectedDays
-            Log.d("TTTT","${durationCalendarView.selectedDays}")
+        binding.durationCalendarView.selectionManager = RangeSelectionManager(OnDaySelectedListener {
+            if(binding.durationCalendarView.selectedDates.size <= 0) return@OnDaySelectedListener
+            list = binding.durationCalendarView.selectedDays
         })
-        home1Button.setOnClickListener {
+        binding.home1Button.setOnClickListener {
             val timeSetListener = TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
                 home1time = (hourOfDay * 60) + minute
-                home1Text.text = "${hourOfDay}-${minute}"
+                binding.home1Text.text = "${hourOfDay}-${minute}"
             }
             TimePickerDialog(this, timeSetListener, cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE),false).show()
         }
 
-        home2Button.setOnClickListener {
+        binding.home2Button.setOnClickListener {
             val timeSetListener = TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
                 home2time = (hourOfDay * 60) + minute
-                home2Text.text = "${hourOfDay}-${minute}"
+                binding.home2Text.text = "${hourOfDay}-${minute}"
             }
             TimePickerDialog(this, timeSetListener, cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE),false).show()
         }
 
-        dest1Button.setOnClickListener {
+        binding.dest1Button.setOnClickListener {
             val timeSetListener = TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
                 dest1time = (hourOfDay * 60) + minute
-                dest1Text.text ="${hourOfDay}-${minute}"
+                binding.dest1Text.text ="${hourOfDay}-${minute}"
             }
             TimePickerDialog(this, timeSetListener, cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE),false).show()
         }
 
-        dest2Button.setOnClickListener {
+        binding.dest2Button.setOnClickListener {
             val timeSetListener = TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
                 dest2time = (hourOfDay * 60) + minute
-                dest2Text.text = "${hourOfDay}-${minute}"
+                binding.dest2Text.text = "${hourOfDay}-${minute}"
             }
             TimePickerDialog(this, timeSetListener, cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE),false).show()
         }
 
-        if(MondayCheckBox.isChecked) {
-            monday = true
-            Toast.makeText(this,"MondayCheckBox.isChecked", Toast.LENGTH_SHORT ).show()
-        }
-
-
-        MondayCheckBox.setOnCheckedChangeListener{
+        binding.MondayCheckBox.setOnCheckedChangeListener{
             buttonView, isChecked ->
             if (isChecked) {
                 monday = true
                 Toast.makeText(this, "sss", Toast.LENGTH_SHORT).show()
             }
         }
-        TuesdayCheckBox.setOnCheckedChangeListener{
+        binding.TuesdayCheckBox.setOnCheckedChangeListener{
                 buttonView, isChecked ->
             if (isChecked) {
                 tuesday = true
                 Toast.makeText(this, "sss", Toast.LENGTH_SHORT).show()
             }
         }
-        WednesdayCheckBox.setOnCheckedChangeListener{
+        binding.WednesdayCheckBox.setOnCheckedChangeListener{
                 buttonView, isChecked ->
             if (isChecked) {
                 wednesday = true
                 Toast.makeText(this, "sss", Toast.LENGTH_SHORT).show()
             }
         }
-        ThursdayCheckBox.setOnCheckedChangeListener{
+        binding.ThursdayCheckBox.setOnCheckedChangeListener{
                 buttonView, isChecked ->
             if (isChecked) {
                 thursday = true
                 Toast.makeText(this, "sss", Toast.LENGTH_SHORT).show()
             }
         }
-        FridayCheckBox.setOnCheckedChangeListener{
+        binding.FridayCheckBox.setOnCheckedChangeListener{
                 buttonView, isChecked ->
             if (isChecked) {
                 friday = true
                 Toast.makeText(this, "sss", Toast.LENGTH_SHORT).show()
             }
         }
-        SaturdayCheckBox.setOnCheckedChangeListener{
+        binding.SaturdayCheckBox.setOnCheckedChangeListener{
                 buttonView, isChecked ->
             if (isChecked) {
                 saturday = true
                 Toast.makeText(this, "sss", Toast.LENGTH_SHORT).show()
             }
         }
-        SundayCheckBox.setOnCheckedChangeListener{
+        binding.SundayCheckBox.setOnCheckedChangeListener{
                 buttonView, isChecked ->
             if (isChecked) {
                 sunday = true
@@ -152,7 +146,7 @@ class ScheduleInputActivity : AppCompatActivity() {
 
 
 
-        finishButton.setOnClickListener {
+        binding.finishButton.setOnClickListener {
             for(day in list!!) {
                 var dayofweek = day.calendar.get(DAY_OF_WEEK).toString()
 
@@ -169,12 +163,9 @@ class ScheduleInputActivity : AppCompatActivity() {
                 }
 
                 yearList.add(year + '-' + month + '-' + dayofmonth)
-                var x = yearList.joinToString(",")
-                Log.d("TTTT", x)
 
-                dateDTO!!.date = x
 
-                firebaseFirestore?.collection("TmpDate")?.document(userId!!)?.set(dateDTO!!)
+
 
                 if(dayofweek == "2" && monday) calendarInfoDatabaseInPut(day)
                 else if (dayofweek == "3" && tuesday) calendarInfoDatabaseInPut(day)
@@ -186,11 +177,16 @@ class ScheduleInputActivity : AppCompatActivity() {
 
 
             }
-        finish()
+            dateDTO!!.date = yearList.joinToString(",")
+            Log.d("experiment", dateDTO!!.date.toString())
+
+            viewModel.addDateInfo(dateDTO!!)
+            finish()
 
         }
 
     }
+
 
     fun calendarInfoDatabaseInPut(day: Day) {
         var year = day.calendar.get(YEAR).toString()
@@ -214,54 +210,52 @@ class ScheduleInputActivity : AppCompatActivity() {
 
 
         // destination start-end
-        var event1 = Event()
-        event1!!.dest = "임시"
-        event1!!.date = year + "-" +  month + "-" + dayofmonth
-        event1!!.start = home2time
-        event1!!.end = dest1time
-        event1!!.start_t = home2time!!-home1time!!
-        event1!!.end_t = dest2time!! - dest1time!!
+        var event = Event()
+        event!!.dest = "임시"
+        event!!.date = year + "-" +  month + "-" + dayofmonth
+        event!!.start = home2time
+        event!!.end = dest1time
+        event!!.start_t = home2time!!-home1time!!
+        event!!.end_t = dest2time!! - dest1time!!
 
 
-//        event1!!.start_t = convertDateToTimeStamp(year + "-" +  month + "-" + dayofmonth + "-" + home2Text.text.toString())
-//        event1!!.end_t = convertDateToTimeStamp(year + "-" +  month + "-" + dayofmonth + "-" + dest1Text.text.toString())
 
-
-//        var event2 = Event()
-//        event2!!.dest = "move1"
-//        event2!!.date = year + "-" +  month + "-" + dayofmonth
-//        event2!!.start = home1time
-//        event2!!.end = home2time
-//        event2!!.start_t = convertDateToTimeStamp(year + "-" +  month + "-" + dayofmonth + "-" + home1Text.text.toString())
-//        event2!!.end_t = convertDateToTimeStamp(year + "-" +  month + "-" + dayofmonth + "-" + home2Text.text.toString())
-//
-//        var event3 = Event()
-//        event3!!.dest = "move2"
-//        event3!!.date = year + "-" +  month + "-" + dayofmonth
-//        event3!!.start = dest1time
-//        event3!!.end = dest2time
-//        event3!!.start_t = convertDateToTimeStamp(year + "-" +  month + "-" + dayofmonth + "-" + dest1Text.text.toString())
-//        event3!!.end_t = convertDateToTimeStamp(year + "-" +  month + "-" + dayofmonth + "-" + dest2Text.text.toString())
-
-//        firebaseFirestore?.collection("TmpCalendarInfo")?.document(userId!!)
-//            ?.collection(year + "-" +  month)?.document(dayofmonth)
-//            ?.collection(dayofmonth)?.document(home2time.toString()+ '-' + dest1time.toString())?.set(event1)
-
-        firebaseFirestore?.collection("CalendarInfo")?.document(userId!!)
-            ?.collection(year + "-" +  month)?.document(convertDateToTimeStamp(year + "-" +  month + "-" + dayofmonth + "-" + home2Text.text.toString()).toString())
-            ?.set(event1)
-
+        var path1 = year + "-" +  month
+        var path2 = convertDateToTimeStamp(year + "-" +  month + "-" + dayofmonth + "-" + binding.home2Text.text.toString()).toString()
+        viewModel.addScheduleEventInfo(path1, path2, event)
     }
 
-    fun init() {
-        auth = FirebaseAuth.getInstance()
-        firebaseFirestore = FirebaseFirestore.getInstance()
-        userId = auth?.currentUser?.uid
-        dateDTO = DateDTO()
-    }
+
 
     fun convertDateToTimeStamp(date: String) : Long {
         val sdf = SimpleDateFormat("yyyy-MM-dd-hh-mm")
         return sdf.parse(date).time
+    }
+
+    private fun DateObserver() {
+        viewModel.dateDTOs.observe(this) { state ->
+            when(state) {
+                is UiState.Failure -> {
+                    Toast.makeText(this, "fail", Toast.LENGTH_SHORT).show()
+                }
+                is UiState.Success -> {
+                    Toast.makeText(this, "success", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
+
+    private fun ScheduleInputObserver() {
+        viewModel.eventDTO.observe(this) { state ->
+            when(state) {
+                is UiState.Failure -> {
+                    Toast.makeText(this, "fail", Toast.LENGTH_SHORT).show()
+                }
+                is UiState.Success -> {
+                    Toast.makeText(this, "success", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
     }
 }

@@ -1,5 +1,7 @@
 package com.goingbacking.goingbacking.Repository
 
+import com.goingbacking.goingbacking.Model.DateDTO
+import com.goingbacking.goingbacking.Model.Event
 import com.goingbacking.goingbacking.Model.UserInfoDTO
 import com.goingbacking.goingbacking.util.UiState
 import com.google.firebase.auth.FirebaseUser
@@ -32,4 +34,29 @@ class MainRepository (
 
 
     }
+
+    override fun addEventInfo(path1: String, path2: String, event: Event, result: (UiState<String>) -> Unit) {
+        firebaseFirestore?.collection("CalendarInfo")?.document(user?.uid!!)
+            ?.collection(path1)?.document(path2)
+            ?.set(event)
+            .addOnSuccessListener {
+                result.invoke(UiState.Success("ScheduleInput Success"))
+            }
+            .addOnFailureListener {
+                result.invoke(UiState.Failure(it.localizedMessage))
+            }
+    }
+
+    override fun addDateInfo(date: DateDTO, result: (UiState<String>) -> Unit) {
+        firebaseFirestore?.collection("Date")?.document(user?.uid!!)?.set(date)
+            ?.addOnSuccessListener {
+                result.invoke(UiState.Success("DateInfo Success"))
+            }
+            ?.addOnFailureListener {
+                result.invoke(UiState.Failure(it.localizedMessage))
+            }
+
+    }
+
+
 }

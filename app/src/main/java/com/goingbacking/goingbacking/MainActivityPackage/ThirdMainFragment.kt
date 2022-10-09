@@ -33,6 +33,7 @@ import com.goingbacking.goingbacking.PrefUtil
 
 import com.goingbacking.goingbacking.R
 import com.goingbacking.goingbacking.SplashActivity
+import com.goingbacking.goingbacking.databinding.FragmentThirdMainBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Source
@@ -46,6 +47,7 @@ import com.kizitonwose.calendarview.ui.MonthHeaderFooterBinder
 import com.kizitonwose.calendarview.ui.ViewContainer
 import com.kizitonwose.calendarview.utils.next
 import com.kizitonwose.calendarview.utils.yearMonth
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.example_3_calendar_day.*
 import kotlinx.android.synthetic.main.example_3_calendar_day.view.*
 import kotlinx.android.synthetic.main.example_3_event_item_view.view.*
@@ -63,7 +65,7 @@ import java.util.*
 
 
 
-
+@AndroidEntryPoint
 class ThirdMainFragment : Fragment() {
     private val eventsAdapter = Example3EventsAdapter {
         AlertDialog.Builder(requireContext())
@@ -91,20 +93,22 @@ class ThirdMainFragment : Fragment() {
 
     var x :List<String>? = null
     var document1 :String? = null
+
+    lateinit var binding :FragmentThirdMainBinding
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_third_main, container, false)
+        binding = FragmentThirdMainBinding.inflate(layoutInflater)
 
         init()
-        firebaseFirestore?.collection("Date")?.document(userId!!)
-            ?.get()?.addOnSuccessListener { document ->
-                Log.d("AAAAAA", document.data!!["date"].toString())
-                yearList = document.data!!["date"].toString().split(',').toMutableList()
+//        firebaseFirestore?.collection("Date")?.document(userId!!)
+//            ?.get()?.addOnSuccessListener { document ->
+//                Log.d("AAAAAA", document.data!!["date"].toString())
+//                yearList = document.data!!["date"].toString().split(',').toMutableList()
+//
+//                saveEvent(yearList)
+//
+//            }
 
-                saveEvent(yearList)
-
-            }
-
-        view.exThreeRv.apply {
+        binding.exThreeRv.apply {
             layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
             adapter = eventsAdapter
             addItemDecoration(DividerItemDecoration(requireContext(), RecyclerView.VERTICAL))
@@ -113,11 +117,11 @@ class ThirdMainFragment : Fragment() {
 
         val daysOfWeek = daysOfWeekFromLocale()
         val currentMonth = YearMonth.now()
-        view.exThreeCalendar.setup(currentMonth.minusMonths(0), currentMonth.plusMonths(0), daysOfWeek.first())
-        view.exThreeCalendar.scrollToMonth(currentMonth)
+        binding.exThreeCalendar.setup(currentMonth.minusMonths(0), currentMonth.plusMonths(0), daysOfWeek.first())
+        binding.exThreeCalendar.scrollToMonth(currentMonth)
 
         if (savedInstanceState == null) {
-            view.exThreeCalendar.post {
+            binding.exThreeCalendar.post {
                 // Show today's events initially.
                 selectDate(today)
             }
@@ -128,21 +132,11 @@ class ThirdMainFragment : Fragment() {
 
 
 
-        class DayViewContainer(view: View) : ViewContainer(view) {
-            lateinit var day: CalendarDay // Will be set when this container is bound.
-
-            init {
-                view.setOnClickListener {
-                    if (day.owner == DayOwner.THIS_MONTH) {
-                        selectDate(day.date)
-                    }
-                }
-            }
-        }
 
 
 
-        view.exThreeCalendar.dayBinder = object : DayBinder<DayViewContainer> {
+
+        binding.exThreeCalendar.dayBinder = object : DayBinder<DayViewContainer> {
             override fun create(view: View) = DayViewContainer(view)
             override fun bind(container: DayViewContainer, day: CalendarDay) {
                 container.day = day
@@ -170,21 +164,21 @@ class ThirdMainFragment : Fragment() {
                             textView.setTextColorRes(R.color.example_3_black)
                             textView.background = null
 
-                            firebaseFirestore?.collection("Date")?.document(userId!!)?.get()
-                                ?.addOnSuccessListener {
-                                    document ->
-                                    document1 = document.data!!["date"].toString()
-                                    x = document1!!.split(',')
-
-
-                                    if(x!!.contains(day.date.toString())) {
-                                        Log.d("day.date", x.toString())
-                                        Log.d("day.date", day.date.toString())
-
-                                        dotView.isVisible = true
-
-                                    }
-                                }
+//                            firebaseFirestore?.collection("Date")?.document(userId!!)?.get()
+//                                ?.addOnSuccessListener {
+//                                    document ->
+//                                    document1 = document.data!!["date"].toString()
+//                                    x = document1!!.split(',')
+//
+//
+//                                    if(x!!.contains(day.date.toString())) {
+//                                        Log.d("day.date", x.toString())
+//                                        Log.d("day.date", day.date.toString())
+//
+//                                        dotView.isVisible = true
+//
+//                                    }
+//                                }
 
 
                         }
@@ -197,18 +191,7 @@ class ThirdMainFragment : Fragment() {
             }
         }
 
-        view.exThreeCalendar.monthScrollListener = {
-
-
-                exThreeSelectedDateText.text = selectionFormatter.format(today)
-
-
-        }
-
-        class MonthViewContainer(view: View) : ViewContainer(view) {
-            val legendLayout = view.findViewById<LinearLayout>(R.id.legendLayout)
-        }
-        view.exThreeCalendar.monthHeaderBinder = object :
+        binding.exThreeCalendar.monthHeaderBinder = object :
             MonthHeaderFooterBinder<MonthViewContainer> {
             override fun create(view: View) = MonthViewContainer(view)
             override fun bind(container: MonthViewContainer, month: CalendarMonth) {
@@ -223,14 +206,23 @@ class ThirdMainFragment : Fragment() {
             }
         }
 
-        view.exThreeAddButton.setOnClickListener {
+        binding.exThreeCalendar.monthScrollListener = {
+
+
+                exThreeSelectedDateText.text = selectionFormatter.format(today)
+
+
+        }
+
+
+        binding.exThreeAddButton.setOnClickListener {
             var intent = Intent(activity, ScheduleInputActivity::class.java)
             startActivity(intent)
         }
 
 
 
-        view.weekModeCheckBox.setOnCheckedChangeListener { _, monthToWeek ->
+        binding.weekModeCheckBox.setOnCheckedChangeListener { _, monthToWeek ->
             val firstDate = exThreeCalendar.findFirstVisibleDay()?.date ?: return@setOnCheckedChangeListener
             val lastDate = exThreeCalendar.findLastVisibleDay()?.date ?: return@setOnCheckedChangeListener
 
@@ -294,11 +286,13 @@ class ThirdMainFragment : Fragment() {
         }
 
 
+        if (this::binding.isInitialized) {
+            return binding.root
+        } else {
+            binding = FragmentThirdMainBinding.inflate(layoutInflater)
+            return binding.root
+        }
 
-
-
-
-        return view
     }
 
 
@@ -519,6 +513,24 @@ class ThirdMainFragment : Fragment() {
 
     }
 
+    inner class DayViewContainer(view: View) : ViewContainer(view) {
+        lateinit var day: CalendarDay // Will be set when this container is bound.
+
+        init {
+            view.setOnClickListener {
+                if (day.owner == DayOwner.THIS_MONTH) {
+                    selectDate(day.date)
+                }
+            }
+        }
+    }
+
+    inner class MonthViewContainer(view: View) : ViewContainer(view) {
+        val legendLayout = view.findViewById<LinearLayout>(R.id.legendLayout)
+    }
+
+
+
 //    private fun deleteEvent(event: Event) {
 //        val date = event.date
 //        events[date] = events[date].orEmpty().minus(event)
@@ -560,10 +572,7 @@ class ThirdMainFragment : Fragment() {
         visibility = View.INVISIBLE
     }
 
-    override fun onStart() {
-        super.onStart()
 
-    }
 
 }
 
