@@ -51,15 +51,11 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
                 var thirdMainFragment = ThirdMainFragment()
                 supportFragmentManager.beginTransaction().replace(R.id.main_content,thirdMainFragment).commit()
 
-
                 return true
             }
             R.id.action_shop ->{
-                val builder : AlertDialog.Builder? = AlertDialog.Builder(this)
-                builder?.setTitle("안내")?.setMessage("서비스 준비중입니다.")
-                builder?.show()
-//                var forthMainFragment = ForthMainFragment()
-//                supportFragmentManager.beginTransaction().replace(R.id.main_content,forthMainFragment).commit()
+                var forthMainFragment = ForthMainFragment()
+                supportFragmentManager.beginTransaction().replace(R.id.main_content,forthMainFragment).commit()
 
 
                 return true
