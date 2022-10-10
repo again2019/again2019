@@ -4,15 +4,12 @@ import android.animation.ValueAnimator
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
-import android.preference.PreferenceManager
 import android.util.Log
 import android.util.TypedValue
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.annotation.ColorRes
 import androidx.appcompat.app.AlertDialog
@@ -22,22 +19,21 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.children
 import androidx.core.view.isVisible
 import androidx.core.view.updateLayoutParams
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.goingbacking.goingbacking.Adapter.CalendarEventAdapter
-import com.goingbacking.goingbacking.LoginActivity
 import com.goingbacking.goingbacking.MainActivityPackage.ThirdMainFragmentPackage.ScheduleInputActivity
 import com.goingbacking.goingbacking.Model.CalendarInfoDTO
 import com.goingbacking.goingbacking.Model.Event
-import com.goingbacking.goingbacking.PrefUtil
 
 import com.goingbacking.goingbacking.R
-import com.goingbacking.goingbacking.SplashActivity
+import com.goingbacking.goingbacking.ViewModel.MainViewModel
 import com.goingbacking.goingbacking.databinding.FragmentThirdMainBinding
+import com.goingbacking.goingbacking.util.UiState
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.Source
 
 import com.kizitonwose.calendarview.model.CalendarDay
 import com.kizitonwose.calendarview.model.CalendarMonth
@@ -89,25 +85,20 @@ class ThirdMainFragment : Fragment() {
     private val selectionFormatter = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일")
     private val events = mutableMapOf<LocalDate, List<Event>>()
 
-    private var yearList = mutableListOf<String>()
-
 
     var x :List<String>? = null
     var document1 :String? = null
 
     lateinit var binding :FragmentThirdMainBinding
+    val viewModel : MainViewModel by viewModels()
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentThirdMainBinding.inflate(layoutInflater)
 
         init()
-        firebaseFirestore?.collection("Date")?.document(userId!!)
-            ?.get()?.addOnSuccessListener { document ->
-                Log.d("AAAAAA", document.data!!["date"].toString())
-                yearList = document.data!!["date"].toString().split(',').toMutableList()
 
-                saveEvent(yearList)
 
-            }
+
 
         binding.exThreeRv.apply {
             layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
@@ -129,7 +120,6 @@ class ThirdMainFragment : Fragment() {
         }
 
 
-        val source= Source.CACHE
 
 
 
@@ -165,21 +155,27 @@ class ThirdMainFragment : Fragment() {
                             textView.setTextColorRes(R.color.example_3_black)
                             textView.background = null
 
+                            //observer1(day.date, container.view.exThreeDotView)
+
+
+
                             firebaseFirestore?.collection("Date")?.document(userId!!)?.get()
                                 ?.addOnSuccessListener {
-                                    document ->
+                                        document ->
                                     document1 = document.data!!["date"].toString()
                                     x = document1!!.split(',')
 
 
                                     if(x!!.contains(day.date.toString())) {
-                                        Log.d("day.date", x.toString())
-                                        Log.d("day.date", day.date.toString())
+                                        Log.d("experiment", "1: " + x.toString())
+                                        Log.d("experiment", "1: " + day.date.toString())
 
                                         dotView.isVisible = true
 
                                     }
                                 }
+
+
 
 
                         }
@@ -294,6 +290,60 @@ class ThirdMainFragment : Fragment() {
             return binding.root
         }
 
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+    }
+
+    private fun observer1(dates: Any, dotView: View) {
+        viewModel.getThirdDateInfo()
+        viewModel.thirdDateDTOs.observe(viewLifecycleOwner) { state ->
+            when(state) {
+                is UiState.Success -> {
+                    val data = state.data.date.toString().split(',').toMutableList()
+                    saveEvent(data)
+                    x = state.data.date.toString().split(',')
+                    if(x!!.contains(dates.toString())) {
+                        Log.d("experiment", "1: " + x.toString())
+                        Log.d("experiment", "1: " + dates.toString())
+
+                        dotView.isVisible = true
+
+                    }
+
+                    Log.e("experiment", x.toString())
+                }
+
+
+                is UiState.Failure -> {
+                    Log.e("experiment", state.error.toString())
+                }
+            }
+        }
+
+
+    }
+
+    private fun observer2(date: LocalDate, dotView: View) {
+        viewModel.getThirdDateInfo()
+        viewModel.thirdDateDTOs.observe(viewLifecycleOwner) { state ->
+            when(state) {
+                is UiState.Success -> {
+                    val data = state.data.date.toString().split(',')
+                    if(data.contains(date.toString())) {
+                        dotView.isVisible = true
+
+                    }
+
+                }
+                is UiState.Failure -> {
+                    Log.e("experiment",state.error.toString())
+                }
+            }
+
+        }
     }
 
 
@@ -516,13 +566,13 @@ class ThirdMainFragment : Fragment() {
 
     inner class DayViewContainer(view: View) : ViewContainer(view) {
         lateinit var day: CalendarDay // Will be set when this container is bound.
-
         init {
             view.setOnClickListener {
                 if (day.owner == DayOwner.THIS_MONTH) {
                     selectDate(day.date)
                 }
             }
+
         }
     }
 

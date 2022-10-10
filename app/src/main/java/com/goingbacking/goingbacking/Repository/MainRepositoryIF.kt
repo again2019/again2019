@@ -9,5 +9,6 @@ interface MainRepositoryIF {
     fun getFifthUserInfo(result: (UiState<UserInfoDTO>) -> Unit)
     fun addEventInfo(path1: String, path2: String, event: Event, result: (UiState<String>) -> Unit)
     fun addDateInfo(date: DateDTO, result: (UiState<String>) -> Unit)
+    fun getThirdDateInfo(result: (UiState<DateDTO>) -> Unit)
 
 }

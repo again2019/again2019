@@ -1,5 +1,6 @@
 package com.goingbacking.goingbacking.Repository
 
+import android.util.Log
 import com.goingbacking.goingbacking.Model.DateDTO
 import com.goingbacking.goingbacking.Model.Event
 import com.goingbacking.goingbacking.Model.UserInfoDTO
@@ -33,9 +34,6 @@ class MainRepository (
                         )
                 )
             }
-
-
-
     }
 
     override fun addEventInfo(path1: String, path2: String, event: Event, result: (UiState<String>) -> Unit) {
@@ -59,6 +57,20 @@ class MainRepository (
                 result.invoke(UiState.Failure(it.localizedMessage))
             }
 
+    }
+
+    override fun getThirdDateInfo(result: (UiState<DateDTO>) -> Unit) {
+        firebaseFirestore?.collection("Date")?.document(user?.uid!!)
+            ?.get(Source.CACHE)
+            ?.addOnSuccessListener { document ->
+                val data: DateDTO? = document.toObject(DateDTO::class.java)
+                result.invoke(
+                    UiState.Success(data!!)
+                )
+            }
+            ?.addOnFailureListener {
+                result.invoke(UiState.Failure(it.localizedMessage))
+            }
     }
 
 
