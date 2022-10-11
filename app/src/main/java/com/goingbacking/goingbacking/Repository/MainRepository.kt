@@ -73,5 +73,22 @@ class MainRepository (
             }
     }
 
+    override fun getThirdDateInfo2(result: (UiState<DateDTO>) -> Unit) {
+        firebaseFirestore?.collection("Date")?.document(user?.uid!!)
+            ?.get(Source.CACHE)
+            ?.addOnSuccessListener { document ->
+                val data: DateDTO? = document.toObject(DateDTO::class.java)
+
+
+
+                result.invoke(
+                    UiState.Success(data!!)
+                )
+            }
+            ?.addOnFailureListener {
+                result.invoke(UiState.Failure(it.localizedMessage))
+            }
+    }
+
 
 }

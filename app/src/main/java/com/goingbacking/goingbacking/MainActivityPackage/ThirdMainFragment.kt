@@ -86,7 +86,7 @@ class ThirdMainFragment : Fragment() {
     private val events = mutableMapOf<LocalDate, List<Event>>()
 
 
-    var x :List<String>? = null
+    var x :List<String>? = listOf("")
     var document1 :String? = null
 
     lateinit var binding :FragmentThirdMainBinding
@@ -158,22 +158,24 @@ class ThirdMainFragment : Fragment() {
                             //observer1(day.date, container.view.exThreeDotView)
 
 
-
-                            firebaseFirestore?.collection("Date")?.document(userId!!)?.get()
-                                ?.addOnSuccessListener {
-                                        document ->
-                                    document1 = document.data!!["date"].toString()
-                                    x = document1!!.split(',')
+                            observer2(day.date, dotView)
 
 
-                                    if(x!!.contains(day.date.toString())) {
-                                        Log.d("experiment", "1: " + x.toString())
-                                        Log.d("experiment", "1: " + day.date.toString())
-
-                                        dotView.isVisible = true
-
-                                    }
-                                }
+//                            firebaseFirestore?.collection("Date")?.document(userId!!)?.get()
+//                                ?.addOnSuccessListener {
+//                                        document ->
+//                                    document1 = document.data!!["date"].toString()
+//                                    x = document1!!.split(',')
+//
+//
+//                                    if(x!!.contains(day.date.toString())) {
+//                                        Log.d("experiment", "1: " + x.toString())
+//                                        Log.d("experiment", "1: " + day.date.toString())
+//
+//                                        dotView.isVisible = true
+//
+//                                    }
+//                                }
 
 
 
@@ -295,26 +297,22 @@ class ThirdMainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        observer1()
+
+        viewModel.getThirdDateInfo()
     }
 
-    private fun observer1(dates: Any, dotView: View) {
+    private fun observer1() {
         viewModel.getThirdDateInfo()
         viewModel.thirdDateDTOs.observe(viewLifecycleOwner) { state ->
             when(state) {
                 is UiState.Success -> {
                     val data = state.data.date.toString().split(',').toMutableList()
                     saveEvent(data)
-                    x = state.data.date.toString().split(',')
-                    if(x!!.contains(dates.toString())) {
-                        Log.d("experiment", "1: " + x.toString())
-                        Log.d("experiment", "1: " + dates.toString())
-
-                        dotView.isVisible = true
 
                     }
 
-                    Log.e("experiment", x.toString())
-                }
+
 
 
                 is UiState.Failure -> {
@@ -326,16 +324,21 @@ class ThirdMainFragment : Fragment() {
 
     }
 
-    private fun observer2(date: LocalDate, dotView: View) {
-        viewModel.getThirdDateInfo()
+    private fun observer2(date:LocalDate, dotView:View) {
+
         viewModel.thirdDateDTOs.observe(viewLifecycleOwner) { state ->
             when(state) {
                 is UiState.Success -> {
                     val data = state.data.date.toString().split(',')
-                    if(data.contains(date.toString())) {
-                        dotView.isVisible = true
 
-                    }
+                    if(data!!.contains(date.toString())) {
+                                        Log.d("experiment", "1: " + x.toString())
+                                        Log.d("experiment", "1: " + date.toString())
+
+                                        dotView.isVisible = true
+                                    }
+                    Log.d("experiment", "observer2: " + state.data.date.toString().split(',').toString())
+
 
                 }
                 is UiState.Failure -> {
@@ -393,7 +396,6 @@ class ThirdMainFragment : Fragment() {
 
                     if (querySnapshot == null) return@addOnSuccessListener
 
-                    Log.d("third", querySnapshot.count().toString() + " " +querySnapshot.size().toString())
                     if (querySnapshot.count() == 1) {
                         for (snapshot in querySnapshot!!) {
                             var x = LocalDate.parse(snapshot["date"].toString(), DateTimeFormatter.ISO_DATE)
@@ -407,7 +409,6 @@ class ThirdMainFragment : Fragment() {
                                         0
                                     )
                                 )
-                            Log.d("third", events[x].toString())
 
                                 events[x] = events[x].orEmpty().plus(
                                     Event(
@@ -419,7 +420,6 @@ class ThirdMainFragment : Fragment() {
                                         snapshot["end_t"].toString().toInt()
                                     )
                                 )
-                            Log.d("third", events[x].toString())
 
                             events[x] = events[x].orEmpty().plus(
                                 Event(
@@ -432,7 +432,6 @@ class ThirdMainFragment : Fragment() {
                                 )
                             )
 
-                            Log.d("third", events[x].toString())
 
                             updateAdapterForDate(x)
 
@@ -457,7 +456,6 @@ class ThirdMainFragment : Fragment() {
                                         0
                                     )
                                 )
-                                Log.d("third", events[x].toString())
 
                                 events[x] = events[x].orEmpty().plus(
                                     Event(
@@ -470,7 +468,6 @@ class ThirdMainFragment : Fragment() {
                                     )
                                 )
 
-                                Log.d("third", events[x].toString())
 
                             } else if (count == querySnapshot.count()) {
                                 events[x] = events[x].orEmpty().plus(
@@ -483,7 +480,6 @@ class ThirdMainFragment : Fragment() {
                                         0,
                                     )
                                 )
-                                Log.d("third", events[x].toString())
 
 
                                 events[x] = events[x].orEmpty().plus(
@@ -496,7 +492,6 @@ class ThirdMainFragment : Fragment() {
                                         snapshot["end_t"].toString().toInt()
                                     )
                                 )
-                                Log.d("third", events[x].toString())
 
                                 events[x] = events[x].orEmpty().plus(
                                     Event(
@@ -508,7 +503,6 @@ class ThirdMainFragment : Fragment() {
                                         0
                                     )
                                 )
-                                Log.d("third", events[x].toString())
 
                             } else {
 
@@ -522,7 +516,6 @@ class ThirdMainFragment : Fragment() {
                                         0,
                                     )
                                 )
-                                Log.d("third", events[x].toString())
 
 
 
@@ -536,7 +529,6 @@ class ThirdMainFragment : Fragment() {
                                         snapshot["end_t"].toString().toInt()
                                     )
                                 )
-                                Log.d("third", events[x].toString())
 
 
                             }
