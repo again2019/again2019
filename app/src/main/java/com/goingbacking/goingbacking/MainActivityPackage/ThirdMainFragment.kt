@@ -3,6 +3,7 @@ package com.goingbacking.goingbacking.MainActivityPackage
 import android.animation.ValueAnimator
 import android.content.Context
 import android.content.Intent
+import android.location.Location
 import android.os.Bundle
 import android.util.Log
 import android.util.TypedValue
@@ -83,7 +84,7 @@ class ThirdMainFragment : Fragment() {
     private var selectedDate: LocalDate? = null
     private val today = LocalDate.now()
     private val selectionFormatter = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일")
-    private val events = mutableMapOf<LocalDate, List<Event>>()
+    private var events = mutableMapOf<LocalDate, List<Event>>()
 
 
     var x :List<String>? = listOf("")
@@ -297,13 +298,14 @@ class ThirdMainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewModel.getThirdDateInfo()
+
         observer1()
 
-        viewModel.getThirdDateInfo()
+
     }
 
     private fun observer1() {
-        viewModel.getThirdDateInfo()
         viewModel.thirdDateDTOs.observe(viewLifecycleOwner) { state ->
             when(state) {
                 is UiState.Success -> {
@@ -349,6 +351,28 @@ class ThirdMainFragment : Fragment() {
         }
     }
 
+    private fun observer3(yearList : MutableList<String>) {
+        viewModel.getThirdCalendarInfo(yearList)
+        viewModel.thirdCalendarDTOs.observe(viewLifecycleOwner) { state ->
+            when(state) {
+                is UiState.Success -> {
+                    events = state.data
+                    updateAdapterForDate(LocalDate.now())
+
+                }
+
+
+
+
+                is UiState.Failure -> {
+                    Log.e("experiment", state.error.toString())
+                }
+            }
+        }
+
+
+    }
+
 
     fun init() {
         auth = FirebaseAuth.getInstance()
@@ -380,176 +404,176 @@ class ThirdMainFragment : Fragment() {
     }
 
     private fun saveEvent(yearList : MutableList<String>) {
-
-
-        var now = LocalDate.now()
-        var Strnow = now.format(DateTimeFormatter.ofPattern("yyyy-MM"))
-
-        Log.d("AAAAAA", yearList.toString())
-        events.clear()
-        for (i in yearList) {
-
-            firebaseFirestore
-                ?.collection("CalendarInfo")?.document(userId!!)?.collection(Strnow)
-                ?.whereEqualTo("date", i)?.get()?.addOnSuccessListener { querySnapshot ->
-
-
-                    if (querySnapshot == null) return@addOnSuccessListener
-
-                    if (querySnapshot.count() == 1) {
-                        for (snapshot in querySnapshot!!) {
-                            var x = LocalDate.parse(snapshot["date"].toString(), DateTimeFormatter.ISO_DATE)
-                                events[x] = events[x].orEmpty().plus(
-                                    Event(
-                                        "move",
-                                        snapshot["date"].toString(),
-                                        snapshot["start"].toString().toInt() - snapshot["start_t"].toString().toInt(),
-                                        0,
-                                        snapshot["start"].toString().toInt(),
-                                        0
-                                    )
-                                )
-
-                                events[x] = events[x].orEmpty().plus(
-                                    Event(
-                                        snapshot["dest"].toString(),
-                                        snapshot["date"].toString(),
-                                        snapshot["start"].toString().toInt(),
-                                        snapshot["start_t"].toString().toInt(),
-                                        snapshot["end"].toString().toInt(),
-                                        snapshot["end_t"].toString().toInt()
-                                    )
-                                )
-
-                            events[x] = events[x].orEmpty().plus(
-                                Event(
-                                    "move",
-                                    snapshot["date"].toString(),
-                                    snapshot["end"].toString().toInt(),
-                                    0,
-                                    snapshot["end"].toString().toInt() + snapshot["end_t"].toString().toInt(),
-                                    0
-                                )
-                            )
-
-
-                            updateAdapterForDate(x)
-
-
-                        }
-                    }
-
-                    else {
-                        var count = 1
-                        var before = Event("", "", 0,0,0)
-                        for (snapshot in querySnapshot!!) {
-                            var x = LocalDate.parse(snapshot["date"].toString(), DateTimeFormatter.ISO_DATE)
-
-                            if (count == 1) {
-                                events[x] = events[x].orEmpty().plus(
-                                    Event(
-                                        "move",
-                                        snapshot["date"].toString(),
-                                        snapshot["start"].toString().toInt() - snapshot["start_t"].toString().toInt(),
-                                        0,
-                                        snapshot["start"].toString().toInt(),
-                                        0
-                                    )
-                                )
-
-                                events[x] = events[x].orEmpty().plus(
-                                    Event(
-                                        snapshot["dest"].toString(),
-                                        snapshot["date"].toString(),
-                                        snapshot["start"].toString().toInt(),
-                                        snapshot["start_t"].toString().toInt(),
-                                        snapshot["end"].toString().toInt(),
-                                        snapshot["end_t"].toString().toInt()
-                                    )
-                                )
-
-
-                            } else if (count == querySnapshot.count()) {
-                                events[x] = events[x].orEmpty().plus(
-                                    Event(
-                                        "move",
-                                        snapshot["date"].toString(),
-                                        before.end!!.toInt(),
-                                        0,
-                                        snapshot["start"].toString().toInt(),
-                                        0,
-                                    )
-                                )
-
-
-                                events[x] = events[x].orEmpty().plus(
-                                    Event(
-                                        snapshot["dest"].toString(),
-                                        snapshot["date"].toString(),
-                                        snapshot["start"].toString().toInt(),
-                                        snapshot["start_t"].toString().toInt(),
-                                        snapshot["end"].toString().toInt(),
-                                        snapshot["end_t"].toString().toInt()
-                                    )
-                                )
-
-                                events[x] = events[x].orEmpty().plus(
-                                    Event(
-                                        "move",
-                                        snapshot["date"].toString(),
-                                        snapshot["end"].toString().toInt(),
-                                        0,
-                                        snapshot["end"].toString().toInt() + snapshot["end_t"].toString().toInt(),
-                                        0
-                                    )
-                                )
-
-                            } else {
-
-                                events[x] = events[x].orEmpty().plus(
-                                    Event(
-                                        "move",
-                                        snapshot["date"].toString(),
-                                        before.end!!.toInt(),
-                                        0,
-                                        snapshot["start"].toString().toInt(),
-                                        0,
-                                    )
-                                )
-
-
-
-                                events[x] = events[x].orEmpty().plus(
-                                    Event(
-                                        snapshot["dest"].toString(),
-                                        snapshot["date"].toString(),
-                                        snapshot["start"].toString().toInt(),
-                                        snapshot["start_t"].toString().toInt(),
-                                        snapshot["end"].toString().toInt(),
-                                        snapshot["end_t"].toString().toInt()
-                                    )
-                                )
-
-
-                            }
-
-
-
-                            updateAdapterForDate(x)
-                            count = count + 1
-                            before = Event(
-                                snapshot["dest"].toString(),
-                                snapshot["date"].toString(),
-                                snapshot["start"].toString().toInt(),
-                                snapshot["start_t"].toString().toInt(),
-                                snapshot["end"].toString().toInt(),
-                                snapshot["end_t"].toString().toInt()
-                            )
-                        }
-                    }
-                }
-
-        }
+        observer3(yearList)
+        Log.d("experiment", "now: " + LocalDate.now().toString())
+//        var now = LocalDate.now()
+//        var Strnow = now.format(DateTimeFormatter.ofPattern("yyyy-MM"))
+//
+//        Log.d("AAAAAA", yearList.toString())
+//        events.clear()
+//        for (i in yearList) {
+//
+//            firebaseFirestore
+//                ?.collection("CalendarInfo")?.document(userId!!)?.collection(Strnow)
+//                ?.whereEqualTo("date", i)?.get()?.addOnSuccessListener { querySnapshot ->
+//
+//
+//                    if (querySnapshot == null) return@addOnSuccessListener
+//
+//                    if (querySnapshot.count() == 1) {
+//                        for (snapshot in querySnapshot!!) {
+//                            var x = LocalDate.parse(snapshot["date"].toString(), DateTimeFormatter.ISO_DATE)
+//                                events[x] = events[x].orEmpty().plus(
+//                                    Event(
+//                                        "move",
+//                                        snapshot["date"].toString(),
+//                                        snapshot["start"].toString().toInt() - snapshot["start_t"].toString().toInt(),
+//                                        0,
+//                                        snapshot["start"].toString().toInt(),
+//                                        0
+//                                    )
+//                                )
+//
+//                                events[x] = events[x].orEmpty().plus(
+//                                    Event(
+//                                        snapshot["dest"].toString(),
+//                                        snapshot["date"].toString(),
+//                                        snapshot["start"].toString().toInt(),
+//                                        snapshot["start_t"].toString().toInt(),
+//                                        snapshot["end"].toString().toInt(),
+//                                        snapshot["end_t"].toString().toInt()
+//                                    )
+//                                )
+//
+//                            events[x] = events[x].orEmpty().plus(
+//                                Event(
+//                                    "move",
+//                                    snapshot["date"].toString(),
+//                                    snapshot["end"].toString().toInt(),
+//                                    0,
+//                                    snapshot["end"].toString().toInt() + snapshot["end_t"].toString().toInt(),
+//                                    0
+//                                )
+//                            )
+//
+//
+//                            updateAdapterForDate(x)
+//
+//
+//                        }
+//                    }
+//
+//                    else {
+//                        var count = 1
+//                        var before = Event("", "", 0,0,0)
+//                        for (snapshot in querySnapshot!!) {
+//                            var x = LocalDate.parse(snapshot["date"].toString(), DateTimeFormatter.ISO_DATE)
+//
+//                            if (count == 1) {
+//                                events[x] = events[x].orEmpty().plus(
+//                                    Event(
+//                                        "move",
+//                                        snapshot["date"].toString(),
+//                                        snapshot["start"].toString().toInt() - snapshot["start_t"].toString().toInt(),
+//                                        0,
+//                                        snapshot["start"].toString().toInt(),
+//                                        0
+//                                    )
+//                                )
+//
+//                                events[x] = events[x].orEmpty().plus(
+//                                    Event(
+//                                        snapshot["dest"].toString(),
+//                                        snapshot["date"].toString(),
+//                                        snapshot["start"].toString().toInt(),
+//                                        snapshot["start_t"].toString().toInt(),
+//                                        snapshot["end"].toString().toInt(),
+//                                        snapshot["end_t"].toString().toInt()
+//                                    )
+//                                )
+//
+//
+//                            } else if (count == querySnapshot.count()) {
+//                                events[x] = events[x].orEmpty().plus(
+//                                    Event(
+//                                        "move",
+//                                        snapshot["date"].toString(),
+//                                        before.end!!.toInt(),
+//                                        0,
+//                                        snapshot["start"].toString().toInt(),
+//                                        0,
+//                                    )
+//                                )
+//
+//
+//                                events[x] = events[x].orEmpty().plus(
+//                                    Event(
+//                                        snapshot["dest"].toString(),
+//                                        snapshot["date"].toString(),
+//                                        snapshot["start"].toString().toInt(),
+//                                        snapshot["start_t"].toString().toInt(),
+//                                        snapshot["end"].toString().toInt(),
+//                                        snapshot["end_t"].toString().toInt()
+//                                    )
+//                                )
+//
+//                                events[x] = events[x].orEmpty().plus(
+//                                    Event(
+//                                        "move",
+//                                        snapshot["date"].toString(),
+//                                        snapshot["end"].toString().toInt(),
+//                                        0,
+//                                        snapshot["end"].toString().toInt() + snapshot["end_t"].toString().toInt(),
+//                                        0
+//                                    )
+//                                )
+//
+//                            } else {
+//
+//                                events[x] = events[x].orEmpty().plus(
+//                                    Event(
+//                                        "move",
+//                                        snapshot["date"].toString(),
+//                                        before.end!!.toInt(),
+//                                        0,
+//                                        snapshot["start"].toString().toInt(),
+//                                        0,
+//                                    )
+//                                )
+//
+//
+//
+//                                events[x] = events[x].orEmpty().plus(
+//                                    Event(
+//                                        snapshot["dest"].toString(),
+//                                        snapshot["date"].toString(),
+//                                        snapshot["start"].toString().toInt(),
+//                                        snapshot["start_t"].toString().toInt(),
+//                                        snapshot["end"].toString().toInt(),
+//                                        snapshot["end_t"].toString().toInt()
+//                                    )
+//                                )
+//
+//
+//                            }
+//
+//
+//
+//                            updateAdapterForDate(x)
+//                            count = count + 1
+//                            before = Event(
+//                                snapshot["dest"].toString(),
+//                                snapshot["date"].toString(),
+//                                snapshot["start"].toString().toInt(),
+//                                snapshot["start_t"].toString().toInt(),
+//                                snapshot["end"].toString().toInt(),
+//                                snapshot["end_t"].toString().toInt()
+//                            )
+//                        }
+//                    }
+//                }
+//
+//        }
 
 
 

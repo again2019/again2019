@@ -9,6 +9,7 @@ import com.goingbacking.goingbacking.Model.UserInfoDTO
 import com.goingbacking.goingbacking.Repository.MainRepositoryIF
 import com.goingbacking.goingbacking.util.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import java.time.LocalDate
 import javax.inject.Inject
 
 @HiltViewModel
@@ -31,6 +32,10 @@ class MainViewModel @Inject constructor (
     val thirdDateDTOs : LiveData<UiState<DateDTO>>
         get() = _thirdDateDTOs
 
+    private val _thirdCalendarDTOs = MutableLiveData<UiState<MutableMap<LocalDate, List<Event>>>>()
+    val thirdCalendarDTOs : LiveData<UiState<MutableMap<LocalDate, List<Event>>>>
+        get() = _thirdCalendarDTOs
+
     fun getFifthUserInfo()  {
         _userInfoDTOs.value = UiState.Loading
         mainRepository.getFifthUserInfo { _userInfoDTOs.value = it }
@@ -49,6 +54,11 @@ class MainViewModel @Inject constructor (
     fun getThirdDateInfo() {
         _thirdDateDTOs.value = UiState.Loading
         mainRepository.getThirdDateInfo { _thirdDateDTOs.value = it }
+    }
+
+    fun getThirdCalendarInfo(yearList : MutableList<String>) {
+        _thirdCalendarDTOs.value = UiState.Loading
+        mainRepository.getThirdCalendarInfo(yearList) { _thirdCalendarDTOs.value = it }
     }
 
 }
