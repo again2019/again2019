@@ -47,6 +47,8 @@ class TmpTimeActivity : AppCompatActivity() {
         init()
         binding.TmprecyclerView.layoutManager = LinearLayoutManager(this)
         binding.TmprecyclerView.adapter = adapter
+
+
     }
 
 //    inner class TmpTimeRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {

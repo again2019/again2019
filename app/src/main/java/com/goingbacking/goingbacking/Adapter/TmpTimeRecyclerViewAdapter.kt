@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.goingbacking.goingbacking.Model.TmpTimeDTO
 import com.goingbacking.goingbacking.databinding.ItemTmpBinding
 
-class TmpTimeRecyclerViewAdapter: RecyclerView.Adapter<TmpTimeRecyclerViewAdapter.MyViewHolder>() {
+class TmpTimeRecyclerViewAdapter(): RecyclerView.Adapter<TmpTimeRecyclerViewAdapter.MyViewHolder>() {
     private var tmpTimeDTOList : ArrayList<TmpTimeDTO> = arrayListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -32,6 +32,13 @@ class TmpTimeRecyclerViewAdapter: RecyclerView.Adapter<TmpTimeRecyclerViewAdapte
     inner class MyViewHolder(val binding: ItemTmpBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: TmpTimeDTO) {
             binding.nowSeconds.text = item.nowSeconds.toString()
+            binding.startTime.text = item.startTime.toString()
+            binding.wakeUpTime.text = item.wakeUpTime.toString()
+            binding.saveButton.setOnClickListener {
+
+
+                 }
+
         }
     }
 
