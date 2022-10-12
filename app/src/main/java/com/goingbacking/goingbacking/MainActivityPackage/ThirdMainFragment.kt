@@ -3,7 +3,6 @@ package com.goingbacking.goingbacking.MainActivityPackage
 import android.animation.ValueAnimator
 import android.content.Context
 import android.content.Intent
-import android.location.Location
 import android.os.Bundle
 import android.util.Log
 import android.util.TypedValue
