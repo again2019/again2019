@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.goingbacking.goingbacking.Model.DateDTO
 import com.goingbacking.goingbacking.Model.Event
+import com.goingbacking.goingbacking.Model.TmpTimeDTO
 import com.goingbacking.goingbacking.Model.UserInfoDTO
 import com.goingbacking.goingbacking.Repository.MainRepositoryIF
 import com.goingbacking.goingbacking.util.UiState
@@ -36,6 +37,10 @@ class MainViewModel @Inject constructor (
     val thirdCalendarDTOs : LiveData<UiState<MutableMap<LocalDate, List<Event>>>>
         get() = _thirdCalendarDTOs
 
+    private val _tmpTimeDTOs = MutableLiveData<UiState<ArrayList<TmpTimeDTO>>>()
+    val tmpTimeDTOs : LiveData<UiState<ArrayList<TmpTimeDTO>>>
+        get() = _tmpTimeDTOs
+
     fun getFifthUserInfo()  {
         _userInfoDTOs.value = UiState.Loading
         mainRepository.getFifthUserInfo { _userInfoDTOs.value = it }
@@ -61,4 +66,8 @@ class MainViewModel @Inject constructor (
         mainRepository.getThirdCalendarInfo(yearList) { _thirdCalendarDTOs.value = it }
     }
 
+    fun getTmpTimeInfo() {
+        _tmpTimeDTOs.value = UiState.Loading
+        mainRepository.getTmpTimeInfo { _tmpTimeDTOs.value = it }
+    }
 }

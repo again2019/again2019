@@ -1,17 +1,16 @@
 package com.goingbacking.goingbacking.Repository
 
 import android.util.Log
-import com.goingbacking.goingbacking.Model.CalendarInfoDTO
-import com.goingbacking.goingbacking.Model.DateDTO
-import com.goingbacking.goingbacking.Model.Event
-import com.goingbacking.goingbacking.Model.UserInfoDTO
+import com.goingbacking.goingbacking.Model.*
 import com.goingbacking.goingbacking.util.FBConstants.Companion.CALENDARINFO
 import com.goingbacking.goingbacking.util.FBConstants.Companion.DATE
+import com.goingbacking.goingbacking.util.FBConstants.Companion.TMPTIMEINFO
 import com.goingbacking.goingbacking.util.FBConstants.Companion.USERINFO
 import com.goingbacking.goingbacking.util.UiState
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Source
+import dagger.hilt.android.AndroidEntryPoint
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
@@ -63,7 +62,7 @@ class MainRepository (
     }
 
     override fun getThirdDateInfo(result: (UiState<DateDTO>) -> Unit) {
-        firebaseFirestore?.collection("Date")?.document(user?.uid!!)
+        firebaseFirestore?.collection(DATE)?.document(user?.uid!!)
             ?.get(Source.CACHE)
             ?.addOnSuccessListener { document ->
                 val data: DateDTO? = document.toObject(DateDTO::class.java)
@@ -77,7 +76,7 @@ class MainRepository (
     }
 
     override fun getThirdDateInfo2(result: (UiState<DateDTO>) -> Unit) {
-        firebaseFirestore?.collection("Date")?.document(user?.uid!!)
+        firebaseFirestore?.collection(DATE)?.document(user?.uid!!)
             ?.get(Source.CACHE)
             ?.addOnSuccessListener { document ->
                 val data: DateDTO? = document.toObject(DateDTO::class.java)
@@ -100,15 +99,10 @@ class MainRepository (
 
         events.clear()
         for (i in yearList) {
-
             firebaseFirestore
-                ?.collection("CalendarInfo")?.document(user?.uid!!)?.collection(Strnow)
+                ?.collection(CALENDARINFO)?.document(user?.uid!!)?.collection(Strnow)
                 ?.whereEqualTo("date", i)?.get(Source.CACHE)
                 ?.addOnSuccessListener { querySnapshot ->
-
-
-                    if (querySnapshot == null) return@addOnSuccessListener
-
                     if (querySnapshot.count() == 1) {
                         for (snapshot in querySnapshot!!) {
                             var x = LocalDate.parse(snapshot["date"].toString(), DateTimeFormatter.ISO_DATE)
@@ -269,6 +263,30 @@ class MainRepository (
 
         }
 
+
+    }
+
+    override fun getTmpTimeInfo(result: (UiState<ArrayList<TmpTimeDTO>>) -> Unit) {
+
+        firebaseFirestore?.collection(TMPTIMEINFO).document(user?.uid!!)
+            .collection(user?.uid!!).get(Source.CACHE)
+            .addOnSuccessListener {
+                var tmpTimeDTOList : ArrayList<TmpTimeDTO> = arrayListOf()
+                for(document in it){
+                    tmpTimeDTOList.add(document.toObject(TmpTimeDTO::class.java)!!)
+                }
+
+                result.invoke(
+                    UiState.Success(tmpTimeDTOList)
+                )
+            }
+            .addOnFailureListener {
+                result.invoke(
+                    UiState.Failure(
+                        it.localizedMessage
+                    )
+                )
+            }
 
     }
 
