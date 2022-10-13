@@ -11,6 +11,5 @@ interface MainRepositoryIF {
     fun getThirdDateInfo(result: (UiState<DateDTO>) -> Unit)
     fun getThirdDateInfo2(result: (UiState<DateDTO>) -> Unit)
     fun getThirdCalendarInfo(yearList : MutableList<String>,result: (UiState<MutableMap<LocalDate, List<Event>>>) -> Unit)
-    fun getTmpTimeInfo(result: (UiState<ArrayList<TmpTimeDTO>>) -> Unit)
 
 }

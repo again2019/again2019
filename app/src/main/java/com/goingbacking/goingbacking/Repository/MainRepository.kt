@@ -266,29 +266,6 @@ class MainRepository (
 
     }
 
-    override fun getTmpTimeInfo(result: (UiState<ArrayList<TmpTimeDTO>>) -> Unit) {
-
-        firebaseFirestore?.collection(TMPTIMEINFO).document(user?.uid!!)
-            .collection(user?.uid!!).get(Source.CACHE)
-            .addOnSuccessListener {
-                var tmpTimeDTOList : ArrayList<TmpTimeDTO> = arrayListOf()
-                for(document in it){
-                    tmpTimeDTOList.add(document.toObject(TmpTimeDTO::class.java)!!)
-                }
-
-                result.invoke(
-                    UiState.Success(tmpTimeDTOList)
-                )
-            }
-            .addOnFailureListener {
-                result.invoke(
-                    UiState.Failure(
-                        it.localizedMessage
-                    )
-                )
-            }
-
-    }
 
 
 }

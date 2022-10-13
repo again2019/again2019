@@ -14,6 +14,7 @@ import com.goingbacking.goingbacking.Adapter.TmpTimeRecyclerViewAdapter
 import com.goingbacking.goingbacking.Model.SaveTimeDayDTO
 import com.goingbacking.goingbacking.Model.TmpTimeDTO
 import com.goingbacking.goingbacking.ViewModel.MainViewModel
+import com.goingbacking.goingbacking.ViewModel.TmpTimeViewModel
 import com.goingbacking.goingbacking.databinding.ActivityTmpTimeBinding
 import com.goingbacking.goingbacking.util.UiState
 import com.google.firebase.auth.FirebaseAuth
@@ -38,7 +39,7 @@ class TmpTimeActivity : AppCompatActivity() {
     val adapter by lazy {
         TmpTimeRecyclerViewAdapter()
     }
-    val viewModel : MainViewModel by viewModels()
+    val viewModel : TmpTimeViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
