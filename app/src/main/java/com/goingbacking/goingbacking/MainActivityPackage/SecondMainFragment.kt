@@ -45,7 +45,6 @@ class SecondMainFragment : Fragment(), AAChartView.AAChartViewCallBack {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         binding = FragmentSecondMainBinding.inflate(layoutInflater)
-        monthObserver()
 
 //        init()
 
@@ -106,6 +105,8 @@ class SecondMainFragment : Fragment(), AAChartView.AAChartViewCallBack {
         super.onViewCreated(view, savedInstanceState)
 
         yearObserver()
+        monthObserver()
+        dayObserver()
     }
 
     private fun setUpAAChartView(aaCharView: AAChartView, list1: ArrayList<Int>, list2: ArrayList<String>) {
@@ -196,6 +197,29 @@ class SecondMainFragment : Fragment(), AAChartView.AAChartViewCallBack {
 
                     Log.e("experiment", "month: " + saveTimeMonthDTOList.toString())
                     setUpAAChartView(binding.AAChartView2, saveTimeMonthDTOList, saveCategoryList2)
+
+                }
+                is UiState.Failure -> {
+                    Log.e("experiment", state.error.toString())
+                }
+            }
+
+        }
+    }
+
+    fun dayObserver() {
+        viewModel.getSecondSaveDayInfo()
+        viewModel.secondSaveDayDTOs.observe(viewLifecycleOwner) { state ->
+            when(state) {
+                is UiState.Success -> {
+                    var saveTimeDayDTOList = arrayListOf<Int>()
+                    var saveCategoryList3 = arrayListOf<String>()
+                    for (data in state.data) {
+                        saveTimeDayDTOList.add(data.count!!)
+                        saveCategoryList3.add(data.month!!.toString())
+                    }
+
+                    setUpAAChartView(binding.AAChartView3, saveTimeDayDTOList, saveCategoryList3)
 
                 }
                 is UiState.Failure -> {

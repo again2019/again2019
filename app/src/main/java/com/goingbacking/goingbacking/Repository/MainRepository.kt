@@ -271,9 +271,47 @@ class MainRepository (
 
 
     // SecondMainFragment
-    override fun getSecondSaveDayInfo(result: (UiState<SaveTimeDayDTO>) -> Unit) {
-        TODO("Not yet implemented")
+    override fun getSecondSaveDayInfo(result: (UiState<ArrayList<SaveTimeDayDTO>>) -> Unit) {
+        val current = LocalDateTime.now()
+        val simpleDate1 = DateTimeFormatter.ofPattern("yyyy-MM")
+        val simpleDate2 = DateTimeFormatter.ofPattern("dd")
+        val simpleDate3 = DateTimeFormatter.ofPattern("yyyy")
+        val simpleDate4 = DateTimeFormatter.ofPattern("MM")
+
+        var curYearMonth = current.format(simpleDate1)
+        var curDay = current.format(simpleDate2)
+        var curMonth = current.format(simpleDate4)
+        var curYear = current.format(simpleDate3)
+
+
+        firebaseFirestore.collection("SaveTimeInfo").document(user?.uid!!)
+            ?.collection("Day")?.document(curYearMonth)
+            ?.collection(curYearMonth)?.get(Source.CACHE)
+            .addOnSuccessListener {
+                var saveTimeDayDTOList = arrayListOf<SaveTimeDayDTO>()
+
+                for (document in it) {
+                    saveTimeDayDTOList.add(document.toObject(SaveTimeDayDTO::class.java))
+                }
+
+                result.invoke(
+                    UiState.Success(saveTimeDayDTOList)
+                )
+            }
+            .addOnFailureListener {
+                result.invoke(
+                    UiState.Failure(
+                        it.localizedMessage
+                    )
+                )
+            }
+
+
     }
+
+
+
+
 
     override fun getSecondSaveMonthInfo(result: (UiState<ArrayList<SaveTimeMonthDTO>>) -> Unit) {
         val current = LocalDateTime.now()
