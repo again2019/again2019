@@ -41,7 +41,7 @@ class TmpTimeActivity : AppCompatActivity() {
             onItemClicked = { wakeUpTime1, wakeUpTime2, wakeUpTime3, wakeUpTime4, count ->
                 TmpTimeDayOberver(wakeUpTime1, wakeUpTime2, count)
                 TmpTimeMonthOberver(wakeUpTime3, wakeUpTime4, count)
-
+                TmpTimeYearOberver(wakeUpTime3, count)
             }
 
         )
@@ -171,6 +171,20 @@ class TmpTimeActivity : AppCompatActivity() {
         }
     }
 
+    private fun TmpTimeYearOberver(wakeUpTime: String, count: FieldValue){
+        viewModel.updateTmpTimeYearInfo(wakeUpTime, count)
+        viewModel.tmpTimeYearDTOs.observe(this) { state ->
+            when(state){
+                is UiState.Success -> {
+
+                }
+                is UiState.Failure -> {
+                    Toast.makeText(this, "failure", Toast.LENGTH_SHORT).show()
+                }
+
+            }
+        }
+    }
 
 
 }

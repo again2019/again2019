@@ -76,7 +76,10 @@ class TmpTimeRepository(
         count: FieldValue,
         result: (UiState<String>) -> Unit
     ) {
-        TODO("Not yet implemented")
+        firebaseFirestore?.collection("SaveTimeInfo")?.document(user?.uid!!)
+                    ?.collection("Year")?.document(wakeUpTime)
+                    ?.update("count", count)
+
     }
 
 }
