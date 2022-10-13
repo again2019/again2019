@@ -12,7 +12,9 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Source
 import dagger.hilt.android.AndroidEntryPoint
+import java.text.SimpleDateFormat
 import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 class MainRepository (
@@ -269,12 +271,38 @@ class MainRepository (
 
 
     // SecondMainFragment
-    override fun getSecondSaveDayInfo(result: (UiState<DateDTO>) -> Unit) {
+    override fun getSecondSaveDayInfo(result: (UiState<SaveTimeDayDTO>) -> Unit) {
         TODO("Not yet implemented")
     }
 
-    override fun getSecondSaveMonthInfo(result: (UiState<DateDTO>) -> Unit) {
-        TODO("Not yet implemented")
+    override fun getSecondSaveMonthInfo(result: (UiState<ArrayList<SaveTimeMonthDTO>>) -> Unit) {
+        val current = LocalDateTime.now()
+        val simpleDate1 = DateTimeFormatter.ofPattern("yyyy-MM")
+        val simpleDate2 = DateTimeFormatter.ofPattern("dd")
+        val simpleDate3 = DateTimeFormatter.ofPattern("yyyy")
+        val simpleDate4 = DateTimeFormatter.ofPattern("MM")
+
+        var curMonth = current.format(simpleDate4)
+        var curYear = current.format(simpleDate3)
+
+        firebaseFirestore.collection("SaveTimeInfo").document(user?.uid!!)
+            ?.collection("Month")?.document(curYear)
+            ?.collection(curYear).get(Source.CACHE)
+            .addOnSuccessListener {
+                var saveTimeMonthDTOList = arrayListOf<SaveTimeMonthDTO>()
+
+                for (document in it) {
+                    saveTimeMonthDTOList.add(document.toObject(SaveTimeMonthDTO::class.java))
+                }
+                result.invoke(
+                    UiState.Success(saveTimeMonthDTOList)
+                )
+            }
+
+
+
+
+
     }
 
     override fun getSecondSaveYearInfo(result: (UiState<ArrayList<SaveTimeYearDTO>>) -> Unit) {

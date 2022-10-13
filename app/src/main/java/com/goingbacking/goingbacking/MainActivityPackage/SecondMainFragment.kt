@@ -26,14 +26,14 @@ class SecondMainFragment : Fragment(), AAChartView.AAChartViewCallBack {
     var auth : FirebaseAuth? = null
     var firebaseFirestore : FirebaseFirestore? = null
     var userId : String? = null
-    var saveTimeYearDTO : SaveTimeYearDTO? = null
-    var saveTimeYearDTOList = arrayListOf<Int>()
+//    var saveTimeYearDTO : SaveTimeYearDTO? = null
+//    var saveTimeYearDTOList = arrayListOf<Int>()
 
-    var saveTimeMonthDTO : SaveTimeMonthDTO? = null
-    var saveTimeMonthDTOList = arrayListOf<Int>()
-
-    var saveTimeDayDTO : SaveTimeDayDTO? = null
-    var saveTimeDayDTOList = arrayListOf<Int>()
+//    var saveTimeMonthDTO : SaveTimeMonthDTO? = null
+//    var saveTimeMonthDTOList = arrayListOf<Int>()
+//
+//    var saveTimeDayDTO : SaveTimeDayDTO? = null
+//    var saveTimeDayDTOList = arrayListOf<Int>()
 
     var chartType: String = ""
 
@@ -45,8 +45,9 @@ class SecondMainFragment : Fragment(), AAChartView.AAChartViewCallBack {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         binding = FragmentSecondMainBinding.inflate(layoutInflater)
+        monthObserver()
 
-        init()
+//        init()
 
 //        FirebaseFirestore.getInstance().collection("SaveTimeInfo").document(userId!!)
 //            ?.collection("Year")?.addSnapshotListener { querySnapshot, _ ->
@@ -61,35 +62,35 @@ class SecondMainFragment : Fragment(), AAChartView.AAChartViewCallBack {
 //                setUpAAChartView(binding.AAChartView1, saveTimeDayDTOList)
 //                //setUpAAChartViewYear(binding)
 //            }
+//
+//        FirebaseFirestore.getInstance().collection("SaveTimeInfo").document(userId!!)
+//            ?.collection("Month")?.document("2022")
+//            ?.collection("09")?.addSnapshotListener { querySnapshot, _ -> //"09" 부분을 userId로
+//                saveTimeMonthDTOList.clear()
+//                if(querySnapshot == null) return@addSnapshotListener
+//                for(snapshot in querySnapshot!!.documents){
+//
+//                    Toast.makeText(requireActivity(), snapshot.toObject(SaveTimeMonthDTO::class.java)?.count!!.toString(), Toast.LENGTH_SHORT).show()
+//                    saveTimeMonthDTOList.add(snapshot.toObject(SaveTimeMonthDTO::class.java)?.count!!)
+//                }
+//                //setUpAAChartView(binding.AAChartView2, saveTimeMonthDTOList)
+//
+//                //setUpAAChartViewMonth(binding)
+//            }
 
-        FirebaseFirestore.getInstance().collection("SaveTimeInfo").document(userId!!)
-            ?.collection("Month")?.document("2022")
-            ?.collection("09")?.addSnapshotListener { querySnapshot, _ -> //"09" 부분을 userId로
-                saveTimeMonthDTOList.clear()
-                if(querySnapshot == null) return@addSnapshotListener
-                for(snapshot in querySnapshot!!.documents){
-
-                    Toast.makeText(requireActivity(), snapshot.toObject(SaveTimeMonthDTO::class.java)?.count!!.toString(), Toast.LENGTH_SHORT).show()
-                    saveTimeMonthDTOList.add(snapshot.toObject(SaveTimeMonthDTO::class.java)?.count!!)
-                }
-                //setUpAAChartView(binding.AAChartView2, saveTimeMonthDTOList)
-
-                //setUpAAChartViewMonth(binding)
-            }
-
-        FirebaseFirestore.getInstance().collection("SaveTimeInfo").document(userId!!)
-            ?.collection("Day")?.document("2022-09")
-            ?.collection("22")?.addSnapshotListener { querySnapshot, _ -> //"22" 2022-09로 바꾸기
-                saveTimeDayDTOList.clear()
-                if(querySnapshot == null) return@addSnapshotListener
-                for(snapshot in querySnapshot!!.documents){
-
-                    Toast.makeText(requireActivity(), snapshot.toObject(SaveTimeMonthDTO::class.java)?.count!!.toString(), Toast.LENGTH_SHORT).show()
-                    saveTimeDayDTOList.add(snapshot.toObject(SaveTimeDayDTO::class.java)?.count!!)
-                }
-                //setUpAAChartView(binding.AAChartView3, saveTimeYearDTOList)
-                //setUpAAChartViewDay(binding)
-            }
+//        FirebaseFirestore.getInstance().collection("SaveTimeInfo").document(userId!!)
+//            ?.collection("Day")?.document("2022-09")
+//            ?.collection("22")?.addSnapshotListener { querySnapshot, _ -> //"22" 2022-09로 바꾸기
+//                saveTimeDayDTOList.clear()
+//                if(querySnapshot == null) return@addSnapshotListener
+//                for(snapshot in querySnapshot!!.documents){
+//
+//                    Toast.makeText(requireActivity(), snapshot.toObject(SaveTimeMonthDTO::class.java)?.count!!.toString(), Toast.LENGTH_SHORT).show()
+//                    saveTimeDayDTOList.add(snapshot.toObject(SaveTimeDayDTO::class.java)?.count!!)
+//                }
+//                //setUpAAChartView(binding.AAChartView3, saveTimeYearDTOList)
+//                //setUpAAChartViewDay(binding)
+//            }
 
 
         if (this::binding.isInitialized) {
@@ -150,14 +151,14 @@ class SecondMainFragment : Fragment(), AAChartView.AAChartViewCallBack {
     ) {
     }
 
-    fun init() {
-        auth = FirebaseAuth.getInstance()
-        firebaseFirestore = FirebaseFirestore.getInstance()
-        userId = auth?.currentUser?.uid
-        saveTimeYearDTO = SaveTimeYearDTO()
-        saveTimeMonthDTO = SaveTimeMonthDTO()
-        saveTimeDayDTO = SaveTimeDayDTO()
-    }
+//    fun init() {
+//        auth = FirebaseAuth.getInstance()
+//        firebaseFirestore = FirebaseFirestore.getInstance()
+//        userId = auth?.currentUser?.uid
+//        saveTimeYearDTO = SaveTimeYearDTO()
+//        saveTimeMonthDTO = SaveTimeMonthDTO()
+//        saveTimeDayDTO = SaveTimeDayDTO()
+//    }
 
     fun yearObserver() {
         viewModel.getSecondSaveYearInfo()
@@ -165,12 +166,12 @@ class SecondMainFragment : Fragment(), AAChartView.AAChartViewCallBack {
             when(state) {
                 is UiState.Success -> {
                     var saveTimeYearDTOList = arrayListOf<Int>()
-                    var saveCategoryList = arrayListOf<String>()
+                    var saveCategoryList1 = arrayListOf<String>()
                     for (data in state.data) {
                         saveTimeYearDTOList.add(data.count!!)
-                        saveCategoryList.add(data.year!!.toString())
+                        saveCategoryList1.add(data.year!!.toString())
                     }
-                    setUpAAChartView(binding.AAChartView1, saveTimeYearDTOList, saveCategoryList)
+                    setUpAAChartView(binding.AAChartView1, saveTimeYearDTOList, saveCategoryList1)
 
                 }
                 is UiState.Failure -> {
@@ -179,9 +180,30 @@ class SecondMainFragment : Fragment(), AAChartView.AAChartViewCallBack {
             }
 
         }
+    }
 
+    fun monthObserver() {
+        viewModel.getSecondSaveMonthInfo()
+        viewModel.secondSaveMonthDTOs.observe(viewLifecycleOwner) { state ->
+            when(state) {
+                is UiState.Success -> {
+                    var saveTimeMonthDTOList = arrayListOf<Int>()
+                    var saveCategoryList2 = arrayListOf<String>()
+                    for (data in state.data) {
+                        saveTimeMonthDTOList.add(data.count!!)
+                        saveCategoryList2.add(data.month!!.toString())
+                    }
 
+                    Log.e("experiment", "month: " + saveTimeMonthDTOList.toString())
+                    setUpAAChartView(binding.AAChartView2, saveTimeMonthDTOList, saveCategoryList2)
 
+                }
+                is UiState.Failure -> {
+                    Log.e("experiment", state.error.toString())
+                }
+            }
+
+        }
     }
 
 }
