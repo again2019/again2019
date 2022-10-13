@@ -3,10 +3,7 @@ package com.goingbacking.goingbacking.ViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.goingbacking.goingbacking.Model.DateDTO
-import com.goingbacking.goingbacking.Model.Event
-import com.goingbacking.goingbacking.Model.TmpTimeDTO
-import com.goingbacking.goingbacking.Model.UserInfoDTO
+import com.goingbacking.goingbacking.Model.*
 import com.goingbacking.goingbacking.Repository.MainRepositoryIF
 import com.goingbacking.goingbacking.util.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -37,7 +34,9 @@ class MainViewModel @Inject constructor (
     val thirdCalendarDTOs : LiveData<UiState<MutableMap<LocalDate, List<Event>>>>
         get() = _thirdCalendarDTOs
 
-
+    private val _secondSaveYearDTOs = MutableLiveData<UiState<ArrayList<SaveTimeYearDTO>>>()
+    val secondSaveYearDTOs : LiveData<UiState<ArrayList<SaveTimeYearDTO>>>
+        get() = _secondSaveYearDTOs
 
     fun getFifthUserInfo()  {
         _userInfoDTOs.value = UiState.Loading
@@ -62,6 +61,11 @@ class MainViewModel @Inject constructor (
     fun getThirdCalendarInfo(yearList : MutableList<String>) {
         _thirdCalendarDTOs.value = UiState.Loading
         mainRepository.getThirdCalendarInfo(yearList) { _thirdCalendarDTOs.value = it }
+    }
+
+    fun getSecondSaveYearInfo() {
+        _secondSaveYearDTOs.value = UiState.Loading
+        mainRepository.getSecondSaveYearInfo() { _secondSaveYearDTOs.value = it }
     }
 
 

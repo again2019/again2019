@@ -1,6 +1,7 @@
 package com.goingbacking.goingbacking.Repository
 
 import android.util.Log
+import android.widget.Toast
 import com.goingbacking.goingbacking.Model.*
 import com.goingbacking.goingbacking.util.FBConstants.Companion.CALENDARINFO
 import com.goingbacking.goingbacking.util.FBConstants.Companion.DATE
@@ -266,6 +267,38 @@ class MainRepository (
 
     }
 
+
+    // SecondMainFragment
+    override fun getSecondSaveDayInfo(result: (UiState<DateDTO>) -> Unit) {
+        TODO("Not yet implemented")
+    }
+
+    override fun getSecondSaveMonthInfo(result: (UiState<DateDTO>) -> Unit) {
+        TODO("Not yet implemented")
+    }
+
+    override fun getSecondSaveYearInfo(result: (UiState<ArrayList<SaveTimeYearDTO>>) -> Unit) {
+
+        firebaseFirestore.collection("SaveTimeInfo").document(user?.uid!!)
+            ?.collection("Year")?.get(Source.CACHE)
+            .addOnSuccessListener {
+                var saveTimeYearDTOList = arrayListOf<SaveTimeYearDTO>()
+                 for(document in it){
+                        saveTimeYearDTOList.add(document.toObject(SaveTimeYearDTO::class.java))
+                }
+
+                result.invoke(
+                    UiState.Success(saveTimeYearDTOList)
+                )
+            }
+            .addOnFailureListener {
+                result.invoke(
+                    UiState.Failure(
+                        it.localizedMessage
+                    )
+                )
+            }
+    }
 
 
 }
