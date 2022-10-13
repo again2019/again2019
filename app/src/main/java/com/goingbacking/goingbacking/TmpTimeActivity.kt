@@ -37,7 +37,14 @@ class TmpTimeActivity : AppCompatActivity() {
     }
 
     val adapter by lazy {
-        TmpTimeRecyclerViewAdapter()
+        TmpTimeRecyclerViewAdapter(
+            onItemClicked = { wakeUpTime1, wakeUpTime2, wakeUpTime3, wakeUpTime4, count ->
+                TmpTimeDayOberver(wakeUpTime1, wakeUpTime2, count)
+                TmpTimeMonthOberver(wakeUpTime3, wakeUpTime4, count)
+
+            }
+
+        )
     }
     val viewModel : TmpTimeViewModel by viewModels()
 
@@ -133,5 +140,37 @@ class TmpTimeActivity : AppCompatActivity() {
             }
         }
     }
+
+    private fun TmpTimeDayOberver(wakeUpTime1: String, wakeUpTime2: String, count: FieldValue){
+        viewModel.updateTmpTimeDayInfo(wakeUpTime1, wakeUpTime2, count)
+        viewModel.tmpTimeDayDTOs.observe(this) { state ->
+            when(state){
+                is UiState.Success -> {
+
+                }
+                is UiState.Failure -> {
+                    Toast.makeText(this, "failure", Toast.LENGTH_SHORT).show()
+                }
+
+            }
+        }
+    }
+
+    private fun TmpTimeMonthOberver(wakeUpTime1: String, wakeUpTime2: String, count: FieldValue){
+        viewModel.updateTmpTimeMonthInfo(wakeUpTime1, wakeUpTime2, count)
+        viewModel.tmpTimeMonthDTOs.observe(this) { state ->
+            when(state){
+                is UiState.Success -> {
+
+                }
+                is UiState.Failure -> {
+                    Toast.makeText(this, "failure", Toast.LENGTH_SHORT).show()
+                }
+
+            }
+        }
+    }
+
+
 
 }

@@ -1,12 +1,19 @@
 package com.goingbacking.goingbacking.Adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.goingbacking.goingbacking.Model.TmpTimeDTO
 import com.goingbacking.goingbacking.databinding.ItemTmpBinding
+import com.goingbacking.goingbacking.util.UiState
+import com.google.firebase.firestore.FieldValue
+import java.text.SimpleDateFormat
 
-class TmpTimeRecyclerViewAdapter(): RecyclerView.Adapter<TmpTimeRecyclerViewAdapter.MyViewHolder>() {
+class TmpTimeRecyclerViewAdapter(
+    val onItemClicked: (String, String, String, String, FieldValue) -> Unit
+): RecyclerView.Adapter<TmpTimeRecyclerViewAdapter.MyViewHolder>() {
     private var tmpTimeDTOList : ArrayList<TmpTimeDTO> = arrayListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -31,16 +38,32 @@ class TmpTimeRecyclerViewAdapter(): RecyclerView.Adapter<TmpTimeRecyclerViewAdap
 
     inner class MyViewHolder(val binding: ItemTmpBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: TmpTimeDTO) {
+
             binding.nowSeconds.text = item.nowSeconds.toString()
             binding.startTime.text = item.startTime.toString()
             binding.wakeUpTime.text = item.wakeUpTime.toString()
-            binding.saveButton.setOnClickListener {
+
+            val simpleDate1 = SimpleDateFormat("yyyy-MM")
+            val simpleDate2 = SimpleDateFormat("dd")
+            val simpleDate3 = SimpleDateFormat("yyyy")
+            val simpleDate4 = SimpleDateFormat("MM")
 
 
-                 }
+            val wakeUpTime1 = simpleDate1.format(item.wakeUpTime!!).toString()
+            val wakeUpTime2 = simpleDate2.format(item.wakeUpTime!!).toString()
+            val wakeUpTime3 = simpleDate3.format(item.wakeUpTime!!).toString()
+            val wakeUpTime4 = simpleDate4.format(item.wakeUpTime!!).toString()
+
+            val count = FieldValue.increment(item.nowSeconds!!.toDouble())
+
+            Log.d("experiment", "wakeUptime: " + wakeUpTime1 + " " + wakeUpTime2)
+
+            binding.saveButton.setOnClickListener { onItemClicked.invoke(wakeUpTime1, wakeUpTime2, wakeUpTime3, wakeUpTime4, count) }
 
         }
     }
+
+
 
 
 }

@@ -4,8 +4,10 @@ import com.goingbacking.goingbacking.Model.TmpTimeDTO
 import com.goingbacking.goingbacking.util.FBConstants
 import com.goingbacking.goingbacking.util.UiState
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Source
+import java.text.SimpleDateFormat
 
 class TmpTimeRepository(
     val user: FirebaseUser?,
@@ -36,33 +38,43 @@ class TmpTimeRepository(
     }
 
     override fun updateTmpTimeDayInfo(
-        wakeUpTime: String,
-        uidWakeUpTime: String,
-        count: Double,
-        result: (UiState<ArrayList<TmpTimeDTO>>) -> Unit
+        wakeUpTime1: String,
+        wakeUpTime2: String,
+        count: FieldValue,
+        result: (UiState<String>) -> Unit
     ) {
-//        firebaseFirestore?.collection("SaveTimeInfo")?.document(userId!!)
-//            ?.collection("Day")?.document(simpleDate2.format(tmpTimeDTOList[position].wakeUpTime).toString())
-//            ?.collection(simpleDate3.format(tmpTimeDTOList[position].wakeUpTime).toString())?.document(userId!! + simpleDate3.format(tmpTimeDTOList[position].wakeUpTime).toString())
-//            ?.update("count", FieldValue.increment(tmpTimeDTOList[position].nowSeconds?.toDouble()!!))
-//
-        TODO("Not yet implemented")
 
+        firebaseFirestore?.collection("SaveTimeInfo")?.document(user?.uid!!)
+            ?.collection("Day")?.document(wakeUpTime1)
+            ?.collection(wakeUpTime2)?.document(user?.uid + wakeUpTime2)
+            ?.update("count", count)
+            .addOnSuccessListener {
+                result.invoke(UiState.Success("SecondUpdate"))
+            }
+            .addOnFailureListener {
+                result.invoke(UiState.Failure(
+                    it.localizedMessage
+                ))
+            }
     }
 
     override fun updateTmpTimeMonthInfo(
-        wakeUpTime: String,
-        uidWakeUpTime: String,
-        count: Double,
-        result: (UiState<ArrayList<TmpTimeDTO>>) -> Unit
+        wakeUpTime1: String,
+        wakeUpTime2: String,
+        count: FieldValue,
+        result: (UiState<String>) -> Unit
     ) {
-        TODO("Not yet implemented")
+        firebaseFirestore?.collection("SaveTimeInfo")?.document(user?.uid!!)
+                    ?.collection("Month")?.document(wakeUpTime1)
+                    ?.collection(wakeUpTime2)?.document(user?.uid!! + wakeUpTime2)
+                    ?.update("count", count)
+
     }
 
     override fun updateTmpTimeYearInfo(
         wakeUpTime: String,
-        count: Double,
-        result: (UiState<ArrayList<TmpTimeDTO>>) -> Unit
+        count: FieldValue,
+        result: (UiState<String>) -> Unit
     ) {
         TODO("Not yet implemented")
     }
