@@ -5,8 +5,12 @@ import android.widget.Toast
 import com.goingbacking.goingbacking.Model.*
 import com.goingbacking.goingbacking.util.FBConstants.Companion.CALENDARINFO
 import com.goingbacking.goingbacking.util.FBConstants.Companion.DATE
+import com.goingbacking.goingbacking.util.FBConstants.Companion.DAY
+import com.goingbacking.goingbacking.util.FBConstants.Companion.MONTH
+import com.goingbacking.goingbacking.util.FBConstants.Companion.SAVETIMEINFO
 import com.goingbacking.goingbacking.util.FBConstants.Companion.TMPTIMEINFO
 import com.goingbacking.goingbacking.util.FBConstants.Companion.USERINFO
+import com.goingbacking.goingbacking.util.FBConstants.Companion.YEAR
 import com.goingbacking.goingbacking.util.UiState
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
@@ -22,8 +26,11 @@ class MainRepository (
     val firebaseFirestore: FirebaseFirestore
         ): MainRepositoryIF {
 
+    val uid = user?.uid!!
+
+
     override fun getFifthUserInfo(result: (UiState<UserInfoDTO>) -> Unit) {
-        firebaseFirestore.collection(USERINFO)?.document(user?.uid!!)
+        firebaseFirestore.collection(USERINFO)?.document(uid)
             ?.get(Source.CACHE)
             ?.addOnSuccessListener { document ->
                 val data :UserInfoDTO? = document.toObject(UserInfoDTO::class.java)
@@ -42,7 +49,7 @@ class MainRepository (
     }
 
     override fun addEventInfo(path1: String, path2: String, event: Event, result: (UiState<String>) -> Unit) {
-        firebaseFirestore?.collection(CALENDARINFO)?.document(user?.uid!!)
+        firebaseFirestore?.collection(CALENDARINFO)?.document(uid)
             ?.collection(path1)?.document(path2)
             ?.set(event)
             .addOnSuccessListener {
@@ -54,7 +61,7 @@ class MainRepository (
     }
 
     override fun addDateInfo(date: DateDTO, result: (UiState<String>) -> Unit) {
-        firebaseFirestore?.collection(DATE)?.document(user?.uid!!)?.set(date)
+        firebaseFirestore?.collection(DATE)?.document(uid)?.set(date)
             ?.addOnSuccessListener {
                 result.invoke(UiState.Success("DateInfo Success"))
             }
@@ -65,7 +72,7 @@ class MainRepository (
     }
 
     override fun getThirdDateInfo(result: (UiState<DateDTO>) -> Unit) {
-        firebaseFirestore?.collection(DATE)?.document(user?.uid!!)
+        firebaseFirestore?.collection(DATE)?.document(uid)
             ?.get(Source.CACHE)
             ?.addOnSuccessListener { document ->
                 val data: DateDTO? = document.toObject(DateDTO::class.java)
@@ -79,7 +86,7 @@ class MainRepository (
     }
 
     override fun getThirdDateInfo2(result: (UiState<DateDTO>) -> Unit) {
-        firebaseFirestore?.collection(DATE)?.document(user?.uid!!)
+        firebaseFirestore?.collection(DATE)?.document(uid)
             ?.get(Source.CACHE)
             ?.addOnSuccessListener { document ->
                 val data: DateDTO? = document.toObject(DateDTO::class.java)
@@ -103,7 +110,7 @@ class MainRepository (
         events.clear()
         for (i in yearList) {
             firebaseFirestore
-                ?.collection(CALENDARINFO)?.document(user?.uid!!)?.collection(Strnow)
+                ?.collection(CALENDARINFO)?.document(uid)?.collection(Strnow)
                 ?.whereEqualTo("date", i)?.get(Source.CACHE)
                 ?.addOnSuccessListener { querySnapshot ->
                     if (querySnapshot.count() == 1) {
@@ -284,8 +291,8 @@ class MainRepository (
         var curYear = current.format(simpleDate3)
 
 
-        firebaseFirestore.collection("SaveTimeInfo").document(user?.uid!!)
-            ?.collection("Day")?.document(curYearMonth)
+        firebaseFirestore.collection(SAVETIMEINFO).document(uid)
+            ?.collection(DAY)?.document(curYearMonth)
             ?.collection(curYearMonth)?.get(Source.CACHE)
             .addOnSuccessListener {
                 var saveTimeDayDTOList = arrayListOf<SaveTimeDayDTO>()
@@ -323,8 +330,8 @@ class MainRepository (
         var curMonth = current.format(simpleDate4)
         var curYear = current.format(simpleDate3)
 
-        firebaseFirestore.collection("SaveTimeInfo").document(user?.uid!!)
-            ?.collection("Month")?.document(curYear)
+        firebaseFirestore.collection(SAVETIMEINFO).document(uid)
+            ?.collection(MONTH)?.document(curYear)
             ?.collection(curYear).get(Source.CACHE)
             .addOnSuccessListener {
                 var saveTimeMonthDTOList = arrayListOf<SaveTimeMonthDTO>()
@@ -345,8 +352,8 @@ class MainRepository (
 
     override fun getSecondSaveYearInfo(result: (UiState<ArrayList<SaveTimeYearDTO>>) -> Unit) {
 
-        firebaseFirestore.collection("SaveTimeInfo").document(user?.uid!!)
-            ?.collection("Year")?.get(Source.CACHE)
+        firebaseFirestore.collection(SAVETIMEINFO).document(uid)
+            ?.collection(YEAR)?.get(Source.CACHE)
             .addOnSuccessListener {
                 var saveTimeYearDTOList = arrayListOf<SaveTimeYearDTO>()
                  for(document in it){
