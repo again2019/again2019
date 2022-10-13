@@ -27,11 +27,12 @@ class MainRepository (
         ): MainRepositoryIF {
 
     val uid = user?.uid!!
+    val cache = Source.CACHE
 
 
     override fun getFifthUserInfo(result: (UiState<UserInfoDTO>) -> Unit) {
         firebaseFirestore.collection(USERINFO)?.document(uid)
-            ?.get(Source.CACHE)
+            ?.get(cache)
             ?.addOnSuccessListener { document ->
                 val data :UserInfoDTO? = document.toObject(UserInfoDTO::class.java)
                 result.invoke(
@@ -73,7 +74,7 @@ class MainRepository (
 
     override fun getThirdDateInfo(result: (UiState<DateDTO>) -> Unit) {
         firebaseFirestore?.collection(DATE)?.document(uid)
-            ?.get(Source.CACHE)
+            ?.get(cache)
             ?.addOnSuccessListener { document ->
                 val data: DateDTO? = document.toObject(DateDTO::class.java)
                 result.invoke(
@@ -87,7 +88,7 @@ class MainRepository (
 
     override fun getThirdDateInfo2(result: (UiState<DateDTO>) -> Unit) {
         firebaseFirestore?.collection(DATE)?.document(uid)
-            ?.get(Source.CACHE)
+            ?.get(cache)
             ?.addOnSuccessListener { document ->
                 val data: DateDTO? = document.toObject(DateDTO::class.java)
 
@@ -111,7 +112,7 @@ class MainRepository (
         for (i in yearList) {
             firebaseFirestore
                 ?.collection(CALENDARINFO)?.document(uid)?.collection(Strnow)
-                ?.whereEqualTo("date", i)?.get(Source.CACHE)
+                ?.whereEqualTo("date", i)?.get(cache)
                 ?.addOnSuccessListener { querySnapshot ->
                     if (querySnapshot.count() == 1) {
                         for (snapshot in querySnapshot!!) {
@@ -281,19 +282,13 @@ class MainRepository (
     override fun getSecondSaveDayInfo(result: (UiState<ArrayList<SaveTimeDayDTO>>) -> Unit) {
         val current = LocalDateTime.now()
         val simpleDate1 = DateTimeFormatter.ofPattern("yyyy-MM")
-        val simpleDate2 = DateTimeFormatter.ofPattern("dd")
-        val simpleDate3 = DateTimeFormatter.ofPattern("yyyy")
-        val simpleDate4 = DateTimeFormatter.ofPattern("MM")
-
         var curYearMonth = current.format(simpleDate1)
-        var curDay = current.format(simpleDate2)
-        var curMonth = current.format(simpleDate4)
-        var curYear = current.format(simpleDate3)
+
 
 
         firebaseFirestore.collection(SAVETIMEINFO).document(uid)
             ?.collection(DAY)?.document(curYearMonth)
-            ?.collection(curYearMonth)?.get(Source.CACHE)
+            ?.collection(curYearMonth)?.get(cache)
             .addOnSuccessListener {
                 var saveTimeDayDTOList = arrayListOf<SaveTimeDayDTO>()
 
@@ -322,17 +317,13 @@ class MainRepository (
 
     override fun getSecondSaveMonthInfo(result: (UiState<ArrayList<SaveTimeMonthDTO>>) -> Unit) {
         val current = LocalDateTime.now()
-        val simpleDate1 = DateTimeFormatter.ofPattern("yyyy-MM")
-        val simpleDate2 = DateTimeFormatter.ofPattern("dd")
-        val simpleDate3 = DateTimeFormatter.ofPattern("yyyy")
-        val simpleDate4 = DateTimeFormatter.ofPattern("MM")
+        val simpleDate1 = DateTimeFormatter.ofPattern("yyyy")
 
-        var curMonth = current.format(simpleDate4)
-        var curYear = current.format(simpleDate3)
+        var curYear = current.format(simpleDate1)
 
         firebaseFirestore.collection(SAVETIMEINFO).document(uid)
             ?.collection(MONTH)?.document(curYear)
-            ?.collection(curYear).get(Source.CACHE)
+            ?.collection(curYear).get(cache)
             .addOnSuccessListener {
                 var saveTimeMonthDTOList = arrayListOf<SaveTimeMonthDTO>()
 
@@ -353,7 +344,7 @@ class MainRepository (
     override fun getSecondSaveYearInfo(result: (UiState<ArrayList<SaveTimeYearDTO>>) -> Unit) {
 
         firebaseFirestore.collection(SAVETIMEINFO).document(uid)
-            ?.collection(YEAR)?.get(Source.CACHE)
+            ?.collection(YEAR)?.get(cache)
             .addOnSuccessListener {
                 var saveTimeYearDTOList = arrayListOf<SaveTimeYearDTO>()
                  for(document in it){
