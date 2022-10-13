@@ -8,15 +8,13 @@ import com.goingbacking.goingbacking.util.FBConstants.Companion.DATE
 import com.goingbacking.goingbacking.util.FBConstants.Companion.DAY
 import com.goingbacking.goingbacking.util.FBConstants.Companion.MONTH
 import com.goingbacking.goingbacking.util.FBConstants.Companion.SAVETIMEINFO
-import com.goingbacking.goingbacking.util.FBConstants.Companion.TMPTIMEINFO
 import com.goingbacking.goingbacking.util.FBConstants.Companion.USERINFO
 import com.goingbacking.goingbacking.util.FBConstants.Companion.YEAR
 import com.goingbacking.goingbacking.util.UiState
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Source
-import dagger.hilt.android.AndroidEntryPoint
-import java.text.SimpleDateFormat
+
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter

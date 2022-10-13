@@ -9,15 +9,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import com.github.aachartmodel.aainfographics.aachartcreator.*
-import com.goingbacking.goingbacking.Model.SaveTimeDayDTO
-import com.goingbacking.goingbacking.Model.SaveTimeMonthDTO
-import com.goingbacking.goingbacking.Model.SaveTimeYearDTO
 import com.goingbacking.goingbacking.ViewModel.MainViewModel
 
 import com.goingbacking.goingbacking.databinding.FragmentSecondMainBinding
 import com.goingbacking.goingbacking.util.UiState
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
 import dagger.hilt.android.AndroidEntryPoint
 
 

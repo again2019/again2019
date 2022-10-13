@@ -7,7 +7,6 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.goingbacking.goingbacking.Model.TmpTimeDTO
 import com.goingbacking.goingbacking.databinding.ItemTmpBinding
-import com.goingbacking.goingbacking.util.UiState
 import com.google.firebase.firestore.FieldValue
 import java.text.SimpleDateFormat
 
