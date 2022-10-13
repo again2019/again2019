@@ -7,10 +7,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.viewModels
 import com.github.aachartmodel.aainfographics.aachartcreator.*
 import com.goingbacking.goingbacking.Model.SaveTimeDayDTO
 import com.goingbacking.goingbacking.Model.SaveTimeMonthDTO
 import com.goingbacking.goingbacking.Model.SaveTimeYearDTO
+import com.goingbacking.goingbacking.ViewModel.MainViewModel
 
 import com.goingbacking.goingbacking.databinding.FragmentSecondMainBinding
 import com.google.firebase.auth.FirebaseAuth
@@ -36,15 +38,10 @@ class SecondMainFragment : Fragment(), AAChartView.AAChartViewCallBack {
     var aaChartView: AAChartView? = null
     var chartType: String = ""
 
-    var aaChartModel2 = AAChartModel()
-    var aaChartView2: AAChartView? = null
-    var chartType2: String = ""
 
-    var aaChartModel3 = AAChartModel()
-    var aaChartView3: AAChartView? = null
-    var chartType3: String = ""
 
     lateinit var binding : FragmentSecondMainBinding
+    val viewModel: MainViewModel by viewModels()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -63,7 +60,8 @@ class SecondMainFragment : Fragment(), AAChartView.AAChartViewCallBack {
                     saveTimeYearDTOList.add(snapshot.toObject(SaveTimeYearDTO::class.java)?.count!!)
                 }
 
-                setUpAAChartViewYear(binding)
+                setUpAAChartView(binding.AAChartView1, saveTimeDayDTOList)
+                //setUpAAChartViewYear(binding)
             }
 
         FirebaseFirestore.getInstance().collection("SaveTimeInfo").document(userId!!)
@@ -76,8 +74,9 @@ class SecondMainFragment : Fragment(), AAChartView.AAChartViewCallBack {
                     Toast.makeText(requireActivity(), snapshot.toObject(SaveTimeMonthDTO::class.java)?.count!!.toString(), Toast.LENGTH_SHORT).show()
                     saveTimeMonthDTOList.add(snapshot.toObject(SaveTimeMonthDTO::class.java)?.count!!)
                 }
+                setUpAAChartView(binding.AAChartView2, saveTimeMonthDTOList)
 
-                setUpAAChartViewMonth(binding)
+                //setUpAAChartViewMonth(binding)
             }
 
         FirebaseFirestore.getInstance().collection("SaveTimeInfo").document(userId!!)
@@ -90,9 +89,10 @@ class SecondMainFragment : Fragment(), AAChartView.AAChartViewCallBack {
                     Toast.makeText(requireActivity(), snapshot.toObject(SaveTimeMonthDTO::class.java)?.count!!.toString(), Toast.LENGTH_SHORT).show()
                     saveTimeDayDTOList.add(snapshot.toObject(SaveTimeDayDTO::class.java)?.count!!)
                 }
-
-                setUpAAChartViewDay(binding)
+                setUpAAChartView(binding.AAChartView3, saveTimeYearDTOList)
+                //setUpAAChartViewDay(binding)
             }
+
 
         if (this::binding.isInitialized) {
             return binding.root
@@ -103,31 +103,12 @@ class SecondMainFragment : Fragment(), AAChartView.AAChartViewCallBack {
 
     }
 
-    private fun setUpAAChartViewYear(binding: FragmentSecondMainBinding) {
-        aaChartView = binding.AAChartView1
-        aaChartView?.setBackgroundColor(0)
-        aaChartView?.callBack = this
-        aaChartModel = configureAAChartModel(saveTimeYearDTOList)
-        aaChartView?.aa_drawChartWithChartModel(aaChartModel)
-
-    }
-
-    private fun setUpAAChartViewMonth(binding: FragmentSecondMainBinding) {
-        aaChartView2 = binding.AAChartView2
-        aaChartView2?.setBackgroundColor(0)
-        aaChartView2?.callBack = this
-        aaChartModel2 = configureAAChartModel(saveTimeMonthDTOList)
-        aaChartView2?.aa_drawChartWithChartModel(aaChartModel2)
-
-    }
-
-    private fun setUpAAChartViewDay(binding: FragmentSecondMainBinding) {
-        aaChartView3 = binding.AAChartView3
-        aaChartView3?.setBackgroundColor(0)
-        aaChartView3?.callBack = this
-        aaChartModel3 = configureAAChartModel(saveTimeDayDTOList)
-        aaChartView3?.aa_drawChartWithChartModel(aaChartModel3)
-
+    private fun setUpAAChartView(aaCharView: AAChartView, list: ArrayList<Int>) {
+        //aaChartView3 = binding.AAChartView3
+        aaCharView?.setBackgroundColor(0)
+        aaCharView?.callBack = this
+        val aaChartModel = configureAAChartModel(list)
+        aaCharView?.aa_drawChartWithChartModel(aaChartModel)
     }
 
 
