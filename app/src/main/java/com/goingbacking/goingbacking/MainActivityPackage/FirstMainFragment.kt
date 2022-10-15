@@ -32,11 +32,6 @@ class FirstMainFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentFirstMainBinding.inflate(layoutInflater)
-
-        val paperAdapter = PagerAdapter(childFragmentManager)
-        binding.viewPager.adapter = paperAdapter
-        binding.indicator.setViewPager(binding.viewPager)
-
         binding.tmpTimeButton.setOnClickListener {
             moveTmpActivity()
         }
