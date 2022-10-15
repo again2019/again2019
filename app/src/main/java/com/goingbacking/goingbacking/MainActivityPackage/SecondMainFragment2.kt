@@ -86,9 +86,7 @@ class SecondMainFragment2 : Fragment(), AAChartView.AAChartViewCallBack {
     ) {
     }
 
-    fun yearObserver() {
 
-    }
 
     fun monthObserver() {
         viewModel.getSecondWhatToDoMonthInfo()
@@ -113,8 +111,33 @@ class SecondMainFragment2 : Fragment(), AAChartView.AAChartViewCallBack {
             }
 
         }
+    }
+
+    fun yearObserver() {
+        viewModel.getSecondWhatToDoYearInfo()
+        viewModel.secondwhatToDoYearDTOs.observe(viewLifecycleOwner) { state ->
+            when(state) {
+                is UiState.Success -> {
+                    var whatToDoYearDTOList = arrayListOf<Any>()
+                    for (data in state.data) {
+                        var tmpList = arrayListOf<Any>()
+                        tmpList.add(data.whatToDo!!)
+                        tmpList.add(data.count!!)
+                        tmpList.toTypedArray()
+                        whatToDoYearDTOList.add(tmpList)
+                    }
+
+                    setUpAAChartView(binding.AAChartView2, whatToDoYearDTOList.toTypedArray())
+
+                }
+                is UiState.Failure -> {
+                    Log.e("experiment", state.error.toString())
+                }
+            }
         }
     }
+
+}
 
 
 

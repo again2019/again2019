@@ -368,7 +368,7 @@ class MainRepository (
 
         firebaseFirestore.collection("WhatToDoInfo").document(uid)
             ?.collection("Month").document(Strnow)
-            ?.collection(Strnow).get()
+            ?.collection(Strnow).get(cache)
             .addOnSuccessListener {
                 val whatToDoMonthDTOList = arrayListOf<WhatToDoMonthDTO>()
                 for (document in it) {
@@ -389,8 +389,31 @@ class MainRepository (
     }
 
     override fun getSecondWhatToDoYearInfo(result: (UiState<ArrayList<WhatToDoYearDTO>>) -> Unit) {
-        TODO("Not yet implemented")
+        var now = LocalDate.now()
+        var Strnow = now.format(DateTimeFormatter.ofPattern("yyyy"))
+
+        firebaseFirestore.collection("WhatToDoInfo").document(uid)
+            ?.collection("Year").document(Strnow)
+            ?.collection(Strnow).get()
+            .addOnSuccessListener {
+                val whatToDoYearDTOList = arrayListOf<WhatToDoYearDTO>()
+                for (document in it) {
+                    whatToDoYearDTOList.add(document.toObject(WhatToDoYearDTO::class.java))
+                }
+
+                result.invoke(
+                    UiState.Success(whatToDoYearDTOList)
+                )
+            }
+            ?.addOnFailureListener {
+                result.invoke(
+                    UiState.Failure(
+                        it.localizedMessage
+                    )
+                )
+            }
     }
 
-
 }
+
+
