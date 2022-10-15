@@ -46,6 +46,13 @@ class MainViewModel @Inject constructor (
     val secondSaveDayDTOs : LiveData<UiState<ArrayList<SaveTimeDayDTO>>>
         get() = _secondSaveDayDTOs
 
+    private val _secondwhatToDoMonthDTOs = MutableLiveData<UiState<ArrayList<WhatToDoMonthDTO>>>()
+    val secondwhatToDoMonthDTOs : LiveData<UiState<ArrayList<WhatToDoMonthDTO>>>
+        get() = _secondwhatToDoMonthDTOs
+
+    private val _secondwhatToDoYearDTOs = MutableLiveData<UiState<ArrayList<WhatToDoYearDTO>>>()
+    val secondwhatToDoYearDTOs : LiveData<UiState<ArrayList<WhatToDoYearDTO>>>
+        get() = _secondwhatToDoYearDTOs
 
     fun getFifthUserInfo()  {
         _userInfoDTOs.value = UiState.Loading
@@ -85,6 +92,16 @@ class MainViewModel @Inject constructor (
     fun getSecondSaveDayInfo() {
         _secondSaveDayDTOs.value = UiState.Loading
         mainRepository.getSecondSaveDayInfo() { _secondSaveDayDTOs.value = it }
+    }
+
+    fun getSecondWhatToDoMonthInfo() {
+        _secondwhatToDoMonthDTOs.value = UiState.Loading
+        mainRepository.getSecondWhatToDoMonthInfo() { _secondwhatToDoMonthDTOs.value = it }
+    }
+
+    fun getSecondWhatToDoYearInfo() {
+        _secondwhatToDoYearDTOs.value = UiState.Loading
+        mainRepository.getSecondWhatToDoYearInfo() { _secondwhatToDoYearDTOs.value = it }
     }
 
 }

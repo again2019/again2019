@@ -362,5 +362,35 @@ class MainRepository (
             }
     }
 
+    override fun getSecondWhatToDoMonthInfo(result: (UiState<ArrayList<WhatToDoMonthDTO>>) -> Unit) {
+        var now = LocalDate.now()
+        var Strnow = now.format(DateTimeFormatter.ofPattern("yyyy-MM"))
+
+        firebaseFirestore.collection("WhatToDoInfo").document(uid)
+            ?.collection("Month").document(Strnow)
+            ?.collection(Strnow).get()
+            .addOnSuccessListener {
+                val whatToDoMonthDTOList = arrayListOf<WhatToDoMonthDTO>()
+                for (document in it) {
+                    whatToDoMonthDTOList.add(document.toObject(WhatToDoMonthDTO::class.java))
+                }
+
+                result.invoke(
+                    UiState.Success(whatToDoMonthDTOList)
+                )
+            }
+            ?.addOnFailureListener {
+                result.invoke(
+                    UiState.Failure(
+                        it.localizedMessage
+                    )
+                )
+            }
+    }
+
+    override fun getSecondWhatToDoYearInfo(result: (UiState<ArrayList<WhatToDoYearDTO>>) -> Unit) {
+        TODO("Not yet implemented")
+    }
+
 
 }
