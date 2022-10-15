@@ -8,15 +8,19 @@ import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Source
 import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 class TmpTimeRepository(
     val user: FirebaseUser?,
     val firebaseFirestore: FirebaseFirestore
 ) :TmpTimeRepositoryIF{
+    val myUid = user?.uid!!
+    val cache = Source.CACHE
 
     override fun getTmpTimeInfo(result: (UiState<ArrayList<TmpTimeDTO>>) -> Unit) {
-        firebaseFirestore?.collection(FBConstants.TMPTIMEINFO).document(user?.uid!!)
-            .collection(user?.uid!!).get(Source.CACHE)
+        firebaseFirestore?.collection(FBConstants.TMPTIMEINFO).document(myUid)
+            .collection(myUid).get(cache)
             .addOnSuccessListener {
                 var tmpTimeDTOList : ArrayList<TmpTimeDTO> = arrayListOf()
                 for(document in it){
@@ -44,9 +48,9 @@ class TmpTimeRepository(
         result: (UiState<String>) -> Unit
     ) {
 
-        firebaseFirestore?.collection("SaveTimeInfo")?.document(user?.uid!!)
+        firebaseFirestore?.collection("SaveTimeInfo")?.document(myUid)
             ?.collection("Day")?.document(wakeUpTime1)
-            ?.collection(wakeUpTime2)?.document(user?.uid + wakeUpTime2)
+            ?.collection(wakeUpTime2)?.document(myUid + wakeUpTime2)
             ?.update("count", count)
             .addOnSuccessListener {
                 result.invoke(UiState.Success("SecondUpdate"))
@@ -64,9 +68,9 @@ class TmpTimeRepository(
         count: FieldValue,
         result: (UiState<String>) -> Unit
     ) {
-        firebaseFirestore?.collection("SaveTimeInfo")?.document(user?.uid!!)
+        firebaseFirestore?.collection("SaveTimeInfo")?.document(myUid)
                     ?.collection("Month")?.document(wakeUpTime1)
-                    ?.collection(wakeUpTime2)?.document(user?.uid!! + wakeUpTime2)
+                    ?.collection(wakeUpTime2)?.document(myUid + wakeUpTime2)
                     ?.update("count", count)
 
     }
@@ -76,10 +80,41 @@ class TmpTimeRepository(
         count: FieldValue,
         result: (UiState<String>) -> Unit
     ) {
-        firebaseFirestore?.collection("SaveTimeInfo")?.document(user?.uid!!)
+        firebaseFirestore?.collection("SaveTimeInfo")?.document(myUid)
                     ?.collection("Year")?.document(wakeUpTime)
                     ?.update("count", count)
 
     }
+
+    override fun updateWhatToDoMonthInfo(
+        whatToDo: String,
+        count: FieldValue,
+        result: (UiState<String>) -> Unit
+    ) {
+        var now = LocalDate.now()
+        var Strnow = now.format(DateTimeFormatter.ofPattern("yyyy-MM"))
+
+        firebaseFirestore?.collection("WhatToDoInfo")?.document(myUid)
+            .collection("Month").document(Strnow)
+            .collection(Strnow).document(myUid + whatToDo)
+            .update("count", count)
+
+    }
+
+    override fun updateWhatToDoYearInfo(
+        whatToDo: String,
+        count: FieldValue,
+        result: (UiState<String>) -> Unit
+    ) {
+        var now = LocalDate.now()
+        var Strnow = now.format(DateTimeFormatter.ofPattern("yyyy"))
+
+        firebaseFirestore?.collection("WhatToDoInfo")?.document(myUid)
+            .collection("Year").document(Strnow)
+            .collection(Strnow).document(myUid + whatToDo)
+            .update("count", count)
+
+    }
+
 
 }

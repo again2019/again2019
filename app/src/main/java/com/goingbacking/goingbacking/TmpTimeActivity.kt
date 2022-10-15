@@ -1,5 +1,6 @@
 package com.goingbacking.goingbacking
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 
@@ -22,10 +23,13 @@ class TmpTimeActivity : AppCompatActivity() {
 
     val adapter by lazy {
         TmpTimeRecyclerViewAdapter(
-            onItemClicked = { wakeUpTime1, wakeUpTime2, wakeUpTime3, wakeUpTime4, count ->
+            onItemClicked = { wakeUpTime1, wakeUpTime2, wakeUpTime3, wakeUpTime4, count, count_double ->
                 TmpTimeDayOberver(wakeUpTime1, wakeUpTime2, count)
                 TmpTimeMonthOberver(wakeUpTime3, wakeUpTime4, count)
                 TmpTimeYearOberver(wakeUpTime3, count)
+                val intent = Intent(this, WhatToDoSaveActivity::class.java)
+                intent.putExtra("count", count_double)
+                startActivity(intent)
             }
 
         )

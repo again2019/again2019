@@ -1,17 +1,19 @@
 package com.goingbacking.goingbacking.Adapter
 
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.goingbacking.goingbacking.Model.TmpTimeDTO
+import com.goingbacking.goingbacking.WhatToDoSaveActivity
 import com.goingbacking.goingbacking.databinding.ItemTmpBinding
 import com.google.firebase.firestore.FieldValue
 import java.text.SimpleDateFormat
 
 class TmpTimeRecyclerViewAdapter(
-    val onItemClicked: (String, String, String, String, FieldValue) -> Unit
+    val onItemClicked: (String, String, String, String, FieldValue, Double) -> Unit
 ): RecyclerView.Adapter<TmpTimeRecyclerViewAdapter.MyViewHolder>() {
     private var tmpTimeDTOList : ArrayList<TmpTimeDTO> = arrayListOf()
 
@@ -57,7 +59,11 @@ class TmpTimeRecyclerViewAdapter(
 
             Log.d("experiment", "wakeUptime: " + wakeUpTime1 + " " + wakeUpTime2)
 
-            binding.saveButton.setOnClickListener { onItemClicked.invoke(wakeUpTime1, wakeUpTime2, wakeUpTime3, wakeUpTime4, count) }
+            binding.saveButton.setOnClickListener {
+                onItemClicked.invoke(wakeUpTime1, wakeUpTime2, wakeUpTime3, wakeUpTime4, count, item.nowSeconds!!.toDouble())
+
+
+            }
 
         }
     }

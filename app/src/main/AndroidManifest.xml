@@ -7,17 +7,21 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application
-        android:name = ".Myapplication"
+        android:name=".Myapplication"
         android:allowBackup="true"
         android:icon="@mipmap/comeback"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/comeback"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity
+            android:name=".WhatToDoSaveActivity"
+            android:exported="true" />
+
         <receiver
             android:name=".DoingReceiver"
             android:enabled="true"
-            android:exported="true"></receiver>
+            android:exported="true" />
 
         <activity
             android:name=".TmpTimeActivity"
@@ -60,7 +64,6 @@
             android:name=".CountReceiver"
             android:enabled="true"
             android:exported="true" />
-
         <receiver
             android:name=".AlarmReceiver"
             android:enabled="true"
@@ -69,8 +72,6 @@
             android:name=".DeviceBootReceiver"
             android:enabled="true"
             android:exported="false" />
-
-
     </application>
 
 </manifest>

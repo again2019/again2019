@@ -10,6 +10,7 @@ interface TmpTimeRepositoryIF {
     fun updateTmpTimeDayInfo(wakeUpTime1: String, wakeUpTime2:String, count : FieldValue, result: (UiState<String>) -> Unit)
     fun updateTmpTimeMonthInfo(wakeUpTime1: String, wakeUpTime2: String, count :FieldValue, result: (UiState<String>) -> Unit)
     fun updateTmpTimeYearInfo(wakeUpTime: String, count :FieldValue, result: (UiState<String>) -> Unit)
-
+    fun updateWhatToDoMonthInfo(whatToDo: String, count: FieldValue, result: (UiState<String>) -> Unit)
+    fun updateWhatToDoYearInfo(whatToDo: String, count: FieldValue, result: (UiState<String>) -> Unit)
 
 }
