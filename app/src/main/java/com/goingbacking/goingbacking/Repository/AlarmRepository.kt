@@ -38,7 +38,7 @@ class AlarmRepository (
 
         firebaseFirestore?.collection("SaveTimeInfo")?.document(myUid)
             ?.collection("Month")?.document(cur_date_text3)
-            ?.collection(cur_date_text2)?.document(myUid + cur_date_text2)
+            ?.collection(cur_date_text3)?.document(myUid + cur_date_text2)
             ?.set(saveTimeMonthDTO!!)
             .addOnSuccessListener {
                 result.invoke(
@@ -126,7 +126,7 @@ class AlarmRepository (
 
             firebaseFirestore?.collection("SaveTimeInfo")?.document(myUid)
                 ?.collection("Month")?.document(cur_date_text3)
-                ?.collection(cur_date_text2)?.document(myUid + cur_date_text2)
+                ?.collection(cur_date_text3)?.document(myUid + cur_date_text2)
                 ?.set(saveTimeMonthDTO!!)
                 .addOnSuccessListener {
                     result.invoke(
