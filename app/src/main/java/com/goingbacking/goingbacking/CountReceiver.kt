@@ -12,67 +12,74 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.*
+import androidx.lifecycle.observe
 import com.goingbacking.goingbacking.MainActivityPackage.FirstMainFragment
+import com.goingbacking.goingbacking.ViewModel.AlarmViewModel
+import com.goingbacking.goingbacking.ViewModel.InputViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import java.lang.NullPointerException
 import java.time.LocalDateTime
 import java.util.*
 
-class CountReceiver : BroadcastReceiver() {
+@AndroidEntryPoint
+class CountReceiver(ARviewModel: AlarmViewModel) : BroadcastReceiver() {
     lateinit var notificationManager: NotificationManager
+    var viewModel = ARviewModel
     var sharedPreferences : SharedPreferences? = null
     var exp1 :Int? = null
     var exp2 : String? = null
 
     override fun onReceive(context: Context, intent: Intent) {
         Toast.makeText(context, "count receiverstart",Toast.LENGTH_SHORT).show()
-        Log.d("experiment", "okay")
-
-        notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-
-        sharedPreferences = context.getSharedPreferences("time", AppCompatActivity.MODE_PRIVATE)
-        exp1 = sharedPreferences!!.getInt("TodayTime", 4)
-        exp2 = sharedPreferences!!.getString("TodayStrTime", ",420-630,1080-1200")
-
-        var exp2_split = exp2!!.split(',').toMutableList()
-
-        exp2_split.removeAt(0)
-
-        var exp3_1 = arrayListOf<Any>()
-        var exp3_2 = arrayListOf<Any>()
-
-        for(i in exp2_split) {
-            Log.d("experiment", i)
-            var xx1 = i.split('-').toMutableList().get(0)
-            var xx2 = i.split('-').toMutableList().get(1)
-
-            exp3_1.add(xx1)
-            exp3_2.add(xx2)
-
-        }
-
-        Log.d("experiment", exp1.toString())
-        Log.d("experiment", exp2!!)
-        Log.d("experiment", exp2_split!!.toString())
-        Log.d("experiment", exp3_1.size!!.toString())
-        Log.d("experiment", exp3_2!!.toString())
+        observer(viewModel)
 
 
-        for (i in exp3_1.size-1 downTo 0 ) {
-            beforefireReminder(context, intent, i, i)
-            Log.d("experiment", "i: $i")
-        }
-
-
-
-
-
-
-
-        createNotificationChannel(intent)
-        fireReminder(context, intent)
+//
+//        notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+//
+//        sharedPreferences = context.getSharedPreferences("time", AppCompatActivity.MODE_PRIVATE)
+//        exp1 = sharedPreferences!!.getInt("TodayTime", 4)
+//        exp2 = sharedPreferences!!.getString("TodayStrTime", ",420-630,1080-1200")
+//
+//        var exp2_split = exp2!!.split(',').toMutableList()
+//
+//        exp2_split.removeAt(0)
+//
+//        var exp3_1 = arrayListOf<Any>()
+//        var exp3_2 = arrayListOf<Any>()
+//
+//        for(i in exp2_split) {
+//            Log.d("experiment", i)
+//            var xx1 = i.split('-').toMutableList().get(0)
+//            var xx2 = i.split('-').toMutableList().get(1)
+//
+//            exp3_1.add(xx1)
+//            exp3_2.add(xx2)
+//
+//        }
+//
+//        Log.d("experiment", exp1.toString())
+//        Log.d("experiment", exp2!!)
+//        Log.d("experiment", exp2_split!!.toString())
+//        Log.d("experiment", exp3_1.size!!.toString())
+//        Log.d("experiment", exp3_2!!.toString())
+//
+//
+//        for (i in exp3_1.size-1 downTo 0 ) {
+//            beforefireReminder(context, intent, i, i)
+//            Log.d("experiment", "i: $i")
+//        }
+//        createNotificationChannel(intent)
+//        fireReminder(context, intent)
 
 
 
+    }
+
+    private fun observer(viewModel: AlarmViewModel) {
+        viewModel.addInitSaveTimeDayInfo()
+        viewModel.addInitSaveTimeMonthInfo()
+        viewModel.addInitSaveTimeYearInfo()
     }
 
     private fun beforefireReminder(context: Context, intent: Intent, iii: Int, idid: Int) {
@@ -184,6 +191,7 @@ class CountReceiver : BroadcastReceiver() {
 
 
     }
+
 
 
 

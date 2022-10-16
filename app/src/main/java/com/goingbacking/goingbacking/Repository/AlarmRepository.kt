@@ -16,6 +16,8 @@ class AlarmRepository (
     val firebaseFirestore: FirebaseFirestore
     ) : AlarmRepositoryIF {
     val myUid = user?.uid!!
+
+    // 현재 날짜에 대한 format
     var curNotifyTime = Calendar.getInstance()
     var currentDateTime = curNotifyTime.time
 
@@ -25,11 +27,11 @@ class AlarmRepository (
     var cur_date_text4 = SimpleDateFormat("MM", Locale.getDefault()).format(currentDateTime).toString()
     var cur_date_text5 = SimpleDateFormat("dd", Locale.getDefault()).format(currentDateTime).toString()
 
+
+    // day마다 초기화
     override fun addInitSaveTimeDayInfo(
         result: (UiState<String>) -> Unit
     ) {
-
-        // day마다 초기화
 
         var saveTimeDayDTO  = SaveTimeDayDTO()
         saveTimeDayDTO!!.day = cur_date_text5.toInt()
@@ -55,10 +57,10 @@ class AlarmRepository (
             }
     }
 
+    // month마다 초기화
     override fun addInitSaveTimeMonthInfo(
         result: (UiState<String>) -> Unit
     ) {
-// month마다 초기화
         var beforeNotifyTime = Calendar.getInstance()
         beforeNotifyTime.add(Calendar.DATE, -1)
         var beforeDateTime = beforeNotifyTime.time
@@ -92,6 +94,7 @@ class AlarmRepository (
 
     }
 
+    // year마다 초기화
     override fun addInitSaveTimeYearInfo(
         result: (UiState<String>) -> Unit
     ) {

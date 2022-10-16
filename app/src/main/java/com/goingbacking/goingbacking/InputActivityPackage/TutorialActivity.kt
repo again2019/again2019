@@ -31,12 +31,16 @@ class TutorialActivity : AppCompatActivity() {
         initAdapter()
 
         binding.TutorialButton.setOnClickListener {
+            observer()
             notification()
             moveMainPage()
-
-
-
         }
+    }
+
+    private fun observer() {
+
+
+
     }
 
     private fun notification() {

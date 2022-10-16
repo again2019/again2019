@@ -63,8 +63,8 @@ class AlarmReceiver : BroadcastReceiver() {
             .setWhen(System.currentTimeMillis())
 
             .setTicker("{Time to watch some cool stuff!}")
-            .setContentTitle("상태바 드래그시 보이는 타이틀")
-            .setContentText("상태바 드래그시 보이는 서브타이틀")
+            .setContentTitle("새로운 하루가 업데이트 되었습니다.")
+            .setContentText("새로운 하루가 업데이트 되었습니다.")
             .setContentInfo("INFO")
             .setContentIntent(pendingI)
             .setSmallIcon(R.drawable.ic_launcher_background)
@@ -93,15 +93,15 @@ class AlarmReceiver : BroadcastReceiver() {
         saveTimeDayDTO!!.year = date_text3.toInt()
         saveTimeDayDTO!!.count = 0
 
-        firebaseFirestore?.collection("SaveTimeInfo")?.document(userId!!)
-            ?.collection("Day")?.document(date_text1.toString())
-            ?.collection(date_text2.toString())?.document(userId!! + date_text2.toString())
-            ?.set(saveTimeDayDTO!!)
+//        firebaseFirestore?.collection("SaveTimeInfo")?.document(userId!!)
+//            ?.collection("Day")?.document(date_text1.toString())
+//            ?.collection(date_text2.toString())?.document(userId!! + date_text2.toString())
+//            ?.set(saveTimeDayDTO!!)
 
         var time = 0
         var time_str = ""
 
-        Log.d("AAAAAAAA", "date1: " + date_text1.toString())
+
         firebaseFirestore?.collection("CalendarInfo")?.document(userId!!)
             ?.collection("2022-09")?.whereEqualTo("date", "2022-09-03")?.get()
             ?.addOnSuccessListener { documents ->
@@ -151,8 +151,6 @@ class AlarmReceiver : BroadcastReceiver() {
 
                 }
 
-                Log.d("AAAAAAAA", "time: " + time.toString())
-                Log.d("AAAAAAAA", "time_str: " +  time_str)
                 val editor :SharedPreferences.Editor = context.getSharedPreferences("time", AppCompatActivity.MODE_PRIVATE).edit()
                 editor.putInt("TodayTime", time )
                 editor.putString("TodayStrTime", time_str)
@@ -164,50 +162,50 @@ class AlarmReceiver : BroadcastReceiver() {
 
 
 
-        //Log.d("AAAAAAAAAA", stateQuery.toString())
 
-        // 달이 바뀔 때마다 업데이트 되는 것이 필요...
-
-        var nextNotifyTime1 = Calendar.getInstance()
-        nextNotifyTime1.add(Calendar.DATE, -1)
-
-        var currentDateTime1 = nextNotifyTime1.time
-        var date_text_new1 = SimpleDateFormat("MM", Locale.getDefault()).format(currentDateTime1)
-
-        Log.d("TTTT", date_text_new1.toString() + " " + date_text4.toString())
-        if (date_text_new1 != date_text4) {
-            saveTimeMonthDTO!!.month = date_text4.toInt()
-            saveTimeMonthDTO!!.year = date_text3.toInt()
-            saveTimeMonthDTO!!.count = 0
-
-            firebaseFirestore?.collection("SaveTimeInfo")?.document(userId!!)
-                ?.collection("Month")?.document(date_text3.toString())
-                ?.collection(date_text2.toString())?.document(userId!! + date_text2.toString())
-                ?.set(saveTimeMonthDTO!!)
-        }
-
-        // 년이 바뀔 때마다 업데이트 되는 것이 필요...
-
-        var nextNotifyTime2 = Calendar.getInstance()
-        nextNotifyTime2.add(Calendar.DATE, -1)
-
-        var currentDateTime2 = nextNotifyTime1.time
-        var date_text_new2 = SimpleDateFormat("yyyy", Locale.getDefault()).format(currentDateTime2)
-
-        Log.d("TTTT", date_text_new2.toString() + " " + date_text3.toString())
-
-
-        if (date_text_new2 != date_text2) {
-
-
-            saveTimeYearDTO!!.year = date_text3.toInt()
-            saveTimeYearDTO!!.count = 0
-
-            firebaseFirestore?.collection("SaveTimeInfo")?.document(userId!!)
-                ?.collection("Year")?.document(date_text3.toString())
-                ?.set(saveTimeYearDTO!!)
-
-        }
+//
+//        // 달이 바뀔 때마다 업데이트 되는 것이 필요...
+//
+//        var nextNotifyTime1 = Calendar.getInstance()
+//        nextNotifyTime1.add(Calendar.DATE, -1)
+//
+//        var currentDateTime1 = nextNotifyTime1.time
+//        var date_text_new1 = SimpleDateFormat("MM", Locale.getDefault()).format(currentDateTime1)
+//
+//        Log.d("TTTT", date_text_new1.toString() + " " + date_text4.toString())
+//        if (date_text_new1 != date_text4) {
+//            saveTimeMonthDTO!!.month = date_text4.toInt()
+//            saveTimeMonthDTO!!.year = date_text3.toInt()
+//            saveTimeMonthDTO!!.count = 0
+//
+//            firebaseFirestore?.collection("SaveTimeInfo")?.document(userId!!)
+//                ?.collection("Month")?.document(date_text3.toString())
+//                ?.collection(date_text2.toString())?.document(userId!! + date_text2.toString())
+//                ?.set(saveTimeMonthDTO!!)
+//        }
+//
+//        // 년이 바뀔 때마다 업데이트 되는 것이 필요...
+//
+//        var nextNotifyTime2 = Calendar.getInstance()
+//        nextNotifyTime2.add(Calendar.DATE, -1)
+//
+//        var currentDateTime2 = nextNotifyTime1.time
+//        var date_text_new2 = SimpleDateFormat("yyyy", Locale.getDefault()).format(currentDateTime2)
+//
+//        Log.d("TTTT", date_text_new2.toString() + " " + date_text3.toString())
+//
+//
+//        if (date_text_new2 != date_text2) {
+//
+//
+//            saveTimeYearDTO!!.year = date_text3.toInt()
+//            saveTimeYearDTO!!.count = 0
+//
+//            firebaseFirestore?.collection("SaveTimeInfo")?.document(userId!!)
+//                ?.collection("Year")?.document(date_text3.toString())
+//                ?.set(saveTimeYearDTO!!)
+//
+//        }
 
     }
 

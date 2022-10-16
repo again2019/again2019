@@ -13,15 +13,15 @@ class AlarmViewModel @Inject constructor(
     val alarmRepository : AlarmRepositoryIF
 ) : ViewModel() {
     private val _addInitSaveTimeDay = MutableLiveData<UiState<String>>()
-    val addInitSaveTimeDay: LiveData<UiState<String>>
+    val initSaveTimeDay: LiveData<UiState<String>>
         get() = _addInitSaveTimeDay
 
     private val _addInitSaveTimeMonth = MutableLiveData<UiState<String>>()
-    val addInitSaveTimeMonth: LiveData<UiState<String>>
+    val initSaveTimeMonth: LiveData<UiState<String>>
         get() = _addInitSaveTimeMonth
 
     private val _addInitSaveTimeYear = MutableLiveData<UiState<String>>()
-    val addInitSaveTimeYear: LiveData<UiState<String>>
+    val initSaveTimeYear: LiveData<UiState<String>>
         get() = _addInitSaveTimeYear
 
 
@@ -45,4 +45,8 @@ class AlarmViewModel @Inject constructor(
             _addInitSaveTimeYear.value = it
         }
     }
+
+
+
+
 }
