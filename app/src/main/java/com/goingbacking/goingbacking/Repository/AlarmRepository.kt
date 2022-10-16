@@ -4,6 +4,10 @@ import android.util.Log
 import com.goingbacking.goingbacking.Model.SaveTimeDayDTO
 import com.goingbacking.goingbacking.Model.SaveTimeMonthDTO
 import com.goingbacking.goingbacking.Model.SaveTimeYearDTO
+import com.goingbacking.goingbacking.util.FBConstants.Companion.DAY
+import com.goingbacking.goingbacking.util.FBConstants.Companion.MONTH
+import com.goingbacking.goingbacking.util.FBConstants.Companion.SAVETIMEINFO
+import com.goingbacking.goingbacking.util.FBConstants.Companion.YEAR
 import com.goingbacking.goingbacking.util.UiState
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
@@ -36,8 +40,8 @@ class AlarmRepository (
         saveTimeMonthDTO!!.year = cur_date_text3.toInt()
         saveTimeMonthDTO!!.count = 0
 
-        firebaseFirestore?.collection("SaveTimeInfo")?.document(myUid)
-            ?.collection("Month")?.document(cur_date_text3)
+        firebaseFirestore?.collection(SAVETIMEINFO)?.document(myUid)
+            ?.collection(MONTH)?.document(cur_date_text3)
             ?.collection(cur_date_text3)?.document(myUid + cur_date_text2)
             ?.set(saveTimeMonthDTO!!)
             .addOnSuccessListener {
@@ -60,8 +64,8 @@ class AlarmRepository (
         saveTimeYearDTO!!.year = cur_date_text3.toInt()
         saveTimeYearDTO!!.count = 0
 
-        firebaseFirestore?.collection("SaveTimeInfo")?.document(myUid)
-            ?.collection("Year")?.document(cur_date_text3)
+        firebaseFirestore?.collection(SAVETIMEINFO)?.document(myUid)
+            ?.collection(YEAR)?.document(cur_date_text3)
             ?.set(saveTimeYearDTO!!)
             .addOnSuccessListener {
                 result.invoke(
@@ -91,8 +95,8 @@ class AlarmRepository (
         saveTimeDayDTO!!.year = cur_date_text3.toInt()
         saveTimeDayDTO!!.count = 0
 
-        firebaseFirestore?.collection("SaveTimeInfo")?.document(myUid)
-            ?.collection("Day")?.document(cur_date_text1)
+        firebaseFirestore?.collection(SAVETIMEINFO)?.document(myUid)
+            ?.collection(DAY)?.document(cur_date_text1)
             ?.collection(cur_date_text1)?.document(myUid + cur_date_text2)
             ?.set(saveTimeDayDTO!!)
             .addOnSuccessListener {
@@ -124,8 +128,8 @@ class AlarmRepository (
             saveTimeMonthDTO!!.year = cur_date_text3.toInt()
             saveTimeMonthDTO!!.count = 0
 
-            firebaseFirestore?.collection("SaveTimeInfo")?.document(myUid)
-                ?.collection("Month")?.document(cur_date_text3)
+            firebaseFirestore?.collection(SAVETIMEINFO)?.document(myUid)
+                ?.collection(MONTH)?.document(cur_date_text3)
                 ?.collection(cur_date_text3)?.document(myUid + cur_date_text2)
                 ?.set(saveTimeMonthDTO!!)
                 .addOnSuccessListener {
@@ -160,8 +164,8 @@ class AlarmRepository (
             saveTimeYearDTO!!.year = cur_date_text3.toInt()
             saveTimeYearDTO!!.count = 0
 
-            firebaseFirestore?.collection("SaveTimeInfo")?.document(myUid)
-                ?.collection("Year")?.document(cur_date_text3)
+            firebaseFirestore?.collection(SAVETIMEINFO)?.document(myUid)
+                ?.collection(YEAR)?.document(cur_date_text3)
                 ?.set(saveTimeYearDTO!!)
                 .addOnSuccessListener {
                     result.invoke(
