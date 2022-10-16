@@ -41,6 +41,18 @@ class AlarmRepository (
             ?.collection("Day")?.document(cur_date_text1)
             ?.collection(cur_date_text2)?.document(myUid + cur_date_text2)
             ?.set(saveTimeDayDTO!!)
+            .addOnSuccessListener {
+                result.invoke(
+                    UiState.Success("addInitSaveTimeDay Success")
+                )
+            }
+            .addOnFailureListener {
+                result.invoke(
+                    UiState.Failure(
+                        it.localizedMessage
+                    )
+                )
+            }
     }
 
     override fun addInitSaveTimeMonthInfo(
@@ -64,6 +76,18 @@ class AlarmRepository (
                 ?.collection("Month")?.document(cur_date_text3)
                 ?.collection(cur_date_text2)?.document(myUid + cur_date_text2)
                 ?.set(saveTimeMonthDTO!!)
+                .addOnSuccessListener {
+                    result.invoke(
+                        UiState.Success("addInitSaveTimeMonth Success")
+                    )
+                }
+                .addOnFailureListener {
+                    result.invoke(
+                        UiState.Failure(
+                            it.localizedMessage
+                        )
+                    )
+                }
         }
 
     }
@@ -86,6 +110,18 @@ class AlarmRepository (
             firebaseFirestore?.collection("SaveTimeInfo")?.document(myUid)
                 ?.collection("Year")?.document(cur_date_text3)
                 ?.set(saveTimeYearDTO!!)
+                .addOnSuccessListener {
+                    result.invoke(
+                        UiState.Success("addInitSaveTimeYear Success")
+                    )
+                }
+                .addOnFailureListener {
+                    result.invoke(
+                        UiState.Failure(
+                            it.localizedMessage
+                        )
+                    )
+                }
 
         }
     }
