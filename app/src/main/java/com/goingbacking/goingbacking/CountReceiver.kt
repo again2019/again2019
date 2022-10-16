@@ -13,30 +13,45 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.observe
 import com.goingbacking.goingbacking.MainActivityPackage.FirstMainFragment
+import com.goingbacking.goingbacking.Model.CalendarInfoDTO
+import com.goingbacking.goingbacking.Model.WhatToDoYearDTO
 import com.goingbacking.goingbacking.Repository.AlarmRepository
 import com.goingbacking.goingbacking.ViewModel.AlarmViewModel
 import com.goingbacking.goingbacking.ViewModel.InputViewModel
+import com.goingbacking.goingbacking.util.FBConstants
+import com.goingbacking.goingbacking.util.UiState
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 import dagger.hilt.android.AndroidEntryPoint
 import java.lang.NullPointerException
+import java.time.LocalDate
 import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 class CountReceiver : BroadcastReceiver() {
+    val alarmRepository = AlarmRepository(FirebaseAuth.getInstance().currentUser, FirebaseFirestore.getInstance())
     lateinit var notificationManager: NotificationManager
     var sharedPreferences : SharedPreferences? = null
     var exp1 :Int? = null
     var exp2 : String? = null
+    var _todayDTOList = MutableLiveData<UiState<ArrayList<CalendarInfoDTO>>>()
+    val todayDTOList : LiveData<UiState<ArrayList<CalendarInfoDTO>>>
+        get() = _todayDTOList
 
 
     override fun onReceive(context: Context, intent: Intent) {
-        Toast.makeText(context, "count receiverstart",Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, "count receiverstart", Toast.LENGTH_SHORT).show()
 
         saveDailyInfo()
+        getTodayInfo()
+
+
 
 //
 //        notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
@@ -77,14 +92,43 @@ class CountReceiver : BroadcastReceiver() {
 //        fireReminder(context, intent)
 
 
-
     }
 
+
+
     private fun saveDailyInfo() {
-        val alarmRepository = AlarmRepository(FirebaseAuth.getInstance().currentUser, FirebaseFirestore.getInstance())
         alarmRepository.addFirstInitSaveTimeMonthInfo {}
         alarmRepository.addFirstInitSaveTimeYearInfo {}
         alarmRepository.addInitSaveTimeDayInfo {}
+    }
+
+    private fun getTodayInfo() {
+        var now = LocalDate.now()
+        var Strnow1 = now.format(DateTimeFormatter.ofPattern("yyyy-MM"))
+        var Strnow2 = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+
+
+        FirebaseFirestore.getInstance().collection("CalendarInfo").document("oP74TNLn53RJIy8XW49QNvkTlgs2")
+            ?.collection("2022-10").whereEqualTo("date", "2022-10-16").get()
+            .addOnSuccessListener {
+                var todayDTOList = arrayListOf<CalendarInfoDTO>()
+                for (document in it) {
+                    Log.d("experiment", "document: ${document.data}")
+                    todayDTOList.add(document.toObject(CalendarInfoDTO::class.java))
+
+                }
+                Log.d("experiment", "list: " + todayDTOList)
+                            }
+            ?.addOnFailureListener {
+
+            }
+    }
+
+
+
+
+
+
     }
 
     private fun beforefireReminder(context: Context, intent: Intent, iii: Int, idid: Int) {
@@ -129,75 +173,72 @@ class CountReceiver : BroadcastReceiver() {
     }
 
 
-    private fun createNotificationChannel(intent:Intent) {
-        val id = intent.getIntExtra("id", 0)
-        val type = intent.getStringExtra("type")
-
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val notificationChannel = NotificationChannel("notificationChannel_$id", "$type", NotificationManager.IMPORTANCE_HIGH)
-            notificationChannel.run{
-                enableVibration(true)
-                description = "notification"
-            }
-            notificationManager.createNotificationChannel(notificationChannel)
-        }
-    }
-
-    private fun fireReminder(context: Context, intent: Intent) {
-        val id = intent.getIntExtra("id", 0)
-        val type = intent.getStringExtra("type")
-        val isRepeat = intent.getBooleanExtra("repeat", false)
-        val dateTime = try {
-            intent.getSerializableExtra("time") as LocalDateTime
-        } catch(e: NullPointerException) {
-            LocalDateTime.now()
-        }
-
-        val contentIntent = Intent(context, MainActivity::class.java)
-        val contentPendingIntent = PendingIntent.getActivity(context, id, contentIntent, PendingIntent.FLAG_MUTABLE)
-        val builder = NotificationCompat.Builder(context, "notificationChannel_$id")
-            .setSmallIcon(R.mipmap.comeback)
-            .setContentTitle("aaaaaaaaaaaaaaaaaaaaaaaaaaaa")
-            .setContentText("aaaaaaaaaaaaaaaaaa")
-            .setContentIntent(contentPendingIntent)
-            .setPriority(NotificationCompat.PRIORITY_HIGH)
-            .setAutoCancel(true)
-            .setStyle(NotificationCompat.BigTextStyle().bigText("aaaaaaaaaaaaaaaaaa"))
-            .setDefaults(NotificationCompat.DEFAULT_ALL)
-
-        notificationManager.notify(id, builder.build())
-        if(!isRepeat) return
-        val interval  = intent.getIntExtra("interval", 1)
-        val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        val nextIntent = Intent(context, CountReceiver::class.java)
-        nextIntent.putExtra("id", id)
-        nextIntent.putExtra("type", type)
-        nextIntent.putExtra("repeat", true)
-        nextIntent.putExtra("interval", interval)
-
-        val pendingIntent = PendingIntent.getBroadcast(context, id, nextIntent, PendingIntent.FLAG_MUTABLE)
-        //val nextDate = dateTime.plusDays(interval.toLong())
-        val nextDate = dateTime.plusSeconds(interval.toLong())
-        Log.d(
-            "experiment",
-        "recursive SET:$id | type: $type |time:$nextDate |interval $interval| isRepeat:true|"
-        )
-
-        Log.d("experiment", nextDate.hour.toString() + nextDate.minute.toString() + nextDate.second.toString())
-        var calendar = Calendar.getInstance()
-        calendar.timeInMillis = System.currentTimeMillis()
-        calendar.set(Calendar.HOUR_OF_DAY, nextDate.hour)
-        calendar.set(Calendar.MINUTE, nextDate.minute)
-        calendar.set(Calendar.SECOND, nextDate.second)
-        calendar.set(Calendar.MILLISECOND, 0)
-
-        alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP,
-            calendar.timeInMillis, pendingIntent)
-
-
-    }
-
-
-
-
-}
+//    private fun createNotificationChannel(intent:Intent) {
+//        val id = intent.getIntExtra("id", 0)
+//        val type = intent.getStringExtra("type")
+//
+//        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//            val notificationChannel = NotificationChannel("notificationChannel_$id", "$type", NotificationManager.IMPORTANCE_HIGH)
+//            notificationChannel.run{
+//                enableVibration(true)
+//                description = "notification"
+//            }
+//            notificationManager.createNotificationChannel(notificationChannel)
+//        }
+//    }
+//
+//    private fun fireReminder(context: Context, intent: Intent) {
+//        val id = intent.getIntExtra("id", 0)
+//        val type = intent.getStringExtra("type")
+//        val isRepeat = intent.getBooleanExtra("repeat", false)
+//        val dateTime = try {
+//            intent.getSerializableExtra("time") as LocalDateTime
+//        } catch(e: NullPointerException) {
+//            LocalDateTime.now()
+//        }
+//
+//        val contentIntent = Intent(context, MainActivity::class.java)
+//        val contentPendingIntent = PendingIntent.getActivity(context, id, contentIntent, PendingIntent.FLAG_MUTABLE)
+//        val builder = NotificationCompat.Builder(context, "notificationChannel_$id")
+//            .setSmallIcon(R.mipmap.comeback)
+//            .setContentTitle("aaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+//            .setContentText("aaaaaaaaaaaaaaaaaa")
+//            .setContentIntent(contentPendingIntent)
+//            .setPriority(NotificationCompat.PRIORITY_HIGH)
+//            .setAutoCancel(true)
+//            .setStyle(NotificationCompat.BigTextStyle().bigText("aaaaaaaaaaaaaaaaaa"))
+//            .setDefaults(NotificationCompat.DEFAULT_ALL)
+//
+//        notificationManager.notify(id, builder.build())
+//        if(!isRepeat) return
+//        val interval  = intent.getIntExtra("interval", 1)
+//        val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+//        val nextIntent = Intent(context, CountReceiver::class.java)
+//        nextIntent.putExtra("id", id)
+//        nextIntent.putExtra("type", type)
+//        nextIntent.putExtra("repeat", true)
+//        nextIntent.putExtra("interval", interval)
+//
+//        val pendingIntent = PendingIntent.getBroadcast(context, id, nextIntent, PendingIntent.FLAG_MUTABLE)
+//        //val nextDate = dateTime.plusDays(interval.toLong())
+//        val nextDate = dateTime.plusSeconds(interval.toLong())
+//        Log.d(
+//            "experiment",
+//        "recursive SET:$id | type: $type |time:$nextDate |interval $interval| isRepeat:true|"
+//        )
+//
+//        Log.d("experiment", nextDate.hour.toString() + nextDate.minute.toString() + nextDate.second.toString())
+//        var calendar = Calendar.getInstance()
+//        calendar.timeInMillis = System.currentTimeMillis()
+//        calendar.set(Calendar.HOUR_OF_DAY, nextDate.hour)
+//        calendar.set(Calendar.MINUTE, nextDate.minute)
+//        calendar.set(Calendar.SECOND, nextDate.second)
+//        calendar.set(Calendar.MILLISECOND, 0)
+//
+//        alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP,
+//            calendar.timeInMillis, pendingIntent)
+//
+//
+//    }
+//
+//}

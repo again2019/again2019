@@ -1,9 +1,8 @@
 package com.goingbacking.goingbacking.Repository
 
 import android.util.Log
-import com.goingbacking.goingbacking.Model.SaveTimeDayDTO
-import com.goingbacking.goingbacking.Model.SaveTimeMonthDTO
-import com.goingbacking.goingbacking.Model.SaveTimeYearDTO
+import com.goingbacking.goingbacking.Model.*
+import com.goingbacking.goingbacking.util.FBConstants.Companion.CALENDARINFO
 import com.goingbacking.goingbacking.util.FBConstants.Companion.DAY
 import com.goingbacking.goingbacking.util.FBConstants.Companion.MONTH
 import com.goingbacking.goingbacking.util.FBConstants.Companion.SAVETIMEINFO
@@ -12,7 +11,10 @@ import com.goingbacking.goingbacking.util.UiState
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 class AlarmRepository (
@@ -181,6 +183,35 @@ class AlarmRepository (
                 }
 
         }
+    }
+
+    override fun getTodayInfo(result: (UiState<ArrayList<CalendarInfoDTO>>) -> Unit) {
+
+
+        var now = LocalDate.now()
+        var Strnow1 = now.format(DateTimeFormatter.ofPattern("yyyy-MM"))
+        var Strnow2 = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+        Log.d("experiment", "now: " + Strnow2)
+
+        firebaseFirestore.collection(CALENDARINFO).document(myUid)
+            ?.collection(Strnow1).whereEqualTo("date", Strnow2)?.get()
+            .addOnSuccessListener {
+                val TodayDTOList = arrayListOf<CalendarInfoDTO>()
+                for (document in it) {
+                    TodayDTOList.add(document.toObject(CalendarInfoDTO::class.java))
+                }
+
+                result.invoke(
+                    UiState.Success(TodayDTOList)
+                )
+            }
+            ?.addOnFailureListener {
+                result.invoke(
+                    UiState.Failure(
+                        it.localizedMessage
+                    )
+                )
+            }
     }
 
 }
