@@ -21,7 +21,6 @@ import java.lang.NullPointerException
 import java.time.LocalDateTime
 import java.util.*
 
-@AndroidEntryPoint
 class CountReceiver(ARviewModel: AlarmViewModel) : BroadcastReceiver() {
     lateinit var notificationManager: NotificationManager
     var viewModel = ARviewModel
@@ -77,7 +76,6 @@ class CountReceiver(ARviewModel: AlarmViewModel) : BroadcastReceiver() {
     }
 
     private fun observer(viewModel: AlarmViewModel) {
-        viewModel.addInitSaveTimeDayInfo()
         viewModel.addInitSaveTimeMonthInfo()
         viewModel.addInitSaveTimeYearInfo()
     }

@@ -100,17 +100,17 @@ class LoginActivity : AppCompatActivity() {
 
 
 
-    override fun onStart() {
-        super.onStart()
-        val account = GoogleSignIn.getLastSignedInAccount(this)
-        // 이미 로그인 한 사용자가 있는 경우
-        if (auth?.currentUser != null) {
-            moveMainPage(auth?.currentUser)
-        } else if (account != null) {
-            moveMainPage(auth?.currentUser)
-        }
-
-    }
+//    override fun onStart() {
+//        super.onStart()
+//        val account = GoogleSignIn.getLastSignedInAccount(this)
+//        // 이미 로그인 한 사용자가 있는 경우
+//        if (auth?.currentUser != null) {
+//            moveMainPage(auth?.currentUser)
+//        } else if (account != null) {
+//            moveMainPage(auth?.currentUser)
+//        }
+//
+//    }
     fun moveMainPage(user:FirebaseUser?){
         if(user != null){
             startActivity(Intent(this,MainActivity::class.java))

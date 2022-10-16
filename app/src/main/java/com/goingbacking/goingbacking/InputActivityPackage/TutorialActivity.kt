@@ -9,21 +9,27 @@ import android.content.pm.PackageManager
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.activity.viewModels
 import com.goingbacking.goingbacking.Adapter.TutorialViewPagerAdapter
 import com.goingbacking.goingbacking.CountReceiver
 import com.goingbacking.goingbacking.DeviceBootReceiver
 import com.goingbacking.goingbacking.MainActivity
 import com.goingbacking.goingbacking.InputActivityPackage.TutorialActivityPackage.Tutorial1Fragment
 import com.goingbacking.goingbacking.InputActivityPackage.TutorialActivityPackage.Tutorial2Fragment
+import com.goingbacking.goingbacking.ViewModel.AlarmViewModel
 import com.goingbacking.goingbacking.databinding.ActivityTutorialBinding
+import com.goingbacking.goingbacking.util.UiState
+import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 
+@AndroidEntryPoint
 class TutorialActivity : AppCompatActivity() {
     private lateinit var tutorialViewPagerAdapter : TutorialViewPagerAdapter
 
     private val binding:  ActivityTutorialBinding by lazy {
         ActivityTutorialBinding.inflate(layoutInflater)
     }
+    private val viewModel : AlarmViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,10 +44,11 @@ class TutorialActivity : AppCompatActivity() {
     }
 
     private fun observer() {
-
-
-
+        viewModel.addInitSaveTimeDayInfo()
+        viewModel.addFirstInitSaveTimeMonthInfo()
+        viewModel.addFirstInitSaveTimeYearInfo()
     }
+
 
     private fun notification() {
         //notification 구현 완료!! 합치기만 함녀돼

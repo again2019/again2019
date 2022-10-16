@@ -8,13 +8,13 @@ import com.goingbacking.goingbacking.util.UiState
 
 interface AlarmRepositoryIF {
 
-    // 맨 처음 로그인 시 day 초기화
     // 맨 처음 로그인 시 month 초기화
+    fun addFirstInitSaveTimeMonthInfo(result: (UiState<String>) -> Unit)
     // 맨 처음 로그인 시 year 초기화
+    fun addFirstInitSaveTimeYearInfo(result: (UiState<String>) -> Unit)
 
 
-    
-    // day마다 초기화
+    // day마다 초기화, 맨 처음 로그인 시 day 초기화
     fun addInitSaveTimeDayInfo(result: (UiState<String>) -> Unit)
     // month마다 초기화
     fun addInitSaveTimeMonthInfo(result: (UiState<String>) -> Unit)

@@ -15,6 +15,7 @@ class AlarmRepository (
     val user : FirebaseUser?,
     val firebaseFirestore: FirebaseFirestore
     ) : AlarmRepositoryIF {
+
     val myUid = user?.uid!!
 
     // 현재 날짜에 대한 format
@@ -26,6 +27,57 @@ class AlarmRepository (
     var cur_date_text3 = SimpleDateFormat("yyyy", Locale.getDefault()).format(currentDateTime).toString()
     var cur_date_text4 = SimpleDateFormat("MM", Locale.getDefault()).format(currentDateTime).toString()
     var cur_date_text5 = SimpleDateFormat("dd", Locale.getDefault()).format(currentDateTime).toString()
+
+    // 맨 처음 로그인 시 month 초기화
+    override fun addFirstInitSaveTimeMonthInfo(result: (UiState<String>) -> Unit) {
+
+        var saveTimeMonthDTO = SaveTimeMonthDTO()
+        saveTimeMonthDTO!!.month = cur_date_text4.toInt()
+        saveTimeMonthDTO!!.year = cur_date_text3.toInt()
+        saveTimeMonthDTO!!.count = 0
+
+        firebaseFirestore?.collection("SaveTimeInfo")?.document(myUid)
+            ?.collection("Month")?.document(cur_date_text3)
+            ?.collection(cur_date_text2)?.document(myUid + cur_date_text2)
+            ?.set(saveTimeMonthDTO!!)
+            .addOnSuccessListener {
+                result.invoke(
+                    UiState.Success("addInitSaveTimeMonth Success")
+                )
+            }
+            .addOnFailureListener {
+                result.invoke(
+                    UiState.Failure(
+                        it.localizedMessage
+                    )
+                )
+            }
+    }
+
+    // 맨 처음 로그인 시 year 초기화
+    override fun addFirstInitSaveTimeYearInfo(result: (UiState<String>) -> Unit) {
+        var saveTimeYearDTO = SaveTimeYearDTO()
+        saveTimeYearDTO!!.year = cur_date_text3.toInt()
+        saveTimeYearDTO!!.count = 0
+
+        firebaseFirestore?.collection("SaveTimeInfo")?.document(myUid)
+            ?.collection("Year")?.document(cur_date_text3)
+            ?.set(saveTimeYearDTO!!)
+            .addOnSuccessListener {
+                result.invoke(
+                    UiState.Success("addInitSaveTimeYear Success")
+                )
+            }
+            .addOnFailureListener {
+                result.invoke(
+                    UiState.Failure(
+                        it.localizedMessage
+                    )
+                )
+            }
+
+
+    }
 
 
     // day마다 초기화
@@ -41,7 +93,7 @@ class AlarmRepository (
 
         firebaseFirestore?.collection("SaveTimeInfo")?.document(myUid)
             ?.collection("Day")?.document(cur_date_text1)
-            ?.collection(cur_date_text2)?.document(myUid + cur_date_text2)
+            ?.collection(cur_date_text1)?.document(myUid + cur_date_text2)
             ?.set(saveTimeDayDTO!!)
             .addOnSuccessListener {
                 result.invoke(
@@ -66,8 +118,6 @@ class AlarmRepository (
         var beforeDateTime = beforeNotifyTime.time
 
         var bef_date_text1 = SimpleDateFormat("MM", Locale.getDefault()).format(beforeDateTime).toString()
-
-
         if (bef_date_text1 != cur_date_text4) {
             var saveTimeMonthDTO = SaveTimeMonthDTO()
             saveTimeMonthDTO!!.month = cur_date_text4.toInt()
