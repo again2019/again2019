@@ -24,13 +24,7 @@ class AlarmViewModel @Inject constructor(
     val initSaveTimeDay: LiveData<UiState<String>>
         get() = _addInitSaveTimeDay
 
-    private val _addInitSaveTimeMonth = MutableLiveData<UiState<String>>()
-    val initSaveTimeMonth: LiveData<UiState<String>>
-        get() = _addInitSaveTimeMonth
 
-    private val _addInitSaveTimeYear = MutableLiveData<UiState<String>>()
-    val initSaveTimeYear: LiveData<UiState<String>>
-        get() = _addInitSaveTimeYear
 
     fun addFirstInitSaveTimeMonthInfo () {
         _addFirstInitSaveTimeMonth.value = UiState.Loading
@@ -52,19 +46,6 @@ class AlarmViewModel @Inject constructor(
         }
     }
 
-    fun addInitSaveTimeMonthInfo() {
-        _addInitSaveTimeMonth.value = UiState.Loading
-        alarmRepository.addInitSaveTimeMonthInfo {
-            _addInitSaveTimeMonth.value = it
-        }
-    }
-
-    fun addInitSaveTimeYearInfo() {
-        _addInitSaveTimeYear.value = UiState.Loading
-        alarmRepository.addInitSaveTimeYearInfo {
-            _addInitSaveTimeYear.value = it
-        }
-    }
 
 
 

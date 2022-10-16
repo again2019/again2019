@@ -10,28 +10,33 @@ import android.os.Build
 import android.os.Build.ID
 import android.util.Log
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.*
 import androidx.lifecycle.observe
 import com.goingbacking.goingbacking.MainActivityPackage.FirstMainFragment
+import com.goingbacking.goingbacking.Repository.AlarmRepository
 import com.goingbacking.goingbacking.ViewModel.AlarmViewModel
 import com.goingbacking.goingbacking.ViewModel.InputViewModel
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.firestore.FirebaseFirestore
 import dagger.hilt.android.AndroidEntryPoint
 import java.lang.NullPointerException
 import java.time.LocalDateTime
 import java.util.*
 
-class CountReceiver(ARviewModel: AlarmViewModel) : BroadcastReceiver() {
+class CountReceiver : BroadcastReceiver() {
     lateinit var notificationManager: NotificationManager
-    var viewModel = ARviewModel
     var sharedPreferences : SharedPreferences? = null
     var exp1 :Int? = null
     var exp2 : String? = null
 
+
     override fun onReceive(context: Context, intent: Intent) {
         Toast.makeText(context, "count receiverstart",Toast.LENGTH_SHORT).show()
-        observer(viewModel)
 
+        saveDailyInfo()
 
 //
 //        notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
@@ -75,9 +80,11 @@ class CountReceiver(ARviewModel: AlarmViewModel) : BroadcastReceiver() {
 
     }
 
-    private fun observer(viewModel: AlarmViewModel) {
-        viewModel.addInitSaveTimeMonthInfo()
-        viewModel.addInitSaveTimeYearInfo()
+    private fun saveDailyInfo() {
+        val alarmRepository = AlarmRepository(FirebaseAuth.getInstance().currentUser, FirebaseFirestore.getInstance())
+        alarmRepository.addFirstInitSaveTimeMonthInfo {}
+        alarmRepository.addFirstInitSaveTimeYearInfo {}
+        alarmRepository.addInitSaveTimeDayInfo {}
     }
 
     private fun beforefireReminder(context: Context, intent: Intent, iii: Int, idid: Int) {
