@@ -45,4 +45,13 @@ object RepositoryModule {
         return TmpTimeRepository(user, firebaseFirestore)
     }
 
+    @Provides
+    @Singleton
+    fun provideAlarmRepository(
+        user: FirebaseUser?,
+        firebaseFirestore: FirebaseFirestore
+    ) : AlarmRepositoryIF {
+        return AlarmRepository(user, firebaseFirestore)
+    }
+
 }
