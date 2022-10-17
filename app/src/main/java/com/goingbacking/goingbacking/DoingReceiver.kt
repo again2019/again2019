@@ -15,6 +15,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class DoingReceiver : BroadcastReceiver() {
+
     var sharedPreferences : SharedPreferences? = null
     var exp1 :Int? = null
     var exp2 : String? = null
@@ -35,27 +36,33 @@ class DoingReceiver : BroadcastReceiver() {
         when (intent.action){
 
             AppConstants.ACTION_READY -> {
-                NotificationUtil.showTimerReady(context)
+                Log.d("experiment", "end_time ${intent.getIntExtra("end_time", 0)}")
+                NotificationUtil.showTimerReady(context, intent.getIntExtra("end_time", 0))
             }
             AppConstants.ACTION_START -> {
-                sharedPreferences = context.getSharedPreferences("time", AppCompatActivity.MODE_PRIVATE)
-                exp1 = sharedPreferences!!.getInt("TodayTime", 10)
+                Log.d("experiment", "end_time ${intent.getIntExtra("end_time2", 0)}")
 
-                val minutesRemaining = exp1!!
-                val secondsRemaining = minutesRemaining!! * 1L
-
+                // 시작 시간
+                val currentTime = System.currentTimeMillis()
+                // 도착 시간
                 var calendar = Calendar.getInstance()
                 calendar.timeInMillis = System.currentTimeMillis()
-                calendar.add(Calendar.SECOND, secondsRemaining.toInt())
+                calendar.set(Calendar.HOUR, (intent.getIntExtra("end_time2", 0)) / 60)
+                calendar.set(Calendar.MINUTE, (intent.getIntExtra("end_time2", 0)) % 60)
+                calendar.set(Calendar.SECOND, 0)
+                calendar.set(Calendar.MILLISECOND, 0)
                 val wakeUpTime = calendar.timeInMillis
+                // duration (도착 - 시작)
+                val duration = wakeUpTime - currentTime
 
-                PrefUtil.setSecondsRemaining(System.currentTimeMillis(), context)
-                Log.d("experiment", "currentTime: " + System.currentTimeMillis())
-                Log.d("experiment", "wakeupTime: $wakeUpTime")
-                Log.d("experiment", "secondsRemaining: $secondsRemaining")
+                Log.d("experiment", "currentTime: ${currentTime} | ${SimpleDateFormat("yyyy.MM.dd G 'at' HH:mm").format(currentTime) } |")
+                Log.d("experiment", "wakeupTime: $wakeUpTime | ${SimpleDateFormat("yyyy.MM.dd G 'at' HH:mm").format(wakeUpTime)} ")
+                Log.d("experiment", "duration: $duration | ${SimpleDateFormat("yyyy.MM.dd G 'at' HH:mm").format(duration)}")
 
-                NotificationUtil.showTimerRunning(context, wakeUpTime)
-                Utils.startTimer(context, exp1!!)
+
+
+
+                NotificationUtil.showTimerRunning(context, duration)
 
             }
             AppConstants.ACTION_STOP -> {

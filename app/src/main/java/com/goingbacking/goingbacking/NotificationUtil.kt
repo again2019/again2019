@@ -71,10 +71,11 @@ class NotificationUtil {
         //정지 중일 경우에 발생하는 function
 
         // 시간이 되었을 때 ready
-        fun showTimerReady(context: Context){
+        fun showTimerReady(context: Context, end_time: Int){
 
             val readyIntent = Intent(context, DoingReceiver::class.java)
             readyIntent.action = AppConstants.ACTION_START
+            readyIntent.putExtra("end_time2", end_time)
             val readyPendingIntent = PendingIntent.getBroadcast(context,
                 0, readyIntent, PendingIntent.FLAG_MUTABLE)
 

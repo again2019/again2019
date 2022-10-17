@@ -30,6 +30,7 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 import dagger.hilt.android.AndroidEntryPoint
 import java.lang.NullPointerException
+import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -68,10 +69,12 @@ class CountReceiver : BroadcastReceiver() {
                 for (document in it) {
                     todayDTOList.add(document.toObject(CalendarInfoDTO::class.java))
                     beforefireReminder(context, intent, IdCount, beforeInfo, document.toObject(CalendarInfoDTO::class.java))
+                    Log.d("experiment", ": $IdCount, $beforeInfo, ${document.toObject(CalendarInfoDTO::class.java)}" )
                     IdCount = IdCount + 1
                     beforeInfo = document.toObject(CalendarInfoDTO::class.java)
                 }
                     beforefireReminder(context, intent, IdCount, beforeInfo, beforeInfo)
+                    Log.d("experiment", ": $IdCount, $beforeInfo, ${beforeInfo}" )
 
                 notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
                 createNotificationChannel(intent, notificationManager)
@@ -88,23 +91,23 @@ class CountReceiver : BroadcastReceiver() {
 
     private fun beforefireReminder(context: Context, intent: Intent, IdCount: Int, beforeInfoDTO: CalendarInfoDTO, nowInfoDTO: CalendarInfoDTO) {
         val id = IdCount
-        val type = intent.getStringExtra("type") + "wakeUpAlarm"
+        val type = intent.getStringExtra("type") + "wakeUpAlarm${id}"
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        val nextIntent = Intent(context, DoingReceiver::class.java)
+        var nextIntent = Intent(context, DoingReceiver::class.java)
         nextIntent.putExtra("id", id)
         nextIntent.putExtra("type", type)
         nextIntent.action = AppConstants.ACTION_READY
 
         var calendar = Calendar.getInstance()
         if (beforeInfoDTO.date == null) {
-            nextIntent.putExtra("duration", nowInfoDTO.start_t!!)
+            nextIntent.putExtra("end_time", nowInfoDTO.start!!)
             calendar.timeInMillis = System.currentTimeMillis()
             calendar.set(Calendar.HOUR_OF_DAY, (nowInfoDTO.start!! - nowInfoDTO.start_t!!) / 60)
             calendar.set(Calendar.MINUTE, (nowInfoDTO.start!! - nowInfoDTO.start_t!!) % 60)
             calendar.set(Calendar.SECOND, 0)
             calendar.set(Calendar.MILLISECOND, 0)
         } else if (beforeInfoDTO.equals(CalendarInfoDTO())) {
-            nextIntent.putExtra("duration", nowInfoDTO.end_t!!)
+            nextIntent.putExtra("end_time", nowInfoDTO.end!! + nowInfoDTO.end_t!!)
             calendar.timeInMillis = System.currentTimeMillis()
             calendar.set(Calendar.HOUR_OF_DAY, (nowInfoDTO.end!!) / 60)
             calendar.set(Calendar.MINUTE, (nowInfoDTO.end!!) % 60)
@@ -113,7 +116,7 @@ class CountReceiver : BroadcastReceiver() {
         }
 
         else {
-            nextIntent.putExtra("duration", nowInfoDTO.start!! - beforeInfoDTO.end!!)
+            nextIntent.putExtra("end_time", nowInfoDTO.start!!)
             calendar.timeInMillis = System.currentTimeMillis()
             calendar.set(Calendar.HOUR_OF_DAY, (beforeInfoDTO.end!! / 60))
             calendar.set(Calendar.MINUTE, (beforeInfoDTO.end!! % 60))
@@ -123,7 +126,7 @@ class CountReceiver : BroadcastReceiver() {
 
         Log.d(
             "experiment",
-            "just alarm SET:$id | type: $type |"
+            "just alarm SET:$id | type: $type | ${calendar.timeInMillis} | ${SimpleDateFormat("yyyy.MM.dd G 'at' HH:mm").format(calendar.timeInMillis) } |"
         )
 
         val pendingIntent = PendingIntent.getBroadcast(context, id, nextIntent, PendingIntent.FLAG_MUTABLE)
@@ -156,16 +159,15 @@ class CountReceiver : BroadcastReceiver() {
         val contentPendingIntent = PendingIntent.getActivity(context, id, contentIntent, PendingIntent.FLAG_MUTABLE)
         val builder = NotificationCompat.Builder(context, "notificationChannel_$id")
             .setSmallIcon(R.mipmap.comeback)
-            .setContentTitle("aaaaaaaaaaaaaaaaaaaaaaaaaaaa")
-            .setContentText("aaaaaaaaaaaaaaaaaa")
+            .setContentTitle("매일마다 울리는 알림입니다")
+            .setContentText("매일마다 울리는 알림입니다")
             .setContentIntent(contentPendingIntent)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setAutoCancel(true)
-            .setStyle(NotificationCompat.BigTextStyle().bigText("aaaaaaaaaaaaaaaaaa"))
+            .setStyle(NotificationCompat.BigTextStyle().bigText("매일마다 울리는 알림입니다"))
             .setDefaults(NotificationCompat.DEFAULT_ALL)
 
         notificationManager.notify(id, builder.build())
-        val interval  = intent.getIntExtra("interval", 1)
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val nextIntent = Intent(context, CountReceiver::class.java)
         nextIntent.putExtra("id", id)
@@ -191,4 +193,4 @@ class CountReceiver : BroadcastReceiver() {
 
     }
 
-}
+
