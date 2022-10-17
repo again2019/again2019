@@ -41,16 +41,14 @@ class CountReceiver : BroadcastReceiver() {
     var sharedPreferences : SharedPreferences? = null
     var exp1 :Int? = null
     var exp2 : String? = null
-    var _todayDTOList = MutableLiveData<UiState<ArrayList<CalendarInfoDTO>>>()
-    val todayDTOList : LiveData<UiState<ArrayList<CalendarInfoDTO>>>
-        get() = _todayDTOList
+
 
 
     override fun onReceive(context: Context, intent: Intent) {
         Toast.makeText(context, "count receiverstart", Toast.LENGTH_SHORT).show()
 
         saveDailyInfo()
-        getTodayInfo()
+        getTodayInfo(context, intent)
 
 
 
@@ -103,23 +101,29 @@ class CountReceiver : BroadcastReceiver() {
         alarmRepository.addInitSaveTimeDayInfo {}
     }
 
-    private fun getTodayInfo() {
+    private fun getTodayInfo(context: Context, intent: Intent) {
         var now = LocalDate.now()
         var Strnow1 = now.format(DateTimeFormatter.ofPattern("yyyy-MM"))
         var Strnow2 = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
 
 
-        FirebaseFirestore.getInstance().collection("CalendarInfo").document("oP74TNLn53RJIy8XW49QNvkTlgs2")
-            ?.collection("2022-10").whereEqualTo("date", "2022-10-16").get()
+        FirebaseFirestore.getInstance().collection("CalendarInfo").document(FirebaseAuth.getInstance().currentUser?.uid!!)
+            ?.collection(Strnow1).whereEqualTo("date", Strnow2).get()
             .addOnSuccessListener {
                 var todayDTOList = arrayListOf<CalendarInfoDTO>()
+                var IdCount = 1
+                var beforeInfo = CalendarInfoDTO()
                 for (document in it) {
-                    Log.d("experiment", "document: ${document.data}")
                     todayDTOList.add(document.toObject(CalendarInfoDTO::class.java))
-
+                    beforefireReminder(context, intent, IdCount, beforeInfo, document.toObject(CalendarInfoDTO::class.java))
+                    IdCount = IdCount + 1
+                    beforeInfo = document.toObject(CalendarInfoDTO::class.java)
                 }
-                Log.d("experiment", "list: " + todayDTOList)
-                            }
+
+                notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
+
+            }
             ?.addOnFailureListener {
 
             }
@@ -132,41 +136,35 @@ class CountReceiver : BroadcastReceiver() {
 
     }
 
-    private fun beforefireReminder(context: Context, intent: Intent, iii: Int, idid: Int) {
-        val id = intent.getIntExtra("id", 0) - 1 - idid
-        val type = intent.getStringExtra("type") + "just alarm"
-        val isRepeat = intent.getBooleanExtra("repeat", false)
-        val dateTime = try {
-            intent.getSerializableExtra("time") as LocalDateTime
-        } catch(e: NullPointerException) {
-            LocalDateTime.now()
-        }
-
-        if(!isRepeat) return
+    private fun beforefireReminder(context: Context, intent: Intent, IdCount: Int, beforeInfoDTO: CalendarInfoDTO, nowInfoDTO: CalendarInfoDTO) {
+        val id = IdCount
+        val type = intent.getStringExtra("type") + "wakeUpAlarm"
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val nextIntent = Intent(context, DoingReceiver::class.java)
         nextIntent.putExtra("id", id)
         nextIntent.putExtra("type", type)
         nextIntent.action = AppConstants.ACTION_READY
         val pendingIntent = PendingIntent.getBroadcast(context, id, nextIntent, PendingIntent.FLAG_MUTABLE)
-        //val nextDate = dateTime.plusDays(interval.toLong())
-        val interval  = intent.getIntExtra("interval", 1) -(10 * (iii+1))
-        Log.d("experiment", "interval" + interval.toString())
-        val nextDate = dateTime.plusSeconds(interval.toLong())
 
+        var calendar = Calendar.getInstance()
+        if (beforeInfoDTO.date == null) {
+            calendar.timeInMillis = System.currentTimeMillis()
+            calendar.set(Calendar.HOUR_OF_DAY, (nowInfoDTO.start!! - nowInfoDTO.start_t!!) / 60)
+            calendar.set(Calendar.MINUTE, (nowInfoDTO.start!! - nowInfoDTO.start_t!!) % 60)
+            calendar.set(Calendar.SECOND, 0)
+            calendar.set(Calendar.MILLISECOND, 0)
+        } else {
+            calendar.timeInMillis = System.currentTimeMillis()
+            calendar.set(Calendar.HOUR_OF_DAY, (beforeInfoDTO.end!! / 60))
+            calendar.set(Calendar.MINUTE, (beforeInfoDTO.end!! % 60))
+            calendar.set(Calendar.SECOND, 0)
+            calendar.set(Calendar.MILLISECOND, 0)
+        }
 
         Log.d(
             "experiment",
-            "just alarm SET:$id | type: $type |time:$nextDate |interval $interval| isRepeat:true|"
+            "just alarm SET:$id | type: $type |"
         )
-
-        Log.d("experiment", nextDate.hour.toString() + nextDate.minute.toString() + nextDate.second.toString())
-        var calendar = Calendar.getInstance()
-        calendar.timeInMillis = System.currentTimeMillis()
-        calendar.set(Calendar.HOUR_OF_DAY, nextDate.hour)
-        calendar.set(Calendar.MINUTE, nextDate.minute)
-        calendar.set(Calendar.SECOND, nextDate.second)
-        calendar.set(Calendar.MILLISECOND, 0)
 
         alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP,
             calendar.timeInMillis, pendingIntent)

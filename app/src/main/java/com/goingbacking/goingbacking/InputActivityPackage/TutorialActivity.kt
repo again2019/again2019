@@ -64,6 +64,7 @@ class TutorialActivity : AppCompatActivity() {
         if (calendar.before(Calendar.getInstance())) {
             calendar.add(Calendar.DATE, 1)
         }
+
         var dailyNotify = true
         var pm: PackageManager = this.packageManager
         var receiver = ComponentName(this, DeviceBootReceiver::class.java)
@@ -71,11 +72,11 @@ class TutorialActivity : AppCompatActivity() {
         alarmIntent.putExtra("id", 3000)
         alarmIntent.putExtra("type", "channel")
         alarmIntent.putExtra("repeat", true)
-        alarmIntent.putExtra("interval", 60)
+
         var pendingIntent: PendingIntent = PendingIntent.getBroadcast(
-            this, 3000, alarmIntent,
-            PendingIntent.FLAG_MUTABLE
+            this, 3000, alarmIntent, PendingIntent.FLAG_MUTABLE
         )
+
         var alarmManager: AlarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
         if (dailyNotify) {
             if (alarmManager != null) {
@@ -86,9 +87,9 @@ class TutorialActivity : AppCompatActivity() {
                         calendar.timeInMillis,
                         pendingIntent
                     )
-
                 }
             }
+
             pm.setComponentEnabledSetting(
                 receiver,
                 PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
