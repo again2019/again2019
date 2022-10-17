@@ -24,66 +24,72 @@ class DoingReceiver : BroadcastReceiver() {
     var firebaseFirestore : FirebaseFirestore? = null
     var userId : String? = null
     var tmpTimeDTO : TmpTimeDTO? = null
-
-
+    var end_time = 0
+    var id = 0
+    var type = ""
+    var currentTime = 0L
     override fun onReceive(context: Context, intent: Intent) {
         Log.d("experiment", "okay doingReceiver")
 
         init()
+
+        id = intent.getIntExtra("id", 0)
+        type = intent.getStringExtra("channel").toString()
+        currentTime = intent.getLongExtra("currentTime", 0)
+        Log.d("experiment", "end_time ${end_time} id ${id} channel ${type}")
 
         val nm = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         nm.cancelAll()
         when (intent.action){
 
             AppConstants.ACTION_READY -> {
-                Log.d("experiment", "end_time ${intent.getIntExtra("end_time", 0)}")
-                NotificationUtil.showTimerReady(context, intent.getIntExtra("end_time", 0))
+                end_time = intent.getIntExtra("end_time", 0)
+                NotificationUtil.showTimerReady(context, end_time, id, type)
             }
             AppConstants.ACTION_START -> {
-                Log.d("experiment", "end_time ${intent.getIntExtra("end_time2", 0)}")
+                end_time = intent.getIntExtra("end_time", 0)
+                Log.d("experiment", "end_time ${end_time} id ${id} channel ${type}")
 
                 // 시작 시간
                 val currentTime = System.currentTimeMillis()
                 // 도착 시간
                 var calendar = Calendar.getInstance()
                 calendar.timeInMillis = System.currentTimeMillis()
-                calendar.set(Calendar.HOUR, (intent.getIntExtra("end_time2", 0)) / 60)
-                calendar.set(Calendar.MINUTE, (intent.getIntExtra("end_time2", 0)) % 60)
+                calendar.set(Calendar.HOUR, (end_time) / 60)
+                calendar.set(Calendar.MINUTE, (end_time) % 60)
                 calendar.set(Calendar.SECOND, 0)
                 calendar.set(Calendar.MILLISECOND, 0)
                 val wakeUpTime = calendar.timeInMillis
                 // duration (도착 - 시작)
                 val duration = wakeUpTime - currentTime
 
-                Log.d("experiment", "currentTime: ${currentTime} | ${SimpleDateFormat("yyyy.MM.dd G 'at' HH:mm").format(currentTime) } |")
-                Log.d("experiment", "wakeupTime: $wakeUpTime | ${SimpleDateFormat("yyyy.MM.dd G 'at' HH:mm").format(wakeUpTime)} ")
-                Log.d("experiment", "duration: $duration | ${SimpleDateFormat("yyyy.MM.dd G 'at' HH:mm").format(duration)}")
+                Log.d("experiment", "currentTime: ${currentTime} | ${SimpleDateFormat("yyyy.MM.dd HH:mm").format(Date(currentTime)) } |")
+                Log.d("experiment", "wakeupTime: $wakeUpTime | ${SimpleDateFormat("yyyy.MM.dd HH:mm").format(Date(wakeUpTime))} ")
+                Log.d("experiment", "duration: $duration | ${SimpleDateFormat("mm").format(duration)}")
 
 
-
-
-                NotificationUtil.showTimerRunning(context, duration)
-
+                NotificationUtil.showTimerRunning(context, wakeUpTime, currentTime, end_time, id, type)
+                Utils.startTimer(context, duration)
             }
             AppConstants.ACTION_STOP -> {
                 Utils.pauseTimer()
                 Log.d("experiment",  System.currentTimeMillis().toString())
-                Log.d("experiment",  PrefUtil.getSecondsRemaining(context).toString())
+                Log.d("experiment",  currentTime.toString())
 
                 var current = System.currentTimeMillis()
 
-                tmpTimeDTO!!.nowSeconds =  current- PrefUtil.getSecondsRemaining(context)
-                tmpTimeDTO!!.startTime = PrefUtil.getSecondsRemaining(context)
+                tmpTimeDTO!!.nowSeconds =  current- currentTime
+                tmpTimeDTO!!.startTime = currentTime
                 tmpTimeDTO!!.wakeUpTime = current
 
                 val df = SimpleDateFormat("HH:mm:ss")
 
-                Log.d("experiment", "total: " + (current - PrefUtil.getSecondsRemaining(context)).toString())
-                Log.d("experiment", "wakeupTime: " + PrefUtil.getSecondsRemaining(context).toString())
+                Log.d("experiment", "total: " + (current- currentTime).toString())
+                Log.d("experiment", "wakeupTime: " + currentTime.toString())
                 Log.d("experiment", "currentTime: " + current)
 
-                val total = df.format(Date((current - PrefUtil.getSecondsRemaining(context))))
-                val wakeUpTime = df.format(Date(PrefUtil.getSecondsRemaining(context)))
+                val total = df.format(Date((current- currentTime)))
+                val wakeUpTime = df.format(Date(currentTime))
                 val currentTime = df.format(Date(current))
 
                 Log.d("experiment", "total: " +total.toString())

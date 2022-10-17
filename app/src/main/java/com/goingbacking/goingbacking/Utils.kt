@@ -30,8 +30,8 @@ class Utils {
 
 
 
-        fun startTimer(context: Context, firstSecondRemaining: Int) {
-            secondsRemaining = firstSecondRemaining * 1L
+        fun startTimer(context: Context, duration: Long) {
+            secondsRemaining = duration
             Log.d("experiment", " -> lengthInMinutes" + secondsRemaining.toString())
             timerState = TimerState.Running // timer 상태를 running으로 바꾼다
             timer = object : CountDownTimer(secondsRemaining * 1000, 1000) {

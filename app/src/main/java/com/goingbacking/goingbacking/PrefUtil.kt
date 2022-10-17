@@ -96,10 +96,18 @@ class PrefUtil {
 
         }
 
-        fun getTodayStrTime(context:Context) : String {
-            val sharedPreferences = context.getSharedPreferences("time", MODE_PRIVATE)
-            return sharedPreferences!!.getString("TodayStrTime", "")!!
 
+        fun getEndTime(context: Context): Int{
+            val preferences = PreferenceManager.getDefaultSharedPreferences(context)
+            return  preferences.getInt(ALARM_SET_TMP_TIME_ID, 0)
         }
+
+        fun setEndTime(time: Int, context: Context){
+            val editor = PreferenceManager.getDefaultSharedPreferences(context).edit()
+            editor.putInt(ALARM_SET_TMP_TIME_ID, time)
+            editor.apply()
+        }
+
+
     }
 }

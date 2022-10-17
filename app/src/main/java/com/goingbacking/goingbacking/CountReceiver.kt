@@ -91,7 +91,7 @@ class CountReceiver : BroadcastReceiver() {
 
     private fun beforefireReminder(context: Context, intent: Intent, IdCount: Int, beforeInfoDTO: CalendarInfoDTO, nowInfoDTO: CalendarInfoDTO) {
         val id = IdCount
-        val type = intent.getStringExtra("type") + "wakeUpAlarm${id}"
+        val type = intent.getStringExtra("type") + "wakeUpAlarm ${id}"
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         var nextIntent = Intent(context, DoingReceiver::class.java)
         nextIntent.putExtra("id", id)
@@ -100,6 +100,7 @@ class CountReceiver : BroadcastReceiver() {
 
         var calendar = Calendar.getInstance()
         if (beforeInfoDTO.date == null) {
+
             nextIntent.putExtra("end_time", nowInfoDTO.start!!)
             calendar.timeInMillis = System.currentTimeMillis()
             calendar.set(Calendar.HOUR_OF_DAY, (nowInfoDTO.start!! - nowInfoDTO.start_t!!) / 60)
@@ -128,7 +129,8 @@ class CountReceiver : BroadcastReceiver() {
             "experiment",
             "just alarm SET:$id | type: $type | ${calendar.timeInMillis} | ${SimpleDateFormat("yyyy.MM.dd G 'at' HH:mm").format(calendar.timeInMillis) } |"
         )
-
+        nextIntent.putExtra("id", id)
+        nextIntent.putExtra("channel", type)
         val pendingIntent = PendingIntent.getBroadcast(context, id, nextIntent, PendingIntent.FLAG_MUTABLE)
 
         alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP,
