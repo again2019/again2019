@@ -5,35 +5,22 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.*
-import android.content.pm.PackageManager
 import android.os.Build
-import android.os.Build.ID
 import android.util.Log
 import android.widget.Toast
-import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
+
 import androidx.core.app.*
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.observe
-import com.goingbacking.goingbacking.MainActivityPackage.FirstMainFragment
+
 import com.goingbacking.goingbacking.Model.CalendarInfoDTO
-import com.goingbacking.goingbacking.Model.SaveTimeDayDTO
-import com.goingbacking.goingbacking.Model.WhatToDoYearDTO
+
 import com.goingbacking.goingbacking.Repository.AlarmRepository
-import com.goingbacking.goingbacking.ViewModel.AlarmViewModel
-import com.goingbacking.goingbacking.ViewModel.InputViewModel
-import com.goingbacking.goingbacking.util.FBConstants
-import com.goingbacking.goingbacking.util.UiState
+
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
-import dagger.hilt.android.AndroidEntryPoint
-import java.lang.NullPointerException
+
 import java.text.SimpleDateFormat
 import java.time.LocalDate
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
+
 import java.util.*
 
 class CountReceiver : BroadcastReceiver() {
@@ -56,8 +43,6 @@ class CountReceiver : BroadcastReceiver() {
 
     private fun getTodayInfo(context: Context, intent: Intent) {
         var now = LocalDate.now()
-        var Strnow1 = now.format(DateTimeFormatter.ofPattern("yyyy-MM"))
-        var Strnow2 = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
 
         alarmRepository.getTodayInfo {
             Log.d("experiment", "$it" )
@@ -81,28 +66,7 @@ class CountReceiver : BroadcastReceiver() {
 
         }
 
-//        FirebaseFirestore.getInstance().collection("CalendarInfo").document(FirebaseAuth.getInstance().currentUser?.uid!!)
-//            ?.collection(Strnow1).whereEqualTo("date", Strnow2).get()
-//            .addOnSuccessListener {
-//                var todayDTOList = arrayListOf<CalendarInfoDTO>()
-//                var IdCount = 1
-//
-//                for (document in it) {
-//                    todayDTOList.add(document.toObject(CalendarInfoDTO::class.java))
-//                    IdCount = IdCount + 1
-//                    beforeInfo = document.toObject(CalendarInfoDTO::class.java)
-//                }
-//                    beforefireReminder(context, intent, IdCount, beforeInfo, beforeInfo)
-//                    Log.d("experiment", ": $IdCount, $beforeInfo, ${beforeInfo}" )
-//
-//                notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-//                createNotificationChannel(intent, notificationManager)
-//                fireReminder(context, intent, notificationManager)
-//
-//            }
-//            ?.addOnFailureListener {
-//
-//            }
+
     }
 
 
