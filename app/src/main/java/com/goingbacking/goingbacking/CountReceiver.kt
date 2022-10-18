@@ -59,31 +59,50 @@ class CountReceiver : BroadcastReceiver() {
         var Strnow1 = now.format(DateTimeFormatter.ofPattern("yyyy-MM"))
         var Strnow2 = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
 
+        alarmRepository.getTodayInfo {
+            Log.d("experiment", "$it" )
+            if (it.size == 0) {
+                Toast.makeText(context, "오늘 일정은 없습니다.", Toast.LENGTH_SHORT).show()
+            } else {
 
-        FirebaseFirestore.getInstance().collection("CalendarInfo").document(FirebaseAuth.getInstance().currentUser?.uid!!)
-            ?.collection(Strnow1).whereEqualTo("date", Strnow2).get()
-            .addOnSuccessListener {
-                var todayDTOList = arrayListOf<CalendarInfoDTO>()
-                var IdCount = 1
                 var beforeInfo = CalendarInfoDTO()
-                for (document in it) {
-                    todayDTOList.add(document.toObject(CalendarInfoDTO::class.java))
-                    beforefireReminder(context, intent, IdCount, beforeInfo, document.toObject(CalendarInfoDTO::class.java))
-                    Log.d("experiment", ": $IdCount, $beforeInfo, ${document.toObject(CalendarInfoDTO::class.java)}" )
-                    IdCount = IdCount + 1
-                    beforeInfo = document.toObject(CalendarInfoDTO::class.java)
-                }
-                    beforefireReminder(context, intent, IdCount, beforeInfo, beforeInfo)
-                    Log.d("experiment", ": $IdCount, $beforeInfo, ${beforeInfo}" )
 
+                for (IdCount in it.indices) {
+                    beforefireReminder(context, intent, IdCount+1, beforeInfo, it.get(IdCount))
+                    Log.d("experiment", ": $IdCount, $beforeInfo, ${it.get(IdCount)}" )
+                    beforeInfo = it.get(IdCount)
+                }
+                beforefireReminder(context, intent, it.size+1, beforeInfo, beforeInfo)
+                Log.d("experiment", ": ${it.size+1}, $beforeInfo, ${beforeInfo}" )
                 notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
                 createNotificationChannel(intent, notificationManager)
                 fireReminder(context, intent, notificationManager)
-
             }
-            ?.addOnFailureListener {
 
-            }
+        }
+
+//        FirebaseFirestore.getInstance().collection("CalendarInfo").document(FirebaseAuth.getInstance().currentUser?.uid!!)
+//            ?.collection(Strnow1).whereEqualTo("date", Strnow2).get()
+//            .addOnSuccessListener {
+//                var todayDTOList = arrayListOf<CalendarInfoDTO>()
+//                var IdCount = 1
+//
+//                for (document in it) {
+//                    todayDTOList.add(document.toObject(CalendarInfoDTO::class.java))
+//                    IdCount = IdCount + 1
+//                    beforeInfo = document.toObject(CalendarInfoDTO::class.java)
+//                }
+//                    beforefireReminder(context, intent, IdCount, beforeInfo, beforeInfo)
+//                    Log.d("experiment", ": $IdCount, $beforeInfo, ${beforeInfo}" )
+//
+//                notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+//                createNotificationChannel(intent, notificationManager)
+//                fireReminder(context, intent, notificationManager)
+//
+//            }
+//            ?.addOnFailureListener {
+//
+//            }
     }
 
 

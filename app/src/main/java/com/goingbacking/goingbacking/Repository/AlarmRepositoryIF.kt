@@ -19,7 +19,7 @@ interface AlarmRepositoryIF {
     fun addInitSaveTimeYearInfo(result: (UiState<String>) -> Unit)
 
     // broadcast에서 매일 일정 가져오기
-    fun getTodayInfo(result: (UiState<ArrayList<CalendarInfoDTO>>) -> Unit)
+    fun getTodayInfo(result: (ArrayList<CalendarInfoDTO>) -> Unit)
     fun addTmpTimeInfo(tmpTimeDTO: TmpTimeDTO)
 
 }

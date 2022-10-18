@@ -186,9 +186,9 @@ class AlarmRepository (
         }
     }
 
-    override fun getTodayInfo(result: (UiState<ArrayList<CalendarInfoDTO>>) -> Unit) {
+    override fun getTodayInfo(result: (ArrayList<CalendarInfoDTO>) -> Unit) {
 
-
+        var TodayDTOList = arrayListOf<CalendarInfoDTO>()
         var now = LocalDate.now()
         var Strnow1 = now.format(DateTimeFormatter.ofPattern("yyyy-MM"))
         var Strnow2 = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
@@ -197,20 +197,18 @@ class AlarmRepository (
         firebaseFirestore.collection(CALENDARINFO).document(myUid)
             ?.collection(Strnow1).whereEqualTo("date", Strnow2)?.get()
             .addOnSuccessListener {
-                val TodayDTOList = arrayListOf<CalendarInfoDTO>()
+
                 for (document in it) {
                     TodayDTOList.add(document.toObject(CalendarInfoDTO::class.java))
                 }
 
                 result.invoke(
-                    UiState.Success(TodayDTOList)
+                    TodayDTOList
                 )
             }
             ?.addOnFailureListener {
                 result.invoke(
-                    UiState.Failure(
-                        it.localizedMessage
-                    )
+                    TodayDTOList
                 )
             }
     }

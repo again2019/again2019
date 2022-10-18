@@ -17,8 +17,6 @@ import java.util.*
 
 class DoingReceiver : BroadcastReceiver() {
     val alarmRepository = AlarmRepository(FirebaseAuth.getInstance().currentUser, FirebaseFirestore.getInstance())
-
-    var tmpTimeDTO : TmpTimeDTO? = null
     var end_time = 0
     var id = 0
     var type = ""
@@ -77,6 +75,7 @@ class DoingReceiver : BroadcastReceiver() {
 
                 var current = System.currentTimeMillis()
 
+                var tmpTimeDTO : TmpTimeDTO? = TmpTimeDTO()
                 tmpTimeDTO!!.nowSeconds =  current- currentTime
                 tmpTimeDTO!!.startTime = currentTime
                 tmpTimeDTO!!.wakeUpTime = current
