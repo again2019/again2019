@@ -1,12 +1,11 @@
-package com.goingbacking.goingbacking
+package com.goingbacking.goingbacking.Service
 
 import android.app.Service
 import android.content.Intent
 import android.os.Build
 import android.os.IBinder
 import android.util.Log
-import android.widget.Toast
-import com.goingbacking.goingbacking.ViewModel.AlarmViewModel
+import com.goingbacking.goingbacking.NotificationUtil
 
 class AlarmService () : Service() {
 
