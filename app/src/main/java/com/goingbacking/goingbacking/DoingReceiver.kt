@@ -75,6 +75,10 @@ class DoingReceiver : BroadcastReceiver() {
                 Utils.pauseTimer()
                 currentTime = PrefUtil.getStartTime(context)
 
+                val intent = Intent(context, AlarmService::class.java)
+                intent.action = "FINISH_FOREGROUND"
+                context.startService(intent)
+
                 Log.d("experiment",  System.currentTimeMillis().toString())
                 Log.d("experiment",  currentTime.toString())
 

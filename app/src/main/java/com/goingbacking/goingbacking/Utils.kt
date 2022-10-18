@@ -1,6 +1,7 @@
 package com.goingbacking.goingbacking
 
 import android.content.Context
+import android.content.Intent
 import android.os.CountDownTimer
 import android.util.Log
 import com.goingbacking.goingbacking.Model.TmpTimeDTO
@@ -34,7 +35,7 @@ class Utils {
             secondsRemaining = duration
             Log.d("experiment", " -> lengthInMinutes" + secondsRemaining.toString())
             timerState = TimerState.Running // timer 상태를 running으로 바꾼다
-            timer = object : CountDownTimer(secondsRemaining * 1000, 1000) {
+            timer = object : CountDownTimer(secondsRemaining, 1000) {
                 override fun onFinish() = onTimerFinished(context)
                 override fun onTick(millisUntilFinished: Long) { // millisUntilFinished: 남아있는 시간, 수행간격 마다 호출
                     secondsRemaining = millisUntilFinished / 1000 // 남아있는 시간  =
@@ -77,7 +78,11 @@ class Utils {
             firebaseFirestore?.collection("TmpTimeInfo")?.document(userId!!)?.collection(userId!!)?.add(tmpTimeDTO!!)
 
 
-            NotificationUtil.showTimerExpired(context)
+            val intent = Intent(context, AlarmService::class.java)
+            intent.action = "FINISH_FOREGROUND"
+            context.startService(intent)
+
+            //NotificationUtil.showTimerExpired(context)
 
 
         }

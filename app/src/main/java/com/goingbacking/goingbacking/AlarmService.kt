@@ -36,6 +36,17 @@ class AlarmService () : Service() {
                     startForegroundService2(wakeUpTime)
                 }
             }
+            "FINISH_FOREGROUND" -> {
+                stopSelf(20)
+                startForegroundService3()
+               // NotificationUtil.showTimerExpired()
+            }
+            "STOP_FOREGROUND" -> {
+                stopSelf(20)
+            }
+            "STOP_FOREGROUND2" -> {
+                stopSelf(21)
+            }
 
         }
 
@@ -43,6 +54,7 @@ class AlarmService () : Service() {
 
         return START_STICKY
     }
+
 
 
 
@@ -57,6 +69,12 @@ class AlarmService () : Service() {
         Log.d("experiment", "wakeup time start")
         val notification = NotificationUtil.createNotification(this, wakeUpTime)
         startForeground(20, notification)
+    }
+
+    private fun startForegroundService3() {
+        val notification = NotificationUtil.showTimerExpiredNotification(this)
+        startForeground(21, notification)
+
     }
 
     override fun onBind(intent: Intent): IBinder? {
