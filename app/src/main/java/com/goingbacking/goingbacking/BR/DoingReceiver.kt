@@ -8,7 +8,7 @@ import android.util.Log
 import com.goingbacking.goingbacking.Service.AlarmService
 import com.goingbacking.goingbacking.AppConstants
 import com.goingbacking.goingbacking.Model.TmpTimeDTO
-import com.goingbacking.goingbacking.PrefUtil
+import com.goingbacking.goingbacking.util.PrefUtil
 import com.goingbacking.goingbacking.Repository.AlarmRepository
 import com.goingbacking.goingbacking.util.TimerUtils
 import com.google.firebase.auth.FirebaseAuth

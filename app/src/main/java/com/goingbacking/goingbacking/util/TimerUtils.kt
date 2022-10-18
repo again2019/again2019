@@ -5,7 +5,7 @@ import android.content.Intent
 import android.os.CountDownTimer
 import android.util.Log
 import com.goingbacking.goingbacking.Model.TmpTimeDTO
-import com.goingbacking.goingbacking.PrefUtil
+import com.goingbacking.goingbacking.util.PrefUtil
 import com.goingbacking.goingbacking.Service.AlarmService
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
