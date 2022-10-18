@@ -10,7 +10,7 @@ import com.goingbacking.goingbacking.AppConstants
 import com.goingbacking.goingbacking.Model.TmpTimeDTO
 import com.goingbacking.goingbacking.PrefUtil
 import com.goingbacking.goingbacking.Repository.AlarmRepository
-import com.goingbacking.goingbacking.Utils
+import com.goingbacking.goingbacking.TimerUtils
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import java.text.SimpleDateFormat
@@ -73,10 +73,10 @@ class DoingReceiver : BroadcastReceiver() {
                 context.startService(intent)
 
                 //NotificationUtil.showTimerRunning(context, wakeUpTime)
-                Utils.startTimer(context, duration)
+                TimerUtils.startTimer(context, duration)
             }
             AppConstants.ACTION_STOP -> {
-                Utils.pauseTimer()
+                TimerUtils.pauseTimer()
                 currentTime = PrefUtil.getStartTime(context)
 
                 val intent = Intent(context, AlarmService::class.java)

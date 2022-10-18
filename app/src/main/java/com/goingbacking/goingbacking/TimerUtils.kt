@@ -11,7 +11,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import java.text.SimpleDateFormat
 import java.util.*
 
-class Utils {
+class TimerUtils {
     companion object {
 
         private var timerLengthSeconds = 0L
