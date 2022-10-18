@@ -96,18 +96,30 @@ class PrefUtil {
 
         }
 
+        private const val ALARM_SET_END_TIME_ID = "end_time"
 
         fun getEndTime(context: Context): Int{
             val preferences = PreferenceManager.getDefaultSharedPreferences(context)
-            return  preferences.getInt(ALARM_SET_TMP_TIME_ID, 0)
+            return  preferences.getInt(ALARM_SET_END_TIME_ID, 0)
         }
 
         fun setEndTime(time: Int, context: Context){
             val editor = PreferenceManager.getDefaultSharedPreferences(context).edit()
-            editor.putInt(ALARM_SET_TMP_TIME_ID, time)
+            editor.putInt(ALARM_SET_END_TIME_ID, time)
             editor.apply()
         }
 
+        private const val ALARM_SET_START_TIME_ID = "start_time"
 
+        fun getStartTime(context: Context): Long{
+            val preferences = PreferenceManager.getDefaultSharedPreferences(context)
+            return  preferences.getLong(ALARM_SET_START_TIME_ID, 0L)
+        }
+
+        fun setStartTime(time: Long, context: Context){
+            val editor = PreferenceManager.getDefaultSharedPreferences(context).edit()
+            editor.putLong(ALARM_SET_START_TIME_ID, time)
+            editor.apply()
+        }
     }
 }

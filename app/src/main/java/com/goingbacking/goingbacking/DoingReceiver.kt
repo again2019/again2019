@@ -44,14 +44,18 @@ class DoingReceiver : BroadcastReceiver() {
 
             AppConstants.ACTION_READY -> {
                 end_time = intent.getIntExtra("end_time", 0)
-                NotificationUtil.showTimerReady(context, end_time, id, type)
+                PrefUtil.setEndTime(end_time, context)
+                NotificationUtil.showTimerReady(context)
             }
             AppConstants.ACTION_START -> {
-                end_time = intent.getIntExtra("end_time", 0)
+                end_time = PrefUtil.getEndTime(context)
+
                 Log.d("experiment", "end_time ${end_time} id ${id} channel ${type}")
+                Log.d("experiment", "end_time ${(end_time) / 60} ${(end_time) % 60}")
 
                 // 시작 시간
                 val currentTime = System.currentTimeMillis()
+                PrefUtil.setStartTime(currentTime, context)
                 // 도착 시간
                 var calendar = Calendar.getInstance()
                 calendar.timeInMillis = System.currentTimeMillis()
@@ -68,11 +72,13 @@ class DoingReceiver : BroadcastReceiver() {
                 Log.d("experiment", "duration: $duration | ${SimpleDateFormat("mm").format(duration)}")
 
 
-                NotificationUtil.showTimerRunning(context, wakeUpTime, currentTime, end_time, id, type)
+                NotificationUtil.showTimerRunning(context, wakeUpTime)
                 Utils.startTimer(context, duration)
             }
             AppConstants.ACTION_STOP -> {
                 Utils.pauseTimer()
+                currentTime = PrefUtil.getStartTime(context)
+
                 Log.d("experiment",  System.currentTimeMillis().toString())
                 Log.d("experiment",  currentTime.toString())
 

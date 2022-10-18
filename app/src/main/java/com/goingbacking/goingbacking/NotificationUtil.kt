@@ -44,18 +44,17 @@ class NotificationUtil {
         }
 
         //실행 중일 경우에 발생하는 function
-        fun showTimerRunning(context: Context, wakeUpTime: Long, currentTime :Long, end_time: Int, id: Int, type: String){
+        fun showTimerRunning(context: Context, wakeUpTime: Long){
             // 알림창에 발생하는 stop 버튼의 이벤트
             val stopIntent = Intent(context, DoingReceiver::class.java)
-            stopIntent.putExtra("currentTime", currentTime)
             stopIntent.action = AppConstants.ACTION_STOP
             val stopPendingIntent = PendingIntent.getBroadcast(context,
-                id, stopIntent, PendingIntent.FLAG_MUTABLE)
+                0, stopIntent, PendingIntent.FLAG_MUTABLE)
             // 알림창에 발생하는 pause 버튼의 이벤트
 
             val df = SimpleDateFormat("HH:mm:ss")
 
-            val nBuilder = getBasicNotificationBuilder(context, type, true)
+            val nBuilder = getBasicNotificationBuilder(context, CHANNEL_ID_TIMER, true)
             nBuilder.setContentTitle("Timer is Running.")
                 .setContentText("End: ${df.format(Date(wakeUpTime))}")
                 .setContentIntent(getPendingIntentWithStack(context, MainActivity::class.java))
@@ -63,26 +62,22 @@ class NotificationUtil {
                 .addAction(R.drawable.bottom_sheet_unclicked, "Stop", stopPendingIntent)
 
             val nManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            nManager.createNotificationChannel(type, type, true)
+            nManager.createNotificationChannel(CHANNEL_ID_TIMER, CHANNEL_NAME_TIMER, true)
 
-            nManager.notify(id, nBuilder.build())
+            nManager.notify(TIMER_ID, nBuilder.build())
         }
 
 
         //정지 중일 경우에 발생하는 function
 
         // 시간이 되었을 때 ready
-        fun showTimerReady(context: Context, end_time: Int, id:Int, type:String){
+        fun showTimerReady(context: Context){
             val readyIntent = Intent(context, DoingReceiver::class.java)
-            readyIntent.putExtra("end_time", end_time)
-            Log.d("experiment", "recivee? $end_time")
-            readyIntent.putExtra("id", id)
-            readyIntent.putExtra("channel", type)
             readyIntent.action = AppConstants.ACTION_START
             val readyPendingIntent = PendingIntent.getBroadcast(context,
-                id, readyIntent, PendingIntent.FLAG_MUTABLE)
+                0, readyIntent, PendingIntent.FLAG_MUTABLE)
 
-            val nBuilder = getBasicNotificationBuilder(context, type, true)
+            val nBuilder = getBasicNotificationBuilder(context, CHANNEL_ID_TIMER, true)
             nBuilder.setContentTitle("시작?")
                 .setContentText("시작?")
                 .setContentIntent(getPendingIntentWithStack(context, MainActivity::class.java))
@@ -90,9 +85,9 @@ class NotificationUtil {
                 .addAction(R.drawable.btn_google_signin_dark_focus, "Start?", readyPendingIntent)
 
             val nManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            nManager.createNotificationChannel(type, type, true)
+            nManager.createNotificationChannel(CHANNEL_ID_TIMER, CHANNEL_NAME_TIMER, true)
 
-            nManager.notify(id, nBuilder.build())
+            nManager.notify(TIMER_ID, nBuilder.build())
         }
 
 
