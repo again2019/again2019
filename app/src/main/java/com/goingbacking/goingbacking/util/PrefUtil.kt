@@ -1,4 +1,4 @@
-package com.goingbacking.goingbacking
+package com.goingbacking.goingbacking.util
 
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
