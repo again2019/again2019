@@ -1,4 +1,4 @@
-package com.goingbacking.goingbacking
+package com.goingbacking.goingbacking.UI.Login
 
 import android.app.Activity
 import android.content.Intent
@@ -8,6 +8,8 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import com.goingbacking.goingbacking.InputActivityPackage.FirstInputActivity
+import com.goingbacking.goingbacking.MainActivity
+import com.goingbacking.goingbacking.UI.Base.BaseActivity
 import com.goingbacking.goingbacking.databinding.ActivityLoginBinding
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -18,20 +20,19 @@ import com.google.firebase.auth.FirebaseUser
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class LoginActivity : AppCompatActivity() {
+class LoginActivity : BaseActivity<ActivityLoginBinding>({
+    ActivityLoginBinding.inflate(it)
+}) {
 
     private var auth = FirebaseAuth.getInstance()
 
 
     private lateinit var getResult: ActivityResultLauncher<Intent>
-    private val binding: ActivityLoginBinding by lazy {
-        ActivityLoginBinding.inflate(layoutInflater)
-    }
+
     private lateinit var googleSignInClient: GoogleSignInClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(binding.root)
         setGoogleLogin()
 
         binding.emailLoginButton.setOnClickListener {
@@ -41,6 +42,8 @@ class LoginActivity : AppCompatActivity() {
         binding.loginButton.setOnClickListener {
             login()
         }
+
+
         getResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             if (it.resultCode == Activity.RESULT_OK) {
                 try {
@@ -55,7 +58,17 @@ class LoginActivity : AppCompatActivity() {
             }
         }
     }
+    private fun login() {
+        getResult.launch(googleSignInClient.signInIntent)
+    }
 
+    private fun setGoogleLogin() {
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken("1036649010261-p08hat5d9stl7qvdun1mg4fv94kj8nt6.apps.googleusercontent.com")
+            .requestEmail()
+            .build()
+        googleSignInClient = GoogleSignIn.getClient(this, gso)
+    }
     private fun signinAndSignup() {
         auth?.createUserWithEmailAndPassword(binding.emailEdittext.text.toString(),binding.passwordEdittext.text.toString())
             ?.addOnCompleteListener {
@@ -113,19 +126,9 @@ class LoginActivity : AppCompatActivity() {
 //    }
     fun moveMainPage(user:FirebaseUser?){
         if(user != null){
-            startActivity(Intent(this,MainActivity::class.java))
+            startActivity(Intent(this, MainActivity::class.java))
             finish()
         }
     }
-    private fun login() {
-        getResult.launch(googleSignInClient.signInIntent)
-    }
 
-    private fun setGoogleLogin() {
-        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken("1036649010261-p08hat5d9stl7qvdun1mg4fv94kj8nt6.apps.googleusercontent.com")
-            .requestEmail()
-            .build()
-        googleSignInClient = GoogleSignIn.getClient(this, gso)
-    }
 }

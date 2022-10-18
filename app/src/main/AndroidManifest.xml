@@ -45,7 +45,7 @@
             android:name=".InputActivityPackage.SecondInputActivity"
             android:exported="true" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".UI.Login.LoginActivity"
             android:exported="true" />
         <activity
             android:name=".InputActivityPackage.FirstInputActivity"

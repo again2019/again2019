@@ -1,12 +1,9 @@
 package com.goingbacking.goingbacking.UI
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.goingbacking.goingbacking.LoginActivity
-import com.goingbacking.goingbacking.R
+import com.goingbacking.goingbacking.UI.Login.LoginActivity
 import com.goingbacking.goingbacking.UI.Base.BaseActivity
-import com.goingbacking.goingbacking.databinding.ActivityLoginBinding
 import com.goingbacking.goingbacking.databinding.ActivitySplashBinding
 import com.goingbacking.goingbacking.util.FBConstants.Companion.DURATION
 import dagger.hilt.android.AndroidEntryPoint

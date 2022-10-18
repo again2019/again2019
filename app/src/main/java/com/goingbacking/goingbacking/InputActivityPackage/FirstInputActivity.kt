@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.widget.Toast
 import androidx.activity.viewModels
-import com.goingbacking.goingbacking.LoginActivity
+import com.goingbacking.goingbacking.UI.Login.LoginActivity
 import com.goingbacking.goingbacking.Model.UserInfoDTO
 import com.goingbacking.goingbacking.R
 import com.goingbacking.goingbacking.ViewModel.InputViewModel
