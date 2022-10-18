@@ -54,4 +54,10 @@ object RepositoryModule {
         return AlarmRepository(user, firebaseFirestore)
     }
 
+    @Provides
+    @Singleton
+    fun provideLoginRepository() : LoginRepositoryIF {
+        return LoginRepository()
+    }
+
 }

@@ -7,11 +7,15 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import com.goingbacking.goingbacking.InputActivityPackage.FirstInputActivity
 import com.goingbacking.goingbacking.MainActivity
 import com.goingbacking.goingbacking.UI.Base.BaseActivity
+import com.goingbacking.goingbacking.ViewModel.LoginViewModel
 import com.goingbacking.goingbacking.databinding.ActivityLoginBinding
+import com.goingbacking.goingbacking.util.UiState
 import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignIn.*
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
@@ -24,6 +28,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>({
     ActivityLoginBinding.inflate(it)
 }) {
 
+    val viewModel: LoginViewModel by viewModels()
     private var auth = FirebaseAuth.getInstance()
 
 
@@ -33,14 +38,15 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>({
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setGoogleLogin()
+        googleObserver()
+        //setGoogleLogin()
 
         binding.emailLoginButton.setOnClickListener {
             signinAndSignup()
         }
 
         binding.loginButton.setOnClickListener {
-            login()
+            googleLogin()
         }
 
 
@@ -58,17 +64,32 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>({
             }
         }
     }
-    private fun login() {
+
+    private fun googleObserver() {
+        viewModel.getGSO()
+        viewModel.gso.observe(this) {
+            state ->
+                when (state) {
+                    is UiState.Success -> {
+                        googleSignInClient = getClient(this, state.data)
+
+                    }
+
+                }
+        }
+    }
+
+    private fun googleLogin() {
         getResult.launch(googleSignInClient.signInIntent)
     }
 
-    private fun setGoogleLogin() {
-        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken("1036649010261-p08hat5d9stl7qvdun1mg4fv94kj8nt6.apps.googleusercontent.com")
-            .requestEmail()
-            .build()
-        googleSignInClient = GoogleSignIn.getClient(this, gso)
-    }
+//    private fun setGoogleLogin() {
+//        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+//            .requestIdToken("1036649010261-p08hat5d9stl7qvdun1mg4fv94kj8nt6.apps.googleusercontent.com")
+//            .requestEmail()
+//            .build()
+//        googleSignInClient = getClient(this, gso)
+//    }
     private fun signinAndSignup() {
         auth?.createUserWithEmailAndPassword(binding.emailEdittext.text.toString(),binding.passwordEdittext.text.toString())
             ?.addOnCompleteListener {
