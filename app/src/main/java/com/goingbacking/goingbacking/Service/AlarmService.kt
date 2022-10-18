@@ -5,7 +5,7 @@ import android.content.Intent
 import android.os.Build
 import android.os.IBinder
 import android.util.Log
-import com.goingbacking.goingbacking.NotificationUtil
+import com.goingbacking.goingbacking.util.NotificationUtil
 
 class AlarmService () : Service() {
 

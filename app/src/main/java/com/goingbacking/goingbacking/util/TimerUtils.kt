@@ -1,10 +1,11 @@
-package com.goingbacking.goingbacking
+package com.goingbacking.goingbacking.util
 
 import android.content.Context
 import android.content.Intent
 import android.os.CountDownTimer
 import android.util.Log
 import com.goingbacking.goingbacking.Model.TmpTimeDTO
+import com.goingbacking.goingbacking.PrefUtil
 import com.goingbacking.goingbacking.Service.AlarmService
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -75,7 +76,8 @@ class TimerUtils {
             Log.d("experiment", "wakeupTime: " + wakeUpTime.toString())
             Log.d("experiment", "currentTime: " + currentTime.toString())
 
-            firebaseFirestore?.collection("TmpTimeInfo")?.document(userId!!)?.collection(userId!!)?.add(tmpTimeDTO!!)
+            firebaseFirestore?.collection("TmpTimeInfo")?.document(userId!!)?.collection(userId!!)?.add(
+                tmpTimeDTO!!)
 
 
             val intent = Intent(context, AlarmService::class.java)

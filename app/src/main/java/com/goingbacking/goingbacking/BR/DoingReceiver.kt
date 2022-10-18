@@ -10,7 +10,7 @@ import com.goingbacking.goingbacking.AppConstants
 import com.goingbacking.goingbacking.Model.TmpTimeDTO
 import com.goingbacking.goingbacking.PrefUtil
 import com.goingbacking.goingbacking.Repository.AlarmRepository
-import com.goingbacking.goingbacking.TimerUtils
+import com.goingbacking.goingbacking.util.TimerUtils
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import java.text.SimpleDateFormat
