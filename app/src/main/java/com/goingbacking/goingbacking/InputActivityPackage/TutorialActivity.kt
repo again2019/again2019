@@ -18,7 +18,6 @@ import com.goingbacking.goingbacking.InputActivityPackage.TutorialActivityPackag
 import com.goingbacking.goingbacking.InputActivityPackage.TutorialActivityPackage.Tutorial2Fragment
 import com.goingbacking.goingbacking.ViewModel.AlarmViewModel
 import com.goingbacking.goingbacking.databinding.ActivityTutorialBinding
-import com.goingbacking.goingbacking.util.UiState
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 
@@ -56,8 +55,8 @@ class TutorialActivity : AppCompatActivity() {
         // 없으면 디폴트 값은 현재 시간
         var calendar = Calendar.getInstance()
         calendar.timeInMillis = System.currentTimeMillis()
-        calendar.set(Calendar.HOUR_OF_DAY, 15)
-        calendar.set(Calendar.MINUTE, 19)
+        calendar.set(Calendar.HOUR_OF_DAY, 17)
+        calendar.set(Calendar.MINUTE, 7)
         calendar.set(Calendar.SECOND, 0)
         calendar.set(Calendar.MILLISECOND, 0)
 

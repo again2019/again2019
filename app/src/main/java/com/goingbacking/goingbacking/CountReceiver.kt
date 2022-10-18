@@ -42,7 +42,6 @@ class CountReceiver : BroadcastReceiver() {
     }
 
     private fun getTodayInfo(context: Context, intent: Intent) {
-        var now = LocalDate.now()
 
         alarmRepository.getTodayInfo {
             Log.d("experiment", "$it" )

@@ -1,21 +1,14 @@
 package com.goingbacking.goingbacking
 
 import android.annotation.TargetApi
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.app.PendingIntent
-import android.app.TaskStackBuilder
+import android.app.*
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.media.RingtoneManager
 import android.net.Uri
 import android.os.Build
-import android.util.Log
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
-import com.github.aachartmodel.aainfographics.aachartcreator.AAChartModel.Companion.Builder
-import com.goingbacking.goingbacking.MainActivityPackage.FirstMainFragment
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -90,7 +83,34 @@ class NotificationUtil {
             nManager.notify(TIMER_ID, nBuilder.build())
         }
 
+        fun createNotification (
+            context: Context,
+            wakeUpTime: Long
+        ) : Notification  {
+// 알림창에 발생하는 stop 버튼의 이벤트
+            val stopIntent = Intent(context, DoingReceiver::class.java)
+            stopIntent.action = AppConstants.ACTION_STOP
+            val stopPendingIntent = PendingIntent.getBroadcast(context,
+                0, stopIntent, PendingIntent.FLAG_MUTABLE)
+            // 알림창에 발생하는 pause 버튼의 이벤트
 
+            val df = SimpleDateFormat("HH:mm:ss")
+
+            val nBuilder = getBasicNotificationBuilder(context, CHANNEL_ID_TIMER, true)
+            nBuilder.setContentTitle("Timer is Running.")
+                .setContentText("End: ${df.format(Date(wakeUpTime))}")
+                .setContentIntent(getPendingIntentWithStack(context, MainActivity::class.java))
+                .setOngoing(true)
+                .addAction(R.drawable.bottom_sheet_unclicked, "Stop", stopPendingIntent)
+
+
+            val nManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            nManager.createNotificationChannel(CHANNEL_ID_TIMER, CHANNEL_NAME_TIMER, true)
+
+
+            return nBuilder.build()
+
+        }
 
 
         private fun getBasicNotificationBuilder(context: Context, channelId: String, playSound: Boolean)
@@ -101,6 +121,7 @@ class NotificationUtil {
                 .setAutoCancel(true)
                 .setDefaults(0)
             if (playSound) nBuilder.setSound(notificationSound)
+
             return nBuilder
         }
 

@@ -4,10 +4,7 @@ import android.app.NotificationManager
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.util.Log
-import androidx.appcompat.app.AppCompatActivity
-import com.goingbacking.goingbacking.MainActivityPackage.FirstMainFragment
 import com.goingbacking.goingbacking.Model.TmpTimeDTO
 import com.goingbacking.goingbacking.Repository.AlarmRepository
 import com.google.firebase.auth.FirebaseAuth
@@ -62,8 +59,12 @@ class DoingReceiver : BroadcastReceiver() {
                 Log.d("experiment", "wakeupTime: $wakeUpTime | ${SimpleDateFormat("yyyy.MM.dd HH:mm").format(Date(wakeUpTime))} ")
                 Log.d("experiment", "duration: $duration | ${SimpleDateFormat("mm").format(duration)}")
 
+                val intent = Intent(context, AlarmService::class.java)
+                intent.putExtra("wakeUpTime", wakeUpTime)
+                intent.action = "START_FOREGROUND"
+                context.startService(intent)
 
-                NotificationUtil.showTimerRunning(context, wakeUpTime)
+                //NotificationUtil.showTimerRunning(context, wakeUpTime)
                 Utils.startTimer(context, duration)
             }
             AppConstants.ACTION_STOP -> {

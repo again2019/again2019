@@ -15,7 +15,6 @@ import androidx.core.app.NotificationCompat
 import com.goingbacking.goingbacking.Model.*
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.QueryDocumentSnapshot
 import java.text.SimpleDateFormat
 import java.util.*
 
