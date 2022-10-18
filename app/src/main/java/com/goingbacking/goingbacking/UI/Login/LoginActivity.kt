@@ -31,15 +31,13 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>({
     val viewModel: LoginViewModel by viewModels()
     private var auth = FirebaseAuth.getInstance()
 
-
     private lateinit var getResult: ActivityResultLauncher<Intent>
-
     private lateinit var googleSignInClient: GoogleSignInClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         googleObserver()
-        //setGoogleLogin()
 
         binding.emailLoginButton.setOnClickListener {
             signinAndSignup()
@@ -65,6 +63,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>({
         }
     }
 
+
     private fun googleObserver() {
         viewModel.getGSO()
         viewModel.gso.observe(this) {
@@ -72,7 +71,9 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>({
                 when (state) {
                     is UiState.Success -> {
                         googleSignInClient = getClient(this, state.data)
-
+                    }
+                    is UiState.Failure -> {
+                        Toast.makeText(this, "구글 로그인 실패", Toast.LENGTH_SHORT).show()
                     }
 
                 }
@@ -83,13 +84,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>({
         getResult.launch(googleSignInClient.signInIntent)
     }
 
-//    private fun setGoogleLogin() {
-//        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-//            .requestIdToken("1036649010261-p08hat5d9stl7qvdun1mg4fv94kj8nt6.apps.googleusercontent.com")
-//            .requestEmail()
-//            .build()
-//        googleSignInClient = getClient(this, gso)
-//    }
+
     private fun signinAndSignup() {
         auth?.createUserWithEmailAndPassword(binding.emailEdittext.text.toString(),binding.passwordEdittext.text.toString())
             ?.addOnCompleteListener {

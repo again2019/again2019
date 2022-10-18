@@ -5,6 +5,7 @@ import com.goingbacking.goingbacking.Repository.LoginRepositoryIF
 import com.goingbacking.goingbacking.util.UiState
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
@@ -16,7 +17,7 @@ class LoginViewModel @Inject constructor(
     val gso: LiveData<UiState<GoogleSignInOptions>>
         get() = _gso
 
-    fun getGSO() {
+    fun getGSO() = viewModelScope.launch {
         _gso.value = UiState.Loading
         loginRepository.getGSO {
             _gso.value = it
