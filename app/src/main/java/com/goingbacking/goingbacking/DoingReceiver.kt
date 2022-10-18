@@ -9,20 +9,15 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.goingbacking.goingbacking.MainActivityPackage.FirstMainFragment
 import com.goingbacking.goingbacking.Model.TmpTimeDTO
+import com.goingbacking.goingbacking.Repository.AlarmRepository
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import java.text.SimpleDateFormat
 import java.util.*
 
 class DoingReceiver : BroadcastReceiver() {
+    val alarmRepository = AlarmRepository(FirebaseAuth.getInstance().currentUser, FirebaseFirestore.getInstance())
 
-    var sharedPreferences : SharedPreferences? = null
-    var exp1 :Int? = null
-    var exp2 : String? = null
-
-    var auth : FirebaseAuth? = null
-    var firebaseFirestore : FirebaseFirestore? = null
-    var userId : String? = null
     var tmpTimeDTO : TmpTimeDTO? = null
     var end_time = 0
     var id = 0
@@ -30,8 +25,6 @@ class DoingReceiver : BroadcastReceiver() {
     var currentTime = 0L
     override fun onReceive(context: Context, intent: Intent) {
         Log.d("experiment", "okay doingReceiver")
-
-        init()
 
         id = intent.getIntExtra("id", 0)
         type = intent.getStringExtra("channel").toString()
@@ -102,23 +95,13 @@ class DoingReceiver : BroadcastReceiver() {
                 Log.d("experiment", "wakeupTime: " + wakeUpTime.toString())
                 Log.d("experiment", "currentTime: " + currentTime.toString())
 
-                firebaseFirestore?.collection("TmpTimeInfo")?.document(userId!!)?.collection(userId!!)?.add(tmpTimeDTO!!)
-
-
-
+                //firebaseFirestore?.collection("TmpTimeInfo")?.document(userId!!)?.collection(userId!!)?.add(tmpTimeDTO!!)
+                alarmRepository.addTmpTimeInfo(tmpTimeDTO!!)
             }
-
-
-
 
         }
 
     }
 
-    fun init() {
-        auth = FirebaseAuth.getInstance()
-        firebaseFirestore = FirebaseFirestore.getInstance()
-        userId = auth?.currentUser?.uid
-        tmpTimeDTO = TmpTimeDTO()
-    }
+
 }

@@ -6,6 +6,7 @@ import com.goingbacking.goingbacking.util.FBConstants.Companion.CALENDARINFO
 import com.goingbacking.goingbacking.util.FBConstants.Companion.DAY
 import com.goingbacking.goingbacking.util.FBConstants.Companion.MONTH
 import com.goingbacking.goingbacking.util.FBConstants.Companion.SAVETIMEINFO
+import com.goingbacking.goingbacking.util.FBConstants.Companion.TMPTIMEINFO
 import com.goingbacking.goingbacking.util.FBConstants.Companion.YEAR
 import com.goingbacking.goingbacking.util.UiState
 import com.google.firebase.auth.FirebaseUser
@@ -212,6 +213,13 @@ class AlarmRepository (
                     )
                 )
             }
+    }
+
+    override fun addTmpTimeInfo(
+        tmpTimeDTO: TmpTimeDTO
+    ) {
+        firebaseFirestore.collection(TMPTIMEINFO)?.document(myUid)
+            ?.collection(myUid)?.add(tmpTimeDTO)
     }
 
 }
