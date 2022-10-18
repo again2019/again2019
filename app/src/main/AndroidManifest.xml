@@ -70,10 +70,7 @@
             android:name=".CountReceiver"
             android:enabled="true"
             android:exported="true" />
-        <receiver
-            android:name=".AlarmReceiver"
-            android:enabled="true"
-            android:exported="false" />
+
         <receiver
             android:name=".DeviceBootReceiver"
             android:enabled="true"
