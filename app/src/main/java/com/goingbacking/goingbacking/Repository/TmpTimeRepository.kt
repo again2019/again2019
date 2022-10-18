@@ -2,6 +2,9 @@ package com.goingbacking.goingbacking.Repository
 
 import com.goingbacking.goingbacking.Model.TmpTimeDTO
 import com.goingbacking.goingbacking.util.FBConstants
+import com.goingbacking.goingbacking.util.FBConstants.Companion.MONTH
+import com.goingbacking.goingbacking.util.FBConstants.Companion.WHATTODOINFO
+import com.goingbacking.goingbacking.util.FBConstants.Companion.YEAR
 import com.goingbacking.goingbacking.util.UiState
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FieldValue
@@ -94,8 +97,8 @@ class TmpTimeRepository(
         var now = LocalDate.now()
         var Strnow = now.format(DateTimeFormatter.ofPattern("yyyy-MM"))
 
-        firebaseFirestore?.collection("WhatToDoInfo")?.document(myUid)
-            .collection("Month").document(Strnow)
+        firebaseFirestore?.collection(WHATTODOINFO)?.document(myUid)
+            .collection(MONTH).document(Strnow)
             .collection(Strnow).document(myUid + whatToDo)
             .update("count", count)
 
@@ -109,8 +112,8 @@ class TmpTimeRepository(
         var now = LocalDate.now()
         var Strnow = now.format(DateTimeFormatter.ofPattern("yyyy"))
 
-        firebaseFirestore?.collection("WhatToDoInfo")?.document(myUid)
-            .collection("Year").document(Strnow)
+        firebaseFirestore?.collection(WHATTODOINFO)?.document(myUid)
+            .collection(YEAR).document(Strnow)
             .collection(Strnow).document(myUid + whatToDo)
             .update("count", count)
 

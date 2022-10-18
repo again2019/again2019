@@ -9,6 +9,7 @@ import com.goingbacking.goingbacking.util.FBConstants.Companion.DAY
 import com.goingbacking.goingbacking.util.FBConstants.Companion.MONTH
 import com.goingbacking.goingbacking.util.FBConstants.Companion.SAVETIMEINFO
 import com.goingbacking.goingbacking.util.FBConstants.Companion.USERINFO
+import com.goingbacking.goingbacking.util.FBConstants.Companion.WHATTODOINFO
 import com.goingbacking.goingbacking.util.FBConstants.Companion.YEAR
 import com.goingbacking.goingbacking.util.UiState
 import com.google.firebase.auth.FirebaseUser
@@ -366,8 +367,8 @@ class MainRepository (
         var now = LocalDate.now()
         var Strnow = now.format(DateTimeFormatter.ofPattern("yyyy-MM"))
 
-        firebaseFirestore.collection("WhatToDoInfo").document(uid)
-            ?.collection("Month").document(Strnow)
+        firebaseFirestore.collection(WHATTODOINFO).document(uid)
+            ?.collection(MONTH).document(Strnow)
             ?.collection(Strnow).get(cache)
             .addOnSuccessListener {
                 val whatToDoMonthDTOList = arrayListOf<WhatToDoMonthDTO>()
@@ -392,8 +393,8 @@ class MainRepository (
         var now = LocalDate.now()
         var Strnow = now.format(DateTimeFormatter.ofPattern("yyyy"))
 
-        firebaseFirestore.collection("WhatToDoInfo").document(uid)
-            ?.collection("Year").document(Strnow)
+        firebaseFirestore.collection(WHATTODOINFO).document(uid)
+            ?.collection(YEAR).document(Strnow)
             ?.collection(Strnow).get()
             .addOnSuccessListener {
                 val whatToDoYearDTOList = arrayListOf<WhatToDoYearDTO>()

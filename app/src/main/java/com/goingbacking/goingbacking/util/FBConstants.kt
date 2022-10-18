@@ -7,7 +7,7 @@ class FBConstants {
         const val DATE = "Date"
         const val TMPTIMEINFO = "TmpTimeInfo"
         const val SAVETIMEINFO = "SaveTimeInfo"
-
+        const val WHATTODOINFO = "WhatToDoInfo"
 
         const val DAY = "day"
         const val MONTH = "month"
