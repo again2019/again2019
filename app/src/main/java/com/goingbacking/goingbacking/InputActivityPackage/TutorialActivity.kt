@@ -56,7 +56,7 @@ class TutorialActivity : AppCompatActivity() {
         var calendar = Calendar.getInstance()
         calendar.timeInMillis = System.currentTimeMillis()
         calendar.set(Calendar.HOUR_OF_DAY, 17)
-        calendar.set(Calendar.MINUTE, 7)
+        calendar.set(Calendar.MINUTE, 40)
         calendar.set(Calendar.SECOND, 0)
         calendar.set(Calendar.MILLISECOND, 0)
 

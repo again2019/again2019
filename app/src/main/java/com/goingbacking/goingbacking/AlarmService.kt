@@ -23,16 +23,20 @@ class AlarmService () : Service() {
 
 
         when(intent?.action) {
+            "FIRST_START_FOREGROUND" -> {
+                startForegroundService1()
+            }
+
+
             "START_FOREGROUND" -> {
+                stopSelf(19)
                 val wakeUpTime = intent.getLongExtra("wakeUpTime", 0L)
                 Log.d("experiment", "sssssssssssssssss wakeup time ${wakeUpTime}")
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    startForegroundService(wakeUpTime)
+                    startForegroundService2(wakeUpTime)
                 }
             }
-            "STOP_FOREGROUND" -> {
-                stopForegroundService()
-            }
+
         }
 
 
@@ -40,12 +44,15 @@ class AlarmService () : Service() {
         return START_STICKY
     }
 
-    private fun stopForegroundService() {
-        stopForeground(true)
-        stopSelf()
+
+
+    private fun startForegroundService1() {
+        val notification = NotificationUtil.showTimerReadyNotification(this)
+        startForeground(19, notification)
     }
 
-    private fun startForegroundService(wakeUpTime :Long) {
+
+    private fun startForegroundService2(wakeUpTime :Long) {
 
         Log.d("experiment", "wakeup time start")
         val notification = NotificationUtil.createNotification(this, wakeUpTime)

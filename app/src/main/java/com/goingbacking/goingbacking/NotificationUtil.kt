@@ -83,6 +83,25 @@ class NotificationUtil {
             nManager.notify(TIMER_ID, nBuilder.build())
         }
 
+        fun showTimerReadyNotification(context: Context) :Notification {
+            val readyIntent = Intent(context, DoingReceiver::class.java)
+            readyIntent.action = AppConstants.ACTION_START
+            val readyPendingIntent = PendingIntent.getBroadcast(context,
+                0, readyIntent, PendingIntent.FLAG_MUTABLE)
+
+            val nBuilder = getBasicNotificationBuilder(context, CHANNEL_ID_TIMER, true)
+            nBuilder.setContentTitle("시작?")
+                .setContentText("시작?")
+                .setContentIntent(getPendingIntentWithStack(context, MainActivity::class.java))
+                .setOngoing(true)
+                .addAction(R.drawable.btn_google_signin_dark_focus, "Start?", readyPendingIntent)
+
+            val nManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            nManager.createNotificationChannel(CHANNEL_ID_TIMER, CHANNEL_NAME_TIMER, true)
+
+            return nBuilder.build()
+        }
+
         fun createNotification (
             context: Context,
             wakeUpTime: Long
