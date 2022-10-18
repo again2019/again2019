@@ -3,9 +3,7 @@ package com.goingbacking.goingbacking.util
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.preference.PreferenceManager
-import androidx.appcompat.app.AppCompatActivity
 import com.goingbacking.goingbacking.MainActivityPackage.FirstMainFragment
-import java.util.prefs.PreferenceChangeEvent
 
 class PrefUtil {
 
