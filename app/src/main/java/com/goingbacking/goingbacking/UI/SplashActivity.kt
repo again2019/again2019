@@ -24,7 +24,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>({
 
         CoroutineScope(Dispatchers.IO).launch {
             delay(DURATION)
-            var intent = Intent(applicationContext, LoginActivity::class.java)
+            val intent = Intent(applicationContext, LoginActivity::class.java)
             startActivity(intent)
         }
 
