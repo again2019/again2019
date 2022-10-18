@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.goingbacking.goingbacking.LoginActivity
 import com.goingbacking.goingbacking.R
+import com.goingbacking.goingbacking.UI.Base.BaseActivity
+import com.goingbacking.goingbacking.databinding.ActivityLoginBinding
 import com.goingbacking.goingbacking.databinding.ActivitySplashBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
@@ -13,13 +15,11 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class SplashActivity : AppCompatActivity() {
-    private val binding: ActivitySplashBinding by lazy {
-        ActivitySplashBinding.inflate(layoutInflater)
-    }
+class SplashActivity : BaseActivity<ActivitySplashBinding>({
+    ActivitySplashBinding.inflate(it)
+}) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(binding.root)
 
         CoroutineScope(Dispatchers.IO).launch {
             delay(DURATION)
