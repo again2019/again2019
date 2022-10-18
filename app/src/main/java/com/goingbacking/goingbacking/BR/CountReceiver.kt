@@ -1,4 +1,4 @@
-package com.goingbacking.goingbacking
+package com.goingbacking.goingbacking.BR
 
 import android.app.AlarmManager
 import android.app.NotificationChannel
@@ -10,8 +10,12 @@ import android.util.Log
 import android.widget.Toast
 
 import androidx.core.app.*
+import com.goingbacking.goingbacking.AppConstants
+import com.goingbacking.goingbacking.BR.DoingReceiver
+import com.goingbacking.goingbacking.MainActivity
 
 import com.goingbacking.goingbacking.Model.CalendarInfoDTO
+import com.goingbacking.goingbacking.R
 
 import com.goingbacking.goingbacking.Repository.AlarmRepository
 
@@ -19,7 +23,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
 import java.text.SimpleDateFormat
-import java.time.LocalDate
 
 import java.util.*
 

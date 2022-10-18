@@ -11,8 +11,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
 import com.goingbacking.goingbacking.Adapter.TutorialViewPagerAdapter
-import com.goingbacking.goingbacking.CountReceiver
-import com.goingbacking.goingbacking.DeviceBootReceiver
+import com.goingbacking.goingbacking.BR.CountReceiver
+import com.goingbacking.goingbacking.BR.DeviceBootReceiver
 import com.goingbacking.goingbacking.MainActivity
 import com.goingbacking.goingbacking.InputActivityPackage.TutorialActivityPackage.Tutorial1Fragment
 import com.goingbacking.goingbacking.InputActivityPackage.TutorialActivityPackage.Tutorial2Fragment
@@ -55,8 +55,8 @@ class TutorialActivity : AppCompatActivity() {
         // 없으면 디폴트 값은 현재 시간
         var calendar = Calendar.getInstance()
         calendar.timeInMillis = System.currentTimeMillis()
-        calendar.set(Calendar.HOUR_OF_DAY, 17)
-        calendar.set(Calendar.MINUTE, 57)
+        calendar.set(Calendar.HOUR_OF_DAY, 18)
+        calendar.set(Calendar.MINUTE, 7)
         calendar.set(Calendar.SECOND, 0)
         calendar.set(Calendar.MILLISECOND, 0)
 

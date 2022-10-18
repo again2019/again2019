@@ -24,10 +24,7 @@
             android:name=".WhatToDoSaveActivity"
             android:exported="true" />
 
-        <receiver
-            android:name=".DoingReceiver"
-            android:enabled="true"
-            android:exported="true" />
+
 
         <activity
             android:name=".TmpTimeActivity"
@@ -67,14 +64,19 @@
         </activity>
 
         <receiver
-            android:name=".CountReceiver"
+            android:name=".BR.CountReceiver"
             android:enabled="true"
             android:exported="true" />
 
         <receiver
-            android:name=".DeviceBootReceiver"
+            android:name=".BR.DeviceBootReceiver"
             android:enabled="true"
             android:exported="false" />
+
+        <receiver
+            android:name=".BR.DoingReceiver"
+            android:enabled="true"
+            android:exported="true" />
     </application>
 
 </manifest>

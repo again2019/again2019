@@ -1,4 +1,4 @@
-package com.goingbacking.goingbacking
+package com.goingbacking.goingbacking.BR
 
 import android.app.AlarmManager
 import android.app.PendingIntent
@@ -15,9 +15,9 @@ class DeviceBootReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
         if(Objects.equals(intent.action, "android.intent.action.BOOT_COMPLETED")) {
 
-            var alarmIntent :Intent? = Intent(context, AlarmReceiver::class.java)
-            var pendingIntent :PendingIntent = PendingIntent.getBroadcast(context, 0,
-                alarmIntent!!, PendingIntent.FLAG_MUTABLE)
+//            var alarmIntent :Intent? = Intent(context, AlarmReceiver::class.java)
+//            var pendingIntent :PendingIntent = PendingIntent.getBroadcast(context, 0,
+//                alarmIntent!!, PendingIntent.FLAG_MUTABLE)
 
             var manager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
@@ -39,10 +39,10 @@ class DeviceBootReceiver : BroadcastReceiver() {
             Toast.makeText(context.getApplicationContext(),"[재부팅후] 다음 알람은 " + date_text + "으로 알람이 설정되었습니다!", Toast.LENGTH_SHORT).show();
 
 
-            if (manager != null) {
-                manager.setRepeating(AlarmManager.RTC_WAKEUP, nextNotifyTime.getTimeInMillis(),
-                    AlarmManager.INTERVAL_DAY, pendingIntent);
-            }
+//            if (manager != null) {
+//                manager.setRepeating(AlarmManager.RTC_WAKEUP, nextNotifyTime.getTimeInMillis(),
+//                    AlarmManager.INTERVAL_DAY, pendingIntent);
+//            }
         }
     }
 }
