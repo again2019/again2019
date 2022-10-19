@@ -17,6 +17,7 @@ import com.goingbacking.goingbacking.UI.Base.BaseFragment
 import com.goingbacking.goingbacking.ViewModel.LoginViewModel
 import com.goingbacking.goingbacking.databinding.FragmentLoginBinding
 import com.goingbacking.goingbacking.util.UiState
+import com.goingbacking.goingbacking.util.isValidEmail
 import com.google.android.gms.auth.api.signin.GoogleSignIn.getClient
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.common.api.ApiException
@@ -45,6 +46,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
         buttonClick()
     }
 
+    // 구글 로그인
     private fun googleLogin() {
         getResult.launch(googleSignInClient.signInIntent)
     }
@@ -55,7 +57,8 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                 try {
                     findNavController().navigate(R.id.action_loginFragment_to_input_navigation)
 
-                    Toast.makeText(requireActivity(), "로그인 성공", Toast.LENGTH_SHORT).show()
+
+                    Toast.makeText(requireActivity(), "구글 로그인 성공", Toast.LENGTH_SHORT).show()
 
                 } catch (e: ApiException) {
                     Toast.makeText(requireActivity(), e.localizedMessage, Toast.LENGTH_SHORT).show()
@@ -68,6 +71,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
             state ->
                 when (state) {
                     is UiState.Success -> {
+
                         googleSignInClient = getClient(requireActivity(), state.data)
                     }
                     is UiState.Failure -> {
@@ -84,7 +88,8 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
             findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
         }
         emailLoginButton.setOnClickListener {
-            findNavController().navigate(R.id.action_loginFragment_to_input_navigation)
+            emailLogin()
+            
         }
         loginButton.setOnClickListener {
             googleLogin()
@@ -94,6 +99,51 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
         }
     }
 
+    private fun emailLogin() = with(binding) {
+        if (validation()) {
+            viewModel.emailLogin(emailEdittext.text.toString(), passwordEdittext.text.toString())
+            emailLoginObserver()
+
+        }
+    }
+
+    private fun emailLoginObserver() {
+        viewModel.emailLogin.observe(viewLifecycleOwner) { state ->
+            when (state) {
+                is UiState.Success -> {
+                    Toast.makeText(requireActivity(), "로그인 성공", Toast.LENGTH_SHORT).show()
+                    findNavController().navigate(R.id.action_loginFragment_to_input_navigation)
+
+                }
+                is UiState.Failure -> {
+                    Toast.makeText(requireActivity(), "로그인 실패", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
+    fun validation(): Boolean = with(binding) {
+            var isValid = true
+
+            if (emailEdittext.text.isNullOrEmpty()){
+                isValid = false
+
+            }else{
+                if (!emailEdittext.text.toString().isValidEmail()){
+                    isValid = false
+                }
+            }
+            if (passwordEdittext.text.isNullOrEmpty()){
+                isValid = false
+
+            }else{
+                if (passwordEdittext.text.toString().length < 8){
+                    isValid = false
+                }
+            }
+            return isValid
+        }
+    }
 
 
 //    private fun signinAndSignup() {
@@ -148,4 +198,3 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
 //        }
 //    }
 
-}

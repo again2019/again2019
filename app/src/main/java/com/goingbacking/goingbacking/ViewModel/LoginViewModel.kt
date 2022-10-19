@@ -21,6 +21,11 @@ class LoginViewModel @Inject constructor(
     val register: LiveData<UiState<String>>
         get() = _register
 
+    private val _emailLogin = MutableLiveData<UiState<String>>()
+    val emailLogin: LiveData<UiState<String>>
+        get() = _emailLogin
+
+
     fun getGSO() = viewModelScope.launch {
         _gso.value = UiState.Loading
         loginRepository.getGSO {
@@ -32,6 +37,13 @@ class LoginViewModel @Inject constructor(
         _register.value = UiState.Loading
         loginRepository.emailRegister(email, password) {
             _register.value = it
+        }
+    }
+
+    fun emailLogin(email: String, password: String) = viewModelScope.launch {
+        _emailLogin.value = UiState.Loading
+        loginRepository.emailLogin(email, password) {
+            _emailLogin.value = it
         }
     }
 

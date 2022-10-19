@@ -10,7 +10,7 @@ interface LoginRepositoryIF {
 
     // 이메일 로그인
     fun emailRegister(email: String, password: String, result: (UiState<String>) -> Unit)
-    fun emailLogin(result: (UiState<String>) -> Unit)
+    fun emailLogin(email: String, password: String, result: (UiState<String>) -> Unit)
     fun emailForgetPassword(result: (UiState<String>) -> Unit)
 
 }

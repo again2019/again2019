@@ -70,8 +70,27 @@ class LoginRepository (
     }
 
 
-    override fun emailLogin(result: (UiState<String>) -> Unit) {
-        TODO("Not yet implemented")
+    override fun emailLogin(email: String, password: String, result: (UiState<String>) -> Unit) {
+            firebaseAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        result.invoke(
+                            UiState.Success("Login Successfully!")
+                        )
+                    } else {
+                        result.invoke(
+                            UiState.Failure("Login Fail")
+                        )
+                    }
+                }
+                .addOnFailureListener {
+                    result.invoke(
+                        UiState.Failure(
+                            it.localizedMessage
+                        )
+                    )
+                }
+
     }
 
     override fun emailForgetPassword(result: (UiState<String>) -> Unit) {

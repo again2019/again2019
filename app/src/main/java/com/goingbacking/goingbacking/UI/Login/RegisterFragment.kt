@@ -14,6 +14,7 @@ import com.goingbacking.goingbacking.UI.Base.BaseFragment
 import com.goingbacking.goingbacking.ViewModel.LoginViewModel
 import com.goingbacking.goingbacking.databinding.FragmentRegisterBinding
 import com.goingbacking.goingbacking.util.UiState
+import com.goingbacking.goingbacking.util.isValidEmail
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -41,13 +42,13 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
                     binding.registerProgress.visibility
                 }
                 is UiState.Success -> {
-                    Toast.makeText(requireContext(), "회원 가입 성공", Toast.LENGTH_SHORT)
+                    Toast.makeText(requireContext(), "회원 가입 성공", Toast.LENGTH_SHORT).show()
                     Log.d("experiment", "yes")
                     findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
                 }
                 is UiState.Failure -> {
                     Log.d("experiment", "no")
-                    Toast.makeText(requireActivity(), "회원 가입 실패", Toast.LENGTH_SHORT)
+                    Toast.makeText(requireActivity(), "회원 가입 실패", Toast.LENGTH_SHORT).show()
                 }
              }
         }
@@ -98,9 +99,6 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
         }
         return isValid
     }
-
-    fun String.isValidEmail() =
-        isNotEmpty() && android.util.Patterns.EMAIL_ADDRESS.matcher(this).matches()
 
 
 
