@@ -37,7 +37,7 @@
             android:name=".MainActivityPackage.ChangeInfoActivity"
             android:exported="true" />
         <activity
-            android:name=".InputActivityPackage.TutorialActivity"
+            android:name=".UI.Tutorial.TutorialActivity"
             android:exported="true" />
 
         <activity

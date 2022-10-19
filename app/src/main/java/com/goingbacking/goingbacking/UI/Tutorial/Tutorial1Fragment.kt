@@ -1,4 +1,4 @@
-package com.goingbacking.goingbacking.InputActivityPackage.TutorialActivityPackage
+package com.goingbacking.goingbacking.UI.Tutorial
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -6,8 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.goingbacking.goingbacking.R
-
-class Tutorial2Fragment : Fragment() {
+class Tutorial1Fragment : Fragment() {
 
 
     override fun onCreateView(
@@ -15,6 +14,7 @@ class Tutorial2Fragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_tutorial2, container, false)
+        return inflater.inflate(R.layout.fragment_tutorial1, container, false)
     }
+
 }

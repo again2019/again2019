@@ -12,7 +12,11 @@
 
         <action
             android:id="@+id/action_registerFragment_to_loginFragment"
-            app:destination="@+id/loginFragment" />
+            app:destination="@+id/loginFragment"
+            app:enterAnim="@anim/anim_slide_in_right"
+            app:exitAnim="@anim/anim_slide_out_left"
+            app:popEnterAnim="@anim/anim_slide_in_left"
+            app:popExitAnim="@anim/anim_slide_out_right" />
 
     </fragment>
 
@@ -24,20 +28,39 @@
 
         <action
             android:id="@+id/action_loginFragment_to_registerFragment"
-            app:destination="@+id/registerFragment" />
+            app:destination="@+id/registerFragment"
+            app:enterAnim="@anim/anim_slide_in_right"
+            app:exitAnim="@anim/anim_slide_out_left"
+            app:popEnterAnim="@anim/anim_slide_in_left"
+            app:popExitAnim="@anim/anim_slide_out_right" />
         <action
             android:id="@+id/action_loginFragment_to_forgetFrgament"
-            app:destination="@+id/forgotFragment" />
+            app:destination="@+id/forgotFragment"
+            app:enterAnim="@anim/anim_slide_in_right"
+            app:exitAnim="@anim/anim_slide_out_left"
+            app:popEnterAnim="@anim/anim_slide_in_left"
+            app:popExitAnim="@anim/anim_slide_out_right" />
         <action
             android:id="@+id/action_loginFragment_to_input_navigation"
-            app:destination="@+id/input_navigation" />
+            app:destination="@+id/input_navigation"
+            app:enterAnim="@anim/anim_slide_in_right"
+            app:exitAnim="@anim/anim_slide_out_left"
+            app:popEnterAnim="@anim/anim_slide_in_left"
+            app:popExitAnim="@anim/anim_slide_out_right" />
     </fragment>
 
     <fragment
         android:id="@+id/forgotFragment"
         android:name="com.goingbacking.goingbacking.UI.Login.ForgetFragment"
         android:label="ForgotFragment"
-        tools:layout="@layout/fragment_forget"/>
+        tools:layout="@layout/fragment_forget">
+        <action
+            android:id="@+id/action_forgotFragment_self"
+            app:destination="@id/forgotFragment" />
+        <action
+            android:id="@+id/action_forgotFragment_self2"
+            app:destination="@id/forgotFragment" />
+    </fragment>
 
     <include app:graph = "@navigation/input_navigation"/>
 

@@ -1,6 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/tutorial_navigation.xml">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/tutorial_navigation"
+    app:startDestination="@id/tutorial1Fragment">
+
+    <fragment
+        android:id="@+id/tutorial1Fragment"
+        android:name="com.goingbacking.goingbacking.UI.Tutorial.Tutorial1Fragment"
+        android:label="Tutorial1Fragment"
+        tools:layout="@layout/fragment_tutorial1">
+
+        <action
+            android:id="@+id/action_tutorial1Fragment_to_tutorial2Fragment"
+            app:destination="@+id/tutorial2Fragment" />
+
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/tutorial2Fragment"
+        android:name="com.goingbacking.goingbacking.UI.Tutorial.Tutorial2Fragment"
+        android:label="Tutorial2Fragment"
+        tools:layout="@layout/fragment_tutorial2">
+
+        <action
+            android:id="@+id/action_tutorial2Fragment_to_tutorial1Fragment"
+            app:destination="@+id/tutorial1Fragment" />
+
+
+
+
+
+    </fragment>
+
+
+
 
 </navigation>

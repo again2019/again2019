@@ -1,4 +1,4 @@
-package com.goingbacking.goingbacking.InputActivityPackage
+package com.goingbacking.goingbacking.UI.Tutorial
 
 import android.app.AlarmManager
 import android.app.PendingIntent
@@ -14,25 +14,23 @@ import com.goingbacking.goingbacking.Adapter.TutorialViewPagerAdapter
 import com.goingbacking.goingbacking.BR.CountReceiver
 import com.goingbacking.goingbacking.BR.DeviceBootReceiver
 import com.goingbacking.goingbacking.MainActivity
-import com.goingbacking.goingbacking.InputActivityPackage.TutorialActivityPackage.Tutorial1Fragment
-import com.goingbacking.goingbacking.InputActivityPackage.TutorialActivityPackage.Tutorial2Fragment
+import com.goingbacking.goingbacking.UI.Base.BaseActivity
 import com.goingbacking.goingbacking.ViewModel.AlarmViewModel
 import com.goingbacking.goingbacking.databinding.ActivityTutorialBinding
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 
 @AndroidEntryPoint
-class TutorialActivity : AppCompatActivity() {
+class TutorialActivity : BaseActivity<ActivityTutorialBinding>({
+    ActivityTutorialBinding.inflate(it)
+}) {
+
     private lateinit var tutorialViewPagerAdapter : TutorialViewPagerAdapter
 
-    private val binding:  ActivityTutorialBinding by lazy {
-        ActivityTutorialBinding.inflate(layoutInflater)
-    }
     private val viewModel : AlarmViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(binding.root)
         initAdapter()
 
         binding.TutorialButton.setOnClickListener {
