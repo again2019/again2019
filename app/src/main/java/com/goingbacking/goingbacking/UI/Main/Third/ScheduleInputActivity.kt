@@ -1,8 +1,7 @@
-package com.goingbacking.goingbacking.MainActivityPackage.ThirdMainFragmentPackage
+package com.goingbacking.goingbacking.UI.Main.Third
 
 import android.app.TimePickerDialog
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity

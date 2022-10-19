@@ -8,7 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import com.goingbacking.goingbacking.MainActivityPackage.ChangeInfoActivity
+import com.goingbacking.goingbacking.UI.Main.Fifth.ChangeInfoActivity
 import com.goingbacking.goingbacking.ViewModel.MainViewModel
 import com.goingbacking.goingbacking.databinding.FragmentFifthMainBinding
 import com.goingbacking.goingbacking.util.UiState

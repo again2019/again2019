@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UI.Main.SecondMainFragment2"
+    tools:context=".UI.Main.Second.SecondMainFragment2"
     android:orientation="vertical">
 
     <com.github.aachartmodel.aainfographics.aachartcreator.AAChartView
