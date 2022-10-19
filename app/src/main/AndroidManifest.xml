@@ -54,7 +54,7 @@
             android:name=".MainActivity"
             android:exported="true" />
         <activity
-            android:name=".UI.SplashActivity"
+            android:name=".UI.Splash.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
