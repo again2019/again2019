@@ -77,7 +77,8 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                 }
         }
     }
-    
+
+    // 버튼 이벤트 모음
     private fun buttonClick() = with(binding) {
         registerButton.setOnClickListener{
             findNavController().navigate(R.id.action_loginFragment_to_registerFragment)

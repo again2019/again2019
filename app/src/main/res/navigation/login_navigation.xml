@@ -11,8 +11,8 @@
         android:label="RegisterFragment">
 
         <action
-            android:id="@+id/action_registerFragment_to_input_navigation"
-            app:destination="@+id/input_navigation" />
+            android:id="@+id/action_registerFragment_to_loginFragment"
+            app:destination="@+id/loginFragment" />
 
     </fragment>
 
