@@ -68,6 +68,14 @@
         android:name="com.goingbacking.goingbacking.UI.Main.Fifth.ChangeInfoActivity"
         android:label="ChangeInfoActivity"
         tools:layout="@layout/activity_change_info">
-
+        <argument
+            android:name="nickName"
+            app:argType="String"/>
+        <argument
+            android:name="userType"
+            app:argType="String"/>
+        <argument
+            android:name="whatToDo"
+            app:argType="String"/>
     </activity>
 </navigation>

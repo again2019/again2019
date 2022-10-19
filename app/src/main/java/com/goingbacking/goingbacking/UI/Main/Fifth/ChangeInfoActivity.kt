@@ -1,12 +1,21 @@
 package com.goingbacking.goingbacking.UI.Main.Fifth
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.goingbacking.goingbacking.R
+import androidx.navigation.navArgs
+import com.goingbacking.goingbacking.UI.Base.BaseActivity
+import com.goingbacking.goingbacking.databinding.ActivityChangeInfoBinding
+import dagger.hilt.android.AndroidEntryPoint
 
-class ChangeInfoActivity : AppCompatActivity() {
+@AndroidEntryPoint
+class ChangeInfoActivity : BaseActivity<ActivityChangeInfoBinding>({
+    ActivityChangeInfoBinding.inflate(it)
+}) {
+    private val args :ChangeInfoActivityArgs by navArgs<ChangeInfoActivityArgs>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_change_info)
+
+
+
+
     }
 }
