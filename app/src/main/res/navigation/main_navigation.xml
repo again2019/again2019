@@ -42,8 +42,32 @@
         android:name="com.goingbacking.goingbacking.UI.Main.FifthMainFragment"
         android:label="FifthMainFragment"
         tools:layout="@layout/fragment_fifth_main">
+        <action
+            android:id="@+id/action_fifthMainFragment_to_ChangeInfoActivity"
+            app:destination="@id/changeInfoActivity">
+            <argument
+                android:name="nickName"
+                app:argType="String"/>
+            <argument
+                android:name="userType"
+                app:argType="String"/>
+            <argument
+                android:name="whatToDo"
+                app:argType="String"/>
 
+        </action>
     </fragment>
 
 
+
+
+
+
+    <activity
+        android:id="@+id/changeInfoActivity"
+        android:name="com.goingbacking.goingbacking.UI.Main.Fifth.ChangeInfoActivity"
+        android:label="ChangeInfoActivity"
+        tools:layout="@layout/activity_change_info">
+
+    </activity>
 </navigation>

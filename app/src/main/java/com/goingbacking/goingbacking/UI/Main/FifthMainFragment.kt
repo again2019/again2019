@@ -2,12 +2,16 @@ package com.goingbacking.goingbacking.UI.Main
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Layout
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import com.goingbacking.goingbacking.R
+import com.goingbacking.goingbacking.UI.Base.BaseFragment
 import com.goingbacking.goingbacking.UI.Main.Fifth.ChangeInfoActivity
 import com.goingbacking.goingbacking.ViewModel.MainViewModel
 import com.goingbacking.goingbacking.databinding.FragmentFifthMainBinding
@@ -16,24 +20,14 @@ import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class FifthMainFragment : Fragment() {
-    lateinit var binding: FragmentFifthMainBinding
+class FifthMainFragment : BaseFragment<FragmentFifthMainBinding>() {
     val viewModel: MainViewModel by viewModels()
 
-
-    // View를 생성하는 function
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        binding = FragmentFifthMainBinding.inflate(layoutInflater)
-        binding.changeInfoTextView.setOnClickListener {
-            moveChangeInfoActivity()
-        }
-
-        if(this::binding.isInitialized) {
-            return binding.root
-        } else {
-            binding = FragmentFifthMainBinding.inflate(layoutInflater)
-            return binding.root
-        }
+    override fun getFragmentBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ): FragmentFifthMainBinding {
+        return FragmentFifthMainBinding.inflate(inflater, container, false)
     }
 
     // 생성된 View를 처리하는 function
@@ -41,7 +35,12 @@ class FifthMainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         observer()
-
+        binding.changeInfoTextView.setOnClickListener {
+            val nickName = binding.myNickNameTextView.text.toString()
+            val userType = binding.myTypeTextView.text.toString()
+            val whatToDo = binding.myWhatToDoTextView.text.toString()
+            findNavController().navigate(FifthMainFragmentDirections.actionFifthMainFragmentToChangeInfoActivity(nickName, userType, whatToDo))
+        }
     }
 
     private fun observer() {
@@ -60,15 +59,4 @@ class FifthMainFragment : Fragment() {
 
         }
     }
-
-
-    fun moveChangeInfoActivity() {
-        val intent : Intent? = Intent(activity, ChangeInfoActivity::class.java)
-        intent?.putExtra("userNickName", "")
-        intent?.putExtra("userType", "userType")
-        intent?.putExtra("whatToDo", "whatToDo")
-        startActivity(intent)
-    }
-
-
 }
