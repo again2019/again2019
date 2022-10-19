@@ -31,31 +31,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
     private lateinit var googleSignInClient: GoogleSignInClient
     private var auth = FirebaseAuth.getInstance()
 
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        googleObserver()
-        binding.registerButton.setOnClickListener {
-
-            findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
-        }
-
-        binding.emailLoginButton.setOnClickListener {
-            findNavController().navigate(R.id.action_loginFragment_to_input_navigation)
-        }
-
-        binding.loginButton.setOnClickListener {
-            googleLogin()
-        }
-        binding.passwordButton.setOnClickListener {
-            findNavController().navigate(R.id.action_loginFragment_to_forgetFrgament)
-
-        }
-
-
-    }
-
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
@@ -63,9 +38,18 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
         return FragmentLoginBinding.inflate(inflater, container, false)
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
+        googleLoginObserver()
+        buttonClick()
+    }
 
-    private fun googleObserver() {
+    private fun googleLogin() {
+        getResult.launch(googleSignInClient.signInIntent)
+    }
+
+    private fun googleLoginObserver() {
         getResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             if (it.resultCode == Activity.RESULT_OK) {
                 try {
@@ -93,10 +77,22 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                 }
         }
     }
-
-    private fun googleLogin() {
-        getResult.launch(googleSignInClient.signInIntent)
+    
+    private fun buttonClick() = with(binding) {
+        registerButton.setOnClickListener{
+            findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
+        }
+        emailLoginButton.setOnClickListener {
+            findNavController().navigate(R.id.action_loginFragment_to_input_navigation)
+        }
+        loginButton.setOnClickListener {
+            googleLogin()
+        }
+        passwordButton.setOnClickListener {
+            findNavController().navigate(R.id.action_loginFragment_to_forgetFrgament)
+        }
     }
+
 
 
 //    private fun signinAndSignup() {
