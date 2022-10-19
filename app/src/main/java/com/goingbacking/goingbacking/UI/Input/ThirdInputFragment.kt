@@ -19,7 +19,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class ThirdInputFragment : BaseFragment<FragmentThirdInputBinding>() {
     val viewModel: InputViewModel by viewModels()
-    
+
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
@@ -33,7 +33,6 @@ class ThirdInputFragment : BaseFragment<FragmentThirdInputBinding>() {
         ThirdInputObserver()
         onClick()
     }
-
 
 
     private fun ThirdInputObserver() {

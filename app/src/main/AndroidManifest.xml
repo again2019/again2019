@@ -39,17 +39,9 @@
         <activity
             android:name=".InputActivityPackage.TutorialActivity"
             android:exported="true" />
-        <activity
-            android:name=".InputActivityPackage.ThirdInputActivity"
-            android:exported="true" />
-        <activity
-            android:name=".InputActivityPackage.SecondInputActivity"
-            android:exported="true" />
+
         <activity
             android:name=".UI.Login.LoginActivity"
-            android:exported="true" />
-        <activity
-            android:name=".InputActivityPackage.FirstInputActivity"
             android:exported="true" />
         <activity
             android:name=".MainActivity"
