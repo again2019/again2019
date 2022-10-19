@@ -1,4 +1,4 @@
-package com.goingbacking.goingbacking.MainActivityPackage
+package com.goingbacking.goingbacking.UI.Main
 
 
 import android.content.Intent
@@ -10,7 +10,6 @@ import android.view.View
 import android.view.ViewGroup
 
 import com.goingbacking.goingbacking.*
-import com.goingbacking.goingbacking.Adapter.PagerAdapter
 import com.goingbacking.goingbacking.databinding.FragmentFirstMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 

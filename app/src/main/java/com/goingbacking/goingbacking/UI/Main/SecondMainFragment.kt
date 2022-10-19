@@ -1,19 +1,16 @@
-package com.goingbacking.goingbacking.MainActivityPackage
+package com.goingbacking.goingbacking.UI.Main
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.viewModels
 import com.github.aachartmodel.aainfographics.aachartcreator.*
 import com.goingbacking.goingbacking.Adapter.PagerAdapter
 import com.goingbacking.goingbacking.ViewModel.MainViewModel
 
 import com.goingbacking.goingbacking.databinding.FragmentSecondMainBinding
-import com.goingbacking.goingbacking.util.UiState
 import dagger.hilt.android.AndroidEntryPoint
 
 

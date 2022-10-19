@@ -63,4 +63,4 @@
             app:popEnterAnim="@anim/anim_slide_in_left"
             app:popExitAnim="@anim/anim_slide_out_right"/>
 
-</navigation>
+    <include app:graph="@navigation/input_navigation" /></navigation>

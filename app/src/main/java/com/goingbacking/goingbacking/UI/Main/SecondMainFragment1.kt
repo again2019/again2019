@@ -1,4 +1,4 @@
-package com.goingbacking.goingbacking.MainActivityPackage
+package com.goingbacking.goingbacking.UI.Main
 
 import android.os.Bundle
 import android.util.Log
@@ -8,10 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.github.aachartmodel.aainfographics.aachartcreator.*
-import com.goingbacking.goingbacking.R
 import com.goingbacking.goingbacking.ViewModel.MainViewModel
 import com.goingbacking.goingbacking.databinding.FragmentSecondMain1Binding
-import com.goingbacking.goingbacking.databinding.FragmentSecondMainBinding
 import com.goingbacking.goingbacking.util.UiState
 import dagger.hilt.android.AndroidEntryPoint
 

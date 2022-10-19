@@ -12,7 +12,7 @@ import androidx.activity.viewModels
 import com.goingbacking.goingbacking.Adapter.TutorialViewPagerAdapter
 import com.goingbacking.goingbacking.BR.CountReceiver
 import com.goingbacking.goingbacking.BR.DeviceBootReceiver
-import com.goingbacking.goingbacking.MainActivity
+import com.goingbacking.goingbacking.UI.Main.MainActivity
 import com.goingbacking.goingbacking.UI.Base.BaseActivity
 import com.goingbacking.goingbacking.ViewModel.AlarmViewModel
 import com.goingbacking.goingbacking.databinding.ActivityTutorialBinding

@@ -11,7 +11,7 @@ import android.os.Build
 import androidx.core.app.NotificationCompat
 import com.goingbacking.goingbacking.AppConstants
 import com.goingbacking.goingbacking.BR.DoingReceiver
-import com.goingbacking.goingbacking.MainActivity
+import com.goingbacking.goingbacking.UI.Main.MainActivity
 import com.goingbacking.goingbacking.R
 import com.goingbacking.goingbacking.TmpTimeActivity
 import java.text.SimpleDateFormat

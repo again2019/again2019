@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_navigation"
+    app:startDestination="@id/firstMainFragment">
+
+    <fragment
+        android:id="@+id/firstMainFragment"
+        android:name="com.goingbacking.goingbacking.UI.Main.FirstMainFragment"
+        android:label="FirstMainFragment"
+        tools:layout="@layout/fragment_first_main">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/secondMainFragment"
+        android:name="com.goingbacking.goingbacking.UI.Main.SecondMainFragment"
+        android:label="SecondMainFragment"
+        tools:layout="@layout/fragment_second_main">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/thirdMainFragment"
+        android:name="com.goingbacking.goingbacking.UI.Main.ThirdMainFragment"
+        android:label="ThirdMainFragment"
+        tools:layout="@layout/fragment_third_main">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/forthMainFragment"
+        android:name="com.goingbacking.goingbacking.UI.Main.ForthMainFragment"
+        android:label="ForthMainFragment"
+        tools:layout="@layout/fragment_forth_main">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/fifthMainFragment"
+        android:name="com.goingbacking.goingbacking.UI.Main.FifthMainFragment"
+        android:label="FifthMainFragment"
+        tools:layout="@layout/fragment_fifth_main">
+
+    </fragment>
+
+
+</navigation>

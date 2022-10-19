@@ -71,5 +71,5 @@ class ForgetFragment : BaseFragment<FragmentForgetBinding>() {
         return isValid
     }
 
-    
+
 }

@@ -44,7 +44,7 @@
             android:name=".UI.Login.LoginActivity"
             android:exported="true" />
         <activity
-            android:name=".MainActivity"
+            android:name=".UI.Main.MainActivity"
             android:exported="true" />
         <activity
             android:name=".UI.Splash.SplashActivity"

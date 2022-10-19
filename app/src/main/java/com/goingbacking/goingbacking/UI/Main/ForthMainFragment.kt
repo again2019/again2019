@@ -1,4 +1,4 @@
-package com.goingbacking.goingbacking.MainActivityPackage
+package com.goingbacking.goingbacking.UI.Main
 
 import android.app.AlertDialog
 import android.os.Bundle

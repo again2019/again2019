@@ -11,8 +11,7 @@ import android.widget.Toast
 
 import androidx.core.app.*
 import com.goingbacking.goingbacking.AppConstants
-import com.goingbacking.goingbacking.BR.DoingReceiver
-import com.goingbacking.goingbacking.MainActivity
+import com.goingbacking.goingbacking.UI.Main.MainActivity
 
 import com.goingbacking.goingbacking.Model.CalendarInfoDTO
 import com.goingbacking.goingbacking.R
