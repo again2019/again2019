@@ -3,7 +3,6 @@ package com.goingbacking.goingbacking.UI.Login
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,7 +20,6 @@ import com.goingbacking.goingbacking.util.isValidEmail
 import com.google.android.gms.auth.api.signin.GoogleSignIn.getClient
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.common.api.ApiException
-import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -30,7 +28,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
     val viewModel: LoginViewModel by viewModels()
     private lateinit var getResult: ActivityResultLauncher<Intent>
     private lateinit var googleSignInClient: GoogleSignInClient
-    private var auth = FirebaseAuth.getInstance()
 
     override fun getFragmentBinding(
         inflater: LayoutInflater,
@@ -146,55 +143,4 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
     }
 
 
-//    private fun signinAndSignup() {
-//        auth?.createUserWithEmailAndPassword(binding.emailEdittext.text.toString(),binding.passwordEdittext.text.toString())
-//            ?.addOnCompleteListener {
-//                    task ->
-//                if(task.isSuccessful){
-//                    //Creating a user account
-//                    moveFirstInputPage(task.result?.user)
-//                }else if(task.exception?.message.isNullOrEmpty()){
-//                    //Show the error message
-//                    Toast.makeText(this,task.exception?.message,Toast.LENGTH_LONG).show()
-//                }else{
-//                    //Login if you have account
-//                    signinEmail()
-//                }
-//            }
-//        }
-//
-//    fun signinEmail(){
-//        auth?.signInWithEmailAndPassword(binding.emailEdittext.text.toString(),binding.passwordEdittext.text.toString())
-//            ?.addOnCompleteListener {
-//                    task ->
-//                if(task.isSuccessful){
-//                    //Login
-//                    moveFirstInputPage(task.result?.user)
-//                }else{
-//                    //Show the error message
-//                    Toast.makeText(requireActivity(),task.exception?.message,Toast.LENGTH_LONG).show()
-//                }
-//            }
-//    }
-
-
-
-
-//    override fun onStart() {
-//        super.onStart()
-//        val account = GoogleSignIn.getLastSignedInAccount(this)
-//        // 이미 로그인 한 사용자가 있는 경우
-//        if (auth?.currentUser != null) {
-//            moveMainPage(auth?.currentUser)
-//        } else if (account != null) {
-//            moveMainPage(auth?.currentUser)
-//        }
-//
-//    }
-//    fun moveMainPage(user:FirebaseUser?){
-//        if(user != null){
-//            startActivity(Intent(this, MainActivity::class.java))
-//            finish()
-//        }
-//    }
 
