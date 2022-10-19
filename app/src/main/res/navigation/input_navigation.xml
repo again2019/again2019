@@ -23,6 +23,10 @@
         android:label="SecondInputFragment">
 
         <action
+            android:id="@+id/action_secondInputFragment_to_firstInputFragment"
+            app:destination="@+id/firstInputFragment" />
+
+        <action
             android:id="@+id/action_secondInputFragment_to_thirdInputFragment"
             app:destination="@+id/thirdInputFragment" />
 

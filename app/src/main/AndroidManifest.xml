@@ -15,17 +15,18 @@
         android:roundIcon="@mipmap/comeback"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity
+            android:name=".UI.Input.InputActivity"
+            android:exported="true" />
+
         <service
             android:name=".Service.AlarmService"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true" />
 
         <activity
             android:name=".WhatToDoSaveActivity"
             android:exported="true" />
-
-
-
         <activity
             android:name=".TmpTimeActivity"
             android:exported="true" />
@@ -67,12 +68,10 @@
             android:name=".BR.CountReceiver"
             android:enabled="true"
             android:exported="true" />
-
         <receiver
             android:name=".BR.DeviceBootReceiver"
             android:enabled="true"
             android:exported="false" />
-
         <receiver
             android:name=".BR.DoingReceiver"
             android:enabled="true"
