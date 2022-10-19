@@ -23,6 +23,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>({
             delay(DURATION)
             val intent = Intent(applicationContext, LoginActivity::class.java)
             startActivity(intent)
+            finish()
         }
 
     }

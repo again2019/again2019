@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/input_navigation"
+    app:startDestination="@id/firstInputFragment"
+    >
+
+    <fragment
+        android:id="@+id/firstInputFragment"
+        android:name="com.goingbacking.goingbacking.UI.Input.FirstInputFragment"
+        android:label="FirstInputFragment">
+
+        <action
+            android:id="@+id/action_firstInputFragment_to_secondInputFragment"
+            app:destination="@+id/secondInputFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/secondInputFragment"
+        android:name="com.goingbacking.goingbacking.UI.Input.SecondInputFragment"
+        android:label="SecondInputFragment">
+
+        <action
+            android:id="@+id/action_secondInputFragment_to_thirdInputFragment"
+            app:destination="@+id/thirdInputFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/thirdInputFragment"
+        android:name="com.goingbacking.goingbacking.UI.Input.ThirdInputFragment"
+        android:label="SecondInputFragment">
+
+        <action
+            android:id="@+id/action_thirdInputFragment_to_tutorial_navigation"
+            app:destination="@+id/tutorial_navigation" />
+
+    </fragment>
+
+</navigation>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/login_navigation"
+    app:startDestination="@id/loginFragment">
+
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.goingbacking.goingbacking.UI.Login.RegisterFragment"
+        android:label="RegisterFragment">
+
+        <action
+            android:id="@+id/action_registerFragment_to_loginFragment"
+            app:destination="@+id/loginFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.goingbacking.goingbacking.UI.Login.LoginFragment"
+        android:label="LoginFragment"
+        tools:layout="@layout/fragment_login">
+
+        <action
+            android:id="@+id/action_loginFragment_to_registerFragment"
+            app:destination="@+id/registerFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_forgetFrgament"
+            app:destination="@+id/forgotFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_input_navigation"
+            app:destination="@+id/input_navigation" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/forgotFragment"
+        android:name="com.goingbacking.goingbacking.UI.Login.ForgetFragment"
+        android:label="ForgotFragment"
+        tools:layout="@layout/fragment_forget"/>
+
+    <include app:graph = "@navigation/input_navigation"/>
+
+</navigation>

@@ -10,6 +10,7 @@
         <entry key="..\:/Users/PC/Documents/GitHub/GoingBacking/app/src/main/res/menu/bottom_navigation_main.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/layout/activity_change_info.xml" value="0.1824074074074074" />
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/layout/activity_first_input.xml" value="0.115625" />
+        <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/layout/activity_login.xml" value="0.1835032437442076" />
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/layout/activity_main.xml" value="0.1824074074074074" />
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/layout/activity_second_input.xml" value="0.115625" />
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/layout/activity_third_input.xml" value="0.12222222222222222" />
@@ -17,10 +18,14 @@
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/layout/activity_what_to_do_save.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/layout/example_3_event_item_view.xml" value="0.1703125" />
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/layout/fragment_first_main.xml" value="0.18333333333333332" />
+        <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/layout/fragment_forget.xml" value="0.2390625" />
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/layout/fragment_forth_main.xml" value="0.1" />
+        <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/layout/fragment_login.xml" value="0.2390625" />
+        <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/layout/fragment_register.xml" value="0.4" />
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/layout/fragment_second_main.xml" value="0.1" />
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/layout/fragment_second_main1.xml" value="0.14963503649635038" />
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/layout/fragment_second_main2.xml" value="0.2390625" />
+        <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/layout/fragment_third_input.xml" value="0.21481481481481482" />
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/layout/fragment_third_main.xml" value="0.21666666666666667" />
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/layout/item_comment.xml" value="0.1" />
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/layout/item_tmp.xml" value="0.264" />
