@@ -13,7 +13,11 @@
 
         <action
             android:id="@+id/action_firstInputFragment_to_secondInputFragment"
-            app:destination="@+id/secondInputFragment" />
+            app:destination="@+id/secondInputFragment"
+            app:enterAnim="@anim/anim_slide_in_right"
+            app:exitAnim="@anim/anim_slide_out_left"
+            app:popEnterAnim="@anim/anim_slide_in_left"
+            app:popExitAnim="@anim/anim_slide_out_right" />
 
     </fragment>
 
@@ -24,11 +28,19 @@
 
         <action
             android:id="@+id/action_secondInputFragment_to_firstInputFragment"
-            app:destination="@+id/firstInputFragment" />
+            app:destination="@+id/firstInputFragment"
+            app:enterAnim="@anim/anim_slide_in_left"
+            app:exitAnim="@anim/anim_slide_out_right"
+            app:popEnterAnim="@anim/anim_slide_in_right"
+            app:popExitAnim="@anim/anim_slide_out_left" />
 
         <action
             android:id="@+id/action_secondInputFragment_to_thirdInputFragment"
-            app:destination="@+id/thirdInputFragment" />
+            app:destination="@+id/thirdInputFragment"
+            app:enterAnim="@anim/anim_slide_in_right"
+            app:exitAnim="@anim/anim_slide_out_left"
+            app:popEnterAnim="@anim/anim_slide_in_left"
+            app:popExitAnim="@anim/anim_slide_out_right" />
 
     </fragment>
 
@@ -39,11 +51,19 @@
 
         <action
             android:id="@+id/action_thirdInputFragment_to_secondInputFragment"
-            app:destination="@+id/secondInputFragment" />
+            app:destination="@+id/secondInputFragment"
+            app:enterAnim="@anim/anim_slide_in_left"
+            app:exitAnim="@anim/anim_slide_out_right"
+            app:popEnterAnim="@anim/anim_slide_in_right"
+            app:popExitAnim="@anim/anim_slide_out_left" />
 
         <action
             android:id="@+id/action_thirdInputFragment_to_tutorialActivity"
-            app:destination="@+id/tutorialActivity" />
+            app:destination="@+id/tutorialActivity"
+            app:enterAnim="@anim/anim_slide_in_right"
+            app:exitAnim="@anim/anim_slide_out_left"
+            app:popEnterAnim="@anim/anim_slide_in_left"
+            app:popExitAnim="@anim/anim_slide_out_right" />
 
     </fragment>
 
