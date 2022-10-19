@@ -2,12 +2,10 @@ package com.goingbacking.goingbacking.UI.Input
 
 import android.os.Bundle
 import android.text.TextUtils
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.goingbacking.goingbacking.Model.UserInfoDTO
@@ -46,6 +44,8 @@ class FirstInputFragment : BaseFragment<FragmentFirstInputBinding>() {
         }
     }
 
+    // 입력 조건이 맞는 경우
+    // 데이터 베이스에 저장 + 다음 fragment로 넘어감
     private fun completeAction() = with(binding) {
         // 만약에 edittext가 비어있다면
         if (TextUtils.isEmpty(nickNameEdittext.text)) {
@@ -67,6 +67,7 @@ class FirstInputFragment : BaseFragment<FragmentFirstInputBinding>() {
             findNavController().navigate(R.id.action_firstInputFragment_to_secondInputFragment)
         }
     }
+
 
     private fun FirstInputObserver() {
         viewModel.addFirstInput.observe(viewLifecycleOwner) {
