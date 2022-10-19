@@ -38,7 +38,6 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>({
         super.onCreate(savedInstanceState)
     }
 }
-
 //        googleObserver()
 //
 //        binding.emailLoginButton.setOnClickListener {

@@ -43,11 +43,23 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginBottom="35dp"/>
-
+    
     <com.google.android.gms.common.SignInButton
         android:id="@+id/login_button"
         android:layout_width="127dp"
         android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/register_button"
+        android:text="등록"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:id="@+id/password_button"
+        android:text="비밀번호 찾기"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
 
 </LinearLayout>
