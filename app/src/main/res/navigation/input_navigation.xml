@@ -42,9 +42,20 @@
             app:destination="@+id/secondInputFragment" />
 
         <action
-            android:id="@+id/action_thirdInputFragment_to_tutorial_navigation"
-            app:destination="@+id/tutorialFragment" />
+            android:id="@+id/action_thirdInputFragment_to_tutorialActivity"
+            app:destination="@+id/tutorialActivity" />
 
     </fragment>
-    
+
+    <activity
+        android:id="@+id/tutorialActivity"
+        android:name="com.goingbacking.goingbacking.UI.Tutorial.TutorialActivity"
+        android:label="tutorialActivity"
+        tools:layout="@layout/activity_tutorial"
+        >
+
+
+    </activity>
+
+
 </navigation>

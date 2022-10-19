@@ -1,5 +1,6 @@
 package com.goingbacking.goingbacking.UI.Input
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.goingbacking.goingbacking.R
 import com.goingbacking.goingbacking.UI.Base.BaseFragment
+import com.goingbacking.goingbacking.UI.Tutorial.TutorialActivity
 import com.goingbacking.goingbacking.ViewModel.InputViewModel
 import com.goingbacking.goingbacking.databinding.FragmentThirdInputBinding
 import com.goingbacking.goingbacking.util.UiState
@@ -59,7 +61,10 @@ class ThirdInputFragment : BaseFragment<FragmentThirdInputBinding>() {
                 {(it as Chip).text}
 
             viewModel.updateThirdInput(selected)
-            findNavController().navigate(R.id.action_thirdInputFragment_to_tutorial_navigation)
+            val intent = Intent(activity, TutorialActivity::class.java)
+            startActivity(intent)
+
+        findNavController().navigate(R.id.action_thirdInputFragment_to_tutorialActivity)
         }
 
     }
