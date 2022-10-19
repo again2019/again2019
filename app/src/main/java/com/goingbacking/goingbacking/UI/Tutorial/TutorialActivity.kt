@@ -1,4 +1,4 @@
-package com.goingbacking.goingbacking.InputActivityPackage
+package com.goingbacking.goingbacking.UI.Tutorial
 
 import android.app.AlarmManager
 import android.app.PendingIntent
@@ -7,32 +7,28 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
 import com.goingbacking.goingbacking.Adapter.TutorialViewPagerAdapter
 import com.goingbacking.goingbacking.BR.CountReceiver
 import com.goingbacking.goingbacking.BR.DeviceBootReceiver
 import com.goingbacking.goingbacking.MainActivity
-import com.goingbacking.goingbacking.InputActivityPackage.TutorialActivityPackage.Tutorial1Fragment
-import com.goingbacking.goingbacking.InputActivityPackage.TutorialActivityPackage.Tutorial2Fragment
+import com.goingbacking.goingbacking.UI.Base.BaseActivity
 import com.goingbacking.goingbacking.ViewModel.AlarmViewModel
 import com.goingbacking.goingbacking.databinding.ActivityTutorialBinding
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 
 @AndroidEntryPoint
-class TutorialActivity : AppCompatActivity() {
-    private lateinit var tutorialViewPagerAdapter : TutorialViewPagerAdapter
+class TutorialActivity : BaseActivity<ActivityTutorialBinding>({
+    ActivityTutorialBinding.inflate(it)
+}) {
 
-    private val binding:  ActivityTutorialBinding by lazy {
-        ActivityTutorialBinding.inflate(layoutInflater)
-    }
+    private lateinit var tutorialViewPagerAdapter : TutorialViewPagerAdapter
     private val viewModel : AlarmViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(binding.root)
         initAdapter()
 
         binding.TutorialButton.setOnClickListener {
@@ -55,8 +51,8 @@ class TutorialActivity : AppCompatActivity() {
         // 없으면 디폴트 값은 현재 시간
         var calendar = Calendar.getInstance()
         calendar.timeInMillis = System.currentTimeMillis()
-        calendar.set(Calendar.HOUR_OF_DAY, 18)
-        calendar.set(Calendar.MINUTE, 7)
+        calendar.set(Calendar.HOUR_OF_DAY, 0)
+        calendar.set(Calendar.MINUTE, 5)
         calendar.set(Calendar.SECOND, 0)
         calendar.set(Calendar.MILLISECOND, 0)
 
@@ -70,7 +66,6 @@ class TutorialActivity : AppCompatActivity() {
         var alarmIntent = Intent(this, CountReceiver::class.java)
         alarmIntent.putExtra("id", 3000)
         alarmIntent.putExtra("type", "channel")
-        alarmIntent.putExtra("repeat", true)
 
         var pendingIntent: PendingIntent = PendingIntent.getBroadcast(
             this, 3000, alarmIntent, PendingIntent.FLAG_MUTABLE

@@ -15,17 +15,18 @@
         android:roundIcon="@mipmap/comeback"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity
+            android:name=".UI.Input.InputActivity"
+            android:exported="true" />
+
         <service
             android:name=".Service.AlarmService"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true" />
 
         <activity
             android:name=".WhatToDoSaveActivity"
             android:exported="true" />
-
-
-
         <activity
             android:name=".TmpTimeActivity"
             android:exported="true" />
@@ -36,25 +37,17 @@
             android:name=".MainActivityPackage.ChangeInfoActivity"
             android:exported="true" />
         <activity
-            android:name=".InputActivityPackage.TutorialActivity"
+            android:name=".UI.Tutorial.TutorialActivity"
             android:exported="true" />
-        <activity
-            android:name=".InputActivityPackage.ThirdInputActivity"
-            android:exported="true" />
-        <activity
-            android:name=".InputActivityPackage.SecondInputActivity"
-            android:exported="true" />
+
         <activity
             android:name=".UI.Login.LoginActivity"
-            android:exported="true" />
-        <activity
-            android:name=".InputActivityPackage.FirstInputActivity"
             android:exported="true" />
         <activity
             android:name=".MainActivity"
             android:exported="true" />
         <activity
-            android:name=".UI.SplashActivity"
+            android:name=".UI.Splash.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -67,12 +60,10 @@
             android:name=".BR.CountReceiver"
             android:enabled="true"
             android:exported="true" />
-
         <receiver
             android:name=".BR.DeviceBootReceiver"
             android:enabled="true"
             android:exported="false" />
-
         <receiver
             android:name=".BR.DoingReceiver"
             android:enabled="true"

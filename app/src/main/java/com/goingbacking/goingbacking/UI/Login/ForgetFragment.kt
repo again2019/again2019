@@ -15,6 +15,7 @@ import com.goingbacking.goingbacking.util.UiState
 import com.goingbacking.goingbacking.util.isValidEmail
 import dagger.hilt.android.AndroidEntryPoint
 
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -26,11 +27,11 @@ private const val ARG_PARAM2 = "param2"
  * Use the [ForgetFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
+=======
+>>>>>>> 6bc5987e0acc9a30f86433083f3a132d808e98c2
 class ForgetFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
+<<<<<<< HEAD
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -117,4 +118,15 @@ class ForgetFragment : BaseFragment<FragmentForgetBinding>() {
 
 
 >>>>>>> Stashed changes
+=======
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_forget, container, false)
+    }
+
+>>>>>>> 6bc5987e0acc9a30f86433083f3a132d808e98c2
 }

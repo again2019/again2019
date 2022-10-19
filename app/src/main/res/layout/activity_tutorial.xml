@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".InputActivityPackage.TutorialActivity">
+    tools:context=".UI.Tutorial.TutorialActivity"
+    android:id="@+id/tutorialFragment">
 
     <Button
         android:id="@+id/TutorialButton"
