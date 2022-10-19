@@ -7,7 +7,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
 import com.goingbacking.goingbacking.Adapter.TutorialViewPagerAdapter
@@ -26,7 +25,6 @@ class TutorialActivity : BaseActivity<ActivityTutorialBinding>({
 }) {
 
     private lateinit var tutorialViewPagerAdapter : TutorialViewPagerAdapter
-
     private val viewModel : AlarmViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,8 +51,8 @@ class TutorialActivity : BaseActivity<ActivityTutorialBinding>({
         // 없으면 디폴트 값은 현재 시간
         var calendar = Calendar.getInstance()
         calendar.timeInMillis = System.currentTimeMillis()
-        calendar.set(Calendar.HOUR_OF_DAY, 18)
-        calendar.set(Calendar.MINUTE, 7)
+        calendar.set(Calendar.HOUR_OF_DAY, 0)
+        calendar.set(Calendar.MINUTE, 5)
         calendar.set(Calendar.SECOND, 0)
         calendar.set(Calendar.MILLISECOND, 0)
 
@@ -68,7 +66,6 @@ class TutorialActivity : BaseActivity<ActivityTutorialBinding>({
         var alarmIntent = Intent(this, CountReceiver::class.java)
         alarmIntent.putExtra("id", 3000)
         alarmIntent.putExtra("type", "channel")
-        alarmIntent.putExtra("repeat", true)
 
         var pendingIntent: PendingIntent = PendingIntent.getBroadcast(
             this, 3000, alarmIntent, PendingIntent.FLAG_MUTABLE

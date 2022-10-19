@@ -1,20 +1,20 @@
 package com.goingbacking.goingbacking.UI.Tutorial
 
-import android.os.Bundle
-import androidx.fragment.app.Fragment
+
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import com.goingbacking.goingbacking.R
-class Tutorial1Fragment : Fragment() {
+import com.goingbacking.goingbacking.UI.Base.BaseFragment
+import com.goingbacking.goingbacking.databinding.FragmentTutorial1Binding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
+class Tutorial1Fragment : BaseFragment<FragmentTutorial1Binding>() {
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_tutorial1, container, false)
+    override fun getFragmentBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ): FragmentTutorial1Binding {
+        return FragmentTutorial1Binding.inflate(layoutInflater, container, false)
+
     }
-
 }
