@@ -28,7 +28,7 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    fun emailRegister(email: String, password:String)  {
+    fun emailRegister(email: String, password:String) = viewModelScope.launch {
         _register.value = UiState.Loading
         loginRepository.emailRegister(email, password) {
             _register.value = it
