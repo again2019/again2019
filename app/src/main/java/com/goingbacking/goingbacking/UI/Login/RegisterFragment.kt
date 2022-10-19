@@ -1,6 +1,7 @@
 package com.goingbacking.goingbacking.UI.Login
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -15,7 +16,6 @@ import com.goingbacking.goingbacking.ViewModel.LoginViewModel
 import com.goingbacking.goingbacking.databinding.FragmentRegisterBinding
 import com.goingbacking.goingbacking.util.UiState
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_register.*
 
 @AndroidEntryPoint
 class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
@@ -31,7 +31,6 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        registerObserver()
         buttonClick()
 
     }
@@ -43,10 +42,12 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
                     binding.registerProgress.visibility
                 }
                 is UiState.Success -> {
-                    Toast.makeText(requireActivity(), "회원 가입 성공", Toast.LENGTH_SHORT)
+                    Toast.makeText(requireContext(), "회원 가입 성공", Toast.LENGTH_SHORT)
+                    Log.d("experiment", "yes")
                     findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
                 }
                 is UiState.Failure -> {
+                    Log.d("experiment", "no")
                     Toast.makeText(requireActivity(), "회원 가입 실패", Toast.LENGTH_SHORT)
                 }
              }
@@ -60,6 +61,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
             registerButton.setOnClickListener {
                 if (validation()) {
                     viewModel.emailRegister(registerEmailEdittext.text.toString(), registerPasswordEdittext1.text.toString())
+                    registerObserver()
                 }
             }
 
@@ -88,7 +90,9 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
             if (registerPasswordEdittext1.text.toString().length < 8){
                 isValid = false
                 Toast.makeText(requireActivity(), "password가 너무 짧아요. 다시 입력하세요", Toast.LENGTH_SHORT).show()
-            } else if (registerPasswordEdittext1.text != registerPasswordEdittext2.text) {
+            }
+            if (registerPasswordEdittext1.text.toString() != registerPasswordEdittext2.text.toString()) {
+                Log.d("experiment", registerPasswordEdittext1.text.toString() + registerPasswordEdittext2.text.toString())
                 Toast.makeText(requireActivity(), "password를 다시 확인해주세요", Toast.LENGTH_SHORT).show()
 
             }

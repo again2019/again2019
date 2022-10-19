@@ -1,5 +1,6 @@
 package com.goingbacking.goingbacking.Repository
 
+import android.util.Log
 import android.widget.Toast
 import com.goingbacking.goingbacking.util.UiState
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -45,12 +46,16 @@ class LoginRepository (
                         throw it.exception ?: java.lang.Exception("Invalid authentication")
                     } catch (e : FirebaseAuthWeakPasswordException) {
                         result.invoke(UiState.Failure("Authentication failed, Password should be at least 6 characters"))
+                        Log.d("experiment", "1")
                     } catch (e : FirebaseAuthInvalidCredentialsException) {
                         result.invoke(UiState.Failure("Authentication failed, Invalid email entered"))
+                        Log.d("experiment", "2")
                     } catch (e : FirebaseAuthUserCollisionException) {
                         result.invoke(UiState.Failure("Authentication failed, Email already registered"))
+                        Log.d("experiment", "3")
                     } catch (e : Exception) {
                         result.invoke(UiState.Failure(e.message))
+                        Log.d("experiment", "4")
                     }
                 }
             }
