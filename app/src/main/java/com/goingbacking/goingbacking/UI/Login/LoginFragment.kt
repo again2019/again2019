@@ -38,14 +38,33 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         googleLoginObserver()
+
         buttonClick()
     }
+
+    // 버튼 이벤트 모음
+    private fun buttonClick() = with(binding) {
+        registerButton.setOnClickListener{
+            findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
+        }
+        emailLoginButton.setOnClickListener {
+            emailLogin()
+
+        }
+        loginButton.setOnClickListener {
+            googleLogin()
+        }
+        passwordButton.setOnClickListener {
+            findNavController().navigate(R.id.action_loginFragment_to_forgetFrgament)
+        }
+    }
+
 
     // 구글 로그인
     private fun googleLogin() {
         getResult.launch(googleSignInClient.signInIntent)
+
     }
 
     private fun googleLoginObserver() {
@@ -79,23 +98,8 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
         }
     }
 
-    // 버튼 이벤트 모음
-    private fun buttonClick() = with(binding) {
-        registerButton.setOnClickListener{
-            findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
-        }
-        emailLoginButton.setOnClickListener {
-            emailLogin()
-            
-        }
-        loginButton.setOnClickListener {
-            googleLogin()
-        }
-        passwordButton.setOnClickListener {
-            findNavController().navigate(R.id.action_loginFragment_to_forgetFrgament)
-        }
-    }
 
+    // email login
     private fun emailLogin() = with(binding) {
         if (validation()) {
             viewModel.emailLogin(emailEdittext.text.toString(), passwordEdittext.text.toString())
@@ -119,6 +123,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
         }
     }
 
+    // 유효한지를 판단하는 기준
     fun validation(): Boolean = with(binding) {
             var isValid = true
 

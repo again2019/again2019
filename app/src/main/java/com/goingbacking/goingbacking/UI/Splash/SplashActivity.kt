@@ -1,4 +1,4 @@
-package com.goingbacking.goingbacking.UI
+package com.goingbacking.goingbacking.UI.Splash
 
 import android.content.Intent
 import android.os.Bundle

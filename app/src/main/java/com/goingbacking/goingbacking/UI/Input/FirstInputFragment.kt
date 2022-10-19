@@ -1,60 +1,89 @@
 package com.goingbacking.goingbacking.UI.Input
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import com.goingbacking.goingbacking.Model.UserInfoDTO
 import com.goingbacking.goingbacking.R
+import com.goingbacking.goingbacking.UI.Base.BaseFragment
+import com.goingbacking.goingbacking.ViewModel.InputViewModel
+import com.goingbacking.goingbacking.databinding.FragmentFirstInputBinding
+import com.goingbacking.goingbacking.util.UiState
+import dagger.hilt.android.AndroidEntryPoint
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+@AndroidEntryPoint
+class FirstInputFragment : BaseFragment<FragmentFirstInputBinding>() {
+    val viewModel: InputViewModel by viewModels()
 
-/**
- * A simple [Fragment] subclass.
- * Use the [FirstInputFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class FirstInputFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    override fun getFragmentBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ): FragmentFirstInputBinding {
+       return FragmentFirstInputBinding.inflate(inflater, container, false)
+    }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        onClick()
+    }
+
+    private fun onClick() = with(binding) {
+        firstInputButton.setOnClickListener {
+            FirstInputObserver()
+            completeAction()
+        }
+        nickNameEdittext.setOnEditorActionListener { v, actionId, event ->
+            completeAction()
+            true
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_first_input, container, false)
+    // 입력 조건이 맞는 경우
+    // 데이터 베이스에 저장 + 다음 fragment로 넘어감
+    private fun completeAction() = with(binding) {
+        // 만약에 edittext가 비어있다면
+        if (TextUtils.isEmpty(nickNameEdittext.text)) {
+            Toast.makeText(requireActivity(), "닉네임을 입력하세요.", Toast.LENGTH_SHORT).show()
+        }
+        else if (nickNameEdittext.text.length >= 10) {
+            Toast.makeText(requireActivity(), "닉네임이 너무 길어요.", Toast.LENGTH_SHORT).show()
+        }
+        // 만약에 edittext가 비어있지 않다면
+        else {
+            viewModel.addFirstInput(
+                UserInfoDTO(
+                    nickNameEdittext.text.toString(),
+                    null,
+                    null,
+                    null,
+                )
+            )
+            findNavController().navigate(R.id.action_firstInputFragment_to_secondInputFragment)
+        }
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment FirstInputFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            FirstInputFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+
+    private fun FirstInputObserver() {
+        viewModel.addFirstInput.observe(viewLifecycleOwner) {
+                state ->
+            when(state) {
+                is UiState.Failure -> {
+                    Toast.makeText(requireActivity(), "fail", Toast.LENGTH_SHORT).show()
+                }
+                is UiState.Success -> {
+                    Toast.makeText(requireActivity(), "success", Toast.LENGTH_SHORT).show()
                 }
             }
+        }
     }
+
+
+
+
 }
