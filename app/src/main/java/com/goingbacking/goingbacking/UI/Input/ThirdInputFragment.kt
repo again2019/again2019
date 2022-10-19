@@ -1,23 +1,71 @@
 package com.goingbacking.goingbacking.UI.Input
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.view.children
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.goingbacking.goingbacking.R
+import com.goingbacking.goingbacking.UI.Base.BaseFragment
+import com.goingbacking.goingbacking.ViewModel.InputViewModel
+import com.goingbacking.goingbacking.databinding.FragmentThirdInputBinding
+import com.goingbacking.goingbacking.util.UiState
+import com.google.android.material.chip.Chip
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-
-class ThirdInputFragment : Fragment() {
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_third_input, container, false)
+class ThirdInputFragment : BaseFragment<FragmentThirdInputBinding>() {
+    val viewModel: InputViewModel by viewModels()
+    
+    override fun getFragmentBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ): FragmentThirdInputBinding {
+        return FragmentThirdInputBinding.inflate(inflater, container, false)
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        ThirdInputObserver()
+        onClick()
+    }
+
+
+
+    private fun ThirdInputObserver() {
+        viewModel.updateThirdInput.observe(viewLifecycleOwner) {
+                state ->
+            when(state) {
+                is UiState.Failure -> {
+                    Toast.makeText(requireActivity(), "fail", Toast.LENGTH_SHORT).show()
+                }
+                is UiState.Success -> {
+                    Toast.makeText(requireActivity(), "success", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
+    private fun onClick() = with(binding) {
+        ThirdInputButton1.setOnClickListener {
+            findNavController().navigate(R.id.action_thirdInputFragment_to_secondInputFragment)
+        }
+        ThirdInputButton2.setOnClickListener {
+            val selected = binding.chipGroup.children.toList()
+                .filter{ (it as Chip).isChecked}.joinToString(",")
+                {(it as Chip).text}
+
+            viewModel.updateThirdInput(selected)
+            findNavController().navigate(R.id.action_thirdInputFragment_to_tutorial_navigation)
+        }
+
+    }
+
+
+
 
 }
