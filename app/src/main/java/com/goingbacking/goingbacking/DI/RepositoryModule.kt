@@ -56,8 +56,11 @@ object RepositoryModule {
 
     @Provides
     @Singleton
-    fun provideLoginRepository() : LoginRepositoryIF {
-        return LoginRepository()
+    fun provideLoginRepository(
+        firebaseFirestore: FirebaseFirestore,
+        firebaseAuth: FirebaseAuth
+    ) : LoginRepositoryIF {
+        return LoginRepository(firebaseAuth, firebaseFirestore)
     }
 
 }

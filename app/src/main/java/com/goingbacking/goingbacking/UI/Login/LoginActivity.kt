@@ -36,115 +36,117 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>({
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        googleObserver()
-
-        binding.emailLoginButton.setOnClickListener {
-            signinAndSignup()
-        }
-
-        binding.loginButton.setOnClickListener {
-            googleLogin()
-        }
-
-
-        getResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-            if (it.resultCode == Activity.RESULT_OK) {
-                try {
-                    moveFirstInputPage(auth?.currentUser)
-
-                    Toast.makeText(this, "로그인 성공", Toast.LENGTH_SHORT)
-                        .show()
-
-                } catch (e: ApiException) {
-                    Toast.makeText(this, e.localizedMessage, Toast.LENGTH_SHORT).show()
-                }
-            }
-        }
     }
+}
 
-
-    private fun googleObserver() {
-        viewModel.getGSO()
-        viewModel.gso.observe(this) {
-            state ->
-                when (state) {
-                    is UiState.Success -> {
-                        googleSignInClient = getClient(this, state.data)
-                    }
-                    is UiState.Failure -> {
-                        Toast.makeText(this, "구글 로그인 실패", Toast.LENGTH_SHORT).show()
-                    }
-
-                }
-        }
-    }
-
-    private fun googleLogin() {
-        getResult.launch(googleSignInClient.signInIntent)
-    }
-
-
-    private fun signinAndSignup() {
-        auth?.createUserWithEmailAndPassword(binding.emailEdittext.text.toString(),binding.passwordEdittext.text.toString())
-            ?.addOnCompleteListener {
-                    task ->
-                if(task.isSuccessful){
-                    //Creating a user account
-                    moveFirstInputPage(task.result?.user)
-                }else if(task.exception?.message.isNullOrEmpty()){
-                    //Show the error message
-                    Toast.makeText(this,task.exception?.message,Toast.LENGTH_LONG).show()
-                }else{
-                    //Login if you have account
-                    signinEmail()
-                }
-            }
-        }
-
-    fun signinEmail(){
-        auth?.signInWithEmailAndPassword(binding.emailEdittext.text.toString(),binding.passwordEdittext.text.toString())
-            ?.addOnCompleteListener {
-                    task ->
-                if(task.isSuccessful){
-                    //Login
-                    moveFirstInputPage(task.result?.user)
-                }else{
-                    //Show the error message
-                    Toast.makeText(this,task.exception?.message,Toast.LENGTH_LONG).show()
-                }
-            }
-    }
-
-
-
-
-    private fun moveFirstInputPage(user: FirebaseUser?) {
-        if (user != null) {
-            val intent : Intent? = Intent(this, FirstInputActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
-    }
-
-
-
-//    override fun onStart() {
-//        super.onStart()
-//        val account = GoogleSignIn.getLastSignedInAccount(this)
-//        // 이미 로그인 한 사용자가 있는 경우
-//        if (auth?.currentUser != null) {
-//            moveMainPage(auth?.currentUser)
-//        } else if (account != null) {
-//            moveMainPage(auth?.currentUser)
+//        googleObserver()
+//
+//        binding.emailLoginButton.setOnClickListener {
+//            signinAndSignup()
 //        }
 //
+//        binding.loginButton.setOnClickListener {
+//            googleLogin()
+//        }
+//
+//
+//        getResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+//            if (it.resultCode == Activity.RESULT_OK) {
+//                try {
+//                    moveFirstInputPage(auth?.currentUser)
+//
+//                    Toast.makeText(this, "로그인 성공", Toast.LENGTH_SHORT)
+//                        .show()
+//
+//                } catch (e: ApiException) {
+//                    Toast.makeText(this, e.localizedMessage, Toast.LENGTH_SHORT).show()
+//                }
+//            }
+//        }
 //    }
-    fun moveMainPage(user:FirebaseUser?){
-        if(user != null){
-            startActivity(Intent(this, MainActivity::class.java))
-            finish()
-        }
-    }
+//
+//
+//    private fun googleObserver() {
+//        viewModel.getGSO()
+//        viewModel.gso.observe(this) {
+//            state ->
+//                when (state) {
+//                    is UiState.Success -> {
+//                        googleSignInClient = getClient(this, state.data)
+//                    }
+//                    is UiState.Failure -> {
+//                        Toast.makeText(this, "구글 로그인 실패", Toast.LENGTH_SHORT).show()
+//                    }
+//
+//                }
+//        }
+//    }
+//
+//    private fun googleLogin() {
+//        getResult.launch(googleSignInClient.signInIntent)
+//    }
+//
+//
+//    private fun signinAndSignup() {
+//        auth?.createUserWithEmailAndPassword(binding.emailEdittext.text.toString(),binding.passwordEdittext.text.toString())
+//            ?.addOnCompleteListener {
+//                    task ->
+//                if(task.isSuccessful){
+//                    //Creating a user account
+//                    moveFirstInputPage(task.result?.user)
+//                }else if(task.exception?.message.isNullOrEmpty()){
+//                    //Show the error message
+//                    Toast.makeText(this,task.exception?.message,Toast.LENGTH_LONG).show()
+//                }else{
+//                    //Login if you have account
+//                    signinEmail()
+//                }
+//            }
+//        }
+//
+//    fun signinEmail(){
+//        auth?.signInWithEmailAndPassword(binding.emailEdittext.text.toString(),binding.passwordEdittext.text.toString())
+//            ?.addOnCompleteListener {
+//                    task ->
+//                if(task.isSuccessful){
+//                    //Login
+//                    moveFirstInputPage(task.result?.user)
+//                }else{
+//                    //Show the error message
+//                    Toast.makeText(this,task.exception?.message,Toast.LENGTH_LONG).show()
+//                }
+//            }
+//    }
+//
+//
+//
+//
+//    private fun moveFirstInputPage(user: FirebaseUser?) {
+//        if (user != null) {
+//            val intent : Intent? = Intent(this, FirstInputActivity::class.java)
+//            startActivity(intent)
+//            finish()
+//        }
+//    }
+//
+//
+//
+////    override fun onStart() {
+////        super.onStart()
+////        val account = GoogleSignIn.getLastSignedInAccount(this)
+////        // 이미 로그인 한 사용자가 있는 경우
+////        if (auth?.currentUser != null) {
+////            moveMainPage(auth?.currentUser)
+////        } else if (account != null) {
+////            moveMainPage(auth?.currentUser)
+////        }
+////
+////    }
+//    fun moveMainPage(user:FirebaseUser?){
+//        if(user != null){
+//            startActivity(Intent(this, MainActivity::class.java))
+//            finish()
+//        }
+//    }
 
-}
+//}
