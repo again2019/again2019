@@ -93,8 +93,20 @@ class LoginRepository (
 
     }
 
-    override fun emailForgetPassword(result: (UiState<String>) -> Unit) {
-        TODO("Not yet implemented")
+    override fun emailForgetPassword(email: String, result: (UiState<String>) -> Unit) {
+        firebaseAuth.sendPasswordResetEmail(email)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    result.invoke(UiState.Success("Email has been sent"))
+                } else {
+                    result.invoke(UiState.Failure("Authentication failed, Check email"))
+                }
+            }
+    }
+
+    override fun logout(result: () -> Unit) {
+        firebaseAuth.signOut()
+        result.invoke()
     }
 
 

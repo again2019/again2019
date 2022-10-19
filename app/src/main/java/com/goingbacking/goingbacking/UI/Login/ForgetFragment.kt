@@ -1,12 +1,21 @@
 package com.goingbacking.goingbacking.UI.Login
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.goingbacking.goingbacking.R
+import com.goingbacking.goingbacking.UI.Base.BaseFragment
+import com.goingbacking.goingbacking.ViewModel.LoginViewModel
+import com.goingbacking.goingbacking.databinding.FragmentForgetBinding
+import com.goingbacking.goingbacking.util.UiState
+import com.goingbacking.goingbacking.util.isValidEmail
+import dagger.hilt.android.AndroidEntryPoint
 
+<<<<<<< Updated upstream
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
@@ -29,15 +38,49 @@ class ForgetFragment : Fragment() {
             param2 = it.getString(ARG_PARAM2)
         }
     }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_forget, container, false)
+=======
+@AndroidEntryPoint
+class ForgetFragment : BaseFragment<FragmentForgetBinding>() {
+    override fun getFragmentBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ): FragmentForgetBinding {
+        return FragmentForgetBinding.inflate(inflater, container, false)
     }
 
+    val viewModel :LoginViewModel by viewModels()
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        forgotPasswordObserver()
+        binding.forgotPassBtn.setOnClickListener {
+            if(validation()) {
+                viewModel.emailForgetPassword(binding.emailEt.text.toString())
+                Toast.makeText(requireActivity(), "이메일 링크가 발송되었습니다.", Toast.LENGTH_SHORT).show()
+                findNavController().navigate(R.id.action_forgotFragment_to_loginFragment)
+            }
+        }
+    }
+
+    private fun forgotPasswordObserver() = with(binding) {
+        viewModel.forgotPassword.observe(viewLifecycleOwner) {
+            state ->
+            when(state) {
+                is UiState.Loading -> {
+
+                }
+                is UiState.Failure -> {
+                }
+                is UiState.Success -> {
+>>>>>>> Stashed changes
+
+                }
+            }
+        }
+    }
+
+<<<<<<< Updated upstream
     companion object {
         /**
          * Use this factory method to create a new instance of
@@ -57,4 +100,21 @@ class ForgetFragment : Fragment() {
                 }
             }
     }
+=======
+    fun validation(): Boolean  = with(binding) {
+        var isValid = true
+
+        if (emailEt.text.isNullOrEmpty()){
+            isValid = false
+        }else{
+            if (!emailEt.text.toString().isValidEmail()){
+                isValid = false
+            }
+        }
+
+        return isValid
+    }
+
+
+>>>>>>> Stashed changes
 }

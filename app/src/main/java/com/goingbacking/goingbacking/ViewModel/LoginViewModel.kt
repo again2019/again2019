@@ -25,6 +25,10 @@ class LoginViewModel @Inject constructor(
     val emailLogin: LiveData<UiState<String>>
         get() = _emailLogin
 
+    private val _forgotPassword = MutableLiveData<UiState<String>>()
+    val forgotPassword: LiveData<UiState<String>>
+        get() = _forgotPassword
+
 
     fun getGSO() = viewModelScope.launch {
         _gso.value = UiState.Loading
@@ -44,6 +48,13 @@ class LoginViewModel @Inject constructor(
         _emailLogin.value = UiState.Loading
         loginRepository.emailLogin(email, password) {
             _emailLogin.value = it
+        }
+    }
+
+    fun emailForgetPassword(email: String) = viewModelScope.launch {
+        _forgotPassword.value = UiState.Loading
+        loginRepository.emailForgetPassword(email) {
+            _forgotPassword.value = it
         }
     }
 
