@@ -4,13 +4,13 @@ import android.app.TimePickerDialog
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
 import com.goingbacking.goingbacking.Model.Event
 import com.applikeysolutions.cosmocalendar.model.Day
 import com.applikeysolutions.cosmocalendar.selection.OnDaySelectedListener
 import com.applikeysolutions.cosmocalendar.selection.RangeSelectionManager
 import com.goingbacking.goingbacking.Model.DateDTO
+import com.goingbacking.goingbacking.UI.Base.BaseActivity
 import com.goingbacking.goingbacking.ViewModel.MainViewModel
 import com.goingbacking.goingbacking.databinding.ActivityScheduleInputBinding
 import com.goingbacking.goingbacking.util.UiState
@@ -20,7 +20,9 @@ import java.util.*
 import java.util.Calendar.*
 
 @AndroidEntryPoint
-class ScheduleInputActivity : AppCompatActivity() {
+class ScheduleInputActivity : BaseActivity<ActivityScheduleInputBinding>({
+    ActivityScheduleInputBinding.inflate(it)
+}) {
     var list : MutableList<Day>? = null
     var home1time: Int? = null
     var home2time: Int? = null
@@ -40,14 +42,11 @@ class ScheduleInputActivity : AppCompatActivity() {
 
     private var yearList = mutableListOf<String>()
 
-    private val binding: ActivityScheduleInputBinding by lazy {
-        ActivityScheduleInputBinding.inflate(layoutInflater)
-    }
+
     val viewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(binding.root)
 
         DateObserver(viewModel.dateDTOs)
         DateObserver(viewModel.eventDTO)

@@ -29,6 +29,7 @@ import com.goingbacking.goingbacking.Model.CalendarInfoDTO
 import com.goingbacking.goingbacking.Model.Event
 
 import com.goingbacking.goingbacking.R
+import com.goingbacking.goingbacking.UI.Base.BaseFragment
 import com.goingbacking.goingbacking.ViewModel.MainViewModel
 import com.goingbacking.goingbacking.databinding.FragmentThirdMainBinding
 import com.goingbacking.goingbacking.util.UiState
@@ -63,7 +64,7 @@ import java.util.*
 
 
 @AndroidEntryPoint
-class ThirdMainFragment : Fragment() {
+class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
     private val eventsAdapter = CalendarEventAdapter {
         AlertDialog.Builder(requireContext())
             .setMessage(R.string.example_3_dialog_delete_confirmation)
@@ -89,11 +90,22 @@ class ThirdMainFragment : Fragment() {
     var x :List<String>? = listOf("")
     var document1 :String? = null
 
-    lateinit var binding :FragmentThirdMainBinding
     val viewModel : MainViewModel by viewModels()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        binding = FragmentThirdMainBinding.inflate(layoutInflater)
+
+    override fun getFragmentBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ): FragmentThirdMainBinding {
+        return FragmentThirdMainBinding.inflate(inflater, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        viewModel.getThirdDateInfo()
+
+        observer1()
 
         init()
 
@@ -190,7 +202,7 @@ class ThirdMainFragment : Fragment() {
         binding.exThreeCalendar.monthScrollListener = {
 
 
-                exThreeSelectedDateText.text = selectionFormatter.format(today)
+            exThreeSelectedDateText.text = selectionFormatter.format(today)
 
 
         }
@@ -265,23 +277,6 @@ class ThirdMainFragment : Fragment() {
             animator.duration = 300
             animator.start()
         }
-
-
-        if (this::binding.isInitialized) {
-            return binding.root
-        } else {
-            binding = FragmentThirdMainBinding.inflate(layoutInflater)
-            return binding.root
-        }
-
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        viewModel.getThirdDateInfo()
-
-        observer1()
 
 
     }
@@ -447,6 +442,8 @@ class ThirdMainFragment : Fragment() {
     fun View.makeInVisible() {
         visibility = View.INVISIBLE
     }
+
+
 
 }
 
