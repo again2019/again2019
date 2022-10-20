@@ -39,6 +39,11 @@ class TmpTimeViewModel @Inject constructor(
     val whatToDoYearDTOs : LiveData<UiState<String>>
         get() = _whatToDoYearDTOs
 
+    private val _whatToDoListDTOs = MutableLiveData<UiState<String>>()
+    val whatToDoListDTOs : LiveData<UiState<String>>
+        get() = _whatToDoListDTOs
+
+
     fun getTmpTimeInfo() {
         _tmpTimeDTOs.value = UiState.Loading
         tmpTimeRepository.getTmpTimeInfo { _tmpTimeDTOs.value = it }
@@ -77,5 +82,12 @@ class TmpTimeViewModel @Inject constructor(
         _whatToDoYearDTOs.value = UiState.Loading
         tmpTimeRepository.updateWhatToDoYearInfo(whatToDo, count) { _whatToDoYearDTOs.value = it }
     }
+
+    fun getWhatToDoInfo() {
+        _whatToDoListDTOs.value = UiState.Loading
+        tmpTimeRepository.getWhatToDoInfo { _whatToDoListDTOs.value = it }
+
+    }
+
 
     }

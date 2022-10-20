@@ -9,6 +9,7 @@ import com.goingbacking.goingbacking.Model.UserInfoDTO
 import com.goingbacking.goingbacking.UI.Base.BaseActivity
 import com.goingbacking.goingbacking.ViewModel.InputViewModel
 import com.goingbacking.goingbacking.databinding.ActivityChangeInfoBinding
+import com.goingbacking.goingbacking.util.PrefUtil
 import com.google.android.material.chip.Chip
 import dagger.hilt.android.AndroidEntryPoint
 

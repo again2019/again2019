@@ -1,6 +1,7 @@
 package com.goingbacking.goingbacking.Repository
 
 import com.goingbacking.goingbacking.Model.TmpTimeDTO
+import com.goingbacking.goingbacking.Model.UserInfoDTO
 import com.goingbacking.goingbacking.util.FBConstants
 import com.goingbacking.goingbacking.util.FBConstants.Companion.MONTH
 import com.goingbacking.goingbacking.util.FBConstants.Companion.WHATTODOINFO
@@ -118,6 +119,24 @@ class TmpTimeRepository(
             .update("count", count)
 
     }
+
+    override fun getWhatToDoInfo(result: (UiState<String>) -> Unit) {
+        firebaseFirestore.collection(FBConstants.USERINFO)?.document(myUid)
+            ?.get()
+            ?.addOnSuccessListener { document ->
+                val data :UserInfoDTO? = document.toObject(UserInfoDTO::class.java)
+                result.invoke(
+                    UiState.Success(data?.whatToDo!!)
+                )
+            }
+
+            ?.addOnFailureListener {
+                result.invoke(
+                    UiState.Failure(
+                        it.localizedMessage
+                    )
+                )
+            }    }
 
 
 }

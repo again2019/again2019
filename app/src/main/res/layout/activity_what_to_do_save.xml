@@ -7,14 +7,44 @@
     tools:context=".UI.Main.First.WhatToDoSaveActivity"
     android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/whatToDoEditText"
-        android:layout_width="match_parent"
+
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/changeChipGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintWidth_percent="0.8"
+        app:singleSelection="true">
+
+
+    </com.google.android.material.chip.ChipGroup>
+
+    <TextView
+        android:text="많은 사람들이 하는 것"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/chipGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintWidth_percent="0.8">
+
+
+
+    </com.google.android.material.chip.ChipGroup>
+
 
     <Button
         android:id="@+id/whatToDoSaveButton"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:text="완료"/>
 
 </LinearLayout>

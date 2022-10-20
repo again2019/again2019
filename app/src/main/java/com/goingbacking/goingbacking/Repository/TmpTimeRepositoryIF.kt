@@ -1,6 +1,7 @@
 package com.goingbacking.goingbacking.Repository
 
 import com.goingbacking.goingbacking.Model.TmpTimeDTO
+import com.goingbacking.goingbacking.Model.UserInfoDTO
 import com.goingbacking.goingbacking.util.UiState
 import com.google.firebase.firestore.FieldValue
 
@@ -13,4 +14,6 @@ interface TmpTimeRepositoryIF {
     fun updateWhatToDoMonthInfo(whatToDo: String, count: FieldValue, result: (UiState<String>) -> Unit)
     fun updateWhatToDoYearInfo(whatToDo: String, count: FieldValue, result: (UiState<String>) -> Unit)
 
+
+    fun getWhatToDoInfo(result: (UiState<String>) -> Unit)
 }
