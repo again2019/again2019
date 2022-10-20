@@ -33,6 +33,9 @@ import com.goingbacking.goingbacking.UI.Base.BaseFragment
 import com.goingbacking.goingbacking.ViewModel.MainViewModel
 import com.goingbacking.goingbacking.databinding.FragmentThirdMainBinding
 import com.goingbacking.goingbacking.util.UiState
+import com.goingbacking.goingbacking.util.makeInVisible
+import com.goingbacking.goingbacking.util.makeVisible
+import com.goingbacking.goingbacking.util.setTextColorRes
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -75,10 +78,7 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
             .show()
     }
 
-    var auth : FirebaseAuth? = null
-    var firebaseFirestore : FirebaseFirestore? = null
-    var userId : String? = null
-    var calendarInfoDTO : CalendarInfoDTO? = null
+
 
 
     private var selectedDate: LocalDate? = null
@@ -87,8 +87,6 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
     private var events = mutableMapOf<LocalDate, List<Event>>()
 
 
-    var x :List<String>? = listOf("")
-    var document1 :String? = null
 
     val viewModel : MainViewModel by viewModels()
 
@@ -106,9 +104,6 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
         viewModel.getThirdDateInfo()
 
         observer1()
-
-        init()
-
 
 
 
@@ -348,12 +343,7 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
     }
 
 
-    fun init() {
-        auth = FirebaseAuth.getInstance()
-        firebaseFirestore = FirebaseFirestore.getInstance()
-        userId = auth?.currentUser?.uid
-        calendarInfoDTO = CalendarInfoDTO()
-    }
+
 
     fun dpToPx(dp: Int, context: Context): Int =
         TypedValue.applyDimension(
@@ -430,18 +420,6 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
         return daysOfWeek
     }
 
-    fun Context.getColorCompat(@ColorRes color: Int) = ContextCompat.getColor(this, color)
-
-
-    fun TextView.setTextColorRes(@ColorRes color: Int) = setTextColor(context.getColorCompat(color))
-
-    fun View.makeVisible() {
-        visibility = View.VISIBLE
-    }
-
-    fun View.makeInVisible() {
-        visibility = View.INVISIBLE
-    }
 
 
 
