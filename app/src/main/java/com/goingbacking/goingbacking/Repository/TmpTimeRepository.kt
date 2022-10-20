@@ -3,7 +3,9 @@ package com.goingbacking.goingbacking.Repository
 import com.goingbacking.goingbacking.Model.TmpTimeDTO
 import com.goingbacking.goingbacking.Model.UserInfoDTO
 import com.goingbacking.goingbacking.util.FBConstants
+import com.goingbacking.goingbacking.util.FBConstants.Companion.DAY
 import com.goingbacking.goingbacking.util.FBConstants.Companion.MONTH
+import com.goingbacking.goingbacking.util.FBConstants.Companion.SAVETIMEINFO
 import com.goingbacking.goingbacking.util.FBConstants.Companion.WHATTODOINFO
 import com.goingbacking.goingbacking.util.FBConstants.Companion.YEAR
 import com.goingbacking.goingbacking.util.UiState
@@ -52,9 +54,9 @@ class TmpTimeRepository(
         result: (UiState<String>) -> Unit
     ) {
 
-        firebaseFirestore?.collection("SaveTimeInfo")?.document(myUid)
-            ?.collection("Day")?.document(wakeUpTime1)
-            ?.collection(wakeUpTime2)?.document(myUid + wakeUpTime2)
+        firebaseFirestore?.collection(SAVETIMEINFO)?.document(myUid)
+            ?.collection(DAY)?.document(wakeUpTime1)
+            ?.collection(wakeUpTime1)?.document(myUid + wakeUpTime2)
             ?.update("count", count)
             .addOnSuccessListener {
                 result.invoke(UiState.Success("SecondUpdate"))
@@ -73,8 +75,8 @@ class TmpTimeRepository(
         result: (UiState<String>) -> Unit
     ) {
         firebaseFirestore?.collection("SaveTimeInfo")?.document(myUid)
-                    ?.collection("Month")?.document(wakeUpTime1)
-                    ?.collection(wakeUpTime2)?.document(myUid + wakeUpTime2)
+                    ?.collection("month")?.document(wakeUpTime1)
+                    ?.collection(wakeUpTime1)?.document(myUid + wakeUpTime2)
                     ?.update("count", count)
 
     }
@@ -85,7 +87,7 @@ class TmpTimeRepository(
         result: (UiState<String>) -> Unit
     ) {
         firebaseFirestore?.collection("SaveTimeInfo")?.document(myUid)
-                    ?.collection("Year")?.document(wakeUpTime)
+                    ?.collection("year")?.document(wakeUpTime)
                     ?.update("count", count)
 
     }

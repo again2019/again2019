@@ -25,7 +25,7 @@ class TmpTimeActivity : BaseActivity<ActivityTmpTimeBinding>({
         TmpTimeRecyclerViewAdapter(
             onItemClicked = { wakeUpTime1, wakeUpTime2, wakeUpTime3, wakeUpTime4, count, count_double ->
                 TmpTimeDayOberver(wakeUpTime1, wakeUpTime2, count)
-                TmpTimeMonthOberver(wakeUpTime3, wakeUpTime4, count)
+                TmpTimeMonthOberver(wakeUpTime3, wakeUpTime2, count)
                 TmpTimeYearOberver(wakeUpTime3, count)
                 val intent = Intent(this, WhatToDoSaveActivity::class.java)
                 intent.putExtra("count", count_double)
@@ -68,7 +68,7 @@ class TmpTimeActivity : BaseActivity<ActivityTmpTimeBinding>({
 
                 }
                 is UiState.Failure -> {
-                    Toast.makeText(this, "failure", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "failure1", Toast.LENGTH_SHORT).show()
                 }
 
             }
@@ -83,7 +83,7 @@ class TmpTimeActivity : BaseActivity<ActivityTmpTimeBinding>({
 
                 }
                 is UiState.Failure -> {
-                    Toast.makeText(this, "failure", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "failure2", Toast.LENGTH_SHORT).show()
                 }
 
             }
@@ -98,7 +98,7 @@ class TmpTimeActivity : BaseActivity<ActivityTmpTimeBinding>({
 
                 }
                 is UiState.Failure -> {
-                    Toast.makeText(this, "failure", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "failure3", Toast.LENGTH_SHORT).show()
                 }
 
             }
