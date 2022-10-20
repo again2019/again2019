@@ -2,8 +2,12 @@ package com.goingbacking.goingbacking.UI.Main.Fifth
 
 import android.os.Bundle
 import android.util.Log
+import androidx.activity.viewModels
 import androidx.core.view.children
+import androidx.fragment.app.viewModels
+import com.goingbacking.goingbacking.Model.UserInfoDTO
 import com.goingbacking.goingbacking.UI.Base.BaseActivity
+import com.goingbacking.goingbacking.ViewModel.InputViewModel
 import com.goingbacking.goingbacking.databinding.ActivityChangeInfoBinding
 import com.google.android.material.chip.Chip
 import dagger.hilt.android.AndroidEntryPoint
@@ -12,20 +16,19 @@ import dagger.hilt.android.AndroidEntryPoint
 class ChangeInfoActivity : BaseActivity<ActivityChangeInfoBinding>({
     ActivityChangeInfoBinding.inflate(it)
 }) {
+
+    val viewModel: InputViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         editInit()
-
-
-
+        onClick()
     }
-
-
 
     private fun editInit() = with(binding) {
         changeNickNameEditText.setText(intent.getStringExtra("nickName"))
         changeTypeEditText.setText(intent.getStringExtra("userType"))
-        infoChangeButton.setOnClickListener { finish() }
+
 
         val whatToDo = intent.getStringExtra("whatToDo")!!.split(",")
 
@@ -49,4 +52,39 @@ class ChangeInfoActivity : BaseActivity<ActivityChangeInfoBinding>({
 
 
     }
+    private fun onClick() = with(binding) {
+        chipChangeAddButton.setOnClickListener {
+            changeChipGroup.addView(Chip(this@ChangeInfoActivity).apply {
+                text = chipChangeEditText.text.toString()
+                isCloseIconVisible = true
+                isCheckable = true
+                isChecked = true
+                setOnClickListener { isChecked = true }
+                setOnCloseIconClickListener { changeChipGroup.removeView(this) }
+                chipChangeEditText.setText("")
+            })
+        }
+
+        infoChangeButton.setOnClickListener {
+            val selected1 = chipGroup.children.toList()
+                .filter{ (it as Chip).isChecked}.joinToString(",")
+                {(it as Chip).text}
+            var selected2 = changeChipGroup.children.toList()
+                .filter{ (it as Chip).isChecked}.joinToString(",")
+                {(it as Chip).text}
+            var selected = selected1 + ',' + selected2
+
+            var userInfoDTO = UserInfoDTO()
+            userInfoDTO.userNickName = changeNickNameEditText.text.toString()
+            userInfoDTO.userType = changeTypeEditText.text.toString()
+            userInfoDTO.whatToDo = selected
+            viewModel.addFirstInput(userInfoDTO)
+            finish()
+
+        }
+
+
+
+    }
+
 }
