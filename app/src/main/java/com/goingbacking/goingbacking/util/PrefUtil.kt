@@ -1,7 +1,6 @@
 package com.goingbacking.goingbacking.util
 
 import android.content.Context
-import android.content.Context.MODE_PRIVATE
 import android.preference.PreferenceManager
 
 class PrefUtil {
@@ -22,15 +21,18 @@ class PrefUtil {
             editor.apply()
         }
 
+        private const val ALARM_SET_Total_Today_TIME_ID = "TodayTotalTime"
+
+
         fun setTodayTotalTime(time: Int, context: Context){
             val editor = PreferenceManager.getDefaultSharedPreferences(context).edit()
-            editor.putInt("TodayTotalTime", time)
+            editor.putInt(ALARM_SET_Total_Today_TIME_ID, time)
             editor.apply()
         }
 
         fun getTodayTotalTime(context:Context) : Int {
             val preferences = PreferenceManager.getDefaultSharedPreferences(context)
-            return  preferences.getInt("TodayTotalTime", 0)
+            return  preferences.getInt(ALARM_SET_Total_Today_TIME_ID, 0)
 
         }
 
