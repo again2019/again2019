@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import com.goingbacking.goingbacking.R
 import com.goingbacking.goingbacking.UI.Base.BaseFragment
 import com.goingbacking.goingbacking.UI.Main.Fifth.ChangeInfoActivity
+//import com.goingbacking.goingbacking.UI.Main.FifthMainFragmentDirections.ActionFifthMainFragmentToChangeInfoActivity
 import com.goingbacking.goingbacking.ViewModel.MainViewModel
 import com.goingbacking.goingbacking.databinding.FragmentFifthMainBinding
 import com.goingbacking.goingbacking.util.UiState
@@ -35,11 +36,13 @@ class FifthMainFragment : BaseFragment<FragmentFifthMainBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
         observer()
+
         binding.changeInfoTextView.setOnClickListener {
-            val nickName = binding.myNickNameTextView.text.toString()
-            val userType = binding.myTypeTextView.text.toString()
-            val whatToDo = binding.myWhatToDoTextView.text.toString()
-            findNavController().navigate(FifthMainFragmentDirections.actionFifthMainFragmentToChangeInfoActivity(nickName, userType, whatToDo))
+            var nickName = binding.myNickNameTextView.text.toString()
+            var userType = binding.myTypeTextView.text.toString()
+            var whatToDo = binding.myWhatToDoTextView.text.toString()
+            val directions = FifthMainFragmentDirections.actionFifthMainFragmentToChangeInfoActivity()
+            findNavController().navigate(directions)
         }
     }
 

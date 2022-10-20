@@ -87,10 +87,15 @@ class PrefUtil {
             editor.apply()
         }
 
+        fun setTodayTotalTime(time: Int, context: Context){
+            val editor = PreferenceManager.getDefaultSharedPreferences(context).edit()
+            editor.putInt("TodayTotalTime", time)
+            editor.apply()
+        }
 
-        fun getTodayTime(context:Context) : Int {
+        fun getTodayTotalTime(context:Context) : Int {
             val sharedPreferences = context.getSharedPreferences("time", MODE_PRIVATE)
-            return sharedPreferences!!.getInt("TodayTime", 0)
+            return sharedPreferences!!.getInt("TodayTotalTime", 0)
 
         }
 

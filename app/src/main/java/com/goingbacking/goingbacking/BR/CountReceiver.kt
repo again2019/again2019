@@ -17,6 +17,7 @@ import com.goingbacking.goingbacking.Model.CalendarInfoDTO
 import com.goingbacking.goingbacking.R
 
 import com.goingbacking.goingbacking.Repository.AlarmRepository
+import com.goingbacking.goingbacking.util.PrefUtil
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -26,6 +27,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class CountReceiver : BroadcastReceiver() {
+    private var todayTotalTime = 0
     val alarmRepository = AlarmRepository(FirebaseAuth.getInstance().currentUser, FirebaseFirestore.getInstance())
     lateinit var notificationManager: NotificationManager
 
@@ -49,6 +51,7 @@ class CountReceiver : BroadcastReceiver() {
             Log.d("experiment", "$it" )
             if (it.size == 0) {
                 Toast.makeText(context, "오늘 일정은 없습니다.", Toast.LENGTH_SHORT).show()
+                PrefUtil.setTodayTotalTime(0,context)
             } else {
 
                 var beforeInfo = CalendarInfoDTO()
@@ -60,15 +63,14 @@ class CountReceiver : BroadcastReceiver() {
                 }
                 beforefireReminder(context, intent, it.size+1, beforeInfo, beforeInfo)
                 Log.d("experiment", ": ${it.size+1}, $beforeInfo, ${beforeInfo}" )
+                PrefUtil.setTodayTotalTime(todayTotalTime, context)
+                Log.d("experiment", "todayTotaltiem ${todayTotalTime}")
                 notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
                 createNotificationChannel(intent, notificationManager)
                 fireReminder(context, intent, notificationManager)
             }
 
         }
-
-
-    }
 
 
     }
@@ -82,16 +84,21 @@ class CountReceiver : BroadcastReceiver() {
         nextIntent.putExtra("type", type)
         nextIntent.action = AppConstants.ACTION_READY
 
+
         var calendar = Calendar.getInstance()
         if (beforeInfoDTO.date == null) {
-
+            todayTotalTime = todayTotalTime + nowInfoDTO.start_t!!.toInt()
+            Log.d("experiment", "todayTotal ${nowInfoDTO.start_t!!.toInt()} = ${todayTotalTime}")
             nextIntent.putExtra("end_time", nowInfoDTO.start!!)
             calendar.timeInMillis = System.currentTimeMillis()
             calendar.set(Calendar.HOUR_OF_DAY, (nowInfoDTO.start!! - nowInfoDTO.start_t!!) / 60)
             calendar.set(Calendar.MINUTE, (nowInfoDTO.start!! - nowInfoDTO.start_t!!) % 60)
             calendar.set(Calendar.SECOND, 0)
             calendar.set(Calendar.MILLISECOND, 0)
-        } else if (beforeInfoDTO.equals(CalendarInfoDTO())) {
+        } else if (beforeInfoDTO.equals(nowInfoDTO)) {
+            todayTotalTime = todayTotalTime + beforeInfoDTO.end_t!!.toInt()
+            Log.d("experiment", "todayTotal ${nowInfoDTO.end_t!!.toInt()} = ${todayTotalTime}")
+
             nextIntent.putExtra("end_time", nowInfoDTO.end!! + nowInfoDTO.end_t!!)
             calendar.timeInMillis = System.currentTimeMillis()
             calendar.set(Calendar.HOUR_OF_DAY, (nowInfoDTO.end!!) / 60)
@@ -101,6 +108,8 @@ class CountReceiver : BroadcastReceiver() {
         }
 
         else {
+            todayTotalTime = todayTotalTime + (nowInfoDTO.start!!.toInt() - beforeInfoDTO.end!!.toInt())
+            Log.d("experiment", "todayTotal ${(nowInfoDTO.start!!.toInt() - beforeInfoDTO.end!!.toInt())} = ${todayTotalTime}")
             nextIntent.putExtra("end_time", nowInfoDTO.start!!)
             calendar.timeInMillis = System.currentTimeMillis()
             calendar.set(Calendar.HOUR_OF_DAY, (beforeInfoDTO.end!! / 60))
@@ -163,7 +172,7 @@ class CountReceiver : BroadcastReceiver() {
 
         Log.d(
             "experiment",
-        "recursive SET:$id | type: $type |"
+            "recursive SET:$id | type: $type |"
         )
 
         var calendar = Calendar.getInstance()
@@ -178,5 +187,9 @@ class CountReceiver : BroadcastReceiver() {
 
 
     }
+
+
+}
+
 
 

@@ -43,19 +43,23 @@
         android:label="FifthMainFragment"
         tools:layout="@layout/fragment_fifth_main">
         <action
-            android:id="@+id/action_fifthMainFragment_to_ChangeInfoActivity"
-            app:destination="@id/changeInfoActivity">
-            <argument
-                android:name="nickName"
-                app:argType="String"/>
-            <argument
-                android:name="userType"
-                app:argType="String"/>
-            <argument
-                android:name="whatToDo"
-                app:argType="String"/>
-
-        </action>
+            android:id="@+id/action_fifthMainFragment_to_changeInfoActivity"
+            app:destination="@id/changeInfoActivity" />
+        <argument
+            android:name="nickName"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="@null" />
+        <argument
+            android:name="userType"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="@null" />
+        <argument
+            android:name="whatToDo"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
 
 
@@ -70,12 +74,20 @@
         tools:layout="@layout/activity_change_info">
         <argument
             android:name="nickName"
-            app:argType="String"/>
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="@null" />
         <argument
             android:name="userType"
-            app:argType="String"/>
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="@null" />
         <argument
             android:name="whatToDo"
-            app:argType="String"/>
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="@null"/>
     </activity>
+
+
 </navigation>

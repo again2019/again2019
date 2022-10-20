@@ -65,7 +65,7 @@ class DoingReceiver : BroadcastReceiver() {
 
                 Log.d("experiment", "currentTime: ${currentTime} | ${SimpleDateFormat("yyyy.MM.dd HH:mm").format(Date(currentTime)) } |")
                 Log.d("experiment", "wakeupTime: $wakeUpTime | ${SimpleDateFormat("yyyy.MM.dd HH:mm").format(Date(wakeUpTime))} ")
-                Log.d("experiment", "duration: $duration | ${SimpleDateFormat("mm").format(duration)}")
+                Log.d("experiment", "duration: $duration | ")
 
                 val intent = Intent(context, AlarmService::class.java)
                 intent.putExtra("wakeUpTime", wakeUpTime)
