@@ -74,8 +74,8 @@ class TmpTimeRepository(
         count: FieldValue,
         result: (UiState<String>) -> Unit
     ) {
-        firebaseFirestore?.collection("SaveTimeInfo")?.document(myUid)
-                    ?.collection("month")?.document(wakeUpTime1)
+        firebaseFirestore?.collection(SAVETIMEINFO)?.document(myUid)
+                    ?.collection(MONTH)?.document(wakeUpTime1)
                     ?.collection(wakeUpTime1)?.document(myUid + wakeUpTime2)
                     ?.update("count", count)
 
@@ -86,8 +86,8 @@ class TmpTimeRepository(
         count: FieldValue,
         result: (UiState<String>) -> Unit
     ) {
-        firebaseFirestore?.collection("SaveTimeInfo")?.document(myUid)
-                    ?.collection("year")?.document(wakeUpTime)
+        firebaseFirestore?.collection(SAVETIMEINFO)?.document(myUid)
+                    ?.collection(YEAR)?.document(wakeUpTime)
                     ?.update("count", count)
 
     }
