@@ -29,8 +29,8 @@ class PrefUtil {
         }
 
         fun getTodayTotalTime(context:Context) : Int {
-            val sharedPreferences = context.getSharedPreferences("time", MODE_PRIVATE)
-            return sharedPreferences!!.getInt("TodayTotalTime", 0)
+            val preferences = PreferenceManager.getDefaultSharedPreferences(context)
+            return  preferences.getInt("TodayTotalTime", 0)
 
         }
 
