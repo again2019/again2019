@@ -145,6 +145,13 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
             }
             return isValid
         }
+
+    override fun onStart() {
+        super.onStart()
+        findNavController().navigate(R.id.action_loginFragment_to_mainActivity)
+
+    }
+
     }
 
 

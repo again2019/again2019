@@ -220,57 +220,27 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
             val oldHeight = if (monthToWeek) oneMonthHeight else oneWeekHeight
             val newHeight = if (monthToWeek) oneWeekHeight else oneMonthHeight
 
-            // Animate calendar height changes.
-            val animator = ValueAnimator.ofInt(oldHeight, newHeight)
-            animator.addUpdateListener { animator ->
-                exThreeCalendar.updateLayoutParams {
-                    height = animator.animatedValue as Int
-                }
-            }
 
-            // When changing from month to week mode, we change the calendar's
-            // config at the end of the animation(doOnEnd) but when changing
-            // from week to month mode, we change the calendar's config at
-            // the start of the animation(doOnStart). This is so that the change
-            // in height is visible. You can do this whichever way you prefer.
-
-            animator.doOnStart {
-                if (!monthToWeek) {
-                    exThreeCalendar.updateMonthConfiguration(
-                        inDateStyle = InDateStyle.ALL_MONTHS,
-                        maxRowCount = 6,
-                        hasBoundaries = true
-                    )
-                }
-            }
-            animator.doOnEnd {
-                if (monthToWeek) {
-                    exThreeCalendar.updateMonthConfiguration(
-                        inDateStyle = InDateStyle.FIRST_MONTH,
-                        maxRowCount = 1,
-                        hasBoundaries = false
-                    )
-                }
-
-                if (monthToWeek) {
-                    // We want the first visible day to remain
-                    // visible when we change to week mode.
-                    exThreeCalendar.scrollToDate(today)
-                } else {
-                    // When changing to month mode, we choose current
-                    // month if it is the only one in the current frame.
-                    // if we have multiple months in one frame, we prefer
-                    // the second one unless it's an outDate in the last index.
-                    if (firstDate.yearMonth == lastDate.yearMonth) {
+            if (!monthToWeek) {
+                exThreeCalendar.updateMonthConfiguration(
+                    inDateStyle = InDateStyle.ALL_MONTHS,
+                    maxRowCount = 6,
+                    hasBoundaries = true
+                )
+                if (firstDate.yearMonth == lastDate.yearMonth) {
                         exThreeCalendar.scrollToMonth(firstDate.yearMonth)
                     } else {
                         // We compare the next with the last month on the calendar so we don't go over.
                         exThreeCalendar.scrollToMonth(minOf(firstDate.yearMonth.next, currentMonth.plusMonths(10)))
                     }
-                }
+            } else {
+                exThreeCalendar.updateMonthConfiguration(
+                        inDateStyle = InDateStyle.FIRST_MONTH,
+                        maxRowCount = 1,
+                        hasBoundaries = false
+                    )
+                exThreeCalendar.scrollToDate(today)
             }
-            animator.duration = 300
-            animator.start()
         }
 
 
@@ -341,18 +311,6 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
 
 
     }
-
-
-
-
-    fun dpToPx(dp: Int, context: Context): Int =
-        TypedValue.applyDimension(
-            TypedValue.COMPLEX_UNIT_DIP, dp.toFloat(),
-            context.resources.displayMetrics
-        ).toInt()
-
-
-
 
     private fun selectDate(date: LocalDate) {
         if (selectedDate != date) {
