@@ -3,15 +3,9 @@ package com.goingbacking.goingbacking.Adapter
 import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.BaseAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.goingbacking.goingbacking.Model.TmpTimeDTO
-import com.goingbacking.goingbacking.databinding.ItemTmpBinding
 import com.goingbacking.goingbacking.databinding.ItemTodayListBinding
-import com.google.firebase.firestore.FieldValue
-import java.text.SimpleDateFormat
 
 class TodayRecyclerViewAdapter
     (val context: Context,
@@ -44,8 +38,6 @@ class TodayRecyclerViewAdapter
             binding.todayDurationTextView.text = "${startHour}:${startMinute}-${endHour}:${endMinute}"
             binding.todayWhatToDoTextView.text = todayWhatToDoItem
             }
-
-
     }
 
 
