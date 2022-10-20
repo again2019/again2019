@@ -30,6 +30,8 @@ class CountReceiver : BroadcastReceiver() {
     private var todayTotalTime = 0
     val alarmRepository = AlarmRepository(FirebaseAuth.getInstance().currentUser, FirebaseFirestore.getInstance())
     lateinit var notificationManager: NotificationManager
+    private var whatToDoArraList = ArrayList<String>()
+    private var whatToDoTimeArrayList = ArrayList<String>()
 
     override fun onReceive(context: Context, intent: Intent) {
         Toast.makeText(context, "count receiverstart", Toast.LENGTH_SHORT).show()
@@ -64,6 +66,9 @@ class CountReceiver : BroadcastReceiver() {
                 beforefireReminder(context, intent, it.size+1, beforeInfo, beforeInfo)
                 Log.d("experiment", ": ${it.size+1}, $beforeInfo, ${beforeInfo}" )
                 PrefUtil.setTodayTotalTime(todayTotalTime, context)
+                PrefUtil.setTodayWhatToDo(whatToDoArraList.toString(), context)
+                PrefUtil.setTodayWhatToDoTime(whatToDoTimeArrayList.toString(), context)
+
                 Log.d("experiment", "todayTotaltiem ${todayTotalTime}")
                 notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
                 createNotificationChannel(intent, notificationManager)
@@ -88,6 +93,12 @@ class CountReceiver : BroadcastReceiver() {
         var calendar = Calendar.getInstance()
         if (beforeInfoDTO.date == null) {
             todayTotalTime = todayTotalTime + nowInfoDTO.start_t!!.toInt()
+
+            whatToDoArraList.add("통근 시간")
+            whatToDoTimeArrayList.add("${nowInfoDTO.start!!-nowInfoDTO.start_t!!.toInt()}-${nowInfoDTO.start!!}")
+            whatToDoArraList.add(nowInfoDTO.dest.toString())
+            whatToDoTimeArrayList.add("${nowInfoDTO.start!!}-${nowInfoDTO.end!!}")
+
             Log.d("experiment", "todayTotal ${nowInfoDTO.start_t!!.toInt()} = ${todayTotalTime}")
             nextIntent.putExtra("end_time", nowInfoDTO.start!!)
             calendar.timeInMillis = System.currentTimeMillis()
@@ -97,6 +108,10 @@ class CountReceiver : BroadcastReceiver() {
             calendar.set(Calendar.MILLISECOND, 0)
         } else if (beforeInfoDTO.equals(nowInfoDTO)) {
             todayTotalTime = todayTotalTime + beforeInfoDTO.end_t!!.toInt()
+
+            whatToDoArraList.add("통근 시간")
+            whatToDoTimeArrayList.add("${beforeInfoDTO.end!!}-${beforeInfoDTO.end!!+beforeInfoDTO.end_t!!}")
+
             Log.d("experiment", "todayTotal ${nowInfoDTO.end_t!!.toInt()} = ${todayTotalTime}")
 
             nextIntent.putExtra("end_time", nowInfoDTO.end!! + nowInfoDTO.end_t!!)
@@ -108,7 +123,13 @@ class CountReceiver : BroadcastReceiver() {
         }
 
         else {
+
             todayTotalTime = todayTotalTime + (nowInfoDTO.start!!.toInt() - beforeInfoDTO.end!!.toInt())
+            whatToDoArraList.add("통근 시간")
+            whatToDoTimeArrayList.add("${beforeInfoDTO.end!!}-${nowInfoDTO.start!!}")
+            whatToDoArraList.add(nowInfoDTO.dest.toString())
+            whatToDoTimeArrayList.add("${nowInfoDTO.start!!}-${nowInfoDTO.start!!+nowInfoDTO.start_t!!}")
+
             Log.d("experiment", "todayTotal ${(nowInfoDTO.start!!.toInt() - beforeInfoDTO.end!!.toInt())} = ${todayTotalTime}")
             nextIntent.putExtra("end_time", nowInfoDTO.start!!)
             calendar.timeInMillis = System.currentTimeMillis()
