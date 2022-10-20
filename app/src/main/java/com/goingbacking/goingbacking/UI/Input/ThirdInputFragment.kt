@@ -52,11 +52,21 @@ class ThirdInputFragment : BaseFragment<FragmentThirdInputBinding>() {
     }
 
     private fun onClick() = with(binding) {
+        chipAddButton.setOnClickListener {
+            val chipName = chipInputEditText.text.toString()
+            chipGroup.addView(Chip(requireContext()).apply {
+                text = chipName
+                isCloseIconVisible = true
+                setOnCloseIconClickListener { chipGroup.removeView(this) }
+                chipInputEditText.setText("")
+            })
+        }
+
         ThirdInputButton1.setOnClickListener {
             findNavController().navigate(R.id.action_thirdInputFragment_to_secondInputFragment)
         }
         ThirdInputButton2.setOnClickListener {
-            val selected = binding.chipGroup.children.toList()
+            val selected = chipGroup.children.toList()
                 .filter{ (it as Chip).isChecked}.joinToString(",")
                 {(it as Chip).text}
 

@@ -5,6 +5,7 @@
     android:id="@+id/main_navigation"
     app:startDestination="@id/firstMainFragment">
 
+    <!-- first -->
     <fragment
         android:id="@+id/firstMainFragment"
         android:name="com.goingbacking.goingbacking.UI.Main.FirstMainFragment"
@@ -14,40 +15,50 @@
         <action
             android:id="@+id/action_firstMainFragment_to_tmpTimeActivity"
             app:destination="@id/tmpTimeActivity" />
-
-
     </fragment>
 
+    <activity
+        android:id="@+id/tmpTimeActivity"
+        android:name="com.goingbacking.goingbacking.UI.Main.First.TmpTimeActivity"
+        android:label="TmpTimeActivity"
+        tools:layout="@layout/activity_tmp_time"/>
+
+
+    <!-- second -->
     <fragment
         android:id="@+id/secondMainFragment"
         android:name="com.goingbacking.goingbacking.UI.Main.SecondMainFragment"
         android:label="SecondMainFragment"
         tools:layout="@layout/fragment_second_main">
-
-
-
-
     </fragment>
 
+
+    <!-- third -->
     <fragment
         android:id="@+id/thirdMainFragment"
         android:name="com.goingbacking.goingbacking.UI.Main.ThirdMainFragment"
         android:label="ThirdMainFragment"
         tools:layout="@layout/fragment_third_main">
 
-        <action
-            android:id="@+id/action_thirdMainFragment_to_scheduleInputActivity"
-            app:destination="@id/scheduleInputActivity" />
     </fragment>
 
+    <activity
+        android:id="@+id/scheduleInputActivity"
+        android:name="com.goingbacking.goingbacking.UI.Main.Third.ScheduleInputActivity"
+        android:label="ScheduleInputActivity"
+        tools:layout="@layout/activity_schedule_input"/>
+
+
+    <!-- forth -->
     <fragment
         android:id="@+id/forthMainFragment"
         android:name="com.goingbacking.goingbacking.UI.Main.ForthMainFragment"
         android:label="ForthMainFragment"
         tools:layout="@layout/fragment_forth_main">
-
     </fragment>
 
+
+    <!-- fifth -->
     <fragment
         android:id="@+id/fifthMainFragment"
         android:name="com.goingbacking.goingbacking.UI.Main.FifthMainFragment"
@@ -56,66 +67,12 @@
         <action
             android:id="@+id/action_fifthMainFragment_to_changeInfoActivity"
             app:destination="@id/changeInfoActivity" />
-        <argument
-            android:name="nickName"
-            app:argType="string"
-            app:nullable="true"
-            android:defaultValue="@null" />
-        <argument
-            android:name="userType"
-            app:argType="string"
-            app:nullable="true"
-            android:defaultValue="@null" />
-        <argument
-            android:name="whatToDo"
-            app:argType="string"
-            app:nullable="true"
-            android:defaultValue="@null" />
     </fragment>
-
-
-    <activity
-        android:id="@+id/tmpTimeActivity"
-        android:name="com.goingbacking.goingbacking.UI.Main.First.TmpTimeActivity"
-        android:label="TmpTimeActivity"
-        tools:layout="@layout/activity_tmp_time">
-
-
-    </activity>
-
-
-    <activity
-        android:id="@+id/scheduleInputActivity"
-        android:name="com.goingbacking.goingbacking.UI.Main.Third.ScheduleInputActivity"
-        android:label="ScheduleInputActivity"
-        tools:layout="@layout/activity_schedule_input">
-
-
-    </activity>
 
     <activity
         android:id="@+id/changeInfoActivity"
         android:name="com.goingbacking.goingbacking.UI.Main.Fifth.ChangeInfoActivity"
         android:label="ChangeInfoActivity"
-        tools:layout="@layout/activity_change_info">
-        <argument
-            android:name="nickName"
-            app:argType="string"
-            app:nullable="true"
-            android:defaultValue="@null" />
-        <argument
-            android:name="userType"
-            app:argType="string"
-            app:nullable="true"
-            android:defaultValue="@null" />
-        <argument
-            android:name="whatToDo"
-            app:argType="string"
-            app:nullable="true"
-            android:defaultValue="@null"/>
-
-
-    </activity>
-
+        tools:layout="@layout/activity_change_info"/>
 
 </navigation>

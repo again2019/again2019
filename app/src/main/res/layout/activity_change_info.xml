@@ -36,6 +36,17 @@
         android:layout_height="wrap_content"
         android:text="관심분야"/>
 
+    <EditText
+        android:id="@+id/chipInputEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="할일들을 입력하세요."/>
+
+    <Button
+        android:id="@+id/chipAddButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="chip 추가"/>
 
     <com.google.android.material.chip.ChipGroup
         android:id="@+id/chipGroup"
@@ -51,41 +62,41 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/Widget.MaterialComponents.Chip.Filter"
-            android:text="Red" />
+            android:text="독서" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chipGreen"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/Widget.MaterialComponents.Chip.Filter"
-            android:text="Green" />
+            android:text="영어 듣기" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chipYellow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/Widget.MaterialComponents.Chip.Filter"
-            android:text="Yellow" />
+            android:text="시사 공부" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chipBlue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/Widget.MaterialComponents.Chip.Filter"
-            android:text="Blue" />
+            android:text="전공 과제" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chipBlack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/Widget.MaterialComponents.Chip.Filter"
-            android:text="Black" />
+            android:text="뉴스" />
 
 
     </com.google.android.material.chip.ChipGroup>
 
     <Button
-        android:id="@+id/changeButoon"
+        android:id="@+id/infoChangeButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 

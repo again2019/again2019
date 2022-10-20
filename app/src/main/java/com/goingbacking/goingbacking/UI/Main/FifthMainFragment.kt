@@ -41,8 +41,13 @@ class FifthMainFragment : BaseFragment<FragmentFifthMainBinding>() {
             var nickName = binding.myNickNameTextView.text.toString()
             var userType = binding.myTypeTextView.text.toString()
             var whatToDo = binding.myWhatToDoTextView.text.toString()
-            val directions = FifthMainFragmentDirections.actionFifthMainFragmentToChangeInfoActivity()
-            findNavController().navigate(directions)
+
+            val intent = Intent(requireContext(), ChangeInfoActivity::class.java)
+            intent.putExtra("nickName", nickName)
+            intent.putExtra("userType", userType)
+            intent.putExtra("whatToDo", whatToDo)
+            startActivity(intent)
+
         }
     }
 
