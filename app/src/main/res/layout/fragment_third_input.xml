@@ -42,6 +42,24 @@
         android:layout_height="wrap_content"
         android:text="chip 추가"/>
 
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/inputChipGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintWidth_percent="0.8">
+
+
+    </com.google.android.material.chip.ChipGroup>
+
+    <TextView
+        android:text="많은 사람들이 하는 것"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
     <com.google.android.material.chip.ChipGroup
         android:id="@+id/chipGroup"
         android:layout_width="wrap_content"
@@ -52,35 +70,35 @@
         app:layout_constraintWidth_percent="0.8">
 
         <com.google.android.material.chip.Chip
-            android:id="@+id/chipRed"
+            android:id="@+id/chip1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/Widget.MaterialComponents.Chip.Filter"
             android:text="독서" />
 
         <com.google.android.material.chip.Chip
-            android:id="@+id/chipGreen"
+            android:id="@+id/chip2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/Widget.MaterialComponents.Chip.Filter"
             android:text="영어 듣기" />
 
         <com.google.android.material.chip.Chip
-            android:id="@+id/chipYellow"
+            android:id="@+id/chip3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/Widget.MaterialComponents.Chip.Filter"
             android:text="시사 공부" />
 
         <com.google.android.material.chip.Chip
-            android:id="@+id/chipBlue"
+            android:id="@+id/chip4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/Widget.MaterialComponents.Chip.Filter"
             android:text="전공 과제" />
 
         <com.google.android.material.chip.Chip
-            android:id="@+id/chipBlack"
+            android:id="@+id/chip5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/Widget.MaterialComponents.Chip.Filter"

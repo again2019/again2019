@@ -2,6 +2,7 @@ package com.goingbacking.goingbacking.UI.Input
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -54,22 +55,31 @@ class ThirdInputFragment : BaseFragment<FragmentThirdInputBinding>() {
     private fun onClick() = with(binding) {
         chipAddButton.setOnClickListener {
             val chipName = chipInputEditText.text.toString()
-            chipGroup.addView(Chip(requireContext()).apply {
+            inputChipGroup.addView(Chip(requireContext()).apply {
                 text = chipName
                 isCloseIconVisible = true
-                setOnCloseIconClickListener { chipGroup.removeView(this) }
+                isCheckable = true
+                isChecked = true
+                setOnClickListener { isChecked = true }
+                setOnCloseIconClickListener { inputChipGroup.removeView(this) }
                 chipInputEditText.setText("")
             })
+
         }
+
 
         ThirdInputButton1.setOnClickListener {
             findNavController().navigate(R.id.action_thirdInputFragment_to_secondInputFragment)
         }
         ThirdInputButton2.setOnClickListener {
-            val selected = chipGroup.children.toList()
+            val selected1 = chipGroup.children.toList()
+                .filter{ (it as Chip).isChecked}.joinToString(",")
+                {(it as Chip).text}
+            var selected2 = inputChipGroup.children.toList()
                 .filter{ (it as Chip).isChecked}.joinToString(",")
                 {(it as Chip).text}
 
+            var selected = selected1 + ',' + selected2
             viewModel.updateThirdInput(selected)
             val intent = Intent(activity, TutorialActivity::class.java)
             startActivity(intent)
