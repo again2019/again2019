@@ -8,19 +8,18 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.goingbacking.goingbacking.Adapter.TmpTimeRecyclerViewAdapter
+import com.goingbacking.goingbacking.UI.Base.BaseActivity
 
 import com.goingbacking.goingbacking.ViewModel.TmpTimeViewModel
-import com.goingbacking.goingbacking.WhatToDoSaveActivity
 import com.goingbacking.goingbacking.databinding.ActivityTmpTimeBinding
 import com.goingbacking.goingbacking.util.UiState
 import com.google.firebase.firestore.FieldValue
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class TmpTimeActivity : AppCompatActivity() {
-    private val binding : ActivityTmpTimeBinding by lazy {
-        ActivityTmpTimeBinding.inflate(layoutInflater)
-    }
+class TmpTimeActivity : BaseActivity<ActivityTmpTimeBinding>({
+    ActivityTmpTimeBinding.inflate(it)
+}) {
 
     val adapter by lazy {
         TmpTimeRecyclerViewAdapter(
@@ -39,7 +38,6 @@ class TmpTimeActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(binding.root)
         TmpTimeOberver()
 
         binding.TmprecyclerView.layoutManager = LinearLayoutManager(this)

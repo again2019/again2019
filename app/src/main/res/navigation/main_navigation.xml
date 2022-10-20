@@ -24,6 +24,9 @@
         android:label="SecondMainFragment"
         tools:layout="@layout/fragment_second_main">
 
+
+
+
     </fragment>
 
     <fragment
@@ -32,6 +35,9 @@
         android:label="ThirdMainFragment"
         tools:layout="@layout/fragment_third_main">
 
+        <action
+            android:id="@+id/action_thirdMainFragment_to_scheduleInputActivity"
+            app:destination="@id/scheduleInputActivity" />
     </fragment>
 
     <fragment
@@ -73,9 +79,19 @@
         android:name="com.goingbacking.goingbacking.UI.Main.First.TmpTimeActivity"
         android:label="TmpTimeActivity"
         tools:layout="@layout/activity_tmp_time">
+
+
     </activity>
 
 
+    <activity
+        android:id="@+id/scheduleInputActivity"
+        android:name="com.goingbacking.goingbacking.UI.Main.Third.ScheduleInputActivity"
+        android:label="ScheduleInputActivity"
+        tools:layout="@layout/activity_schedule_input">
+
+
+    </activity>
 
     <activity
         android:id="@+id/changeInfoActivity"
@@ -97,6 +113,8 @@
             app:argType="string"
             app:nullable="true"
             android:defaultValue="@null"/>
+
+
     </activity>
 
 

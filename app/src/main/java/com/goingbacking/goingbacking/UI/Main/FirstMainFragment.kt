@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.goingbacking.goingbacking.*
 import com.goingbacking.goingbacking.UI.Base.BaseFragment
 import com.goingbacking.goingbacking.databinding.FragmentFirstMainBinding
+import com.goingbacking.goingbacking.util.PrefUtil
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -31,6 +32,8 @@ class FirstMainFragment : BaseFragment<FragmentFirstMainBinding>() {
         binding.tmpTimeButton.setOnClickListener {
             findNavController().navigate(R.id.action_firstMainFragment_to_tmpTimeActivity)
         }
+
+        binding.todayTime.text = PrefUtil.getTodayTotalTime(requireContext()).toString()
     }
 
 

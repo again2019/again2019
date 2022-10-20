@@ -1,13 +1,10 @@
 package com.goingbacking.goingbacking.Adapter
 
-import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.goingbacking.goingbacking.Model.TmpTimeDTO
-import com.goingbacking.goingbacking.WhatToDoSaveActivity
 import com.goingbacking.goingbacking.databinding.ItemTmpBinding
 import com.google.firebase.firestore.FieldValue
 import java.text.SimpleDateFormat
