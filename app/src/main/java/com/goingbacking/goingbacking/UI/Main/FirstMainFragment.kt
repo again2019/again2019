@@ -1,53 +1,42 @@
 package com.goingbacking.goingbacking.UI.Main
 
 
-import android.content.Intent
 import android.os.Bundle
 
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 
 import com.goingbacking.goingbacking.*
+import com.goingbacking.goingbacking.UI.Base.BaseFragment
 import com.goingbacking.goingbacking.databinding.FragmentFirstMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class FirstMainFragment : Fragment() {
-
-    //임시 코드
-    enum class TimerState {
-        start, stop, pause
-    }
-    //임시 코드
-
-    lateinit var binding :FragmentFirstMainBinding
-
-    override fun onCreateView(
+class FirstMainFragment : BaseFragment<FragmentFirstMainBinding>() {
+    override fun getFragmentBinding(
         inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentFirstMainBinding.inflate(layoutInflater)
+        container: ViewGroup?
+    ): FragmentFirstMainBinding {
+        return FragmentFirstMainBinding.inflate(inflater, container, false)
+    }
+
+
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
         binding.tmpTimeButton.setOnClickListener {
-            moveTmpActivity()
+            findNavController().navigate(R.id.action_firstMainFragment_to_tmpTimeActivity)
         }
+    }
 
-        if (this:: binding.isInitialized) {
-            return binding.root
-        } else {
-            binding = FragmentFirstMainBinding.inflate(layoutInflater)
-            return binding.root
-        }
 
 
     }
 
-    private fun moveTmpActivity() {
-        val intent = Intent(requireContext(), TmpTimeActivity::class.java)
-        startActivity(intent)
-    }
 
-}
+
+

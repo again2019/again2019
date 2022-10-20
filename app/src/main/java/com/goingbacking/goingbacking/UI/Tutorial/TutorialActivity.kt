@@ -52,8 +52,8 @@ class TutorialActivity : BaseActivity<ActivityTutorialBinding>({
         var calendar = Calendar.getInstance()
         calendar.timeInMillis = System.currentTimeMillis()
         calendar.set(Calendar.HOUR_OF_DAY, 10)
-        calendar.set(Calendar.MINUTE, 52)
-        calendar.set(Calendar.SECOND, 30)
+        calendar.set(Calendar.MINUTE, 59)
+        calendar.set(Calendar.SECOND, 0)
         calendar.set(Calendar.MILLISECOND, 0)
 
         if (calendar.before(Calendar.getInstance())) {

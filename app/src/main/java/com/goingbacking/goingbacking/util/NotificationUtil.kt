@@ -13,7 +13,7 @@ import com.goingbacking.goingbacking.AppConstants
 import com.goingbacking.goingbacking.BR.DoingReceiver
 import com.goingbacking.goingbacking.UI.Main.MainActivity
 import com.goingbacking.goingbacking.R
-import com.goingbacking.goingbacking.TmpTimeActivity
+import com.goingbacking.goingbacking.UI.Main.First.TmpTimeActivity
 import java.text.SimpleDateFormat
 import java.util.*
 

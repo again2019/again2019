@@ -11,6 +11,11 @@
         android:label="FirstMainFragment"
         tools:layout="@layout/fragment_first_main">
 
+        <action
+            android:id="@+id/action_firstMainFragment_to_tmpTimeActivity"
+            app:destination="@id/tmpTimeActivity" />
+
+
     </fragment>
 
     <fragment
@@ -63,7 +68,12 @@
     </fragment>
 
 
-
+    <activity
+        android:id="@+id/tmpTimeActivity"
+        android:name="com.goingbacking.goingbacking.UI.Main.First.TmpTimeActivity"
+        android:label="TmpTimeActivity"
+        tools:layout="@layout/activity_tmp_time">
+    </activity>
 
 
 

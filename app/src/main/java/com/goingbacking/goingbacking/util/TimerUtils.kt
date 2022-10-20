@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.CountDownTimer
 import android.util.Log
+import com.goingbacking.goingbacking.AppConstants
 import com.goingbacking.goingbacking.Model.TmpTimeDTO
 import com.goingbacking.goingbacking.Repository.AlarmRepository
 import com.goingbacking.goingbacking.Service.AlarmService
@@ -17,24 +18,19 @@ class TimerUtils {
 
     companion object {
         private val alarmRepository = AlarmRepository(FirebaseAuth.getInstance().currentUser, FirebaseFirestore.getInstance())
-        private var timerLengthSeconds = 0L
-        var timerState = TimerState.Stopped
+        var timerState = AppConstants.Companion.TimerState.Stopped
         private var secondsRemaining = 0L
-
-
 
         private lateinit var timer: CountDownTimer // 순서대로 얼마나 타이머를 진행할지 나타냄, thread 사용할 필요 없음
 
-        enum class TimerState {
-            Stopped, Paused, Running
-        }
+
 
 
 
         fun startTimer(context: Context, duration: Long) {
             secondsRemaining = duration
             Log.d("experiment", " -> lengthInMinutes" + secondsRemaining.toString())
-            timerState = TimerState.Running // timer 상태를 running으로 바꾼다
+            timerState = AppConstants.Companion.TimerState.Running // timer 상태를 running으로 바꾼다
             timer = object : CountDownTimer(secondsRemaining, 1000) {
                 override fun onFinish() = onTimerFinished(context)
                 override fun onTick(millisUntilFinished: Long) { // millisUntilFinished: 남아있는 시간, 수행간격 마다 호출
@@ -52,7 +48,7 @@ class TimerUtils {
 
         fun onTimerFinished(context: Context) {
 
-            timerState = TimerState.Stopped
+            timerState = AppConstants.Companion.TimerState.Stopped
             // timerState =  Stop으로 둔다
             var current = System.currentTimeMillis()
 
@@ -76,17 +72,10 @@ class TimerUtils {
             Log.d("experiment", "currentTime: " + currentTime.toString())
 
             alarmRepository.addTmpTimeInfo(tmpTimeDTO!!)
-//            firebaseFirestore?.collection("TmpTimeInfo")?.document(userId!!)?.collection(userId!!)?.add(
-//                tmpTimeDTO!!)
-
-
 
             val intent = Intent(context, AlarmService::class.java)
             intent.action = "FINISH_FOREGROUND"
             context.startService(intent)
-
-            //NotificationUtil.showTimerExpired(context)
-
 
         }
 

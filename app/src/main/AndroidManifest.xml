@@ -28,7 +28,7 @@
             android:name=".WhatToDoSaveActivity"
             android:exported="true" />
         <activity
-            android:name=".TmpTimeActivity"
+            android:name=".UI.Main.First.TmpTimeActivity"
             android:exported="true" />
         <activity
             android:name=".UI.Main.Third.ScheduleInputActivity"
