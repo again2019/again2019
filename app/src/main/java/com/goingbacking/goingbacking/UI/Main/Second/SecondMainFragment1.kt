@@ -2,12 +2,12 @@ package com.goingbacking.goingbacking.UI.Main.Second
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.github.aachartmodel.aainfographics.aachartcreator.*
+import com.goingbacking.goingbacking.UI.Base.BaseFragment
 import com.goingbacking.goingbacking.ViewModel.MainViewModel
 import com.goingbacking.goingbacking.databinding.FragmentSecondMain1Binding
 import com.goingbacking.goingbacking.util.UiState
@@ -15,25 +15,18 @@ import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class SecondMainFragment1 : Fragment(), AAChartView.AAChartViewCallBack {
-    var chartType: String = ""
+class SecondMainFragment1 : BaseFragment<FragmentSecondMain1Binding>(), AAChartView.AAChartViewCallBack {
 
-    lateinit var binding: FragmentSecondMain1Binding
+    var chartType: String = ""
     val viewModel: MainViewModel by viewModels()
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentSecondMain1Binding.inflate(layoutInflater)
+    override fun getFragmentBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ): FragmentSecondMain1Binding {
+        return FragmentSecondMain1Binding.inflate(inflater, container, false)
+    }
 
-
-        if (this::binding.isInitialized) {
-            return binding.root
-        } else {
-            binding = FragmentSecondMain1Binding.inflate(layoutInflater)
-            return binding.root
-        }    }
 
     fun newInstance() : SecondMainFragment1 {
         val args = Bundle()
@@ -160,6 +153,8 @@ class SecondMainFragment1 : Fragment(), AAChartView.AAChartViewCallBack {
 
         }
     }
+
+
 
 
 }

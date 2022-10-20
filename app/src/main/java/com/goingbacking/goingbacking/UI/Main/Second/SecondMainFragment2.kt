@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.github.aachartmodel.aainfographics.aachartcreator.*
+import com.goingbacking.goingbacking.UI.Base.BaseFragment
 import com.goingbacking.goingbacking.ViewModel.MainViewModel
 import com.goingbacking.goingbacking.databinding.FragmentSecondMain2Binding
 import com.goingbacking.goingbacking.util.UiState
@@ -15,24 +16,25 @@ import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class SecondMainFragment2 : Fragment(), AAChartView.AAChartViewCallBack {
+class SecondMainFragment2 : BaseFragment<FragmentSecondMain2Binding>(), AAChartView.AAChartViewCallBack {
     var chartType: String = ""
 
-    lateinit var binding : FragmentSecondMain2Binding
     val viewModel: MainViewModel by viewModels()
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentSecondMain2Binding.inflate(layoutInflater)
 
-        if (this::binding.isInitialized) {
-            return binding.root
-        } else {
-            binding = FragmentSecondMain2Binding.inflate(layoutInflater)
-            return binding.root
-        }
+    override fun getFragmentBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ): FragmentSecondMain2Binding {
+       return FragmentSecondMain2Binding.inflate(inflater, container, false)
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        yearObserver()
+        monthObserver()
+    }
+
     fun newInstance() : SecondMainFragment2 {
         val args = Bundle()
         val frag = SecondMainFragment2()
@@ -40,12 +42,8 @@ class SecondMainFragment2 : Fragment(), AAChartView.AAChartViewCallBack {
 
         return frag
     }
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
 
-        yearObserver()
-        monthObserver()
-    }
+
 
     private fun setUpAAChartView(aaCharView: AAChartView, array: Array<Any>) {
         aaCharView?.setBackgroundColor(0)
@@ -134,6 +132,8 @@ class SecondMainFragment2 : Fragment(), AAChartView.AAChartViewCallBack {
             }
         }
     }
+
+
 
 }
 
