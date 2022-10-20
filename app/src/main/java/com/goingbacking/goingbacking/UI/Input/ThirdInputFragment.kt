@@ -53,8 +53,8 @@ class ThirdInputFragment : BaseFragment<FragmentThirdInputBinding>() {
     }
 
     private fun onClick() = with(binding) {
+        val chipName = chipInputEditText.text.toString()
         chipAddButton.setOnClickListener {
-            val chipName = chipInputEditText.text.toString()
             inputChipGroup.addView(Chip(requireContext()).apply {
                 text = chipName
                 isCloseIconVisible = true
