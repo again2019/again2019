@@ -17,6 +17,7 @@ import androidx.core.animation.doOnEnd
 import androidx.core.animation.doOnStart
 import androidx.core.content.ContextCompat
 import androidx.core.view.children
+import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.viewModels
@@ -119,16 +120,90 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
         binding.exThreeCalendar.setup(currentMonth.minusMonths(0), currentMonth.plusMonths(0), daysOfWeek.first())
         binding.exThreeCalendar.scrollToMonth(currentMonth)
 
+        binding.exThreeCalendar2.setup(currentMonth.minusMonths(0), currentMonth.plusMonths(0), daysOfWeek.first())
+        binding.exThreeCalendar2.scrollToMonth(currentMonth)
+
         if (savedInstanceState == null) {
             binding.exThreeCalendar.post {
+                // Show today's events initially.
+                selectDate(today)
+            }
+            binding.exThreeCalendar2.post {
                 // Show today's events initially.
                 selectDate(today)
             }
         }
 
 
+//-----
+        binding.exThreeCalendar2.dayBinder = object : DayBinder<DayViewContainer> {
+            override fun create(view: View) = DayViewContainer(view)
+            override fun bind(container: DayViewContainer, day: CalendarDay) {
+                container.day = day
+                val textView = container.view.exThreeDayText
+                val dotView = container.view.exThreeDotView
+
+                textView.text = day.date.dayOfMonth.toString()
+
+                dotView.isVisible = false
+
+                if (day.owner == DayOwner.THIS_MONTH) {
+                    textView.makeVisible()
+                    when (day.date) {
+                        today -> {
+                            textView.setTextColorRes(R.color.example_3_white)
+                            textView.setBackgroundResource(R.drawable.example_3_today_bg)
+                            dotView.makeInVisible()
+                        }
+                        selectedDate -> {
+                            textView.setTextColorRes(R.color.example_3_blue)
+                            textView.setBackgroundResource(R.drawable.example_3_selected_bg)
+                            dotView.makeInVisible()
+                        }
+                        else -> {
+                            textView.setTextColorRes(R.color.example_3_black)
+                            textView.background = null
+
+                            //observer1(day.date, container.view.exThreeDotView)
 
 
+                            observer2(day.date, dotView)
+
+
+
+                        }
+                    }
+                } else {
+                    textView.makeInVisible()
+                    dotView.makeInVisible()
+                }
+
+            }
+        }
+
+        binding.exThreeCalendar2.monthHeaderBinder = object :
+            MonthHeaderFooterBinder<MonthViewContainer> {
+            override fun create(view: View) = MonthViewContainer(view)
+            override fun bind(container: MonthViewContainer, month: CalendarMonth) {
+                // Setup each header day text if we have not done that already.
+                if (container.legendLayout.tag == null) {
+                    container.legendLayout.tag = month.yearMonth
+                    container.legendLayout.children.map { it as TextView }.forEachIndexed { index, tv ->
+                        tv.text = daysOfWeek[index].name.first().toString()
+                        tv.setTextColorRes(R.color.example_3_black)
+                    }
+                }
+            }
+        }
+
+        binding.exThreeCalendar2.monthScrollListener = {
+
+
+            exThreeSelectedDateText.text = selectionFormatter.format(today)
+
+
+        }
+//---
 
 
 
@@ -208,42 +283,55 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
             startActivity(intent)
         }
 
-
-
-        binding.weekModeCheckBox.setOnCheckedChangeListener { _, monthToWeek ->
-            val firstDate = exThreeCalendar.findFirstVisibleDay()?.date ?: return@setOnCheckedChangeListener
-            val lastDate = exThreeCalendar.findLastVisibleDay()?.date ?: return@setOnCheckedChangeListener
-
-            val oneWeekHeight = exThreeCalendar.daySize.height
-            val oneMonthHeight = oneWeekHeight * 6
-
-            val oldHeight = if (monthToWeek) oneMonthHeight else oneWeekHeight
-            val newHeight = if (monthToWeek) oneWeekHeight else oneMonthHeight
-
-
-            if (!monthToWeek) {
-                exThreeCalendar.updateMonthConfiguration(
-                    inDateStyle = InDateStyle.ALL_MONTHS,
-                    maxRowCount = 6,
-                    hasBoundaries = true
-                )
-                if (firstDate.yearMonth == lastDate.yearMonth) {
-                        exThreeCalendar.scrollToMonth(firstDate.yearMonth)
-                    } else {
-                        // We compare the next with the last month on the calendar so we don't go over.
-                        exThreeCalendar.scrollToMonth(minOf(firstDate.yearMonth.next, currentMonth.plusMonths(10)))
-                    }
-            } else {
-                exThreeCalendar.updateMonthConfiguration(
+        binding.exThreeCalendar2.updateMonthConfigurationAsync(
                         inDateStyle = InDateStyle.FIRST_MONTH,
                         maxRowCount = 1,
                         hasBoundaries = false
                     )
-                exThreeCalendar.scrollToDate(today)
+        exThreeCalendar2.scrollToDate(today)
+
+        binding.weekModeCheckBox.setOnCheckedChangeListener { _, monthToWeek ->
+            if (!monthToWeek) {
+                binding.exThreeCalendar.isInvisible = true
+                binding.exThreeCalendar2.isVisible = true
+            } else {
+                binding.exThreeCalendar2.isInvisible = true
+                binding.exThreeCalendar.isVisible = true
             }
+
+//            val firstDate = exThreeCalendar.findFirstVisibleDay()?.date ?: return@setOnCheckedChangeListener
+//            val lastDate = exThreeCalendar.findLastVisibleDay()?.date ?: return@setOnCheckedChangeListener
+//
+//            val oneWeekHeight = exThreeCalendar.daySize.height
+//            val oneMonthHeight = oneWeekHeight * 6
+//
+//            val oldHeight = if (monthToWeek) oneMonthHeight else oneWeekHeight
+//            val newHeight = if (monthToWeek) oneWeekHeight else oneMonthHeight
+//
+//
+//            if (!monthToWeek) {
+//                exThreeCalendar.updateMonthConfiguration(
+//                    inDateStyle = InDateStyle.ALL_MONTHS,
+//                    maxRowCount = 6,
+//                    hasBoundaries = true
+//                )
+//                if (firstDate.yearMonth == lastDate.yearMonth) {
+//                        exThreeCalendar.scrollToMonth(firstDate.yearMonth)
+//                    } else {
+//                        // We compare the next with the last month on the calendar so we don't go over.
+//                        exThreeCalendar.scrollToMonth(minOf(firstDate.yearMonth.next, currentMonth.plusMonths(10)))
+//                    }
+//            } else {
+//                exThreeCalendar.updateMonthConfiguration(
+//                        inDateStyle = InDateStyle.FIRST_MONTH,
+//                        maxRowCount = 1,
+//                        hasBoundaries = false
+//                    )
+//                exThreeCalendar.scrollToDate(today)
+//            }
+//        }
+
         }
-
-
     }
 
     private fun observer1() {
