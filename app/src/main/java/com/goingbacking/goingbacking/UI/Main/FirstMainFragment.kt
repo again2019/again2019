@@ -2,6 +2,7 @@ package com.goingbacking.goingbacking.UI.Main
 
 
 import android.os.Bundle
+import android.util.Log
 
 import android.view.LayoutInflater
 import android.view.View
@@ -40,16 +41,17 @@ class FirstMainFragment : BaseFragment<FragmentFirstMainBinding>() {
         binding.todayTime.text = PrefUtil.getTodayTotalTime(requireContext()).toString()
 
         val todayWhatToDo = PrefUtil.getTodayWhatToDo(requireActivity()).toString()
-            .replace("[", "").replace("]", "").split(", ")
         val todayWhatToDoTime = PrefUtil.getTodayWhatToDoTime(requireActivity()).toString()
-            .replace("[", "").replace("]", "").split(", ")
 
-        val adapter = TodayRecyclerViewAdapter(requireActivity(), todayWhatToDo, todayWhatToDoTime)
-        binding.todayRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-        binding.todayRecyclerView.adapter = adapter
+        if (todayWhatToDo.equals("") || todayWhatToDoTime.equals("")) {
 
-
-
+        } else {
+            val todayWhatToDo2 = todayWhatToDo.replace("[", "").replace("]", "").split(", ")
+            val todayWhatToDoTime2 = todayWhatToDoTime.replace("[", "").replace("]", "").split(", ")
+            val adapter = TodayRecyclerViewAdapter(requireActivity(), todayWhatToDo2, todayWhatToDoTime2)
+            binding.todayRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+            binding.todayRecyclerView.adapter = adapter
+        }
     }
 
 

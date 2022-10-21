@@ -71,8 +71,8 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
         getResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             if (it.resultCode == Activity.RESULT_OK) {
                 try {
-                    findNavController().navigate(R.id.action_loginFragment_to_input_navigation)
 
+                    findNavController().navigate(R.id.action_loginFragment_to_input_navigation)
 
                     Toast.makeText(requireActivity(), "구글 로그인 성공", Toast.LENGTH_SHORT).show()
 
@@ -115,6 +115,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                     Toast.makeText(requireActivity(), "로그인 성공", Toast.LENGTH_SHORT).show()
                     findNavController().navigate(R.id.action_loginFragment_to_input_navigation)
 
+
                 }
                 is UiState.Failure -> {
                     Toast.makeText(requireActivity(), "로그인 실패", Toast.LENGTH_SHORT).show()
@@ -146,11 +147,11 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
             return isValid
         }
 
-    override fun onStart() {
-        super.onStart()
-        findNavController().navigate(R.id.action_loginFragment_to_mainActivity)
-
-    }
+//    override fun onStart() {
+//        super.onStart()
+//        findNavController().navigate(R.id.action_loginFragment_to_mainActivity)
+//
+//    }
 
     }
 
