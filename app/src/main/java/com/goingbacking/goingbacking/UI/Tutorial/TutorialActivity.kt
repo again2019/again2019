@@ -8,6 +8,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.core.app.ActivityCompat
 import com.goingbacking.goingbacking.Adapter.TutorialViewPagerAdapter
@@ -17,6 +18,7 @@ import com.goingbacking.goingbacking.UI.Main.MainActivity
 import com.goingbacking.goingbacking.UI.Base.BaseActivity
 import com.goingbacking.goingbacking.ViewModel.AlarmViewModel
 import com.goingbacking.goingbacking.databinding.ActivityTutorialBinding
+import com.goingbacking.goingbacking.util.PrefUtil
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 
@@ -33,6 +35,9 @@ class TutorialActivity : BaseActivity<ActivityTutorialBinding>({
         initAdapter()
 
         binding.TutorialButton.setOnClickListener {
+
+            PrefUtil.setMyUid(PrefUtil.firebaseUid(), this)
+            Log.d("experiment", "myUid ${PrefUtil.firebaseUid()}, ${PrefUtil.getMyUid(this)}")
             observer()
             notification()
             moveMainPage()
