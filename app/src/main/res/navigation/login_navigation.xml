@@ -48,15 +48,8 @@
             app:popExitAnim="@anim/anim_slide_out_right"
             />
 
-        <action
-            android:id="@+id/action_loginFragment_to_main_navigation"
-            app:destination="@+id/input_navigation"
-            />
 
-        <action
-            android:id="@+id/action_loginFragment_to_mainActivity"
-            app:destination="@+id/mainActivity"
-             />
+
 
 
     </fragment>
@@ -84,6 +77,5 @@
             app:popExitAnim="@anim/anim_slide_out_right"/>
 
     <include app:graph="@navigation/input_navigation" />
-    <include app:graph="@navigation/main_navigation" />
 
 </navigation>

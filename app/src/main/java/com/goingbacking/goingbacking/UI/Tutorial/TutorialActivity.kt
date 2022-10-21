@@ -9,6 +9,7 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.core.app.ActivityCompat
 import com.goingbacking.goingbacking.Adapter.TutorialViewPagerAdapter
 import com.goingbacking.goingbacking.BR.CountReceiver
 import com.goingbacking.goingbacking.BR.DeviceBootReceiver
@@ -96,7 +97,7 @@ class TutorialActivity : BaseActivity<ActivityTutorialBinding>({
     private fun moveMainPage() {
         var intent: Intent? = Intent(this, MainActivity::class.java)
         startActivity(intent)
-        finish()
+        finishAffinity()
     }
 
     private fun initAdapter() {

@@ -77,7 +77,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                 try {
                     val intent = Intent(requireContext(), InputActivity::class.java)
                     startActivity(intent)
-                    finishAffinity(requireActivity())
+
                     Toast.makeText(requireActivity(), "구글 로그인 성공", Toast.LENGTH_SHORT).show()
 
                 } catch (e: ApiException) {

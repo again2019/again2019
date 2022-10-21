@@ -7,6 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
+import androidx.core.app.ActivityCompat.finishAffinity
 import androidx.core.view.children
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -81,7 +83,7 @@ class ThirdInputFragment : BaseFragment<FragmentThirdInputBinding>() {
             var selected = selected1 + ',' + selected2
             viewModel.updateThirdInput(selected)
             val intent = Intent(activity, TutorialActivity::class.java)
-            startActivity(intent)
+
 
         findNavController().navigate(R.id.action_thirdInputFragment_to_tutorialActivity)
         }
