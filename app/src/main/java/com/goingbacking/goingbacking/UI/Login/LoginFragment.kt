@@ -9,17 +9,21 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.app.ActivityCompat.finishAffinity
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.goingbacking.goingbacking.R
 import com.goingbacking.goingbacking.UI.Base.BaseFragment
+import com.goingbacking.goingbacking.UI.Input.InputActivity
 import com.goingbacking.goingbacking.ViewModel.LoginViewModel
 import com.goingbacking.goingbacking.databinding.FragmentLoginBinding
 import com.goingbacking.goingbacking.util.UiState
 import com.goingbacking.goingbacking.util.isValidEmail
+import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignIn.getClient
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.common.api.ApiException
+import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -71,9 +75,9 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
         getResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             if (it.resultCode == Activity.RESULT_OK) {
                 try {
-
-                    findNavController().navigate(R.id.action_loginFragment_to_input_navigation)
-
+                    val intent = Intent(requireContext(), InputActivity::class.java)
+                    startActivity(intent)
+                    finishAffinity(requireActivity())
                     Toast.makeText(requireActivity(), "구글 로그인 성공", Toast.LENGTH_SHORT).show()
 
                 } catch (e: ApiException) {
@@ -149,8 +153,12 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
 
 //    override fun onStart() {
 //        super.onStart()
-//        findNavController().navigate(R.id.action_loginFragment_to_mainActivity)
 //
+//        val account = GoogleSignIn.getLastSignedInAccount(requireContext())
+//        if (account != null) {
+//            findNavController().navigate(R.id.action_loginFragment_to_mainActivity)
+//            findNavController().popBackStack()
+//        }
 //    }
 
     }

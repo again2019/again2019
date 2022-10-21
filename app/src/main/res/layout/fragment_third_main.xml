@@ -34,7 +34,8 @@
           app:cv_dayViewResource="@layout/example_3_calendar_day"
           app:cv_monthHeaderResource="@layout/example_3_calendar_header"
           app:cv_orientation="horizontal"
-          app:cv_scrollMode="paged" />
+          app:cv_scrollMode="paged"
+          android:visibility="gone"/>
 
       <TextView
           android:id="@+id/exThreeSelectedDateText"

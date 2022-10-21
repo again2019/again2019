@@ -203,6 +203,7 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
 
 
         }
+
 //---
 
 
@@ -238,12 +239,7 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
                             textView.background = null
 
                             //observer1(day.date, container.view.exThreeDotView)
-
-
                             observer2(day.date, dotView)
-
-
-
                         }
                     }
                 } else {
@@ -277,26 +273,34 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
 
         }
 
+        binding.exThreeCalendar.updateMonthConfiguration(
+            inDateStyle = InDateStyle.FIRST_MONTH,
+            maxRowCount = 1,
+            hasBoundaries = true
+        )
+        binding.exThreeCalendar.scrollToDate(today)
+        binding.exThreeCalendar2.updateMonthConfiguration(
+            inDateStyle = InDateStyle.ALL_MONTHS,
+            maxRowCount = 6,
+            hasBoundaries = true
+        )
+        binding.exThreeCalendar2.scrollToDate(today)
 
         binding.exThreeAddButton.setOnClickListener {
             var intent = Intent(activity, ScheduleInputActivity::class.java)
             startActivity(intent)
         }
 
-        binding.exThreeCalendar2.updateMonthConfigurationAsync(
-                        inDateStyle = InDateStyle.FIRST_MONTH,
-                        maxRowCount = 1,
-                        hasBoundaries = false
-                    )
-        exThreeCalendar2.scrollToDate(today)
+
 
         binding.weekModeCheckBox.setOnCheckedChangeListener { _, monthToWeek ->
             if (!monthToWeek) {
-                binding.exThreeCalendar.isInvisible = true
-                binding.exThreeCalendar2.isVisible = true
+                binding.exThreeCalendar.makeInVisible()
+                binding.exThreeCalendar2.makeVisible()
             } else {
-                binding.exThreeCalendar2.isInvisible = true
-                binding.exThreeCalendar.isVisible = true
+                binding.exThreeCalendar2.makeInVisible()
+                binding.exThreeCalendar.makeVisible()
+
             }
 
 //            val firstDate = exThreeCalendar.findFirstVisibleDay()?.date ?: return@setOnCheckedChangeListener
