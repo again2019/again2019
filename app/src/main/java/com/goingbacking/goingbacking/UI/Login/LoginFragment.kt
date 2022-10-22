@@ -55,8 +55,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
 
 
 
-        Toast.makeText(requireContext(), "1: " + FirebaseAuth.getInstance().currentUser?.uid.toString(), Toast.LENGTH_SHORT).show()
-        Toast.makeText(requireContext(), "2: " + PrefUtil.getMyUid(requireContext()), Toast.LENGTH_SHORT).show()
 
 
         buttonClick()
@@ -205,8 +203,22 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
     override fun onStart() {
         super.onStart()
 
-       //        if (PrefUtil.getMyUid(requireContext()) != null) {
-//            moveMainPage()
+
+        Toast.makeText(requireContext(), "1: " + FirebaseAuth.getInstance().currentUser?.uid.toString(), Toast.LENGTH_SHORT).show()
+        Toast.makeText(requireContext(), "2: " + PrefUtil.getMyUid(requireContext()), Toast.LENGTH_SHORT).show()
+
+        if (PrefUtil.getMyUid(requireContext()) != null || PrefUtil.getMyUid(requireContext()) != "") {
+            //moveMainPage()
+            Toast.makeText(requireContext(), "yes", Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(requireContext(), "no", Toast.LENGTH_SHORT).show()
+
+        }
+//        if(FirebaseAuth.getInstance().currentUser?.uid == null) {
+//            Toast.makeText(requireContext(), "no", Toast.LENGTH_SHORT).show()
+//        } else {
+//            Toast.makeText(requireContext(), "yes", Toast.LENGTH_SHORT).show()
+//
 //        }
 
     }
