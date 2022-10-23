@@ -23,6 +23,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn.getClient
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.common.api.ApiException
+import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -171,18 +172,19 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
             return isValid
         }
 
-    override fun onStart() {
-        super.onStart()
-
-        viewModel.getCurrentSession()
-        viewModel.currentSession.observe(viewLifecycleOwner) { state ->
-            when (state) {
-                is UiState.Success -> {
-                    moveMainPage()
-                }
-            }
-        }
-    }
+//    override fun onStart() {
+//        super.onStart()
+//
+//        Toast.makeText(requireContext(), FirebaseAuth.getInstance().currentUser?.uid, Toast.LENGTH_SHORT).show()
+//        viewModel.getCurrentSession()
+//        viewModel.currentSession.observe(viewLifecycleOwner) { state ->
+//            when (state) {
+//                is UiState.Success -> {
+//                    moveMainPage()
+//                }
+//            }
+//        }
+//    }
 
     private fun moveInputPage() {
         val intent = Intent(requireActivity(), InputActivity::class.java)

@@ -57,9 +57,9 @@ class TutorialActivity : BaseActivity<ActivityTutorialBinding>({
         // 없으면 디폴트 값은 현재 시간
         var calendar = Calendar.getInstance()
         calendar.timeInMillis = System.currentTimeMillis()
-        calendar.set(Calendar.HOUR_OF_DAY, 13)
-        calendar.set(Calendar.MINUTE, 43)
-        calendar.set(Calendar.SECOND, 30)
+        calendar.set(Calendar.HOUR_OF_DAY, 14)
+        calendar.set(Calendar.MINUTE, 55)
+        calendar.set(Calendar.SECOND, 0)
         calendar.set(Calendar.MILLISECOND, 0)
 
         if (calendar.before(Calendar.getInstance())) {

@@ -14,6 +14,7 @@ import com.goingbacking.goingbacking.R
 import com.goingbacking.goingbacking.UI.Base.BaseFragment
 import com.goingbacking.goingbacking.UI.Tutorial.TutorialActivity
 import com.goingbacking.goingbacking.ViewModel.InputViewModel
+import com.goingbacking.goingbacking.bottomsheet.InputBottomSheet
 import com.goingbacking.goingbacking.databinding.FragmentThirdInputBinding
 import com.goingbacking.goingbacking.util.UiState
 import com.google.android.material.chip.Chip
@@ -37,6 +38,12 @@ class ThirdInputFragment : BaseFragment<FragmentThirdInputBinding>() {
     }
 
     private fun onClick() = with(binding) {
+        bottomsheet.setOnClickListener {
+            val bottom  = InputBottomSheet()
+            bottom.show(childFragmentManager, bottom.tag)
+        }
+
+
         chipAddButton.setOnClickListener {
             inputChipGroup.addView(Chip(requireContext()).apply {
                 text = chipInputEditText.text.toString()

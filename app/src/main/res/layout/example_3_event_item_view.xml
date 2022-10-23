@@ -13,6 +13,6 @@
         android:layout_height="wrap_content"
         android:textSize="16sp"
         tools:text="Play football with friends"
-        android:textColor="@color/example_2_black"/>
+        android:textColor="@color/colorHighlight"/>
 
 </FrameLayout>
