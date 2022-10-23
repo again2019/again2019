@@ -105,11 +105,16 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
             viewModel.loginCredential.observe(viewLifecycleOwner) { state ->
                 when (state) {
                     is UiState.Success -> {
+                        binding.progressCircular.hide()
                         Toast.makeText(requireActivity(), "로그인 성공", Toast.LENGTH_SHORT).show()
                         // Google로 로그인 성공
                         moveInputPage()
                     }
+                    is UiState.Loading -> {
+                        binding.progressCircular.show()
+                    }
                     is UiState.Failure -> {
+                        binding.progressCircular.hide()
                         Toast.makeText(requireActivity(), "로그인 실패", Toast.LENGTH_SHORT).show()
                     }
                 }
@@ -132,13 +137,16 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
         viewModel.emailLogin.observe(viewLifecycleOwner) { state ->
             when (state) {
                 is UiState.Success -> {
+                    binding.progressCircular.hide()
                     Toast.makeText(requireActivity(), "로그인 성공", Toast.LENGTH_SHORT).show()
                     moveInputPage()
                 }
                 is UiState.Loading -> {
+                    binding.progressCircular.isIndeterminate = true
                     binding.progressCircular.show()
                 }
                 is UiState.Failure -> {
+                    binding.progressCircular.hide()
                     Toast.makeText(requireActivity(), "로그인 실패", Toast.LENGTH_SHORT).show()
                 }
             }
