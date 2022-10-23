@@ -2,7 +2,6 @@ package com.goingbacking.goingbacking.UI.Login
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,6 +19,8 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
 
+    // **** backstack 관리 필요 ****
+
     private val viewModel : LoginViewModel by viewModels()
     override fun getFragmentBinding(
         inflater: LayoutInflater,
@@ -32,7 +33,6 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
         buttonClick()
-
     }
 
     private fun registerObserver() {
@@ -43,11 +43,9 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
                 }
                 is UiState.Success -> {
                     Toast.makeText(requireContext(), "회원 가입 성공", Toast.LENGTH_SHORT).show()
-                    Log.d("experiment", "yes")
                     findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
                 }
                 is UiState.Failure -> {
-                    Log.d("experiment", "no")
                     Toast.makeText(requireActivity(), "회원 가입 실패", Toast.LENGTH_SHORT).show()
                 }
              }
@@ -69,7 +67,6 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
 
     fun validation(): Boolean = with(binding) {
         var isValid = true
-
 
         if (registerEmailEdittext.text.isNullOrEmpty()){
             isValid = false
