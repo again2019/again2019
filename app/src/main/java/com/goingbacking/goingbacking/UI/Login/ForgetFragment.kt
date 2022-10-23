@@ -18,6 +18,9 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class ForgetFragment : BaseFragment<FragmentForgetBinding>() {
+
+    // **** backstack 관리 필요 ****
+
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
