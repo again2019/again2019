@@ -203,23 +203,11 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
     override fun onStart() {
         super.onStart()
 
+        if(FirebaseAuth.getInstance().currentUser?.uid == null) {
 
-        Toast.makeText(requireContext(), "1: " + FirebaseAuth.getInstance().currentUser?.uid.toString(), Toast.LENGTH_SHORT).show()
-        Toast.makeText(requireContext(), "2: " + PrefUtil.getMyUid(requireContext()), Toast.LENGTH_SHORT).show()
-
-        if (PrefUtil.getMyUid(requireContext()) != null || PrefUtil.getMyUid(requireContext()) != "") {
-            //moveMainPage()
-            Toast.makeText(requireContext(), "yes", Toast.LENGTH_SHORT).show()
         } else {
-            Toast.makeText(requireContext(), "no", Toast.LENGTH_SHORT).show()
-
+            moveMainPage()
         }
-//        if(FirebaseAuth.getInstance().currentUser?.uid == null) {
-//            Toast.makeText(requireContext(), "no", Toast.LENGTH_SHORT).show()
-//        } else {
-//            Toast.makeText(requireContext(), "yes", Toast.LENGTH_SHORT).show()
-//
-//        }
 
     }
 
