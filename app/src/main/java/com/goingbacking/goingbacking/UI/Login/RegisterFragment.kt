@@ -18,7 +18,6 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
-
     private val viewModel : LoginViewModel by viewModels()
     override fun getFragmentBinding(
         inflater: LayoutInflater,
@@ -40,11 +39,11 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
                     binding.registerProgress.visibility
                 }
                 is UiState.Success -> {
-                    Toast.makeText(requireContext(), "회원 가입 성공", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), R.string.sign_up_success, Toast.LENGTH_SHORT).show()
                     findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
                 }
                 is UiState.Failure -> {
-                    Toast.makeText(requireActivity(), "회원 가입 실패", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireActivity(), R.string.sign_up_fail, Toast.LENGTH_SHORT).show()
                 }
              }
         }
@@ -66,11 +65,11 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
 
         if (registerEmailEdittext.text.isNullOrEmpty()){
             isValid = false
-            Toast.makeText(requireActivity(), "email을 다시 입력하세요", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireActivity(), R.string.email_again, Toast.LENGTH_SHORT).show()
         } else {
             if (!registerEmailEdittext.text.toString().isValidEmail()) {
                 isValid = false
-                Toast.makeText(requireActivity(), "email이 유효하지 않아요", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireActivity(), R.string.email_invalid, Toast.LENGTH_SHORT).show()
 
             }
 
@@ -78,16 +77,14 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
 
         if (registerPasswordEdittext1.text.isNullOrEmpty()){
             isValid = false
-            Toast.makeText(requireActivity(), "password를 다시 입력하세요", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireActivity(), R.string.password_again, Toast.LENGTH_SHORT).show()
         } else{
-            if (registerPasswordEdittext1.text.toString().length < 8){
+            if (registerPasswordEdittext1.text.toString().length < 10){
                 isValid = false
-                Toast.makeText(requireActivity(), "password가 너무 짧아요. 다시 입력하세요", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireActivity(), R.string.password_again_short, Toast.LENGTH_SHORT).show()
             }
             if (registerPasswordEdittext1.text.toString() != registerPasswordEdittext2.text.toString()) {
-                Log.d("experiment", registerPasswordEdittext1.text.toString() + registerPasswordEdittext2.text.toString())
-                Toast.makeText(requireActivity(), "password를 다시 확인해주세요", Toast.LENGTH_SHORT).show()
-
+                Toast.makeText(requireActivity(), R.string.password_correct, Toast.LENGTH_SHORT).show()
             }
         }
         return isValid

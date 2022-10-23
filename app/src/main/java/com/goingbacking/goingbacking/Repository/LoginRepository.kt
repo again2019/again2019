@@ -1,10 +1,9 @@
 package com.goingbacking.goingbacking.Repository
 
+
 import android.util.Log
-import android.widget.Toast
 import com.goingbacking.goingbacking.util.UiState
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.*
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -12,9 +11,16 @@ class LoginRepository (
     val firebaseAuth: FirebaseAuth,
     val firebaseFirestore: FirebaseFirestore
 ) : LoginRepositoryIF {
+    companion object {
+        private const val serverClientId = "1036649010261-p08hat5d9stl7qvdun1mg4fv94kj8nt6.apps.googleusercontent.com"
+        private const val success = "success"
+        private const val fail = "fail"
+    }
+
+
     override fun getGSO(result: (UiState<GoogleSignInOptions>) -> Unit) {
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken("1036649010261-p08hat5d9stl7qvdun1mg4fv94kj8nt6.apps.googleusercontent.com")
+            .requestIdToken(serverClientId)
             .requestEmail()
             .build()
 
@@ -24,7 +30,7 @@ class LoginRepository (
             )
         } else {
             result.invoke(
-                UiState.Failure("not found GSO")
+                UiState.Failure(fail)
             )
         }
 
@@ -37,23 +43,19 @@ class LoginRepository (
                 if(it.isSuccessful){
                     //Creating a user account
                     result.invoke(
-                        UiState.Success("User register sucessful")
+                        UiState.Success(success)
                     )
                 } else {
                     try {
                         throw it.exception ?: java.lang.Exception("Invalid authentication")
                     } catch (e : FirebaseAuthWeakPasswordException) {
-                        result.invoke(UiState.Failure("Authentication failed, Password should be at least 6 characters"))
-                        Log.d("experiment", "1")
+                        result.invoke(UiState.Failure(fail))
                     } catch (e : FirebaseAuthInvalidCredentialsException) {
-                        result.invoke(UiState.Failure("Authentication failed, Invalid email entered"))
-                        Log.d("experiment", "2")
+                        result.invoke(UiState.Failure(fail))
                     } catch (e : FirebaseAuthUserCollisionException) {
-                        result.invoke(UiState.Failure("Authentication failed, Email already registered"))
-                        Log.d("experiment", "3")
+                        result.invoke(UiState.Failure(fail))
                     } catch (e : Exception) {
                         result.invoke(UiState.Failure(e.message))
-                        Log.d("experiment", "4")
                     }
                 }
             }
@@ -73,11 +75,11 @@ class LoginRepository (
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         result.invoke(
-                            UiState.Success("Login Successfully!")
+                            UiState.Success(success)
                         )
                     } else {
                         result.invoke(
-                            UiState.Failure("Login Fail")
+                            UiState.Failure(fail)
                         )
                     }
                 }
@@ -95,9 +97,9 @@ class LoginRepository (
         firebaseAuth.sendPasswordResetEmail(email)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    result.invoke(UiState.Success("Email has been sent"))
+                    result.invoke(UiState.Success(success))
                 } else {
-                    result.invoke(UiState.Failure("Authentication failed, Check email"))
+                    result.invoke(UiState.Failure(fail))
                 }
             }
     }
@@ -106,9 +108,9 @@ class LoginRepository (
         val credential = GoogleAuthProvider.getCredential(token, null)
         firebaseAuth.signInWithCredential(credential)?.addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                result.invoke(UiState.Success("credential success"))
+                result.invoke(UiState.Success(success))
             } else {
-                result.invoke(UiState.Success("credential fail"))
+                result.invoke(UiState.Success(fail))
             }
         } .addOnFailureListener {
             result.invoke(UiState.Failure(
@@ -120,7 +122,7 @@ class LoginRepository (
     override fun getCurrentSession(result: (UiState<String>) -> Unit) {
         val currentUid = firebaseAuth.currentUser?.uid
         if (currentUid == null) {
-            result.invoke(UiState.Failure("no current uid"))
+            result.invoke(UiState.Failure(fail))
         } else {
             result.invoke(UiState.Success(
                 currentUid

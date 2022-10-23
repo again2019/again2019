@@ -23,7 +23,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn.getClient
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.common.api.ApiException
-import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -76,7 +75,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                     }
                 }
                 is UiState.Failure -> {
-                    Toast.makeText(requireActivity(), "구글 로그인 실패", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireActivity(), R.string.login_fail, Toast.LENGTH_SHORT).show()
                 }
 
             }
@@ -94,7 +93,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                 val account = signInTask.getResult(ApiException::class.java)
                 onGoogleSignInAccount(account)
             } catch (e: ApiException) {
-                e.printStackTrace()
+                Toast.makeText(requireActivity(), R.string.login_fail, Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -106,7 +105,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                 when (state) {
                     is UiState.Success -> {
                         binding.progressCircular.hide()
-                        Toast.makeText(requireActivity(), "로그인 성공", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireActivity(), R.string.login_success, Toast.LENGTH_SHORT).show()
                         // Google로 로그인 성공
                         moveInputPage()
                     }
@@ -115,7 +114,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                     }
                     is UiState.Failure -> {
                         binding.progressCircular.hide()
-                        Toast.makeText(requireActivity(), "로그인 실패", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireActivity(), R.string.login_fail, Toast.LENGTH_SHORT).show()
                     }
                 }
             }
@@ -138,7 +137,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
             when (state) {
                 is UiState.Success -> {
                     binding.progressCircular.hide()
-                    Toast.makeText(requireActivity(), "로그인 성공", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireActivity(), R.string.login_success, Toast.LENGTH_SHORT).show()
                     moveInputPage()
                 }
                 is UiState.Loading -> {
@@ -147,7 +146,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                 }
                 is UiState.Failure -> {
                     binding.progressCircular.hide()
-                    Toast.makeText(requireActivity(), "로그인 실패", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireActivity(), R.string.login_fail, Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -160,24 +159,24 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
 
             if (emailEdittext.text.isNullOrEmpty()){
                 isValid = false
-                Toast.makeText(requireActivity(), "이메일을 다시 입력해주세요", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireActivity(), R.string.email_again, Toast.LENGTH_SHORT).show()
 
             }else{
                 if (!emailEdittext.text.toString().isValidEmail()){
                     isValid = false
-                    Toast.makeText(requireActivity(), "이메일이 유효하지 않습니다.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireActivity(), R.string.email_invalid, Toast.LENGTH_SHORT).show()
 
                 }
             }
             if (passwordEdittext.text.isNullOrEmpty()){
                 isValid = false
-                Toast.makeText(requireActivity(), "비밀번호를 다시 입력해주세요.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireActivity(), R.string.password_again, Toast.LENGTH_SHORT).show()
 
 
             }else{
                 if (passwordEdittext.text.toString().length < 8){
                     isValid = false
-                    Toast.makeText(requireActivity(), "비밀번호를 다시 입력해주세요.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireActivity(), R.string.password_again, Toast.LENGTH_SHORT).show()
                 }
             }
             return isValid

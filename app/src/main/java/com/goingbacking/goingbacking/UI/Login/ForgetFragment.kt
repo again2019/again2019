@@ -47,10 +47,10 @@ class ForgetFragment : BaseFragment<FragmentForgetBinding>() {
 
                 }
                 is UiState.Failure -> {
-                    Toast.makeText(requireActivity(), "이메일 링크 발송이 실패했습니다.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireActivity(), R.string.email_link_send_fail, Toast.LENGTH_SHORT).show()
                 }
                 is UiState.Success -> {
-                    Toast.makeText(requireActivity(), "이메일 링크가 발송되었습니다.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireActivity(), R.string.email_link_send_success, Toast.LENGTH_SHORT).show()
                     viewModel.emailForgetPassword(binding.emailEt.text.toString())
                 }
             }
@@ -62,12 +62,12 @@ class ForgetFragment : BaseFragment<FragmentForgetBinding>() {
 
         if (emailEt.text.isNullOrEmpty()){
             isValid = false
-            Toast.makeText(requireActivity(), "이메일을 다시 입력해주세요.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireActivity(), R.string.email_again, Toast.LENGTH_SHORT).show()
 
         } else{
             if (!emailEt.text.toString().isValidEmail()){
                 isValid = false
-                Toast.makeText(requireActivity(), "이메일을 다시 확인해주세요.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireActivity(), R.string.email_again, Toast.LENGTH_SHORT).show()
 
             }
         }
