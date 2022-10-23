@@ -41,29 +41,9 @@
             app:exitAnim="@anim/anim_slide_out_left"
             app:popEnterAnim="@anim/anim_slide_in_left"
             app:popExitAnim="@anim/anim_slide_out_right" />
-        <action
-            android:id="@+id/action_loginFragment_to_input_navigation"
-            app:destination="@+id/input_navigation"
-            app:enterAnim="@anim/anim_slide_in_right"
-            app:exitAnim="@anim/anim_slide_out_left"
-            app:popEnterAnim="@anim/anim_slide_in_left"
-            app:popExitAnim="@anim/anim_slide_out_right"
-            />
-
-
-
-
 
     </fragment>
-    <activity
-        android:id="@+id/mainActivity"
-        android:name="com.goingbacking.goingbacking.UI.Main.MainActivity"
-        android:label="MainActivity"
-        tools:layout="@layout/activity_main"
-        >
 
-
-    </activity>
     <fragment
         android:id="@+id/forgotFragment"
         android:name="com.goingbacking.goingbacking.UI.Login.ForgetFragment"
@@ -79,7 +59,5 @@
             app:popUpTo="@id/loginFragment"
             app:popUpToInclusive="true" />
     </fragment>
-
-    <include app:graph="@navigation/input_navigation" />
 
 </navigation>

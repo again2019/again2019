@@ -121,12 +121,8 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
     private fun onFirebaseAuthTask(task: Task<AuthResult>) {
         if (task.isSuccessful) {
             Toast.makeText(requireActivity(), "로그인 성공", Toast.LENGTH_SHORT).show()
-
             // Google로 로그인 성공
-            val intent = Intent(requireActivity(), InputActivity::class.java)
-            startActivity(intent)
-
-
+            moveInputPage()
         } else {
             // Google로 로그인 실패
             Toast.makeText(requireActivity(), "로그인 실패", Toast.LENGTH_SHORT).show()
@@ -150,7 +146,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
             when (state) {
                 is UiState.Success -> {
                     Toast.makeText(requireActivity(), "로그인 성공", Toast.LENGTH_SHORT).show()
-                    findNavController().navigate(R.id.action_loginFragment_to_input_navigation)
+                    moveInputPage()
                 }
                 is UiState.Failure -> {
                     Toast.makeText(requireActivity(), "로그인 실패", Toast.LENGTH_SHORT).show()
@@ -193,6 +189,12 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
 //        }
 
     }
+
+    private fun moveInputPage() {
+        val intent = Intent(requireActivity(), InputActivity::class.java)
+        startActivity(intent)
+    }
+
 
     private fun moveMainPage() {
         val intent = Intent(requireActivity(), MainActivity::class.java)

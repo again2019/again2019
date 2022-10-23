@@ -19,8 +19,6 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
 
-    // **** backstack 관리 필요 ****
-
     private val viewModel : LoginViewModel by viewModels()
     override fun getFragmentBinding(
         inflater: LayoutInflater,
@@ -50,8 +48,6 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
                 }
              }
         }
-
-
     }
 
     private fun buttonClick() = with(binding) {
