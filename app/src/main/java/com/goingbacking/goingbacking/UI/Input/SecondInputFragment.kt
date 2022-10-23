@@ -29,7 +29,6 @@ class SecondInputFragment : BaseFragment<FragmentSecondInputBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        SecondInputObserver()
         setArrayAdapter()
         onClick()
     }
@@ -48,22 +47,26 @@ class SecondInputFragment : BaseFragment<FragmentSecondInputBinding>() {
         }
         SecondInputButton2.setOnClickListener {
             viewModel.updateSecondInput(SecondInputSpinner.selectedItem.toString())
+            SecondInputObserver()
+
             findNavController().navigate(R.id.action_secondInputFragment_to_thirdInputFragment)
         }
     }
 
     private fun SecondInputObserver() {
+        // **** 실패 시 report 하는 기능 ****
         viewModel.updateSecondInput.observe(viewLifecycleOwner) {
                 state ->
             when(state) {
                 is UiState.Failure -> {
-                    Toast.makeText(requireActivity(), "fail", Toast.LENGTH_SHORT).show()
+                    //Toast.makeText(requireActivity(), "fail", Toast.LENGTH_SHORT).show()
                 }
                 is UiState.Success -> {
-                    Toast.makeText(requireActivity(), "success", Toast.LENGTH_SHORT).show()
+                    // makeText(requireActivity(), "success", Toast.LENGTH_SHORT).show()
                 }
             }
         }
+        // **** 실패 시 report 하는 기능 ****
     }
 
 

@@ -14,6 +14,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.goingbacking.goingbacking.R
 import com.goingbacking.goingbacking.UI.Base.BaseFragment
+import com.goingbacking.goingbacking.UI.Main.MainActivity
 import com.goingbacking.goingbacking.UI.Tutorial.TutorialActivity
 import com.goingbacking.goingbacking.ViewModel.InputViewModel
 import com.goingbacking.goingbacking.databinding.FragmentThirdInputBinding
@@ -35,23 +36,7 @@ class ThirdInputFragment : BaseFragment<FragmentThirdInputBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        ThirdInputObserver()
         onClick()
-    }
-
-
-    private fun ThirdInputObserver() {
-        viewModel.updateThirdInput.observe(viewLifecycleOwner) {
-                state ->
-            when(state) {
-                is UiState.Failure -> {
-                    Toast.makeText(requireActivity(), "fail", Toast.LENGTH_SHORT).show()
-                }
-                is UiState.Success -> {
-                    Toast.makeText(requireActivity(), "success", Toast.LENGTH_SHORT).show()
-                }
-            }
-        }
     }
 
     private fun onClick() = with(binding) {
@@ -81,16 +66,31 @@ class ThirdInputFragment : BaseFragment<FragmentThirdInputBinding>() {
                 {(it as Chip).text}
 
             var selected = selected1 + ',' + selected2
+            ThirdInputObserver()
             viewModel.updateThirdInput(selected)
-            val intent = Intent(activity, TutorialActivity::class.java)
 
-
-        findNavController().navigate(R.id.action_thirdInputFragment_to_tutorialActivity)
+            moveTutorialPage()
         }
 
     }
+    private fun ThirdInputObserver() {
+        viewModel.updateThirdInput.observe(viewLifecycleOwner) {
+                state ->
+            when(state) {
+                is UiState.Failure -> {
+                    Toast.makeText(requireActivity(), "fail", Toast.LENGTH_SHORT).show()
+                }
+                is UiState.Success -> {
+                    Toast.makeText(requireActivity(), "success", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
 
-
+    private fun moveTutorialPage() {
+        val intent = Intent(requireActivity(), TutorialActivity::class.java)
+        startActivity(intent)
+    }
 
 
 }
