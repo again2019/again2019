@@ -5,40 +5,36 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.util.TypedValue
-import androidx.fragment.app.Fragment
+
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.annotation.ColorRes
 import androidx.appcompat.app.AlertDialog
-import androidx.core.animation.doOnEnd
-import androidx.core.animation.doOnStart
-import androidx.core.content.ContextCompat
+
 import androidx.core.view.children
-import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
-import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.goingbacking.goingbacking.Adapter.CalendarEventAdapter
 import com.goingbacking.goingbacking.UI.Main.Third.ScheduleInputActivity
-import com.goingbacking.goingbacking.Model.CalendarInfoDTO
 import com.goingbacking.goingbacking.Model.Event
 
 import com.goingbacking.goingbacking.R
 import com.goingbacking.goingbacking.UI.Base.BaseFragment
 import com.goingbacking.goingbacking.ViewModel.MainViewModel
 import com.goingbacking.goingbacking.databinding.FragmentThirdMainBinding
+import com.goingbacking.goingbacking.databinding.ItemCalendarDayBinding
+import com.goingbacking.goingbacking.databinding.ItemCalendarHeaderBinding
+
 import com.goingbacking.goingbacking.util.UiState
 import com.goingbacking.goingbacking.util.makeInVisible
 import com.goingbacking.goingbacking.util.makeVisible
+
 import com.goingbacking.goingbacking.util.setTextColorRes
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
+
 
 import com.kizitonwose.calendarview.model.CalendarDay
 import com.kizitonwose.calendarview.model.CalendarMonth
@@ -47,14 +43,9 @@ import com.kizitonwose.calendarview.model.InDateStyle
 import com.kizitonwose.calendarview.ui.DayBinder
 import com.kizitonwose.calendarview.ui.MonthHeaderFooterBinder
 import com.kizitonwose.calendarview.ui.ViewContainer
-import com.kizitonwose.calendarview.utils.next
-import com.kizitonwose.calendarview.utils.yearMonth
+
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.example_3_calendar_day.*
-import kotlinx.android.synthetic.main.example_3_calendar_day.view.*
-import kotlinx.android.synthetic.main.example_3_event_item_view.view.*
-import kotlinx.android.synthetic.main.fragment_third_main.*
-import kotlinx.android.synthetic.main.fragment_third_main.view.*
+
 
 import java.time.DayOfWeek
 import java.time.LocalDate
@@ -133,8 +124,8 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
             override fun create(view: View) = DayViewContainer(view)
             override fun bind(container: DayViewContainer, day: CalendarDay) {
                 container.day = day
-                val textView = container.view.exThreeDayText
-                val dotView = container.view.exThreeDotView
+                val textView = container.binding.exThreeDayText
+                val dotView = container.binding.exThreeDotView
 
                 textView.text = day.date.dayOfMonth.toString()
 
@@ -186,8 +177,7 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
 
         binding.exThreeCalendar.monthScrollListener = {
 
-
-            exThreeSelectedDateText.text = selectionFormatter.format(today)
+            binding.exThreeSelectedDateText.text = selectionFormatter.format(today)
 
 
         }
@@ -321,10 +311,10 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
         if (selectedDate != date) {
             val oldDate = selectedDate
             selectedDate = date
-            oldDate?.let { exThreeCalendar.notifyDateChanged(it) }
-            exThreeCalendar.notifyDateChanged(date)
+            oldDate?.let { binding.exThreeCalendar.notifyDateChanged(it) }
+            binding.exThreeCalendar.notifyDateChanged(date)
             updateAdapterForDate(date)
-            exThreeSelectedDateText.text = selectionFormatter.format(date)
+            binding.exThreeSelectedDateText.text = selectionFormatter.format(date)
 
         }
     }
@@ -339,6 +329,7 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
 
     inner class DayViewContainer(view: View) : ViewContainer(view) {
         lateinit var day: CalendarDay // Will be set when this container is bound.
+        val binding = ItemCalendarDayBinding.bind(view)
         init {
             view.setOnClickListener {
                 if (day.owner == DayOwner.THIS_MONTH) {
@@ -350,7 +341,7 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
     }
 
     inner class MonthViewContainer(view: View) : ViewContainer(view) {
-        val legendLayout = view.findViewById<LinearLayout>(R.id.legendLayout)
+        val legendLayout = ItemCalendarHeaderBinding.bind(view).legendLayout.root
     }
 
 
