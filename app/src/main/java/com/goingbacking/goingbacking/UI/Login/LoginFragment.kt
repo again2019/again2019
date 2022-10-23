@@ -135,6 +135,9 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                     Toast.makeText(requireActivity(), "로그인 성공", Toast.LENGTH_SHORT).show()
                     moveInputPage()
                 }
+                is UiState.Loading -> {
+                    binding.progressCircular.show()
+                }
                 is UiState.Failure -> {
                     Toast.makeText(requireActivity(), "로그인 실패", Toast.LENGTH_SHORT).show()
                 }
