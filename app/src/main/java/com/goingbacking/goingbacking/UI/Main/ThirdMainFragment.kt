@@ -120,93 +120,12 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
         binding.exThreeCalendar.setup(currentMonth.minusMonths(0), currentMonth.plusMonths(0), daysOfWeek.first())
         binding.exThreeCalendar.scrollToMonth(currentMonth)
 
-        binding.exThreeCalendar2.setup(currentMonth.minusMonths(0), currentMonth.plusMonths(0), daysOfWeek.first())
-        binding.exThreeCalendar2.scrollToMonth(currentMonth)
-
         if (savedInstanceState == null) {
             binding.exThreeCalendar.post {
                 // Show today's events initially.
                 selectDate(today)
             }
-            binding.exThreeCalendar2.post {
-                // Show today's events initially.
-                selectDate(today)
-            }
         }
-
-
-//-----
-        binding.exThreeCalendar2.dayBinder = object : DayBinder<DayViewContainer> {
-            override fun create(view: View) = DayViewContainer(view)
-            override fun bind(container: DayViewContainer, day: CalendarDay) {
-                container.day = day
-                val textView = container.view.exThreeDayText
-                val dotView = container.view.exThreeDotView
-
-                textView.text = day.date.dayOfMonth.toString()
-
-                dotView.isVisible = false
-
-                if (day.owner == DayOwner.THIS_MONTH) {
-                    textView.makeVisible()
-                    when (day.date) {
-                        today -> {
-                            textView.setTextColorRes(R.color.example_3_white)
-                            textView.setBackgroundResource(R.drawable.example_3_today_bg)
-                            dotView.makeInVisible()
-                        }
-                        selectedDate -> {
-                            textView.setTextColorRes(R.color.example_3_blue)
-                            textView.setBackgroundResource(R.drawable.example_3_selected_bg)
-                            dotView.makeInVisible()
-                        }
-                        else -> {
-                            textView.setTextColorRes(R.color.example_3_black)
-                            textView.background = null
-
-                            //observer1(day.date, container.view.exThreeDotView)
-
-
-                            observer2(day.date, dotView)
-
-
-
-                        }
-                    }
-                } else {
-                    textView.makeInVisible()
-                    dotView.makeInVisible()
-                }
-
-            }
-        }
-
-        binding.exThreeCalendar2.monthHeaderBinder = object :
-            MonthHeaderFooterBinder<MonthViewContainer> {
-            override fun create(view: View) = MonthViewContainer(view)
-            override fun bind(container: MonthViewContainer, month: CalendarMonth) {
-                // Setup each header day text if we have not done that already.
-                if (container.legendLayout.tag == null) {
-                    container.legendLayout.tag = month.yearMonth
-                    container.legendLayout.children.map { it as TextView }.forEachIndexed { index, tv ->
-                        tv.text = daysOfWeek[index].name.first().toString()
-                        tv.setTextColorRes(R.color.example_3_black)
-                    }
-                }
-            }
-        }
-
-        binding.exThreeCalendar2.monthScrollListener = {
-
-
-            exThreeSelectedDateText.text = selectionFormatter.format(today)
-
-
-        }
-
-//---
-
-
 
 
 
@@ -238,7 +157,7 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
                             textView.setTextColorRes(R.color.example_3_black)
                             textView.background = null
 
-                            //observer1(day.date, container.view.exThreeDotView)
+                            observer1()
                             observer2(day.date, dotView)
                         }
                     }
@@ -286,14 +205,14 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
                     maxRowCount = 1,
                     hasBoundaries = true
                 )
-                binding.exThreeCalendar2.scrollToDate(today)
+                binding.exThreeCalendar.scrollToDate(today)
             } else {
-                binding.exThreeCalendar2.updateMonthConfiguration(
+                binding.exThreeCalendar.updateMonthConfiguration(
                     inDateStyle = InDateStyle.ALL_MONTHS,
                     maxRowCount = 6,
                     hasBoundaries = true
                 )
-                binding.exThreeCalendar2.scrollToDate(today)
+                binding.exThreeCalendar.scrollToDate(today)
 
             }
 
