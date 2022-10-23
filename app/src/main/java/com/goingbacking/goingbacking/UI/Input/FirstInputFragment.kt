@@ -14,9 +14,7 @@ import com.goingbacking.goingbacking.R
 import com.goingbacking.goingbacking.UI.Base.BaseFragment
 import com.goingbacking.goingbacking.ViewModel.InputViewModel
 import com.goingbacking.goingbacking.databinding.FragmentFirstInputBinding
-import com.goingbacking.goingbacking.util.PrefUtil
 import com.goingbacking.goingbacking.util.UiState
-import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -32,7 +30,6 @@ class FirstInputFragment : BaseFragment<FragmentFirstInputBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Toast.makeText(requireContext(), "1: " + FirebaseAuth.getInstance().currentUser?.uid.toString(), Toast.LENGTH_SHORT).show()
 
         onClick()
     }
@@ -74,6 +71,8 @@ class FirstInputFragment : BaseFragment<FragmentFirstInputBinding>() {
 
 
     private fun FirstInputObserver() {
+
+        // **** 실패 시 report 하는 기능 ****
         viewModel.addFirstInput.observe(viewLifecycleOwner) {
                 state ->
             when(state) {
@@ -85,6 +84,7 @@ class FirstInputFragment : BaseFragment<FragmentFirstInputBinding>() {
                 }
             }
         }
+        // -------------------------------
     }
 
 

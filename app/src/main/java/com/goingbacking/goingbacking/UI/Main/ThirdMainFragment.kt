@@ -273,33 +273,27 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
 
         }
 
-        binding.exThreeCalendar.updateMonthConfiguration(
-            inDateStyle = InDateStyle.FIRST_MONTH,
-            maxRowCount = 1,
-            hasBoundaries = true
-        )
-        binding.exThreeCalendar.scrollToDate(today)
-        binding.exThreeCalendar2.updateMonthConfiguration(
-            inDateStyle = InDateStyle.ALL_MONTHS,
-            maxRowCount = 6,
-            hasBoundaries = true
-        )
-        binding.exThreeCalendar2.scrollToDate(today)
 
         binding.exThreeAddButton.setOnClickListener {
             var intent = Intent(activity, ScheduleInputActivity::class.java)
             startActivity(intent)
         }
 
-
-
         binding.weekModeCheckBox.setOnCheckedChangeListener { _, monthToWeek ->
             if (!monthToWeek) {
-                binding.exThreeCalendar.makeInVisible()
-                binding.exThreeCalendar2.makeVisible()
+                binding.exThreeCalendar.updateMonthConfiguration(
+                    inDateStyle = InDateStyle.FIRST_MONTH,
+                    maxRowCount = 1,
+                    hasBoundaries = true
+                )
+                binding.exThreeCalendar2.scrollToDate(today)
             } else {
-                binding.exThreeCalendar2.makeInVisible()
-                binding.exThreeCalendar.makeVisible()
+                binding.exThreeCalendar2.updateMonthConfiguration(
+                    inDateStyle = InDateStyle.ALL_MONTHS,
+                    maxRowCount = 6,
+                    hasBoundaries = true
+                )
+                binding.exThreeCalendar2.scrollToDate(today)
 
             }
 

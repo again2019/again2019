@@ -1,6 +1,5 @@
 package com.goingbacking.goingbacking.UI.Login
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -8,10 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat.finishAffinity
-import androidx.core.app.ActivityCompat.startActivityForResult
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.goingbacking.goingbacking.R
@@ -28,7 +24,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn.getClient
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.common.api.ApiException
-import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
@@ -37,12 +32,10 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class LoginFragment : BaseFragment<FragmentLoginBinding>() {
-
     val viewModel: LoginViewModel by viewModels()
-    private lateinit var getResult: ActivityResultLauncher<Intent>
     private lateinit var googleSignInClient: GoogleSignInClient
-
     private  var firebaseAuth = FirebaseAuth.getInstance()
+
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
@@ -52,10 +45,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
-
-
 
         buttonClick()
     }
@@ -123,8 +112,13 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
     private fun onGoogleSignInAccount(account: GoogleSignInAccount?) {
         if (account != null) {
             val credential = GoogleAuthProvider.getCredential(account.idToken, null)
+
+            // **** mvvn 패턴화 필요 ****
             firebaseAuth.signInWithCredential(credential)?.addOnCompleteListener {
                 onFirebaseAuthTask(it)
+            // --------------------------
+
+
             }
         }
     }
@@ -147,10 +141,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
 
     // 구글 로그인 코드
 
-
-
     // email 로그인 코드
-
     private fun emailLogin() = with(binding) {
         if (validation()) {
             viewModel.emailLogin(emailEdittext.text.toString(), passwordEdittext.text.toString())
@@ -165,8 +156,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                 is UiState.Success -> {
                     Toast.makeText(requireActivity(), "로그인 성공", Toast.LENGTH_SHORT).show()
                     findNavController().navigate(R.id.action_loginFragment_to_input_navigation)
-
-
                 }
                 is UiState.Failure -> {
                     Toast.makeText(requireActivity(), "로그인 실패", Toast.LENGTH_SHORT).show()
@@ -176,7 +165,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
     }
 
     // email 로그인 코드
-
     // 유효한지를 판단하는 기준
     fun validation(): Boolean = with(binding) {
             var isValid = true
@@ -203,11 +191,11 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
     override fun onStart() {
         super.onStart()
 
-        if(FirebaseAuth.getInstance().currentUser?.uid == null) {
-
-        } else {
-            moveMainPage()
-        }
+//        if(PrefUtil.firebaseUid() == null) {
+//
+//        } else {
+//            moveMainPage()
+//        }
 
     }
 
@@ -216,7 +204,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
         startActivity(intent)
         finishAffinity(requireActivity())
     }
-
 }
 
 
