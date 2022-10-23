@@ -7,7 +7,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 
@@ -27,9 +26,6 @@ class FirstMainFragment : BaseFragment<FragmentFirstMainBinding>() {
     ): FragmentFirstMainBinding {
         return FragmentFirstMainBinding.inflate(inflater, container, false)
     }
-
-
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

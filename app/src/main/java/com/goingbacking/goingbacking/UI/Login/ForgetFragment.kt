@@ -19,8 +19,6 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class ForgetFragment : BaseFragment<FragmentForgetBinding>() {
 
-    // **** backstack 관리 필요 ****
-
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
@@ -36,8 +34,6 @@ class ForgetFragment : BaseFragment<FragmentForgetBinding>() {
         forgotPasswordObserver()
         binding.forgotPassBtn.setOnClickListener {
             if(validation()) {
-                viewModel.emailForgetPassword(binding.emailEt.text.toString())
-                Toast.makeText(requireActivity(), "이메일 링크가 발송되었습니다.", Toast.LENGTH_SHORT).show()
                 findNavController().navigate(R.id.action_forgotFragment_to_loginFragment)
             }
         }
@@ -51,10 +47,11 @@ class ForgetFragment : BaseFragment<FragmentForgetBinding>() {
 
                 }
                 is UiState.Failure -> {
+                    Toast.makeText(requireActivity(), "이메일 링크 발송이 실패했습니다.", Toast.LENGTH_SHORT).show()
                 }
                 is UiState.Success -> {
-
-
+                    Toast.makeText(requireActivity(), "이메일 링크가 발송되었습니다.", Toast.LENGTH_SHORT).show()
+                    viewModel.emailForgetPassword(binding.emailEt.text.toString())
                 }
             }
         }
@@ -65,9 +62,13 @@ class ForgetFragment : BaseFragment<FragmentForgetBinding>() {
 
         if (emailEt.text.isNullOrEmpty()){
             isValid = false
-        }else{
+            Toast.makeText(requireActivity(), "이메일을 다시 입력해주세요.", Toast.LENGTH_SHORT).show()
+
+        } else{
             if (!emailEt.text.toString().isValidEmail()){
                 isValid = false
+                Toast.makeText(requireActivity(), "이메일을 다시 확인해주세요.", Toast.LENGTH_SHORT).show()
+
             }
         }
 

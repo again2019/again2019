@@ -27,8 +27,6 @@ class TodayRecyclerViewAdapter
     inner class MyViewHolder(val binding: ItemTodayListBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(todayWhatToDoItem: String, todayWhatToDoTimeItem :String) {
 
-
-
             val startEndItem = todayWhatToDoTimeItem.split('-')
             val startHour = startEndItem[0].toInt() / 60
             var startMinute = startEndItem[0].toInt() % 60
@@ -39,7 +37,6 @@ class TodayRecyclerViewAdapter
             binding.todayWhatToDoTextView.text = todayWhatToDoItem
             }
     }
-
 
     override fun getItemCount(): Int {
         return todayWhatToDo.size

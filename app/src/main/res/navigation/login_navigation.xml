@@ -16,7 +16,9 @@
             app:enterAnim="@anim/anim_slide_in_right"
             app:exitAnim="@anim/anim_slide_out_left"
             app:popEnterAnim="@anim/anim_slide_in_left"
-            app:popExitAnim="@anim/anim_slide_out_right" />
+            app:popExitAnim="@anim/anim_slide_out_right"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true" />
 
     </fragment>
 
@@ -66,15 +68,17 @@
         android:id="@+id/forgotFragment"
         android:name="com.goingbacking.goingbacking.UI.Login.ForgetFragment"
         android:label="ForgotFragment"
-        tools:layout="@layout/fragment_forget"/>
-
+        tools:layout="@layout/fragment_forget">
         <action
             android:id="@+id/action_forgotFragment_to_loginFragment"
             app:destination="@id/loginFragment"
             app:enterAnim="@anim/anim_slide_in_right"
             app:exitAnim="@anim/anim_slide_out_left"
             app:popEnterAnim="@anim/anim_slide_in_left"
-            app:popExitAnim="@anim/anim_slide_out_right"/>
+            app:popExitAnim="@anim/anim_slide_out_right"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
 
     <include app:graph="@navigation/input_navigation" />
 

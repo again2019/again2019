@@ -15,12 +15,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>({
     ActivityMainBinding.inflate(it)
 }) {
 
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
          initBottomNavigation()
-
     }
 
     private fun initBottomNavigation() {
