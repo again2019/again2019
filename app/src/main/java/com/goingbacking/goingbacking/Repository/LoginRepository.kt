@@ -117,6 +117,17 @@ class LoginRepository (
         }
     }
 
+    override fun getCurrentSession(result: (UiState<String>) -> Unit) {
+        val currentUid = firebaseAuth.currentUser?.uid
+        if (currentUid == null) {
+            result.invoke(UiState.Failure("no current uid"))
+        } else {
+            result.invoke(UiState.Success(
+                currentUid
+            ))
+        }
+    }
+
     override fun logout(result: () -> Unit) {
         firebaseAuth.signOut()
         result.invoke()

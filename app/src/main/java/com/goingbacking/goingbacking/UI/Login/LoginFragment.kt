@@ -34,7 +34,6 @@ import dagger.hilt.android.AndroidEntryPoint
 class LoginFragment : BaseFragment<FragmentLoginBinding>() {
     val viewModel: LoginViewModel by viewModels()
     private lateinit var googleSignInClient: GoogleSignInClient
-    private  var firebaseAuth = FirebaseAuth.getInstance()
 
     override fun getFragmentBinding(
         inflater: LayoutInflater,
@@ -177,16 +176,18 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
             return isValid
         }
 
-    override fun onStart() {
-        super.onStart()
-
-//        if(PrefUtil.firebaseUid() == null) {
+//    override fun onStart() {
+//        super.onStart()
 //
-//        } else {
-//            moveMainPage()
+//        viewModel.getCurrentSession()
+//        viewModel.currentSession.observe(viewLifecycleOwner) { state ->
+//            when (state) {
+//                is UiState.Success -> {
+//                    moveMainPage()
+//                }
+//            }
 //        }
-
-    }
+//    }
 
     private fun moveInputPage() {
         val intent = Intent(requireActivity(), InputActivity::class.java)

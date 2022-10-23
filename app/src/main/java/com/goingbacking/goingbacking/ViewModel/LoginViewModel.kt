@@ -33,6 +33,10 @@ class LoginViewModel @Inject constructor(
     val loginCredential: LiveData<UiState<String>>
         get() = _loginCredential
 
+    private val _currentSession = MutableLiveData<UiState<String>>()
+    val currentSession: LiveData<UiState<String>>
+        get() = _currentSession
+
 
     fun getGSO() = viewModelScope.launch {
         _gso.value = UiState.Loading
@@ -66,6 +70,13 @@ class LoginViewModel @Inject constructor(
         _loginCredential.value = UiState.Loading
         loginRepository.signInWithCredential(token) {
             _loginCredential.value = it
+        }
+    }
+
+    fun getCurrentSession() = viewModelScope.launch {
+        _currentSession.value = UiState.Loading
+        loginRepository.getCurrentSession() {
+            _currentSession.value = it
         }
     }
 
