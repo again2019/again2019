@@ -56,13 +56,9 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
         }
         emailLoginButton.setOnClickListener {
             emailLogin()
-
         }
         loginButton.setOnClickListener {
             googleLoginObserver()
-
-
-
         }
         passwordButton.setOnClickListener {
             findNavController().navigate(R.id.action_loginFragment_to_forgetFrgament)
@@ -79,10 +75,9 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                 state ->
             when (state) {
                 is UiState.Success -> {
-
                     googleSignInClient = getClient(requireActivity(), state.data)
                     googleSignInClient?.signInIntent?.run {
-                        startActivityForResult(this, 1)
+                        startActivityForResult(this, REQUEST_CODE)
                     }
                 }
                 is UiState.Failure -> {
@@ -97,7 +92,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (requestCode == 1) {
+        if (requestCode == REQUEST_CODE) {
             val signInTask = GoogleSignIn.getSignedInAccountFromIntent(data)
 
             try {
@@ -203,6 +198,11 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
         val intent = Intent(requireActivity(), MainActivity::class.java)
         startActivity(intent)
         finishAffinity(requireActivity())
+    }
+
+
+    companion object {
+        private const val REQUEST_CODE = 1
     }
 }
 
