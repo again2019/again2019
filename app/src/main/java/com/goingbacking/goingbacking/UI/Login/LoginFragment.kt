@@ -162,18 +162,24 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
 
             if (emailEdittext.text.isNullOrEmpty()){
                 isValid = false
+                Toast.makeText(requireActivity(), "이메일을 다시 입력해주세요", Toast.LENGTH_SHORT).show()
 
             }else{
                 if (!emailEdittext.text.toString().isValidEmail()){
                     isValid = false
+                    Toast.makeText(requireActivity(), "이메일이 유효하지 않습니다.", Toast.LENGTH_SHORT).show()
+
                 }
             }
             if (passwordEdittext.text.isNullOrEmpty()){
                 isValid = false
+                Toast.makeText(requireActivity(), "비밀번호를 다시 입력해주세요.", Toast.LENGTH_SHORT).show()
+
 
             }else{
                 if (passwordEdittext.text.toString().length < 8){
                     isValid = false
+                    Toast.makeText(requireActivity(), "비밀번호를 다시 입력해주세요.", Toast.LENGTH_SHORT).show()
                 }
             }
             return isValid
