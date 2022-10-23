@@ -106,27 +106,19 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
 
     private fun onGoogleSignInAccount(account: GoogleSignInAccount?) {
         if (account != null) {
-            val credential = GoogleAuthProvider.getCredential(account.idToken, null)
-
-            // **** mvvn 패턴화 필요 ****
-            firebaseAuth.signInWithCredential(credential)?.addOnCompleteListener {
-                onFirebaseAuthTask(it)
-            // --------------------------
-
-
+            viewModel.signInWithCredential(account.idToken!!)
+            viewModel.loginCredential.observe(viewLifecycleOwner) { state ->
+                when (state) {
+                    is UiState.Success -> {
+                        Toast.makeText(requireActivity(), "로그인 성공", Toast.LENGTH_SHORT).show()
+                        // Google로 로그인 성공
+                        moveInputPage()
+                    }
+                    is UiState.Failure -> {
+                        Toast.makeText(requireActivity(), "로그인 실패", Toast.LENGTH_SHORT).show()
+                    }
+                }
             }
-        }
-    }
-
-    private fun onFirebaseAuthTask(task: Task<AuthResult>) {
-        if (task.isSuccessful) {
-            Toast.makeText(requireActivity(), "로그인 성공", Toast.LENGTH_SHORT).show()
-            // Google로 로그인 성공
-            moveInputPage()
-        } else {
-            // Google로 로그인 실패
-            Toast.makeText(requireActivity(), "로그인 실패", Toast.LENGTH_SHORT).show()
-
         }
     }
 

@@ -4,10 +4,8 @@ import android.util.Log
 import android.widget.Toast
 import com.goingbacking.goingbacking.util.UiState
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
-import com.google.firebase.auth.FirebaseAuthUserCollisionException
-import com.google.firebase.auth.FirebaseAuthWeakPasswordException
+import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.*
 import com.google.firebase.firestore.FirebaseFirestore
 
 class LoginRepository (
@@ -102,6 +100,21 @@ class LoginRepository (
                     result.invoke(UiState.Failure("Authentication failed, Check email"))
                 }
             }
+    }
+
+    override fun signInWithCredential(token: String, result: (UiState<String>) -> Unit) {
+        val credential = GoogleAuthProvider.getCredential(token, null)
+        firebaseAuth.signInWithCredential(credential)?.addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                result.invoke(UiState.Success("credential success"))
+            } else {
+                result.invoke(UiState.Success("credential fail"))
+            }
+        } .addOnFailureListener {
+            result.invoke(UiState.Failure(
+                it.localizedMessage
+            ))
+        }
     }
 
     override fun logout(result: () -> Unit) {
