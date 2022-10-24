@@ -14,7 +14,7 @@ import com.goingbacking.goingbacking.Model.WhatToDoYearDTO
 import com.goingbacking.goingbacking.R
 import com.goingbacking.goingbacking.UI.Base.BaseFragment
 import com.goingbacking.goingbacking.ViewModel.InputViewModel
-import com.goingbacking.goingbacking.bottomsheet.InputBottomSheet
+import com.goingbacking.goingbacking.UI.bottomsheet.InputBottomSheet
 import com.goingbacking.goingbacking.databinding.FragmentThirdInputBinding
 import com.goingbacking.goingbacking.util.UiState
 import com.google.android.material.chip.Chip

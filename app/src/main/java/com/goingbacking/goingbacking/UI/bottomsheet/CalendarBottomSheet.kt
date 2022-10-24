@@ -1,4 +1,4 @@
-package com.goingbacking.goingbacking.bottomsheet
+package com.goingbacking.goingbacking.UI.bottomsheet
 
 import android.app.TimePickerDialog
 import android.os.Bundle

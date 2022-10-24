@@ -1,4 +1,4 @@
-package com.goingbacking.goingbacking.bottomsheet
+package com.goingbacking.goingbacking.UI.bottomsheet
 
 import android.content.Intent
 import android.os.Bundle

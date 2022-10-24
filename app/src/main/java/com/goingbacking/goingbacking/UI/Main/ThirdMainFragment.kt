@@ -21,7 +21,7 @@ import com.goingbacking.goingbacking.Model.Event
 import com.goingbacking.goingbacking.R
 import com.goingbacking.goingbacking.UI.Base.BaseFragment
 import com.goingbacking.goingbacking.ViewModel.MainViewModel
-import com.goingbacking.goingbacking.bottomsheet.CalendarBottomSheet
+import com.goingbacking.goingbacking.UI.bottomsheet.CalendarBottomSheet
 import com.goingbacking.goingbacking.databinding.FragmentThirdMainBinding
 import com.goingbacking.goingbacking.databinding.ItemCalendarDayBinding
 import com.goingbacking.goingbacking.databinding.ItemCalendarHeaderBinding
@@ -66,10 +66,7 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
             .setNegativeButton(R.string.close, null)
             .show()
     }
-
-
-
-
+    
     private var selectedDate: LocalDate? = null
     private val today = LocalDate.now()
     private val selectionFormatter = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일")
@@ -203,37 +200,6 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
 
             }
 
-//            val firstDate = exThreeCalendar.findFirstVisibleDay()?.date ?: return@setOnCheckedChangeListener
-//            val lastDate = exThreeCalendar.findLastVisibleDay()?.date ?: return@setOnCheckedChangeListener
-//
-//            val oneWeekHeight = exThreeCalendar.daySize.height
-//            val oneMonthHeight = oneWeekHeight * 6
-//
-//            val oldHeight = if (monthToWeek) oneMonthHeight else oneWeekHeight
-//            val newHeight = if (monthToWeek) oneWeekHeight else oneMonthHeight
-//
-//
-//            if (!monthToWeek) {
-//                exThreeCalendar.updateMonthConfiguration(
-//                    inDateStyle = InDateStyle.ALL_MONTHS,
-//                    maxRowCount = 6,
-//                    hasBoundaries = true
-//                )
-//                if (firstDate.yearMonth == lastDate.yearMonth) {
-//                        exThreeCalendar.scrollToMonth(firstDate.yearMonth)
-//                    } else {
-//                        // We compare the next with the last month on the calendar so we don't go over.
-//                        exThreeCalendar.scrollToMonth(minOf(firstDate.yearMonth.next, currentMonth.plusMonths(10)))
-//                    }
-//            } else {
-//                exThreeCalendar.updateMonthConfiguration(
-//                        inDateStyle = InDateStyle.FIRST_MONTH,
-//                        maxRowCount = 1,
-//                        hasBoundaries = false
-//                    )
-//                exThreeCalendar.scrollToDate(today)
-//            }
-//        }
 
         }
     }
