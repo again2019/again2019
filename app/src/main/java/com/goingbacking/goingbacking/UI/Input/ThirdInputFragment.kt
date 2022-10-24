@@ -39,8 +39,7 @@ class ThirdInputFragment : BaseFragment<FragmentThirdInputBinding>() {
 
     private fun onClick() = with(binding) {
         bottomsheet.setOnClickListener {
-            val bottom  = InputBottomSheet()
-            bottom.show(childFragmentManager, bottom.tag)
+
         }
 
 
@@ -65,19 +64,30 @@ class ThirdInputFragment : BaseFragment<FragmentThirdInputBinding>() {
             val selected1 = chipGroup.children.toList()
                 .filter{ (it as Chip).isChecked}.joinToString(",")
                 {(it as Chip).text}
-            var selected2 = inputChipGroup.children.toList()
+            val selected2 = inputChipGroup.children.toList()
                 .filter{ (it as Chip).isChecked}.joinToString(",")
                 {(it as Chip).text}
 
-            var selected = selected1 + ',' + selected2
-            ThirdInputObserver()
-            viewModel.updateThirdInput(selected)
+            var selected = ""
+            if (selected1.equals(""))  {
+                selected = selected2
+            } else if (selected2.equals("")) {
+                selected = selected1
+            } else {
+                selected = selected1 + ',' + selected2
+            }
 
-            moveTutorialPage()
+            ThirdInputObserver(selected)
+
+            val bottom  = InputBottomSheet()
+            bottom.show(childFragmentManager, bottom.tag)
+
+            //moveTutorialPage()
         }
 
     }
-    private fun ThirdInputObserver() {
+    private fun ThirdInputObserver(selected: String) {
+        viewModel.updateThirdInput(selected)
         viewModel.updateThirdInput.observe(viewLifecycleOwner) {
                 state ->
             when(state) {

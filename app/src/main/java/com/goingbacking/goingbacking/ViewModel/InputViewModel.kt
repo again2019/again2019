@@ -25,6 +25,11 @@ class InputViewModel @Inject constructor (
     val updateThirdInput: LiveData<UiState<String>>
         get() = _updateThirdInput
 
+    private val _checkUserInfo = MutableLiveData<UiState<UserInfoDTO>>()
+    val checkUserInfo: LiveData<UiState<UserInfoDTO>>
+        get() = _checkUserInfo
+
+
     fun addFirstInput(userInfoDTO: UserInfoDTO) = viewModelScope.launch {
         _addFirstInput.value = UiState.Loading
         inputRepository.addFirstInput(userInfoDTO) {
@@ -45,7 +50,13 @@ class InputViewModel @Inject constructor (
         inputRepository.updateThirdInput(whatToDo) {
             _updateSecondInput.value = it
         }
+    }
 
+    fun checkInput() = viewModelScope.launch {
+        _checkUserInfo.value = UiState.Loading
+        inputRepository.checkInput {
+            _checkUserInfo.value = it
+        }
     }
 
 
