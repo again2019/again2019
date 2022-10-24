@@ -6,6 +6,14 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/progress_circular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:indicatorColor="@color/black"
+        android:indeterminate="true"
+        android:visibility="invisible" />
+
     <Button
         android:id="@+id/ThirdInputButton1"
         android:text="이전"
@@ -17,13 +25,6 @@
         android:text="다음"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
-
-    <Button
-        android:id="@+id/bottomsheet"
-        android:text="bottom sheet"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
 
     <TextView
         android:id="@+id/whatToDoEditText"

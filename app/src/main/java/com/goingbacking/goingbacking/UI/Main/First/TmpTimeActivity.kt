@@ -8,9 +8,11 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.goingbacking.goingbacking.Adapter.TmpTimeRecyclerViewAdapter
+import com.goingbacking.goingbacking.R
 import com.goingbacking.goingbacking.UI.Base.BaseActivity
 
 import com.goingbacking.goingbacking.ViewModel.TmpTimeViewModel
+import com.goingbacking.goingbacking.bottomsheet.InputBottomSheet
 import com.goingbacking.goingbacking.databinding.ActivityTmpTimeBinding
 import com.goingbacking.goingbacking.util.UiState
 import com.google.firebase.firestore.FieldValue
@@ -27,9 +29,8 @@ class TmpTimeActivity : BaseActivity<ActivityTmpTimeBinding>({
                 TmpTimeDayOberver(wakeUpTime1, wakeUpTime2, count)
                 TmpTimeMonthOberver(wakeUpTime3, wakeUpTime2, count)
                 TmpTimeYearOberver(wakeUpTime3, count)
-                val intent = Intent(this, WhatToDoSaveActivity::class.java)
-                intent.putExtra("count", count_double)
-                startActivity(intent)
+                val bottom  = InputBottomSheet()
+                bottom.show(supportFragmentManager, bottom.tag)
             }
 
         )
@@ -51,9 +52,15 @@ class TmpTimeActivity : BaseActivity<ActivityTmpTimeBinding>({
         viewModel.tmpTimeDTOs.observe(this) { state ->
             when(state){
                 is UiState.Success -> {
+                    binding.progressCircular.hide()
                     adapter.updateList(state.data)
                 }
+                is UiState.Loading -> {
+                    binding.progressCircular.show()
+                }
                 is UiState.Failure -> {
+                    binding.progressCircular.hide()
+                    Toast.makeText(this, R.string.load_tmpTime_fail, Toast.LENGTH_SHORT).show()
                 }
 
             }
@@ -65,10 +72,14 @@ class TmpTimeActivity : BaseActivity<ActivityTmpTimeBinding>({
         viewModel.tmpTimeDayDTOs.observe(this) { state ->
             when(state){
                 is UiState.Success -> {
-
+                    binding.progressCircular.hide()
+                }
+                is UiState.Loading -> {
+                    binding.progressCircular.show()
                 }
                 is UiState.Failure -> {
-                    Toast.makeText(this, "failure1", Toast.LENGTH_SHORT).show()
+                    binding.progressCircular.hide()
+                    Toast.makeText(this, R.string.update_day_fail, Toast.LENGTH_SHORT).show()
                 }
 
             }
@@ -80,10 +91,14 @@ class TmpTimeActivity : BaseActivity<ActivityTmpTimeBinding>({
         viewModel.tmpTimeMonthDTOs.observe(this) { state ->
             when(state){
                 is UiState.Success -> {
-
+                    binding.progressCircular.hide()
+                }
+                is UiState.Loading -> {
+                    binding.progressCircular.show()
                 }
                 is UiState.Failure -> {
-                    Toast.makeText(this, "failure2", Toast.LENGTH_SHORT).show()
+                    binding.progressCircular.hide()
+                    Toast.makeText(this, R.string.update_month_fail, Toast.LENGTH_SHORT).show()
                 }
 
             }
@@ -95,10 +110,14 @@ class TmpTimeActivity : BaseActivity<ActivityTmpTimeBinding>({
         viewModel.tmpTimeYearDTOs.observe(this) { state ->
             when(state){
                 is UiState.Success -> {
-
+                    binding.progressCircular.hide()
+                }
+                is UiState.Loading -> {
+                    binding.progressCircular.show()
                 }
                 is UiState.Failure -> {
-                    Toast.makeText(this, "failure3", Toast.LENGTH_SHORT).show()
+                    binding.progressCircular.hide()
+                    Toast.makeText(this, R.string.update_year_fail, Toast.LENGTH_SHORT).show()
                 }
 
             }

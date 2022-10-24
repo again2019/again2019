@@ -1,6 +1,7 @@
 package com.goingbacking.goingbacking.UI.Main
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.goingbacking.goingbacking.*
 import com.goingbacking.goingbacking.Adapter.TodayRecyclerViewAdapter
 import com.goingbacking.goingbacking.UI.Base.BaseFragment
+import com.goingbacking.goingbacking.UI.Main.First.TmpTimeActivity
 import com.goingbacking.goingbacking.databinding.FragmentFirstMainBinding
 import com.goingbacking.goingbacking.util.PrefUtil
 import dagger.hilt.android.AndroidEntryPoint
@@ -31,7 +33,7 @@ class FirstMainFragment : BaseFragment<FragmentFirstMainBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.tmpTimeButton.setOnClickListener {
-            findNavController().navigate(R.id.action_firstMainFragment_to_tmpTimeActivity)
+            moveTmpTimePage()
         }
 
         binding.todayTime.text = PrefUtil.getTodayTotalTime(requireContext()).toString()
@@ -39,9 +41,7 @@ class FirstMainFragment : BaseFragment<FragmentFirstMainBinding>() {
         val todayWhatToDo = PrefUtil.getTodayWhatToDo(requireActivity()).toString()
         val todayWhatToDoTime = PrefUtil.getTodayWhatToDoTime(requireActivity()).toString()
 
-        if (todayWhatToDo.equals("") || todayWhatToDoTime.equals("")) {
-
-        } else {
+       if(!(todayWhatToDo.equals("") || todayWhatToDoTime.equals(""))) {
             val todayWhatToDo2 = todayWhatToDo.replace("[", "").replace("]", "").split(", ")
             val todayWhatToDoTime2 = todayWhatToDoTime.replace("[", "").replace("]", "").split(", ")
             val adapter = TodayRecyclerViewAdapter(requireActivity(), todayWhatToDo2, todayWhatToDoTime2)
@@ -50,9 +50,12 @@ class FirstMainFragment : BaseFragment<FragmentFirstMainBinding>() {
         }
     }
 
-
-
+    private fun moveTmpTimePage() {
+        val intent = Intent(requireActivity(), TmpTimeActivity::class.java)
+        startActivity(intent)
     }
+
+}
 
 
 

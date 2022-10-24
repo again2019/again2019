@@ -8,22 +8,6 @@ class PrefUtil {
 
     companion object {
 
-        // 자신의 고유 uid를 저장하는 sharedPreference
-        private const val MYUID_ID = "my_uid"
-
-        fun getMyUid(context: Context): String? {
-            val preferences = PreferenceManager.getDefaultSharedPreferences(context)
-            return preferences.getString(MYUID_ID, "")
-        }
-
-        fun setMyUid(uid: String, context: Context){
-            val editor = PreferenceManager.getDefaultSharedPreferences(context).edit()
-            editor.putString(MYUID_ID, uid)
-            editor.apply()
-        }
-
-
-
 
         private const val SECONDS_REMAINING_ID = "seconds_remaining"
 

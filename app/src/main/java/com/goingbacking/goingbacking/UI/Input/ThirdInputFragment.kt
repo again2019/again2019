@@ -1,6 +1,5 @@
 package com.goingbacking.goingbacking.UI.Input
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,7 +11,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.goingbacking.goingbacking.R
 import com.goingbacking.goingbacking.UI.Base.BaseFragment
-import com.goingbacking.goingbacking.UI.Tutorial.TutorialActivity
 import com.goingbacking.goingbacking.ViewModel.InputViewModel
 import com.goingbacking.goingbacking.bottomsheet.InputBottomSheet
 import com.goingbacking.goingbacking.databinding.FragmentThirdInputBinding
@@ -38,11 +36,6 @@ class ThirdInputFragment : BaseFragment<FragmentThirdInputBinding>() {
     }
 
     private fun onClick() = with(binding) {
-        bottomsheet.setOnClickListener {
-
-        }
-
-
         chipAddButton.setOnClickListener {
             inputChipGroup.addView(Chip(requireContext()).apply {
                 text = chipInputEditText.text.toString()
@@ -82,7 +75,6 @@ class ThirdInputFragment : BaseFragment<FragmentThirdInputBinding>() {
             val bottom  = InputBottomSheet()
             bottom.show(childFragmentManager, bottom.tag)
 
-            //moveTutorialPage()
         }
 
     }
@@ -92,19 +84,15 @@ class ThirdInputFragment : BaseFragment<FragmentThirdInputBinding>() {
                 state ->
             when(state) {
                 is UiState.Failure -> {
-                    Toast.makeText(requireActivity(), "fail", Toast.LENGTH_SHORT).show()
+                    binding.progressCircular.hide()
+                }
+                is UiState.Loading -> {
+                    binding.progressCircular.show()
                 }
                 is UiState.Success -> {
-                    Toast.makeText(requireActivity(), "success", Toast.LENGTH_SHORT).show()
+                    binding.progressCircular.hide()
                 }
             }
         }
     }
-
-    private fun moveTutorialPage() {
-        val intent = Intent(requireActivity(), TutorialActivity::class.java)
-        startActivity(intent)
-    }
-
-
 }
