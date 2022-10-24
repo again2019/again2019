@@ -54,5 +54,8 @@
     <string name="update_month_fail"> 해당 달에 시간을 업데이트 할 수 없습니다. </string>
     <string name="update_year_fail"> 해당 년에 시간을 업데이트 할 수 없습니다. </string>
     <string name="load_tmpTime_fail"> 임시 저장된 시간을 불러 올 수 없습니다. </string>
+    <string name="no_time_input"> 입력할 시간이 없습니다. </string>
+    <string name="whatToDo_update_time_fail"> 시간 업데이트를 실패했습니다. </string>
+
 
 </resources>

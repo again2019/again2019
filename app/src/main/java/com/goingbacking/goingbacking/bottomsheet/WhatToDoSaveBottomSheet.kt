@@ -5,56 +5,120 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.view.isInvisible
+import androidx.core.view.isVisible
+import androidx.fragment.app.activityViewModels
 import com.goingbacking.goingbacking.R
+import com.goingbacking.goingbacking.ViewModel.InputViewModel
+import com.goingbacking.goingbacking.ViewModel.TmpTimeViewModel
+import com.goingbacking.goingbacking.databinding.BottomSheetWhatToDoSaveBinding
+import com.goingbacking.goingbacking.util.UiState
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.android.material.chip.Chip
+import com.google.firebase.firestore.FieldValue
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [WhatToDoSaveBottomSheet.newInstance] factory method to
- * create an instance of this fragment.
- */
-class WhatToDoSaveBottomSheet : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+class WhatToDoSaveBottomSheet : BottomSheetDialogFragment() {
+    private lateinit var binding : BottomSheetWhatToDoSaveBinding
+    private val viewModel: TmpTimeViewModel by activityViewModels()
+    private var count_double = 0.0
+    private var finalWhatToDo = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.bottom_sheet_what_to_do_save, container, false)
+        binding = BottomSheetWhatToDoSaveBinding.inflate(inflater, container, false)
+
+        count_double = arguments?.getDouble("count")!!
+        binding.whatToDoCount.text = count_double.toInt().toString()
+
+        whatToDoObserver()
+
+        onClick()
+
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment WhatToDoSaveBottomSheet.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            WhatToDoSaveBottomSheet().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    private fun onClick() = with(binding) {
+        binding.whatToDoSaveButton.setOnClickListener {
+            monthObserver(finalWhatToDo, FieldValue.increment(count_double))
+            yearObserver(finalWhatToDo, FieldValue.increment(count_double))
+            dismiss()
+        }
+        binding.exitButton.setOnClickListener {
+            dismiss()
+        }
+    }
+    private fun whatToDoObserver() {
+        viewModel.getWhatToDoInfo()
+        viewModel.whatToDoListDTOs.observe(this) { state ->
+            when(state) {
+                is UiState.Success -> {
+                    binding.progressCircular.hide()
+
+                    if (state.data.equals("")) {
+                        binding.noTextView.isVisible = true
+                        binding.chipGroup.isInvisible = true
+                    } else {
+                        binding.noTextView.isInvisible = true
+                        binding.chipGroup.isVisible = true
+                        val whatToDoList = state.data.split(",")
+                        for (i in whatToDoList){
+                            binding.chipGroup.addView(Chip(requireContext()).apply {
+                                text = i
+                                isCheckable = true
+                                setOnClickListener{ finalWhatToDo = i }
+                            })
+                        }
+                    }
+                }
+                is UiState.Loading -> {
+                    binding.progressCircular.show()
+                }
+                is UiState.Failure -> {
+                    binding.progressCircular.hide()
+                    Toast.makeText(requireContext(), R.string.whatToDo_update_time_fail, Toast.LENGTH_SHORT).show()
                 }
             }
+        }
     }
+
+
+    private fun monthObserver(whatToDoText :String, count: FieldValue) {
+        viewModel.updateWhatToDoMonthInfo(whatToDoText, count)
+        viewModel.whatToDoMonthDTOs.observe(this) { state ->
+            when(state) {
+                is UiState.Success -> {
+                    binding.progressCircular.hide()
+                }
+                is UiState.Loading -> {
+                    binding.progressCircular.show()
+                }
+                is UiState.Failure -> {
+                    binding.progressCircular.hide()
+                    Toast.makeText(requireContext(), R.string.whatToDo_update_time_fail, Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
+    private fun yearObserver(whatToDoText :String, count: FieldValue) {
+        viewModel.updateWhatToDoYearInfo(whatToDoText, count)
+        viewModel.whatToDoYearDTOs.observe(this) { state ->
+            when(state) {
+                is UiState.Success -> {
+                    binding.progressCircular.hide()
+                }
+                is UiState.Loading -> {
+                    binding.progressCircular.show()
+                }
+                is UiState.Failure -> {
+                    binding.progressCircular.hide()
+                    Toast.makeText(requireContext(), R.string.whatToDo_update_time_fail, Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
 }

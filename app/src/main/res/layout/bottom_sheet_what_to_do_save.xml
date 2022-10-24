@@ -1,14 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".bottomsheet.WhatToDoSaveBottomSheet">
+    tools:context=".bottomsheet.WhatToDoSaveBottomSheet"
+    android:orientation="vertical">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:id="@+id/whatToDoCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="시간"/>
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/noTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="chip이 없습니다."/>
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/chipGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintWidth_percent="0.8"
+        app:singleSelection="true">
+
+
+    </com.google.android.material.chip.ChipGroup>
+
+
+    <Button
+        android:id="@+id/whatToDoSaveButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="완료"/>
+
+    <Button
+        android:id="@+id/exitButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="나가기"/>
+
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/progress_circular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:indicatorColor="@color/example_3_blue"
+        android:indeterminate="true"
+        android:visibility="invisible" />
+
+</LinearLayout>

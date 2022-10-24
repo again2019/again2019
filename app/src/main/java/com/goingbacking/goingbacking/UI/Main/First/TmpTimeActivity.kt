@@ -13,6 +13,7 @@ import com.goingbacking.goingbacking.UI.Base.BaseActivity
 
 import com.goingbacking.goingbacking.ViewModel.TmpTimeViewModel
 import com.goingbacking.goingbacking.bottomsheet.InputBottomSheet
+import com.goingbacking.goingbacking.bottomsheet.WhatToDoSaveBottomSheet
 import com.goingbacking.goingbacking.databinding.ActivityTmpTimeBinding
 import com.goingbacking.goingbacking.util.UiState
 import com.google.firebase.firestore.FieldValue
@@ -29,8 +30,17 @@ class TmpTimeActivity : BaseActivity<ActivityTmpTimeBinding>({
                 TmpTimeDayOberver(wakeUpTime1, wakeUpTime2, count)
                 TmpTimeMonthOberver(wakeUpTime3, wakeUpTime2, count)
                 TmpTimeYearOberver(wakeUpTime3, count)
-                val bottom  = InputBottomSheet()
-                bottom.show(supportFragmentManager, bottom.tag)
+                val bottom  = WhatToDoSaveBottomSheet()
+                val bundle = Bundle()
+                if (count_double.equals(0.0)) {
+                    Toast.makeText(this, R.string.no_time_input, Toast.LENGTH_SHORT).show()
+                } else {
+                    bundle.putDouble("count", count_double)
+                    bottom.arguments = bundle
+                    bottom.show(supportFragmentManager, bottom.tag)
+                }
+
+
             }
 
         )
