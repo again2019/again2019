@@ -71,7 +71,7 @@ class InputBottomSheet : BottomSheetDialogFragment() {
     private fun onClick() = with(binding) {
         okayButton.setOnClickListener {
             moveTutorialPage()
-            
+
         }
         noButton.setOnClickListener {
             dismiss()
