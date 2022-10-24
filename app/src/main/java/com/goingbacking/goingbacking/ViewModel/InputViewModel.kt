@@ -2,6 +2,8 @@ package com.goingbacking.goingbacking.ViewModel
 
 import androidx.lifecycle.*
 import com.goingbacking.goingbacking.Model.UserInfoDTO
+import com.goingbacking.goingbacking.Model.WhatToDoMonthDTO
+import com.goingbacking.goingbacking.Model.WhatToDoYearDTO
 import com.goingbacking.goingbacking.Repository.InputRepositoryIF
 import com.goingbacking.goingbacking.util.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -29,6 +31,13 @@ class InputViewModel @Inject constructor (
     val checkUserInfo: LiveData<UiState<UserInfoDTO>>
         get() = _checkUserInfo
 
+    private val _whatToDoInitMonthDTOs = MutableLiveData<UiState<String>>()
+    val whatToDoInitMonthDTOs : LiveData<UiState<String>>
+        get() = _whatToDoInitMonthDTOs
+
+    private val _whatToDoInitYearDTOs = MutableLiveData<UiState<String>>()
+    val whatToDoInitYearDTOs : LiveData<UiState<String>>
+        get() = _whatToDoInitYearDTOs
 
     fun addFirstInput(userInfoDTO: UserInfoDTO) = viewModelScope.launch {
         _addFirstInput.value = UiState.Loading
@@ -59,5 +68,18 @@ class InputViewModel @Inject constructor (
         }
     }
 
+    fun addInitWhatToDoMonthTime(whatToDoMonthDTO: WhatToDoMonthDTO) = viewModelScope.launch {
+        _whatToDoInitMonthDTOs.value = UiState.Loading
+        inputRepository.addInitWhatToDoMonthTime(whatToDoMonthDTO) {
+            _whatToDoInitMonthDTOs.value = it
+        }
+    }
+
+    fun addInitWhatToDoYearTime(whatToDoYearDTO: WhatToDoYearDTO) = viewModelScope.launch {
+        _whatToDoInitYearDTOs.value = UiState.Loading
+        inputRepository.addInitWhatToDoYearTime(whatToDoYearDTO) {
+            _whatToDoInitYearDTOs.value = it
+        }
+    }
 
 }

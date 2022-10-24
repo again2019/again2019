@@ -4,24 +4,36 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
 import androidx.core.view.children
-import androidx.fragment.app.viewModels
 import com.goingbacking.goingbacking.Model.UserInfoDTO
+import com.goingbacking.goingbacking.Model.WhatToDoMonthDTO
+import com.goingbacking.goingbacking.Model.WhatToDoYearDTO
 import com.goingbacking.goingbacking.UI.Base.BaseActivity
 import com.goingbacking.goingbacking.ViewModel.InputViewModel
 import com.goingbacking.goingbacking.databinding.ActivityChangeInfoBinding
 import com.goingbacking.goingbacking.util.PrefUtil
 import com.google.android.material.chip.Chip
 import dagger.hilt.android.AndroidEntryPoint
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 @AndroidEntryPoint
 class ChangeInfoActivity : BaseActivity<ActivityChangeInfoBinding>({
     ActivityChangeInfoBinding.inflate(it)
 }) {
-
+    var historyWhatToDo = mutableSetOf<String>()
     val viewModel: InputViewModel by viewModels()
+
+    var now = LocalDate.now()
+    var Strnow1 = now.format(DateTimeFormatter.ofPattern("MM")).toInt()
+    var Strnow2 = now.format(DateTimeFormatter.ofPattern("yyyy")).toInt()
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        historyWhatToDo = PrefUtil.getHistoryWhatToDo(this)!!
+
         editInit()
         onClick()
     }
@@ -67,13 +79,45 @@ class ChangeInfoActivity : BaseActivity<ActivityChangeInfoBinding>({
         }
 
         infoChangeButton.setOnClickListener {
+
+
             val selected1 = chipGroup.children.toList()
+                .filter{ (it as Chip).isChecked }.joinToString(",")
+                {(it as Chip).text}
+            val selected2 = changeChipGroup.children.toList()
                 .filter{ (it as Chip).isChecked}.joinToString(",")
                 {(it as Chip).text}
-            var selected2 = changeChipGroup.children.toList()
-                .filter{ (it as Chip).isChecked}.joinToString(",")
-                {(it as Chip).text}
-            var selected = selected1 + ',' + selected2
+
+            var selected = ""
+            if (selected1.equals(""))  {
+                selected = selected2
+            } else if (selected2.equals("")) {
+                selected = selected1
+            } else {
+                selected = selected1 + ',' + selected2
+            }
+
+
+
+            for (whattodo in selected.split(',')) {
+                if (!historyWhatToDo.contains(whattodo)) {
+                    val whatToDoMonthDTO = WhatToDoMonthDTO()
+                    whatToDoMonthDTO.count = 0
+                    whatToDoMonthDTO.month = Strnow1
+                    whatToDoMonthDTO.whatToDo = whattodo
+                    viewModel.addInitWhatToDoMonthTime(whatToDoMonthDTO)
+
+                    val whatToDoYearDTO = WhatToDoYearDTO()
+                    whatToDoYearDTO.count = 0
+                    whatToDoYearDTO.year = Strnow2
+                    whatToDoYearDTO.whatToDo = whattodo
+                    viewModel.addInitWhatToDoYearTime(whatToDoYearDTO)
+
+                }
+                historyWhatToDo!!.add(whattodo)
+            }
+
+            PrefUtil.setHistoryWhatToDo(historyWhatToDo, this@ChangeInfoActivity)
 
             var userInfoDTO = UserInfoDTO()
             userInfoDTO.userNickName = changeNickNameEditText.text.toString()

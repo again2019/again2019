@@ -9,6 +9,8 @@ import android.widget.Toast
 import androidx.core.view.children
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.goingbacking.goingbacking.Model.WhatToDoMonthDTO
+import com.goingbacking.goingbacking.Model.WhatToDoYearDTO
 import com.goingbacking.goingbacking.R
 import com.goingbacking.goingbacking.UI.Base.BaseFragment
 import com.goingbacking.goingbacking.ViewModel.InputViewModel
@@ -17,6 +19,8 @@ import com.goingbacking.goingbacking.databinding.FragmentThirdInputBinding
 import com.goingbacking.goingbacking.util.UiState
 import com.google.android.material.chip.Chip
 import dagger.hilt.android.AndroidEntryPoint
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 @AndroidEntryPoint
 class ThirdInputFragment : BaseFragment<FragmentThirdInputBinding>() {
@@ -54,6 +58,7 @@ class ThirdInputFragment : BaseFragment<FragmentThirdInputBinding>() {
             findNavController().navigate(R.id.action_thirdInputFragment_to_secondInputFragment)
         }
         ThirdInputButton2.setOnClickListener {
+
             val selected1 = chipGroup.children.toList()
                 .filter{ (it as Chip).isChecked}.joinToString(",")
                 {(it as Chip).text}
