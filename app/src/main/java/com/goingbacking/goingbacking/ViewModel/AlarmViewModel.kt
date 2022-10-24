@@ -3,9 +3,13 @@ package com.goingbacking.goingbacking.ViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.goingbacking.goingbacking.Model.WhatToDoMonthDTO
+import com.goingbacking.goingbacking.Model.WhatToDoYearDTO
 import com.goingbacking.goingbacking.Repository.AlarmRepositoryIF
 import com.goingbacking.goingbacking.util.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -23,8 +27,6 @@ class AlarmViewModel @Inject constructor(
     private val _addInitSaveTimeDay = MutableLiveData<UiState<String>>()
     val initSaveTimeDay: LiveData<UiState<String>>
         get() = _addInitSaveTimeDay
-
-
 
     fun addFirstInitSaveTimeMonthInfo () {
         _addFirstInitSaveTimeMonth.value = UiState.Loading
@@ -45,6 +47,8 @@ class AlarmViewModel @Inject constructor(
             _addInitSaveTimeDay.value = it
         }
     }
+
+
 
 
 

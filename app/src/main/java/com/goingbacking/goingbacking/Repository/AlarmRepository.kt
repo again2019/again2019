@@ -2,6 +2,7 @@ package com.goingbacking.goingbacking.Repository
 
 import android.util.Log
 import com.goingbacking.goingbacking.Model.*
+import com.goingbacking.goingbacking.util.FBConstants
 import com.goingbacking.goingbacking.util.FBConstants.Companion.CALENDARINFO
 import com.goingbacking.goingbacking.util.FBConstants.Companion.DAY
 import com.goingbacking.goingbacking.util.FBConstants.Companion.MONTH
@@ -131,6 +132,7 @@ class AlarmRepository (
             saveTimeMonthDTO!!.year = cur_date_text3.toInt()
             saveTimeMonthDTO!!.count = 0
 
+
             firebaseFirestore?.collection(SAVETIMEINFO)?.document(myUid)
                 ?.collection(MONTH)?.document(cur_date_text3)
                 ?.collection(cur_date_text3)?.document(myUid + cur_date_text2)
@@ -159,7 +161,7 @@ class AlarmRepository (
         beforeNotifyTime.add(Calendar.DATE, -1)
         var beforeDateTime = beforeNotifyTime.time
 
-        var bef_date_text1 = SimpleDateFormat("MM", Locale.getDefault()).format(beforeDateTime).toString()
+        var bef_date_text1 = SimpleDateFormat("yyyy", Locale.getDefault()).format(beforeDateTime).toString()
 
         if (bef_date_text1 != cur_date_text3) {
 
@@ -218,6 +220,52 @@ class AlarmRepository (
     ) {
         firebaseFirestore.collection(TMPTIMEINFO)?.document(myUid)
             ?.collection(myUid)?.add(tmpTimeDTO)
+    }
+
+
+    override fun addInitWhatToDoMonthInfo(whatToDOList : MutableSet<String>) {
+        var beforeNotifyTime = Calendar.getInstance()
+        beforeNotifyTime.add(Calendar.DATE, -1)
+        var beforeDateTime = beforeNotifyTime.time
+
+        var bef_date_text1 = SimpleDateFormat("MM", Locale.getDefault()).format(beforeDateTime).toString()
+        if (bef_date_text1 != cur_date_text4) {
+            for (whattodo in whatToDOList) {
+                val whatToDoMonthDTO = WhatToDoMonthDTO()
+                whatToDoMonthDTO.whatToDo = whattodo
+                whatToDoMonthDTO.month = cur_date_text4.toInt()
+                whatToDoMonthDTO.count = 0
+
+                firebaseFirestore?.collection(FBConstants.WHATTODOINFO).document(myUid)
+                    .collection(MONTH).document(cur_date_text1)
+                    .collection(cur_date_text1).document(myUid + whattodo)
+                    .set(whatToDoMonthDTO)
+            }
+        }
+    }
+
+    override fun addInitWhatToDoYearInfo(whatToDOList : MutableSet<String>) {
+        var beforeNotifyTime = Calendar.getInstance()
+        beforeNotifyTime.add(Calendar.DATE, -1)
+        var beforeDateTime = beforeNotifyTime.time
+
+        var bef_date_text1 = SimpleDateFormat("yyyy", Locale.getDefault()).format(beforeDateTime).toString()
+
+        if (bef_date_text1 != cur_date_text3) {
+            for (whattodo in whatToDOList) {
+                val whatToDoYearDTO = WhatToDoYearDTO()
+                whatToDoYearDTO.whatToDo = whattodo
+                whatToDoYearDTO.year = cur_date_text3.toInt()
+                whatToDoYearDTO.count = 0
+
+                firebaseFirestore?.collection(FBConstants.WHATTODOINFO).document(myUid)
+                    .collection(YEAR).document(cur_date_text3)
+                    .collection(cur_date_text3).document(myUid + whattodo)
+                    .set(whatToDoYearDTO)
+
+            }
+        }
+
     }
 
 }

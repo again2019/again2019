@@ -22,4 +22,10 @@ interface AlarmRepositoryIF {
     fun getTodayInfo(result: (ArrayList<CalendarInfoDTO>) -> Unit)
     fun addTmpTimeInfo(tmpTimeDTO: TmpTimeDTO)
 
+
+    // month마다 whattodo 초기화
+    fun addInitWhatToDoMonthInfo(whatToDOList : MutableSet<String>)
+    // year마다 whattodo 초기화
+    fun addInitWhatToDoYearInfo(whatToDOList : MutableSet<String>)
+
 }

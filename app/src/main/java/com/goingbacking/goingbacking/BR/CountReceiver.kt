@@ -14,6 +14,7 @@ import com.goingbacking.goingbacking.AppConstants
 import com.goingbacking.goingbacking.UI.Main.MainActivity
 
 import com.goingbacking.goingbacking.Model.CalendarInfoDTO
+import com.goingbacking.goingbacking.Model.WhatToDoMonthDTO
 import com.goingbacking.goingbacking.R
 
 import com.goingbacking.goingbacking.Repository.AlarmRepository
@@ -37,14 +38,31 @@ class CountReceiver : BroadcastReceiver() {
         Toast.makeText(context, "count receiverstart", Toast.LENGTH_SHORT).show()
 
         saveDailyInfo()
+        saveWhatToDoInfo(context)
+
         getTodayInfo(context, intent)
 
+
     }
+
+
 
     private fun saveDailyInfo() {
         alarmRepository.addFirstInitSaveTimeMonthInfo {}
         alarmRepository.addFirstInitSaveTimeYearInfo {}
         alarmRepository.addInitSaveTimeDayInfo {}
+
+
+    }
+
+    private fun saveWhatToDoInfo(context : Context) {
+
+        val whatToDoList = PrefUtil.getHistoryWhatToDo(context)
+
+        alarmRepository.addInitWhatToDoMonthInfo(whatToDoList!!)
+        alarmRepository.addInitWhatToDoYearInfo(whatToDoList!!)
+
+
     }
 
     private fun getTodayInfo(context: Context, intent: Intent) {
