@@ -27,9 +27,6 @@
             android:name=".UI.Main.First.TmpTimeActivity"
             android:exported="true" />
         <activity
-            android:name=".UI.Main.Third.ScheduleInputActivity"
-            android:exported="true" />
-        <activity
             android:name=".UI.Main.Fifth.ChangeInfoActivity"
             android:exported="true" />
         <activity

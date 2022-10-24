@@ -1,6 +1,5 @@
 package com.goingbacking.goingbacking.UI.Main
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 
@@ -17,12 +16,12 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.goingbacking.goingbacking.Adapter.CalendarEventAdapter
-import com.goingbacking.goingbacking.UI.Main.Third.ScheduleInputActivity
 import com.goingbacking.goingbacking.Model.Event
 
 import com.goingbacking.goingbacking.R
 import com.goingbacking.goingbacking.UI.Base.BaseFragment
 import com.goingbacking.goingbacking.ViewModel.MainViewModel
+import com.goingbacking.goingbacking.bottomsheet.CalendarBottomSheet
 import com.goingbacking.goingbacking.databinding.FragmentThirdMainBinding
 import com.goingbacking.goingbacking.databinding.ItemCalendarDayBinding
 import com.goingbacking.goingbacking.databinding.ItemCalendarHeaderBinding
@@ -182,8 +181,8 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
 
 
         binding.exThreeAddButton.setOnClickListener {
-            var intent = Intent(activity, ScheduleInputActivity::class.java)
-            startActivity(intent)
+            val bottom  = CalendarBottomSheet()
+            bottom.show(childFragmentManager, bottom.tag)
         }
 
         binding.weekModeCheckBox.setOnCheckedChangeListener { _, monthToWeek ->
