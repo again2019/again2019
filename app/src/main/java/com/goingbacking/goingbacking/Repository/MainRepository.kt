@@ -31,7 +31,7 @@ class MainRepository (
 
     override fun getFifthUserInfo(result: (UiState<UserInfoDTO>) -> Unit) {
         firebaseFirestore.collection(USERINFO)?.document(uid)
-            ?.get(cache)
+            ?.get()
             ?.addOnSuccessListener { document ->
                 val data :UserInfoDTO? = document.toObject(UserInfoDTO::class.java)
                 result.invoke(
@@ -73,29 +73,16 @@ class MainRepository (
 
     override fun getThirdDateInfo(result: (UiState<DateDTO>) -> Unit) {
         firebaseFirestore?.collection(DATE)?.document(uid)
-            ?.get(cache)
+            ?.get()
             ?.addOnSuccessListener { document ->
                 val data: DateDTO? = document.toObject(DateDTO::class.java)
-                result.invoke(
-                    UiState.Success(data!!)
-                )
-            }
-            ?.addOnFailureListener {
-                result.invoke(UiState.Failure(it.localizedMessage))
-            }
-    }
-
-    override fun getThirdDateInfo2(result: (UiState<DateDTO>) -> Unit) {
-        firebaseFirestore?.collection(DATE)?.document(uid)
-            ?.get(cache)
-            ?.addOnSuccessListener { document ->
-                val data: DateDTO? = document.toObject(DateDTO::class.java)
-
-
-
-                result.invoke(
-                    UiState.Success(data!!)
-                )
+                if (data == null) {
+                    result.invoke(UiState.Failure("fail"))
+                } else {
+                    result.invoke(
+                        UiState.Success(data!!)
+                    )
+                }
             }
             ?.addOnFailureListener {
                 result.invoke(UiState.Failure(it.localizedMessage))
@@ -111,7 +98,7 @@ class MainRepository (
         for (i in yearList) {
             firebaseFirestore
                 ?.collection(CALENDARINFO)?.document(uid)?.collection(Strnow)
-                ?.whereEqualTo("date", i)?.get(cache)
+                ?.whereEqualTo("date", i)?.get()
                 ?.addOnSuccessListener { querySnapshot ->
                     if (querySnapshot.count() == 1) {
                         for (snapshot in querySnapshot!!) {

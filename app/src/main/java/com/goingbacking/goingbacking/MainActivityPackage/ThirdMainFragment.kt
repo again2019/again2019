@@ -30,6 +30,10 @@ import com.goingbacking.goingbacking.Model.Event
 
 import com.goingbacking.goingbacking.R
 import com.goingbacking.goingbacking.ViewModel.MainViewModel
+<<<<<<< Updated upstream:app/src/main/java/com/goingbacking/goingbacking/MainActivityPackage/ThirdMainFragment.kt
+=======
+import com.goingbacking.goingbacking.bottomsheet.CalendarBottomSheet
+>>>>>>> Stashed changes:app/src/main/java/com/goingbacking/goingbacking/UI/Main/ThirdMainFragment.kt
 import com.goingbacking.goingbacking.databinding.FragmentThirdMainBinding
 import com.goingbacking.goingbacking.util.UiState
 import com.google.firebase.auth.FirebaseAuth
@@ -74,12 +78,15 @@ class ThirdMainFragment : Fragment() {
             .show()
     }
 
+<<<<<<< Updated upstream:app/src/main/java/com/goingbacking/goingbacking/MainActivityPackage/ThirdMainFragment.kt
     var auth : FirebaseAuth? = null
     var firebaseFirestore : FirebaseFirestore? = null
     var userId : String? = null
     var calendarInfoDTO : CalendarInfoDTO? = null
 
 
+=======
+>>>>>>> Stashed changes:app/src/main/java/com/goingbacking/goingbacking/UI/Main/ThirdMainFragment.kt
     private var selectedDate: LocalDate? = null
     private val today = LocalDate.now()
     private val selectionFormatter = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일")
@@ -95,16 +102,35 @@ class ThirdMainFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentThirdMainBinding.inflate(layoutInflater)
 
+<<<<<<< Updated upstream:app/src/main/java/com/goingbacking/goingbacking/MainActivityPackage/ThirdMainFragment.kt
         init()
 
 
 
 
+=======
+    override fun getFragmentBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ): FragmentThirdMainBinding {
+        return FragmentThirdMainBinding.inflate(inflater, container, false)
+    }
+
+    override fun onPause() {
+        super.onPause()
+
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+
+        observer1()
+>>>>>>> Stashed changes:app/src/main/java/com/goingbacking/goingbacking/UI/Main/ThirdMainFragment.kt
         binding.exThreeRv.apply {
             layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
             adapter = eventsAdapter
             addItemDecoration(DividerItemDecoration(requireContext(), RecyclerView.VERTICAL))
-
         }
 
         val daysOfWeek = daysOfWeekFromLocale()
@@ -119,6 +145,7 @@ class ThirdMainFragment : Fragment() {
             }
         }
 
+<<<<<<< Updated upstream:app/src/main/java/com/goingbacking/goingbacking/MainActivityPackage/ThirdMainFragment.kt
 
 
 
@@ -127,6 +154,8 @@ class ThirdMainFragment : Fragment() {
 
 
 
+=======
+>>>>>>> Stashed changes:app/src/main/java/com/goingbacking/goingbacking/UI/Main/ThirdMainFragment.kt
         binding.exThreeCalendar.dayBinder = object : DayBinder<DayViewContainer> {
             override fun create(view: View) = DayViewContainer(view)
             override fun bind(container: DayViewContainer, day: CalendarDay) {
@@ -155,9 +184,12 @@ class ThirdMainFragment : Fragment() {
                             textView.setTextColorRes(R.color.example_3_black)
                             textView.background = null
 
+<<<<<<< Updated upstream:app/src/main/java/com/goingbacking/goingbacking/MainActivityPackage/ThirdMainFragment.kt
                             //observer1(day.date, container.view.exThreeDotView)
 
 
+=======
+>>>>>>> Stashed changes:app/src/main/java/com/goingbacking/goingbacking/UI/Main/ThirdMainFragment.kt
                             observer2(day.date, dotView)
 
 
@@ -287,16 +319,14 @@ class ThirdMainFragment : Fragment() {
     }
 
     private fun observer1() {
+        viewModel.getThirdDateInfo()
         viewModel.thirdDateDTOs.observe(viewLifecycleOwner) { state ->
             when(state) {
                 is UiState.Success -> {
+                    Log.e("experiment", "ss" + state.data.toString())
                     val data = state.data.date.toString().split(',').toMutableList()
                     saveEvent(data)
-
                     }
-
-
-
 
                 is UiState.Failure -> {
                     Log.e("experiment", state.error.toString())
@@ -384,8 +414,6 @@ class ThirdMainFragment : Fragment() {
     private fun saveEvent(yearList : MutableList<String>) {
         observer3(yearList)
         Log.d("experiment", "now: " + LocalDate.now().toString())
-
-
 
     }
 
