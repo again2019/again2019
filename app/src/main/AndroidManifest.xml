@@ -23,10 +23,6 @@
             android:name=".Service.AlarmService"
             android:enabled="true"
             android:exported="true" />
-
-        <activity
-            android:name=".UI.Main.First.WhatToDoSaveActivity"
-            android:exported="true" />
         <activity
             android:name=".UI.Main.First.TmpTimeActivity"
             android:exported="true" />
