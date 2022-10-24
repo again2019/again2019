@@ -43,9 +43,7 @@ class InputBottomSheet : BottomSheetDialogFragment() {
                     nickName.text = state.data.userNickName
                     type.text = state.data.userType
 
-                    if (state.data.whatToDo.equals("")) {
-
-                    } else {
+                  if (!state.data.whatToDo.equals("")) {
                         for (whattodo in state.data.whatToDo!!.split(',')) {
                             chipGroup.addView(Chip(requireActivity()).apply {
                                 text = whattodo
@@ -71,7 +69,6 @@ class InputBottomSheet : BottomSheetDialogFragment() {
     private fun onClick() = with(binding) {
         okayButton.setOnClickListener {
             moveTutorialPage()
-
         }
         noButton.setOnClickListener {
             dismiss()
