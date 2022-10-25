@@ -22,6 +22,7 @@ import com.goingbacking.goingbacking.Model.Event
 import com.goingbacking.goingbacking.R
 import com.goingbacking.goingbacking.UI.Base.BaseFragment
 import com.goingbacking.goingbacking.UI.Main.Third.ScheduleInputActivity
+import com.goingbacking.goingbacking.UI.Main.Third.TotalCalendarActivity
 import com.goingbacking.goingbacking.ViewModel.MainViewModel
 import com.goingbacking.goingbacking.databinding.FragmentThirdMainBinding
 import com.goingbacking.goingbacking.databinding.ItemCalendarDayBinding
@@ -190,6 +191,10 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
             }
 
 
+        }
+        binding.calendarMode.setOnClickListener {
+            val intent = Intent(requireContext(), TotalCalendarActivity::class.java)
+            startActivity(intent)
         }
     }
 

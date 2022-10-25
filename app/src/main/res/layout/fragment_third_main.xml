@@ -28,6 +28,12 @@
           app:cv_monthHeaderResource="@layout/item_calendar_header"
           app:cv_orientation="horizontal"
           app:cv_scrollMode="paged" />
+      <Button
+          android:id="@+id/calendarMode"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="캘린더 모드"
+          android:textColor="@color/black"/>
       <com.google.android.material.progressindicator.CircularProgressIndicator
           android:id="@+id/progress_circular"
           android:layout_width="wrap_content"

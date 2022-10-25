@@ -16,6 +16,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".UI.Main.Third.TotalCalendarActivity"
+            android:exported="true" />
+        <activity
             android:name=".UI.Main.Third.ScheduleInputActivity"
             android:exported="true" />
         <activity
