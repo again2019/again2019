@@ -134,8 +134,19 @@ class ScheduleInputActivity : BaseActivity<ActivityScheduleInputBinding>({
         finishButton.setOnClickListener {
             if (destinationPlaceEditText.text.equals("")) {
                 Toast.makeText(this@ScheduleInputActivity, R.string.destination_input_fail, Toast.LENGTH_SHORT).show()
+            } else if (list == null) {
+                Toast.makeText(this@ScheduleInputActivity, R.string.date_list_input_fail, Toast.LENGTH_SHORT).show()
+            } else if (home1time == null) {
+                Toast.makeText(this@ScheduleInputActivity, R.string.first_start_time_fail, Toast.LENGTH_SHORT).show()
+            } else if (home2time == null) {
+                Toast.makeText(this@ScheduleInputActivity, R.string.first_end_time_fail, Toast.LENGTH_SHORT).show()
+            } else if (dest1time == null) {
+                Toast.makeText(this@ScheduleInputActivity, R.string.second_start_time_fail, Toast.LENGTH_SHORT).show()
+            } else if (dest2time == null) {
+                Toast.makeText(this@ScheduleInputActivity, R.string.second_end_time_fail, Toast.LENGTH_SHORT).show()
+            } else if (monday || tuesday || wednesday || thursday || friday || saturday || sunday) {
+                Toast.makeText(this@ScheduleInputActivity, R.string.day_select_fail, Toast.LENGTH_SHORT).show()
             } else {
-
                 for (day in list!!) {
                     var dayofweek = day.calendar.get(Calendar.DAY_OF_WEEK).toString()
 
