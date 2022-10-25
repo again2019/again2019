@@ -97,7 +97,6 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        observer1()
 
         binding.exThreeRv.apply {
             layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
@@ -170,8 +169,6 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
         binding.exThreeAddButton.setOnClickListener {
             val intent = Intent(requireContext(), ScheduleInputActivity::class.java)
             startActivity(intent)
-
-
         }
 
         binding.weekModeCheckBox.setOnCheckedChangeListener { _, monthToWeek ->

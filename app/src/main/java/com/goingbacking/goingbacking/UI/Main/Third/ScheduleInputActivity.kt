@@ -12,6 +12,7 @@ import com.applikeysolutions.cosmocalendar.selection.OnDaySelectedListener
 import com.applikeysolutions.cosmocalendar.selection.RangeSelectionManager
 import com.goingbacking.goingbacking.Model.DateDTO
 import com.goingbacking.goingbacking.Model.Event
+import com.goingbacking.goingbacking.R
 import com.goingbacking.goingbacking.UI.Base.BaseActivity
 import com.goingbacking.goingbacking.ViewModel.MainViewModel
 import com.goingbacking.goingbacking.databinding.ActivityScheduleInputBinding
@@ -131,57 +132,57 @@ class ScheduleInputActivity : BaseActivity<ActivityScheduleInputBinding>({
             }
         }
         finishButton.setOnClickListener {
-            for(day in list!!) {
-                var dayofweek = day.calendar.get(Calendar.DAY_OF_WEEK).toString()
+            if (destinationPlaceEditText.text.equals("")) {
+                Toast.makeText(this@ScheduleInputActivity, R.string.destination_input_fail, Toast.LENGTH_SHORT).show()
+            } else {
 
-                var year = day.calendar.get(Calendar.YEAR).toString()
-                var month = (day.calendar.get(Calendar.MONTH) + 1).toString()
-                var dayofmonth = day.calendar.get(Calendar.DAY_OF_MONTH).toString()
+                for (day in list!!) {
+                    var dayofweek = day.calendar.get(Calendar.DAY_OF_WEEK).toString()
 
-
-                if (month.length == 1) {
-                    month = "0" + month
-                }
-                if (dayofmonth.length == 1) {
-                    dayofmonth = "0" + dayofmonth
-                }
+                    var year = day.calendar.get(Calendar.YEAR).toString()
+                    var month = (day.calendar.get(Calendar.MONTH) + 1).toString()
+                    var dayofmonth = day.calendar.get(Calendar.DAY_OF_MONTH).toString()
 
 
+                    if (month.length == 1) {
+                        month = "0" + month
+                    }
+                    if (dayofmonth.length == 1) {
+                        dayofmonth = "0" + dayofmonth
+                    }
 
 
-                if(dayofweek == "2" && monday) {
-                    calendarInfoDatabaseInPut(day)
-                    yearList.add(year + '-' + month + '-' + dayofmonth)
-                }
-                else if (dayofweek == "3" && tuesday) {
-                    calendarInfoDatabaseInPut(day)
-                    yearList.add(year + '-' + month + '-' + dayofmonth)
-                }
-                else if (dayofweek == "4" && wednesday) {
-                    calendarInfoDatabaseInPut(day)
-                    yearList.add(year + '-' + month + '-' + dayofmonth)
-                }
-                else if (dayofweek == "5" && thursday) {
-                    calendarInfoDatabaseInPut(day)
-                    yearList.add(year + '-' + month + '-' + dayofmonth)
-                }
-                else if (dayofweek == "6" && friday) {
-                    calendarInfoDatabaseInPut(day)
-                    yearList.add(year + '-' + month + '-' + dayofmonth)
-                }
-                else if (dayofweek == "7" && saturday) {
-                    calendarInfoDatabaseInPut(day)
-                    yearList.add(year + '-' + month + '-' + dayofmonth)
-                }
-                else if (dayofweek == "1" && sunday) {
-                    calendarInfoDatabaseInPut(day)
-                    yearList.add(year + '-' + month + '-' + dayofmonth)
+
+
+                    if (dayofweek == "2" && monday) {
+                        calendarInfoDatabaseInPut(day)
+                        yearList.add(year + '-' + month + '-' + dayofmonth)
+                    } else if (dayofweek == "3" && tuesday) {
+                        calendarInfoDatabaseInPut(day)
+                        yearList.add(year + '-' + month + '-' + dayofmonth)
+                    } else if (dayofweek == "4" && wednesday) {
+                        calendarInfoDatabaseInPut(day)
+                        yearList.add(year + '-' + month + '-' + dayofmonth)
+                    } else if (dayofweek == "5" && thursday) {
+                        calendarInfoDatabaseInPut(day)
+                        yearList.add(year + '-' + month + '-' + dayofmonth)
+                    } else if (dayofweek == "6" && friday) {
+                        calendarInfoDatabaseInPut(day)
+                        yearList.add(year + '-' + month + '-' + dayofmonth)
+                    } else if (dayofweek == "7" && saturday) {
+                        calendarInfoDatabaseInPut(day)
+                        yearList.add(year + '-' + month + '-' + dayofmonth)
+                    } else if (dayofweek == "1" && sunday) {
+                        calendarInfoDatabaseInPut(day)
+                        yearList.add(year + '-' + month + '-' + dayofmonth)
+                    }
+
                 }
 
+                dateDTO!!.date = yearList.joinToString(",")
+                viewModel.addDateInfo(dateDTO!!)
+                finish()
             }
-            dateDTO!!.date = yearList.joinToString(",")
-            viewModel.addDateInfo(dateDTO!!)
-            finish()
         }
     }
 

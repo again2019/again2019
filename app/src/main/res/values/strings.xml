@@ -57,5 +57,9 @@
     <string name="no_time_input"> 입력할 시간이 없습니다. </string>
     <string name="whatToDo_update_time_fail"> 시간 업데이트를 실패했습니다. </string>
 
+    <!-- calendar 스케줄 입력 관련 -->
+    <string name="destination_input_fail"> 가는 곳을 입력하세요. </string>
+
+
 
 </resources>
