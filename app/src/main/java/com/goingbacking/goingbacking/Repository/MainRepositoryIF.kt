@@ -18,6 +18,9 @@ interface MainRepositoryIF {
 
     fun getThirdCalendarInfo(yearList : MutableList<String>,result: (UiState<MutableMap<LocalDate, List<Event>>>) -> Unit)
 
+    // CalendarDetailBottomSheet
+    fun getSelectedDateInfo(year_month: String, date: String, result: (UiState<MutableMap<LocalDate, List<Event>>>) -> Unit)
+
     // SecondMainFragment
     // SecondMainFragment1
     fun getSecondSaveDayInfo(result: (UiState<ArrayList<SaveTimeDayDTO>>) -> Unit)

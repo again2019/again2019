@@ -58,6 +58,15 @@ class MainViewModel @Inject constructor (
     val secondwhatToDoYearDTOs : LiveData<UiState<ArrayList<WhatToDoYearDTO>>>
         get() = _secondwhatToDoYearDTOs
 
+
+
+
+    private val _thirdSelectedDateDTOs = MutableLiveData<UiState<MutableMap<LocalDate, List<Event>>>>()
+    val thirdSelectedDateDTOs : LiveData<UiState<MutableMap<LocalDate, List<Event>>>>
+        get() = _thirdSelectedDateDTOs
+
+
+
     fun getFifthUserInfo()  {
         _userInfoDTOs.value = UiState.Loading
         mainRepository.getFifthUserInfo { _userInfoDTOs.value = it }
@@ -86,6 +95,14 @@ class MainViewModel @Inject constructor (
         _thirdCalendarDTOs.value = UiState.Loading
         mainRepository.getThirdCalendarInfo(yearList) { _thirdCalendarDTOs.value = it }
     }
+
+
+    fun getSelectedDateInfo(year_month: String, date: String) {
+        _thirdSelectedDateDTOs.value = UiState.Loading
+        mainRepository.getSelectedDateInfo(year_month, date) { _thirdSelectedDateDTOs.value = it }
+    }
+
+
 
     fun getSecondSaveYearInfo() {
         _secondSaveYearDTOs.value = UiState.Loading
