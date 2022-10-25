@@ -1,5 +1,6 @@
 package com.goingbacking.goingbacking.UI.Main
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 
@@ -20,8 +21,8 @@ import com.goingbacking.goingbacking.Model.Event
 
 import com.goingbacking.goingbacking.R
 import com.goingbacking.goingbacking.UI.Base.BaseFragment
+import com.goingbacking.goingbacking.UI.Main.Third.ScheduleInputActivity
 import com.goingbacking.goingbacking.ViewModel.MainViewModel
-import com.goingbacking.goingbacking.UI.bottomsheet.CalendarBottomSheet
 import com.goingbacking.goingbacking.databinding.FragmentThirdMainBinding
 import com.goingbacking.goingbacking.databinding.ItemCalendarDayBinding
 import com.goingbacking.goingbacking.databinding.ItemCalendarHeaderBinding
@@ -84,14 +85,19 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
         return FragmentThirdMainBinding.inflate(inflater, container, false)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
 
-        viewModel.getThirdDateInfo()
+    override fun onResume() {
+        super.onResume()
 
         observer1()
 
+    }
 
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        observer1()
 
         binding.exThreeRv.apply {
             layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
@@ -104,15 +110,7 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
         val currentMonth = YearMonth.now()
         binding.exThreeCalendar.setup(currentMonth.minusMonths(0), currentMonth.plusMonths(0), daysOfWeek.first())
         binding.exThreeCalendar.scrollToMonth(currentMonth)
-
-        if (savedInstanceState == null) {
-            binding.exThreeCalendar.post {
-                // Show today's events initially.
-                selectDate(today)
-            }
-        }
-
-
+        binding.exThreeCalendar.post { selectDate(today) }
 
         binding.exThreeCalendar.dayBinder = object : DayBinder<DayViewContainer> {
             override fun create(view: View) = DayViewContainer(view)
@@ -142,7 +140,6 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
                             textView.setTextColorRes(R.color.example_3_black)
                             textView.background = null
 
-                            observer1()
                             observer2(day.date, dotView)
                         }
                     }
@@ -169,17 +166,12 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
             }
         }
 
-        binding.exThreeCalendar.monthScrollListener = {
-
-            binding.exThreeSelectedDateText.text = selectionFormatter.format(today)
-
-
-        }
-
 
         binding.exThreeAddButton.setOnClickListener {
-            val bottom  = CalendarBottomSheet()
-            bottom.show(childFragmentManager, bottom.tag)
+            val intent = Intent(requireContext(), ScheduleInputActivity::class.java)
+            startActivity(intent)
+
+
         }
 
         binding.weekModeCheckBox.setOnCheckedChangeListener { _, monthToWeek ->
@@ -204,19 +196,23 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
         }
     }
 
+
+    // dotView를 찍는 역할
+    // 어떤 날짜에 스케줄이 있는지 없는지를 알려주는 역할
     private fun observer1() {
+        viewModel.getThirdDateInfo()
         viewModel.thirdDateDTOs.observe(viewLifecycleOwner) { state ->
             when(state) {
                 is UiState.Success -> {
+                    binding.progressCircular.hide()
                     val data = state.data.date.toString().split(',').toMutableList()
-                    saveEvent(data)
-
+                    observer3(data)
                     }
-
-
-
-
+                is UiState.Loading -> {
+                    binding.progressCircular.show()
+                }
                 is UiState.Failure -> {
+                    binding.progressCircular.hide()
                     Log.e("experiment", state.error.toString())
                 }
             }
@@ -230,6 +226,7 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
         viewModel.thirdDateDTOs.observe(viewLifecycleOwner) { state ->
             when(state) {
                 is UiState.Success -> {
+                    binding.progressCircular.hide()
                     val data = state.data.date.toString().split(',')
 
                     if(data!!.contains(date.toString())) {
@@ -237,10 +234,12 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
                                         dotView.isVisible = true
                                     }
                     Log.d("experiment", "observer2: " + state.data.date.toString().split(',').toString())
-
-
+                }
+                is UiState.Loading -> {
+                    binding.progressCircular.show()
                 }
                 is UiState.Failure -> {
+                    binding.progressCircular.hide()
                     Log.e("experiment",state.error.toString())
                 }
             }
@@ -248,20 +247,22 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
         }
     }
 
+    //
     private fun observer3(yearList : MutableList<String>) {
         viewModel.getThirdCalendarInfo(yearList)
         viewModel.thirdCalendarDTOs.observe(viewLifecycleOwner) { state ->
             when(state) {
                 is UiState.Success -> {
+                    binding.progressCircular.hide()
                     events = state.data
                     updateAdapterForDate(LocalDate.now())
-
+                }
+                is UiState.Loading -> {
+                    binding.progressCircular.show()
                 }
 
-
-
-
                 is UiState.Failure -> {
+                    binding.progressCircular.hide()
                     Log.e("experiment", state.error.toString())
                 }
             }
@@ -280,14 +281,6 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
             binding.exThreeSelectedDateText.text = selectionFormatter.format(date)
 
         }
-    }
-
-    private fun saveEvent(yearList : MutableList<String>) {
-        observer3(yearList)
-        Log.d("experiment", "now: " + LocalDate.now().toString())
-
-
-
     }
 
     inner class DayViewContainer(view: View) : ViewContainer(view) {

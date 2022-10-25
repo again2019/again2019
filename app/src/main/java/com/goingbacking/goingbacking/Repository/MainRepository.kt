@@ -31,7 +31,7 @@ class MainRepository (
 
     override fun getFifthUserInfo(result: (UiState<UserInfoDTO>) -> Unit) {
         firebaseFirestore.collection(USERINFO)?.document(uid)
-            ?.get(cache)
+            ?.get()
             ?.addOnSuccessListener { document ->
                 val data :UserInfoDTO? = document.toObject(UserInfoDTO::class.java)
                 result.invoke(
@@ -73,34 +73,23 @@ class MainRepository (
 
     override fun getThirdDateInfo(result: (UiState<DateDTO>) -> Unit) {
         firebaseFirestore?.collection(DATE)?.document(uid)
-            ?.get(cache)
+            ?.get()
             ?.addOnSuccessListener { document ->
                 val data: DateDTO? = document.toObject(DateDTO::class.java)
-                result.invoke(
-                    UiState.Success(data!!)
-                )
+                if (data == null) {
+                    result.invoke(UiState.Failure("fail"))
+                } else {
+                    result.invoke(
+                        UiState.Success(data!!)
+                    )
+                }
             }
             ?.addOnFailureListener {
                 result.invoke(UiState.Failure(it.localizedMessage))
             }
     }
 
-    override fun getThirdDateInfo2(result: (UiState<DateDTO>) -> Unit) {
-        firebaseFirestore?.collection(DATE)?.document(uid)
-            ?.get(cache)
-            ?.addOnSuccessListener { document ->
-                val data: DateDTO? = document.toObject(DateDTO::class.java)
 
-
-
-                result.invoke(
-                    UiState.Success(data!!)
-                )
-            }
-            ?.addOnFailureListener {
-                result.invoke(UiState.Failure(it.localizedMessage))
-            }
-    }
 
     override fun getThirdCalendarInfo(yearList : MutableList<String>, result: (UiState<MutableMap<LocalDate, List<Event>>>) -> Unit) {
         val events = mutableMapOf<LocalDate, List<Event>>()
@@ -287,7 +276,7 @@ class MainRepository (
 
         firebaseFirestore.collection(SAVETIMEINFO).document(uid)
             ?.collection(DAY)?.document(curYearMonth)
-            ?.collection(curYearMonth)?.get(cache)
+            ?.collection(curYearMonth)?.get()
             .addOnSuccessListener {
                 var saveTimeDayDTOList = arrayListOf<SaveTimeDayDTO>()
 
@@ -322,7 +311,7 @@ class MainRepository (
 
         firebaseFirestore.collection(SAVETIMEINFO).document(uid)
             ?.collection(MONTH)?.document(curYear)
-            ?.collection(curYear).get(cache)
+            ?.collection(curYear).get()
             .addOnSuccessListener {
                 var saveTimeMonthDTOList = arrayListOf<SaveTimeMonthDTO>()
 
@@ -343,7 +332,7 @@ class MainRepository (
     override fun getSecondSaveYearInfo(result: (UiState<ArrayList<SaveTimeYearDTO>>) -> Unit) {
 
         firebaseFirestore.collection(SAVETIMEINFO).document(uid)
-            ?.collection(YEAR)?.get(cache)
+            ?.collection(YEAR)?.get()
             .addOnSuccessListener {
                 var saveTimeYearDTOList = arrayListOf<SaveTimeYearDTO>()
                  for(document in it){
@@ -369,7 +358,7 @@ class MainRepository (
 
         firebaseFirestore.collection(WHATTODOINFO).document(uid)
             ?.collection(MONTH).document(Strnow)
-            ?.collection(Strnow).get(cache)
+            ?.collection(Strnow).get()
             .addOnSuccessListener {
                 val whatToDoMonthDTOList = arrayListOf<WhatToDoMonthDTO>()
                 for (document in it) {

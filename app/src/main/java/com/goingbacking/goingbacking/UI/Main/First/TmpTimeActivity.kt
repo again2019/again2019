@@ -1,7 +1,5 @@
 package com.goingbacking.goingbacking.UI.Main.First
 
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 
 import android.widget.Toast
@@ -12,8 +10,7 @@ import com.goingbacking.goingbacking.R
 import com.goingbacking.goingbacking.UI.Base.BaseActivity
 
 import com.goingbacking.goingbacking.ViewModel.TmpTimeViewModel
-import com.goingbacking.goingbacking.UI.bottomsheet.InputBottomSheet
-import com.goingbacking.goingbacking.UI.bottomsheet.WhatToDoSaveBottomSheet
+import com.goingbacking.goingbacking.bottomsheet.WhatToDoSaveBottomSheet
 import com.goingbacking.goingbacking.databinding.ActivityTmpTimeBinding
 import com.goingbacking.goingbacking.util.UiState
 import com.google.firebase.firestore.FieldValue

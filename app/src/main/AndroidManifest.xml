@@ -16,6 +16,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".UI.Main.Third.ScheduleInputActivity"
+            android:exported="true" />
+        <activity
             android:name=".UI.Input.InputActivity"
             android:exported="true" />
 
@@ -23,6 +26,7 @@
             android:name=".Service.AlarmService"
             android:enabled="true"
             android:exported="true" />
+
         <activity
             android:name=".UI.Main.First.TmpTimeActivity"
             android:exported="true" />
@@ -32,7 +36,6 @@
         <activity
             android:name=".UI.Tutorial.TutorialActivity"
             android:exported="true" />
-
         <activity
             android:name=".UI.Login.LoginActivity"
             android:exported="true" />

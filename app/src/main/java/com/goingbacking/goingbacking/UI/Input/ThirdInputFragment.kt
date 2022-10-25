@@ -1,26 +1,20 @@
 package com.goingbacking.goingbacking.UI.Input
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.view.children
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.goingbacking.goingbacking.Model.WhatToDoMonthDTO
-import com.goingbacking.goingbacking.Model.WhatToDoYearDTO
 import com.goingbacking.goingbacking.R
 import com.goingbacking.goingbacking.UI.Base.BaseFragment
 import com.goingbacking.goingbacking.ViewModel.InputViewModel
-import com.goingbacking.goingbacking.UI.bottomsheet.InputBottomSheet
+import com.goingbacking.goingbacking.bottomsheet.InputBottomSheet
 import com.goingbacking.goingbacking.databinding.FragmentThirdInputBinding
 import com.goingbacking.goingbacking.util.UiState
 import com.google.android.material.chip.Chip
 import dagger.hilt.android.AndroidEntryPoint
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 
 @AndroidEntryPoint
 class ThirdInputFragment : BaseFragment<FragmentThirdInputBinding>() {

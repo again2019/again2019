@@ -1,7 +1,6 @@
-package com.goingbacking.goingbacking.UI.bottomsheet
+package com.goingbacking.goingbacking.bottomsheet
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +9,6 @@ import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import com.goingbacking.goingbacking.R
-import com.goingbacking.goingbacking.ViewModel.InputViewModel
 import com.goingbacking.goingbacking.ViewModel.TmpTimeViewModel
 import com.goingbacking.goingbacking.databinding.BottomSheetWhatToDoSaveBinding
 import com.goingbacking.goingbacking.util.UiState
