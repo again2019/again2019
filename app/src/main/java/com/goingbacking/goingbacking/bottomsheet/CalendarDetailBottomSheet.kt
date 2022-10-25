@@ -23,7 +23,7 @@ class CalendarDetailBottomSheet : BottomSheetDialogFragment() {
     ): View? {
         binding = BottomSheetCalendarDetailBinding.inflate(inflater, container, false)
 
-
+        binding.detailDate.text = arguments?.getString("date")
 
 
         return binding.root

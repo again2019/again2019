@@ -89,6 +89,24 @@ class MainRepository (
             }
     }
 
+    override fun getThirdDateInfo2(year_month: String, result: (UiState<DateDTO>) -> Unit) {
+        firebaseFirestore?.collection(DATE)?.document(uid)
+            .collection(year_month).document(year_month)
+            ?.get()
+            ?.addOnSuccessListener { document ->
+                val data: DateDTO? = document.toObject(DateDTO::class.java)
+                if (data == null) {
+                    result.invoke(UiState.Failure("fail"))
+                } else {
+                    result.invoke(
+                        UiState.Success(data!!)
+                    )
+                }
+            }
+            ?.addOnFailureListener {
+                result.invoke(UiState.Failure(it.localizedMessage))
+            }
+    }
 
 
     override fun getThirdCalendarInfo(yearList : MutableList<String>, result: (UiState<MutableMap<LocalDate, List<Event>>>) -> Unit) {

@@ -7,6 +7,13 @@
     tools:context=".UI.Main.Third.TotalCalendarActivity"
     android:orientation="vertical">
 
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/progress_circular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:indicatorColor="@color/example_3_blue"
+        android:indeterminate="true"
+        android:visibility="invisible" />
     <include
         android:id="@+id/legendLayout"
         layout="@layout/calendar_day_legend" />

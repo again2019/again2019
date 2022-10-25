@@ -118,9 +118,7 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
                 container.day = day
                 val textView = container.binding.exThreeDayText
                 val dotView = container.binding.exThreeDotView
-
                 textView.text = day.date.dayOfMonth.toString()
-
                 dotView.isVisible = false
 
                 if (day.owner == DayOwner.THIS_MONTH) {
@@ -165,33 +163,19 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
                 }
             }
         }
-
+        binding.exThreeCalendar.updateMonthConfiguration(
+            inDateStyle = InDateStyle.FIRST_MONTH,
+            maxRowCount = 1,
+            hasBoundaries = true
+        )
+        binding.exThreeCalendar.scrollToDate(today)
 
         binding.exThreeAddButton.setOnClickListener {
             val intent = Intent(requireContext(), ScheduleInputActivity::class.java)
             startActivity(intent)
         }
 
-        binding.weekModeCheckBox.setOnCheckedChangeListener { _, monthToWeek ->
-            if (!monthToWeek) {
-                binding.exThreeCalendar.updateMonthConfiguration(
-                    inDateStyle = InDateStyle.FIRST_MONTH,
-                    maxRowCount = 1,
-                    hasBoundaries = true
-                )
-                binding.exThreeCalendar.scrollToDate(today)
-            } else {
-                binding.exThreeCalendar.updateMonthConfiguration(
-                    inDateStyle = InDateStyle.ALL_MONTHS,
-                    maxRowCount = 6,
-                    hasBoundaries = true
-                )
-                binding.exThreeCalendar.scrollToDate(today)
 
-            }
-
-
-        }
         binding.calendarMode.setOnClickListener {
             val intent = Intent(requireContext(), TotalCalendarActivity::class.java)
             startActivity(intent)
