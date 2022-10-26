@@ -5,8 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import com.goingbacking.goingbacking.Adapter.PagerAdapter
+import com.goingbacking.goingbacking.Adapter.SecondFragmentPagerAdapter
 import com.goingbacking.goingbacking.UI.Base.BaseFragment
+import com.goingbacking.goingbacking.UI.Main.Second.SecondMainFragment1
+import com.goingbacking.goingbacking.UI.Main.Second.SecondMainFragment2
 import com.goingbacking.goingbacking.ViewModel.MainViewModel
 
 import com.goingbacking.goingbacking.databinding.FragmentSecondMainBinding
@@ -27,9 +29,10 @@ class SecondMainFragment : BaseFragment<FragmentSecondMainBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val paperAdapter = PagerAdapter(childFragmentManager)
-        binding.viewPager.adapter = paperAdapter
-        binding.indicator.setViewPager(binding.viewPager)
-    }
+        val adapter = SecondFragmentPagerAdapter(requireActivity())
+        val fragmentList = listOf(SecondMainFragment1(), SecondMainFragment2())
+        adapter.fragmentList = fragmentList
 
+        binding.viewPager.adapter = adapter
+    }
     }

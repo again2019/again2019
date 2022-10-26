@@ -50,12 +50,12 @@ class TimerUtils {
 
             timerState = AppConstants.Companion.TimerState.Stopped
             // timerState =  Stop으로 둔다
-            var current = System.currentTimeMillis()
+            val current = System.currentTimeMillis()
 
-            var tmpTimeDTO = TmpTimeDTO()
-            tmpTimeDTO!!.nowSeconds =  current- PrefUtil.getSecondsRemaining(context)
-            tmpTimeDTO!!.startTime = PrefUtil.getSecondsRemaining(context)
-            tmpTimeDTO!!.wakeUpTime = current
+            val tmpTimeDTO = TmpTimeDTO()
+            tmpTimeDTO.nowSeconds =  current- PrefUtil.getSecondsRemaining(context)
+            tmpTimeDTO.startTime = PrefUtil.getSecondsRemaining(context)
+            tmpTimeDTO.wakeUpTime = current
 
             val df = SimpleDateFormat("HH:mm:ss")
 
@@ -71,7 +71,7 @@ class TimerUtils {
             Log.d("experiment", "wakeupTime: " + wakeUpTime.toString())
             Log.d("experiment", "currentTime: " + currentTime.toString())
 
-            alarmRepository.addTmpTimeInfo(tmpTimeDTO!!)
+            alarmRepository.addTmpTimeInfo(tmpTimeDTO)
 
             val intent = Intent(context, AlarmService::class.java)
             intent.action = "FINISH_FOREGROUND"
