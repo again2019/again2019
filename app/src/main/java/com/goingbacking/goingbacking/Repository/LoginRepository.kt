@@ -130,9 +130,9 @@ class LoginRepository (
         }
     }
 
-    override fun logout(result: () -> Unit) {
+    override fun logout(result: (UiState<String>) -> Unit) {
         firebaseAuth.signOut()
-        result.invoke()
+        result.invoke(UiState.Success(success))
     }
 
 

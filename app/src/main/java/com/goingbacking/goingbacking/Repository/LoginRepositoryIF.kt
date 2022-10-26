@@ -14,5 +14,5 @@ interface LoginRepositoryIF {
     fun emailForgetPassword(email: String, result: (UiState<String>) -> Unit)
     fun signInWithCredential(token: String, result: (UiState<String>) -> Unit)
     fun getCurrentSession(result: (UiState<String>) -> Unit)
-    fun logout(result: () -> Unit)
+    fun logout(result: (UiState<String>) -> Unit)
 }
