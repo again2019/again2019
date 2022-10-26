@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import com.goingbacking.goingbacking.Model.WhatToDoMonthDTO
 import com.goingbacking.goingbacking.Model.WhatToDoYearDTO
@@ -15,6 +14,7 @@ import com.goingbacking.goingbacking.ViewModel.InputViewModel
 import com.goingbacking.goingbacking.databinding.BottomSheetInputBinding
 import com.goingbacking.goingbacking.util.PrefUtil
 import com.goingbacking.goingbacking.util.UiState
+import com.goingbacking.goingbacking.util.toast
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.chip.Chip
 import dagger.hilt.android.AndroidEntryPoint
@@ -26,25 +26,27 @@ import java.time.format.DateTimeFormatter
 class InputBottomSheet : BottomSheetDialogFragment() {
     private lateinit var binding : BottomSheetInputBinding
     private val viewModel :InputViewModel by activityViewModels()
-    var now = LocalDate.now()
-    var Strnow1 = now.format(DateTimeFormatter.ofPattern("MM")).toInt()
-    var Strnow2 = now.format(DateTimeFormatter.ofPattern("yyyy")).toInt()
+
+
+    private var now = LocalDate.now()
+    private var Strnow1 = now.format(DateTimeFormatter.ofPattern("MM")).toInt()
+    private var Strnow2 = now.format(DateTimeFormatter.ofPattern("yyyy")).toInt()
     private var InitWhatToDoMonthList = ArrayList<WhatToDoMonthDTO>()
     private var InitWhatToDoYearList = ArrayList<WhatToDoYearDTO>()
     private var whattodoList = mutableSetOf<String>()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = BottomSheetInputBinding.inflate(inflater, container, false)
 
-        observer()
+        Observer()
         onClick()
         return binding.root
     }
 
 
-    private fun observer() = with(binding) {
+    private fun Observer() = with(binding) {
         viewModel.checkInput()
         viewModel.checkUserInfo.observe(viewLifecycleOwner) { state ->
             when(state) {
@@ -57,6 +59,7 @@ class InputBottomSheet : BottomSheetDialogFragment() {
                       for (whattodo in state.data.whatToDo!!.split(',')) {
                           whattodoList.add(whattodo)
 
+                          // chart 표시를 위해 초기화 하기 위해 arrayList에 넣는 코드
                           val whatToDoMonthDTO = WhatToDoMonthDTO()
                           whatToDoMonthDTO.count = 0
                           whatToDoMonthDTO.month = Strnow1
@@ -70,7 +73,9 @@ class InputBottomSheet : BottomSheetDialogFragment() {
                           whatToDoYearDTO.whatToDo = whattodo
 
                           InitWhatToDoYearList.add(whatToDoYearDTO)
+                          // ----------------------------------------------
 
+                          // chip을 추가하는 코드
                           chipGroup.addView(Chip(requireActivity()).apply {
                                 text = whattodo
                                 isCheckable = false
@@ -81,7 +86,7 @@ class InputBottomSheet : BottomSheetDialogFragment() {
                 }
                 is UiState.Failure -> {
                     progressCircular.hide()
-                    Toast.makeText(requireContext(), R.string.check_input_fail, Toast.LENGTH_SHORT).show()
+                    toast(requireContext(), getString(R.string.check_input_fail))
                 }
                 is UiState.Loading -> {
                     progressCircular.show()

@@ -49,6 +49,9 @@
 
     <!-- input 관련 string -->
     <string name="check_input_fail"> 입력하신 정보를 불러올 수 없습니다. </string>
+    <string name="nickname_input_fail"> 닉네임을 입력하세요. </string>
+    <string name="nickname_input_long_fail"> 닉네임이 너무 길어요. </string>
+
 
     <!-- 임시 저장 -> 데이터 베이스 저장 관련 string -->
     <string name="update_day_fail"> 해당 일에 시간을 업데이트 할 수 없습니다. </string>

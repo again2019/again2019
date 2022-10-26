@@ -6,7 +6,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.goingbacking.goingbacking.Model.UserInfoDTO
@@ -15,6 +14,7 @@ import com.goingbacking.goingbacking.UI.Base.BaseFragment
 import com.goingbacking.goingbacking.ViewModel.InputViewModel
 import com.goingbacking.goingbacking.databinding.FragmentFirstInputBinding
 import com.goingbacking.goingbacking.util.UiState
+import com.goingbacking.goingbacking.util.toast
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -35,10 +35,12 @@ class FirstInputFragment : BaseFragment<FragmentFirstInputBinding>() {
     }
 
     private fun onClick() = with(binding) {
+        // 다음으로 이동하는 버튼
         firstInputButton.setOnClickListener {
             FirstInputObserver()
             completeAction()
         }
+        // edittext에서 작성하고 '완료'를 누르면 다음으로 넘어가는 코드
         nickNameEdittext.setOnEditorActionListener { v, actionId, event ->
             completeAction()
             true
@@ -50,10 +52,11 @@ class FirstInputFragment : BaseFragment<FragmentFirstInputBinding>() {
     private fun completeAction() = with(binding) {
         // 만약에 edittext가 비어있다면
         if (TextUtils.isEmpty(nickNameEdittext.text)) {
-            Toast.makeText(requireActivity(), "닉네임을 입력하세요.", Toast.LENGTH_SHORT).show()
+            toast(requireContext(), getString(R.string.nickname_input_fail))
         }
+        // 만약에 edittext의 입력 길이가 너무 길다면
         else if (nickNameEdittext.text.length >= 10) {
-            Toast.makeText(requireActivity(), "닉네임이 너무 길어요.", Toast.LENGTH_SHORT).show()
+            toast(requireContext(), getString(R.string.nickname_input_long_fail))
         }
         // 만약에 edittext가 비어있지 않다면
         else {
@@ -69,24 +72,21 @@ class FirstInputFragment : BaseFragment<FragmentFirstInputBinding>() {
         }
     }
 
-
+    // 데이터 베이스에 입력하는 것이 잘되었는지 확인하는 함수
     private fun FirstInputObserver() {
-
-        // **** 실패 시 report 하는 기능 ****
         viewModel.addFirstInput.observe(viewLifecycleOwner) {
                 state ->
             when(state) {
                 is UiState.Failure -> {
-                    Toast.makeText(requireActivity(), "fail", Toast.LENGTH_SHORT).show()
                 }
                 is UiState.Success -> {
-                    Toast.makeText(requireActivity(), "success", Toast.LENGTH_SHORT).show()
+                }
+                is UiState.Loading -> {
                 }
             }
         }
-        // -------------------------------
     }
-
+    // -------------------------------------------------------
 
 
 

@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.goingbacking.goingbacking.R
@@ -53,21 +52,22 @@ class SecondInputFragment : BaseFragment<FragmentSecondInputBinding>() {
         }
     }
 
+
+    // 데이터 베이스에 입력하는 것이 잘되었는지 확인하는 함수
     private fun SecondInputObserver() {
-        // **** 실패 시 report 하는 기능 ****
         viewModel.updateSecondInput.observe(viewLifecycleOwner) {
                 state ->
             when(state) {
                 is UiState.Failure -> {
-                    //Toast.makeText(requireActivity(), "fail", Toast.LENGTH_SHORT).show()
                 }
                 is UiState.Success -> {
-                    // makeText(requireActivity(), "success", Toast.LENGTH_SHORT).show()
+                }
+                is UiState.Loading -> {
                 }
             }
         }
-        // **** 실패 시 report 하는 기능 ****
     }
+    // -------------------------------------------------------
 
 
 }

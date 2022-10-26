@@ -29,10 +29,7 @@ import com.kizitonwose.calendarview.ui.DayBinder
 import com.kizitonwose.calendarview.ui.MonthHeaderFooterBinder
 import com.kizitonwose.calendarview.ui.ViewContainer
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.*
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.YearMonth
@@ -50,9 +47,6 @@ class TotalCalendarActivity : BaseActivity<ActivityTotalCalendarBinding>({
     private var events = mutableMapOf<LocalDate, List<Event>>()
 
     val viewModel: MainViewModel by viewModels()
-
-    var list = listOf<String>()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -119,39 +113,14 @@ class TotalCalendarActivity : BaseActivity<ActivityTotalCalendarBinding>({
             MonthHeaderFooterBinder<MonthViewContainer> {
             override fun create(view: View) = MonthViewContainer(view)
             override fun bind(container: MonthViewContainer, month: CalendarMonth) {
-
-                CoroutineScope(Dispatchers.Main).launch {
-
-                    runBlocking {
-
-                        observer2(month.yearMonth.toString())
-                    }
                     container.legendLayout.children.map { it as TextView }.forEach {
                         it.text = month.yearMonth.toString()
                         it.setTextColorRes(R.color.example_3_black)
                     }
-
-                }
-
-
-
-
-
-
-
-
-
-
             }
         }
 
         binding.exThreeCalendar.monthScrollListener = {
-            //Log.d("experiment", it.yearMonth.toString())
-
-
-            //observer2()
-
-
         }
 
     }
@@ -205,15 +174,19 @@ class TotalCalendarActivity : BaseActivity<ActivityTotalCalendarBinding>({
 
 
     private fun observer2(year_month:String) {
+        // date : LocalDate, dotView: View,
+        // 첫번 째로 실행 후
         viewModel.getThirdDateInfo2(year_month)
 
+
+        // 두 번째로 실행
         viewModel.thirdDateDTOs2.observe(this) { state ->
             when(state) {
                 is UiState.Success -> {
                     binding.progressCircular.hide()
 
                     Log.d("experiment", "in observer: " + year_month)
-                    list = list + state.data.date.toString().split(',')
+                    val list =  state.data.date.toString().split(',')
                     Log.d("experiment", "in observer: " + state.data.date.toString())
 
                 }
