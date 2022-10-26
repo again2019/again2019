@@ -13,6 +13,7 @@ interface MainRepositoryIF {
     fun addDateInfo(date: DateDTO, result: (UiState<String>) -> Unit)
 
     // ThirdMainFragment
+
     fun getThirdDateInfo(result: (UiState<DateDTO>) -> Unit)
     fun getThirdDateInfo2(year_month: String, result: (UiState<DateDTO>) -> Unit)
 

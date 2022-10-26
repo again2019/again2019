@@ -122,6 +122,8 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
                 textView.text = day.date.dayOfMonth.toString()
                 dotView.isVisible = false
 
+
+
                 if (day.owner == DayOwner.THIS_MONTH) {
                     textView.makeVisible()
                     when (day.date) {
@@ -164,6 +166,7 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
                 }
             }
         }
+
         binding.exThreeCalendar.updateMonthConfiguration(
             inDateStyle = InDateStyle.FIRST_MONTH,
             maxRowCount = 1,
@@ -192,7 +195,8 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
             when(state) {
                 is UiState.Success -> {
                     binding.progressCircular.hide()
-                    val data = state.data.date.toString().split(',').toMutableList()
+                    val dateDTO = state.data.date
+                    val data = dateDTO.toString().split(',').toMutableList()
                     observer3(data)
                     }
                 is UiState.Loading -> {

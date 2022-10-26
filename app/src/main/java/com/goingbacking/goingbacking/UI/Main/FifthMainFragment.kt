@@ -81,7 +81,7 @@ class FifthMainFragment : BaseFragment<FragmentFifthMainBinding>() {
                     is UiState.Success -> {
                         toast(requireContext(), getString(R.string.logout_success))
 
-                        initPref()
+                        //initPref()
                         val intent = Intent(requireContext(), LoginActivity::class.java)
                         startActivity(intent)
                         finishAffinity(requireActivity())

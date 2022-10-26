@@ -7,6 +7,7 @@ import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.core.view.children
 import androidx.core.view.isVisible
+import com.goingbacking.goingbacking.Model.DateDTO
 
 import com.goingbacking.goingbacking.Model.Event
 import com.goingbacking.goingbacking.R
@@ -28,6 +29,10 @@ import com.kizitonwose.calendarview.ui.DayBinder
 import com.kizitonwose.calendarview.ui.MonthHeaderFooterBinder
 import com.kizitonwose.calendarview.ui.ViewContainer
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.YearMonth
@@ -43,7 +48,10 @@ class TotalCalendarActivity : BaseActivity<ActivityTotalCalendarBinding>({
     private val today = LocalDate.now()
     private val selectionFormatter = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일")
     private var events = mutableMapOf<LocalDate, List<Event>>()
+
     val viewModel: MainViewModel by viewModels()
+
+    var list = listOf<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,6 +76,8 @@ class TotalCalendarActivity : BaseActivity<ActivityTotalCalendarBinding>({
                 textView.text = day.date.dayOfMonth.toString()
                 dotView.isVisible = false
 
+                //Log.d("experiment", "okay2")
+
                 if (day.owner == DayOwner.THIS_MONTH) {
                     var year_month = ""
                     if (day.date.monthValue / 10 == 1) {
@@ -76,7 +86,7 @@ class TotalCalendarActivity : BaseActivity<ActivityTotalCalendarBinding>({
                         year_month = day.date.year.toString() + "-0" + day.date.monthValue.toString()
                     }
 
-                    Log.e("experiment","day.owner: " + year_month + " " + day.date.dayOfMonth)
+                    //Log.e("experiment","day.owner: " + year_month + " " + day.date.dayOfMonth)
 
                     textView.makeVisible()
                     when (day.date) {
@@ -94,7 +104,7 @@ class TotalCalendarActivity : BaseActivity<ActivityTotalCalendarBinding>({
                             textView.setTextColorRes(R.color.example_3_black)
                             textView.background = null
 
-                            observer2(day.date, dotView, year_month)
+                            //observer2(day.date, dotView, year_month)
                         }
                     }
                 } else {
@@ -109,14 +119,37 @@ class TotalCalendarActivity : BaseActivity<ActivityTotalCalendarBinding>({
             MonthHeaderFooterBinder<MonthViewContainer> {
             override fun create(view: View) = MonthViewContainer(view)
             override fun bind(container: MonthViewContainer, month: CalendarMonth) {
-                container.legendLayout.children.map { it as TextView }.forEach {
-                    it.text = month.yearMonth.toString()
-                    it.setTextColorRes(R.color.example_3_black)
+
+                CoroutineScope(Dispatchers.Main).launch {
+
+                    runBlocking {
+
+                        observer2(month.yearMonth.toString())
+                    }
+                    container.legendLayout.children.map { it as TextView }.forEach {
+                        it.text = month.yearMonth.toString()
+                        it.setTextColorRes(R.color.example_3_black)
+                    }
+
                 }
+
+
+
+
+
+
+
+
+
+
             }
         }
 
         binding.exThreeCalendar.monthScrollListener = {
+            //Log.d("experiment", it.yearMonth.toString())
+
+
+            //observer2()
 
 
         }
@@ -171,26 +204,25 @@ class TotalCalendarActivity : BaseActivity<ActivityTotalCalendarBinding>({
     }
 
 
-    private fun observer2(date:LocalDate, dotView:View, year_month:String) {
+    private fun observer2(year_month:String) {
         viewModel.getThirdDateInfo2(year_month)
+
         viewModel.thirdDateDTOs2.observe(this) { state ->
             when(state) {
                 is UiState.Success -> {
                     binding.progressCircular.hide()
-                    val data = state.data.date.toString().split(',')
 
-                    if(data!!.contains(date.toString())) {
+                    Log.d("experiment", "in observer: " + year_month)
+                    list = list + state.data.date.toString().split(',')
+                    Log.d("experiment", "in observer: " + state.data.date.toString())
 
-                        dotView.isVisible = true
-                    }
-                    Log.d("experiment", "observer2: " + state.data.date.toString().split(',').toString())
                 }
-                is UiState.Loading -> {
+                    is UiState.Loading -> {
                     binding.progressCircular.show()
                 }
                 is UiState.Failure -> {
                     binding.progressCircular.hide()
-                    Log.e("experiment",state.error.toString())
+                    //Log.e("experiment",state.error.toString())
                 }
             }
 
