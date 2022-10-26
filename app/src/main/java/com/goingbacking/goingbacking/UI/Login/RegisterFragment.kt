@@ -5,7 +5,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.goingbacking.goingbacking.R
@@ -14,6 +13,7 @@ import com.goingbacking.goingbacking.ViewModel.LoginViewModel
 import com.goingbacking.goingbacking.databinding.FragmentRegisterBinding
 import com.goingbacking.goingbacking.util.UiState
 import com.goingbacking.goingbacking.util.isValidEmail
+import com.goingbacking.goingbacking.util.toast
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -29,7 +29,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        buttonClick()
+        onClick()
     }
 
     private fun registerObserver() {
@@ -39,17 +39,17 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
                     binding.registerProgress.visibility
                 }
                 is UiState.Success -> {
-                    Toast.makeText(requireContext(), R.string.sign_up_success, Toast.LENGTH_SHORT).show()
+                    toast(requireContext(), getString(R.string.sign_up_success))
                     findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
                 }
                 is UiState.Failure -> {
-                    Toast.makeText(requireActivity(), R.string.sign_up_fail, Toast.LENGTH_SHORT).show()
+                    toast(requireContext(), getString(R.string.sign_up_fail))
                 }
              }
         }
     }
 
-    private fun buttonClick() = with(binding) {
+    private fun onClick() = with(binding) {
 
             registerButton.setOnClickListener {
                 if (validation()) {
@@ -65,26 +65,25 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
 
         if (registerEmailEdittext.text.isNullOrEmpty()){
             isValid = false
-            Toast.makeText(requireActivity(), R.string.email_again, Toast.LENGTH_SHORT).show()
+            toast(requireContext(), getString(R.string.email_again))
         } else {
             if (!registerEmailEdittext.text.toString().isValidEmail()) {
                 isValid = false
-                Toast.makeText(requireActivity(), R.string.email_invalid, Toast.LENGTH_SHORT).show()
-
+                toast(requireContext(), getString(R.string.email_invalid))
             }
 
         }
 
         if (registerPasswordEdittext1.text.isNullOrEmpty()){
             isValid = false
-            Toast.makeText(requireActivity(), R.string.password_again, Toast.LENGTH_SHORT).show()
+            toast(requireContext(), getString(R.string.password_again))
         } else{
             if (registerPasswordEdittext1.text.toString().length < 10){
                 isValid = false
-                Toast.makeText(requireActivity(), R.string.password_again_short, Toast.LENGTH_SHORT).show()
+                toast(requireContext(), getString(R.string.password_again_short))
             }
             if (registerPasswordEdittext1.text.toString() != registerPasswordEdittext2.text.toString()) {
-                Toast.makeText(requireActivity(), R.string.password_correct, Toast.LENGTH_SHORT).show()
+                toast(requireContext(), getString(R.string.password_correct))
             }
         }
         return isValid

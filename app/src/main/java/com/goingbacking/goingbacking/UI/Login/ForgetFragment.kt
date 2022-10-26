@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.goingbacking.goingbacking.R
@@ -13,6 +12,7 @@ import com.goingbacking.goingbacking.ViewModel.LoginViewModel
 import com.goingbacking.goingbacking.databinding.FragmentForgetBinding
 import com.goingbacking.goingbacking.util.UiState
 import com.goingbacking.goingbacking.util.isValidEmail
+import com.goingbacking.goingbacking.util.toast
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -47,10 +47,10 @@ class ForgetFragment : BaseFragment<FragmentForgetBinding>() {
 
                 }
                 is UiState.Failure -> {
-                    Toast.makeText(requireActivity(), R.string.email_link_send_fail, Toast.LENGTH_SHORT).show()
+                    toast(requireContext(), getString(R.string.email_link_send_fail))
                 }
                 is UiState.Success -> {
-                    Toast.makeText(requireActivity(), R.string.email_link_send_success, Toast.LENGTH_SHORT).show()
+                    toast(requireContext(), getString(R.string.email_link_send_success))
                     viewModel.emailForgetPassword(binding.emailEt.text.toString())
                 }
             }
@@ -62,13 +62,12 @@ class ForgetFragment : BaseFragment<FragmentForgetBinding>() {
 
         if (emailEt.text.isNullOrEmpty()){
             isValid = false
-            Toast.makeText(requireActivity(), R.string.email_again, Toast.LENGTH_SHORT).show()
+            toast(requireContext(), getString(R.string.email_again))
 
         } else{
             if (!emailEt.text.toString().isValidEmail()){
                 isValid = false
-                Toast.makeText(requireActivity(), R.string.email_again, Toast.LENGTH_SHORT).show()
-
+                toast(requireContext(), getString(R.string.email_again))
             }
         }
 
