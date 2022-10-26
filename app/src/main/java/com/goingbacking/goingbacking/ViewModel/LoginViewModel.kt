@@ -13,36 +13,11 @@ import javax.inject.Inject
 class LoginViewModel @Inject constructor(
     val loginRepository: LoginRepositoryIF
 ) : ViewModel() {
+
+    // GSO를 받아오는 코드
     private val _gso = MutableLiveData<UiState<GoogleSignInOptions>>()
     val gso: LiveData<UiState<GoogleSignInOptions>>
         get() = _gso
-
-    private val _register = MutableLiveData<UiState<String>>()
-    val register: LiveData<UiState<String>>
-        get() = _register
-
-    private val _emailLogin = MutableLiveData<UiState<String>>()
-    val emailLogin: LiveData<UiState<String>>
-        get() = _emailLogin
-
-    private val _forgotPassword = MutableLiveData<UiState<String>>()
-    val forgotPassword: LiveData<UiState<String>>
-        get() = _forgotPassword
-
-    private val _loginCredential = MutableLiveData<UiState<String>>()
-    val loginCredential: LiveData<UiState<String>>
-        get() = _loginCredential
-
-    private val _currentSession = MutableLiveData<UiState<String>>()
-    val currentSession: LiveData<UiState<String>>
-        get() = _currentSession
-
-
-    // 로그 아웃
-    private val _logout = MutableLiveData<UiState<String>>()
-    val logout: LiveData<UiState<String>>
-        get() = _logout
-
 
     fun getGSO() = viewModelScope.launch {
         _gso.value = UiState.Loading
@@ -51,12 +26,21 @@ class LoginViewModel @Inject constructor(
         }
     }
 
+
+    private val _register = MutableLiveData<UiState<String>>()
+    val register: LiveData<UiState<String>>
+        get() = _register
+
     fun emailRegister(email: String, password:String) = viewModelScope.launch {
         _register.value = UiState.Loading
         loginRepository.emailRegister(email, password) {
             _register.value = it
         }
     }
+
+    private val _emailLogin = MutableLiveData<UiState<String>>()
+    val emailLogin: LiveData<UiState<String>>
+        get() = _emailLogin
 
     fun emailLogin(email: String, password: String) = viewModelScope.launch {
         _emailLogin.value = UiState.Loading
@@ -65,12 +49,21 @@ class LoginViewModel @Inject constructor(
         }
     }
 
+
+    private val _forgotPassword = MutableLiveData<UiState<String>>()
+    val forgotPassword: LiveData<UiState<String>>
+        get() = _forgotPassword
+
     fun emailForgetPassword(email: String) = viewModelScope.launch {
         _forgotPassword.value = UiState.Loading
         loginRepository.emailForgetPassword(email) {
             _forgotPassword.value = it
         }
     }
+
+    private val _loginCredential = MutableLiveData<UiState<String>>()
+    val loginCredential: LiveData<UiState<String>>
+        get() = _loginCredential
 
     fun signInWithCredential(token :String) = viewModelScope.launch {
         _loginCredential.value = UiState.Loading
@@ -79,6 +72,11 @@ class LoginViewModel @Inject constructor(
         }
     }
 
+    // 로그인한 상태인지 알려주는 코드
+    private val _currentSession = MutableLiveData<UiState<String>>()
+    val currentSession: LiveData<UiState<String>>
+        get() = _currentSession
+
     fun getCurrentSession() = viewModelScope.launch {
         _currentSession.value = UiState.Loading
         loginRepository.getCurrentSession() {
@@ -86,11 +84,29 @@ class LoginViewModel @Inject constructor(
         }
     }
 
+    // 로그 아웃
+    private val _logout = MutableLiveData<UiState<String>>()
+    val logout: LiveData<UiState<String>>
+        get() = _logout
+
     fun logout() = viewModelScope.launch {
         _logout.value = UiState.Loading
         loginRepository.logout() {
             _logout.value = it
         }
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }

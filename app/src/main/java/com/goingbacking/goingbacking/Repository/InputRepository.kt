@@ -9,7 +9,6 @@ import com.goingbacking.goingbacking.util.FBConstants.Companion.WHATTODOINFO
 import com.goingbacking.goingbacking.util.FBConstants.Companion.YEAR
 import com.goingbacking.goingbacking.util.UiState
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.auth.UserInfo
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Source
 import java.time.LocalDate
