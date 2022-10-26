@@ -18,6 +18,7 @@ import com.goingbacking.goingbacking.ViewModel.LoginViewModel
 import com.goingbacking.goingbacking.databinding.FragmentLoginBinding
 import com.goingbacking.goingbacking.util.UiState
 import com.goingbacking.goingbacking.util.isValidEmail
+import com.goingbacking.goingbacking.util.toast
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignIn.getClient
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -41,6 +42,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        toast(requireContext(), FirebaseAuth.getInstance().currentUser?.uid.toString())
         buttonClick()
     }
 
@@ -186,7 +188,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
     override fun onStart() {
         super.onStart()
 
-        Toast.makeText(requireContext(), FirebaseAuth.getInstance().currentUser?.uid, Toast.LENGTH_SHORT).show()
+        Log.d("experiment", FirebaseAuth.getInstance().currentUser?.uid.toString())
         viewModel.getCurrentSession()
         viewModel.currentSession.observe(viewLifecycleOwner) { state ->
             when (state) {

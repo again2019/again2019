@@ -3,6 +3,7 @@ package com.goingbacking.goingbacking.util
 import android.content.Context
 import android.view.View
 import android.widget.TextView
+import android.widget.Toast
 import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
 
@@ -20,4 +21,8 @@ fun View.makeVisible() {
 
 fun View.makeInVisible() {
     visibility = View.GONE
+}
+
+fun toast (context: Context, string : String) {
+    Toast.makeText(context, string, Toast.LENGTH_SHORT).show()
 }

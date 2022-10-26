@@ -38,6 +38,12 @@ class LoginViewModel @Inject constructor(
         get() = _currentSession
 
 
+    // 로그 아웃
+    private val _logout = MutableLiveData<UiState<String>>()
+    val logout: LiveData<UiState<String>>
+        get() = _logout
+
+
     fun getGSO() = viewModelScope.launch {
         _gso.value = UiState.Loading
         loginRepository.getGSO {
@@ -77,6 +83,13 @@ class LoginViewModel @Inject constructor(
         _currentSession.value = UiState.Loading
         loginRepository.getCurrentSession() {
             _currentSession.value = it
+        }
+    }
+
+    fun logout() = viewModelScope.launch {
+        _logout.value = UiState.Loading
+        loginRepository.logout() {
+            _logout.value = it
         }
     }
 
