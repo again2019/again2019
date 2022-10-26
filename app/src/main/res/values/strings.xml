@@ -45,6 +45,7 @@
     <string name="email_link_send_fail"> 이메일 링크 발송이 실패했습니다. </string>
     <string name="sign_up_success"> 회원 가입 성공 </string>
     <string name="sign_up_fail"> 회원 가입 실패 </string>
+    <string name="logout_success"> 로그 아웃 완료 </string>
 
     <!-- input 관련 string -->
     <string name="check_input_fail"> 입력하신 정보를 불러올 수 없습니다. </string>
@@ -65,6 +66,7 @@
     <string name="second_start_time_fail"> 목적지에서의 출발 시간을 입력하세요. </string>
     <string name="second_end_time_fail"> 목적지에서의 도착 시간을 입력하세요. </string>
     <string name="day_select_fail"> 기간에 해당하는 요일을 입력해주세요. </string>
+
 
 
 </resources>

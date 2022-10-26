@@ -188,7 +188,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
     override fun onStart() {
         super.onStart()
 
-        Log.d("experiment", FirebaseAuth.getInstance().currentUser?.uid.toString())
         viewModel.getCurrentSession()
         viewModel.currentSession.observe(viewLifecycleOwner) { state ->
             when (state) {

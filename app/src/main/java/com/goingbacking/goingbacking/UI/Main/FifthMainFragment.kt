@@ -80,7 +80,7 @@ class FifthMainFragment : BaseFragment<FragmentFifthMainBinding>() {
             viewModel2.logout.observe(viewLifecycleOwner) { state ->
                 when (state) {
                     is UiState.Success -> {
-                        toast(requireContext(), "로그 아웃 완료")
+                        toast(requireContext(), getString(R.string.logout_success))
                         val intent = Intent(requireContext(), LoginActivity::class.java)
                         startActivity(intent)
                         finishAffinity(requireActivity())
