@@ -2,9 +2,7 @@ package com.goingbacking.goingbacking.UI.Main
 
 import android.content.Intent
 import android.os.Bundle
-import android.text.Layout
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,6 +18,7 @@ import com.goingbacking.goingbacking.ViewModel.LoginViewModel
 //import com.goingbacking.goingbacking.UI.Main.FifthMainFragmentDirections.ActionFifthMainFragmentToChangeInfoActivity
 import com.goingbacking.goingbacking.ViewModel.MainViewModel
 import com.goingbacking.goingbacking.databinding.FragmentFifthMainBinding
+import com.goingbacking.goingbacking.util.PrefUtil
 import com.goingbacking.goingbacking.util.UiState
 import com.goingbacking.goingbacking.util.toast
 import dagger.hilt.android.AndroidEntryPoint
@@ -81,6 +80,8 @@ class FifthMainFragment : BaseFragment<FragmentFifthMainBinding>() {
                 when (state) {
                     is UiState.Success -> {
                         toast(requireContext(), getString(R.string.logout_success))
+
+                        initPref()
                         val intent = Intent(requireContext(), LoginActivity::class.java)
                         startActivity(intent)
                         finishAffinity(requireActivity())
@@ -89,6 +90,16 @@ class FifthMainFragment : BaseFragment<FragmentFifthMainBinding>() {
                 }
             }
         }
+    }
+
+    private fun initPref() {
+        PrefUtil.setHistoryWhatToDo(mutableSetOf(), requireContext())
+        PrefUtil.setSecondsRemaining(0L, requireContext())
+        PrefUtil.setTodayTotalTime(0, requireContext())
+        PrefUtil.setEndTime(0, requireContext())
+        PrefUtil.setStartTime(0L, requireContext())
+        PrefUtil.setTodayWhatToDo("",requireContext())
+        PrefUtil.setTodayWhatToDoTime("", requireContext())
     }
 
 }
