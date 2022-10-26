@@ -27,6 +27,7 @@ import com.goingbacking.goingbacking.ViewModel.MainViewModel
 import com.goingbacking.goingbacking.databinding.FragmentThirdMainBinding
 import com.goingbacking.goingbacking.databinding.ItemCalendarDayBinding
 import com.goingbacking.goingbacking.databinding.ItemCalendarHeaderBinding
+import com.goingbacking.goingbacking.databinding.ItemCalendarHeaderMainBinding
 
 import com.goingbacking.goingbacking.util.UiState
 import com.goingbacking.goingbacking.util.makeInVisible
@@ -283,7 +284,7 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
     }
 
     inner class MonthViewContainer(view: View) : ViewContainer(view) {
-        val legendLayout = ItemCalendarHeaderBinding.bind(view).legendLayout.root
+        val legendLayout = ItemCalendarHeaderMainBinding.bind(view).legendLayout.root
     }
 
 
