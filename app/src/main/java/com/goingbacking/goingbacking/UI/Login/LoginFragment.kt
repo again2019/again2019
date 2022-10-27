@@ -1,12 +1,15 @@
 package com.goingbacking.goingbacking.UI.Login
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat.finishAffinity
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -24,7 +27,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn.getClient
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.common.api.ApiException
-import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -42,12 +44,12 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        toast(requireContext(), FirebaseAuth.getInstance().currentUser?.uid.toString())
-        buttonClick()
+        //toast(requireContext(), FirebaseAuth.getInstance().currentUser?.uid.toString())
+        onClick()
     }
 
     // 버튼 이벤트 모음
-    private fun buttonClick() = with(binding) {
+    private fun onClick() = with(binding) {
         registerButton.setOnClickListener{
             findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
         }
@@ -62,10 +64,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
         }
     }
 
-
-
     // 구글 로그인 코드
-
     private fun googleLoginObserver() {
         viewModel.getGSO()
         viewModel.gso.observe(viewLifecycleOwner) {
@@ -73,12 +72,10 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
             when (state) {
                 is UiState.Success -> {
                     googleSignInClient = getClient(requireActivity(), state.data)
-                    googleSignInClient?.signInIntent?.run {
-                        startActivityForResult(this, REQUEST_CODE)
-                    }
+                    launcher.launch(googleSignInClient.signInIntent)
                 }
                 is UiState.Failure -> {
-                    Toast.makeText(requireActivity(), R.string.login_fail, Toast.LENGTH_SHORT).show()
+                    toast(requireActivity(), getString(R.string.login_fail))
                 }
 
             }
@@ -86,20 +83,19 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
     }
 
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if (requestCode == REQUEST_CODE) {
-            val signInTask = GoogleSignIn.getSignedInAccountFromIntent(data)
+    private val launcher : ActivityResultLauncher<Intent> = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
+        if(result.resultCode == Activity.RESULT_OK) {
+            val signInTask = GoogleSignIn.getSignedInAccountFromIntent(result.data)
 
             try {
                 val account = signInTask.getResult(ApiException::class.java)
                 onGoogleSignInAccount(account)
             } catch (e: ApiException) {
-                Toast.makeText(requireActivity(), R.string.login_fail, Toast.LENGTH_SHORT).show()
+                toast(requireActivity(), getString(R.string.login_fail))
             }
         }
     }
+
 
     private fun onGoogleSignInAccount(account: GoogleSignInAccount?) {
         if (account != null) {
@@ -108,7 +104,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                 when (state) {
                     is UiState.Success -> {
                         binding.progressCircular.hide()
-                        Toast.makeText(requireActivity(), R.string.login_success, Toast.LENGTH_SHORT).show()
+                        toast(requireActivity(), getString(R.string.login_success))
                         // Google로 로그인 성공
                         moveInputPage()
                     }
@@ -117,14 +113,12 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                     }
                     is UiState.Failure -> {
                         binding.progressCircular.hide()
-                        Toast.makeText(requireActivity(), R.string.login_fail, Toast.LENGTH_SHORT).show()
+                        toast(requireActivity(), getString(R.string.login_fail))
                     }
                 }
             }
         }
     }
-
-    // 구글 로그인 코드
 
     // email 로그인 코드
     private fun emailLogin() = with(binding) {
@@ -140,7 +134,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
             when (state) {
                 is UiState.Success -> {
                     binding.progressCircular.hide()
-                    Toast.makeText(requireActivity(), R.string.login_success, Toast.LENGTH_SHORT).show()
+                    toast(requireActivity(), getString(R.string.login_success))
                     moveInputPage()
                 }
                 is UiState.Loading -> {
@@ -149,7 +143,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                 }
                 is UiState.Failure -> {
                     binding.progressCircular.hide()
-                    Toast.makeText(requireActivity(), R.string.login_fail, Toast.LENGTH_SHORT).show()
+                    toast(requireActivity(), getString(R.string.login_fail))
                 }
             }
         }
@@ -157,34 +151,33 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
 
     // email 로그인 코드
     // 유효한지를 판단하는 기준
-    fun validation(): Boolean = with(binding) {
+    private fun validation(): Boolean = with(binding) {
             var isValid = true
 
             if (emailEdittext.text.isNullOrEmpty()){
                 isValid = false
-                Toast.makeText(requireActivity(), R.string.email_again, Toast.LENGTH_SHORT).show()
-
+                toast(requireActivity(), getString(R.string.email_again))
             }else{
                 if (!emailEdittext.text.toString().isValidEmail()){
                     isValid = false
-                    Toast.makeText(requireActivity(), R.string.email_invalid, Toast.LENGTH_SHORT).show()
-
+                    toast(requireActivity(), getString(R.string.email_invalid))
                 }
             }
             if (passwordEdittext.text.isNullOrEmpty()){
                 isValid = false
-                Toast.makeText(requireActivity(), R.string.password_again, Toast.LENGTH_SHORT).show()
-
+                toast(requireActivity(), getString(R.string.password_again))
 
             }else{
                 if (passwordEdittext.text.toString().length < 8){
                     isValid = false
-                    Toast.makeText(requireActivity(), R.string.password_again, Toast.LENGTH_SHORT).show()
+                    toast(requireActivity(), getString(R.string.password_again))
                 }
             }
             return isValid
         }
 
+
+    // 만약 로그인을 미리 해놨었다면 바로 mainActivity로 넘어가는 코드
     override fun onStart() {
         super.onStart()
 
@@ -212,11 +205,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
         val intent = Intent(requireActivity(), MainActivity::class.java)
         startActivity(intent)
         finishAffinity(requireActivity())
-    }
-
-
-    companion object {
-        private const val REQUEST_CODE = 1
     }
 }
 

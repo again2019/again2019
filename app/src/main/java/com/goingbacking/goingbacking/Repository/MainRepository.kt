@@ -12,9 +12,15 @@ import com.goingbacking.goingbacking.util.FBConstants.Companion.USERINFO
 import com.goingbacking.goingbacking.util.FBConstants.Companion.WHATTODOINFO
 import com.goingbacking.goingbacking.util.FBConstants.Companion.YEAR
 import com.goingbacking.goingbacking.util.UiState
+import com.google.firebase.FirebaseException
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Source
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.tasks.await
 
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -72,40 +78,77 @@ class MainRepository (
     }
 
     override fun getThirdDateInfo(result: (UiState<DateDTO>) -> Unit) {
-        firebaseFirestore?.collection(DATE)?.document(uid)
-            ?.get()
-            ?.addOnSuccessListener { document ->
-                val data: DateDTO? = document.toObject(DateDTO::class.java)
-                if (data == null) {
-                    result.invoke(UiState.Failure("fail"))
+        CoroutineScope(Dispatchers.IO).launch {
+                val dateDTO = firebaseFirestore.collection(DATE).document(uid)
+                    .get().await().toObject(DateDTO::class.java)
+
+                if (dateDTO == null) {
+                    result.invoke(
+                        UiState.Failure("fail")
+                    )
                 } else {
                     result.invoke(
-                        UiState.Success(data!!)
+                        UiState.Success(dateDTO!!)
                     )
                 }
-            }
-            ?.addOnFailureListener {
-                result.invoke(UiState.Failure(it.localizedMessage))
-            }
+
+        }
     }
 
+
+//    override fun getThirdDateInfo(result: (UiState<DateDTO>) -> Unit) {
+//        firebaseFirestore?.collection(DATE)?.document(uid)
+//            ?.get()
+//            ?.addOnSuccessListener { document ->
+//                val data: DateDTO? = document.toObject(DateDTO::class.java)
+//                if (data == null) {
+//                    result.invoke(UiState.Failure("fail"))
+//                } else {
+//                    result.invoke(
+//                        UiState.Success(data!!)
+//                    )
+//                }
+//            }
+//            ?.addOnFailureListener {
+//                result.invoke(UiState.Failure(it.localizedMessage))
+//            }
+//    }
+
     override fun getThirdDateInfo2(year_month: String, result: (UiState<DateDTO>) -> Unit) {
-        firebaseFirestore?.collection(DATE)?.document(uid)
-            .collection(year_month).document(year_month)
-            ?.get()
-            ?.addOnSuccessListener { document ->
-                val data: DateDTO? = document.toObject(DateDTO::class.java)
-                if (data == null) {
-                    result.invoke(UiState.Failure("fail"))
-                } else {
-                    result.invoke(
-                        UiState.Success(data!!)
-                    )
-                }
+        CoroutineScope(Dispatchers.IO).launch {
+            val dateDTO = firebaseFirestore.collection(DATE).document(uid)
+                .collection(year_month).document(year_month)
+                .get().await().toObject(DateDTO::class.java)
+
+            Log.d("experiment", "repository" + year_month + " " + dateDTO.toString())
+            if (dateDTO == null) {
+                result.invoke(
+                    UiState.Failure("fail")
+                )
+            } else {
+                result.invoke(
+                    UiState.Success(dateDTO)
+                )
             }
-            ?.addOnFailureListener {
-                result.invoke(UiState.Failure(it.localizedMessage))
-            }
+
+        }
+
+//        firebaseFirestore?.collection(DATE)?.document(uid)
+//            .collection(year_month).document(year_month)
+//            ?.get()
+//            ?.addOnSuccessListener { document ->
+//                val data: DateDTO? = document.toObject(DateDTO::class.java)
+//                if (data == null) {
+//                    result.invoke(UiState.Failure("fail"))
+//                } else {
+//                    result.invoke(
+//                        UiState.Success(data!!)
+//                    )
+//                }
+//            }
+//            ?.addOnFailureListener {
+//                result.invoke(UiState.Failure(it.localizedMessage))
+//            }
     }
 
 

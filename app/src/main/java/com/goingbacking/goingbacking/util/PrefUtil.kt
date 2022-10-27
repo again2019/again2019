@@ -1,7 +1,7 @@
 package com.goingbacking.goingbacking.util
 
 import android.content.Context
-import android.preference.PreferenceManager
+import androidx.preference.PreferenceManager
 import com.google.firebase.auth.FirebaseAuth
 
 class PrefUtil {

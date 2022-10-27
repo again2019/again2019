@@ -34,6 +34,7 @@ class ThirdInputFragment : BaseFragment<FragmentThirdInputBinding>() {
     }
 
     private fun onClick() = with(binding) {
+        // chip 추가하는 버튼
         chipAddButton.setOnClickListener {
             inputChipGroup.addView(Chip(requireContext()).apply {
                 text = chipInputEditText.text.toString()
@@ -44,13 +45,13 @@ class ThirdInputFragment : BaseFragment<FragmentThirdInputBinding>() {
                 setOnCloseIconClickListener { inputChipGroup.removeView(this) }
                 chipInputEditText.setText("")
             })
-
         }
 
-
+        // 이전으로 가는 버튼
         ThirdInputButton1.setOnClickListener {
             findNavController().navigate(R.id.action_thirdInputFragment_to_secondInputFragment)
         }
+        // 다음으로 가는 버튼
         ThirdInputButton2.setOnClickListener {
 
             val selected1 = chipGroup.children.toList()
@@ -69,16 +70,20 @@ class ThirdInputFragment : BaseFragment<FragmentThirdInputBinding>() {
                 selected = selected1 + ',' + selected2
             }
 
-            ThirdInputObserver(selected)
+            // 데이터 베이스에 입력하는 코드
+            viewModel.updateThirdInput(selected)
+            // 입력이 성공적인지 확인하는 코드
+            ThirdInputObserver()
 
+            // bottom sheet으로 이동
             val bottom  = InputBottomSheet()
             bottom.show(childFragmentManager, bottom.tag)
 
         }
-
     }
-    private fun ThirdInputObserver(selected: String) {
-        viewModel.updateThirdInput(selected)
+
+    // 데이터 베이스에 입력하는 것이 잘되었는지 확인하는 함수
+    private fun ThirdInputObserver() {
         viewModel.updateThirdInput.observe(viewLifecycleOwner) {
                 state ->
             when(state) {
@@ -94,4 +99,6 @@ class ThirdInputFragment : BaseFragment<FragmentThirdInputBinding>() {
             }
         }
     }
+    // -------------------------------------------------------
+
 }

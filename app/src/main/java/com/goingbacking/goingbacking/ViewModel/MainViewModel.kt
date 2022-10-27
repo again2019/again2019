@@ -3,10 +3,12 @@ package com.goingbacking.goingbacking.ViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.goingbacking.goingbacking.Model.*
 import com.goingbacking.goingbacking.Repository.MainRepositoryIF
 import com.goingbacking.goingbacking.util.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import java.time.LocalDate
 import javax.inject.Inject
 
@@ -84,11 +86,11 @@ class MainViewModel @Inject constructor (
 
     fun getThirdDateInfo() {
         _thirdDateDTOs.value = UiState.Loading
-        mainRepository.getThirdDateInfo { _thirdDateDTOs.value = it }
+        mainRepository.getThirdDateInfo { _thirdDateDTOs.postValue(it) }
     }
-    fun getThirdDateInfo2(year_month:String) {
+    fun getThirdDateInfo2(year_month:String) = viewModelScope.launch {
         _thirdDateDTOs2.value = UiState.Loading
-        mainRepository.getThirdDateInfo2(year_month) { _thirdDateDTOs2.value = it }
+        mainRepository.getThirdDateInfo2(year_month) { _thirdDateDTOs2.postValue(it) }
     }
 
     fun getThirdCalendarInfo(yearList : MutableList<String>) {
