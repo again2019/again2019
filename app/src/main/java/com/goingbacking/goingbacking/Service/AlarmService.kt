@@ -8,43 +8,38 @@ import android.util.Log
 import com.goingbacking.goingbacking.util.NotificationUtil
 
 class AlarmService () : Service() {
-
-
-    override fun onCreate() {
-        super.onCreate()
-
+    companion object {
+        private const val START_FOREGROUND = 19
+        private const val FINISH_FOREGROUND = 20
+        private const val STOP_FOREGROUND = 21
 
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
 
-        Log.d("experiment", "sssssssssssssssss" + intent?.action.toString())
-
-
+        //Log.d("experiment", "sssssssssssssssss" + intent?.action.toString())
         when(intent?.action) {
             "FIRST_START_FOREGROUND" -> {
                 startForegroundService1()
             }
-
-
             "START_FOREGROUND" -> {
-                stopSelf(19)
+                stopSelf(START_FOREGROUND)
                 val wakeUpTime = intent.getLongExtra("wakeUpTime", 0L)
-                Log.d("experiment", "sssssssssssssssss wakeup time ${wakeUpTime}")
+                //Log.d("experiment", "sssssssssssssssss wakeup time ${wakeUpTime}")
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     startForegroundService2(wakeUpTime)
                 }
             }
             "FINISH_FOREGROUND" -> {
-                stopSelf(20)
+                stopSelf(FINISH_FOREGROUND)
                 startForegroundService3()
                // NotificationUtil.showTimerExpired()
             }
             "STOP_FOREGROUND" -> {
-                stopSelf(20)
+                stopSelf(FINISH_FOREGROUND)
             }
             "STOP_FOREGROUND2" -> {
-                stopSelf(21)
+                stopSelf(STOP_FOREGROUND)
             }
 
         }
@@ -59,20 +54,20 @@ class AlarmService () : Service() {
 
     private fun startForegroundService1() {
         val notification = NotificationUtil.showTimerReadyNotification(this)
-        startForeground(19, notification)
+        startForeground(START_FOREGROUND, notification)
     }
 
 
     private fun startForegroundService2(wakeUpTime :Long) {
 
-        Log.d("experiment", "wakeup time start")
+        //Log.d("experiment", "wakeup time start")
         val notification = NotificationUtil.createNotification(this, wakeUpTime)
-        startForeground(20, notification)
+        startForeground(FINISH_FOREGROUND, notification)
     }
 
     private fun startForegroundService3() {
         val notification = NotificationUtil.showTimerExpiredNotification(this)
-        startForeground(21, notification)
+        startForeground(STOP_FOREGROUND, notification)
 
     }
 

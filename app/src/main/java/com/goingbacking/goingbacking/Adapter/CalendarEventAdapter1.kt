@@ -6,8 +6,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.goingbacking.goingbacking.Model.Event
 import com.goingbacking.goingbacking.databinding.ItemEventBinding
 
-class CalendarEventAdapter(val onClick: (Event) -> Unit)
-    : RecyclerView.Adapter<CalendarEventAdapter.MyViewHolder>() {
+class CalendarEventAdapter1(val onClick: (Event) -> Unit)
+    : RecyclerView.Adapter<CalendarEventAdapter1.MyViewHolder>() {
 
         var events = mutableListOf<Event>()
 

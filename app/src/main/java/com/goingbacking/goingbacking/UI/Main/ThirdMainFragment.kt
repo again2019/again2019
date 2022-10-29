@@ -16,7 +16,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.goingbacking.goingbacking.Adapter.CalendarEventAdapter
+import com.goingbacking.goingbacking.Adapter.CalendarEventAdapter1
 import com.goingbacking.goingbacking.Model.Event
 
 import com.goingbacking.goingbacking.R
@@ -26,7 +26,6 @@ import com.goingbacking.goingbacking.UI.Main.Third.TotalCalendarActivity
 import com.goingbacking.goingbacking.ViewModel.MainViewModel
 import com.goingbacking.goingbacking.databinding.FragmentThirdMainBinding
 import com.goingbacking.goingbacking.databinding.ItemCalendarDayBinding
-import com.goingbacking.goingbacking.databinding.ItemCalendarHeaderBinding
 import com.goingbacking.goingbacking.databinding.ItemCalendarHeaderMainBinding
 
 import com.goingbacking.goingbacking.util.UiState
@@ -60,7 +59,7 @@ import java.util.*
 
 @AndroidEntryPoint
 class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
-    private val eventsAdapter = CalendarEventAdapter {
+    private val eventsAdapter = CalendarEventAdapter1 {
         AlertDialog.Builder(requireContext())
             .setMessage(R.string.example_3_dialog_delete_confirmation)
             .setPositiveButton(R.string.delete) { _, _ ->

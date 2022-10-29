@@ -90,7 +90,7 @@ class MainViewModel @Inject constructor (
     }
     fun getThirdDateInfo2(year_month:String) = viewModelScope.launch {
         _thirdDateDTOs2.value = UiState.Loading
-        mainRepository.getThirdDateInfo2(year_month) { _thirdDateDTOs2.postValue(it) }
+        mainRepository.getThirdDateInfo2(year_month) { _thirdDateDTOs2.value = it }
     }
 
     fun getThirdCalendarInfo(yearList : MutableList<String>) {

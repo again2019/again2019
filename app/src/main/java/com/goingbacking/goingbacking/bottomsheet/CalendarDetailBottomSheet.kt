@@ -9,10 +9,8 @@ import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.goingbacking.goingbacking.Adapter.CalendarEventAdapter
 import com.goingbacking.goingbacking.Adapter.CalendarEventAdapter2
 import com.goingbacking.goingbacking.Model.Event
-import com.goingbacking.goingbacking.R
 import com.goingbacking.goingbacking.ViewModel.MainViewModel
 import com.goingbacking.goingbacking.databinding.BottomSheetCalendarDetailBinding
 import com.goingbacking.goingbacking.util.UiState

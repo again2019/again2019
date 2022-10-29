@@ -60,15 +60,7 @@
         android:name="com.goingbacking.goingbacking.UI.Main.FifthMainFragment"
         android:label="FifthMainFragment"
         tools:layout="@layout/fragment_fifth_main">
-        <action
-            android:id="@+id/action_fifthMainFragment_to_changeInfoActivity"
-            app:destination="@id/changeInfoActivity" />
     </fragment>
 
-    <activity
-        android:id="@+id/changeInfoActivity"
-        android:name="com.goingbacking.goingbacking.UI.Main.Fifth.ChangeInfoActivity"
-        android:label="ChangeInfoActivity"
-        tools:layout="@layout/activity_change_info"/>
 
 </navigation>

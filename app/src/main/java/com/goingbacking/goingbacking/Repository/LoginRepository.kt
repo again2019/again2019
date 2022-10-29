@@ -39,7 +39,7 @@ class LoginRepository (
 
     override fun emailRegister(email: String, password: String, result: (UiState<String>) -> Unit) {
         firebaseAuth.createUserWithEmailAndPassword(email, password)
-            ?.addOnCompleteListener {
+            .addOnCompleteListener {
                 if(it.isSuccessful){
                     //Creating a user account
                     result.invoke(
@@ -106,7 +106,7 @@ class LoginRepository (
 
     override fun signInWithCredential(token: String, result: (UiState<String>) -> Unit) {
         val credential = GoogleAuthProvider.getCredential(token, null)
-        firebaseAuth.signInWithCredential(credential)?.addOnCompleteListener { task ->
+        firebaseAuth.signInWithCredential(credential).addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 result.invoke(UiState.Success(success))
             } else {

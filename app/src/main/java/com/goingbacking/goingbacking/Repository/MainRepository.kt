@@ -1,7 +1,6 @@
 package com.goingbacking.goingbacking.Repository
 
 import android.util.Log
-import android.widget.Toast
 import com.goingbacking.goingbacking.Model.*
 import com.goingbacking.goingbacking.util.FBConstants.Companion.CALENDARINFO
 import com.goingbacking.goingbacking.util.FBConstants.Companion.DATE
@@ -12,14 +11,12 @@ import com.goingbacking.goingbacking.util.FBConstants.Companion.USERINFO
 import com.goingbacking.goingbacking.util.FBConstants.Companion.WHATTODOINFO
 import com.goingbacking.goingbacking.util.FBConstants.Companion.YEAR
 import com.goingbacking.goingbacking.util.UiState
-import com.google.firebase.FirebaseException
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Source
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.tasks.await
 
 import java.time.LocalDate
@@ -36,16 +33,16 @@ class MainRepository (
 
 
     override fun getFifthUserInfo(result: (UiState<UserInfoDTO>) -> Unit) {
-        firebaseFirestore.collection(USERINFO)?.document(uid)
-            ?.get()
-            ?.addOnSuccessListener { document ->
+        firebaseFirestore.collection(USERINFO).document(uid)
+            .get()
+            .addOnSuccessListener { document ->
                 val data :UserInfoDTO? = document.toObject(UserInfoDTO::class.java)
                 result.invoke(
                     UiState.Success(data!!)
                 )
             }
 
-            ?.addOnFailureListener {
+            .addOnFailureListener {
                 result.invoke(
                         UiState.Failure(
                             it.localizedMessage
@@ -55,9 +52,9 @@ class MainRepository (
     }
 
     override fun addEventInfo(path1: String, path2: String, event: Event, result: (UiState<String>) -> Unit) {
-        firebaseFirestore?.collection(CALENDARINFO)?.document(uid)
-            ?.collection(path1)?.document(path2)
-            ?.set(event)
+        firebaseFirestore.collection(CALENDARINFO).document(uid)
+            .collection(path1).document(path2)
+            .set(event)
             .addOnSuccessListener {
                 result.invoke(UiState.Success("ScheduleInput Success"))
             }
@@ -67,11 +64,11 @@ class MainRepository (
     }
 
     override fun addDateInfo(date: DateDTO, result: (UiState<String>) -> Unit) {
-        firebaseFirestore?.collection(DATE)?.document(uid)?.set(date)
-            ?.addOnSuccessListener {
+        firebaseFirestore.collection(DATE).document(uid).set(date)
+            .addOnSuccessListener {
                 result.invoke(UiState.Success("DateInfo Success"))
             }
-            ?.addOnFailureListener {
+            .addOnFailureListener {
                 result.invoke(UiState.Failure(it.localizedMessage))
             }
 
@@ -88,7 +85,7 @@ class MainRepository (
                     )
                 } else {
                     result.invoke(
-                        UiState.Success(dateDTO!!)
+                        UiState.Success(dateDTO)
                     )
                 }
 
@@ -115,57 +112,40 @@ class MainRepository (
 //    }
 
     override fun getThirdDateInfo2(year_month: String, result: (UiState<DateDTO>) -> Unit) {
-        CoroutineScope(Dispatchers.IO).launch {
-            val dateDTO = firebaseFirestore.collection(DATE).document(uid)
+            firebaseFirestore.collection(DATE).document(uid)
                 .collection(year_month).document(year_month)
-                .get().await().toObject(DateDTO::class.java)
-
-            Log.d("experiment", "repository" + year_month + " " + dateDTO.toString())
-            if (dateDTO == null) {
-                result.invoke(
-                    UiState.Failure("fail")
-                )
-            } else {
-                result.invoke(
-                    UiState.Success(dateDTO)
-                )
+                .get()
+                .addOnSuccessListener { document ->
+                    val data: DateDTO? = document.toObject(DateDTO::class.java)
+                    if (data == null) {
+                        result.invoke(UiState.Failure("fail"))
+                    } else {
+                    result.invoke(UiState.Success(data))
+                     }
+                    }
+                    .addOnFailureListener {
+                        result.invoke(UiState.Failure(it.localizedMessage))
+                    }
             }
 
-        }
 
-//        firebaseFirestore?.collection(DATE)?.document(uid)
-//            .collection(year_month).document(year_month)
-//            ?.get()
-//            ?.addOnSuccessListener { document ->
-//                val data: DateDTO? = document.toObject(DateDTO::class.java)
-//                if (data == null) {
-//                    result.invoke(UiState.Failure("fail"))
-//                } else {
-//                    result.invoke(
-//                        UiState.Success(data!!)
-//                    )
-//                }
-//            }
-//            ?.addOnFailureListener {
-//                result.invoke(UiState.Failure(it.localizedMessage))
-//            }
-    }
+
 
 
     override fun getThirdCalendarInfo(yearList : MutableList<String>, result: (UiState<MutableMap<LocalDate, List<Event>>>) -> Unit) {
         val events = mutableMapOf<LocalDate, List<Event>>()
-        var now = LocalDate.now()
-        var Strnow = now.format(DateTimeFormatter.ofPattern("yyyy-MM"))
+        val now = LocalDate.now()
+        val Strnow = now.format(DateTimeFormatter.ofPattern("yyyy-MM"))
 
         events.clear()
         for (i in yearList) {
             firebaseFirestore
-                ?.collection(CALENDARINFO)?.document(uid)?.collection(Strnow)
-                ?.whereEqualTo("date", i)?.get()
-                ?.addOnSuccessListener { querySnapshot ->
+                .collection(CALENDARINFO).document(uid).collection(Strnow)
+                .whereEqualTo("date", i).get()
+                .addOnSuccessListener { querySnapshot ->
                     if (querySnapshot.count() == 1) {
                         for (snapshot in querySnapshot!!) {
-                            var x = LocalDate.parse(snapshot["date"].toString(), DateTimeFormatter.ISO_DATE)
+                            val x = LocalDate.parse(snapshot["date"].toString(), DateTimeFormatter.ISO_DATE)
                             events[x] = events[x].orEmpty().plus(
                                 Event(
                                     "move",
@@ -208,7 +188,7 @@ class MainRepository (
                         var count = 1
                         var before = Event("", "", 0,0,0)
                         for (snapshot in querySnapshot!!) {
-                            var x = LocalDate.parse(snapshot["date"].toString(), DateTimeFormatter.ISO_DATE)
+                            val x = LocalDate.parse(snapshot["date"].toString(), DateTimeFormatter.ISO_DATE)
 
                             if (count == 1) {
                                 events[x] = events[x].orEmpty().plus(
@@ -315,7 +295,7 @@ class MainRepository (
                         UiState.Success(events)
                     )
                 }
-                ?.addOnFailureListener {
+                .addOnFailureListener {
                     result.invoke(
                         UiState.Failure(it.localizedMessage)
                     )
@@ -335,7 +315,7 @@ class MainRepository (
             .addOnSuccessListener { querySnapshot ->
                 if (querySnapshot.count() == 1) {
                     for (snapshot in querySnapshot!!) {
-                        var x = LocalDate.parse(snapshot["date"].toString(), DateTimeFormatter.ISO_DATE)
+                        val x = LocalDate.parse(snapshot["date"].toString(), DateTimeFormatter.ISO_DATE)
                         events[x] = events[x].orEmpty().plus(
                             Event(
                                 "move",
@@ -378,7 +358,7 @@ class MainRepository (
                     var count = 1
                     var before = Event("", "", 0,0,0)
                     for (snapshot in querySnapshot!!) {
-                        var x = LocalDate.parse(snapshot["date"].toString(), DateTimeFormatter.ISO_DATE)
+                        val x = LocalDate.parse(snapshot["date"].toString(), DateTimeFormatter.ISO_DATE)
 
                         if (count == 1) {
                             events[x] = events[x].orEmpty().plus(
@@ -485,7 +465,7 @@ class MainRepository (
                     UiState.Success(events)
                 )
             }
-            ?.addOnFailureListener {
+            .addOnFailureListener {
                 result.invoke(
                     UiState.Failure(it.localizedMessage)
                 )
@@ -500,15 +480,15 @@ class MainRepository (
     override fun getSecondSaveDayInfo(result: (UiState<ArrayList<SaveTimeDayDTO>>) -> Unit) {
         val current = LocalDateTime.now()
         val simpleDate1 = DateTimeFormatter.ofPattern("yyyy-MM")
-        var curYearMonth = current.format(simpleDate1)
+        val curYearMonth = current.format(simpleDate1)
 
 
 
         firebaseFirestore.collection(SAVETIMEINFO).document(uid)
-            ?.collection(DAY)?.document(curYearMonth)
-            ?.collection(curYearMonth)?.get()
+            .collection(DAY).document(curYearMonth)
+            .collection(curYearMonth).get()
             .addOnSuccessListener {
-                var saveTimeDayDTOList = arrayListOf<SaveTimeDayDTO>()
+                val saveTimeDayDTOList = arrayListOf<SaveTimeDayDTO>()
 
                 for (document in it) {
                     saveTimeDayDTOList.add(document.toObject(SaveTimeDayDTO::class.java))
@@ -537,13 +517,13 @@ class MainRepository (
         val current = LocalDateTime.now()
         val simpleDate1 = DateTimeFormatter.ofPattern("yyyy")
 
-        var curYear = current.format(simpleDate1)
+        val curYear = current.format(simpleDate1)
 
         firebaseFirestore.collection(SAVETIMEINFO).document(uid)
-            ?.collection(MONTH)?.document(curYear)
-            ?.collection(curYear).get()
+            .collection(MONTH).document(curYear)
+            .collection(curYear).get()
             .addOnSuccessListener {
-                var saveTimeMonthDTOList = arrayListOf<SaveTimeMonthDTO>()
+                val saveTimeMonthDTOList = arrayListOf<SaveTimeMonthDTO>()
 
                 for (document in it) {
                     saveTimeMonthDTOList.add(document.toObject(SaveTimeMonthDTO::class.java))
@@ -562,9 +542,9 @@ class MainRepository (
     override fun getSecondSaveYearInfo(result: (UiState<ArrayList<SaveTimeYearDTO>>) -> Unit) {
 
         firebaseFirestore.collection(SAVETIMEINFO).document(uid)
-            ?.collection(YEAR)?.get()
+            .collection(YEAR).get()
             .addOnSuccessListener {
-                var saveTimeYearDTOList = arrayListOf<SaveTimeYearDTO>()
+                val saveTimeYearDTOList = arrayListOf<SaveTimeYearDTO>()
                  for(document in it){
                         saveTimeYearDTOList.add(document.toObject(SaveTimeYearDTO::class.java))
                 }
@@ -583,12 +563,12 @@ class MainRepository (
     }
 
     override fun getSecondWhatToDoMonthInfo(result: (UiState<ArrayList<WhatToDoMonthDTO>>) -> Unit) {
-        var now = LocalDate.now()
-        var Strnow = now.format(DateTimeFormatter.ofPattern("yyyy-MM"))
+        val now = LocalDate.now()
+        val Strnow = now.format(DateTimeFormatter.ofPattern("yyyy-MM"))
 
         firebaseFirestore.collection(WHATTODOINFO).document(uid)
-            ?.collection(MONTH).document(Strnow)
-            ?.collection(Strnow).get()
+            .collection(MONTH).document(Strnow)
+            .collection(Strnow).get()
             .addOnSuccessListener {
                 val whatToDoMonthDTOList = arrayListOf<WhatToDoMonthDTO>()
                 for (document in it) {
@@ -599,7 +579,7 @@ class MainRepository (
                     UiState.Success(whatToDoMonthDTOList)
                 )
             }
-            ?.addOnFailureListener {
+            .addOnFailureListener {
                 result.invoke(
                     UiState.Failure(
                         it.localizedMessage
@@ -609,12 +589,12 @@ class MainRepository (
     }
 
     override fun getSecondWhatToDoYearInfo(result: (UiState<ArrayList<WhatToDoYearDTO>>) -> Unit)  {
-        var now = LocalDate.now()
-        var Strnow = now.format(DateTimeFormatter.ofPattern("yyyy"))
+        val now = LocalDate.now()
+        val Strnow = now.format(DateTimeFormatter.ofPattern("yyyy"))
 
         firebaseFirestore.collection(WHATTODOINFO).document(uid)
-            ?.collection(YEAR).document(Strnow)
-            ?.collection(Strnow).get()
+            .collection(YEAR).document(Strnow)
+            .collection(Strnow).get()
             .addOnSuccessListener {
                 val whatToDoYearDTOList = arrayListOf<WhatToDoYearDTO>()
                 for (document in it) {
@@ -625,7 +605,7 @@ class MainRepository (
                     UiState.Success(whatToDoYearDTOList)
                 )
             }
-            ?.addOnFailureListener {
+            .addOnFailureListener {
                 result.invoke(
                     UiState.Failure(
                         it.localizedMessage
