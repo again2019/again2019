@@ -7,6 +7,18 @@ import com.google.firebase.auth.FirebaseAuth
 class PrefUtil {
 
     companion object {
+        private const val HISTORY_UID = "history_uid"
+
+        fun setHistoryUid(whattodoList: MutableSet<String>, context: Context){
+            val editor = PreferenceManager.getDefaultSharedPreferences(context).edit()
+            editor.putStringSet(HISTORY_UID, whattodoList)
+            editor.apply()
+        }
+        fun getHistoryUid(context: Context): MutableSet<String>? {
+            val preferences = PreferenceManager.getDefaultSharedPreferences(context)
+            return preferences.getStringSet(HISTORY_UID, setOf<String>())
+        }
+
         private const val HISTORY_WHATTODO_ID = "history_whattodo"
 
         fun setHistoryWhatToDo(whattodoList: MutableSet<String>, context: Context){

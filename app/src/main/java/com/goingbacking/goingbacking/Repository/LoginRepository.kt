@@ -24,16 +24,9 @@ class LoginRepository (
             .requestEmail()
             .build()
 
-        if (gso != null) {
             result.invoke(
                 UiState.Success(gso)
             )
-        } else {
-            result.invoke(
-                UiState.Failure(fail)
-            )
-        }
-
 
     }
 

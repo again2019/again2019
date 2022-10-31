@@ -19,6 +19,7 @@ import com.goingbacking.goingbacking.UI.Input.InputActivity
 import com.goingbacking.goingbacking.UI.Main.MainActivity
 import com.goingbacking.goingbacking.ViewModel.LoginViewModel
 import com.goingbacking.goingbacking.databinding.FragmentLoginBinding
+import com.goingbacking.goingbacking.util.PrefUtil
 import com.goingbacking.goingbacking.util.UiState
 import com.goingbacking.goingbacking.util.isValidEmail
 import com.goingbacking.goingbacking.util.toast
@@ -27,6 +28,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn.getClient
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.common.api.ApiException
+import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -58,6 +60,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
         }
         loginButton.setOnClickListener {
             googleLoginObserver()
+            toast(requireContext(), FirebaseAuth.getInstance().currentUser?.uid.toString())
         }
         passwordButton.setOnClickListener {
             findNavController().navigate(R.id.action_loginFragment_to_forgetFrgament)
@@ -106,7 +109,8 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                         binding.progressCircular.hide()
                         toast(requireActivity(), getString(R.string.login_success))
                         // Google로 로그인 성공
-                        moveInputPage()
+                        //toast(requireContext(), FirebaseAuth.getInstance().currentUser?.uid.toString())
+                        moveSelectPage()
                     }
                     is UiState.Loading -> {
                         binding.progressCircular.show()
@@ -135,7 +139,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                 is UiState.Success -> {
                     binding.progressCircular.hide()
                     toast(requireActivity(), getString(R.string.login_success))
-                    moveInputPage()
+                    moveSelectPage()
                 }
                 is UiState.Loading -> {
                     binding.progressCircular.isIndeterminate = true
@@ -195,6 +199,24 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
         }
     }
 
+    private fun moveSelectPage() {
+        val loginSet = PrefUtil.getHistoryUid(requireContext())
+//        val ss = mutableSetOf<String>()
+//        PrefUtil.setHistoryUid(ss, requireContext())
+
+        Log.d("experiment", PrefUtil.getHistoryUid(requireContext()).toString())
+        if (loginSet == null) {
+            moveInputPage()
+        } else {
+            if (loginSet.contains(PrefUtil.firebaseUid())) {
+                moveMainPage()
+            } else {
+                moveInputPage()
+            }
+        }
+
+        Log.d("experiment", PrefUtil.getHistoryUid(requireContext()).toString())
+    }
     private fun moveInputPage() {
         val intent = Intent(requireActivity(), InputActivity::class.java)
         startActivity(intent)
