@@ -108,15 +108,8 @@ class InputBottomSheet : BottomSheetDialogFragment() {
             }
 
             PrefUtil.setHistoryWhatToDo(whattodoList, requireContext())
-            val uidSet = PrefUtil.getHistoryUid(requireContext())
-            if (uidSet == null || uidSet.size == 0) {
-                val newSet = mutableSetOf<String>()
-                newSet.add(PrefUtil.firebaseUid())
-                PrefUtil.setHistoryUid(newSet, requireContext())
-            } else {
-                uidSet.add(PrefUtil.firebaseUid())
-                PrefUtil.setHistoryUid(uidSet, requireContext())
-            }
+
+            PrefUtil.setCurrentUid(PrefUtil.firebaseUid(), requireContext())
             moveTutorialPage()
         }
         noButton.setOnClickListener {

@@ -46,8 +46,8 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //toast(requireContext(), FirebaseAuth.getInstance().currentUser?.uid.toString())
         onClick()
+
     }
 
     // 버튼 이벤트 모음
@@ -110,7 +110,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                         toast(requireActivity(), getString(R.string.login_success))
                         // Google로 로그인 성공
                         //toast(requireContext(), FirebaseAuth.getInstance().currentUser?.uid.toString())
-                        moveSelectPage()
+                        moveInputPage()
                     }
                     is UiState.Loading -> {
                         binding.progressCircular.show()
@@ -139,7 +139,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                 is UiState.Success -> {
                     binding.progressCircular.hide()
                     toast(requireActivity(), getString(R.string.login_success))
-                    moveSelectPage()
+                    moveInputPage()
                 }
                 is UiState.Loading -> {
                     binding.progressCircular.isIndeterminate = true
@@ -185,38 +185,31 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
     override fun onStart() {
         super.onStart()
 
-        viewModel.getCurrentSession()
-        viewModel.currentSession.observe(viewLifecycleOwner) { state ->
-            when (state) {
-                is UiState.Success -> {
-                    binding.progressCircular.hide()
-                    moveMainPage()
-                }
-                is UiState.Loading -> {
-                    binding.progressCircular.show()
+        if (!(PrefUtil.firebaseUid() == null || PrefUtil.getCurrentUid(requireContext()) == null)) {
+            if (PrefUtil.firebaseUid().equals(PrefUtil.getCurrentUid(requireContext()))) {
+                viewModel.getCurrentSession()
+                viewModel.currentSession.observe(viewLifecycleOwner) { state ->
+                    when (state) {
+                        is UiState.Success -> {
+                            binding.progressCircular.hide()
+                            moveMainPage()
+                        }
+                        is UiState.Loading -> {
+                            binding.progressCircular.show()
+                        }
+                        is UiState.Failure -> {
+                            binding.progressCircular.hide()
+                            toast(requireContext(), getString(R.string.auto_login_fail))
+                        }
+                    }
                 }
             }
         }
+
+
     }
 
-    private fun moveSelectPage() {
-        val loginSet = PrefUtil.getHistoryUid(requireContext())
-//        val ss = mutableSetOf<String>()
-//        PrefUtil.setHistoryUid(ss, requireContext())
 
-        Log.d("experiment", PrefUtil.getHistoryUid(requireContext()).toString())
-        if (loginSet == null) {
-            moveInputPage()
-        } else {
-            if (loginSet.contains(PrefUtil.firebaseUid())) {
-                moveMainPage()
-            } else {
-                moveInputPage()
-            }
-        }
-
-        Log.d("experiment", PrefUtil.getHistoryUid(requireContext()).toString())
-    }
     private fun moveInputPage() {
         val intent = Intent(requireActivity(), InputActivity::class.java)
         startActivity(intent)
