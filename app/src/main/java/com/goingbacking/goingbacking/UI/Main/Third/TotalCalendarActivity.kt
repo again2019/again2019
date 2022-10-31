@@ -54,8 +54,8 @@ class TotalCalendarActivity : BaseActivity<ActivityTotalCalendarBinding>({
         val daysOfWeek = daysOfWeekFromLocale()
         val currentMonth = YearMonth.now()
         binding.exThreeCalendar.setup(
-            currentMonth.minusMonths(50),
-            currentMonth.plusMonths(50),
+            currentMonth.minusMonths(10),
+            currentMonth.plusMonths(10),
             daysOfWeek.first()
         )
         binding.exThreeCalendar.scrollToMonth(currentMonth)
@@ -121,6 +121,8 @@ class TotalCalendarActivity : BaseActivity<ActivityTotalCalendarBinding>({
         }
 
         binding.exThreeCalendar.monthScrollListener = {
+
+
         }
 
     }

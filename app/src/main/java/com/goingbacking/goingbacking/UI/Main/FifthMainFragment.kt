@@ -39,8 +39,14 @@ class FifthMainFragment : BaseFragment<FragmentFifthMainBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        observer()
+
         onClick()
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        observer()
     }
 
 

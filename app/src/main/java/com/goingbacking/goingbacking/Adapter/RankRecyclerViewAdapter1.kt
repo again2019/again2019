@@ -1,12 +1,9 @@
 package com.goingbacking.goingbacking.Adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.goingbacking.goingbacking.Model.NewSaveTimeMonthDTO
-import com.goingbacking.goingbacking.Model.TmpTimeDTO
-import com.goingbacking.goingbacking.bottomsheet.RankBottomSheet
 import com.goingbacking.goingbacking.databinding.ItemRankingBinding
 
 class RankRecyclerViewAdapter1 (

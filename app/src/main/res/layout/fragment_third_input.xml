@@ -38,31 +38,6 @@
         />
 
 
-    <EditText
-        android:id="@+id/chipInputEditText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="할일들을 입력하세요."/>
-
-    <Button
-        android:id="@+id/chipAddButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="chip 추가"/>
-
-
-    <com.google.android.material.chip.ChipGroup
-        android:id="@+id/inputChipGroup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintWidth_percent="0.8">
-
-
-    </com.google.android.material.chip.ChipGroup>
-
     <TextView
         android:text="많은 사람들이 하는 것"
         android:layout_width="wrap_content"

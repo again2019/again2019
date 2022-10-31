@@ -1,14 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".bottomsheet.RankBottomSheet">
+    tools:context=".bottomsheet.RankBottomSheet"
+    android:orientation="vertical">
 
-    <!-- TODO: Update blank fragment layout -->
+
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:id="@+id/rank_nickname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="닉네임"
+        />
+    <TextView
+        android:id="@+id/rank_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="형태"/>
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/rank_whattodo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="할 일"/>
+
+    <TextView
+        android:id="@+id/rank_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="할 일"/>
+
+    <TextView
+        android:id="@+id/rank_like"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="좋아요 수"/>
+
+
+
+
+</LinearLayout>
