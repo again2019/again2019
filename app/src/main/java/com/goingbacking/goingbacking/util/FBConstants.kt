@@ -16,6 +16,8 @@ class FBConstants {
         const val TMPTIMEINFO = "TmpTimeInfo"
         const val SAVETIMEINFO = "SaveTimeInfo"
         const val WHATTODOINFO = "WhatToDoInfo"
+        const val RANKMONTHINFO = "RankMonthInfo"
+        const val RANKYEARINFO = "RankYearInfo"
 
         const val DAY = "day"
         const val MONTH = "month"

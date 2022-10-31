@@ -31,20 +31,8 @@ class ForthMainFragment1 : BaseFragment<FragmentForthMain1Binding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val current = LocalDateTime.now()
-        val simpleDate1 = DateTimeFormatter.ofPattern("yyyy-MM")
-        val curYearMonth = current.format(simpleDate1)
+        
 
-        val arrayList = ArrayList<NewSaveTimeMonthDTO>()
-
-        FirebaseFirestore.getInstance().collection("RankMonthInfo").document(curYearMonth)
-            .collection(curYearMonth).orderBy("count", Query.Direction.DESCENDING).get().addOnSuccessListener { documents ->
-                for (document in documents) {
-                    arrayList.add(document.toObject(NewSaveTimeMonthDTO::class.java))
-                }
-
-                Log.d("experiment", arrayList.toString())
-            }
 
     }
 }

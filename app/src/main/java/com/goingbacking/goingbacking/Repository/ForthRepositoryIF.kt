@@ -9,7 +9,6 @@ import com.google.firebase.auth.UserInfo
 
 interface ForthRepositoryIF {
 
-    fun getUserInfo(result: Result<ArrayList<UserInfo>>)
     fun getSaveTimeMonthInfo(result: (UiState<ArrayList<NewSaveTimeMonthDTO>>) -> Unit)
     fun getSaveTimeYearInfo(result: (UiState<ArrayList<NewSaveTimeYearDTO>>) -> Unit )
 

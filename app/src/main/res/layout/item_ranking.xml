@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/rank_num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="할 일"/>
+
+    <TextView
+        android:id="@+id/rank_nickname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="닉네임"
+        />
+    <TextView
+        android:id="@+id/rank_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="형태"/>
+
+    <TextView
+        android:id="@+id/rank_whattodo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="할 일"/>
+
+    <TextView
+        android:id="@+id/rank_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="할 일"/>
+
+    <TextView
+        android:id="@+id/rank_like"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="좋아요 수"/>
+
+    <Button
+        android:id="@+id/rank_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="보러가기"/>
+
+
+</LinearLayout>
