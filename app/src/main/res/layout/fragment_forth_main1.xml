@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".UI.Main.Forth.ForthMainFragment1"
+    android:orientation="vertical">
+
+   <com.google.android.material.progressindicator.CircularProgressIndicator
+       android:id="@+id/progress_circular"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       app:indicatorColor="@color/example_3_blue"
+       android:indeterminate="true"
+       android:visibility="invisible" />
+
+   <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+       android:id="@+id/forth1_refreshLayout"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:orientation="vertical"
+       tools:context=".MainActivity">
+
+   <androidx.recyclerview.widget.RecyclerView
+       android:id="@+id/forth1_recyclerview"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"/>
+
+   </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+</LinearLayout>

@@ -10,10 +10,6 @@ class CalendarEventAdapter2() : RecyclerView.Adapter<CalendarEventAdapter2.MyVie
 
     var events = mutableListOf<Event>()
 
-    fun addEvent(list: List<Event>?) {
-        events = list!!.toMutableList()
-    }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val itemView = ItemEventBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MyViewHolder(itemView)

@@ -25,12 +25,12 @@ class TmpTimeRepository(
     val cache = Source.CACHE
 
     override fun getTmpTimeInfo(result: (UiState<ArrayList<TmpTimeDTO>>) -> Unit) {
-        firebaseFirestore?.collection(FBConstants.TMPTIMEINFO).document(myUid)
+        firebaseFirestore.collection(FBConstants.TMPTIMEINFO).document(myUid)
             .collection(myUid).get()
             .addOnSuccessListener {
-                var tmpTimeDTOList : ArrayList<TmpTimeDTO> = arrayListOf()
+                val tmpTimeDTOList : ArrayList<TmpTimeDTO> = arrayListOf()
                 for(document in it){
-                    tmpTimeDTOList.add(document.toObject(TmpTimeDTO::class.java)!!)
+                    tmpTimeDTOList.add(document.toObject(TmpTimeDTO::class.java))
                 }
 
                 result.invoke(
@@ -54,10 +54,10 @@ class TmpTimeRepository(
         result: (UiState<String>) -> Unit
     ) {
 
-        firebaseFirestore?.collection(SAVETIMEINFO)?.document(myUid)
-            ?.collection(DAY)?.document(wakeUpTime1)
-            ?.collection(wakeUpTime1)?.document(myUid + wakeUpTime2)
-            ?.update("count", count)
+        firebaseFirestore.collection(SAVETIMEINFO).document(myUid)
+            .collection(DAY).document(wakeUpTime1)
+            .collection(wakeUpTime1).document(myUid + wakeUpTime2)
+            .update("count", count)
             .addOnSuccessListener {
                 result.invoke(UiState.Success("SecondUpdate"))
             }
@@ -74,10 +74,10 @@ class TmpTimeRepository(
         count: FieldValue,
         result: (UiState<String>) -> Unit
     ) {
-        firebaseFirestore?.collection(SAVETIMEINFO)?.document(myUid)
-                    ?.collection(MONTH)?.document(wakeUpTime1)
-                    ?.collection(wakeUpTime1)?.document(myUid + wakeUpTime2)
-                    ?.update("count", count)
+        firebaseFirestore.collection(SAVETIMEINFO).document(myUid)
+                    .collection(MONTH).document(wakeUpTime1)
+                    .collection(wakeUpTime1).document(myUid + wakeUpTime2)
+                    .update("count", count)
 
     }
 
@@ -86,9 +86,9 @@ class TmpTimeRepository(
         count: FieldValue,
         result: (UiState<String>) -> Unit
     ) {
-        firebaseFirestore?.collection(SAVETIMEINFO)?.document(myUid)
-                    ?.collection(YEAR)?.document(wakeUpTime)
-                    ?.update("count", count)
+        firebaseFirestore.collection(SAVETIMEINFO).document(myUid)
+                    .collection(YEAR).document(wakeUpTime)
+                    .update("count", count)
 
     }
 
@@ -97,10 +97,10 @@ class TmpTimeRepository(
         count: FieldValue,
         result: (UiState<String>) -> Unit
     ) {
-        var now = LocalDate.now()
-        var Strnow = now.format(DateTimeFormatter.ofPattern("yyyy-MM"))
+        val now = LocalDate.now()
+        val Strnow = now.format(DateTimeFormatter.ofPattern("yyyy-MM"))
 
-        firebaseFirestore?.collection(WHATTODOINFO)?.document(myUid)
+        firebaseFirestore.collection(WHATTODOINFO).document(myUid)
             .collection(MONTH).document(Strnow)
             .collection(Strnow).document(myUid + whatToDo)
             .update("count", count)
@@ -112,10 +112,10 @@ class TmpTimeRepository(
         count: FieldValue,
         result: (UiState<String>) -> Unit
     ) {
-        var now = LocalDate.now()
-        var Strnow = now.format(DateTimeFormatter.ofPattern("yyyy"))
+        val now = LocalDate.now()
+        val Strnow = now.format(DateTimeFormatter.ofPattern("yyyy"))
 
-        firebaseFirestore?.collection(WHATTODOINFO)?.document(myUid)
+        firebaseFirestore.collection(WHATTODOINFO).document(myUid)
             .collection(YEAR).document(Strnow)
             .collection(Strnow).document(myUid + whatToDo)
             .update("count", count)
@@ -123,16 +123,16 @@ class TmpTimeRepository(
     }
 
     override fun getWhatToDoInfo(result: (UiState<String>) -> Unit) {
-        firebaseFirestore.collection(FBConstants.USERINFO)?.document(myUid)
-            ?.get()
-            ?.addOnSuccessListener { document ->
+        firebaseFirestore.collection(FBConstants.USERINFO).document(myUid)
+            .get()
+            .addOnSuccessListener { document ->
                 val data :UserInfoDTO? = document.toObject(UserInfoDTO::class.java)
                 result.invoke(
                     UiState.Success(data?.whatToDo!!)
                 )
             }
 
-            ?.addOnFailureListener {
+            .addOnFailureListener {
                 result.invoke(
                     UiState.Failure(
                         it.localizedMessage

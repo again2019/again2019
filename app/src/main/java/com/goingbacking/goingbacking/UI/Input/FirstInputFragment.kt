@@ -41,7 +41,7 @@ class FirstInputFragment : BaseFragment<FragmentFirstInputBinding>() {
             completeAction()
         }
         // edittext에서 작성하고 '완료'를 누르면 다음으로 넘어가는 코드
-        nickNameEdittext.setOnEditorActionListener { v, actionId, event ->
+        nickNameEdittext.setOnEditorActionListener { _, _, _ ->
             completeAction()
             true
         }

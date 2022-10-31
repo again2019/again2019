@@ -98,7 +98,7 @@ class TotalCalendarActivity : BaseActivity<ActivityTotalCalendarBinding>({
                             textView.setTextColorRes(R.color.example_3_black)
                             textView.background = null
 
-                            //observer2(day.date, dotView, year_month)
+                            observer2(day.date, dotView, year_month)
                         }
                     }
                 } else {
@@ -173,7 +173,7 @@ class TotalCalendarActivity : BaseActivity<ActivityTotalCalendarBinding>({
     }
 
 
-    private fun observer2(year_month:String) {
+    private fun observer2(date :LocalDate, dotView:View, year_month:String) {
         // date : LocalDate, dotView: View,
         // 첫번 째로 실행 후
         viewModel.getThirdDateInfo2(year_month)
@@ -185,9 +185,13 @@ class TotalCalendarActivity : BaseActivity<ActivityTotalCalendarBinding>({
                 is UiState.Success -> {
                     binding.progressCircular.hide()
 
-                    Log.d("experiment", "in observer: " + year_month)
-                    val list =  state.data.date.toString().split(',')
-                    Log.d("experiment", "in observer: " + state.data.date.toString())
+                    val data = state.data.date.toString().split(',')
+
+                    if(data.contains(date.toString())) {
+
+                        dotView.makeVisible()
+                    }
+
 
                 }
                     is UiState.Loading -> {

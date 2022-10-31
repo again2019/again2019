@@ -31,8 +31,8 @@ class InputRepository(
 
     // --- FirstInputFragment ---
     override fun addFirstInput(userInfoDTO: UserInfoDTO, result: (UiState<String>) -> Unit) {
-        firebaseFirestore?.collection(USERINFO)?.document(myUid)
-            ?.set(userInfoDTO!!)
+        firebaseFirestore.collection(USERINFO).document(myUid)
+            .set(userInfoDTO)
             .addOnSuccessListener {
                 result.invoke(UiState.Success(success))
             }
@@ -48,8 +48,8 @@ class InputRepository(
 
     // --- SecondInputFragment ---
     override fun updateSecondInput(userType: String, result: (UiState<String>) -> Unit) {
-        firebaseFirestore?.collection(USERINFO)?.document(myUid)
-            ?.update(USERTYPE, userType)
+        firebaseFirestore.collection(USERINFO).document(myUid)
+            .update(USERTYPE, userType)
 
             .addOnSuccessListener {
                 result.invoke(UiState.Success(success))
@@ -65,8 +65,8 @@ class InputRepository(
 
     // --- ThirdInputFragment ---
     override fun updateThirdInput(whatToDo: String, result: (UiState<String>) -> Unit) {
-        firebaseFirestore?.collection(USERINFO)?.document(myUid)
-            ?.update(WHATTODO,whatToDo)
+        firebaseFirestore.collection(USERINFO).document(myUid)
+            .update(WHATTODO,whatToDo)
             .addOnSuccessListener {
                 result.invoke(UiState.Success(success))
             }
@@ -80,16 +80,16 @@ class InputRepository(
     }
 
     override fun checkInput(result: (UiState<UserInfoDTO>) -> Unit) {
-        firebaseFirestore?.collection(USERINFO)?.document(myUid)
-            ?.get(cache)
-            ?.addOnSuccessListener { document ->
+        firebaseFirestore.collection(USERINFO).document(myUid)
+            .get(cache)
+            .addOnSuccessListener { document ->
                 val userInfo = document.toObject(UserInfoDTO::class.java)
 
                 result.invoke(
                     UiState.Success(userInfo!!)
                 )
             }
-            ?.addOnFailureListener {
+            .addOnFailureListener {
                 result.invoke(
                     UiState.Failure(
                         it.localizedMessage
@@ -104,10 +104,10 @@ class InputRepository(
         whatToDoMonthDTO: WhatToDoMonthDTO,
         result: (UiState<String>) -> Unit
     ) {
-        var now = LocalDate.now()
-        var Strnow = now.format(DateTimeFormatter.ofPattern(YYYYMM))
+        val now = LocalDate.now()
+        val Strnow = now.format(DateTimeFormatter.ofPattern(YYYYMM))
 
-        firebaseFirestore?.collection(WHATTODOINFO).document(myUid)
+        firebaseFirestore.collection(WHATTODOINFO).document(myUid)
             .collection(MONTH).document(Strnow)
             .collection(Strnow).document(myUid+whatToDoMonthDTO.whatToDo)
             .set(whatToDoMonthDTO)
@@ -125,10 +125,10 @@ class InputRepository(
         whatToDoYearDTO: WhatToDoYearDTO,
         result: (UiState<String>) -> Unit
     ) {
-        var now = LocalDate.now()
-        var Strnow = now.format(DateTimeFormatter.ofPattern("yyyy"))
+        val now = LocalDate.now()
+        val Strnow = now.format(DateTimeFormatter.ofPattern("yyyy"))
 
-        firebaseFirestore?.collection(WHATTODOINFO).document(myUid)
+        firebaseFirestore.collection(WHATTODOINFO).document(myUid)
             .collection(YEAR).document(Strnow)
             .collection(Strnow).document(myUid+whatToDoYearDTO.whatToDo)
             .set(whatToDoYearDTO)

@@ -63,4 +63,24 @@ object RepositoryModule {
         return LoginRepository(firebaseAuth, firebaseFirestore)
     }
 
+
+    @Provides
+    @Singleton
+    fun provideForthRepository (
+        firebaseFirestore: FirebaseFirestore,
+        user: FirebaseUser?,
+    ) : ForthRepositoryIF {
+        return ForthRepository(user, firebaseFirestore)
+    }
+
+    @Provides
+    @Singleton
+    fun provideRankRepository (
+        firebaseFirestore: FirebaseFirestore,
+        user: FirebaseUser?,
+    ) : RankRepositoryIF {
+        return RankRepository(user, firebaseFirestore)
+    }
+
+
 }
