@@ -30,8 +30,6 @@ class RankRecyclerViewAdapter1 (
             var first = true
 
             while(true) {
-
-
                 if (newSaveTimeMonthList[position].count!!.equals(newSaveTimeMonthList[beforeNum].count!!)) {
                     beforeNum = beforeNum - 1
                     first = false
@@ -43,11 +41,8 @@ class RankRecyclerViewAdapter1 (
 
                     break
                 }
-
-
             }
 
-            Log.d("experiment", "${first} ${position} ${beforeNum}")
             if (first) {
                 holder.bind(item, position)
             } else {
@@ -65,8 +60,6 @@ class RankRecyclerViewAdapter1 (
     }
     fun updateList(list: ArrayList<NewSaveTimeMonthDTO>) {
         this.newSaveTimeMonthList = list
-
-        Log.d("experiment", list.toString())
         notifyDataSetChanged()
     }
 

@@ -21,16 +21,46 @@ class RankRecyclerViewAdapter2 (
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val item = newSaveTimeYearDTOList[position]
-        holder.bind(item)
+        if (position == 0)  {
+            holder.bind(item, position)
+        } else {
+            var beforeNum = position-1
+            var first = true
+
+            while(true) {
+                if (newSaveTimeYearDTOList[position].count!!.equals(newSaveTimeYearDTOList[beforeNum].count!!)) {
+                    beforeNum = beforeNum - 1
+                    first = false
+                    if (beforeNum == -1) {
+                        beforeNum = -1
+                        break
+                    }
+                } else {
+
+                    break
+                }
+            }
+
+            if (first) {
+                holder.bind(item, position)
+            } else {
+                holder.bind(item, beforeNum+1)
+            }
+
+        }
     }
 
     override fun getItemCount(): Int {
         return this.newSaveTimeYearDTOList.size
     }
-
+    fun updateList(list: ArrayList<NewSaveTimeYearDTO>) {
+        this.newSaveTimeYearDTOList = list
+        notifyDataSetChanged()
+    }
     inner class MyViewHolder(val binding: ItemRankingBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: NewSaveTimeYearDTO) {
+        fun bind(item: NewSaveTimeYearDTO, position: Int) {
 
+            binding.rankNum.text = (position+1).toString()
             binding.rankCount.text = item.count.toString()
             binding.rankNickname.text = item.nickname.toString()
             binding.rankType.text = item.type.toString()
