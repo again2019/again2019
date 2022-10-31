@@ -29,7 +29,8 @@ class ForthRepository (
 
 
     override fun getSaveTimeMonthInfo(result: (UiState<ArrayList<NewSaveTimeMonthDTO>>)-> Unit) {
-        val current = LocalDateTime.now()
+        var current = LocalDateTime.now()
+        current = current.minusDays(1)
         val simpleDate1 = DateTimeFormatter.ofPattern("yyyy-MM")
         val curYearMonth = current.format(simpleDate1)
 
@@ -64,6 +65,10 @@ class ForthRepository (
             }.addOnFailureListener {
                 result.invoke(UiState.Failure(FAIL))
             }
+    }
+
+    override fun likeButtonInfo() {
+        TODO("Not yet implemented")
     }
 
 
