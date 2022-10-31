@@ -135,5 +135,14 @@ class LoginRepository (
         result.invoke(UiState.Success(success))
     }
 
+    override fun signout(result: (UiState<String>) -> Unit) {
+        firebaseAuth.currentUser!!.delete().addOnCompleteListener {
+            if (it.isSuccessful) {
+                result.invoke(UiState.Success(success))
+
+            }
+        }
+    }
+
 
 }

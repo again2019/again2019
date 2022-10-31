@@ -17,4 +17,6 @@ interface LoginRepositoryIF {
 
     // 로그아웃
     fun logout(result: (UiState<String>) -> Unit)
+    fun signout(result: (UiState<String>) -> Unit)
+
 }
