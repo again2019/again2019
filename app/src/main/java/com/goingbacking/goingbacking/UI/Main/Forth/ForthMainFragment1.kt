@@ -49,7 +49,10 @@ class ForthMainFragment1 : BaseFragment<FragmentForthMain1Binding>() {
 
         binding.forth1Recyclerview.layoutManager = LinearLayoutManager(requireContext())
         binding.forth1Recyclerview.adapter = adapter
-
+        binding.forth1RefreshLayout.setOnRefreshListener {
+            binding.forth1RefreshLayout.isRefreshing = false
+            observer()
+        }
         observer()
 
     }
