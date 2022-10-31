@@ -19,6 +19,7 @@ import com.goingbacking.goingbacking.UI.Input.InputActivity
 import com.goingbacking.goingbacking.UI.Main.MainActivity
 import com.goingbacking.goingbacking.ViewModel.LoginViewModel
 import com.goingbacking.goingbacking.databinding.FragmentLoginBinding
+import com.goingbacking.goingbacking.util.PrefUtil
 import com.goingbacking.goingbacking.util.UiState
 import com.goingbacking.goingbacking.util.isValidEmail
 import com.goingbacking.goingbacking.util.toast
@@ -27,6 +28,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn.getClient
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.common.api.ApiException
+import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -44,8 +46,8 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //toast(requireContext(), FirebaseAuth.getInstance().currentUser?.uid.toString())
         onClick()
+
     }
 
     // 버튼 이벤트 모음
@@ -58,6 +60,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
         }
         loginButton.setOnClickListener {
             googleLoginObserver()
+            toast(requireContext(), FirebaseAuth.getInstance().currentUser?.uid.toString())
         }
         passwordButton.setOnClickListener {
             findNavController().navigate(R.id.action_loginFragment_to_forgetFrgament)
@@ -106,6 +109,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                         binding.progressCircular.hide()
                         toast(requireActivity(), getString(R.string.login_success))
                         // Google로 로그인 성공
+                        //toast(requireContext(), FirebaseAuth.getInstance().currentUser?.uid.toString())
                         moveInputPage()
                     }
                     is UiState.Loading -> {
@@ -181,19 +185,30 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
     override fun onStart() {
         super.onStart()
 
-        viewModel.getCurrentSession()
-        viewModel.currentSession.observe(viewLifecycleOwner) { state ->
-            when (state) {
-                is UiState.Success -> {
-                    binding.progressCircular.hide()
-                    moveMainPage()
-                }
-                is UiState.Loading -> {
-                    binding.progressCircular.show()
+        if (!(PrefUtil.firebaseUid() == null || PrefUtil.getCurrentUid(requireContext()) == null)) {
+            if (PrefUtil.firebaseUid().equals(PrefUtil.getCurrentUid(requireContext()))) {
+                viewModel.getCurrentSession()
+                viewModel.currentSession.observe(viewLifecycleOwner) { state ->
+                    when (state) {
+                        is UiState.Success -> {
+                            binding.progressCircular.hide()
+                            moveMainPage()
+                        }
+                        is UiState.Loading -> {
+                            binding.progressCircular.show()
+                        }
+                        is UiState.Failure -> {
+                            binding.progressCircular.hide()
+                            toast(requireContext(), getString(R.string.auto_login_fail))
+                        }
+                    }
                 }
             }
         }
+
+
     }
+
 
     private fun moveInputPage() {
         val intent = Intent(requireActivity(), InputActivity::class.java)

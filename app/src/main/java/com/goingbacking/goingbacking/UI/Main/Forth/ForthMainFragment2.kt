@@ -8,6 +8,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.goingbacking.goingbacking.Adapter.RankRecyclerViewAdapter1
 import com.goingbacking.goingbacking.Adapter.RankRecyclerViewAdapter2
+import com.goingbacking.goingbacking.R
 import com.goingbacking.goingbacking.UI.Base.BaseFragment
 import com.goingbacking.goingbacking.ViewModel.ForthViewModel
 import com.goingbacking.goingbacking.bottomsheet.RankBottomSheet
@@ -60,7 +61,7 @@ class ForthMainFragment2 : BaseFragment<FragmentForthMain2Binding>() {
                 }
                 is UiState.Failure -> {
                     binding.progressCircular.hide()
-                    toast(requireContext(), "랭킹 업데이트를 실패하였습니다.")
+                    toast(requireContext(), getString(R.string.rank_update_fail))
                 }
                 is UiState.Loading -> {
                     binding.progressCircular.show()

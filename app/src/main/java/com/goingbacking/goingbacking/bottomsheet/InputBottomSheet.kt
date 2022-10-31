@@ -108,6 +108,8 @@ class InputBottomSheet : BottomSheetDialogFragment() {
             }
 
             PrefUtil.setHistoryWhatToDo(whattodoList, requireContext())
+
+            PrefUtil.setCurrentUid(PrefUtil.firebaseUid(), requireContext())
             moveTutorialPage()
         }
         noButton.setOnClickListener {

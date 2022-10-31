@@ -8,19 +8,14 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.goingbacking.goingbacking.Adapter.RankRecyclerViewAdapter1
-import com.goingbacking.goingbacking.Model.NewSaveTimeMonthDTO
+import com.goingbacking.goingbacking.R
 import com.goingbacking.goingbacking.UI.Base.BaseFragment
 import com.goingbacking.goingbacking.ViewModel.ForthViewModel
 import com.goingbacking.goingbacking.bottomsheet.RankBottomSheet
 import com.goingbacking.goingbacking.databinding.FragmentForthMain1Binding
-import com.goingbacking.goingbacking.util.FBConstants
 import com.goingbacking.goingbacking.util.UiState
 import com.goingbacking.goingbacking.util.toast
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.Query
 import dagger.hilt.android.AndroidEntryPoint
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 
 @AndroidEntryPoint
 class ForthMainFragment1 : BaseFragment<FragmentForthMain1Binding>() {
@@ -69,7 +64,7 @@ class ForthMainFragment1 : BaseFragment<FragmentForthMain1Binding>() {
                 }
                 is UiState.Failure -> {
                     binding.progressCircular.hide()
-                    toast(requireContext(), "랭킹 업데이트를 실패하였습니다.")
+                    toast(requireContext(), getString(R.string.rank_update_fail))
                 }
                 is UiState.Loading -> {
                     binding.progressCircular.show()

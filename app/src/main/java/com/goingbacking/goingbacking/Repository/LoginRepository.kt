@@ -24,16 +24,9 @@ class LoginRepository (
             .requestEmail()
             .build()
 
-        if (gso != null) {
             result.invoke(
                 UiState.Success(gso)
             )
-        } else {
-            result.invoke(
-                UiState.Failure(fail)
-            )
-        }
-
 
     }
 
@@ -133,6 +126,15 @@ class LoginRepository (
     override fun logout(result: (UiState<String>) -> Unit) {
         firebaseAuth.signOut()
         result.invoke(UiState.Success(success))
+    }
+
+    override fun signout(result: (UiState<String>) -> Unit) {
+        firebaseAuth.currentUser!!.delete().addOnCompleteListener {
+            if (it.isSuccessful) {
+                result.invoke(UiState.Success(success))
+
+            }
+        }
     }
 
 

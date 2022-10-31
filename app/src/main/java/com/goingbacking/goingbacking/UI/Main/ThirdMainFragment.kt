@@ -111,6 +111,9 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
         binding.exThreeCalendar.setup(currentMonth.minusMonths(0), currentMonth.plusMonths(0), daysOfWeek.first())
         binding.exThreeCalendar.scrollToMonth(currentMonth)
         binding.exThreeCalendar.post { selectDate(today) }
+        binding.exThreeCalendar.inDateStyle = InDateStyle.FIRST_MONTH
+        binding.exThreeCalendar.maxRowCount = 1
+        binding.exThreeCalendar.hasBoundaries = true
 
         binding.exThreeCalendar.dayBinder = object : DayBinder<DayViewContainer> {
             override fun create(view: View) = DayViewContainer(view)
@@ -166,11 +169,9 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
             }
         }
 
-        binding.exThreeCalendar.updateMonthConfiguration(
-            inDateStyle = InDateStyle.FIRST_MONTH,
-            maxRowCount = 1,
-            hasBoundaries = true
-        )
+
+
+
         binding.exThreeCalendar.scrollToDate(today)
 
         binding.exThreeAddButton.setOnClickListener {
@@ -219,7 +220,7 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
                     binding.progressCircular.hide()
                     val data = state.data.date.toString().split(',')
 
-                    if(data!!.contains(date.toString())) {
+                    if(data.contains(date.toString())) {
 
                                         dotView.isVisible = true
                                     }

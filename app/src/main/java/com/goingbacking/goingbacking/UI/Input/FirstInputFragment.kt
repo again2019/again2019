@@ -13,6 +13,7 @@ import com.goingbacking.goingbacking.R
 import com.goingbacking.goingbacking.UI.Base.BaseFragment
 import com.goingbacking.goingbacking.ViewModel.InputViewModel
 import com.goingbacking.goingbacking.databinding.FragmentFirstInputBinding
+import com.goingbacking.goingbacking.util.PrefUtil
 import com.goingbacking.goingbacking.util.UiState
 import com.goingbacking.goingbacking.util.toast
 import dagger.hilt.android.AndroidEntryPoint
@@ -30,6 +31,7 @@ class FirstInputFragment : BaseFragment<FragmentFirstInputBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Log.d("experiment", "${PrefUtil.getCurrentUid(requireContext())}")
 
         onClick()
     }
