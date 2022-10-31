@@ -28,19 +28,13 @@ class TutorialActivity : BaseActivity<ActivityTutorialBinding>({
     private lateinit var tutorialViewPagerAdapter : TutorialViewPagerAdapter
     private val viewModel : AlarmViewModel by viewModels()
 
-    companion object {
-        private const val ID = "id"
-        private const val TYPE = "type"
-        private const val CHANNEL = "channel"
-        private const val VALUE = 3000
-    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initAdapter()
 
         binding.TutorialButton.setOnClickListener {
             observer()
-            notification()
             moveMainPage()
         }
     }
@@ -50,43 +44,6 @@ class TutorialActivity : BaseActivity<ActivityTutorialBinding>({
         viewModel.addFirstInitSaveTimeMonthInfo()
         viewModel.addFirstInitSaveTimeYearInfo()
     }
-
-
-    private fun notification() {
-        val calendar = Calendar.getInstance()
-        calendar.timeInMillis = System.currentTimeMillis()
-        calendar.set(Calendar.HOUR_OF_DAY, 0)
-        calendar.set(Calendar.MINUTE, 5)
-        calendar.set(Calendar.SECOND, 0)
-        calendar.set(Calendar.MILLISECOND, 0)
-
-        if (calendar.before(Calendar.getInstance())) {
-            calendar.add(Calendar.DATE, 1)
-        }
-
-        val pm: PackageManager = this.packageManager
-        val receiver = ComponentName(this, DeviceBootReceiver::class.java)
-        val alarmIntent = Intent(this, CountReceiver::class.java)
-        alarmIntent.putExtra(ID, VALUE)
-        alarmIntent.putExtra(TYPE, CHANNEL)
-
-        val pendingIntent: PendingIntent = PendingIntent.getBroadcast(
-            this, VALUE, alarmIntent, FLAG_IMMUTABLE
-        )
-
-        val alarmManager: AlarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
-            alarmManager.setExactAndAllowWhileIdle(
-                        AlarmManager.RTC_WAKEUP,
-                        calendar.timeInMillis,
-                        pendingIntent
-            )
-
-            pm.setComponentEnabledSetting(
-                receiver,
-                PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
-                PackageManager.DONT_KILL_APP
-            )
-        }
 
     private fun moveMainPage() {
         val intent = Intent(this, MainActivity::class.java)

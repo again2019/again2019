@@ -71,5 +71,8 @@
     <string name="second_end_time_fail"> 목적지에서의 도착 시간을 입력하세요. </string>
     <string name="day_select_fail"> 기간에 해당하는 요일을 입력해주세요. </string>
 
+    <!-- 랭킹 관련 -->
+    <string name="rank_update_fail"> 랭킹 업데이트를 실패하였습니다. </string>
+
 
 </resources>
