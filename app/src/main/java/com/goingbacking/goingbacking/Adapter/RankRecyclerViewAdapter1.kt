@@ -1,9 +1,11 @@
 package com.goingbacking.goingbacking.Adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.goingbacking.goingbacking.Model.NewSaveTimeMonthDTO
+import com.goingbacking.goingbacking.Model.TmpTimeDTO
 import com.goingbacking.goingbacking.bottomsheet.RankBottomSheet
 import com.goingbacking.goingbacking.databinding.ItemRankingBinding
 
@@ -20,16 +22,60 @@ class RankRecyclerViewAdapter1 (
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val item = newSaveTimeMonthList[position]
-        holder.bind(item)
+
+        if (position == 0)  {
+            holder.bind(item, position)
+        } else {
+            var beforeNum = position-1
+            var first = true
+
+            while(true) {
+
+
+                if (newSaveTimeMonthList[position].count!!.equals(newSaveTimeMonthList[beforeNum].count!!)) {
+                    beforeNum = beforeNum - 1
+                    first = false
+                    if (beforeNum == -1) {
+                        beforeNum = -1
+                        break
+                    }
+                } else {
+
+                    break
+                }
+
+
+            }
+
+            Log.d("experiment", "${first} ${position} ${beforeNum}")
+            if (first) {
+                holder.bind(item, position)
+            } else {
+                holder.bind(item, beforeNum+1)
+            }
+
+        }
+
+
+
     }
 
     override fun getItemCount(): Int {
         return this.newSaveTimeMonthList.size
     }
+    fun updateList(list: ArrayList<NewSaveTimeMonthDTO>) {
+        this.newSaveTimeMonthList = list
+
+        Log.d("experiment", list.toString())
+        notifyDataSetChanged()
+    }
+
 
     inner class MyViewHolder(val binding: ItemRankingBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: NewSaveTimeMonthDTO) {
+        fun bind(item: NewSaveTimeMonthDTO, position: Int) {
 
+
+            binding.rankNum.text = (position+1).toString()
             binding.rankCount.text = item.count.toString()
             binding.rankNickname.text = item.nickname.toString()
             binding.rankType.text = item.nickname.toString()

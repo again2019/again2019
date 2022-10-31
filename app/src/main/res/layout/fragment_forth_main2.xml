@@ -1,12 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UI.Main.Forth.ForthMainFragment2">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".UI.Main.Forth.ForthMainFragment2"
+    android:orientation="vertical">
+
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/progress_circular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:indicatorColor="@color/example_3_blue"
+        android:indeterminate="true"
+        android:visibility="invisible" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/forth2_recyclerview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
-</FrameLayout>
+</LinearLayout>

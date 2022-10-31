@@ -1,4 +1,10 @@
 package com.goingbacking.goingbacking.Repository
 
-class RankRepository : RankRepositoryIF {
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.firestore.FirebaseFirestore
+
+class RankRepository  (
+    val user: FirebaseUser?,
+    val firebaseFirestore: FirebaseFirestore
+): RankRepositoryIF {
 }
