@@ -16,7 +16,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
 class RankRecyclerViewAdapter1 (
-    val viewModel : ForthViewModel,
+    val forthRepository: ForthRepository,
     val onItemClicked : (String) -> Unit
         ): RecyclerView.Adapter<RankRecyclerViewAdapter1.MyViewHolder>() {
     private var newSaveTimeMonthList : ArrayList<NewSaveTimeMonthDTO> = arrayListOf()
@@ -74,17 +74,41 @@ class RankRecyclerViewAdapter1 (
     inner class MyViewHolder(val binding: ItemRankingBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: NewSaveTimeMonthDTO, position: Int) = with(binding) {
 
+
+
+
             var isSwitch = true
+
+
+            if (item.likes.contains(PrefUtil.firebaseUid())) {
+                likeButton.setMinAndMaxProgress(1f, 1f)
+                likeButton.playAnimation()
+                isSwitch = false
+
+                Log.d("experiment", item.toString())
+                Log.d("experiment", isSwitch.toString())
+            }
+
+            Log.d("experiment", item.toString())
+            Log.d("experiment", isSwitch.toString())
 
             likeButton.setOnClickListener {
                 if (isSwitch) {
                     likeButton.setMinAndMaxProgress(0f, 1f)
                     likeButton.playAnimation()
+                    forthRepository.likeButtonInfo(item.uid.toString(), "plus")
                     isSwitch = false
+
+                    Log.d("experiment", item.toString())
+                    Log.d("experiment", isSwitch.toString())
                 } else {
                     likeButton.setMinAndMaxProgress(0f,0f)
                     likeButton.playAnimation()
+                    forthRepository.likeButtonInfo(item.uid.toString(), "minus")
                     isSwitch = true
+
+                    Log.d("experiment", item.toString())
+                    Log.d("experiment", isSwitch.toString())
                 }
 
             }

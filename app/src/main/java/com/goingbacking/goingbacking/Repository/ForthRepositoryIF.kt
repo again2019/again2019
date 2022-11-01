@@ -13,6 +13,6 @@ interface ForthRepositoryIF {
     fun getSaveTimeYearInfo(result: (UiState<ArrayList<NewSaveTimeYearDTO>>) -> Unit )
 
     // 좋아요 버튼 기능
-    fun likeButtonInfo()
+    fun likeButtonInfo(destinationUid :String, state :String)
 
 }

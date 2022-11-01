@@ -60,7 +60,7 @@ class CountReceiver : BroadcastReceiver() {
         val whatToDoList = PrefUtil.getHistoryWhatToDo(context)
 
         alarmRepository.addInitWhatToDoMonthInfo(whatToDoList!!)
-        alarmRepository.addInitWhatToDoYearInfo(whatToDoList!!)
+        alarmRepository.addInitWhatToDoYearInfo(whatToDoList)
 
 
     }

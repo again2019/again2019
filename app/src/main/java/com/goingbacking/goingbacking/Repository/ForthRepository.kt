@@ -9,6 +9,7 @@ import com.goingbacking.goingbacking.util.FBConstants.Companion.USERINFO
 import com.goingbacking.goingbacking.util.UiState
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.UserInfo
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import java.time.LocalDateTime
@@ -30,7 +31,7 @@ class ForthRepository (
 
     override fun getSaveTimeMonthInfo(result: (UiState<ArrayList<NewSaveTimeMonthDTO>>)-> Unit) {
         var current = LocalDateTime.now()
-        current = current.minusDays(1)
+        current = current.minusDays(2)
         val simpleDate1 = DateTimeFormatter.ofPattern("yyyy-MM")
         val curYearMonth = current.format(simpleDate1)
 
@@ -67,8 +68,33 @@ class ForthRepository (
             }
     }
 
-    override fun likeButtonInfo() {
-        TODO("Not yet implemented")
+    override fun likeButtonInfo(destinationUid :String, state :String) {
+        var current = LocalDateTime.now()
+        current = current.minusDays(2)
+        val simpleDate1 = DateTimeFormatter.ofPattern("yyyy-MM")
+        val curYearMonth = current.format(simpleDate1)
+
+
+        val tsDoc = firebaseFirestore.collection(RANKMONTHINFO).document(curYearMonth)
+            .collection(curYearMonth).document(destinationUid)
+
+        if (state.equals("plus")) {
+            tsDoc.update("likes", FieldValue.arrayUnion(myUid))
+        } else {
+            tsDoc.update("likes", FieldValue.arrayRemove(myUid))
+        }
+
+
+//        firebaseFirestore.runTransaction { transaction ->
+//            val newSaveTimeMonthDTO = transaction.get(tsDoc).toObject(NewSaveTimeMonthDTO::class.java)
+//            if (state.equals("plus")) {
+//                newSaveTimeMonthDTO!!.count = newSaveTimeMonthDTO.count!! + 1
+//                tsDoc.update("likes")
+//            } else {
+//                newSaveTimeMonthDTO!!.count = newSaveTimeMonthDTO.count!! - 1
+//            }
+//
+//        }
     }
 
 
