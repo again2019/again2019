@@ -77,16 +77,19 @@ class RankRecyclerViewAdapter1 (
 
 
 
+            var rankLikeNum = item.likes.size
             var isSwitch = true
-
-
             if (item.likes.contains(PrefUtil.firebaseUid())) {
                 likeButton.setMinAndMaxProgress(1f, 1f)
                 likeButton.playAnimation()
                 isSwitch = false
 
-                Log.d("experiment", item.toString())
-                Log.d("experiment", isSwitch.toString())
+                Log.d("experiment", "aaa" +item.toString())
+                Log.d("experiment", "aaa" +isSwitch.toString())
+            } else {
+                likeButton.setMinAndMaxProgress(0f,0f)
+                likeButton.playAnimation()
+
             }
 
             Log.d("experiment", item.toString())
@@ -98,6 +101,8 @@ class RankRecyclerViewAdapter1 (
                     likeButton.playAnimation()
                     forthRepository.likeButtonInfo(item.uid.toString(), "plus")
                     isSwitch = false
+                    rankLikeNum = rankLikeNum + 1
+                    rankLike.text = rankLikeNum.toString()
 
                     Log.d("experiment", item.toString())
                     Log.d("experiment", isSwitch.toString())
@@ -106,13 +111,15 @@ class RankRecyclerViewAdapter1 (
                     likeButton.playAnimation()
                     forthRepository.likeButtonInfo(item.uid.toString(), "minus")
                     isSwitch = true
-
+                    rankLikeNum = rankLikeNum - 1
+                    rankLike.text = rankLikeNum.toString()
+                    
                     Log.d("experiment", item.toString())
                     Log.d("experiment", isSwitch.toString())
                 }
 
             }
-            rankLike.text = item.likes.size.toString()
+
 
 
             rankNum.text = (position+1).toString()
