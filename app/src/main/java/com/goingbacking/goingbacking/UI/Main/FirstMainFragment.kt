@@ -11,11 +11,19 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.goingbacking.goingbacking.Adapter.TodayRecyclerViewAdapter
+import com.goingbacking.goingbacking.FCM.NotificationData
+import com.goingbacking.goingbacking.FCM.PushNotification
+import com.goingbacking.goingbacking.FCM.RetrofitInstance
 import com.goingbacking.goingbacking.UI.Base.BaseFragment
 import com.goingbacking.goingbacking.UI.Main.First.TmpTimeActivity
 import com.goingbacking.goingbacking.databinding.FragmentFirstMainBinding
 import com.goingbacking.goingbacking.util.PrefUtil
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.messaging.FirebaseMessaging
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
@@ -27,8 +35,36 @@ class FirstMainFragment : BaseFragment<FragmentFirstMainBinding>() {
         return FragmentFirstMainBinding.inflate(inflater, container, false)
     }
 
+    val TOPIC = "/topics/myTopic"
+    private var myToken : String = ""
+    companion object {
+        private const val TAG = "experiment"
+    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        ///
+        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+            if (!task.isSuccessful) {
+                Log.w(TAG, "Fetching FCM registration token failed", task.exception)
+                return@OnCompleteListener
+            }
+            // Get new FCM registration token
+            myToken = task.result
+
+            Log.d(TAG +"토큰:", myToken)  ///나의 토큰을 알수있는 Firebase 메서드
+        })
+
+        binding.tmp.setOnClickListener {
+            PushNotification(
+                NotificationData("title", "message"),
+                myToken
+            ).also {
+                sendNotification(it)
+            }
+
+        }
+        ////
 
         binding.tmpTimeButton.setOnClickListener {
             moveTmpTimePage()
@@ -51,6 +87,20 @@ class FirstMainFragment : BaseFragment<FragmentFirstMainBinding>() {
     private fun moveTmpTimePage() {
         val intent = Intent(requireActivity(), TmpTimeActivity::class.java)
         startActivity(intent)
+    }
+
+
+    private fun sendNotification(notification: PushNotification) = CoroutineScope(Dispatchers.IO).launch {
+        try {
+            val response = RetrofitInstance.api.postNotification(notification)
+            if(response.isSuccessful) {
+
+            } else {
+                Log.e(TAG, response.errorBody().toString())
+            }
+        } catch(e: Exception) {
+            Log.e(TAG, e.toString())
+        }
     }
 
 }

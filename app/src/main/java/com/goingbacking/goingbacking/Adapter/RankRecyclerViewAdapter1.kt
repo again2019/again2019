@@ -78,6 +78,7 @@ class RankRecyclerViewAdapter1 (
 
 
             var rankLikeNum = item.likes.size
+            rankLike.text = rankLikeNum.toString()
             var isSwitch = true
             if (item.likes.contains(PrefUtil.firebaseUid())) {
                 likeButton.setMinAndMaxProgress(1f, 1f)
@@ -90,7 +91,7 @@ class RankRecyclerViewAdapter1 (
             }
             likeButton.setOnClickListener {
                 if (isSwitch) {
-                    likeButton.setMinAndMaxProgress(0f, 1f)
+                    likeButton.setMinAndMaxProgress(1f, 1f)
                     likeButton.playAnimation()
                     forthRepository.likeButtonInfo1(item.uid.toString(), "plus")
                     isSwitch = false

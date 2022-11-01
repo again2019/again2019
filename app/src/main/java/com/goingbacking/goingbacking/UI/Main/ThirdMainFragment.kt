@@ -27,12 +27,7 @@ import com.goingbacking.goingbacking.ViewModel.MainViewModel
 import com.goingbacking.goingbacking.databinding.FragmentThirdMainBinding
 import com.goingbacking.goingbacking.databinding.ItemCalendarDayBinding
 import com.goingbacking.goingbacking.databinding.ItemCalendarHeaderMainBinding
-
-import com.goingbacking.goingbacking.util.UiState
-import com.goingbacking.goingbacking.util.makeInVisible
-import com.goingbacking.goingbacking.util.makeVisible
-
-import com.goingbacking.goingbacking.util.setTextColorRes
+import com.goingbacking.goingbacking.util.*
 
 
 import com.kizitonwose.calendarview.model.CalendarDay
@@ -132,12 +127,12 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
                         today -> {
                             textView.setTextColorRes(R.color.example_3_white)
                             textView.setBackgroundResource(R.drawable.example_3_today_bg)
-                            dotView.makeInVisible()
+                            dotView.makeGONE()
                         }
                         selectedDate -> {
                             textView.setTextColorRes(R.color.example_3_blue)
                             textView.setBackgroundResource(R.drawable.example_3_selected_bg)
-                            dotView.makeInVisible()
+                            dotView.makeGONE()
                         }
                         else -> {
                             textView.setTextColorRes(R.color.example_3_black)
@@ -147,8 +142,8 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
                         }
                     }
                 } else {
-                    textView.makeInVisible()
-                    dotView.makeInVisible()
+                    textView.makeGONE()
+                    dotView.makeGONE()
                 }
 
             }
