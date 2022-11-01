@@ -62,7 +62,9 @@ class RankRecyclerViewAdapter2 (
     }
     inner class MyViewHolder(val binding: ItemRankingBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: NewSaveTimeYearDTO, position: Int) = with(binding) {
+
             var rankLikeNum = item.likes.size
+            rankLike.text = rankLikeNum.toString()
             var isSwitch = true
             if (item.likes.contains(PrefUtil.firebaseUid())) {
                 likeButton.setMinAndMaxProgress(1f, 1f)
