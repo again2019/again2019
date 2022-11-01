@@ -42,18 +42,16 @@
         android:layout_height="wrap_content"
         android:text="좋아요 수"/>
 
+    
 
-    <com.like.LikeButton
+
+    <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/like_button"
-        app:icon_type="heart"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-    <ImageView
-        android:id="@+id/like_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_add"
-         />
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        app:lottie_autoPlay="false"
+        app:lottie_rawRes="@raw/like_icon" />
+
 
     <Button
         android:id="@+id/rank_button"

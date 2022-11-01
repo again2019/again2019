@@ -38,6 +38,6 @@ class ForthViewModel @Inject constructor(
         _newSaveTimeMonth.value = UiState.Loading
         forthRepository.getSaveTimeMonthInfo { _newSaveTimeMonth.value = it }
     }
-
+    
 
 }

@@ -75,8 +75,7 @@ dependencies {
     implementation 'com.github.AAChartModel:AAChartCore-Kotlin:-SNAPSHOT'
     implementation 'androidx.viewpager2:viewpager2:1.0.0'
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
-    implementation 'com.github.jd-alexander:LikeButton:0.2.3'
-
+    implementation 'com.airbnb.android:lottie:4.1.0'
     // lifecycle
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.0-rc01")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.5.0-rc01")

@@ -30,6 +30,7 @@ class ForthMainFragment1 : BaseFragment<FragmentForthMain1Binding>() {
     val viewModel : ForthViewModel by viewModels()
     val adapter by lazy {
         RankRecyclerViewAdapter1(
+            viewModel,
             onItemClicked = { destinationUid ->
                 val bottom  = RankBottomSheet()
                 val bundle = Bundle()
