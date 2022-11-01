@@ -11,5 +11,8 @@ class AppConstants {
         enum class TimerState {
             Stopped, Paused, Running
         }
+
+
+
     }
 }
