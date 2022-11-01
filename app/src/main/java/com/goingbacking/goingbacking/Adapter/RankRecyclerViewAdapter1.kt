@@ -83,39 +83,28 @@ class RankRecyclerViewAdapter1 (
                 likeButton.setMinAndMaxProgress(1f, 1f)
                 likeButton.playAnimation()
                 isSwitch = false
-
-                Log.d("experiment", "aaa" +item.toString())
-                Log.d("experiment", "aaa" +isSwitch.toString())
             } else {
                 likeButton.setMinAndMaxProgress(0f,0f)
                 likeButton.playAnimation()
 
             }
-
-            Log.d("experiment", item.toString())
-            Log.d("experiment", isSwitch.toString())
-
             likeButton.setOnClickListener {
                 if (isSwitch) {
                     likeButton.setMinAndMaxProgress(0f, 1f)
                     likeButton.playAnimation()
-                    forthRepository.likeButtonInfo(item.uid.toString(), "plus")
+                    forthRepository.likeButtonInfo1(item.uid.toString(), "plus")
                     isSwitch = false
                     rankLikeNum = rankLikeNum + 1
                     rankLike.text = rankLikeNum.toString()
 
-                    Log.d("experiment", item.toString())
-                    Log.d("experiment", isSwitch.toString())
                 } else {
                     likeButton.setMinAndMaxProgress(0f,0f)
                     likeButton.playAnimation()
-                    forthRepository.likeButtonInfo(item.uid.toString(), "minus")
+                    forthRepository.likeButtonInfo1(item.uid.toString(), "minus")
                     isSwitch = true
                     rankLikeNum = rankLikeNum - 1
                     rankLike.text = rankLikeNum.toString()
-                    
-                    Log.d("experiment", item.toString())
-                    Log.d("experiment", isSwitch.toString())
+
                 }
 
             }

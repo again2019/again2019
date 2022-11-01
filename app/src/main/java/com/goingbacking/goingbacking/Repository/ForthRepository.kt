@@ -68,7 +68,7 @@ class ForthRepository (
             }
     }
 
-    override fun likeButtonInfo(destinationUid :String, state :String) {
+    override fun likeButtonInfo1(destinationUid :String, state :String) {
         var current = LocalDateTime.now()
         current = current.minusDays(2)
         val simpleDate1 = DateTimeFormatter.ofPattern("yyyy-MM")
@@ -83,18 +83,23 @@ class ForthRepository (
         } else {
             tsDoc.update("likes", FieldValue.arrayRemove(myUid))
         }
+    }
+
+    override fun likeButtonInfo2(destinationUid :String, state :String) {
+        var current = LocalDateTime.now()
+        current = current.minusDays(2)
+        val simpleDate1 = DateTimeFormatter.ofPattern("yyyy")
+        val curYearMonth = current.format(simpleDate1)
 
 
-//        firebaseFirestore.runTransaction { transaction ->
-//            val newSaveTimeMonthDTO = transaction.get(tsDoc).toObject(NewSaveTimeMonthDTO::class.java)
-//            if (state.equals("plus")) {
-//                newSaveTimeMonthDTO!!.count = newSaveTimeMonthDTO.count!! + 1
-//                tsDoc.update("likes")
-//            } else {
-//                newSaveTimeMonthDTO!!.count = newSaveTimeMonthDTO.count!! - 1
-//            }
-//
-//        }
+        val tsDoc = firebaseFirestore.collection(RANKYEARINFO).document(curYearMonth)
+            .collection(curYearMonth).document(destinationUid)
+
+        if (state.equals("plus")) {
+            tsDoc.update("likes", FieldValue.arrayUnion(myUid))
+        } else {
+            tsDoc.update("likes", FieldValue.arrayRemove(myUid))
+        }
     }
 
 

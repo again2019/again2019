@@ -5,10 +5,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.goingbacking.goingbacking.Model.NewSaveTimeMonthDTO
 import com.goingbacking.goingbacking.Model.NewSaveTimeYearDTO
+import com.goingbacking.goingbacking.Repository.ForthRepository
 import com.goingbacking.goingbacking.bottomsheet.RankBottomSheet
 import com.goingbacking.goingbacking.databinding.ItemRankingBinding
+import com.goingbacking.goingbacking.util.PrefUtil
 
 class RankRecyclerViewAdapter2 (
+    val forthRepository: ForthRepository,
     val onItemClicked : (String) -> Unit
         ): RecyclerView.Adapter<RankRecyclerViewAdapter2.MyViewHolder>() {
     private var newSaveTimeYearDTOList : ArrayList<NewSaveTimeYearDTO> = arrayListOf()
@@ -58,17 +61,53 @@ class RankRecyclerViewAdapter2 (
         notifyDataSetChanged()
     }
     inner class MyViewHolder(val binding: ItemRankingBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: NewSaveTimeYearDTO, position: Int) {
+        fun bind(item: NewSaveTimeYearDTO, position: Int) = with(binding) {
+            var rankLikeNum = item.likes.size
+            var isSwitch = true
+            if (item.likes.contains(PrefUtil.firebaseUid())) {
+                likeButton.setMinAndMaxProgress(1f, 1f)
+                likeButton.playAnimation()
+                isSwitch = false
+            } else {
+                likeButton.setMinAndMaxProgress(0f,0f)
+                likeButton.playAnimation()
 
-            binding.rankNum.text = (position+1).toString()
-            binding.rankCount.text = item.count.toString()
-            binding.rankNickname.text = item.nickname.toString()
-            binding.rankType.text = item.type.toString()
-            binding.rankWhattodo.text = item.whattodo.toString()
-            binding.rankButton.setOnClickListener {
+            }
+            likeButton.setOnClickListener {
+                if (isSwitch) {
+                    likeButton.setMinAndMaxProgress(0f, 1f)
+                    likeButton.playAnimation()
+                    forthRepository.likeButtonInfo2(item.uid.toString(), "plus")
+                    isSwitch = false
+                    rankLikeNum = rankLikeNum + 1
+                    rankLike.text = rankLikeNum.toString()
+
+                } else {
+                    likeButton.setMinAndMaxProgress(0f,0f)
+                    likeButton.playAnimation()
+                    forthRepository.likeButtonInfo2(item.uid.toString(), "minus")
+                    isSwitch = true
+                    rankLikeNum = rankLikeNum - 1
+                    rankLike.text = rankLikeNum.toString()
+
+                }
+
+            }
+
+
+
+            rankNum.text = (position+1).toString()
+            rankCount.text = item.count.toString()
+            rankNickname.text = item.nickname.toString()
+            rankType.text = item.nickname.toString()
+            rankWhattodo.text = item.whattodo.toString()
+            rankButton.setOnClickListener {
                 onItemClicked.invoke(item.uid.toString())
             }
         }
+
+
+
 
     }
 
