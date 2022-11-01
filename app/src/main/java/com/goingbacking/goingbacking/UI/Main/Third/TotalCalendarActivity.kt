@@ -18,10 +18,7 @@ import com.goingbacking.goingbacking.bottomsheet.CalendarDetailBottomSheet
 import com.goingbacking.goingbacking.databinding.ActivityTotalCalendarBinding
 import com.goingbacking.goingbacking.databinding.ItemCalendarDayBinding
 import com.goingbacking.goingbacking.databinding.ItemCalendarHeaderBinding
-import com.goingbacking.goingbacking.util.UiState
-import com.goingbacking.goingbacking.util.makeInVisible
-import com.goingbacking.goingbacking.util.makeVisible
-import com.goingbacking.goingbacking.util.setTextColorRes
+import com.goingbacking.goingbacking.util.*
 import com.kizitonwose.calendarview.model.CalendarDay
 import com.kizitonwose.calendarview.model.CalendarMonth
 import com.kizitonwose.calendarview.model.DayOwner
@@ -87,12 +84,12 @@ class TotalCalendarActivity : BaseActivity<ActivityTotalCalendarBinding>({
                         today -> {
                             textView.setTextColorRes(R.color.example_3_white)
                             textView.setBackgroundResource(R.drawable.example_3_today_bg)
-                            dotView.makeInVisible()
+                            dotView.makeGONE()
                         }
                         selectedDate -> {
                             textView.setTextColorRes(R.color.example_3_blue)
                             textView.setBackgroundResource(R.drawable.example_3_selected_bg)
-                            dotView.makeInVisible()
+                            dotView.makeGONE()
                         }
                         else -> {
                             textView.setTextColorRes(R.color.example_3_black)
@@ -102,8 +99,8 @@ class TotalCalendarActivity : BaseActivity<ActivityTotalCalendarBinding>({
                         }
                     }
                 } else {
-                    textView.makeInVisible()
-                    dotView.makeInVisible()
+                    textView.makeGONE()
+                    dotView.makeGONE()
                 }
 
             }

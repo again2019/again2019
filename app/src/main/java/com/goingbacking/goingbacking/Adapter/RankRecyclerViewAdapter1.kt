@@ -90,7 +90,7 @@ class RankRecyclerViewAdapter1 (
             }
             likeButton.setOnClickListener {
                 if (isSwitch) {
-                    likeButton.setMinAndMaxProgress(0f, 1f)
+                    likeButton.setMinAndMaxProgress(1f, 1f)
                     likeButton.playAnimation()
                     forthRepository.likeButtonInfo1(item.uid.toString(), "plus")
                     isSwitch = false

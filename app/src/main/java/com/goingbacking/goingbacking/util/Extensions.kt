@@ -19,8 +19,12 @@ fun View.makeVisible() {
     visibility = View.VISIBLE
 }
 
-fun View.makeInVisible() {
+fun View.makeGONE() {
     visibility = View.GONE
+}
+
+fun View.makeInVisible() {
+    visibility = View.INVISIBLE
 }
 
 fun toast (context: Context, string : String) {
