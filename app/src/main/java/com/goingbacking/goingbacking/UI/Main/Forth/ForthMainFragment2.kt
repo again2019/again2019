@@ -9,12 +9,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.goingbacking.goingbacking.Adapter.RankRecyclerViewAdapter1
 import com.goingbacking.goingbacking.Adapter.RankRecyclerViewAdapter2
 import com.goingbacking.goingbacking.R
+import com.goingbacking.goingbacking.Repository.ForthRepository
 import com.goingbacking.goingbacking.UI.Base.BaseFragment
 import com.goingbacking.goingbacking.ViewModel.ForthViewModel
 import com.goingbacking.goingbacking.bottomsheet.RankBottomSheet
 import com.goingbacking.goingbacking.databinding.FragmentForthMain2Binding
 import com.goingbacking.goingbacking.util.UiState
 import com.goingbacking.goingbacking.util.toast
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -27,10 +30,11 @@ class ForthMainFragment2 : BaseFragment<FragmentForthMain2Binding>() {
     ): FragmentForthMain2Binding {
         return FragmentForthMain2Binding.inflate(inflater, container, false)
     }
-
+    val forthRepository = ForthRepository(FirebaseAuth.getInstance().currentUser, FirebaseFirestore.getInstance())
     val viewModel : ForthViewModel by viewModels()
     val adapter by lazy {
         RankRecyclerViewAdapter2(
+            forthRepository,
             onItemClicked = { destinationUid ->
                 val bottom  = RankBottomSheet()
                 val bundle = Bundle()

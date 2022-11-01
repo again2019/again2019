@@ -12,4 +12,10 @@ interface ForthRepositoryIF {
     fun getSaveTimeMonthInfo(result: (UiState<ArrayList<NewSaveTimeMonthDTO>>) -> Unit)
     fun getSaveTimeYearInfo(result: (UiState<ArrayList<NewSaveTimeYearDTO>>) -> Unit )
 
+    // 좋아요 버튼 기능 month
+    fun likeButtonInfo1(destinationUid :String, state :String)
+    // 좋아요 버튼 기능 year
+    fun likeButtonInfo2(destinationUid :String, state :String)
+
+
 }

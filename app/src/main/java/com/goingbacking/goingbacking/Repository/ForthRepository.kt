@@ -9,6 +9,7 @@ import com.goingbacking.goingbacking.util.FBConstants.Companion.USERINFO
 import com.goingbacking.goingbacking.util.UiState
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.UserInfo
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import java.time.LocalDateTime
@@ -29,7 +30,8 @@ class ForthRepository (
 
 
     override fun getSaveTimeMonthInfo(result: (UiState<ArrayList<NewSaveTimeMonthDTO>>)-> Unit) {
-        val current = LocalDateTime.now()
+        var current = LocalDateTime.now()
+        current = current.minusDays(2)
         val simpleDate1 = DateTimeFormatter.ofPattern("yyyy-MM")
         val curYearMonth = current.format(simpleDate1)
 
@@ -64,6 +66,40 @@ class ForthRepository (
             }.addOnFailureListener {
                 result.invoke(UiState.Failure(FAIL))
             }
+    }
+
+    override fun likeButtonInfo1(destinationUid :String, state :String) {
+        var current = LocalDateTime.now()
+        current = current.minusDays(2)
+        val simpleDate1 = DateTimeFormatter.ofPattern("yyyy-MM")
+        val curYearMonth = current.format(simpleDate1)
+
+
+        val tsDoc = firebaseFirestore.collection(RANKMONTHINFO).document(curYearMonth)
+            .collection(curYearMonth).document(destinationUid)
+
+        if (state.equals("plus")) {
+            tsDoc.update("likes", FieldValue.arrayUnion(myUid))
+        } else {
+            tsDoc.update("likes", FieldValue.arrayRemove(myUid))
+        }
+    }
+
+    override fun likeButtonInfo2(destinationUid :String, state :String) {
+        var current = LocalDateTime.now()
+        current = current.minusDays(2)
+        val simpleDate1 = DateTimeFormatter.ofPattern("yyyy")
+        val curYearMonth = current.format(simpleDate1)
+
+
+        val tsDoc = firebaseFirestore.collection(RANKYEARINFO).document(curYearMonth)
+            .collection(curYearMonth).document(destinationUid)
+
+        if (state.equals("plus")) {
+            tsDoc.update("likes", FieldValue.arrayUnion(myUid))
+        } else {
+            tsDoc.update("likes", FieldValue.arrayRemove(myUid))
+        }
     }
 
 

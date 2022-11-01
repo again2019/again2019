@@ -185,7 +185,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
     override fun onStart() {
         super.onStart()
 
-        if (!(PrefUtil.firebaseUid() == null || PrefUtil.getCurrentUid(requireContext()) == null)) {
+        if (!(PrefUtil.getCurrentUid(requireContext()) == null)) {
             if (PrefUtil.firebaseUid().equals(PrefUtil.getCurrentUid(requireContext()))) {
                 viewModel.getCurrentSession()
                 viewModel.currentSession.observe(viewLifecycleOwner) { state ->
