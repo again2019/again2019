@@ -14,7 +14,10 @@ class CheerRecyclerViewAdapter() : RecyclerView.Adapter<CheerRecyclerViewAdapter
     }
 
     override fun onBindViewHolder(viewHolder: MyViewHolder, position: Int) {
-        viewHolder.bind(events[position])
+        val cheer = events[position].split(':')
+
+
+        viewHolder.bind(cheer.get(0), cheer.get(1))
 
     }
     override fun getItemCount(): Int = events.size
@@ -23,8 +26,9 @@ class CheerRecyclerViewAdapter() : RecyclerView.Adapter<CheerRecyclerViewAdapter
     inner class MyViewHolder(private val binding: ItemCheerBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(cheer: String) {
-           binding.itemCheer.text = cheer
+        fun bind(nickname :String, cheertext: String) {
+            binding.itemCheerNickname.text = nickname
+            binding.itemCheer.text = cheertext
         }
 
     }
