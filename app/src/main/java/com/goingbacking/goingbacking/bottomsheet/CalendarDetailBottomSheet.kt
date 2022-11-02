@@ -29,7 +29,7 @@ class CalendarDetailBottomSheet : BottomSheetDialogFragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = BottomSheetCalendarDetailBinding.inflate(inflater, container, false)
 
         binding.recyclerView.apply {

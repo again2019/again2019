@@ -6,17 +6,28 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.view.isInvisible
 import androidx.recyclerview.widget.RecyclerView
+import com.goingbacking.goingbacking.FCM.FirebaseTokenManager
+import com.goingbacking.goingbacking.FCM.NotificationData
+import com.goingbacking.goingbacking.FCM.PushNotification
+import com.goingbacking.goingbacking.FCM.RetrofitInstance
 import com.goingbacking.goingbacking.Model.NewSaveTimeMonthDTO
 import com.goingbacking.goingbacking.Repository.AlarmRepository
 import com.goingbacking.goingbacking.Repository.ForthRepository
+import com.goingbacking.goingbacking.UI.Main.FirstMainFragment
 import com.goingbacking.goingbacking.ViewModel.ForthViewModel
+import com.goingbacking.goingbacking.bottomsheet.CheerBottomSheet
 import com.goingbacking.goingbacking.databinding.ItemRankingBinding
 import com.goingbacking.goingbacking.util.PrefUtil
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+
 
 class RankRecyclerViewAdapter1 (
     val forthRepository: ForthRepository,
+    val onCheerClicked : (String) -> Unit,
     val onItemClicked : (String) -> Unit
         ): RecyclerView.Adapter<RankRecyclerViewAdapter1.MyViewHolder>() {
     private var newSaveTimeMonthList : ArrayList<NewSaveTimeMonthDTO> = arrayListOf()
@@ -93,7 +104,13 @@ class RankRecyclerViewAdapter1 (
                 if (isSwitch) {
                     likeButton.setMinAndMaxProgress(1f, 1f)
                     likeButton.playAnimation()
-                    forthRepository.likeButtonInfo1(item.uid.toString(), "plus")
+                    forthRepository.likeButtonInfo(item.uid.toString(), "plus")
+                    PushNotification(
+                        NotificationData("title", "message"),
+                        "fI__GGumQOm6prMcLJloqr:APA91bHgw1oLKuFq09roGcrKFX3dde_eXv1C_aUUjkzqGpbww-qATujqCM3diqdZZuvBw6tVOLjhDx1zYL5BqQW4THCnpfyihPgWKCsXrX8OhUKMeW6dM1vzHjse0FjCXG782JfzI1oo"
+                    ).also {
+                        FirebaseTokenManager.sendNotification(it)
+                    }
                     isSwitch = false
                     rankLikeNum = rankLikeNum + 1
                     rankLike.text = rankLikeNum.toString()
@@ -101,7 +118,7 @@ class RankRecyclerViewAdapter1 (
                 } else {
                     likeButton.setMinAndMaxProgress(0f,0f)
                     likeButton.playAnimation()
-                    forthRepository.likeButtonInfo1(item.uid.toString(), "minus")
+                    forthRepository.likeButtonInfo(item.uid.toString(), "minus")
                     isSwitch = true
                     rankLikeNum = rankLikeNum - 1
                     rankLike.text = rankLikeNum.toString()
@@ -110,7 +127,10 @@ class RankRecyclerViewAdapter1 (
 
             }
 
+            cheerButton.setOnClickListener {
+                onCheerClicked.invoke(item.uid.toString())
 
+            }
 
             rankNum.text = (position+1).toString()
             rankCount.text = item.count.toString()

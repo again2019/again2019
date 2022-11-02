@@ -6,5 +6,7 @@ data class NewSaveTimeYearDTO (
     val nickname :String? =null,
     val type: String? = null,
     val whattodo :String? =null,
-    val likes: List<String> = listOf()
+    val likes: List<String> = listOf(),
+    val cheers: List<String> = listOf()
+
 )

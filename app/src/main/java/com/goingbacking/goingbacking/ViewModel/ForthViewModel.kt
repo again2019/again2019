@@ -39,5 +39,32 @@ class ForthViewModel @Inject constructor(
         forthRepository.getSaveTimeMonthInfo { _newSaveTimeMonth.value = it }
     }
 
+    // 응원 메시지 불러오기
+    private val _cheerInfo = MutableLiveData<UiState<List<String>>>()
+    val cheerInfo : LiveData<UiState<List<String>>>
+        get() = _cheerInfo
+
+    fun getCheerInfo(destinationUid : String) = viewModelScope.launch {
+        _cheerInfo.value = UiState.Loading
+        forthRepository.getCheerInfo(destinationUid) { _cheerInfo.value = it }
+    }
+
+    // 응원 메시지 입력
+    private val _addCheerInfo = MutableLiveData<UiState<String>>()
+
+    fun addCheerInfo(destinationUid: String, nickname: String, text: String) = viewModelScope.launch {
+        _addCheerInfo.value = UiState.Loading
+        forthRepository.addCheerInfo(destinationUid, nickname, text) { _addCheerInfo.postValue(it) }
+    }
+
+    // 응원 메시지 삭제
+    private val _deleteCheerInfo = MutableLiveData<UiState<String>>()
+
+    fun deleteCheerInfo(destinationUid: String, text: String,) = viewModelScope.launch {
+        _deleteCheerInfo.value = UiState.Loading
+        forthRepository.deleteCheerInfo(destinationUid, text) { _deleteCheerInfo.postValue(it) }
+    }
+
+
 
 }
