@@ -27,15 +27,6 @@ class SecondMainFragment1 : BaseFragment<FragmentSecondMain1Binding>(), AAChartV
         return FragmentSecondMain1Binding.inflate(inflater, container, false)
     }
 
-
-    fun newInstance() : SecondMainFragment1 {
-        val args = Bundle()
-        val frag = SecondMainFragment1()
-        frag.arguments = args
-
-        return frag
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -45,10 +36,10 @@ class SecondMainFragment1 : BaseFragment<FragmentSecondMain1Binding>(), AAChartV
     }
 
     private fun setUpAAChartView(aaCharView: AAChartView, list1: ArrayList<Int>, list2: ArrayList<String>) {
-        aaCharView?.setBackgroundColor(0)
-        aaCharView?.callBack = this
+        aaCharView.setBackgroundColor(0)
+        aaCharView.callBack = this
         val aaChartModel = configureAAChartModel(list1, list2)
-        aaCharView?.aa_drawChartWithChartModel(aaChartModel)
+        aaCharView.aa_drawChartWithChartModel(aaChartModel)
     }
 
     private fun configureAAChartModel(DTOList:ArrayList<Int>, categoryList: ArrayList<String>): AAChartModel {
@@ -70,7 +61,7 @@ class SecondMainFragment1 : BaseFragment<FragmentSecondMain1Binding>(), AAChartV
             )
             .build()
 
-        aaChartModel!!.categories(categoryList.toTypedArray())
+        aaChartModel.categories(categoryList.toTypedArray())
 
         return aaChartModel
     }
@@ -90,8 +81,8 @@ class SecondMainFragment1 : BaseFragment<FragmentSecondMain1Binding>(), AAChartV
         viewModel.secondSaveYearDTOs.observe(viewLifecycleOwner) { state ->
             when(state) {
                 is UiState.Success -> {
-                    var saveTimeYearDTOList = arrayListOf<Int>()
-                    var saveCategoryList1 = arrayListOf<String>()
+                    val saveTimeYearDTOList = arrayListOf<Int>()
+                    val saveCategoryList1 = arrayListOf<String>()
                     for (data in state.data) {
                         saveTimeYearDTOList.add(data.count!!)
                         saveCategoryList1.add(data.year!!.toString())
@@ -112,8 +103,8 @@ class SecondMainFragment1 : BaseFragment<FragmentSecondMain1Binding>(), AAChartV
         viewModel.secondSaveMonthDTOs.observe(viewLifecycleOwner) { state ->
             when(state) {
                 is UiState.Success -> {
-                    var saveTimeMonthDTOList = arrayListOf<Int>()
-                    var saveCategoryList2 = arrayListOf<String>()
+                    val saveTimeMonthDTOList = arrayListOf<Int>()
+                    val saveCategoryList2 = arrayListOf<String>()
                     for (data in state.data) {
                         saveTimeMonthDTOList.add(data.count!!)
                         saveCategoryList2.add(data.month!!.toString())
@@ -136,8 +127,8 @@ class SecondMainFragment1 : BaseFragment<FragmentSecondMain1Binding>(), AAChartV
         viewModel.secondSaveDayDTOs.observe(viewLifecycleOwner) { state ->
             when(state) {
                 is UiState.Success -> {
-                    var saveTimeDayDTOList = arrayListOf<Int>()
-                    var saveCategoryList3 = arrayListOf<String>()
+                    val saveTimeDayDTOList = arrayListOf<Int>()
+                    val saveCategoryList3 = arrayListOf<String>()
                     for (data in state.data) {
                         saveTimeDayDTOList.add(data.count!!)
                         saveCategoryList3.add(data.month!!.toString())

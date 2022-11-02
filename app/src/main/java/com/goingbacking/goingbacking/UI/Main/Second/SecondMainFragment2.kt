@@ -35,21 +35,11 @@ class SecondMainFragment2 : BaseFragment<FragmentSecondMain2Binding>(), AAChartV
         monthObserver()
     }
 
-    fun newInstance() : SecondMainFragment2 {
-        val args = Bundle()
-        val frag = SecondMainFragment2()
-        frag.arguments = args
-
-        return frag
-    }
-
-
-
     private fun setUpAAChartView(aaCharView: AAChartView, array: Array<Any>) {
-        aaCharView?.setBackgroundColor(0)
-        aaCharView?.callBack = this
+        aaCharView.setBackgroundColor(0)
+        aaCharView.callBack = this
         val aaChartModel = configureAAChartModel(array)
-        aaCharView?.aa_drawChartWithChartModel(aaChartModel)
+        aaCharView.aa_drawChartWithChartModel(aaChartModel)
     }
     private fun configureAAChartModel(array: Array<Any>): AAChartModel {
         chartType = AAChartType.Pie.value
@@ -89,9 +79,9 @@ class SecondMainFragment2 : BaseFragment<FragmentSecondMain2Binding>(), AAChartV
         viewModel.secondwhatToDoMonthDTOs.observe(viewLifecycleOwner) { state ->
             when(state) {
                 is UiState.Success -> {
-                    var whatToDoMonthDTOList = arrayListOf<Any>()
+                    val whatToDoMonthDTOList = arrayListOf<Any>()
                     for (data in state.data) {
-                        var tmpList = arrayListOf<Any>()
+                        val tmpList = arrayListOf<Any>()
                         tmpList.add(data.whatToDo!!)
                         tmpList.add(data.count!!)
                         tmpList.toTypedArray()
@@ -114,9 +104,9 @@ class SecondMainFragment2 : BaseFragment<FragmentSecondMain2Binding>(), AAChartV
         viewModel.secondwhatToDoYearDTOs.observe(viewLifecycleOwner) { state ->
             when(state) {
                 is UiState.Success -> {
-                    var whatToDoYearDTOList = arrayListOf<Any>()
+                    val whatToDoYearDTOList = arrayListOf<Any>()
                     for (data in state.data) {
-                        var tmpList = arrayListOf<Any>()
+                        val tmpList = arrayListOf<Any>()
                         tmpList.add(data.whatToDo!!)
                         tmpList.add(data.count!!)
                         tmpList.toTypedArray()
