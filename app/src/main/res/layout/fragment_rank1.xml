@@ -8,16 +8,16 @@
     <com.github.aachartmodel.aainfographics.aachartcreator.AAChartView
         android:id="@+id/AAChartView1"
         android:layout_width="match_parent"
-        android:layout_height="250dp"/>
+        android:layout_height="200dp"/>
 
     <com.github.aachartmodel.aainfographics.aachartcreator.AAChartView
         android:id="@+id/AAChartView2"
         android:layout_width="match_parent"
-        android:layout_height="250dp"/>
+        android:layout_height="200dp"/>
 
     <com.github.aachartmodel.aainfographics.aachartcreator.AAChartView
         android:id="@+id/AAChartView3"
         android:layout_width="match_parent"
-        android:layout_height="250dp"/>
+        android:layout_height="200dp"/>
 
 </LinearLayout>
