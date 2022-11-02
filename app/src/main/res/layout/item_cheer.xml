@@ -23,4 +23,9 @@
         tools:text="내용"
         android:textColor="@color/colorHighlight"/>
 
+    <Button
+        android:id="@+id/item_cheer_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="삭제"/>
 </LinearLayout>

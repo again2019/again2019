@@ -4,6 +4,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.goingbacking.goingbacking.databinding.ItemCheerBinding
+import com.goingbacking.goingbacking.util.PrefUtil
+import com.goingbacking.goingbacking.util.makeInVisible
+import com.goingbacking.goingbacking.util.makeVisible
 
 class CheerRecyclerViewAdapter() : RecyclerView.Adapter<CheerRecyclerViewAdapter.MyViewHolder>() {
     var events = listOf<String>()
@@ -17,7 +20,7 @@ class CheerRecyclerViewAdapter() : RecyclerView.Adapter<CheerRecyclerViewAdapter
         val cheer = events[position].split(':')
 
 
-        viewHolder.bind(cheer.get(0), cheer.get(1))
+        viewHolder.bind(cheer.get(0), cheer.get(1), cheer.get(2))
 
     }
     override fun getItemCount(): Int = events.size
@@ -26,9 +29,14 @@ class CheerRecyclerViewAdapter() : RecyclerView.Adapter<CheerRecyclerViewAdapter
     inner class MyViewHolder(private val binding: ItemCheerBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(nickname :String, cheertext: String) {
-            binding.itemCheerNickname.text = nickname
-            binding.itemCheer.text = cheertext
+        fun bind(myUid :String, nickname :String, cheertext: String) = with(binding) {
+            itemCheerNickname.text = nickname
+            itemCheer.text = cheertext
+            if (myUid.equals(PrefUtil.firebaseUid())) {
+                itemCheerDelete.makeVisible()
+            } else {
+                itemCheerDelete.makeInVisible()
+            }
         }
 
     }
