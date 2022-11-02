@@ -15,6 +15,7 @@ import com.goingbacking.goingbacking.R
 import com.goingbacking.goingbacking.ViewModel.ForthViewModel
 import com.goingbacking.goingbacking.databinding.BottomSheetCheerBinding
 import com.goingbacking.goingbacking.util.UiState
+import com.goingbacking.goingbacking.util.toast
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import java.time.LocalDate
 
@@ -42,8 +43,24 @@ class CheerBottomSheet : BottomSheetDialogFragment() {
             }
 
             observer(destinationUid)
-        }
+            binding.cheerOkayButton.setOnClickListener {
+                val message = binding.cheerEditText.text.toString()
+                if (message.equals("")) {
+                    toast(requireContext(), "응원 메시지를 입력해주세요.")
+                } else {
+                    viewModel.addCheerInfo(destinationUid, "aa", message)
+                    observer(destinationUid)
+                    binding.cheerEditText.setText("")
 
+
+                }
+
+
+            }
+
+
+
+        }
 
 
 

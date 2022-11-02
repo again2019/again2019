@@ -6,12 +6,17 @@ import com.goingbacking.goingbacking.util.FBConstants.Companion.RANKMONTHINFO
 import com.goingbacking.goingbacking.util.FBConstants.Companion.RANKYEARINFO
 import com.goingbacking.goingbacking.util.FBConstants.Companion.SAVETIMEINFO
 import com.goingbacking.goingbacking.util.FBConstants.Companion.USERINFO
+import com.goingbacking.goingbacking.util.PrefUtil
 import com.goingbacking.goingbacking.util.UiState
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.UserInfo
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
@@ -124,6 +129,23 @@ class ForthRepository (
 
 
 
+    }
+
+    override fun addCheerInfo(destinationUid: String, nickname: String, text: String, result: (UiState<String>) -> Unit) {
+        var current = LocalDateTime.now()
+        current = current.minusDays(10)
+        val simpleDate = DateTimeFormatter.ofPattern("yyyy")
+        val curYear = current.format(simpleDate)
+
+        val tsDoc = firebaseFirestore.collection(RANKYEARINFO).document(curYear)
+            .collection(curYear).document(destinationUid)
+
+        val cheer = PrefUtil.firebaseUid() + ":" + nickname + ":" + text
+        CoroutineScope(Dispatchers.IO).launch {
+            tsDoc.update("cheers", FieldValue.arrayUnion(cheer)).await()
+        }
+
+        result.invoke(UiState.Success("success"))
     }
 
 
