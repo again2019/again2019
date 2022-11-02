@@ -1,6 +1,7 @@
 package com.goingbacking.goingbacking.bottomsheet
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,14 +27,17 @@ class RankBottomSheet : BottomSheetDialogFragment() {
     ): View {
         binding = BottomSheetRankBinding.inflate(inflater, container, false)
 
-        initAdapter()
+        val destinationUid = arguments?.getString("destinationUid")
+        //Log.d("experiment", destinationUid!!)
+
+        initAdapter(destinationUid!!)
 
         return binding.root
     }
 
 
-    private fun initAdapter () {
-        val fragmentList = listOf(RankFragment1(), RankFragment2())
+    private fun initAdapter (destinationUid : String) {
+        val fragmentList = listOf(RankFragment1(destinationUid), RankFragment2(destinationUid))
         detailRankViewPagerAdapter = DetailRankViewPagerAdapter(requireActivity())
         detailRankViewPagerAdapter.fragments.addAll(fragmentList)
 

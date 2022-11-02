@@ -17,7 +17,9 @@ import com.goingbacking.goingbacking.util.UiState
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class RankFragment2 : BaseFragment<FragmentRank2Binding>(), AAChartView.AAChartViewCallBack {
+class RankFragment2(
+    val destinationUid : String
+) : BaseFragment<FragmentRank2Binding>(), AAChartView.AAChartViewCallBack {
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
@@ -30,9 +32,10 @@ class RankFragment2 : BaseFragment<FragmentRank2Binding>(), AAChartView.AAChartV
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        //Log.d("experiment", destinationUid!!)
 
-        yearObserver()
-        monthObserver()
+        yearObserver(destinationUid)
+        monthObserver(destinationUid)
     }
 
     private fun setUpAAChartView(aaCharView: AAChartView, array: Array<Any>) {
@@ -74,8 +77,8 @@ class RankFragment2 : BaseFragment<FragmentRank2Binding>(), AAChartView.AAChartV
 
 
 
-    fun monthObserver() {
-        viewModel.getSecondWhatToDoMonthInfo()
+    fun monthObserver(destinationUid : String) {
+        viewModel.getSecondWhatToDoMonthInfo(destinationUid)
         viewModel.secondwhatToDoMonthDTOs.observe(viewLifecycleOwner) { state ->
             when(state) {
                 is UiState.Success -> {
@@ -99,8 +102,8 @@ class RankFragment2 : BaseFragment<FragmentRank2Binding>(), AAChartView.AAChartV
         }
     }
 
-    fun yearObserver() {
-        viewModel.getSecondWhatToDoYearInfo()
+    fun yearObserver(destinationUid : String) {
+        viewModel.getSecondWhatToDoYearInfo(destinationUid)
         viewModel.secondwhatToDoYearDTOs.observe(viewLifecycleOwner) { state ->
             when(state) {
                 is UiState.Success -> {

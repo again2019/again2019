@@ -18,7 +18,9 @@ import com.goingbacking.goingbacking.util.UiState
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class RankFragment1 : BaseFragment<FragmentRank1Binding>(), AAChartView.AAChartViewCallBack  {
+class RankFragment1(
+    val destinationUid : String
+) : BaseFragment<FragmentRank1Binding>(), AAChartView.AAChartViewCallBack  {
     var chartType: String = ""
     val viewModel: RankViewModel by viewModels()
 
@@ -32,10 +34,11 @@ class RankFragment1 : BaseFragment<FragmentRank1Binding>(), AAChartView.AAChartV
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        //Log.d("experiment", destinationUid)
 
-        yearObserver()
-        monthObserver()
-        dayObserver()
+        yearObserver(destinationUid)
+        monthObserver(destinationUid)
+        dayObserver(destinationUid)
     }
 
     private fun setUpAAChartView(aaCharView: AAChartView, list1: ArrayList<Int>, list2: ArrayList<String>) {
@@ -79,8 +82,8 @@ class RankFragment1 : BaseFragment<FragmentRank1Binding>(), AAChartView.AAChartV
     }
 
 
-    fun yearObserver() {
-        viewModel.getSecondSaveYearInfo()
+    fun yearObserver(destinationUid :String) {
+        viewModel.getSecondSaveYearInfo(destinationUid)
         viewModel.secondSaveYearDTOs.observe(viewLifecycleOwner) { state ->
             when(state) {
                 is UiState.Success -> {
@@ -101,8 +104,8 @@ class RankFragment1 : BaseFragment<FragmentRank1Binding>(), AAChartView.AAChartV
         }
     }
 
-    fun monthObserver() {
-        viewModel.getSecondSaveMonthInfo()
+    fun monthObserver(destinationUid :String) {
+        viewModel.getSecondSaveMonthInfo(destinationUid)
         viewModel.secondSaveMonthDTOs.observe(viewLifecycleOwner) { state ->
             when(state) {
                 is UiState.Success -> {
@@ -125,8 +128,8 @@ class RankFragment1 : BaseFragment<FragmentRank1Binding>(), AAChartView.AAChartV
         }
     }
 
-    fun dayObserver() {
-        viewModel.getSecondSaveDayInfo()
+    fun dayObserver(destinationUid :String) {
+        viewModel.getSecondSaveDayInfo(destinationUid)
         viewModel.secondSaveDayDTOs.observe(viewLifecycleOwner) { state ->
             when(state) {
                 is UiState.Success -> {

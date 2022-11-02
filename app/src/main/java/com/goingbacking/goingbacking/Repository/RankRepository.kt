@@ -15,14 +15,14 @@ class RankRepository  (
 ): RankRepositoryIF {
     val uid = user?.uid!!
 
-    override fun getSecondSaveDayInfo(result: (UiState<ArrayList<SaveTimeDayDTO>>) -> Unit) {
+    override fun getSecondSaveDayInfo(destinationUid : String, result: (UiState<ArrayList<SaveTimeDayDTO>>) -> Unit) {
         val current = LocalDateTime.now()
         val simpleDate1 = DateTimeFormatter.ofPattern("yyyy-MM")
         val curYearMonth = current.format(simpleDate1)
 
 
 
-        firebaseFirestore.collection(FBConstants.SAVETIMEINFO).document(uid)
+        firebaseFirestore.collection(FBConstants.SAVETIMEINFO).document(destinationUid)
             .collection(FBConstants.DAY).document(curYearMonth)
             .collection(curYearMonth).get()
             .addOnSuccessListener {
@@ -51,13 +51,13 @@ class RankRepository  (
 
 
 
-    override fun getSecondSaveMonthInfo(result: (UiState<ArrayList<SaveTimeMonthDTO>>) -> Unit) {
+    override fun getSecondSaveMonthInfo(destinationUid : String, result: (UiState<ArrayList<SaveTimeMonthDTO>>) -> Unit) {
         val current = LocalDateTime.now()
         val simpleDate1 = DateTimeFormatter.ofPattern("yyyy")
 
         val curYear = current.format(simpleDate1)
 
-        firebaseFirestore.collection(FBConstants.SAVETIMEINFO).document(uid)
+        firebaseFirestore.collection(FBConstants.SAVETIMEINFO).document(destinationUid)
             .collection(FBConstants.MONTH).document(curYear)
             .collection(curYear).get()
             .addOnSuccessListener {
@@ -77,9 +77,9 @@ class RankRepository  (
 
     }
 
-    override fun getSecondSaveYearInfo(result: (UiState<ArrayList<SaveTimeYearDTO>>) -> Unit) {
+    override fun getSecondSaveYearInfo(destinationUid : String, result: (UiState<ArrayList<SaveTimeYearDTO>>) -> Unit) {
 
-        firebaseFirestore.collection(FBConstants.SAVETIMEINFO).document(uid)
+        firebaseFirestore.collection(FBConstants.SAVETIMEINFO).document(destinationUid)
             .collection(FBConstants.YEAR).get()
             .addOnSuccessListener {
                 val saveTimeYearDTOList = arrayListOf<SaveTimeYearDTO>()
@@ -100,11 +100,11 @@ class RankRepository  (
             }
     }
 
-    override fun getSecondWhatToDoMonthInfo(result: (UiState<ArrayList<WhatToDoMonthDTO>>) -> Unit) {
+    override fun getSecondWhatToDoMonthInfo(destinationUid : String, result: (UiState<ArrayList<WhatToDoMonthDTO>>) -> Unit) {
         val now = LocalDate.now()
         val Strnow = now.format(DateTimeFormatter.ofPattern("yyyy-MM"))
 
-        firebaseFirestore.collection(FBConstants.WHATTODOINFO).document(uid)
+        firebaseFirestore.collection(FBConstants.WHATTODOINFO).document(destinationUid)
             .collection(FBConstants.MONTH).document(Strnow)
             .collection(Strnow).get()
             .addOnSuccessListener {
@@ -126,11 +126,11 @@ class RankRepository  (
             }
     }
 
-    override fun getSecondWhatToDoYearInfo(result: (UiState<ArrayList<WhatToDoYearDTO>>) -> Unit)  {
+    override fun getSecondWhatToDoYearInfo(destinationUid : String, result: (UiState<ArrayList<WhatToDoYearDTO>>) -> Unit)  {
         val now = LocalDate.now()
         val Strnow = now.format(DateTimeFormatter.ofPattern("yyyy"))
 
-        firebaseFirestore.collection(FBConstants.WHATTODOINFO).document(uid)
+        firebaseFirestore.collection(FBConstants.WHATTODOINFO).document(destinationUid)
             .collection(FBConstants.YEAR).document(Strnow)
             .collection(Strnow).get()
             .addOnSuccessListener {
