@@ -30,8 +30,8 @@ class FirebaseService : FirebaseMessagingService() {
     // 앱을 삭제하거나 다른 기기에서 실행시킬 때
     override fun onNewToken(token: String) {
         Log.d("experiment","new token1 ${token}")
-        super.onNewToken(token)
-        Log.d("experiment","new token2 ${token}")
+
+        FirebaseTokenManager.sendRegistrationToServer(applicationContext, token)
 
     }
 
@@ -41,14 +41,14 @@ class FirebaseService : FirebaseMessagingService() {
 
         val intent = Intent(this, MainActivity::class.java)
         val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        val notificationID = 222
+        val notificationID = 223
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             createNotificationChannel(notificationManager)
         }
 
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-        val pendingIntent = PendingIntent.getActivity(this, 10, intent, FLAG_MUTABLE)
+        val pendingIntent = PendingIntent.getActivity(this, 11, intent, FLAG_MUTABLE)
         val notification = NotificationCompat.Builder(this, CHANNEL_ID)
             .setContentTitle(message.data["title"])
             .setContentText(message.data["message"])
