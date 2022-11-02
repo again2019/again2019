@@ -42,9 +42,6 @@
         android:layout_height="wrap_content"
         android:text="좋아요 수"/>
 
-    
-
-
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/like_button"
         android:layout_width="80dp"
@@ -58,6 +55,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="보러가기"/>
+
+    <Button
+        android:id="@+id/cheer_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="응원 메시지"/>
+    <TextView
+        android:id="@+id/cheer_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"/>
 
 
 </LinearLayout>
