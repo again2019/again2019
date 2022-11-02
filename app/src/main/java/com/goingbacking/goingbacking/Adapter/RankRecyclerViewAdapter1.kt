@@ -15,6 +15,7 @@ import com.goingbacking.goingbacking.Repository.AlarmRepository
 import com.goingbacking.goingbacking.Repository.ForthRepository
 import com.goingbacking.goingbacking.UI.Main.FirstMainFragment
 import com.goingbacking.goingbacking.ViewModel.ForthViewModel
+import com.goingbacking.goingbacking.bottomsheet.CheerBottomSheet
 import com.goingbacking.goingbacking.databinding.ItemRankingBinding
 import com.goingbacking.goingbacking.util.PrefUtil
 import com.google.firebase.auth.FirebaseAuth
@@ -26,6 +27,7 @@ import kotlinx.coroutines.launch
 
 class RankRecyclerViewAdapter1 (
     val forthRepository: ForthRepository,
+    val onCheerClicked : (String) -> Unit,
     val onItemClicked : (String) -> Unit
         ): RecyclerView.Adapter<RankRecyclerViewAdapter1.MyViewHolder>() {
     private var newSaveTimeMonthList : ArrayList<NewSaveTimeMonthDTO> = arrayListOf()
@@ -125,7 +127,10 @@ class RankRecyclerViewAdapter1 (
 
             }
 
+            cheerButton.setOnClickListener {
+                onCheerClicked.invoke(item.uid.toString())
 
+            }
 
             rankNum.text = (position+1).toString()
             rankCount.text = item.count.toString()

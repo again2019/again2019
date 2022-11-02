@@ -12,6 +12,7 @@ import com.goingbacking.goingbacking.R
 import com.goingbacking.goingbacking.Repository.ForthRepository
 import com.goingbacking.goingbacking.UI.Base.BaseFragment
 import com.goingbacking.goingbacking.ViewModel.ForthViewModel
+import com.goingbacking.goingbacking.bottomsheet.CheerBottomSheet
 import com.goingbacking.goingbacking.bottomsheet.RankBottomSheet
 import com.goingbacking.goingbacking.databinding.FragmentForthMain1Binding
 import com.goingbacking.goingbacking.util.UiState
@@ -36,6 +37,13 @@ class ForthMainFragment1 : BaseFragment<FragmentForthMain1Binding>() {
             forthRepository,
             onItemClicked = { destinationUid ->
                 val bottom  = RankBottomSheet()
+                val bundle = Bundle()
+                bundle.putString("destinationUid", destinationUid)
+                bottom.arguments = bundle
+                bottom.show(childFragmentManager, bottom.tag)
+            },
+            onCheerClicked = { destinationUid ->
+                val bottom = CheerBottomSheet()
                 val bundle = Bundle()
                 bundle.putString("destinationUid", destinationUid)
                 bottom.arguments = bundle

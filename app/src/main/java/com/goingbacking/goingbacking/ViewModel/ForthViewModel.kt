@@ -39,5 +39,17 @@ class ForthViewModel @Inject constructor(
         forthRepository.getSaveTimeMonthInfo { _newSaveTimeMonth.value = it }
     }
 
+    // 응원 메시지 불러오기
+    private val _cheerInfo = MutableLiveData<UiState<List<String>>>()
+    val cheerInfo : LiveData<UiState<List<String>>>
+        get() = _cheerInfo
+
+    fun getCheerInfo(destinationUid : String) = viewModelScope.launch {
+        _cheerInfo.value = UiState.Loading
+        forthRepository.getCheerInfo(destinationUid) { _cheerInfo.value = it }
+    }
+
+
+
 
 }

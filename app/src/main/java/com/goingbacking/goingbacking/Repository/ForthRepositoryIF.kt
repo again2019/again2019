@@ -14,4 +14,7 @@ interface ForthRepositoryIF {
 
     // 좋아요 버튼 기능 month, year
     fun likeButtonInfo(destinationUid :String, state :String)
+
+    // 응원 댓글 받아오는 코드
+    fun getCheerInfo(destinationUid :String, result: (UiState<List<String>>) -> Unit)
 }

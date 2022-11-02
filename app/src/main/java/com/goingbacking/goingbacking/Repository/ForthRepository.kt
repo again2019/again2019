@@ -31,7 +31,7 @@ class ForthRepository (
 
     override fun getSaveTimeMonthInfo(result: (UiState<ArrayList<NewSaveTimeMonthDTO>>)-> Unit) {
         var current = LocalDateTime.now()
-        current = current.minusDays(2)
+        current = current.minusDays(10)
         val simpleDate1 = DateTimeFormatter.ofPattern("yyyy-MM")
         val curYearMonth = current.format(simpleDate1)
 
@@ -71,7 +71,7 @@ class ForthRepository (
     // 달별
     override fun likeButtonInfo(destinationUid :String, state :String) {
         var current = LocalDateTime.now()
-        current = current.minusDays(2)
+        current = current.minusDays(10)
         val simpleDate1 = DateTimeFormatter.ofPattern("yyyy-MM")
         val simpleDate2 = DateTimeFormatter.ofPattern("yyyy")
 
@@ -94,7 +94,37 @@ class ForthRepository (
         }
     }
 
+    override fun getCheerInfo(destinationUid: String, result: (UiState<List<String>>) -> Unit) {
+        var current = LocalDateTime.now()
+        current = current.minusDays(10)
+        val simpleDate = DateTimeFormatter.ofPattern("yyyy")
+        val curYear = current.format(simpleDate)
 
+        firebaseFirestore.collection(RANKYEARINFO).document(curYear)
+            .collection(curYear).document(destinationUid).get()
+            .addOnSuccessListener { document ->
+                if (document != null) {
+                    Log.d("experiment", document.toObject(NewSaveTimeYearDTO::class.java)!!.cheers.toString())
+
+                    result.invoke(UiState.Success(
+                        document.toObject(NewSaveTimeYearDTO::class.java)!!.cheers
+                    ))
+                } else {
+                    result.invoke(UiState.Failure(
+                        "fail"
+                    ))
+                }
+            }
+            .addOnFailureListener {
+                result.invoke(UiState.Failure(
+                    "fail"
+                ))
+            }
+
+
+
+
+    }
 
 
 }
