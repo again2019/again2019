@@ -1,38 +1,44 @@
-package com.goingbacking.goingbacking.UI.Main.Second
+package com.goingbacking.goingbacking.UI.Main.Forth
 
 import android.os.Bundle
 import android.util.Log
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.github.aachartmodel.aainfographics.aachartcreator.*
+import com.goingbacking.goingbacking.R
 import com.goingbacking.goingbacking.UI.Base.BaseFragment
+import com.goingbacking.goingbacking.ViewModel.ForthViewModel
 import com.goingbacking.goingbacking.ViewModel.MainViewModel
-import com.goingbacking.goingbacking.databinding.FragmentSecondMain1Binding
+import com.goingbacking.goingbacking.ViewModel.RankViewModel
+import com.goingbacking.goingbacking.databinding.FragmentRank1Binding
 import com.goingbacking.goingbacking.util.UiState
 import dagger.hilt.android.AndroidEntryPoint
 
-
 @AndroidEntryPoint
-class SecondMainFragment1 : BaseFragment<FragmentSecondMain1Binding>(), AAChartView.AAChartViewCallBack {
-
+class RankFragment1(
+    val destinationUid : String
+) : BaseFragment<FragmentRank1Binding>(), AAChartView.AAChartViewCallBack  {
     var chartType: String = ""
-    val viewModel: MainViewModel by viewModels()
+    val viewModel: RankViewModel by viewModels()
 
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
-    ): FragmentSecondMain1Binding {
-        return FragmentSecondMain1Binding.inflate(inflater, container, false)
+    ): FragmentRank1Binding {
+        return FragmentRank1Binding.inflate(inflater, container, false)
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        //Log.d("experiment", destinationUid)
 
-        yearObserver()
-        monthObserver()
-        dayObserver()
+        yearObserver(destinationUid)
+        monthObserver(destinationUid)
+        dayObserver(destinationUid)
     }
 
     private fun setUpAAChartView(aaCharView: AAChartView, list1: ArrayList<Int>, list2: ArrayList<String>) {
@@ -76,8 +82,8 @@ class SecondMainFragment1 : BaseFragment<FragmentSecondMain1Binding>(), AAChartV
     }
 
 
-    fun yearObserver() {
-        viewModel.getSecondSaveYearInfo()
+    fun yearObserver(destinationUid :String) {
+        viewModel.getSecondSaveYearInfo(destinationUid)
         viewModel.secondSaveYearDTOs.observe(viewLifecycleOwner) { state ->
             when(state) {
                 is UiState.Success -> {
@@ -98,8 +104,8 @@ class SecondMainFragment1 : BaseFragment<FragmentSecondMain1Binding>(), AAChartV
         }
     }
 
-    fun monthObserver() {
-        viewModel.getSecondSaveMonthInfo()
+    fun monthObserver(destinationUid :String) {
+        viewModel.getSecondSaveMonthInfo(destinationUid)
         viewModel.secondSaveMonthDTOs.observe(viewLifecycleOwner) { state ->
             when(state) {
                 is UiState.Success -> {
@@ -122,8 +128,8 @@ class SecondMainFragment1 : BaseFragment<FragmentSecondMain1Binding>(), AAChartV
         }
     }
 
-    fun dayObserver() {
-        viewModel.getSecondSaveDayInfo()
+    fun dayObserver(destinationUid :String) {
+        viewModel.getSecondSaveDayInfo(destinationUid)
         viewModel.secondSaveDayDTOs.observe(viewLifecycleOwner) { state ->
             when(state) {
                 is UiState.Success -> {
@@ -145,7 +151,7 @@ class SecondMainFragment1 : BaseFragment<FragmentSecondMain1Binding>(), AAChartV
         }
     }
 
-
-
-
 }
+
+
+
