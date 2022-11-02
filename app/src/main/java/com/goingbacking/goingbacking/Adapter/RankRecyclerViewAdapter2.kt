@@ -3,6 +3,9 @@ package com.goingbacking.goingbacking.Adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.goingbacking.goingbacking.FCM.FirebaseTokenManager
+import com.goingbacking.goingbacking.FCM.NotificationData
+import com.goingbacking.goingbacking.FCM.PushNotification
 import com.goingbacking.goingbacking.Model.NewSaveTimeMonthDTO
 import com.goingbacking.goingbacking.Model.NewSaveTimeYearDTO
 import com.goingbacking.goingbacking.Repository.ForthRepository
@@ -80,6 +83,12 @@ class RankRecyclerViewAdapter2 (
                     likeButton.setMinAndMaxProgress(1f, 1f)
                     likeButton.playAnimation()
                     forthRepository.likeButtonInfo2(item.uid.toString(), "plus")
+                    PushNotification(
+                        NotificationData("title", "message"),
+                        "c0UUQlkXSBOpoGfTcrsdEC:APA91bFyufdhpJGJKgShK3ujlSK0GzGrEA2wHkx1uSBxJlsM5MsnR_W0Gj65lVCD0dshOJhMcqvP7dIVXmPt6g_jhTFoSW74s5AyHssT_mYrwRFh02MmLzRqE4p0GdUBBUS__0AI-VgH"
+                    ).also {
+                        FirebaseTokenManager.sendNotification(it)
+                    }
                     isSwitch = false
                     rankLikeNum = rankLikeNum + 1
                     rankLike.text = rankLikeNum.toString()
