@@ -22,7 +22,12 @@ import java.time.LocalDate
 class CheerBottomSheet : BottomSheetDialogFragment() {
     private lateinit var binding : BottomSheetCheerBinding
     private val viewModel : ForthViewModel by activityViewModels()
-    private val cheerAdapter = CheerRecyclerViewAdapter()
+    private val cheerAdapter = CheerRecyclerViewAdapter(
+        onDeleteClick = { hostUid, original_cheer ->
+            viewModel.deleteCheerInfo(hostUid, original_cheer)
+            observer(hostUid)
+        }
+    )
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -31,6 +36,8 @@ class CheerBottomSheet : BottomSheetDialogFragment() {
 
         val destinationUid = arguments?.getString("destinationUid")
         Log.d("experiment", destinationUid.toString())
+
+
 
         if (destinationUid == null) {
 
@@ -79,7 +86,7 @@ class CheerBottomSheet : BottomSheetDialogFragment() {
                 is UiState.Success -> {
                     progressCircular.hide()
                     Log.d("experiment", state.data.toString())
-                    updateAdapterForDate(state.data)
+                    updateAdapterForDate(state.data, destinationUid)
                     state.data.toTypedArray()
                 }
                 is UiState.Failure -> {
@@ -93,9 +100,10 @@ class CheerBottomSheet : BottomSheetDialogFragment() {
         }
     }
 
-    private fun updateAdapterForDate(list: List<String>) {
+    private fun updateAdapterForDate(list: List<String>, destinationUid :String) {
         cheerAdapter.apply {
             events = list
+            hostUid = destinationUid
             notifyDataSetChanged()
         }
     }

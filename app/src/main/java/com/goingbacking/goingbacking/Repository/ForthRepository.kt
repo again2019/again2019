@@ -148,5 +148,23 @@ class ForthRepository (
         result.invoke(UiState.Success("success"))
     }
 
+    override fun deleteCheerInfo(
+        destinationUid: String,
+        text: String,
+        result: (UiState<String>) -> Unit
+    ) {
+        var current = LocalDateTime.now()
+        current = current.minusDays(10)
+        val simpleDate = DateTimeFormatter.ofPattern("yyyy")
+        val curYear = current.format(simpleDate)
+
+
+        val tsDoc = firebaseFirestore.collection(RANKYEARINFO).document(curYear)
+            .collection(curYear).document(destinationUid)
+        CoroutineScope(Dispatchers.IO).launch {
+            tsDoc.update("cheers", FieldValue.arrayRemove(text)).await()
+        }
+    }
+
 
 }

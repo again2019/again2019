@@ -57,6 +57,14 @@ class ForthViewModel @Inject constructor(
         forthRepository.addCheerInfo(destinationUid, nickname, text) { _addCheerInfo.postValue(it) }
     }
 
+    // 응원 메시지 삭제
+    private val _deleteCheerInfo = MutableLiveData<UiState<String>>()
+
+    fun deleteCheerInfo(destinationUid: String, text: String,) = viewModelScope.launch {
+        _deleteCheerInfo.value = UiState.Loading
+        forthRepository.deleteCheerInfo(destinationUid, text) { _deleteCheerInfo.postValue(it) }
+    }
+
 
 
 }
