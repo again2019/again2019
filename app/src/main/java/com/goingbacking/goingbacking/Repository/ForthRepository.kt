@@ -68,39 +68,33 @@ class ForthRepository (
             }
     }
 
-    override fun likeButtonInfo1(destinationUid :String, state :String) {
+    // 달별
+    override fun likeButtonInfo(destinationUid :String, state :String) {
         var current = LocalDateTime.now()
         current = current.minusDays(2)
         val simpleDate1 = DateTimeFormatter.ofPattern("yyyy-MM")
+        val simpleDate2 = DateTimeFormatter.ofPattern("yyyy")
+
         val curYearMonth = current.format(simpleDate1)
+        val curYear = current.format(simpleDate2)
 
 
-        val tsDoc = firebaseFirestore.collection(RANKMONTHINFO).document(curYearMonth)
+        val tsDoc1 = firebaseFirestore.collection(RANKMONTHINFO).document(curYearMonth)
             .collection(curYearMonth).document(destinationUid)
-
+        val tsDoc2 = firebaseFirestore.collection(RANKYEARINFO).document(curYear)
+            .collection(curYear).document(destinationUid)
         if (state.equals("plus")) {
-            tsDoc.update("likes", FieldValue.arrayUnion(myUid))
+            tsDoc1.update("likes", FieldValue.arrayUnion(myUid))
+            tsDoc2.update("likes", FieldValue.arrayUnion(myUid))
+
         } else {
-            tsDoc.update("likes", FieldValue.arrayRemove(myUid))
+            tsDoc1.update("likes", FieldValue.arrayRemove(myUid))
+            tsDoc2.update("likes", FieldValue.arrayUnion(myUid))
+
         }
     }
 
-    override fun likeButtonInfo2(destinationUid :String, state :String) {
-        var current = LocalDateTime.now()
-        current = current.minusDays(2)
-        val simpleDate1 = DateTimeFormatter.ofPattern("yyyy")
-        val curYearMonth = current.format(simpleDate1)
 
-
-        val tsDoc = firebaseFirestore.collection(RANKYEARINFO).document(curYearMonth)
-            .collection(curYearMonth).document(destinationUid)
-
-        if (state.equals("plus")) {
-            tsDoc.update("likes", FieldValue.arrayUnion(myUid))
-        } else {
-            tsDoc.update("likes", FieldValue.arrayRemove(myUid))
-        }
-    }
 
 
 }

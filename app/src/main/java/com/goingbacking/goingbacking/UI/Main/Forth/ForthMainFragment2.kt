@@ -53,8 +53,14 @@ class ForthMainFragment2 : BaseFragment<FragmentForthMain2Binding>() {
             binding.forth2RefreshLayout.isRefreshing = false
             observer()
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
         observer()
     }
+
     private fun observer() {
         viewModel.getSaveTimeYearInfo()
         viewModel.newSaveTimeYear.observe(viewLifecycleOwner) { state ->

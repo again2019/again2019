@@ -52,8 +52,14 @@ class ForthMainFragment1 : BaseFragment<FragmentForthMain1Binding>() {
             binding.forth1RefreshLayout.isRefreshing = false
             observer()
         }
-        observer()
 
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        observer()
     }
 
 
