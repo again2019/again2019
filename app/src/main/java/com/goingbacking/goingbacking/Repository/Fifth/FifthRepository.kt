@@ -2,8 +2,13 @@ package com.goingbacking.goingbacking.Repository.Fifth
 
 import com.goingbacking.goingbacking.AppConstants.Companion.SUCCESS
 import com.goingbacking.goingbacking.Model.UserInfoDTO
+import com.goingbacking.goingbacking.Model.WhatToDoMonthDTO
+import com.goingbacking.goingbacking.Model.WhatToDoYearDTO
+import com.goingbacking.goingbacking.util.Constants
 import com.goingbacking.goingbacking.util.Constants.Companion.USERINFO
 import com.goingbacking.goingbacking.util.UiState
+import com.goingbacking.goingbacking.util.yyyy
+import com.goingbacking.goingbacking.util.yyyymm
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
@@ -64,6 +69,44 @@ class FifthRepository(
         CoroutineScope(Dispatchers.IO).launch {
             firebaseFirestore.collection(USERINFO).document(myUid).set(userInfoDTO).await()
         }
+    }
+
+    override fun addInitWhatToDoMonthTime(
+        whatToDoMonthDTO: WhatToDoMonthDTO,
+        result: (UiState<String>) -> Unit
+    ) {
+
+        firebaseFirestore.collection(Constants.WHATTODOINFO).document(myUid)
+            .collection(Constants.MONTH).document(yyyymm())
+            .collection(yyyymm()).document(myUid+whatToDoMonthDTO.whatToDo)
+            .set(whatToDoMonthDTO)
+            .addOnSuccessListener {
+                result.invoke(UiState.Success(Constants.SUCCESS))
+            }
+            .addOnFailureListener {
+                result.invoke(
+                    UiState.Failure(Constants.FAIL)
+                )
+            }
+    }
+
+    override fun addInitWhatToDoYearTime(
+        whatToDoYearDTO: WhatToDoYearDTO,
+        result: (UiState<String>) -> Unit
+    ) {
+        firebaseFirestore.collection(Constants.WHATTODOINFO).document(myUid)
+            .collection(Constants.YEAR).document(yyyy())
+            .collection(yyyy()).document(myUid+whatToDoYearDTO.whatToDo)
+            .set(whatToDoYearDTO)
+            .addOnSuccessListener {
+                result.invoke(UiState.Success(Constants.SUCCESS))
+            }
+            .addOnFailureListener {
+                result.invoke(
+                    UiState.Failure(Constants.FAIL)
+                )
+            }
+
     }
 
 }

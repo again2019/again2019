@@ -24,7 +24,7 @@ class ChangeInfoActivity : BaseActivity<ActivityChangeInfoBinding>({
     ActivityChangeInfoBinding.inflate(it)
 }) {
     var historyWhatToDo = mutableSetOf<String>()
-    val viewModel: InputViewModel by viewModels()
+    val viewModel: FifthViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -102,15 +102,7 @@ class ChangeInfoActivity : BaseActivity<ActivityChangeInfoBinding>({
                 viewModel.addFirstInput(userInfoDTO)
                 finish()
             }
-
-
-
-
-
         }
-
-
-
     }
 
 }
