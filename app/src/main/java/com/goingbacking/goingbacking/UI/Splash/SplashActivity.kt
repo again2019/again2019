@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.goingbacking.goingbacking.R
 import com.goingbacking.goingbacking.UI.Login.LoginActivity
 
-import com.goingbacking.goingbacking.util.FBConstants.Companion.DURATION
+import com.goingbacking.goingbacking.util.Constants.Companion.DURATION
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
