@@ -7,6 +7,8 @@ import android.widget.Toast
 import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
 import com.goingbacking.goingbacking.Model.UserInfoDTO
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 fun String.isValidEmail() =
     isNotEmpty() && android.util.Patterns.EMAIL_ADDRESS.matcher(this).matches()
@@ -32,3 +34,20 @@ fun toast (context: Context, string : String) {
     Toast.makeText(context, string, Toast.LENGTH_SHORT).show()
 }
 
+fun mm () : String {
+    val now = LocalDate.now()
+    val strnow = now.format(DateTimeFormatter.ofPattern("MM"))
+    return strnow
+}
+
+fun yyyy() : String {
+    val now = LocalDate.now()
+    val strnow = now.format(DateTimeFormatter.ofPattern("yyyy"))
+    return strnow
+}
+
+fun yyyymm() : String {
+    val now = LocalDate.now()
+    val strnow = now.format(DateTimeFormatter.ofPattern("yyyy-MM"))
+    return strnow
+}

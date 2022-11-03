@@ -2,6 +2,7 @@ package com.goingbacking.goingbacking.bottomsheet
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,9 +13,7 @@ import com.goingbacking.goingbacking.R
 import com.goingbacking.goingbacking.UI.Tutorial.TutorialActivity
 import com.goingbacking.goingbacking.UI.Input.InputViewModel
 import com.goingbacking.goingbacking.databinding.BottomSheetInputBinding
-import com.goingbacking.goingbacking.util.PrefUtil
-import com.goingbacking.goingbacking.util.UiState
-import com.goingbacking.goingbacking.util.toast
+import com.goingbacking.goingbacking.util.*
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.chip.Chip
 import dagger.hilt.android.AndroidEntryPoint
@@ -27,10 +26,6 @@ class InputBottomSheet : BottomSheetDialogFragment() {
     private lateinit var binding : BottomSheetInputBinding
     private val viewModel : InputViewModel by activityViewModels()
 
-
-    private var now = LocalDate.now()
-    private var Strnow1 = now.format(DateTimeFormatter.ofPattern("MM")).toInt()
-    private var Strnow2 = now.format(DateTimeFormatter.ofPattern("yyyy")).toInt()
     private var InitWhatToDoMonthList = ArrayList<WhatToDoMonthDTO>()
     private var InitWhatToDoYearList = ArrayList<WhatToDoYearDTO>()
     private var whattodoList = mutableSetOf<String>()
@@ -40,61 +35,61 @@ class InputBottomSheet : BottomSheetDialogFragment() {
     ): View {
         binding = BottomSheetInputBinding.inflate(inflater, container, false)
 
-        //Observer()
+        observer()
         onClick()
         return binding.root
     }
 
 
-//    private fun Observer() = with(binding) {
-//        viewModel.checkInput()
-//        viewModel.checkUserInfo.observe(viewLifecycleOwner) { state ->
-//            when(state) {
-//                is UiState.Success -> {
-//                    progressCircular.hide()
-//                    nickName.text = state.data.userNickName
-//                    type.text = state.data.userType
-//
-//                  if (!state.data.whatToDo.equals("")) {
-//                      for (whattodo in state.data.whatToDo!!.split(',')) {
-//                          whattodoList.add(whattodo)
-//
-//                          // chart 표시를 위해 초기화 하기 위해 arrayList에 넣는 코드
-//                          val whatToDoMonthDTO = WhatToDoMonthDTO()
-//                          whatToDoMonthDTO.count = 0
-//                          whatToDoMonthDTO.month = Strnow1
-//                          whatToDoMonthDTO.whatToDo = whattodo
-//
-//                          InitWhatToDoMonthList.add(whatToDoMonthDTO)
-//
-//                          val whatToDoYearDTO = WhatToDoYearDTO()
-//                          whatToDoYearDTO.count = 0
-//                          whatToDoYearDTO.year = Strnow2
-//                          whatToDoYearDTO.whatToDo = whattodo
-//
-//                          InitWhatToDoYearList.add(whatToDoYearDTO)
-//                          // ----------------------------------------------
-//
-//                          // chip을 추가하는 코드
-//                          chipGroup.addView(Chip(requireActivity()).apply {
-//                                text = whattodo
-//                                isCheckable = false
-//                                isChecked = false
-//                          })
-//                        }
-//                    }
-//                }
-//                is UiState.Failure -> {
-//                    progressCircular.hide()
-//                    toast(requireContext(), getString(R.string.check_input_fail))
-//                }
-//                is UiState.Loading -> {
-//                    progressCircular.show()
-//                }
-//            }
-//
-//        }
-//    }
+    private fun observer() = with(binding) {
+        viewModel.checkInput()
+        viewModel.checkUserInfo.observe(viewLifecycleOwner) { state ->
+            when(state) {
+                is UiState.Success -> {
+                    progressCircular.hide()
+                    nickName.text = state.data.userNickName
+                    type.text = state.data.userType
+
+                    for (whattodo in state.data.whatToDoList) {
+                          whattodoList.add(whattodo)
+
+                          // chart 표시를 위해 초기화 하기 위해 arrayList에 넣는 코드
+                          val whatToDoMonthDTO = WhatToDoMonthDTO(
+                              count = 0,
+                              month = mm().toInt(),
+                              whatToDo = whattodo
+                          )
+                          InitWhatToDoMonthList.add(whatToDoMonthDTO)
+
+                          val whatToDoYearDTO = WhatToDoYearDTO(
+                              count = 0,
+                              year = yyyy().toInt(),
+                              whatToDo = whattodo
+                          )
+
+                          InitWhatToDoYearList.add(whatToDoYearDTO)
+                          // ----------------------------------------------
+
+                          // chip을 추가하는 코드
+                          chipGroup.addView(Chip(requireActivity()).apply {
+                                text = whattodo
+                                isCheckable = false
+                                isChecked = false
+                          })
+                        }
+
+                }
+                is UiState.Failure -> {
+                    progressCircular.hide()
+                    toast(requireContext(), getString(R.string.check_input_fail))
+                }
+                is UiState.Loading -> {
+                    progressCircular.show()
+                }
+            }
+
+        }
+    }
 
 
     private fun onClick() = with(binding) {

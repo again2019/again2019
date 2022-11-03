@@ -32,7 +32,6 @@ class Constants {
         // second input 관련 constant
         const val USERTYPE = "userType"
         const val WHATTODOLIST = "whatToDoList"
-        const val YYYYMM = "yyyy-MM"
 
 
         // 알림 관련 constant

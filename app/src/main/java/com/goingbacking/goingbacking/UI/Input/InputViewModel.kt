@@ -55,7 +55,7 @@ class InputViewModel @Inject constructor (
     fun checkInput() = viewModelScope.launch {
         _checkUserInfo.value = UiState.Loading
         inputRepository.checkInput {
-            _checkUserInfo.value = it
+            _checkUserInfo.postValue(it)
         }
     }
 
