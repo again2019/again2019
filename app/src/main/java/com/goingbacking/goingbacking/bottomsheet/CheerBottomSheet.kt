@@ -11,6 +11,9 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.goingbacking.goingbacking.Adapter.CheerRecyclerViewAdapter
+import com.goingbacking.goingbacking.FCM.FirebaseTokenManager.sendNotification
+import com.goingbacking.goingbacking.FCM.NotificationData
+import com.goingbacking.goingbacking.FCM.PushNotification
 import com.goingbacking.goingbacking.R
 import com.goingbacking.goingbacking.ViewModel.ForthViewModel
 import com.goingbacking.goingbacking.databinding.BottomSheetCheerBinding
@@ -57,6 +60,14 @@ class CheerBottomSheet : BottomSheetDialogFragment() {
                 } else {
                     viewModel.addCheerInfo(destinationUid, "aa", message)
                     observer(destinationUid)
+                    PushNotification(
+                        NotificationData("title", "message"),
+                        "c0UUQlkXSBOpoGfTcrsdEC:APA91bFyufdhpJGJKgShK3ujlSK0GzGrEA2wHkx1uSBxJlsM5MsnR_W0Gj65lVCD0dshOJhMcqvP7dIVXmPt6g_jhTFoSW74s5AyHssT_mYrwRFh02MmLzRqE4p0GdUBBUS__0AI-VgH"
+                    ).also {
+                        sendNotification(it)
+                    }
+
+
                     binding.cheerEditText.setText("")
 
 

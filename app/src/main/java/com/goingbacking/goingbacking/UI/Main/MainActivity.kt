@@ -61,7 +61,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>({
         alarmIntent.putExtra(TYPE, CHANNEL)
 
         val pendingIntent: PendingIntent = PendingIntent.getBroadcast(
-            this, VALUE, alarmIntent, PendingIntent.FLAG_IMMUTABLE
+            this, VALUE, alarmIntent, PendingIntent.FLAG_MUTABLE
         )
 
         val alarmManager: AlarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager

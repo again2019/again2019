@@ -102,13 +102,13 @@ class CountReceiver : BroadcastReceiver() {
         val id = IdCount
         val type = intent.getStringExtra("type") + "wakeUpAlarm ${id}"
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        var nextIntent = Intent(context, DoingReceiver::class.java)
+        val nextIntent = Intent(context, DoingReceiver::class.java)
         nextIntent.putExtra("id", id)
         nextIntent.putExtra("type", type)
         nextIntent.action = AppConstants.ACTION_READY
 
 
-        var calendar = Calendar.getInstance()
+        val calendar = Calendar.getInstance()
         if (beforeInfoDTO.date == null) {
             todayTotalTime = todayTotalTime + nowInfoDTO.start_t!!.toInt()
 
@@ -192,7 +192,7 @@ class CountReceiver : BroadcastReceiver() {
         val contentIntent = Intent(context, MainActivity::class.java)
         val contentPendingIntent = PendingIntent.getActivity(context, id, contentIntent, PendingIntent.FLAG_MUTABLE)
         val builder = NotificationCompat.Builder(context, "notificationChannel_$id")
-            .setSmallIcon(R.mipmap.comeback)
+            .setSmallIcon(R.mipmap.comeback_new)
             .setContentTitle("매일마다 울리는 알림입니다")
             .setContentText("매일마다 울리는 알림입니다")
             .setContentIntent(contentPendingIntent)
@@ -214,10 +214,10 @@ class CountReceiver : BroadcastReceiver() {
             "recursive SET:$id | type: $type |"
         )
 
-        var calendar = Calendar.getInstance()
+        val calendar = Calendar.getInstance()
         calendar.timeInMillis = System.currentTimeMillis()
         calendar.set(Calendar.HOUR_OF_DAY, 0)
-        calendar.set(Calendar.MINUTE, 5)
+        calendar.set(Calendar.MINUTE, 0)
         calendar.set(Calendar.SECOND, 0)
         calendar.set(Calendar.MILLISECOND, 0)
         calendar.add(Calendar.DATE, 1)

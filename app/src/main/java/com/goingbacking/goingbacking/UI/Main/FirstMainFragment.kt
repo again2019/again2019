@@ -14,6 +14,7 @@ import com.goingbacking.goingbacking.Adapter.TodayRecyclerViewAdapter
 import com.goingbacking.goingbacking.FCM.NotificationData
 import com.goingbacking.goingbacking.FCM.PushNotification
 import com.goingbacking.goingbacking.FCM.RetrofitInstance
+import com.goingbacking.goingbacking.Service.AlarmService
 import com.goingbacking.goingbacking.UI.Base.BaseFragment
 import com.goingbacking.goingbacking.UI.Main.First.TmpTimeActivity
 import com.goingbacking.goingbacking.databinding.FragmentFirstMainBinding
@@ -24,6 +25,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.util.concurrent.TimeUnit
 
 
 @AndroidEntryPoint
@@ -55,12 +57,19 @@ class FirstMainFragment : BaseFragment<FragmentFirstMainBinding>() {
         })
 
         binding.tmp.setOnClickListener {
-            PushNotification(
-                NotificationData("title", "message"),
-                "c0UUQlkXSBOpoGfTcrsdEC:APA91bFyufdhpJGJKgShK3ujlSK0GzGrEA2wHkx1uSBxJlsM5MsnR_W0Gj65lVCD0dshOJhMcqvP7dIVXmPt6g_jhTFoSW74s5AyHssT_mYrwRFh02MmLzRqE4p0GdUBBUS__0AI-VgH"
-            ).also {
-                sendNotification(it)
-            }
+//            PushNotification(
+//                NotificationData("title", "message"),
+//                "c0UUQlkXSBOpoGfTcrsdEC:APA91bFyufdhpJGJKgShK3ujlSK0GzGrEA2wHkx1uSBxJlsM5MsnR_W0Gj65lVCD0dshOJhMcqvP7dIVXmPt6g_jhTFoSW74s5AyHssT_mYrwRFh02MmLzRqE4p0GdUBBUS__0AI-VgH"
+//            ).also {
+//                sendNotification(it)
+//            }
+
+            val intent = Intent(context, AlarmService::class.java)
+            intent.putExtra("wakeUpTime", System.currentTimeMillis().plus(50000000))
+            val milliseconds: Long = 8000000
+            intent.putExtra("duration", milliseconds)
+            intent.action = "START_FOREGROUND"
+            requireActivity().startService(intent)
 
         }
         ////
