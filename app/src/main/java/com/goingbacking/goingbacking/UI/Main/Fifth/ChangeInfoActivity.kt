@@ -1,6 +1,7 @@
 package com.goingbacking.goingbacking.UI.Main.Fifth
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.core.view.children
 import com.goingbacking.goingbacking.Model.UserInfoDTO
@@ -39,16 +40,18 @@ class ChangeInfoActivity : BaseActivity<ActivityChangeInfoBinding>({
         changeNickNameEditText.setText(intent.getStringExtra("nickName"))
         changeTypeEditText.setText(intent.getStringExtra("userType"))
 
-
+        Log.d("experiment",intent.getStringExtra("whatToDo")!!.toString())
         val whatToDo = intent.getStringExtra("whatToDo")!!
-            .removeSurrounding("[", "]").split(",")
+            .removeSurrounding("[", "]").split(", ")
 
         for (i in whatToDo) {
-            if (i.equals("독서")) { chip1.isChecked }
-            else if (i.equals("영어 듣기")) { chip2.isChecked = true }
-            else if (i.equals("시사 공부")) { chip3.isChecked = true }
-            else if (i.equals("전공 과제")) { chip4.isChecked = true }
-            else if (i.equals("뉴스")) { chip5.isChecked = true}
+            Log.d("experiment",whatToDo.toString())
+            Log.d("experiment",i)
+            if (i.equals("독서")) { chip1.isChecked = true}
+            if (i.equals("영어 듣기")) { chip2.isChecked = true }
+            if (i.equals("시사 공부")) { chip3.isChecked = true }
+            if (i.equals("전공 과제")) { chip4.isChecked = true }
+            if (i.equals("뉴스")) { chip5.isChecked = true}
 
         }
 
@@ -99,7 +102,7 @@ class ChangeInfoActivity : BaseActivity<ActivityChangeInfoBinding>({
                     whatToDoList = selected
                 )
 
-                viewModel.addFirstInput(userInfoDTO)
+                viewModel.reviseUserInfo(changeNickNameEditText.text.toString(), changeTypeEditText.text.toString(), selected.toList())
                 finish()
             }
         }

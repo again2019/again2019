@@ -86,9 +86,11 @@ object RepositoryModule {
     fun provideFifthRepository (
         firebaseFirestore: FirebaseFirestore,
         user: FirebaseUser?,
-        firebaseAuth: FirebaseAuth
+        firebaseAuth: FirebaseAuth,
+        firebaseMessage : FirebaseMessaging
+
     ) : FifthRepositoryIF {
-        return FifthRepository(user, firebaseFirestore, firebaseAuth)
+        return FifthRepository(user, firebaseFirestore, firebaseAuth, firebaseMessage)
     }
 
     @Provides

@@ -10,7 +10,7 @@ interface FifthRepositoryIF {
     fun logout(result: (UiState<String>) -> Unit)
     fun signout(result: (UiState<String>) -> Unit)
     // 정보 수정 저장
-    fun addFirstInput(userInfoDTO: UserInfoDTO, result: (UiState<String>) -> Unit)
+    fun reviseUserInfo(nickname :String, type :String, selected : List<String>, result: (UiState<String>) -> Unit)
 
     // month whattodo chart를 위해 초기화하는 코드
     fun addInitWhatToDoMonthTime(whatToDoMonthDTO : WhatToDoMonthDTO, result: (UiState<String>) -> Unit)

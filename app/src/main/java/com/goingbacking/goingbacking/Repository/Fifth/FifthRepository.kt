@@ -13,6 +13,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Source
+import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -21,8 +22,8 @@ import kotlinx.coroutines.tasks.await
 class FifthRepository(
     val user : FirebaseUser?,
     val firebaseFirestore: FirebaseFirestore,
-    val firebaseAuth: FirebaseAuth
-
+    val firebaseAuth: FirebaseAuth,
+    val firebaseMessage : FirebaseMessaging
 ) : FifthRepositoryIF {
 
     val myUid = user?.uid!!
@@ -65,9 +66,21 @@ class FifthRepository(
     }
 
     // 정보 수정 저장
-    override fun addFirstInput(userInfoDTO: UserInfoDTO, result: (UiState<String>) -> Unit) {
+    override fun reviseUserInfo(nickname :String, type :String, selected : List<String>, result: (UiState<String>) -> Unit) {
         CoroutineScope(Dispatchers.IO).launch {
-            firebaseFirestore.collection(USERINFO).document(myUid).set(userInfoDTO).await()
+
+            var token = ""
+            CoroutineScope(Dispatchers.IO).launch {
+                token = firebaseMessage.token.await()
+                val userInfoDTO = UserInfoDTO(
+                    uid = myUid,
+                    userNickName = nickname,
+                    userType = type,
+                    whatToDoList = selected,
+                    token = token
+                )
+                firebaseFirestore.collection(USERINFO).document(myUid).set(userInfoDTO).await()
+            }
         }
     }
 
