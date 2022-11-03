@@ -37,9 +37,9 @@ class DoingReceiver : BroadcastReceiver() {
             AppConstants.ACTION_READY -> {
                 end_time = intent.getIntExtra("end_time", 0)
                 PrefUtil.setEndTime(end_time, context)
-                val intent = Intent(context, AlarmService::class.java)
-                intent.action = "FIRST_START_FOREGROUND"
-                context.startService(intent)
+                val intent1 = Intent(context, AlarmService::class.java)
+                intent1.action = "FIRST_START_FOREGROUND"
+                context.startService(intent1)
 
                 //NotificationUtil.showTimerReady(context)
             }
@@ -53,7 +53,7 @@ class DoingReceiver : BroadcastReceiver() {
                 val currentTime = System.currentTimeMillis()
                 PrefUtil.setStartTime(currentTime, context)
                 // 도착 시간
-                var calendar = Calendar.getInstance()
+                val calendar = Calendar.getInstance()
                 calendar.timeInMillis = System.currentTimeMillis()
                 calendar.set(Calendar.HOUR, (end_time) / 60)
                 calendar.set(Calendar.MINUTE, (end_time) % 60)
@@ -67,31 +67,31 @@ class DoingReceiver : BroadcastReceiver() {
                 Log.d("experiment", "wakeupTime: $wakeUpTime | ${SimpleDateFormat("yyyy.MM.dd HH:mm").format(Date(wakeUpTime))} ")
                 Log.d("experiment", "duration: $duration | ")
 
-                val intent = Intent(context, AlarmService::class.java)
-                intent.putExtra("wakeUpTime", wakeUpTime)
-                intent.action = "START_FOREGROUND"
-                context.startService(intent)
+                val intent2 = Intent(context, AlarmService::class.java)
+                intent2.putExtra("wakeUpTime", wakeUpTime)
+                intent2.putExtra("duration", duration)
+                intent2.action = "START_FOREGROUND"
+                context.startService(intent2)
 
-                //NotificationUtil.showTimerRunning(context, wakeUpTime)
                 TimerUtils.startTimer(context, duration)
             }
             AppConstants.ACTION_STOP -> {
                 TimerUtils.pauseTimer()
                 currentTime = PrefUtil.getStartTime(context)
 
-                val intent = Intent(context, AlarmService::class.java)
-                intent.action = "FINISH_FOREGROUND"
-                context.startService(intent)
+                val intent3 = Intent(context, AlarmService::class.java)
+                intent3.action = "FINISH_FOREGROUND"
+                context.startService(intent3)
 
                 Log.d("experiment",  System.currentTimeMillis().toString())
                 Log.d("experiment",  currentTime.toString())
 
-                var current = System.currentTimeMillis()
+                val current = System.currentTimeMillis()
 
-                var tmpTimeDTO : TmpTimeDTO? = TmpTimeDTO()
+                val tmpTimeDTO : TmpTimeDTO? = TmpTimeDTO()
                 tmpTimeDTO!!.nowSeconds =  current- currentTime
-                tmpTimeDTO!!.startTime = currentTime
-                tmpTimeDTO!!.wakeUpTime = current
+                tmpTimeDTO.startTime = currentTime
+                tmpTimeDTO.wakeUpTime = current
 
                 val df = SimpleDateFormat("HH:mm:ss")
 
@@ -107,8 +107,7 @@ class DoingReceiver : BroadcastReceiver() {
                 Log.d("experiment", "wakeupTime: " + wakeUpTime.toString())
                 Log.d("experiment", "currentTime: " + currentTime.toString())
 
-                //firebaseFirestore?.collection("TmpTimeInfo")?.document(userId!!)?.collection(userId!!)?.add(tmpTimeDTO!!)
-                alarmRepository.addTmpTimeInfo(tmpTimeDTO!!)
+                alarmRepository.addTmpTimeInfo(tmpTimeDTO)
             }
 
         }
