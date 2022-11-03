@@ -102,13 +102,13 @@ class CountReceiver : BroadcastReceiver() {
         val id = IdCount
         val type = intent.getStringExtra("type") + "wakeUpAlarm ${id}"
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        var nextIntent = Intent(context, DoingReceiver::class.java)
+        val nextIntent = Intent(context, DoingReceiver::class.java)
         nextIntent.putExtra("id", id)
         nextIntent.putExtra("type", type)
         nextIntent.action = AppConstants.ACTION_READY
 
 
-        var calendar = Calendar.getInstance()
+        val calendar = Calendar.getInstance()
         if (beforeInfoDTO.date == null) {
             todayTotalTime = todayTotalTime + nowInfoDTO.start_t!!.toInt()
 
@@ -214,7 +214,7 @@ class CountReceiver : BroadcastReceiver() {
             "recursive SET:$id | type: $type |"
         )
 
-        var calendar = Calendar.getInstance()
+        val calendar = Calendar.getInstance()
         calendar.timeInMillis = System.currentTimeMillis()
         calendar.set(Calendar.HOUR_OF_DAY, 0)
         calendar.set(Calendar.MINUTE, 0)
