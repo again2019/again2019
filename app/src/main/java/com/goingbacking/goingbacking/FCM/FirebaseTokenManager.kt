@@ -4,6 +4,8 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.provider.Settings
 import android.util.Log
+import com.goingbacking.goingbacking.util.Constants.Companion.USERINFO
+import com.goingbacking.goingbacking.util.PrefUtil
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -28,6 +30,8 @@ object FirebaseTokenManager {
                 )
             )
             .set(mapOf("token" to token))
+
+        
     }
 
 

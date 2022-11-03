@@ -10,6 +10,7 @@ import com.goingbacking.goingbacking.Repository.Login.LoginRepositoryIF
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.messaging.FirebaseMessaging
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -27,9 +28,10 @@ object RepositoryModule {
     @Singleton
     fun provideInputRepository(
         user: FirebaseUser?,
-        firebaseFirestore: FirebaseFirestore
+        firebaseFirestore: FirebaseFirestore,
+        firebaseMessage : FirebaseMessaging
     ) : InputRepositoryIF {
-        return InputRepository(user, firebaseFirestore)
+        return InputRepository(user, firebaseFirestore, firebaseMessage)
     }
 
 

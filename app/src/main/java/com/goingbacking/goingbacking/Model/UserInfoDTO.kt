@@ -6,4 +6,5 @@ data class UserInfoDTO (
     var whatToDo : String? = null,
     var whatToDoList : List<String> = listOf(),
     var uid : String? = null,
+    var token : String? = null
 )
