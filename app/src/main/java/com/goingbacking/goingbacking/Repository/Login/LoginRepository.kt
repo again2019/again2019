@@ -1,7 +1,6 @@
-package com.goingbacking.goingbacking.Repository
+package com.goingbacking.goingbacking.Repository.Login
 
 
-import android.util.Log
 import com.goingbacking.goingbacking.util.UiState
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.*
@@ -123,19 +122,7 @@ class LoginRepository (
         }
     }
 
-    override fun logout(result: (UiState<String>) -> Unit) {
-        firebaseAuth.signOut()
-        result.invoke(UiState.Success(success))
-    }
-
-    override fun signout(result: (UiState<String>) -> Unit) {
-        firebaseAuth.currentUser!!.delete().addOnCompleteListener {
-            if (it.isSuccessful) {
-                result.invoke(UiState.Success(success))
-
-            }
-        }
-    }
+    
 
 
 }

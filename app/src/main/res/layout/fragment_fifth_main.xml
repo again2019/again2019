@@ -3,8 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    tools:context=".UI.Main.FifthMainFragment">
+    tools:context=".UI.Main.Fifth.FifthMainFragment">
 
 
     <TextView
@@ -55,5 +56,13 @@
         android:text="로그아웃"
 
         />
+
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/progress_circular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:indicatorColor="@color/example_3_blue"
+        android:indeterminate="true"
+        android:visibility="invisible" />
 
 </LinearLayout>

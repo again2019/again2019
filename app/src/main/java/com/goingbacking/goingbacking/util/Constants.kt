@@ -1,6 +1,6 @@
-package com.goingbacking.goingbacking
+package com.goingbacking.goingbacking.util
 
-class AppConstants {
+class Constants {
     companion object {
         // const val : 컴파일 시간에 결정되는 상수
         // 문자열이나 기본 타입으로 할당
@@ -37,5 +37,7 @@ class AppConstants {
         const val SUCCESS = "success"
         const val FAIL = "fail"
 
+
     }
+
 }

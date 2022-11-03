@@ -1,4 +1,4 @@
-package com.goingbacking.goingbacking.UI.Main
+package com.goingbacking.goingbacking.UI.Main.Fifth
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,17 +6,11 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.app.ActivityCompat.finishAffinity
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import com.goingbacking.goingbacking.R
 import com.goingbacking.goingbacking.UI.Base.BaseFragment
 import com.goingbacking.goingbacking.UI.Login.LoginActivity
-import com.goingbacking.goingbacking.UI.Main.Fifth.ChangeInfoActivity
-import com.goingbacking.goingbacking.ViewModel.LoginViewModel
-//import com.goingbacking.goingbacking.UI.Main.FifthMainFragmentDirections.ActionFifthMainFragmentToChangeInfoActivity
-import com.goingbacking.goingbacking.ViewModel.MainViewModel
 import com.goingbacking.goingbacking.databinding.FragmentFifthMainBinding
 import com.goingbacking.goingbacking.util.PrefUtil
 import com.goingbacking.goingbacking.util.UiState
@@ -26,8 +20,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class FifthMainFragment : BaseFragment<FragmentFifthMainBinding>() {
-    val viewModel1: MainViewModel by viewModels()
-    val viewModel2: LoginViewModel by viewModels()
+    val viewModel: FifthViewModel by viewModels()
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
@@ -35,10 +28,8 @@ class FifthMainFragment : BaseFragment<FragmentFifthMainBinding>() {
         return FragmentFifthMainBinding.inflate(inflater, container, false)
     }
 
-    // 생성된 View를 처리하는 function
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
 
         onClick()
     }
@@ -50,17 +41,22 @@ class FifthMainFragment : BaseFragment<FragmentFifthMainBinding>() {
     }
 
 
-    private fun observer() {
-        viewModel1.getFifthUserInfo()
-        viewModel1.userInfoDTO.observe(viewLifecycleOwner) { state ->
+    private fun observer() = with(binding) {
+        viewModel.getFifthUserInfo()
+        viewModel.userInfoDTO.observe(viewLifecycleOwner) { state ->
             when(state) {
                 is UiState.Success -> {
-                    binding.myNickNameTextView.text = state.data.userNickName
-                    binding.myTypeTextView.text = state.data.userType
-                    binding.myWhatToDoTextView.text = state.data.whatToDo
+                    progressCircular.hide()
+                    myNickNameTextView.text = state.data.userNickName
+                    myTypeTextView.text = state.data.userType
+                    myWhatToDoTextView.text = state.data.whatToDo
                 }
                 is UiState.Failure -> {
-                    Log.e("experiment", state.error.toString())
+                    progressCircular.hide()
+                    toast(requireContext(), getString(R.string.get_user_info_fail))
+                }
+                is UiState.Loading -> {
+                    progressCircular.show()
                 }
             }
 
@@ -69,9 +65,9 @@ class FifthMainFragment : BaseFragment<FragmentFifthMainBinding>() {
 
     private fun onClick() = with(binding) {
         changeInfoTextView.setOnClickListener {
-            var nickName = binding.myNickNameTextView.text.toString()
-            var userType = binding.myTypeTextView.text.toString()
-            var whatToDo = binding.myWhatToDoTextView.text.toString()
+            val nickName = myNickNameTextView.text.toString()
+            val userType = myTypeTextView.text.toString()
+            val whatToDo = myWhatToDoTextView.text.toString()
 
             val intent = Intent(requireContext(), ChangeInfoActivity::class.java)
             intent.putExtra("nickName", nickName)
@@ -80,9 +76,11 @@ class FifthMainFragment : BaseFragment<FragmentFifthMainBinding>() {
             startActivity(intent)
         }
 
+
+        // 로그아웃이 아니라 계정 탈퇴
         logoutButton.setOnClickListener {
-            viewModel2.logout()
-            viewModel2.logout.observe(viewLifecycleOwner) { state ->
+            viewModel.logout()
+            viewModel.logout.observe(viewLifecycleOwner) { state ->
                 when (state) {
                     is UiState.Success -> {
                         toast(requireContext(), getString(R.string.logout_success))

@@ -1,6 +1,10 @@
 package com.goingbacking.goingbacking.DI
 
 import com.goingbacking.goingbacking.Repository.*
+import com.goingbacking.goingbacking.Repository.Fifth.FifthRepository
+import com.goingbacking.goingbacking.Repository.Fifth.FifthRepositoryIF
+import com.goingbacking.goingbacking.Repository.Login.LoginRepository
+import com.goingbacking.goingbacking.Repository.Login.LoginRepositoryIF
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
@@ -71,6 +75,16 @@ object RepositoryModule {
         user: FirebaseUser?,
     ) : ForthRepositoryIF {
         return ForthRepository(user, firebaseFirestore)
+    }
+
+    @Provides
+    @Singleton
+    fun provideFifthRepository (
+        firebaseFirestore: FirebaseFirestore,
+        user: FirebaseUser?,
+        firebaseAuth: FirebaseAuth
+    ) : FifthRepositoryIF {
+        return FifthRepository(user, firebaseFirestore, firebaseAuth)
     }
 
     @Provides

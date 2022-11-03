@@ -57,7 +57,7 @@
     <!-- fifth -->
     <fragment
         android:id="@+id/fifthMainFragment"
-        android:name="com.goingbacking.goingbacking.UI.Main.FifthMainFragment"
+        android:name="com.goingbacking.goingbacking.UI.Main.Fifth.FifthMainFragment"
         android:label="FifthMainFragment"
         tools:layout="@layout/fragment_fifth_main">
     </fragment>
