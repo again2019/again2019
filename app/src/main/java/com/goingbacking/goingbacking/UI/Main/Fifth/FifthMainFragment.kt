@@ -28,6 +28,7 @@ class FifthMainFragment : BaseFragment<FragmentFifthMainBinding>() {
         return FragmentFifthMainBinding.inflate(inflater, container, false)
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -49,7 +50,7 @@ class FifthMainFragment : BaseFragment<FragmentFifthMainBinding>() {
                     progressCircular.hide()
                     myNickNameTextView.text = state.data.userNickName
                     myTypeTextView.text = state.data.userType
-                    myWhatToDoTextView.text = state.data.whatToDo
+                    myWhatToDoTextView.text = state.data.whatToDoList.toString()
                 }
                 is UiState.Failure -> {
                     progressCircular.hide()

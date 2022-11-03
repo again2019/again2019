@@ -1,8 +1,6 @@
 package com.goingbacking.goingbacking.Repository.Fifth
 
-import com.goingbacking.goingbacking.Model.DateDTO
-import com.goingbacking.goingbacking.Model.Event
-import com.goingbacking.goingbacking.Model.UserInfoDTO
+import com.goingbacking.goingbacking.Model.*
 import com.goingbacking.goingbacking.util.UiState
 
 interface FifthRepositoryIF {
@@ -11,4 +9,12 @@ interface FifthRepositoryIF {
     // 회원 탈퇴
     fun logout(result: (UiState<String>) -> Unit)
     fun signout(result: (UiState<String>) -> Unit)
+    // 정보 수정 저장
+    fun reviseUserInfo(nickname :String, type :String, selected : List<String>, result: (UiState<String>) -> Unit)
+
+    // month whattodo chart를 위해 초기화하는 코드
+    fun addInitWhatToDoMonthTime(whatToDoMonthDTO : WhatToDoMonthDTO, result: (UiState<String>) -> Unit)
+    // year whattodo chart를 위해 초기화하는 코드
+    fun addInitWhatToDoYearTime(whatToDoYearDTO : WhatToDoYearDTO, result: (UiState<String>) -> Unit)
+
 }

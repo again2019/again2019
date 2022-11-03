@@ -23,7 +23,7 @@ class Constants {
 
         const val DAY = "day"
         const val MONTH = "month"
-        const val YEAR = "Year"
+        const val YEAR = "year"
 
         // firebase 결과 관련 constant
         const val SUCCESS = "success"

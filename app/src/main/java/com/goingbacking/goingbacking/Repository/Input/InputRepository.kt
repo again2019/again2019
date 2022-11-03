@@ -1,5 +1,6 @@
 package com.goingbacking.goingbacking.Repository.Input
 
+import android.util.Log
 import com.goingbacking.goingbacking.Model.UserInfoDTO
 import com.goingbacking.goingbacking.Model.WhatToDoMonthDTO
 import com.goingbacking.goingbacking.Model.WhatToDoYearDTO
@@ -17,6 +18,7 @@ import com.goingbacking.goingbacking.util.yyyymm
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Source
+import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -26,7 +28,8 @@ import java.time.format.DateTimeFormatter
 
 class InputRepository(
     val user: FirebaseUser?,
-    val firebaseFirestore: FirebaseFirestore
+    val firebaseFirestore: FirebaseFirestore,
+    val firebaseMessage : FirebaseMessaging
 ) : InputRepositoryIF {
 
     val myUid = user?.uid!!
@@ -35,12 +38,14 @@ class InputRepository(
     // --- FirstInputFragment ---
     override fun addFirstInput(userNickName: String, result: (UiState<String>) -> Unit) {
 
-        val userInfoDTO = UserInfoDTO(
-            uid = myUid,
-            userNickName = userNickName
-        )
-
+        var token = ""
         CoroutineScope(Dispatchers.IO).launch {
+            token = firebaseMessage.token.await()
+            val userInfoDTO = UserInfoDTO(
+                uid = myUid,
+                userNickName = userNickName,
+                token = token
+            )
             firebaseFirestore.collection(USERINFO).document(myUid).set(userInfoDTO).await()
         }
     }

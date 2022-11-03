@@ -66,7 +66,7 @@ class InputViewModel @Inject constructor (
     fun addInitWhatToDoMonthTime(whatToDoMonthDTO: WhatToDoMonthDTO) = viewModelScope.launch {
         _whatToDoInitMonthDTOs.value = UiState.Loading
         inputRepository.addInitWhatToDoMonthTime(whatToDoMonthDTO) {
-            _whatToDoInitMonthDTOs.value = it
+            _whatToDoInitMonthDTOs.postValue(it)
         }
     }
 
@@ -77,7 +77,7 @@ class InputViewModel @Inject constructor (
     fun addInitWhatToDoYearTime(whatToDoYearDTO: WhatToDoYearDTO) = viewModelScope.launch {
         _whatToDoInitYearDTOs.value = UiState.Loading
         inputRepository.addInitWhatToDoYearTime(whatToDoYearDTO) {
-            _whatToDoInitYearDTOs.value = it
+            _whatToDoInitYearDTOs.postValue(it)
         }
     }
 

@@ -5,6 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.goingbacking.goingbacking.Model.UserInfoDTO
+import com.goingbacking.goingbacking.Model.WhatToDoMonthDTO
+import com.goingbacking.goingbacking.Model.WhatToDoYearDTO
 import com.goingbacking.goingbacking.Repository.Fifth.FifthRepositoryIF
 import com.goingbacking.goingbacking.util.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -41,6 +43,41 @@ class FifthViewModel @Inject constructor(
         }
     }
 
+
+
+
+
+
+
+    // 개인 정보 수정
+    private val _userInfo = MutableLiveData<UiState<String>>()
+
+    fun reviseUserInfo(nickname :String, type :String, selected : List<String>) = viewModelScope.launch {
+        _userInfo.value = UiState.Loading
+        fifthRepository.reviseUserInfo(nickname, type, selected) {
+            _userInfo.postValue(it)
+        }
+    }
+
+    // month whattodo chart를 위해 초기화하는 코드
+    private val _whatToDoInitMonthDTOs = MutableLiveData<UiState<String>>()
+
+    fun addInitWhatToDoMonthTime(whatToDoMonthDTO: WhatToDoMonthDTO) = viewModelScope.launch {
+        _whatToDoInitMonthDTOs.value = UiState.Loading
+        fifthRepository.addInitWhatToDoMonthTime(whatToDoMonthDTO) {
+            _whatToDoInitMonthDTOs.postValue(it)
+        }
+    }
+
+    // year whattodo chart를 위해 초기화하는 코드
+    private val _whatToDoInitYearDTOs = MutableLiveData<UiState<String>>()
+
+    fun addInitWhatToDoYearTime(whatToDoYearDTO: WhatToDoYearDTO) = viewModelScope.launch {
+        _whatToDoInitYearDTOs.value = UiState.Loading
+        fifthRepository.addInitWhatToDoYearTime(whatToDoYearDTO) {
+            _whatToDoInitYearDTOs.postValue(it)
+        }
+    }
 
 
 

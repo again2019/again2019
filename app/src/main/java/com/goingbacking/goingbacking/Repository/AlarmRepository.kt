@@ -2,14 +2,14 @@ package com.goingbacking.goingbacking.Repository
 
 import android.util.Log
 import com.goingbacking.goingbacking.Model.*
-import com.goingbacking.goingbacking.util.FBConstants
-import com.goingbacking.goingbacking.util.FBConstants.Companion.CALENDARINFO
-import com.goingbacking.goingbacking.util.FBConstants.Companion.DAY
-import com.goingbacking.goingbacking.util.FBConstants.Companion.MONTH
-import com.goingbacking.goingbacking.util.FBConstants.Companion.SAVETIMEINFO
-import com.goingbacking.goingbacking.util.FBConstants.Companion.TMPTIMEINFO
-import com.goingbacking.goingbacking.util.FBConstants.Companion.YEAR
-import com.goingbacking.goingbacking.util.UiState
+import com.goingbacking.goingbacking.util.*
+import com.goingbacking.goingbacking.util.Constants.Companion.DATE
+import com.goingbacking.goingbacking.util.Constants.Companion.CALENDARINFO
+import com.goingbacking.goingbacking.util.Constants.Companion.DAY
+import com.goingbacking.goingbacking.util.Constants.Companion.MONTH
+import com.goingbacking.goingbacking.util.Constants.Companion.SAVETIMEINFO
+import com.goingbacking.goingbacking.util.Constants.Companion.TMPTIMEINFO
+import com.goingbacking.goingbacking.util.Constants.Companion.YEAR
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 import java.text.SimpleDateFormat
@@ -24,71 +24,34 @@ class AlarmRepository (
     val firebaseFirestore: FirebaseFirestore
     ) : AlarmRepositoryIF {
 
-    companion object {
-        private const val success = "success"
-        private const val fail = "fail"
-        private const val DATE = "date"
-    }
+
     private val myUid = user?.uid!!
-
-    // 현재 날짜에 대한 format
-    private var curNotifyTime = Calendar.getInstance()
-    private var currentDateTime = curNotifyTime.time
-
-    private var cur_date_text1 = SimpleDateFormat("yyyy-MM", Locale.getDefault()).format(currentDateTime).toString()
-    private var cur_date_text2 = SimpleDateFormat("dd", Locale.getDefault()).format(currentDateTime).toString()
-    private var cur_date_text3 = SimpleDateFormat("yyyy", Locale.getDefault()).format(currentDateTime).toString()
-    private var cur_date_text4 = SimpleDateFormat("MM", Locale.getDefault()).format(currentDateTime).toString()
-    private var cur_date_text5 = SimpleDateFormat("dd", Locale.getDefault()).format(currentDateTime).toString()
 
     // 맨 처음 로그인 시 month 초기화
     override fun addFirstInitSaveTimeMonthInfo(result: (UiState<String>) -> Unit) {
 
-        val saveTimeMonthDTO = SaveTimeMonthDTO()
-        saveTimeMonthDTO.month = cur_date_text4.toInt()
-        saveTimeMonthDTO.year = cur_date_text3.toInt()
-        saveTimeMonthDTO.count = 0
-
+        val saveTimeMonthDTO = SaveTimeMonthDTO(
+            month = mm().toInt(),
+            year = yyyy().toInt(),
+            count = 0
+        )
         firebaseFirestore.collection(SAVETIMEINFO).document(myUid)
-            .collection(MONTH).document(cur_date_text3)
-            .collection(cur_date_text3).document(myUid + cur_date_text2)
+            .collection(MONTH).document(yyyy())
+            .collection(yyyy()).document(myUid + dd())
             .set(saveTimeMonthDTO)
-            .addOnSuccessListener {
-                result.invoke(
-                    UiState.Success(success)
-                )
-            }
-            .addOnFailureListener {
-                result.invoke(
-                    UiState.Failure(
-                        it.localizedMessage
-                    )
-                )
-            }
+
     }
 
     // 맨 처음 로그인 시 year 초기화
     override fun addFirstInitSaveTimeYearInfo(result: (UiState<String>) -> Unit) {
-        val saveTimeYearDTO = SaveTimeYearDTO()
-        saveTimeYearDTO.year = cur_date_text3.toInt()
-        saveTimeYearDTO.count = 0
+        val saveTimeYearDTO = SaveTimeYearDTO(
+            year = yyyy().toInt(),
+            count = 0
+        )
 
         firebaseFirestore.collection(SAVETIMEINFO).document(myUid)
-            .collection(YEAR).document(cur_date_text3)
+            .collection(YEAR).document(yyyy())
             .set(saveTimeYearDTO)
-            .addOnSuccessListener {
-                result.invoke(
-                    UiState.Success(success)
-                )
-            }
-            .addOnFailureListener {
-                result.invoke(
-                    UiState.Failure(
-                        it.localizedMessage
-                    )
-                )
-            }
-
 
     }
 
@@ -98,28 +61,19 @@ class AlarmRepository (
         result: (UiState<String>) -> Unit
     ) {
 
-        val saveTimeDayDTO  = SaveTimeDayDTO()
-        saveTimeDayDTO.day = cur_date_text5.toInt()
-        saveTimeDayDTO.month = cur_date_text4.toInt()
-        saveTimeDayDTO.year = cur_date_text3.toInt()
-        saveTimeDayDTO.count = 0
+        val saveTimeDayDTO  = SaveTimeDayDTO(
+            day = dd().toInt() ,
+            month = mm().toInt(),
+            year = yyyy().toInt(),
+            count = 0
+        )
+
 
         firebaseFirestore.collection(SAVETIMEINFO).document(myUid)
-            .collection(DAY).document(cur_date_text1)
-            .collection(cur_date_text1).document(myUid + cur_date_text2)
+            .collection(DAY).document(yyyymm())
+            .collection(yyyymm()).document(myUid + dd())
             .set(saveTimeDayDTO)
-            .addOnSuccessListener {
-                result.invoke(
-                    UiState.Success(success)
-                )
-            }
-            .addOnFailureListener {
-                result.invoke(
-                    UiState.Failure(
-                        it.localizedMessage
-                    )
-                )
-            }
+
     }
 
     // month마다 초기화
@@ -131,29 +85,18 @@ class AlarmRepository (
         val beforeDateTime = beforeNotifyTime.time
 
         val bef_date_text1 = SimpleDateFormat("MM", Locale.getDefault()).format(beforeDateTime).toString()
-        if (bef_date_text1 != cur_date_text4) {
-            val saveTimeMonthDTO = SaveTimeMonthDTO()
-            saveTimeMonthDTO.month = cur_date_text4.toInt()
-            saveTimeMonthDTO.year = cur_date_text3.toInt()
-            saveTimeMonthDTO.count = 0
-
+        if (bef_date_text1 != mm()) {
+            val saveTimeMonthDTO = SaveTimeMonthDTO(
+                month = mm().toInt(),
+                year = yyyy().toInt(),
+                count = 0
+            )
 
             firebaseFirestore.collection(SAVETIMEINFO).document(myUid)
-                .collection(MONTH).document(cur_date_text3)
-                .collection(cur_date_text3).document(myUid + cur_date_text2)
+                .collection(MONTH).document(yyyy())
+                .collection(yyyy()).document(myUid + dd())
                 .set(saveTimeMonthDTO)
-                .addOnSuccessListener {
-                    result.invoke(
-                        UiState.Success(success)
-                    )
-                }
-                .addOnFailureListener {
-                    result.invoke(
-                        UiState.Failure(
-                            it.localizedMessage
-                        )
-                    )
-                }
+
         }
 
     }
@@ -168,27 +111,17 @@ class AlarmRepository (
 
         val bef_date_text1 = SimpleDateFormat("yyyy", Locale.getDefault()).format(beforeDateTime).toString()
 
-        if (bef_date_text1 != cur_date_text3) {
+        if (bef_date_text1 != yyyy()) {
 
-            val saveTimeYearDTO = SaveTimeYearDTO()
-            saveTimeYearDTO.year = cur_date_text3.toInt()
-            saveTimeYearDTO.count = 0
+            val saveTimeYearDTO = SaveTimeYearDTO(
+                year = yyyy().toInt(),
+                count = 0
+            )
 
             firebaseFirestore.collection(SAVETIMEINFO).document(myUid)
-                .collection(YEAR).document(cur_date_text3)
+                .collection(YEAR).document(yyyy())
                 .set(saveTimeYearDTO)
-                .addOnSuccessListener {
-                    result.invoke(
-                        UiState.Success(success)
-                    )
-                }
-                .addOnFailureListener {
-                    result.invoke(
-                        UiState.Failure(
-                            it.localizedMessage
-                        )
-                    )
-                }
+
 
         }
     }
@@ -196,13 +129,9 @@ class AlarmRepository (
     override fun getTodayInfo(result: (ArrayList<CalendarInfoDTO>) -> Unit) {
 
         val TodayDTOList = arrayListOf<CalendarInfoDTO>()
-        val now = LocalDate.now()
-        val Strnow1 = now.format(DateTimeFormatter.ofPattern("yyyy-MM"))
-        val Strnow2 = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
-        Log.d("experiment", "now: " + Strnow2)
 
         firebaseFirestore.collection(CALENDARINFO).document(myUid)
-            .collection(Strnow1).whereEqualTo(DATE, Strnow2).get()
+            .collection(yyyymm()).whereEqualTo(DATE, yyyymmdd(null)).get()
             .addOnSuccessListener {
 
                 for (document in it) {
@@ -234,16 +163,16 @@ class AlarmRepository (
         val beforeDateTime = beforeNotifyTime.time
 
         val bef_date_text1 = SimpleDateFormat("MM", Locale.getDefault()).format(beforeDateTime).toString()
-        if (bef_date_text1 != cur_date_text4) {
+        if (bef_date_text1 != mm()) {
             for (whattodo in whatToDOList) {
                 val whatToDoMonthDTO = WhatToDoMonthDTO()
                 whatToDoMonthDTO.whatToDo = whattodo
-                whatToDoMonthDTO.month = cur_date_text4.toInt()
+                whatToDoMonthDTO.month = mm().toInt()
                 whatToDoMonthDTO.count = 0
 
                 firebaseFirestore.collection(FBConstants.WHATTODOINFO).document(myUid)
-                    .collection(MONTH).document(cur_date_text1)
-                    .collection(cur_date_text1).document(myUid + whattodo)
+                    .collection(MONTH).document(yyyymm())
+                    .collection(yyyymm()).document(myUid + whattodo)
                     .set(whatToDoMonthDTO)
             }
         }
@@ -256,16 +185,16 @@ class AlarmRepository (
 
         val bef_date_text1 = SimpleDateFormat("yyyy", Locale.getDefault()).format(beforeDateTime).toString()
 
-        if (bef_date_text1 != cur_date_text3) {
+        if (bef_date_text1 != yyyy()) {
             for (whattodo in whatToDOList) {
                 val whatToDoYearDTO = WhatToDoYearDTO()
                 whatToDoYearDTO.whatToDo = whattodo
-                whatToDoYearDTO.year = cur_date_text3.toInt()
+                whatToDoYearDTO.year = yyyy().toInt()
                 whatToDoYearDTO.count = 0
 
                 firebaseFirestore.collection(FBConstants.WHATTODOINFO).document(myUid)
-                    .collection(YEAR).document(cur_date_text3)
-                    .collection(cur_date_text3).document(myUid + whattodo)
+                    .collection(YEAR).document(yyyy())
+                    .collection(yyyy()).document(myUid + whattodo)
                     .set(whatToDoYearDTO)
 
             }

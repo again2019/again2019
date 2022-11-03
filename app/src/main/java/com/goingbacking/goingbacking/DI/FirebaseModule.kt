@@ -3,6 +3,7 @@ package com.goingbacking.goingbacking.DI
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.messaging.FirebaseMessaging
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -29,6 +30,12 @@ object FirebaseModule {
     @Singleton
     fun provideUserInstance() : FirebaseUser? {
         return FirebaseAuth.getInstance().currentUser
+    }
+
+    @Provides
+    @Singleton
+    fun provideFirebaseMessagingInstance() : FirebaseMessaging {
+        return FirebaseMessaging.getInstance()
     }
 
 

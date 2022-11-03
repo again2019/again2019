@@ -44,7 +44,7 @@ class FirstMainFragment : BaseFragment<FragmentFirstMainBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        ///
+        //
         FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
             if (!task.isSuccessful) {
                 Log.w(TAG, "Fetching FCM registration token failed", task.exception)
@@ -57,19 +57,19 @@ class FirstMainFragment : BaseFragment<FragmentFirstMainBinding>() {
         })
 
         binding.tmp.setOnClickListener {
-//            PushNotification(
-//                NotificationData("title", "message"),
-//                "c0UUQlkXSBOpoGfTcrsdEC:APA91bFyufdhpJGJKgShK3ujlSK0GzGrEA2wHkx1uSBxJlsM5MsnR_W0Gj65lVCD0dshOJhMcqvP7dIVXmPt6g_jhTFoSW74s5AyHssT_mYrwRFh02MmLzRqE4p0GdUBBUS__0AI-VgH"
-//            ).also {
-//                sendNotification(it)
-//            }
+            PushNotification(
+                NotificationData("title", "message"),
+                myToken
+            ).also {
+                sendNotification(it)
+            }
 
-            val intent = Intent(context, AlarmService::class.java)
-            intent.putExtra("wakeUpTime", System.currentTimeMillis().plus(50000000))
-            val milliseconds: Long = 8000000
-            intent.putExtra("duration", milliseconds)
-            intent.action = "START_FOREGROUND"
-            requireActivity().startService(intent)
+//            val intent = Intent(context, AlarmService::class.java)
+//            intent.putExtra("wakeUpTime", System.currentTimeMillis().plus(50000000))
+//            val milliseconds: Long = 8000000
+//            intent.putExtra("duration", milliseconds)
+//            intent.action = "START_FOREGROUND"
+//            requireActivity().startService(intent)
 
         }
         ////
