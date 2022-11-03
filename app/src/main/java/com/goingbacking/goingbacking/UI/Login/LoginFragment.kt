@@ -3,7 +3,6 @@ package com.goingbacking.goingbacking.UI.Login
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,9 +16,7 @@ import com.goingbacking.goingbacking.R
 import com.goingbacking.goingbacking.UI.Base.BaseFragment
 import com.goingbacking.goingbacking.UI.Input.InputActivity
 import com.goingbacking.goingbacking.UI.Main.MainActivity
-import com.goingbacking.goingbacking.ViewModel.LoginViewModel
 import com.goingbacking.goingbacking.databinding.FragmentLoginBinding
-import com.goingbacking.goingbacking.util.PrefUtil
 import com.goingbacking.goingbacking.util.UiState
 import com.goingbacking.goingbacking.util.isValidEmail
 import com.goingbacking.goingbacking.util.toast
@@ -108,8 +105,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                     is UiState.Success -> {
                         binding.progressCircular.hide()
                         toast(requireActivity(), getString(R.string.login_success))
-                        // Google로 로그인 성공
-                        //toast(requireContext(), FirebaseAuth.getInstance().currentUser?.uid.toString())
                         moveInputPage()
                     }
                     is UiState.Loading -> {
@@ -182,32 +177,30 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
 
 
     // 만약 로그인을 미리 해놨었다면 바로 mainActivity로 넘어가는 코드
-    override fun onStart() {
-        super.onStart()
-
-        if (!(PrefUtil.getCurrentUid(requireContext()) == null)) {
-            if (PrefUtil.firebaseUid().equals(PrefUtil.getCurrentUid(requireContext()))) {
-                viewModel.getCurrentSession()
-                viewModel.currentSession.observe(viewLifecycleOwner) { state ->
-                    when (state) {
-                        is UiState.Success -> {
-                            binding.progressCircular.hide()
-                            moveMainPage()
-                        }
-                        is UiState.Loading -> {
-                            binding.progressCircular.show()
-                        }
-                        is UiState.Failure -> {
-                            binding.progressCircular.hide()
-                            toast(requireContext(), getString(R.string.auto_login_fail))
-                        }
-                    }
-                }
-            }
-        }
-
-
-    }
+//    override fun onStart() {
+//        super.onStart()
+//
+//        if (!(PrefUtil.getCurrentUid(requireContext()) == null)) {
+//            if (PrefUtil.firebaseUid().equals(PrefUtil.getCurrentUid(requireContext()))) {
+//                viewModel.getCurrentSession()
+//                viewModel.currentSession.observe(viewLifecycleOwner) { state ->
+//                    when (state) {
+//                        is UiState.Success -> {
+//                            binding.progressCircular.hide()
+//                            moveMainPage()
+//                        }
+//                        is UiState.Loading -> {
+//                            binding.progressCircular.show()
+//                        }
+//                        is UiState.Failure -> {
+//                            binding.progressCircular.hide()
+//                            toast(requireContext(), getString(R.string.auto_login_fail))
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//    }
 
 
     private fun moveInputPage() {

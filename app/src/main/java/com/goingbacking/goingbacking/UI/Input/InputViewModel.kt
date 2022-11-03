@@ -1,10 +1,10 @@
-package com.goingbacking.goingbacking.ViewModel
+package com.goingbacking.goingbacking.UI.Input
 
 import androidx.lifecycle.*
 import com.goingbacking.goingbacking.Model.UserInfoDTO
 import com.goingbacking.goingbacking.Model.WhatToDoMonthDTO
 import com.goingbacking.goingbacking.Model.WhatToDoYearDTO
-import com.goingbacking.goingbacking.Repository.InputRepositoryIF
+import com.goingbacking.goingbacking.Repository.Input.InputRepositoryIF
 import com.goingbacking.goingbacking.util.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -17,25 +17,21 @@ class InputViewModel @Inject constructor (
 
     // --- FirstInputFragment ---
     private val _addFirstInput = MutableLiveData<UiState<String>>()
-    val addFirstInput: LiveData<UiState<String>>
-        get() = _addFirstInput
 
-    fun addFirstInput(userInfoDTO: UserInfoDTO) = viewModelScope.launch {
+    fun addFirstInput(userNickName: String) = viewModelScope.launch {
         _addFirstInput.value = UiState.Loading
-        inputRepository.addFirstInput(userInfoDTO) {
-            _addFirstInput.value = it
+        inputRepository.addFirstInput(userNickName) {
+            _addFirstInput.postValue(it)
         }
     }
 
     // --- SecondInputFragment ---
     private val _updateSecondInput = MutableLiveData<UiState<String>>()
-    val updateSecondInput: LiveData<UiState<String>>
-        get() = _updateSecondInput
 
     fun updateSecondInput(userType: String) = viewModelScope.launch {
         _updateSecondInput.value = UiState.Loading
         inputRepository.updateSecondInput(userType) {
-            _updateSecondInput.value = it
+            _updateSecondInput.postValue(it)
         }
     }
 
@@ -44,10 +40,10 @@ class InputViewModel @Inject constructor (
     val updateThirdInput: LiveData<UiState<String>>
         get() = _updateThirdInput
 
-    fun updateThirdInput(whatToDo: String) = viewModelScope.launch {
-        _updateSecondInput.value = UiState.Loading
-        inputRepository.updateThirdInput(whatToDo) {
-            _updateSecondInput.value = it
+    fun updateThirdInput(selected :List<String>) = viewModelScope.launch {
+        _updateThirdInput.value = UiState.Loading
+        inputRepository.updateThirdInput(selected) {
+            _updateThirdInput.postValue(it)
         }
     }
 

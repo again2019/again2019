@@ -1,4 +1,4 @@
-package com.goingbacking.goingbacking.ViewModel
+package com.goingbacking.goingbacking.UI.Login
 
 import androidx.lifecycle.*
 import com.goingbacking.goingbacking.Repository.Login.LoginRepositoryIF

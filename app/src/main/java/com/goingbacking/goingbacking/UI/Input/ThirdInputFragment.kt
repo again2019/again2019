@@ -1,6 +1,7 @@
 package com.goingbacking.goingbacking.UI.Input
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +10,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.goingbacking.goingbacking.R
 import com.goingbacking.goingbacking.UI.Base.BaseFragment
-import com.goingbacking.goingbacking.ViewModel.InputViewModel
 import com.goingbacking.goingbacking.bottomsheet.InputBottomSheet
 import com.goingbacking.goingbacking.databinding.FragmentThirdInputBinding
 import com.goingbacking.goingbacking.util.UiState
@@ -44,18 +44,18 @@ class ThirdInputFragment : BaseFragment<FragmentThirdInputBinding>() {
         // 다음으로 가는 버튼
         ThirdInputButton2.setOnClickListener {
 
-            val selected = chipGroup.children.toList()
-                .filter{ (it as Chip).isChecked}.joinToString(",")
-                {(it as Chip).text}
-
+            val selected = mutableListOf<String>()
+            chipGroup.checkedChipIds.forEach {
+                val chip = root.findViewById<Chip>(it).text.toString()
+                selected.add(chip)
+            }
 
             if (selected.equals(""))  {
                 toast(requireContext(), getString(R.string.chip_no_selected))
             } else {
                 // 데이터 베이스에 입력하는 코드
-                viewModel.updateThirdInput(selected)
                 // 입력이 성공적인지 확인하는 코드
-                ThirdInputObserver()
+                observer(selected.toList())
 
                 // bottom sheet으로 이동
                 val bottom  = InputBottomSheet()
@@ -64,8 +64,12 @@ class ThirdInputFragment : BaseFragment<FragmentThirdInputBinding>() {
         }
     }
 
+
+
+
     // 데이터 베이스에 입력하는 것이 잘되었는지 확인하는 함수
-    private fun ThirdInputObserver() {
+    private fun observer(selected : List<String>) {
+        viewModel.updateThirdInput(selected)
         viewModel.updateThirdInput.observe(viewLifecycleOwner) {
                 state ->
             when(state) {

@@ -8,7 +8,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.goingbacking.goingbacking.R
 import com.goingbacking.goingbacking.UI.Base.BaseFragment
-import com.goingbacking.goingbacking.ViewModel.LoginViewModel
 import com.goingbacking.goingbacking.databinding.FragmentForgetBinding
 import com.goingbacking.goingbacking.util.UiState
 import com.goingbacking.goingbacking.util.isValidEmail
@@ -26,12 +25,12 @@ class ForgetFragment : BaseFragment<FragmentForgetBinding>() {
         return FragmentForgetBinding.inflate(inflater, container, false)
     }
 
-    val viewModel :LoginViewModel by viewModels()
+    val viewModel : LoginViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        forgotPasswordObserver()
+        observer()
         binding.forgotPassBtn.setOnClickListener {
             if(validation()) {
                 findNavController().navigate(R.id.action_forgotFragment_to_loginFragment)
@@ -39,7 +38,7 @@ class ForgetFragment : BaseFragment<FragmentForgetBinding>() {
         }
     }
 
-    private fun forgotPasswordObserver() = with(binding) {
+    private fun observer()  {
         viewModel.forgotPassword.observe(viewLifecycleOwner) {
             state ->
             when(state) {
@@ -57,7 +56,7 @@ class ForgetFragment : BaseFragment<FragmentForgetBinding>() {
         }
     }
 
-    fun validation(): Boolean  = with(binding) {
+    fun validation(): Boolean = with(binding) {
         var isValid = true
 
         if (emailEt.text.isNullOrEmpty()){

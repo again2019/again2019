@@ -8,7 +8,7 @@ import com.goingbacking.goingbacking.Model.WhatToDoMonthDTO
 import com.goingbacking.goingbacking.Model.WhatToDoYearDTO
 import com.goingbacking.goingbacking.R
 import com.goingbacking.goingbacking.UI.Base.BaseActivity
-import com.goingbacking.goingbacking.ViewModel.InputViewModel
+import com.goingbacking.goingbacking.UI.Input.InputViewModel
 import com.goingbacking.goingbacking.databinding.ActivityChangeInfoBinding
 import com.goingbacking.goingbacking.util.PrefUtil
 import com.goingbacking.goingbacking.util.toast
@@ -94,7 +94,7 @@ class ChangeInfoActivity : BaseActivity<ActivityChangeInfoBinding>({
                 userInfoDTO.userNickName = changeNickNameEditText.text.toString()
                 userInfoDTO.userType = changeTypeEditText.text.toString()
                 userInfoDTO.whatToDo = selected
-                viewModel.addFirstInput(userInfoDTO)
+//                viewModel.addFirstInput(userInfoDTO)
                 finish()
             }
 

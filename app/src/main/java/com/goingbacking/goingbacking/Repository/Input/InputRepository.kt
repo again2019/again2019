@@ -1,82 +1,74 @@
-package com.goingbacking.goingbacking.Repository
+package com.goingbacking.goingbacking.Repository.Input
 
 import com.goingbacking.goingbacking.Model.UserInfoDTO
 import com.goingbacking.goingbacking.Model.WhatToDoMonthDTO
 import com.goingbacking.goingbacking.Model.WhatToDoYearDTO
-import com.goingbacking.goingbacking.util.FBConstants.Companion.MONTH
-import com.goingbacking.goingbacking.util.FBConstants.Companion.USERINFO
-import com.goingbacking.goingbacking.util.FBConstants.Companion.WHATTODOINFO
-import com.goingbacking.goingbacking.util.FBConstants.Companion.YEAR
+import com.goingbacking.goingbacking.util.Constants.Companion.FAIL
+import com.goingbacking.goingbacking.util.Constants.Companion.MONTH
+import com.goingbacking.goingbacking.util.Constants.Companion.SUCCESS
+import com.goingbacking.goingbacking.util.Constants.Companion.USERINFO
+import com.goingbacking.goingbacking.util.Constants.Companion.USERTYPE
+import com.goingbacking.goingbacking.util.Constants.Companion.WHATTODOINFO
+import com.goingbacking.goingbacking.util.Constants.Companion.WHATTODOLIST
+import com.goingbacking.goingbacking.util.Constants.Companion.YEAR
+import com.goingbacking.goingbacking.util.Constants.Companion.YYYYMM
 import com.goingbacking.goingbacking.util.UiState
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Source
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 class InputRepository(
     val user: FirebaseUser?,
     val firebaseFirestore: FirebaseFirestore
-) :InputRepositoryIF {
+) : InputRepositoryIF {
 
     val myUid = user?.uid!!
     val cache = Source.CACHE
-    companion object {
-        private const val success = "success"
-        private const val fail = "fail"
-        private const val USERTYPE = "userType"
-        private const val WHATTODO = "whatToDo"
-        private const val YYYYMM = "yyyy-MM"
-    }
 
     // --- FirstInputFragment ---
-    override fun addFirstInput(userInfoDTO: UserInfoDTO, result: (UiState<String>) -> Unit) {
-        firebaseFirestore.collection(USERINFO).document(myUid)
-            .set(userInfoDTO)
-            .addOnSuccessListener {
-                result.invoke(UiState.Success(success))
-            }
+    override fun addFirstInput(userNickName: String, result: (UiState<String>) -> Unit) {
 
-            .addOnFailureListener {
-                result.invoke(
-                    UiState.Failure(
-                        it.localizedMessage
-                    )
-                )
-            }
+        val userInfoDTO = UserInfoDTO(
+            uid = myUid,
+            userNickName = userNickName
+        )
+
+        CoroutineScope(Dispatchers.IO).launch {
+            firebaseFirestore.collection(USERINFO).document(myUid).set(userInfoDTO).await()
+        }
     }
 
     // --- SecondInputFragment ---
     override fun updateSecondInput(userType: String, result: (UiState<String>) -> Unit) {
-        firebaseFirestore.collection(USERINFO).document(myUid)
-            .update(USERTYPE, userType)
-
-            .addOnSuccessListener {
-                result.invoke(UiState.Success(success))
-            }
-            .addOnFailureListener {
-                result.invoke(
-                    UiState.Failure(
-                        it.localizedMessage
-                    )
-                )
-            }
+        CoroutineScope(Dispatchers.IO).launch {
+            firebaseFirestore.collection(USERINFO).document(myUid)
+                .update(USERTYPE, userType).await()
+        }
     }
 
     // --- ThirdInputFragment ---
-    override fun updateThirdInput(whatToDo: String, result: (UiState<String>) -> Unit) {
-        firebaseFirestore.collection(USERINFO).document(myUid)
-            .update(WHATTODO,whatToDo)
-            .addOnSuccessListener {
-                result.invoke(UiState.Success(success))
-            }
-            .addOnFailureListener {
-                result.invoke(
-                    UiState.Failure(
-                        it.localizedMessage
+    override fun updateThirdInput(selected : List<String>, result: (UiState<String>) -> Unit) {
+        CoroutineScope(Dispatchers.IO).launch {
+            firebaseFirestore.collection(USERINFO).document(myUid)
+                .update(WHATTODOLIST, selected)
+                .addOnSuccessListener {
+                    result.invoke(UiState.Success(SUCCESS))
+                }
+                .addOnFailureListener {
+                    result.invoke(
+                        UiState.Failure(
+                            it.localizedMessage
+                        )
                     )
-                )
-            }
+                }.await()
+        }
     }
 
     override fun checkInput(result: (UiState<UserInfoDTO>) -> Unit) {
@@ -112,11 +104,11 @@ class InputRepository(
             .collection(Strnow).document(myUid+whatToDoMonthDTO.whatToDo)
             .set(whatToDoMonthDTO)
             .addOnSuccessListener {
-                result.invoke(UiState.Success(success))
+                result.invoke(UiState.Success(SUCCESS))
             }
             .addOnFailureListener {
                 result.invoke(
-                    UiState.Failure(fail)
+                    UiState.Failure(FAIL)
                 )
             }
     }
@@ -133,11 +125,11 @@ class InputRepository(
             .collection(Strnow).document(myUid+whatToDoYearDTO.whatToDo)
             .set(whatToDoYearDTO)
             .addOnSuccessListener {
-                result.invoke(UiState.Success(success))
+                result.invoke(UiState.Success(SUCCESS))
             }
             .addOnFailureListener {
                 result.invoke(
-                    UiState.Failure(fail)
+                    UiState.Failure(FAIL)
                 )
             }
 

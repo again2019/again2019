@@ -6,6 +6,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
+import com.goingbacking.goingbacking.Model.UserInfoDTO
 
 fun String.isValidEmail() =
     isNotEmpty() && android.util.Patterns.EMAIL_ADDRESS.matcher(this).matches()
@@ -30,3 +31,4 @@ fun View.makeInVisible() {
 fun toast (context: Context, string : String) {
     Toast.makeText(context, string, Toast.LENGTH_SHORT).show()
 }
+
