@@ -41,7 +41,7 @@ class InputRepository(
         CoroutineScope(Dispatchers.IO).launch {
             token = firebaseMessage.token.await()
         }
-        
+
         CoroutineScope(Dispatchers.IO).launch {
             val userInfoDTO = UserInfoDTO(
                 uid = myUid,
