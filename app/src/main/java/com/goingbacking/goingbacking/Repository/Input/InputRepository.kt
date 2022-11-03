@@ -1,5 +1,6 @@
 package com.goingbacking.goingbacking.Repository.Input
 
+import android.util.Log
 import com.goingbacking.goingbacking.Model.UserInfoDTO
 import com.goingbacking.goingbacking.Model.WhatToDoMonthDTO
 import com.goingbacking.goingbacking.Model.WhatToDoYearDTO
@@ -40,9 +41,6 @@ class InputRepository(
         var token = ""
         CoroutineScope(Dispatchers.IO).launch {
             token = firebaseMessage.token.await()
-        }
-
-        CoroutineScope(Dispatchers.IO).launch {
             val userInfoDTO = UserInfoDTO(
                 uid = myUid,
                 userNickName = userNickName,
