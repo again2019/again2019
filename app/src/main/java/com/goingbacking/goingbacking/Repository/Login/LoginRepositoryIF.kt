@@ -1,4 +1,4 @@
-package com.goingbacking.goingbacking.Repository
+package com.goingbacking.goingbacking.Repository.Login
 
 import com.goingbacking.goingbacking.util.UiState
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -15,8 +15,5 @@ interface LoginRepositoryIF {
     fun signInWithCredential(token: String, result: (UiState<String>) -> Unit)
     fun getCurrentSession(result: (UiState<String>) -> Unit)
 
-    // 로그아웃
-    fun logout(result: (UiState<String>) -> Unit)
-    fun signout(result: (UiState<String>) -> Unit)
 
 }

@@ -1,7 +1,6 @@
 package com.goingbacking.goingbacking.UI.Login
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +8,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.goingbacking.goingbacking.R
 import com.goingbacking.goingbacking.UI.Base.BaseFragment
-import com.goingbacking.goingbacking.ViewModel.LoginViewModel
 import com.goingbacking.goingbacking.databinding.FragmentRegisterBinding
 import com.goingbacking.goingbacking.util.UiState
 import com.goingbacking.goingbacking.util.isValidEmail
@@ -32,7 +30,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
         onClick()
     }
 
-    private fun registerObserver() {
+    private fun observer() {
         viewModel.register.observe(viewLifecycleOwner) {state ->
             when(state) {
                 is UiState.Loading -> {
@@ -54,7 +52,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
             registerButton.setOnClickListener {
                 if (validation()) {
                     viewModel.emailRegister(registerEmailEdittext.text.toString(), registerPasswordEdittext1.text.toString())
-                    registerObserver()
+                    observer()
                 }
             }
 

@@ -1,7 +1,7 @@
-package com.goingbacking.goingbacking.ViewModel
+package com.goingbacking.goingbacking.UI.Login
 
 import androidx.lifecycle.*
-import com.goingbacking.goingbacking.Repository.LoginRepositoryIF
+import com.goingbacking.goingbacking.Repository.Login.LoginRepositoryIF
 import com.goingbacking.goingbacking.util.UiState
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -83,19 +83,6 @@ class LoginViewModel @Inject constructor(
             _currentSession.value = it
         }
     }
-
-    // 로그 아웃
-    private val _logout = MutableLiveData<UiState<String>>()
-    val logout: LiveData<UiState<String>>
-        get() = _logout
-
-    fun logout() = viewModelScope.launch {
-        _logout.value = UiState.Loading
-        loginRepository.logout() {
-            _logout.value = it
-        }
-    }
-
 
 
 

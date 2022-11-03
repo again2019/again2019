@@ -127,9 +127,9 @@ class TmpTimeRepository(
             .get()
             .addOnSuccessListener { document ->
                 val data :UserInfoDTO? = document.toObject(UserInfoDTO::class.java)
-                result.invoke(
-                    UiState.Success(data?.whatToDo!!)
-                )
+//                result.invoke(
+//                    UiState.Success(data?.whatToDo!!)
+//                )
             }
 
             .addOnFailureListener {

@@ -11,7 +11,6 @@ import androidx.navigation.fragment.findNavController
 import com.goingbacking.goingbacking.Model.UserInfoDTO
 import com.goingbacking.goingbacking.R
 import com.goingbacking.goingbacking.UI.Base.BaseFragment
-import com.goingbacking.goingbacking.ViewModel.InputViewModel
 import com.goingbacking.goingbacking.databinding.FragmentFirstInputBinding
 import com.goingbacking.goingbacking.util.PrefUtil
 import com.goingbacking.goingbacking.util.UiState
@@ -31,7 +30,6 @@ class FirstInputFragment : BaseFragment<FragmentFirstInputBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.d("experiment", "${PrefUtil.getCurrentUid(requireContext())}")
 
         onClick()
     }
@@ -39,7 +37,6 @@ class FirstInputFragment : BaseFragment<FragmentFirstInputBinding>() {
     private fun onClick() = with(binding) {
         // 다음으로 이동하는 버튼
         firstInputButton.setOnClickListener {
-            FirstInputObserver()
             completeAction()
         }
         // edittext에서 작성하고 '완료'를 누르면 다음으로 넘어가는 코드
@@ -62,34 +59,10 @@ class FirstInputFragment : BaseFragment<FragmentFirstInputBinding>() {
         }
         // 만약에 edittext가 비어있지 않다면
         else {
-            viewModel.addFirstInput(
-                UserInfoDTO(
-                    nickNameEdittext.text.toString(),
-                    null,
-                    null,
-                    null,
-                )
-            )
+            viewModel.addFirstInput(nickNameEdittext.text.toString())
             findNavController().navigate(R.id.action_firstInputFragment_to_secondInputFragment)
         }
     }
-
-    // 데이터 베이스에 입력하는 것이 잘되었는지 확인하는 함수
-    private fun FirstInputObserver() {
-        viewModel.addFirstInput.observe(viewLifecycleOwner) {
-                state ->
-            when(state) {
-                is UiState.Failure -> {
-                }
-                is UiState.Success -> {
-                }
-                is UiState.Loading -> {
-                }
-            }
-        }
-    }
-    // -------------------------------------------------------
-
 
 
 }

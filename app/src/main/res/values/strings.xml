@@ -47,7 +47,8 @@
     <string name="sign_up_fail"> 회원 가입 실패 </string>
     <string name="auto_login_fail"> 자동 로그인 실패 </string>
 
-
+    <!-- fifthMainFragment string -->
+    <string name="get_user_info_fail"> 개인 정보를 불러오는데 실패했습니다. </string>
     <string name="logout_success"> 로그 아웃 완료 </string>
 
 
