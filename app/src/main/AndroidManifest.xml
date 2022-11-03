@@ -13,7 +13,7 @@
     <application
         android:name=".Myapplication"
         android:allowBackup="true"
-        android:icon="@mipmap/comeback_new2"
+        android:icon="@mipmap/comeback_new"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/comeback_new"
         android:supportsRtl="true"
