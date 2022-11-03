@@ -8,6 +8,10 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Source
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 
 class FifthRepository(
     val user : FirebaseUser?,
@@ -19,6 +23,7 @@ class FifthRepository(
     val myUid = user?.uid!!
     val cache = Source.CACHE
 
+    // 개인 정보 불러오는 코드
     override fun getFifthUserInfo(result: (UiState<UserInfoDTO>) -> Unit) {
         firebaseFirestore.collection(USERINFO).document(myUid)
             .get(cache)
@@ -51,6 +56,13 @@ class FifthRepository(
                 result.invoke(UiState.Success(SUCCESS))
 
             }
+        }
+    }
+
+    // 정보 수정 저장
+    override fun addFirstInput(userInfoDTO: UserInfoDTO, result: (UiState<String>) -> Unit) {
+        CoroutineScope(Dispatchers.IO).launch {
+            firebaseFirestore.collection(USERINFO).document(myUid).set(userInfoDTO).await()
         }
     }
 

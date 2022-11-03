@@ -11,4 +11,7 @@ interface FifthRepositoryIF {
     // 회원 탈퇴
     fun logout(result: (UiState<String>) -> Unit)
     fun signout(result: (UiState<String>) -> Unit)
+    // 정보 수정 저장
+    fun addFirstInput(userInfoDTO: UserInfoDTO, result: (UiState<String>) -> Unit)
+
 }

@@ -41,6 +41,15 @@ class FifthViewModel @Inject constructor(
         }
     }
 
+    private val _addUserInfo = MutableLiveData<UiState<String>>()
+
+    fun addFirstInput(userInfoDTO: UserInfoDTO) = viewModelScope.launch {
+        _addUserInfo.value = UiState.Loading
+        fifthRepository.addFirstInput(userInfoDTO) {
+            _addUserInfo.postValue(it)
+        }
+    }
+
 
 
 
