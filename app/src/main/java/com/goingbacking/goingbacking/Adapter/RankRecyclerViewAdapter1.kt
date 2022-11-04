@@ -63,11 +63,6 @@ class RankRecyclerViewAdapter1 (
     override fun getItemCount(): Int {
         return this.newSaveTimeMonthList.size
     }
-    fun updateList(list: ArrayList<NewSaveTimeMonthDTO>) {
-        this.newSaveTimeMonthList = list
-        notifyDataSetChanged()
-    }
-
 
     inner class MyViewHolder(val binding: ItemRankingBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: NewSaveTimeMonthDTO, position: Int) = with(binding) {
@@ -95,7 +90,7 @@ class RankRecyclerViewAdapter1 (
                     //forthRepository.likeButtonInfo(item.uid.toString(), "plus")
                     PushNotification(
                         NotificationData("title", "message"),
-                        "fI__GGumQOm6prMcLJloqr:APA91bHgw1oLKuFq09roGcrKFX3dde_eXv1C_aUUjkzqGpbww-qATujqCM3diqdZZuvBw6tVOLjhDx1zYL5BqQW4THCnpfyihPgWKCsXrX8OhUKMeW6dM1vzHjse0FjCXG782JfzI1oo"
+                            item.token!!
                     ).also {
                         FirebaseTokenManager.sendNotification(it)
                     }
