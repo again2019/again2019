@@ -45,10 +45,24 @@ class Constants {
         }
 
         // 매일 울리는 알림 관련 constant
+        // countReceiver 관련 constant
         const val ID = "id"
         const val TYPE = "type"
         const val CHANNEL = "channel"
         const val VALUE = 3000 // 매일 울리는 알림 channel value
+        const val MOVETIME = "통근 시간"
+        const val END_TIME = "end_time"
+
+        // doingReceiver 관련 constant
+        const val FIRST_START_FOREGROUND = "FIRST_START_FOREGROUND"
+        const val START_FOREGROUND = "START_FOREGROUND"
+        const val FINISH_FOREGROUND = "FINISH_FOREGROUND"
+        const val WAKEUPTIME = "wakeUpTime"
+        const val CURRENTTIME = "currentTime"
+        const val DURATION2 = "duration"
+
+
+
 
     }
 
