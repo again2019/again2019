@@ -45,18 +45,22 @@ class CountReceiver : BroadcastReceiver() {
         // 매일/매달/매년 마다 새로운 날짜에 데이터베이스를 초기화함
         saveDailyInfo()
         saveWhatToDoInfo(context)
-
+        saveRankInfo()
         getTodayInfo(context, intent)
 
 
     }
 
+    private fun saveRankInfo() {
+        alarmRepository.addInitRankInfo()
+    }
+
 
     // 매일/매달/매년 마다 새로운 날짜에 데이터베이스를 초기화함
     private fun saveDailyInfo() {
-        alarmRepository.addFirstInitSaveTimeMonthInfo {}
-        alarmRepository.addFirstInitSaveTimeYearInfo {}
-        alarmRepository.addInitSaveTimeDayInfo {}
+        alarmRepository.addFirstInitSaveTimeMonthInfo ()
+        alarmRepository.addFirstInitSaveTimeYearInfo ()
+        alarmRepository.addInitSaveTimeDayInfo ()
 
 
     }
