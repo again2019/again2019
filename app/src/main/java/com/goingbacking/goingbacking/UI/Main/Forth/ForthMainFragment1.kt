@@ -29,11 +29,10 @@ class ForthMainFragment1 : BaseFragment<FragmentForthMain1Binding>() {
         return FragmentForthMain1Binding.inflate(inflater, container, false)
     }
 
-    val forthRepository = ForthRepository(FirebaseAuth.getInstance().currentUser, FirebaseFirestore.getInstance())
     val viewModel : ForthViewModel by viewModels()
     val adapter by lazy {
         RankRecyclerViewAdapter1(
-            forthRepository,
+            viewModel,
             onItemClicked = { destinationUid ->
                 val bottom  = RankBottomSheet()
                 val bundle = Bundle()
@@ -77,7 +76,12 @@ class ForthMainFragment1 : BaseFragment<FragmentForthMain1Binding>() {
             when(state) {
                 is UiState.Success -> {
                     binding.progressCircular.hide()
-                    adapter.updateList(state.data)
+                    adapter.apply {
+                        newSaveTimeMonthList = state.data
+                        notifyDataSetChanged()
+                    }
+
+                    //adapter.updateList(state.data)
                 }
                 is UiState.Failure -> {
                     binding.progressCircular.hide()

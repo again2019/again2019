@@ -1,4 +1,4 @@
-package com.goingbacking.goingbacking.UI.Main
+package com.goingbacking.goingbacking.UI.Main.First
 
 
 import android.content.Intent
@@ -14,9 +14,7 @@ import com.goingbacking.goingbacking.Adapter.TodayRecyclerViewAdapter
 import com.goingbacking.goingbacking.FCM.NotificationData
 import com.goingbacking.goingbacking.FCM.PushNotification
 import com.goingbacking.goingbacking.FCM.RetrofitInstance
-import com.goingbacking.goingbacking.Service.AlarmService
 import com.goingbacking.goingbacking.UI.Base.BaseFragment
-import com.goingbacking.goingbacking.UI.Main.First.TmpTimeActivity
 import com.goingbacking.goingbacking.databinding.FragmentFirstMainBinding
 import com.goingbacking.goingbacking.util.PrefUtil
 import com.goingbacking.goingbacking.util.makeGONE
@@ -26,7 +24,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.util.concurrent.TimeUnit
 
 
 @AndroidEntryPoint

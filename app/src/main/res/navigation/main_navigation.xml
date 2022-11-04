@@ -8,7 +8,7 @@
     <!-- first -->
     <fragment
         android:id="@+id/firstMainFragment"
-        android:name="com.goingbacking.goingbacking.UI.Main.FirstMainFragment"
+        android:name="com.goingbacking.goingbacking.UI.Main.First.FirstMainFragment"
         android:label="FirstMainFragment"
         tools:layout="@layout/fragment_first_main">
     </fragment>
@@ -23,7 +23,7 @@
     <!-- second -->
     <fragment
         android:id="@+id/secondMainFragment"
-        android:name="com.goingbacking.goingbacking.UI.Main.SecondMainFragment"
+        android:name="com.goingbacking.goingbacking.UI.Main.Second.SecondMainFragment"
         android:label="SecondMainFragment"
         tools:layout="@layout/fragment_second_main">
     </fragment>
@@ -48,7 +48,7 @@
     <!-- forth -->
     <fragment
         android:id="@+id/forthMainFragment"
-        android:name="com.goingbacking.goingbacking.UI.Main.ForthMainFragment"
+        android:name="com.goingbacking.goingbacking.UI.Main.First.ForthMainFragment"
         android:label="ForthMainFragment"
         tools:layout="@layout/fragment_forth_main">
     </fragment>

@@ -2,16 +2,12 @@ package com.goingbacking.goingbacking.UI.Main.Forth
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.github.aachartmodel.aainfographics.aachartcreator.*
-import com.goingbacking.goingbacking.R
 import com.goingbacking.goingbacking.UI.Base.BaseFragment
-import com.goingbacking.goingbacking.ViewModel.ForthViewModel
-import com.goingbacking.goingbacking.ViewModel.MainViewModel
 import com.goingbacking.goingbacking.ViewModel.RankViewModel
 import com.goingbacking.goingbacking.databinding.FragmentRank1Binding
 import com.goingbacking.goingbacking.util.UiState

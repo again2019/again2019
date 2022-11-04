@@ -7,17 +7,17 @@ import com.goingbacking.goingbacking.FCM.FirebaseTokenManager
 import com.goingbacking.goingbacking.FCM.NotificationData
 import com.goingbacking.goingbacking.FCM.PushNotification
 import com.goingbacking.goingbacking.Model.NewSaveTimeMonthDTO
-import com.goingbacking.goingbacking.Repository.Forth.ForthRepository
+import com.goingbacking.goingbacking.ViewModel.ForthViewModel
 import com.goingbacking.goingbacking.databinding.ItemRankingBinding
 import com.goingbacking.goingbacking.util.PrefUtil
 
 
 class RankRecyclerViewAdapter1 (
-    val forthRepository: ForthRepository,
+    val viewModel:ForthViewModel,
     val onCheerClicked : (String) -> Unit,
     val onItemClicked : (String) -> Unit
         ): RecyclerView.Adapter<RankRecyclerViewAdapter1.MyViewHolder>() {
-    private var newSaveTimeMonthList : ArrayList<NewSaveTimeMonthDTO> = arrayListOf()
+    var newSaveTimeMonthList : ArrayList<NewSaveTimeMonthDTO> = arrayListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val itemView = ItemRankingBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -63,11 +63,6 @@ class RankRecyclerViewAdapter1 (
     override fun getItemCount(): Int {
         return this.newSaveTimeMonthList.size
     }
-    fun updateList(list: ArrayList<NewSaveTimeMonthDTO>) {
-        this.newSaveTimeMonthList = list
-        notifyDataSetChanged()
-    }
-
 
     inner class MyViewHolder(val binding: ItemRankingBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: NewSaveTimeMonthDTO, position: Int) = with(binding) {
@@ -91,10 +86,10 @@ class RankRecyclerViewAdapter1 (
                 if (isSwitch) {
                     likeButton.setMinAndMaxProgress(1f, 1f)
                     likeButton.playAnimation()
-                    forthRepository.likeButtonInfo(item.uid.toString(), "plus")
+                    viewModel.likeButtonInfo(item.uid.toString(), "plus")
                     PushNotification(
                         NotificationData("title", "message"),
-                        "fI__GGumQOm6prMcLJloqr:APA91bHgw1oLKuFq09roGcrKFX3dde_eXv1C_aUUjkzqGpbww-qATujqCM3diqdZZuvBw6tVOLjhDx1zYL5BqQW4THCnpfyihPgWKCsXrX8OhUKMeW6dM1vzHjse0FjCXG782JfzI1oo"
+                            item.token!!
                     ).also {
                         FirebaseTokenManager.sendNotification(it)
                     }
@@ -105,7 +100,8 @@ class RankRecyclerViewAdapter1 (
                 } else {
                     likeButton.setMinAndMaxProgress(0f,0f)
                     likeButton.playAnimation()
-                    forthRepository.likeButtonInfo(item.uid.toString(), "minus")
+                    viewModel.likeButtonInfo(item.uid.toString(), "minus")
+
                     isSwitch = true
                     rankLikeNum = rankLikeNum - 1
                     rankLike.text = rankLikeNum.toString()

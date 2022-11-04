@@ -9,7 +9,6 @@ import com.goingbacking.goingbacking.Adapter.TmpTimeRecyclerViewAdapter
 import com.goingbacking.goingbacking.R
 import com.goingbacking.goingbacking.UI.Base.BaseActivity
 
-import com.goingbacking.goingbacking.ViewModel.TmpTimeViewModel
 import com.goingbacking.goingbacking.bottomsheet.WhatToDoSaveBottomSheet
 import com.goingbacking.goingbacking.databinding.ActivityTmpTimeBinding
 import com.goingbacking.goingbacking.util.UiState
@@ -42,7 +41,7 @@ class TmpTimeActivity : BaseActivity<ActivityTmpTimeBinding>({
 
         )
     }
-    val viewModel : TmpTimeViewModel by viewModels()
+    val viewModel : FirstViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

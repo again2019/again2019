@@ -5,6 +5,8 @@ import com.goingbacking.goingbacking.Repository.Alarm.AlarmRepository
 import com.goingbacking.goingbacking.Repository.Alarm.AlarmRepositoryIF
 import com.goingbacking.goingbacking.Repository.Fifth.FifthRepository
 import com.goingbacking.goingbacking.Repository.Fifth.FifthRepositoryIF
+import com.goingbacking.goingbacking.Repository.First.FirstRepository
+import com.goingbacking.goingbacking.Repository.First.FirstRepositoryIF
 import com.goingbacking.goingbacking.Repository.Forth.ForthRepository
 import com.goingbacking.goingbacking.Repository.Forth.ForthRepositoryIF
 import com.goingbacking.goingbacking.Repository.Input.InputRepository
@@ -50,11 +52,11 @@ object RepositoryModule {
 
     @Provides
     @Singleton
-    fun provideTmpTimeRepository (
+    fun provideFirstRepository (
         user: FirebaseUser?,
         firebaseFirestore: FirebaseFirestore
-    ) : TmpTimeRepositoryIF {
-        return TmpTimeRepository(user, firebaseFirestore)
+    ) : FirstRepositoryIF {
+        return FirstRepository(user, firebaseFirestore)
     }
 
     @Provides
@@ -93,7 +95,6 @@ object RepositoryModule {
     ) : FifthRepositoryIF {
         return FifthRepository(user, firebaseFirestore, firebaseAuth, firebaseMessage)
     }
-
     @Provides
     @Singleton
     fun provideRankRepository (

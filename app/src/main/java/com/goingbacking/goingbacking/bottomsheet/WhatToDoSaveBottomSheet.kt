@@ -9,7 +9,7 @@ import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import com.goingbacking.goingbacking.R
-import com.goingbacking.goingbacking.ViewModel.TmpTimeViewModel
+import com.goingbacking.goingbacking.UI.Main.First.FirstViewModel
 import com.goingbacking.goingbacking.databinding.BottomSheetWhatToDoSaveBinding
 import com.goingbacking.goingbacking.util.UiState
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -18,14 +18,14 @@ import com.google.firebase.firestore.FieldValue
 
 class WhatToDoSaveBottomSheet : BottomSheetDialogFragment() {
     private lateinit var binding : BottomSheetWhatToDoSaveBinding
-    private val viewModel: TmpTimeViewModel by activityViewModels()
+    private val viewModel: FirstViewModel by activityViewModels()
     private var count_double = 0.0
     private var finalWhatToDo = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = BottomSheetWhatToDoSaveBinding.inflate(inflater, container, false)
 
         count_double = arguments?.getDouble("count")!!
@@ -61,7 +61,7 @@ class WhatToDoSaveBottomSheet : BottomSheetDialogFragment() {
                     } else {
                         binding.noTextView.isInvisible = true
                         binding.chipGroup.isVisible = true
-                        val whatToDoList = state.data.split(",")
+                        val whatToDoList = state.data.removeSurrounding("[", "]").split(", ")
                         for (i in whatToDoList){
                             binding.chipGroup.addView(Chip(requireContext()).apply {
                                 text = i

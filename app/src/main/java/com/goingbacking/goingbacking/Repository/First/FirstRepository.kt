@@ -1,7 +1,8 @@
-package com.goingbacking.goingbacking.Repository
+package com.goingbacking.goingbacking.Repository.First
 
 import com.goingbacking.goingbacking.Model.TmpTimeDTO
 import com.goingbacking.goingbacking.Model.UserInfoDTO
+import com.goingbacking.goingbacking.util.Constants.Companion.SUCCESS
 import com.goingbacking.goingbacking.util.FBConstants
 import com.goingbacking.goingbacking.util.FBConstants.Companion.DAY
 import com.goingbacking.goingbacking.util.FBConstants.Companion.MONTH
@@ -9,18 +10,18 @@ import com.goingbacking.goingbacking.util.FBConstants.Companion.SAVETIMEINFO
 import com.goingbacking.goingbacking.util.FBConstants.Companion.WHATTODOINFO
 import com.goingbacking.goingbacking.util.FBConstants.Companion.YEAR
 import com.goingbacking.goingbacking.util.UiState
+import com.goingbacking.goingbacking.util.currentday
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Source
-import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
-class TmpTimeRepository(
+class FirstRepository(
     val user: FirebaseUser?,
     val firebaseFirestore: FirebaseFirestore
-) :TmpTimeRepositoryIF{
+) : FirstRepositoryIF {
     val myUid = user?.uid!!
     val cache = Source.CACHE
 
@@ -59,7 +60,7 @@ class TmpTimeRepository(
             .collection(wakeUpTime1).document(myUid + wakeUpTime2)
             .update("count", count)
             .addOnSuccessListener {
-                result.invoke(UiState.Success("SecondUpdate"))
+                result.invoke(UiState.Success(SUCCESS))
             }
             .addOnFailureListener {
                 result.invoke(UiState.Failure(
@@ -97,12 +98,9 @@ class TmpTimeRepository(
         count: FieldValue,
         result: (UiState<String>) -> Unit
     ) {
-        val now = LocalDate.now()
-        val Strnow = now.format(DateTimeFormatter.ofPattern("yyyy-MM"))
-
         firebaseFirestore.collection(WHATTODOINFO).document(myUid)
-            .collection(MONTH).document(Strnow)
-            .collection(Strnow).document(myUid + whatToDo)
+            .collection(MONTH).document(currentday("yyyy-MM"))
+            .collection(currentday("yyyy-MM")).document(myUid + whatToDo)
             .update("count", count)
 
     }
@@ -112,12 +110,9 @@ class TmpTimeRepository(
         count: FieldValue,
         result: (UiState<String>) -> Unit
     ) {
-        val now = LocalDate.now()
-        val Strnow = now.format(DateTimeFormatter.ofPattern("yyyy"))
-
         firebaseFirestore.collection(WHATTODOINFO).document(myUid)
-            .collection(YEAR).document(Strnow)
-            .collection(Strnow).document(myUid + whatToDo)
+            .collection(YEAR).document(currentday("yyyy"))
+            .collection(currentday("yyyy")).document(myUid + whatToDo)
             .update("count", count)
 
     }
@@ -127,9 +122,9 @@ class TmpTimeRepository(
             .get()
             .addOnSuccessListener { document ->
                 val data :UserInfoDTO? = document.toObject(UserInfoDTO::class.java)
-//                result.invoke(
-//                    UiState.Success(data?.whatToDo!!)
-//                )
+                result.invoke(
+                    UiState.Success(data?.whatToDoList.toString())
+                )
             }
 
             .addOnFailureListener {

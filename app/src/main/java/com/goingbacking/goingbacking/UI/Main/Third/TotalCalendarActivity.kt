@@ -1,18 +1,15 @@
 package com.goingbacking.goingbacking.UI.Main.Third
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.core.view.children
 import androidx.core.view.isVisible
-import com.goingbacking.goingbacking.Model.DateDTO
 
 import com.goingbacking.goingbacking.Model.Event
 import com.goingbacking.goingbacking.R
 import com.goingbacking.goingbacking.UI.Base.BaseActivity
-import com.goingbacking.goingbacking.UI.Main.ThirdMainFragment
 import com.goingbacking.goingbacking.ViewModel.MainViewModel
 import com.goingbacking.goingbacking.bottomsheet.CalendarDetailBottomSheet
 import com.goingbacking.goingbacking.databinding.ActivityTotalCalendarBinding
@@ -134,7 +131,7 @@ class TotalCalendarActivity : BaseActivity<ActivityTotalCalendarBinding>({
                 if (day.owner == DayOwner.THIS_MONTH) {
                     selectDate(day.date)
                     val bottom = CalendarDetailBottomSheet()
-                    var bundle = Bundle()
+                    val bundle = Bundle()
                     bundle.putString("date", day.date.toString())
                     bottom.arguments = bundle
                     bottom.show(supportFragmentManager, bottom.tag)
