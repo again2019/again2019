@@ -30,7 +30,7 @@ class CheerBottomSheet : BottomSheetDialogFragment() {
     private val cheerAdapter = CheerRecyclerViewAdapter(
         onDeleteClick = { hostUid, original_cheer ->
             viewModel.deleteCheerInfo(hostUid, original_cheer)
-            observer(hostUid)
+            observer1(hostUid)
         }
     )
     override fun onCreateView(
@@ -40,12 +40,10 @@ class CheerBottomSheet : BottomSheetDialogFragment() {
         binding = BottomSheetCheerBinding.inflate(inflater, container, false)
 
         val destinationUid = arguments?.getString("destinationUid")
-        Log.d("experiment", destinationUid.toString())
-
-
+        //Log.d("experiment", destinationUid.toString())
 
         if (destinationUid == null) {
-
+            toast(requireContext(), getString(R.string.no_information))
         } else {
             binding.cheerRecyclerView.apply {
                 layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
@@ -54,66 +52,30 @@ class CheerBottomSheet : BottomSheetDialogFragment() {
 
             }
 
-            observer(destinationUid)
+            observer1(destinationUid)
             binding.cheerOkayButton.setOnClickListener {
                 val message = binding.cheerEditText.text.toString()
                 if (message.equals("")) {
-                    toast(requireContext(), "응원 메시지를 입력해주세요.")
+                    toast(requireContext(), getString(R.string.cheer_message))
                 } else {
-                    viewModel.addCheerInfo(destinationUid, message)
-                    viewModel.addCheerInfo.observe(viewLifecycleOwner) { state ->
-                        when(state) {
-                            is UiState.Success -> {
-                                binding.progressCircular.hide()
-                                Log.d("experiment", state.data.toString())
-                                updateAdapterForDate(state.data, destinationUid)
-                                state.data.toTypedArray()
-                            }
-                            is UiState.Failure -> {
-                                binding.progressCircular.hide()
-                            }
-                            is UiState.Loading -> {
-                                binding.progressCircular.show()
-                            }
-                        }
-
-                    }
-                    //observer(destinationUid)
-
-
-
+                    observer2(destinationUid, message)
                     binding.cheerEditText.setText("")
-
-
                 }
-
-
             }
-
-
-
         }
-
-
-
-
-
-
 
         return binding.root
 
     }
 
-    private fun observer(destinationUid :String) = with(binding) {
+    private fun observer1(destinationUid :String) = with(binding) {
 
         viewModel.getCheerInfo(destinationUid)
         viewModel.cheerInfo.observe(viewLifecycleOwner) { state ->
             when(state) {
                 is UiState.Success -> {
                     progressCircular.hide()
-                    Log.d("experiment", state.data.toString())
                     updateAdapterForDate(state.data, destinationUid)
-                    state.data.toTypedArray()
                 }
                 is UiState.Failure -> {
                     progressCircular.hide()
@@ -126,12 +88,31 @@ class CheerBottomSheet : BottomSheetDialogFragment() {
         }
     }
 
+    private fun observer2(destinationUid :String, message:String) = with(binding) {
+        viewModel.addCheerInfo(destinationUid, message)
+        viewModel.addCheerInfo.observe(viewLifecycleOwner) { state ->
+            when(state) {
+                is UiState.Success -> {
+                    binding.progressCircular.hide()
+                    Log.d("experiment", state.data.toString())
+                    updateAdapterForDate(state.data, destinationUid)
+                    state.data.toTypedArray()
+                }
+                is UiState.Failure -> {
+                    binding.progressCircular.hide()
+                }
+                is UiState.Loading -> {
+                    binding.progressCircular.show()
+                }
+            }
+        }
+    }
+
     private fun updateAdapterForDate(list: List<String>, destinationUid :String) {
         cheerAdapter.apply {
             events = list
             hostUid = destinationUid
             notifyDataSetChanged()
+            }
         }
     }
-
-}

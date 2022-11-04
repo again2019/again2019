@@ -34,7 +34,6 @@ class Constants {
         // third input 관련 constant
         const val WHATTODOLIST = "whatToDoList"
 
-
         // 알림 관련 constant
         const val ACTION_STOP = "stop"
         const val ACTION_START = "start"
@@ -43,6 +42,11 @@ class Constants {
         enum class TimerState {
             Stopped, Running
         }
+
+        // forthMainFragment
+        const val COUNT = "count"
+        const val CHEERS = "cheers"
+        const val LIKES = "likes"
 
         // 매일 울리는 알림 관련 constant
         // countReceiver 관련 constant

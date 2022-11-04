@@ -5,7 +5,10 @@ import com.goingbacking.goingbacking.FCM.FirebaseTokenManager
 import com.goingbacking.goingbacking.FCM.NotificationData
 import com.goingbacking.goingbacking.FCM.PushNotification
 import com.goingbacking.goingbacking.Model.*
+import com.goingbacking.goingbacking.util.Constants.Companion.CHEERS
+import com.goingbacking.goingbacking.util.Constants.Companion.COUNT
 import com.goingbacking.goingbacking.util.Constants.Companion.FAIL
+import com.goingbacking.goingbacking.util.Constants.Companion.LIKES
 import com.goingbacking.goingbacking.util.Constants.Companion.USERINFO
 import com.goingbacking.goingbacking.util.FBConstants.Companion.RANKMONTHINFO
 import com.goingbacking.goingbacking.util.FBConstants.Companion.RANKYEARINFO
@@ -32,10 +35,6 @@ class ForthRepository (
 
     val myUid = user?.uid!!
     val cache = Source.CACHE
-    companion object {
-        private const val COUNT = "count"
-    }
-
 
     override fun getSaveTimeMonthInfo(result: (UiState<ArrayList<NewSaveTimeMonthDTO>>)-> Unit) {
         val arrayList = ArrayList<NewSaveTimeMonthDTO>()
@@ -74,12 +73,12 @@ class ForthRepository (
         val tsDoc2 = firebaseFirestore.collection(RANKYEARINFO).document(currentday("yyyy"))
             .collection(currentday("yyyy")).document(destinationUid)
         if (state.equals("plus")) {
-            tsDoc1.update("likes", FieldValue.arrayUnion(myUid))
-            tsDoc2.update("likes", FieldValue.arrayUnion(myUid))
+            tsDoc1.update(LIKES, FieldValue.arrayUnion(myUid))
+            tsDoc2.update(LIKES, FieldValue.arrayUnion(myUid))
 
         } else {
-            tsDoc1.update("likes", FieldValue.arrayRemove(myUid))
-            tsDoc2.update("likes", FieldValue.arrayUnion(myUid))
+            tsDoc1.update(LIKES, FieldValue.arrayRemove(myUid))
+            tsDoc2.update(LIKES, FieldValue.arrayUnion(myUid))
 
         }
     }
@@ -89,21 +88,17 @@ class ForthRepository (
             .collection(currentday("yyyy")).document(destinationUid).get()
             .addOnSuccessListener { document ->
                 if (document != null) {
-                    Log.d("experiment", document.toObject(NewSaveTimeYearDTO::class.java)!!.cheers.toString())
+//                    Log.d("experiment", document.toObject(NewSaveTimeYearDTO::class.java)!!.cheers.toString())
 
                     result.invoke(UiState.Success(
                         document.toObject(NewSaveTimeYearDTO::class.java)!!.cheers
                     ))
                 } else {
-                    result.invoke(UiState.Failure(
-                        "fail"
-                    ))
+                    result.invoke(UiState.Failure(FAIL))
                 }
             }
             .addOnFailureListener {
-                result.invoke(UiState.Failure(
-                    "fail"
-                ))
+                result.invoke(UiState.Failure(FAIL))
             }
 
 
@@ -120,7 +115,7 @@ class ForthRepository (
             val destinationInfo = firebaseFirestore.collection(USERINFO).document(destinationUid).get().await().toObject(UserInfoDTO::class.java)
             val userInfo = firebaseFirestore.collection(USERINFO).document(myUid).get(cache).await().toObject(UserInfoDTO::class.java)
             val cheer = myUid + ":" + userInfo!!.userNickName + ":" + text
-            tsDoc.update("cheers", FieldValue.arrayUnion(cheer)).await()
+            tsDoc.update(CHEERS, FieldValue.arrayUnion(cheer)).await()
 
             PushNotification(
                 NotificationData(text, text),
@@ -132,21 +127,17 @@ class ForthRepository (
                 .collection(currentday("yyyy")).document(destinationUid).get()
                 .addOnSuccessListener { document ->
                     if (document != null) {
-                        Log.d("experiment", document.toObject(NewSaveTimeYearDTO::class.java)!!.cheers.toString())
+                        //Log.d("experiment", document.toObject(NewSaveTimeYearDTO::class.java)!!.cheers.toString())
 
                         result.invoke(UiState.Success(
                             document.toObject(NewSaveTimeYearDTO::class.java)!!.cheers
                         ))
                     } else {
-                        result.invoke(UiState.Failure(
-                            "fail"
-                        ))
+                        result.invoke(UiState.Failure(FAIL))
                     }
                 }
                 .addOnFailureListener {
-                    result.invoke(UiState.Failure(
-                        "fail"
-                    ))
+                    result.invoke(UiState.Failure(FAIL))
                 }.await()
 
 
@@ -163,7 +154,7 @@ class ForthRepository (
         val tsDoc = firebaseFirestore.collection(RANKYEARINFO).document(currentday("yyyy"))
             .collection(currentday("yyyy")).document(destinationUid)
         CoroutineScope(Dispatchers.IO).launch {
-            tsDoc.update("cheers", FieldValue.arrayRemove(text)).await()
+            tsDoc.update(CHEERS, FieldValue.arrayRemove(text)).await()
         }
     }
 
