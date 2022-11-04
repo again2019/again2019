@@ -19,6 +19,7 @@ import com.goingbacking.goingbacking.UI.Base.BaseFragment
 import com.goingbacking.goingbacking.UI.Main.First.TmpTimeActivity
 import com.goingbacking.goingbacking.databinding.FragmentFirstMainBinding
 import com.goingbacking.goingbacking.util.PrefUtil
+import com.goingbacking.goingbacking.util.makeGONE
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
 import dagger.hilt.android.AndroidEntryPoint
@@ -83,13 +84,16 @@ class FirstMainFragment : BaseFragment<FragmentFirstMainBinding>() {
         val todayWhatToDo = PrefUtil.getTodayWhatToDo(requireActivity()).toString()
         val todayWhatToDoTime = PrefUtil.getTodayWhatToDoTime(requireActivity()).toString()
 
-       if(!(todayWhatToDo.equals("") || todayWhatToDoTime.equals(""))) {
-            val todayWhatToDo2 = todayWhatToDo.removeSurrounding("[", "]").split(", ")
+       if(!(todayWhatToDo.equals("[]") || todayWhatToDoTime.equals("[]"))) {
+           binding.noPlanTextView.makeGONE()
+           val todayWhatToDo2 = todayWhatToDo.removeSurrounding("[", "]").split(", ")
             val todayWhatToDoTime2 = todayWhatToDoTime.removeSurrounding("[", "]").split(", ")
             val adapter = TodayRecyclerViewAdapter(requireActivity(), todayWhatToDo2, todayWhatToDoTime2)
             binding.todayRecyclerView.layoutManager = LinearLayoutManager(requireContext())
             binding.todayRecyclerView.adapter = adapter
-        }
+        } else {
+            binding.todayRecyclerView.makeGONE()
+       }
     }
 
     private fun moveTmpTimePage() {

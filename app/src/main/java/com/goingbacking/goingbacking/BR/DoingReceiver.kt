@@ -9,7 +9,7 @@ import com.goingbacking.goingbacking.Service.AlarmService
 import com.goingbacking.goingbacking.AppConstants
 import com.goingbacking.goingbacking.Model.TmpTimeDTO
 import com.goingbacking.goingbacking.util.PrefUtil
-import com.goingbacking.goingbacking.Repository.AlarmRepository
+import com.goingbacking.goingbacking.Repository.Alarm.AlarmRepository
 import com.goingbacking.goingbacking.util.Constants.Companion.CHANNEL
 import com.goingbacking.goingbacking.util.Constants.Companion.CURRENTTIME
 import com.goingbacking.goingbacking.util.Constants.Companion.DURATION2
@@ -21,8 +21,6 @@ import com.goingbacking.goingbacking.util.Constants.Companion.START_FOREGROUND
 import com.goingbacking.goingbacking.util.Constants.Companion.WAKEUPTIME
 import com.goingbacking.goingbacking.util.TimerUtils
 import com.goingbacking.goingbacking.util.calendarAlarm
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
 import java.text.SimpleDateFormat
 import java.util.*
 

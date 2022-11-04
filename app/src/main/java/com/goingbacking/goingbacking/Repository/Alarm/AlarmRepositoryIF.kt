@@ -1,4 +1,4 @@
-package com.goingbacking.goingbacking.Repository
+package com.goingbacking.goingbacking.Repository.Alarm
 
 import com.goingbacking.goingbacking.Model.*
 import com.goingbacking.goingbacking.util.UiState
@@ -27,5 +27,9 @@ interface AlarmRepositoryIF {
     fun addInitWhatToDoMonthInfo(whatToDOList : MutableSet<String>)
     // year마다 whattodo 초기화
     fun addInitWhatToDoYearInfo(whatToDOList : MutableSet<String>)
+
+    // month마다 rank 초기화
+    // year마다 rank 초기화
+    fun addInitRankInfo()
 
 }

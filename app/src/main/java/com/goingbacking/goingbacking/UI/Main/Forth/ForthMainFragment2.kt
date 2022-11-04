@@ -6,10 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.goingbacking.goingbacking.Adapter.RankRecyclerViewAdapter1
 import com.goingbacking.goingbacking.Adapter.RankRecyclerViewAdapter2
 import com.goingbacking.goingbacking.R
-import com.goingbacking.goingbacking.Repository.ForthRepository
+import com.goingbacking.goingbacking.Repository.Forth.ForthRepository
 import com.goingbacking.goingbacking.UI.Base.BaseFragment
 import com.goingbacking.goingbacking.ViewModel.ForthViewModel
 import com.goingbacking.goingbacking.bottomsheet.RankBottomSheet

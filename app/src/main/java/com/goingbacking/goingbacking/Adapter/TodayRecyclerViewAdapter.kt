@@ -29,7 +29,7 @@ class TodayRecyclerViewAdapter
 
             val startEndItem = todayWhatToDoTimeItem.split('-')
             val startHour = startEndItem[0].toInt() / 60
-            var startMinute = startEndItem[0].toInt() % 60
+            val startMinute = startEndItem[0].toInt() % 60
             val endHour = startEndItem[1].toInt() / 60
             val endMinute = startEndItem[1].toInt() % 60
 

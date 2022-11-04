@@ -43,7 +43,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>({
 
     @RequiresApi(Build.VERSION_CODES.S)
     private fun notification() {
-        val calendar = calendar(10,39,0,0)
+        val calendar = calendar(13,48,0,0)
         val pm: PackageManager = this.packageManager
         val receiver = ComponentName(this, DeviceBootReceiver::class.java)
         // 매일 12시마다 초기화가 되면 CountReceiver의 작업을 수행함.

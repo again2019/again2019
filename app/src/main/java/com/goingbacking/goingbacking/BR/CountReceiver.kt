@@ -18,7 +18,7 @@ import com.goingbacking.goingbacking.UI.Main.MainActivity
 import com.goingbacking.goingbacking.Model.CalendarInfoDTO
 import com.goingbacking.goingbacking.R
 
-import com.goingbacking.goingbacking.Repository.AlarmRepository
+import com.goingbacking.goingbacking.Repository.Alarm.AlarmRepository
 import com.goingbacking.goingbacking.util.Constants.Companion.END_TIME
 import com.goingbacking.goingbacking.util.Constants.Companion.ID
 import com.goingbacking.goingbacking.util.Constants.Companion.MOVETIME
@@ -27,11 +27,6 @@ import com.goingbacking.goingbacking.util.PrefUtil
 import com.goingbacking.goingbacking.util.calendar
 import com.goingbacking.goingbacking.util.calendarAlarm
 import com.goingbacking.goingbacking.util.toast
-
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
-
-import java.text.SimpleDateFormat
 
 import java.util.*
 
@@ -87,7 +82,9 @@ class CountReceiver : BroadcastReceiver() {
                 toast(context, context.getString(R.string.no_schedule))
                 // 당일 일정에 대한 통근/통학 시간을 초가화함.
                 // 만약에 통근/통학 시간에 대한 일정이 없다면 0으로 저장
-               PrefUtil.setTodayTotalTime(0,context)
+                PrefUtil.setTodayTotalTime(0,context)
+                PrefUtil.setTodayWhatToDo(whatToDoArraList.toString(), context)
+                PrefUtil.setTodayWhatToDoTime(whatToDoTimeArrayList.toString(), context)
             } else {
                 // 만약에 통근/통학 시간에 대한 일정이 있다면
                 var beforeInfo = CalendarInfoDTO()

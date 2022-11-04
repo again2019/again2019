@@ -6,10 +6,8 @@ import android.os.CountDownTimer
 import android.util.Log
 import com.goingbacking.goingbacking.AppConstants
 import com.goingbacking.goingbacking.Model.TmpTimeDTO
-import com.goingbacking.goingbacking.Repository.AlarmRepository
+import com.goingbacking.goingbacking.Repository.Alarm.AlarmRepository
 import com.goingbacking.goingbacking.Service.AlarmService
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
 import java.text.SimpleDateFormat
 import java.util.*
 

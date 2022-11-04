@@ -1,6 +1,5 @@
-package com.goingbacking.goingbacking.Repository
+package com.goingbacking.goingbacking.Repository.Alarm
 
-import android.util.Log
 import com.goingbacking.goingbacking.Model.*
 import com.goingbacking.goingbacking.util.*
 import com.goingbacking.goingbacking.util.Constants.Companion.DATE
@@ -9,13 +8,16 @@ import com.goingbacking.goingbacking.util.Constants.Companion.DAY
 import com.goingbacking.goingbacking.util.Constants.Companion.MONTH
 import com.goingbacking.goingbacking.util.Constants.Companion.SAVETIMEINFO
 import com.goingbacking.goingbacking.util.Constants.Companion.TMPTIMEINFO
+import com.goingbacking.goingbacking.util.Constants.Companion.USERINFO
 import com.goingbacking.goingbacking.util.Constants.Companion.YEAR
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Source
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 import java.text.SimpleDateFormat
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -24,7 +26,7 @@ class AlarmRepository : AlarmRepositoryIF {
 
     private val firebaseFirestore = FirebaseFirestore.getInstance()
     private val myUid = FirebaseAuth.getInstance().currentUser?.uid!!
-
+    private val cache = Source.CACHE
     // 맨 처음 로그인 시 month 초기화
     override fun addFirstInitSaveTimeMonthInfo(result: (UiState<String>) -> Unit) {
 
@@ -199,5 +201,25 @@ class AlarmRepository : AlarmRepositoryIF {
         }
 
     }
+
+    override fun addInitRankInfo() {
+        CoroutineScope(Dispatchers.IO).launch {
+            val token =
+            val userInfo = firebaseFirestore.collection(USERINFO).document(myUid).get(cache).await().toObject(UserInfoDTO::class.java)!!
+
+            val newSaveTimeMonthDTO = NewSaveTimeMonthDTO(
+                uid = myUid,
+                nickname = userInfo.userNickName,
+                type = userInfo.userType,
+                whattodo = userInfo.whatToDoList,
+                count = 0
+            )
+            firebaseFirestore.collection("RankMonthInfo").document(yyyymm())
+                .collection(yyyymm()).document(myUid).set()
+
+
+        }
+    }
+
 
 }

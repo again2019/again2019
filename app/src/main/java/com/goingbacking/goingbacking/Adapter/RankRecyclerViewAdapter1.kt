@@ -1,28 +1,15 @@
 package com.goingbacking.goingbacking.Adapter
 
-import android.animation.Animator
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.view.isInvisible
 import androidx.recyclerview.widget.RecyclerView
 import com.goingbacking.goingbacking.FCM.FirebaseTokenManager
 import com.goingbacking.goingbacking.FCM.NotificationData
 import com.goingbacking.goingbacking.FCM.PushNotification
-import com.goingbacking.goingbacking.FCM.RetrofitInstance
 import com.goingbacking.goingbacking.Model.NewSaveTimeMonthDTO
-import com.goingbacking.goingbacking.Repository.AlarmRepository
-import com.goingbacking.goingbacking.Repository.ForthRepository
-import com.goingbacking.goingbacking.UI.Main.FirstMainFragment
-import com.goingbacking.goingbacking.ViewModel.ForthViewModel
-import com.goingbacking.goingbacking.bottomsheet.CheerBottomSheet
+import com.goingbacking.goingbacking.Repository.Forth.ForthRepository
 import com.goingbacking.goingbacking.databinding.ItemRankingBinding
 import com.goingbacking.goingbacking.util.PrefUtil
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 
 class RankRecyclerViewAdapter1 (
