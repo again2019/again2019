@@ -31,26 +31,6 @@ class MainRepository (
     val uid = user?.uid!!
     val cache = Source.CACHE
 
-
-    override fun getFifthUserInfo(result: (UiState<UserInfoDTO>) -> Unit) {
-        firebaseFirestore.collection(USERINFO).document(uid)
-            .get()
-            .addOnSuccessListener { document ->
-                val data :UserInfoDTO? = document.toObject(UserInfoDTO::class.java)
-                result.invoke(
-                    UiState.Success(data!!)
-                )
-            }
-
-            .addOnFailureListener {
-                result.invoke(
-                        UiState.Failure(
-                            it.localizedMessage
-                        )
-                )
-            }
-    }
-
     override fun addEventInfo(path1: String, path2: String, event: Event, result: (UiState<String>) -> Unit) {
         firebaseFirestore.collection(CALENDARINFO).document(uid)
             .collection(path1).document(path2)

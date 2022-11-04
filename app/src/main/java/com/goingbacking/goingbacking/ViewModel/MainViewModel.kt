@@ -16,9 +16,7 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor (
     val mainRepository: MainRepositoryIF) : ViewModel() {
 
-    private val _userInfoDTOs = MutableLiveData<UiState<UserInfoDTO>>()
-    val userInfoDTO : LiveData<UiState<UserInfoDTO>>
-        get() = _userInfoDTOs
+
 
     private val _eventDTOs = MutableLiveData<UiState<String>>()
     val eventDTO : LiveData<UiState<String>>
@@ -67,12 +65,6 @@ class MainViewModel @Inject constructor (
     val thirdSelectedDateDTOs : LiveData<UiState<MutableMap<LocalDate, List<Event>>>>
         get() = _thirdSelectedDateDTOs
 
-
-
-    fun getFifthUserInfo()  {
-        _userInfoDTOs.value = UiState.Loading
-        mainRepository.getFifthUserInfo { _userInfoDTOs.value = it }
-    }
 
     fun addScheduleEventInfo(path1 :String, path2: String, event: Event) {
         _eventDTOs.value = UiState.Loading
