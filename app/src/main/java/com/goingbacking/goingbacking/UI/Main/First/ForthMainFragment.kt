@@ -1,4 +1,4 @@
-package com.goingbacking.goingbacking.UI.Main
+package com.goingbacking.goingbacking.UI.Main.First
 
 import android.os.Bundle
 import android.view.LayoutInflater

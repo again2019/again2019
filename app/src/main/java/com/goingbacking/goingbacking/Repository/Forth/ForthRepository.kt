@@ -2,6 +2,7 @@ package com.goingbacking.goingbacking.Repository.Forth
 
 import android.util.Log
 import com.goingbacking.goingbacking.Model.*
+import com.goingbacking.goingbacking.util.Constants.Companion.FAIL
 import com.goingbacking.goingbacking.util.FBConstants.Companion.RANKMONTHINFO
 import com.goingbacking.goingbacking.util.FBConstants.Companion.RANKYEARINFO
 import com.goingbacking.goingbacking.util.PrefUtil
@@ -26,7 +27,6 @@ class ForthRepository (
     val myUid = user?.uid!!
 
     companion object {
-        private const val FAIL = "fail"
         private const val COUNT = "count"
     }
 

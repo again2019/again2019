@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.github.aachartmodel.aainfographics.aachartcreator.*
 import com.goingbacking.goingbacking.UI.Base.BaseFragment
+import com.goingbacking.goingbacking.ViewModel.RankViewModel
 import com.goingbacking.goingbacking.databinding.FragmentRank1Binding
 import com.goingbacking.goingbacking.util.UiState
 import dagger.hilt.android.AndroidEntryPoint
