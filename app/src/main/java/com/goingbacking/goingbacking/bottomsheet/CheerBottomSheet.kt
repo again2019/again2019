@@ -2,7 +2,6 @@ package com.goingbacking.goingbacking.bottomsheet
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,18 +10,13 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.goingbacking.goingbacking.Adapter.CheerRecyclerViewAdapter
-import com.goingbacking.goingbacking.FCM.FirebaseTokenManager.sendNotification
-import com.goingbacking.goingbacking.FCM.NotificationData
-import com.goingbacking.goingbacking.FCM.PushNotification
 import com.goingbacking.goingbacking.R
 import com.goingbacking.goingbacking.ViewModel.ForthViewModel
 import com.goingbacking.goingbacking.databinding.BottomSheetCheerBinding
 import com.goingbacking.goingbacking.util.UiState
 import com.goingbacking.goingbacking.util.toast
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import java.time.LocalDate
+
 
 class CheerBottomSheet : BottomSheetDialogFragment() {
     private lateinit var binding : BottomSheetCheerBinding
@@ -49,9 +43,7 @@ class CheerBottomSheet : BottomSheetDialogFragment() {
                 layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
                 adapter = cheerAdapter
                 addItemDecoration(DividerItemDecoration(requireContext(), RecyclerView.VERTICAL))
-
             }
-
             observer1(destinationUid)
             binding.cheerOkayButton.setOnClickListener {
                 val message = binding.cheerEditText.text.toString()
@@ -84,7 +76,6 @@ class CheerBottomSheet : BottomSheetDialogFragment() {
                     progressCircular.show()
                 }
             }
-
         }
     }
 
