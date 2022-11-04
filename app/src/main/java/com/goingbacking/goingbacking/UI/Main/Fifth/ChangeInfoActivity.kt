@@ -12,9 +12,8 @@ import com.goingbacking.goingbacking.UI.Base.BaseActivity
 import com.goingbacking.goingbacking.UI.Input.InputViewModel
 import com.goingbacking.goingbacking.databinding.ActivityChangeInfoBinding
 import com.goingbacking.goingbacking.util.PrefUtil
-import com.goingbacking.goingbacking.util.mm
+import com.goingbacking.goingbacking.util.currentday
 import com.goingbacking.goingbacking.util.toast
-import com.goingbacking.goingbacking.util.yyyy
 import com.google.android.material.chip.Chip
 import dagger.hilt.android.AndroidEntryPoint
 import java.time.LocalDate
@@ -76,7 +75,7 @@ class ChangeInfoActivity : BaseActivity<ActivityChangeInfoBinding>({
                     if (!historyWhatToDo.contains(whattodo)) {
                         val whatToDoMonthDTO = WhatToDoMonthDTO(
                             count = 0,
-                            month = mm().toInt(),
+                            month = currentday("MM").toInt(),
                             whatToDo = whattodo
                         )
 
@@ -84,7 +83,7 @@ class ChangeInfoActivity : BaseActivity<ActivityChangeInfoBinding>({
 
                         val whatToDoYearDTO = WhatToDoYearDTO(
                             count = 0,
-                            year = yyyy().toInt(),
+                            year = currentday("yyyy").toInt(),
                             whatToDo = whattodo
                         )
 
@@ -95,12 +94,6 @@ class ChangeInfoActivity : BaseActivity<ActivityChangeInfoBinding>({
                 }
 
                 PrefUtil.setHistoryWhatToDo(historyWhatToDo, this@ChangeInfoActivity)
-
-                val userInfoDTO = UserInfoDTO(
-                    userNickName = changeNickNameEditText.text.toString(),
-                    userType = changeTypeEditText.text.toString(),
-                    whatToDoList = selected
-                )
 
                 viewModel.reviseUserInfo(changeNickNameEditText.text.toString(), changeTypeEditText.text.toString(), selected.toList())
                 finish()

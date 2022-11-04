@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
 import com.goingbacking.goingbacking.Model.UserInfoDTO
+import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.*
@@ -35,44 +36,12 @@ fun toast (context: Context, string : String) {
     Toast.makeText(context, string, Toast.LENGTH_SHORT).show()
 }
 
-// 여러 가지 시간 function
-fun dd() : String {
+
+fun currentday(type :String) : String {
     val now = LocalDate.now()
-    val strnow = now.format(DateTimeFormatter.ofPattern("dd"))
+    val strnow = now.format(DateTimeFormatter.ofPattern(type))
     return strnow
 }
-
-fun mm() : String {
-    val now = LocalDate.now()
-    val strnow = now.format(DateTimeFormatter.ofPattern("MM"))
-    return strnow
-}
-
-fun yyyy() : String {
-    val now = LocalDate.now()
-    val strnow = now.format(DateTimeFormatter.ofPattern("yyyy"))
-    return strnow
-}
-
-fun yyyymm() : String {
-    val now = LocalDate.now()
-    val strnow = now.format(DateTimeFormatter.ofPattern("yyyy-MM"))
-    return strnow
-}
-
-// 하는 중
-fun yyyymmdd(new : LocalDate?) : String {
-    if (new == null) {
-        val now = LocalDate.now()
-        val strnow = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
-        return strnow
-    } else {
-        val strnow = new.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
-        return strnow
-    }
-
-}
-
 
 fun calendar (hour :Int, minute : Int, second : Int, millisecond : Int) : Calendar {
     val calendar = Calendar.getInstance()
@@ -98,4 +67,19 @@ fun calendarAlarm (hour :Int, minute : Int, second : Int, millisecond : Int) : C
 
 
     return calendar
+}
+
+fun beforeday(type :String) :String {
+    val beforeNotifyTime = Calendar.getInstance()
+    beforeNotifyTime.add(Calendar.DATE, -1)
+    val beforeDateTime = beforeNotifyTime.time
+    var bef_date_text = ""
+    if (type.equals("yyyy")) {
+        bef_date_text = SimpleDateFormat("yyyy", Locale.getDefault()).format(beforeDateTime).toString()
+    } else if (type.equals("mm")) {
+        bef_date_text = SimpleDateFormat("mm", Locale.getDefault()).format(beforeDateTime).toString()
+    }
+    return bef_date_text
+
+
 }

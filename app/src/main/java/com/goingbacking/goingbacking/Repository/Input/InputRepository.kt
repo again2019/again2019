@@ -13,8 +13,7 @@ import com.goingbacking.goingbacking.util.Constants.Companion.WHATTODOINFO
 import com.goingbacking.goingbacking.util.Constants.Companion.WHATTODOLIST
 import com.goingbacking.goingbacking.util.Constants.Companion.YEAR
 import com.goingbacking.goingbacking.util.UiState
-import com.goingbacking.goingbacking.util.yyyy
-import com.goingbacking.goingbacking.util.yyyymm
+import com.goingbacking.goingbacking.util.currentday
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Source
@@ -23,8 +22,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
+
 
 class InputRepository(
     val user: FirebaseUser?,
@@ -105,8 +103,8 @@ class InputRepository(
     ) {
 
         firebaseFirestore.collection(WHATTODOINFO).document(myUid)
-            .collection(MONTH).document(yyyymm())
-            .collection(yyyymm()).document(myUid+whatToDoMonthDTO.whatToDo)
+            .collection(MONTH).document(currentday("yyyy-MM"))
+            .collection(currentday("yyyy-MM")).document(myUid+whatToDoMonthDTO.whatToDo)
             .set(whatToDoMonthDTO)
             .addOnSuccessListener {
                 result.invoke(UiState.Success(SUCCESS))
@@ -123,8 +121,8 @@ class InputRepository(
         result: (UiState<String>) -> Unit
     ) {
         firebaseFirestore.collection(WHATTODOINFO).document(myUid)
-            .collection(YEAR).document(yyyy())
-            .collection(yyyy()).document(myUid+whatToDoYearDTO.whatToDo)
+            .collection(YEAR).document(currentday("yyyy"))
+            .collection(currentday("yyyy")).document(myUid+whatToDoYearDTO.whatToDo)
             .set(whatToDoYearDTO)
             .addOnSuccessListener {
                 result.invoke(UiState.Success(SUCCESS))
