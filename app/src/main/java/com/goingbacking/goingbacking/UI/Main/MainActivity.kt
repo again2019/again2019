@@ -3,35 +3,34 @@ package com.goingbacking.goingbacking.UI.Main
 
 import android.app.AlarmManager
 import android.app.PendingIntent
+import android.app.PendingIntent.FLAG_MUTABLE
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
+import androidx.annotation.RequiresApi
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.goingbacking.goingbacking.BR.CountReceiver
 import com.goingbacking.goingbacking.BR.DeviceBootReceiver
 import com.goingbacking.goingbacking.R
 import com.goingbacking.goingbacking.UI.Base.BaseActivity
-import com.goingbacking.goingbacking.UI.Tutorial.TutorialActivity
 import com.goingbacking.goingbacking.databinding.ActivityMainBinding
+import com.goingbacking.goingbacking.util.Constants.Companion.CHANNEL
+import com.goingbacking.goingbacking.util.Constants.Companion.ID
+import com.goingbacking.goingbacking.util.Constants.Companion.TYPE
+import com.goingbacking.goingbacking.util.Constants.Companion.VALUE
+import com.goingbacking.goingbacking.util.calendar
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.*
 
 
 @AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding>({
     ActivityMainBinding.inflate(it)
 }) {
-
-    companion object {
-        private const val ID = "id"
-        private const val TYPE = "type"
-        private const val CHANNEL = "channel"
-        private const val VALUE = 3000
-    }
-
+    @RequiresApi(Build.VERSION_CODES.S)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
          initBottomNavigation()
@@ -42,26 +41,18 @@ class MainActivity : BaseActivity<ActivityMainBinding>({
         NavigationUI.setupWithNavController(binding.bottomNavigation, findNavController(R.id.nav_host))
     }
 
+    @RequiresApi(Build.VERSION_CODES.S)
     private fun notification() {
-        val calendar = Calendar.getInstance()
-        calendar.timeInMillis = System.currentTimeMillis()
-        calendar.set(Calendar.HOUR_OF_DAY, 0)
-        calendar.set(Calendar.MINUTE, 0)
-        calendar.set(Calendar.SECOND, 0)
-        calendar.set(Calendar.MILLISECOND, 0)
-
-        if (calendar.before(Calendar.getInstance())) {
-            calendar.add(Calendar.DATE, 1)
-        }
-
+        val calendar = calendar(10,39,0,0)
         val pm: PackageManager = this.packageManager
         val receiver = ComponentName(this, DeviceBootReceiver::class.java)
+        // 매일 12시마다 초기화가 되면 CountReceiver의 작업을 수행함.
         val alarmIntent = Intent(this, CountReceiver::class.java)
         alarmIntent.putExtra(ID, VALUE)
         alarmIntent.putExtra(TYPE, CHANNEL)
 
         val pendingIntent: PendingIntent = PendingIntent.getBroadcast(
-            this, VALUE, alarmIntent, PendingIntent.FLAG_MUTABLE
+            this, VALUE, alarmIntent, FLAG_MUTABLE
         )
 
         val alarmManager: AlarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager

@@ -72,3 +72,18 @@ fun yyyymmdd(new : LocalDate?) : String {
     }
 
 }
+
+
+fun calendar (hour :Int, minute : Int, second : Int, millisecond : Int) : Calendar {
+    val calendar = Calendar.getInstance()
+    calendar.timeInMillis = System.currentTimeMillis()
+    calendar.set(Calendar.HOUR_OF_DAY, hour)
+    calendar.set(Calendar.MINUTE, minute)
+    calendar.set(Calendar.SECOND, second)
+    calendar.set(Calendar.MILLISECOND, millisecond)
+
+    if (calendar.before(Calendar.getInstance())) {
+        calendar.add(Calendar.DATE, 1)
+    }
+    return calendar
+}

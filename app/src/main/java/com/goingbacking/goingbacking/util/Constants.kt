@@ -31,6 +31,7 @@ class Constants {
 
         // second input 관련 constant
         const val USERTYPE = "userType"
+        // third input 관련 constant
         const val WHATTODOLIST = "whatToDoList"
 
 
@@ -43,7 +44,11 @@ class Constants {
             Stopped, Running
         }
 
-
+        // 매일 울리는 알림 관련 constant
+        const val ID = "id"
+        const val TYPE = "type"
+        const val CHANNEL = "channel"
+        const val VALUE = 3000 // 매일 울리는 알림 channel value
 
     }
 

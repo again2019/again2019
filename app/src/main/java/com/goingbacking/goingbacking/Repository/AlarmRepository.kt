@@ -10,6 +10,7 @@ import com.goingbacking.goingbacking.util.Constants.Companion.MONTH
 import com.goingbacking.goingbacking.util.Constants.Companion.SAVETIMEINFO
 import com.goingbacking.goingbacking.util.Constants.Companion.TMPTIMEINFO
 import com.goingbacking.goingbacking.util.Constants.Companion.YEAR
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 import java.text.SimpleDateFormat
@@ -19,13 +20,10 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 
-class AlarmRepository (
-    val user : FirebaseUser?,
-    val firebaseFirestore: FirebaseFirestore
-    ) : AlarmRepositoryIF {
+class AlarmRepository : AlarmRepositoryIF {
 
-
-    private val myUid = user?.uid!!
+    private val firebaseFirestore = FirebaseFirestore.getInstance()
+    private val myUid = FirebaseAuth.getInstance().currentUser?.uid!!
 
     // 맨 처음 로그인 시 month 초기화
     override fun addFirstInitSaveTimeMonthInfo(result: (UiState<String>) -> Unit) {

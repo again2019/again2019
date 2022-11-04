@@ -55,11 +55,8 @@ object RepositoryModule {
 
     @Provides
     @Singleton
-    fun provideAlarmRepository(
-        user: FirebaseUser?,
-        firebaseFirestore: FirebaseFirestore
-    ) : AlarmRepositoryIF {
-        return AlarmRepository(user, firebaseFirestore)
+    fun provideAlarmRepository() : AlarmRepositoryIF {
+        return AlarmRepository()
     }
 
     @Provides
