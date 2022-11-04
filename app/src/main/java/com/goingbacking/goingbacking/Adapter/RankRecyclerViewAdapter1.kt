@@ -87,7 +87,6 @@ class RankRecyclerViewAdapter1 (
                     likeButton.setMinAndMaxProgress(1f, 1f)
                     likeButton.playAnimation()
                     viewModel.likeButtonInfo(item.uid.toString(), "plus")
-                    //forthRepository.likeButtonInfo(item.uid.toString(), "plus")
                     PushNotification(
                         NotificationData("title", "message"),
                             item.token!!
@@ -103,7 +102,6 @@ class RankRecyclerViewAdapter1 (
                     likeButton.playAnimation()
                     viewModel.likeButtonInfo(item.uid.toString(), "minus")
 
-                    //forthRepository.likeButtonInfo(item.uid.toString(), "minus")
                     isSwitch = true
                     rankLikeNum = rankLikeNum - 1
                     rankLike.text = rankLikeNum.toString()

@@ -6,6 +6,7 @@ import android.provider.Settings
 import android.util.Log
 import com.goingbacking.goingbacking.util.Constants.Companion.USERINFO
 import com.goingbacking.goingbacking.util.PrefUtil
+import com.goingbacking.goingbacking.util.toast
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -38,9 +39,7 @@ object FirebaseTokenManager {
     fun sendNotification(notification: PushNotification) = CoroutineScope(Dispatchers.IO).launch {
         try {
             val response = RetrofitInstance.api.postNotification(notification)
-            if(response.isSuccessful) {
-
-            } else {
+            if(!response.isSuccessful) {
                 Log.e(TAG, response.errorBody().toString())
             }
         } catch(e: Exception) {
