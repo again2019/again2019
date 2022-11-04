@@ -84,8 +84,8 @@ class FirstMainFragment : BaseFragment<FragmentFirstMainBinding>() {
         val todayWhatToDoTime = PrefUtil.getTodayWhatToDoTime(requireActivity()).toString()
 
        if(!(todayWhatToDo.equals("") || todayWhatToDoTime.equals(""))) {
-            val todayWhatToDo2 = todayWhatToDo.replace("[", "").replace("]", "").split(", ")
-            val todayWhatToDoTime2 = todayWhatToDoTime.replace("[", "").replace("]", "").split(", ")
+            val todayWhatToDo2 = todayWhatToDo.removeSurrounding("[", "]").split(", ")
+            val todayWhatToDoTime2 = todayWhatToDoTime.removeSurrounding("[", "]").split(", ")
             val adapter = TodayRecyclerViewAdapter(requireActivity(), todayWhatToDo2, todayWhatToDoTime2)
             binding.todayRecyclerView.layoutManager = LinearLayoutManager(requireContext())
             binding.todayRecyclerView.adapter = adapter

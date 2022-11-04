@@ -17,7 +17,7 @@ class TimerUtils {
 
 
     companion object {
-        private val alarmRepository = AlarmRepository(FirebaseAuth.getInstance().currentUser, FirebaseFirestore.getInstance())
+        private val alarmRepository = AlarmRepository()
         var timerState = AppConstants.Companion.TimerState.Stopped
         private var secondsRemaining = 0L
 
