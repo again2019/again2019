@@ -123,7 +123,7 @@ class ForthRepository (
             tsDoc.update("cheers", FieldValue.arrayUnion(cheer)).await()
 
             PushNotification(
-                NotificationData("title", text),
+                NotificationData(text, text),
                 destinationInfo!!.token!!
             ).also {
                 FirebaseTokenManager.sendNotification(it)
