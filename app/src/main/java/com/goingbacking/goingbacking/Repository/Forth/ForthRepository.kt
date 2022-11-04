@@ -71,7 +71,7 @@ class ForthRepository (
     }
 
     // 달별
-    override fun likeButtonInfo(destinationUid :String, state :String) {
+    override fun likeButtonInfo(destinationUid :String, state :String, result: (UiState<String>) -> Unit) {
         var current = LocalDateTime.now()
         current = current.minusDays(10)
         val simpleDate1 = DateTimeFormatter.ofPattern("yyyy-MM")

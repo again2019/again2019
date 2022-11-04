@@ -12,7 +12,6 @@ import com.goingbacking.goingbacking.databinding.ItemRankingBinding
 import com.goingbacking.goingbacking.util.PrefUtil
 
 class RankRecyclerViewAdapter2 (
-    val forthRepository: ForthRepository,
     val onItemClicked : (String) -> Unit
         ): RecyclerView.Adapter<RankRecyclerViewAdapter2.MyViewHolder>() {
     private var newSaveTimeYearDTOList : ArrayList<NewSaveTimeYearDTO> = arrayListOf()
@@ -80,7 +79,7 @@ class RankRecyclerViewAdapter2 (
                 if (isSwitch) {
                     likeButton.setMinAndMaxProgress(1f, 1f)
                     likeButton.playAnimation()
-                    forthRepository.likeButtonInfo(item.uid.toString(), "plus")
+                    //forthRepository.likeButtonInfo(item.uid.toString(), "plus")
                     PushNotification(
                         NotificationData("title", "message"),
                         "fI__GGumQOm6prMcLJloqr:APA91bHgw1oLKuFq09roGcrKFX3dde_eXv1C_aUUjkzqGpbww-qATujqCM3diqdZZuvBw6tVOLjhDx1zYL5BqQW4THCnpfyihPgWKCsXrX8OhUKMeW6dM1vzHjse0FjCXG782JfzI1oo"
@@ -94,7 +93,7 @@ class RankRecyclerViewAdapter2 (
                 } else {
                     likeButton.setMinAndMaxProgress(0f,0f)
                     likeButton.playAnimation()
-                    forthRepository.likeButtonInfo(item.uid.toString(), "minus")
+                    //forthRepository.likeButtonInfo(item.uid.toString(), "minus")
                     isSwitch = true
                     rankLikeNum = rankLikeNum - 1
                     rankLike.text = rankLikeNum.toString()

@@ -65,5 +65,13 @@ class ForthViewModel @Inject constructor(
     }
 
 
+    private val _likeButtonInfo = MutableLiveData<UiState<String>>()
+
+    fun likeButtonInfo(destinationUid :String, state :String) = viewModelScope.launch {
+        _likeButtonInfo.value = UiState.Loading
+        forthRepository.likeButtonInfo(destinationUid, state) { _likeButtonInfo.postValue(it) }
+    }
+
+
 
 }
