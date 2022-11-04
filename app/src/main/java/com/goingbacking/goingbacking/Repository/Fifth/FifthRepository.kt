@@ -7,8 +7,7 @@ import com.goingbacking.goingbacking.Model.WhatToDoYearDTO
 import com.goingbacking.goingbacking.util.Constants
 import com.goingbacking.goingbacking.util.Constants.Companion.USERINFO
 import com.goingbacking.goingbacking.util.UiState
-import com.goingbacking.goingbacking.util.yyyy
-import com.goingbacking.goingbacking.util.yyyymm
+import com.goingbacking.goingbacking.util.currentday
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
@@ -90,8 +89,8 @@ class FifthRepository(
     ) {
 
         firebaseFirestore.collection(Constants.WHATTODOINFO).document(myUid)
-            .collection(Constants.MONTH).document(yyyymm())
-            .collection(yyyymm()).document(myUid+whatToDoMonthDTO.whatToDo)
+            .collection(Constants.MONTH).document(currentday("yyyy-MM"))
+            .collection(currentday("yyyy-MM")).document(myUid+whatToDoMonthDTO.whatToDo)
             .set(whatToDoMonthDTO)
             .addOnSuccessListener {
                 result.invoke(UiState.Success(Constants.SUCCESS))
@@ -108,8 +107,8 @@ class FifthRepository(
         result: (UiState<String>) -> Unit
     ) {
         firebaseFirestore.collection(Constants.WHATTODOINFO).document(myUid)
-            .collection(Constants.YEAR).document(yyyy())
-            .collection(yyyy()).document(myUid+whatToDoYearDTO.whatToDo)
+            .collection(Constants.YEAR).document(currentday("yyyy"))
+            .collection(currentday("yyyy")).document(myUid+whatToDoYearDTO.whatToDo)
             .set(whatToDoYearDTO)
             .addOnSuccessListener {
                 result.invoke(UiState.Success(Constants.SUCCESS))

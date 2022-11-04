@@ -1,8 +1,12 @@
 package com.goingbacking.goingbacking.DI
 
 import com.goingbacking.goingbacking.Repository.*
+import com.goingbacking.goingbacking.Repository.Alarm.AlarmRepository
+import com.goingbacking.goingbacking.Repository.Alarm.AlarmRepositoryIF
 import com.goingbacking.goingbacking.Repository.Fifth.FifthRepository
 import com.goingbacking.goingbacking.Repository.Fifth.FifthRepositoryIF
+import com.goingbacking.goingbacking.Repository.Forth.ForthRepository
+import com.goingbacking.goingbacking.Repository.Forth.ForthRepositoryIF
 import com.goingbacking.goingbacking.Repository.Input.InputRepository
 import com.goingbacking.goingbacking.Repository.Input.InputRepositoryIF
 import com.goingbacking.goingbacking.Repository.Login.LoginRepository
@@ -55,11 +59,8 @@ object RepositoryModule {
 
     @Provides
     @Singleton
-    fun provideAlarmRepository(
-        user: FirebaseUser?,
-        firebaseFirestore: FirebaseFirestore
-    ) : AlarmRepositoryIF {
-        return AlarmRepository(user, firebaseFirestore)
+    fun provideAlarmRepository() : AlarmRepositoryIF {
+        return AlarmRepository()
     }
 
     @Provides

@@ -79,5 +79,8 @@
     <!-- 랭킹 관련 -->
     <string name="rank_update_fail"> 랭킹 업데이트를 실패하였습니다. </string>
 
+    <!-- alarm 관련 -->
+    <string name="no_schedule"> 오늘 일정은 없습니다. </string>
+
 
 </resources>

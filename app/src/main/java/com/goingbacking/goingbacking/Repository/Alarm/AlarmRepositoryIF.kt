@@ -1,4 +1,4 @@
-package com.goingbacking.goingbacking.Repository
+package com.goingbacking.goingbacking.Repository.Alarm
 
 import com.goingbacking.goingbacking.Model.*
 import com.goingbacking.goingbacking.util.UiState
@@ -6,17 +6,17 @@ import com.goingbacking.goingbacking.util.UiState
 interface AlarmRepositoryIF {
 
     // 맨 처음 로그인 시 month 초기화
-    fun addFirstInitSaveTimeMonthInfo(result: (UiState<String>) -> Unit)
+    fun addFirstInitSaveTimeMonthInfo()
     // 맨 처음 로그인 시 year 초기화
-    fun addFirstInitSaveTimeYearInfo(result: (UiState<String>) -> Unit)
+    fun addFirstInitSaveTimeYearInfo()
 
 
     // day마다 초기화, 맨 처음 로그인 시 day 초기화
-    fun addInitSaveTimeDayInfo(result: (UiState<String>) -> Unit)
+    fun addInitSaveTimeDayInfo()
     // month마다 초기화
-    fun addInitSaveTimeMonthInfo(result: (UiState<String>) -> Unit)
+    fun addInitSaveTimeMonthInfo()
     // year마다 초기화
-    fun addInitSaveTimeYearInfo(result: (UiState<String>) -> Unit)
+    fun addInitSaveTimeYearInfo()
 
     // broadcast에서 매일 일정 가져오기
     fun getTodayInfo(result: (ArrayList<CalendarInfoDTO>) -> Unit)
@@ -27,5 +27,9 @@ interface AlarmRepositoryIF {
     fun addInitWhatToDoMonthInfo(whatToDOList : MutableSet<String>)
     // year마다 whattodo 초기화
     fun addInitWhatToDoYearInfo(whatToDOList : MutableSet<String>)
+
+    // month마다 rank 초기화
+    // year마다 rank 초기화
+    fun addInitRankInfo()
 
 }

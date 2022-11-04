@@ -9,15 +9,23 @@ import com.goingbacking.goingbacking.Service.AlarmService
 import com.goingbacking.goingbacking.AppConstants
 import com.goingbacking.goingbacking.Model.TmpTimeDTO
 import com.goingbacking.goingbacking.util.PrefUtil
-import com.goingbacking.goingbacking.Repository.AlarmRepository
+import com.goingbacking.goingbacking.Repository.Alarm.AlarmRepository
+import com.goingbacking.goingbacking.util.Constants.Companion.CHANNEL
+import com.goingbacking.goingbacking.util.Constants.Companion.CURRENTTIME
+import com.goingbacking.goingbacking.util.Constants.Companion.DURATION2
+import com.goingbacking.goingbacking.util.Constants.Companion.END_TIME
+import com.goingbacking.goingbacking.util.Constants.Companion.FINISH_FOREGROUND
+import com.goingbacking.goingbacking.util.Constants.Companion.FIRST_START_FOREGROUND
+import com.goingbacking.goingbacking.util.Constants.Companion.ID
+import com.goingbacking.goingbacking.util.Constants.Companion.START_FOREGROUND
+import com.goingbacking.goingbacking.util.Constants.Companion.WAKEUPTIME
 import com.goingbacking.goingbacking.util.TimerUtils
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
+import com.goingbacking.goingbacking.util.calendarAlarm
 import java.text.SimpleDateFormat
 import java.util.*
 
 class DoingReceiver : BroadcastReceiver() {
-    val alarmRepository = AlarmRepository(FirebaseAuth.getInstance().currentUser, FirebaseFirestore.getInstance())
+    val alarmRepository = AlarmRepository()
     var end_time = 0
     var id = 0
     var type = ""
@@ -25,9 +33,9 @@ class DoingReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
         Log.d("experiment", "okay doingReceiver")
 
-        id = intent.getIntExtra("id", 0)
-        type = intent.getStringExtra("channel").toString()
-        currentTime = intent.getLongExtra("currentTime", 0)
+        id = intent.getIntExtra(ID, 0)
+        type = intent.getStringExtra(CHANNEL).toString()
+        currentTime = intent.getLongExtra(CURRENTTIME, 0)
         Log.d("experiment", "end_time ${end_time} id ${id} channel ${type}")
 
         val nm = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
@@ -35,13 +43,11 @@ class DoingReceiver : BroadcastReceiver() {
         when (intent.action){
 
             AppConstants.ACTION_READY -> {
-                end_time = intent.getIntExtra("end_time", 0)
+                end_time = intent.getIntExtra(END_TIME, 0)
                 PrefUtil.setEndTime(end_time, context)
                 val intent1 = Intent(context, AlarmService::class.java)
-                intent1.action = "FIRST_START_FOREGROUND"
+                intent1.action = FIRST_START_FOREGROUND
                 context.startService(intent1)
-
-                //NotificationUtil.showTimerReady(context)
             }
             AppConstants.ACTION_START -> {
                 end_time = PrefUtil.getEndTime(context)
@@ -53,24 +59,25 @@ class DoingReceiver : BroadcastReceiver() {
                 val currentTime = System.currentTimeMillis()
                 PrefUtil.setStartTime(currentTime, context)
                 // 도착 시간
-                val calendar = Calendar.getInstance()
-                calendar.timeInMillis = System.currentTimeMillis()
-                calendar.set(Calendar.HOUR, (end_time) / 60)
-                calendar.set(Calendar.MINUTE, (end_time) % 60)
-                calendar.set(Calendar.SECOND, 0)
-                calendar.set(Calendar.MILLISECOND, 0)
+                val calendar = calendarAlarm(
+                    hour = (end_time) / 60,
+                    minute = (end_time) % 60,
+                    second = 0,
+                    millisecond = 0
+                )
+
                 val wakeUpTime = calendar.timeInMillis
                 // duration (도착 - 시작)
                 val duration = wakeUpTime - currentTime
 
-                Log.d("experiment", "currentTime: ${currentTime} | ${SimpleDateFormat("yyyy.MM.dd HH:mm").format(Date(currentTime)) } |")
-                Log.d("experiment", "wakeupTime: $wakeUpTime | ${SimpleDateFormat("yyyy.MM.dd HH:mm").format(Date(wakeUpTime))} ")
+                Log.d("experiment", "currentTime: ${currentTime} | ${SimpleDateFormat("yyyy.MM.dd HH:mm", Locale.KOREA).format(Date(currentTime)) } |")
+                Log.d("experiment", "wakeupTime: $wakeUpTime | ${SimpleDateFormat("yyyy.MM.dd HH:mm", Locale.KOREA).format(Date(wakeUpTime))} ")
                 Log.d("experiment", "duration: $duration | ")
 
                 val intent2 = Intent(context, AlarmService::class.java)
-                intent2.putExtra("wakeUpTime", wakeUpTime)
-                intent2.putExtra("duration", duration)
-                intent2.action = "START_FOREGROUND"
+                intent2.putExtra(WAKEUPTIME, wakeUpTime)
+                intent2.putExtra(DURATION2, duration)
+                intent2.action = START_FOREGROUND
                 context.startService(intent2)
 
                 TimerUtils.startTimer(context, duration)
@@ -80,20 +87,20 @@ class DoingReceiver : BroadcastReceiver() {
                 currentTime = PrefUtil.getStartTime(context)
 
                 val intent3 = Intent(context, AlarmService::class.java)
-                intent3.action = "FINISH_FOREGROUND"
+                intent3.action = FINISH_FOREGROUND
                 context.startService(intent3)
 
                 Log.d("experiment",  System.currentTimeMillis().toString())
                 Log.d("experiment",  currentTime.toString())
 
                 val current = System.currentTimeMillis()
+                val tmpTimeDTO = TmpTimeDTO(
+                    nowSeconds =  current- currentTime,
+                    startTime = currentTime,
+                    wakeUpTime = current
+                )
 
-                val tmpTimeDTO : TmpTimeDTO? = TmpTimeDTO()
-                tmpTimeDTO!!.nowSeconds =  current- currentTime
-                tmpTimeDTO.startTime = currentTime
-                tmpTimeDTO.wakeUpTime = current
-
-                val df = SimpleDateFormat("HH:mm:ss")
+                val df = SimpleDateFormat("HH:mm:ss", Locale.KOREA)
 
                 Log.d("experiment", "total: " + (current- currentTime).toString())
                 Log.d("experiment", "wakeupTime: " + currentTime.toString())

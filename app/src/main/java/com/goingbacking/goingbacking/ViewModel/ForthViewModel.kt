@@ -6,8 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.goingbacking.goingbacking.Model.NewSaveTimeMonthDTO
 import com.goingbacking.goingbacking.Model.NewSaveTimeYearDTO
-import com.goingbacking.goingbacking.Model.WhatToDoYearDTO
-import com.goingbacking.goingbacking.Repository.ForthRepositoryIF
+import com.goingbacking.goingbacking.Repository.Forth.ForthRepositoryIF
 import com.goingbacking.goingbacking.util.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch

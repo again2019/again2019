@@ -17,8 +17,7 @@ import com.goingbacking.goingbacking.util.*
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.chip.Chip
 import dagger.hilt.android.AndroidEntryPoint
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
+
 
 
 @AndroidEntryPoint
@@ -56,14 +55,14 @@ class InputBottomSheet : BottomSheetDialogFragment() {
                           // chart 표시를 위해 초기화 하기 위해 arrayList에 넣는 코드
                           val whatToDoMonthDTO = WhatToDoMonthDTO(
                               count = 0,
-                              month = mm().toInt(),
+                              month = currentday("MM").toInt(),
                               whatToDo = whattodo
                           )
                           InitWhatToDoMonthList.add(whatToDoMonthDTO)
 
                           val whatToDoYearDTO = WhatToDoYearDTO(
                               count = 0,
-                              year = yyyy().toInt(),
+                              year = currentday("yyyy").toInt(),
                               whatToDo = whattodo
                           )
 
