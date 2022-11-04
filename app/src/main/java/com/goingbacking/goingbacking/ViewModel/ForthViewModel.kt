@@ -45,15 +45,17 @@ class ForthViewModel @Inject constructor(
 
     fun getCheerInfo(destinationUid : String) = viewModelScope.launch {
         _cheerInfo.value = UiState.Loading
-        forthRepository.getCheerInfo(destinationUid) { _cheerInfo.value = it }
+        forthRepository.getCheerInfo(destinationUid) { _cheerInfo.postValue(it) }
     }
 
     // 응원 메시지 입력
-    private val _addCheerInfo = MutableLiveData<UiState<String>>()
+    private val _addCheerInfo = MutableLiveData<UiState<List<String>>>()
+    val addCheerInfo : LiveData<UiState<List<String>>>
+        get() = _addCheerInfo
 
-    fun addCheerInfo(destinationUid: String, nickname: String, text: String) = viewModelScope.launch {
+    fun addCheerInfo(destinationUid: String, text: String) = viewModelScope.launch {
         _addCheerInfo.value = UiState.Loading
-        forthRepository.addCheerInfo(destinationUid, nickname, text) { _addCheerInfo.postValue(it) }
+        forthRepository.addCheerInfo(destinationUid, text) { _addCheerInfo.postValue(it) }
     }
 
     // 응원 메시지 삭제

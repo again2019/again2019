@@ -18,7 +18,7 @@ interface ForthRepositoryIF {
     // 응원 댓글 받아오는 코드
     fun getCheerInfo(destinationUid :String, result: (UiState<List<String>>) -> Unit)
     // 응원 댓글 입력
-    fun addCheerInfo(destinationUid: String, nickname: String, text:String, result: (UiState<String>) -> Unit)
+    fun addCheerInfo(destinationUid: String, text:String, result: (UiState<List<String>>) -> Unit)
     // 응원 댓글 삭제
     fun deleteCheerInfo(destinationUid: String, text:String, result: (UiState<String>) -> Unit)
 

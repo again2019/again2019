@@ -1,8 +1,12 @@
 package com.goingbacking.goingbacking.Repository.Forth
 
 import android.util.Log
+import com.goingbacking.goingbacking.FCM.FirebaseTokenManager
+import com.goingbacking.goingbacking.FCM.NotificationData
+import com.goingbacking.goingbacking.FCM.PushNotification
 import com.goingbacking.goingbacking.Model.*
 import com.goingbacking.goingbacking.util.Constants.Companion.FAIL
+import com.goingbacking.goingbacking.util.Constants.Companion.USERINFO
 import com.goingbacking.goingbacking.util.FBConstants.Companion.RANKMONTHINFO
 import com.goingbacking.goingbacking.util.FBConstants.Companion.RANKYEARINFO
 import com.goingbacking.goingbacking.util.PrefUtil
@@ -11,6 +15,7 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
+import com.google.firebase.firestore.Source
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -25,7 +30,7 @@ class ForthRepository (
         ) : ForthRepositoryIF {
 
     val myUid = user?.uid!!
-
+    val cache = Source.CACHE
     companion object {
         private const val COUNT = "count"
     }
@@ -128,7 +133,7 @@ class ForthRepository (
 
     }
 
-    override fun addCheerInfo(destinationUid: String, nickname: String, text: String, result: (UiState<String>) -> Unit) {
+    override fun addCheerInfo(destinationUid: String, text: String, result: (UiState<List<String>>) -> Unit) {
         var current = LocalDateTime.now()
         current = current.minusDays(10)
         val simpleDate = DateTimeFormatter.ofPattern("yyyy")
@@ -137,12 +142,50 @@ class ForthRepository (
         val tsDoc = firebaseFirestore.collection(RANKYEARINFO).document(curYear)
             .collection(curYear).document(destinationUid)
 
-        val cheer = PrefUtil.firebaseUid() + ":" + nickname + ":" + text
         CoroutineScope(Dispatchers.IO).launch {
+            val destinationInfo = firebaseFirestore.collection(USERINFO).document(destinationUid).get().await().toObject(UserInfoDTO::class.java)
+            Log.d("experiment", destinationInfo.toString())
+
+            val userInfo = firebaseFirestore.collection(USERINFO).document(myUid).get(cache).await().toObject(UserInfoDTO::class.java)
+            Log.d("experiment", userInfo.toString())
+
+            val cheer = myUid + ":" + userInfo!!.userNickName + ":" + text
+//
+//            Log.d("experiment", cheer.toString())
             tsDoc.update("cheers", FieldValue.arrayUnion(cheer)).await()
+            Log.d("experiment", "ss")
+
+            PushNotification(
+                NotificationData("title", text),
+                destinationInfo!!.token!!
+            ).also {
+                FirebaseTokenManager.sendNotification(it)
+            }
+            firebaseFirestore.collection(RANKYEARINFO).document(curYear)
+                .collection(curYear).document(destinationUid).get()
+                .addOnSuccessListener { document ->
+                    if (document != null) {
+                        Log.d("experiment", document.toObject(NewSaveTimeYearDTO::class.java)!!.cheers.toString())
+
+                        result.invoke(UiState.Success(
+                            document.toObject(NewSaveTimeYearDTO::class.java)!!.cheers
+                        ))
+                    } else {
+                        result.invoke(UiState.Failure(
+                            "fail"
+                        ))
+                    }
+                }
+                .addOnFailureListener {
+                    result.invoke(UiState.Failure(
+                        "fail"
+                    ))
+                }.await()
+
+
         }
 
-        result.invoke(UiState.Success("success"))
+
     }
 
     override fun deleteCheerInfo(
