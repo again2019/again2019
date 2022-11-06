@@ -2,6 +2,8 @@
 <resources>
     <string name="app_name"> 왔다갔다 </string>
 
+    <string name="some_id">왔다갔다... \n 시간 너무 아깝지 않나요?\n 하루를 48시간으로 사는 법!</string>
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="example_1_title">Example 1</string>
     <string name="example_1_subtitle">Multiple selection, horizontal scrolling, shows usage of \"maxRowCount\" property to switch between week and month modes. Also shows usage of OutDateStyle \"endOfRow\".</string>
@@ -46,6 +48,10 @@
     <string name="sign_up_success"> 회원 가입 성공 </string>
     <string name="sign_up_fail"> 회원 가입 실패 </string>
     <string name="auto_login_fail"> 자동 로그인 실패 </string>
+
+    <!-- forthMainFragment string -->
+    <string name="cheer_message"> 응원 메시지를 입력해주세요. </string>
+    <string name="no_information"> 정보를 받아올 수 없습니다. </string>
 
     <!-- fifthMainFragment string -->
     <string name="get_user_info_fail"> 개인 정보를 불러오는데 실패했습니다. </string>

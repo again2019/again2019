@@ -178,30 +178,30 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
 
 
     // 만약 로그인을 미리 해놨었다면 바로 mainActivity로 넘어가는 코드
-    override fun onStart() {
-        super.onStart()
-
-        if (!(PrefUtil.getCurrentUid(requireContext()) == null)) {
-            if (PrefUtil.firebaseUid().equals(PrefUtil.getCurrentUid(requireContext()))) {
-                viewModel.getCurrentSession()
-                viewModel.currentSession.observe(viewLifecycleOwner) { state ->
-                    when (state) {
-                        is UiState.Success -> {
-                            binding.progressCircular.hide()
-                            moveMainPage()
-                        }
-                        is UiState.Loading -> {
-                            binding.progressCircular.show()
-                        }
-                        is UiState.Failure -> {
-                            binding.progressCircular.hide()
-                            toast(requireContext(), getString(R.string.auto_login_fail))
-                        }
-                    }
-                }
-            }
-        }
-    }
+//    override fun onStart() {
+//        super.onStart()
+//
+//        if (!(PrefUtil.getCurrentUid(requireContext()) == null)) {
+//            if (PrefUtil.firebaseUid().equals(PrefUtil.getCurrentUid(requireContext()))) {
+//                viewModel.getCurrentSession()
+//                viewModel.currentSession.observe(viewLifecycleOwner) { state ->
+//                    when (state) {
+//                        is UiState.Success -> {
+//                            binding.progressCircular.hide()
+//                            moveMainPage()
+//                        }
+//                        is UiState.Loading -> {
+//                            binding.progressCircular.show()
+//                        }
+//                        is UiState.Failure -> {
+//                            binding.progressCircular.hide()
+//                            toast(requireContext(), getString(R.string.auto_login_fail))
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//    }
 
 
     private fun moveInputPage() {

@@ -1,5 +1,6 @@
 package com.goingbacking.goingbacking.UI.Input
 
+import android.animation.ObjectAnimator
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
@@ -31,6 +32,8 @@ class FirstInputFragment : BaseFragment<FragmentFirstInputBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.progressBar.setMinAndMaxProgress(0f, 0.35f)
+        binding.progressBar.playAnimation()
         onClick()
     }
 
