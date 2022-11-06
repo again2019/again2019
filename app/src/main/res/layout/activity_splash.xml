@@ -7,12 +7,19 @@
     tools:context=".UI.Splash.SplashActivity">
 
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@mipmap/comeback_new"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+
+<!--    <TextView-->
+<!--        android:id="@+id/some_id"-->
+<!--        android:layout_width="1021dp"-->
+<!--        android:layout_height="444dp"-->
+<!--        android:layout_alignParentLeft="true"-->
+<!--        android:layout_marginLeft="807dp"-->
+<!--        android:layout_alignParentTop="true"-->
+<!--        android:layout_marginTop="1716dp"-->
+<!--        android:text="@string/some_id"-->
+<!--        android:textAppearance="@style/some_id"-->
+<!--        android:gravity="top"-->
+<!--        />-->
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
