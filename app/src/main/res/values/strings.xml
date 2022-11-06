@@ -30,6 +30,10 @@
     <string name="clear">Clear</string>
     <string name="week_mode">Week mode</string>
 
+    <!-- firstInput Fragment -->
+    <string name="input_nickname">사용하실 <b>닉네임</b>을 입력해주세요.</string>
+
+
     <!-- all -->
     <string name="success"> 성공 </string>
     <string name="fail"> 실패 </string>

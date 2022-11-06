@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimaryDark</item>
@@ -25,7 +25,11 @@
         <item name="android:background">@android:color/transparent</item>
     </style>
 
+    <style name="NextButton" parent="TextAppearance.AppCompat.Button">
+        <item name="android:background"> @drawable/button_radius </item>
+        <item name="android:textColor"> @color/white </item>
 
+    </style>
 
 
     <style name="MyTimePickerTheme" parent="android:Widget.Material.Light.TimePicker">
@@ -43,4 +47,6 @@
         parent="Widget.Design.BottomSheet.Modal">
         <item name="android:background">@drawable/bottomsheet_shape</item>
     </style>
+
+
 </resources>
