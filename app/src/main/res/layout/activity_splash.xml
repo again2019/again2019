@@ -4,29 +4,61 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#3FC2B0"
     tools:context=".UI.Splash.SplashActivity">
 
-
-
-<!--    <TextView-->
-<!--        android:id="@+id/some_id"-->
-<!--        android:layout_width="1021dp"-->
-<!--        android:layout_height="444dp"-->
-<!--        android:layout_alignParentLeft="true"-->
-<!--        android:layout_marginLeft="807dp"-->
-<!--        android:layout_alignParentTop="true"-->
-<!--        android:layout_marginTop="1716dp"-->
-<!--        android:text="@string/some_id"-->
-<!--        android:textAppearance="@style/some_id"-->
-<!--        android:gravity="top"-->
-<!--        />-->
-
-
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/typologo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        tools:layout_editor_absoluteX="163dp"
-        tools:layout_editor_absoluteY="184dp" />
+        android:layout_marginTop="210dp"
+        android:layout_marginEnd="112dp"
+        android:fontFamily="@font/blackhansans"
+        android:text="왔다갔다"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="55dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="왔다갔다...\n시간 너무 아깝지 않나요?\n하루를 48시간으로 사는법!
+    "
+            android:textSize="17dp"
+        android:fontFamily="@font/medium"
+        android:textAlignment="textStart"
+        android:textColor="@color/white"
+        android:id="@+id/main_ment"
+        android:layout_marginTop="12dp"
+        app:layout_constraintStart_toStartOf="@+id/typologo"
+        app:layout_constraintTop_toBottomOf="@+id/typologo"
+        >
+    </TextView>
+
+    <ImageView
+        android:layout_width="174dp"
+        android:layout_height="110dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="76dp"
+        android:src="@drawable/logo_white"
+        android:id="@+id/whitelogo"
+        app:layout_constraintStart_toStartOf="@+id/main_ment"
+        app:layout_constraintTop_toBottomOf="@+id/main_ment"></ImageView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="144dp"
+        android:fontFamily="@font/medium"
+        android:text="`@again2019`"
+        android:textAlignment="textStart"
+        android:textColor="#999999"
+        android:textSize="15dp"
+        app:layout_constraintStart_toStartOf="@+id/whitelogo"
+        app:layout_constraintTop_toBottomOf="@+id/whitelogo"></TextView>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
