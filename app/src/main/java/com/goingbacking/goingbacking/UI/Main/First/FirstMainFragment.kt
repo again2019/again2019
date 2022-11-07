@@ -41,13 +41,15 @@ class FirstMainFragment : BaseFragment<FragmentFirstMainBinding>() {
         return FragmentFirstMainBinding.inflate(inflater, container, false)
     }
 
+    
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         observer()
 
-        binding.tmpTimeButton.setMinAndMaxProgress(0f, 1f)
-        binding.tmpTimeButton.playAnimation()
+
+
         binding.tmpTimeButton.setOnClickListener {
             moveTmpTimePage()
         }
@@ -97,8 +99,15 @@ class FirstMainFragment : BaseFragment<FragmentFirstMainBinding>() {
                     val tmpTimeCount = state.data.size
                     if (tmpTimeCount == 0) {
                         binding.tmpTimeStateTextView.text = "저장해야 하는 시간이 없어요"
+                        binding.tmpTimeButton.setMinAndMaxProgress(1f, 1f)
+                    } else {
+                        binding.tmpTimeStateTextView.text = "저장하지 않은 시간이 " + tmpTimeCount.toString() + "개 있어요."
+                        binding.tmpTimeButton.setMinAndMaxProgress(0f, 1f)
+                        binding.tmpTimeButton.repeatCount = 50
                     }
-                    binding.tmpTimeStateTextView.text = "저장하지 않은 시간이 " + tmpTimeCount.toString() + "개 있어요."
+                    binding.tmpTimeButton.playAnimation()
+
+
                 }
                 is UiState.Failure -> {
 

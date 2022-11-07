@@ -37,6 +37,7 @@ class FirstInputFragment : BaseFragment<FragmentFirstInputBinding>() {
         onClick()
     }
 
+
     private fun onClick() = with(binding) {
         // 다음으로 이동하는 버튼
         firstInputButton.setOnClickListener {
