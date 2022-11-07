@@ -1,21 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_height="25dp"
     android:orientation="horizontal">
+
+    <ImageView
+        android:layout_width="5dp"
+        android:layout_height="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="7.5dp"
+        android:src="@drawable/dot1" />
 
     <TextView
         android:id="@+id/todayDurationTextView"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="기간"
-        />
+        android:layout_height="20dp"
+
+        android:layout_marginLeft="10dp"
+        android:text="11:11 ~ 11:11"
+        android:fontFamily="@font/medium"/>
+
     <TextView
         android:id="@+id/todayWhatToDoTextView"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="할 일"/>
-
+        android:layout_height="20dp"
+        android:fontFamily="@font/medium"
+        android:layout_marginLeft="10dp"
+        android:text="할일할일할일할일할일할일할일할일할일" />
 
 
 </LinearLayout>

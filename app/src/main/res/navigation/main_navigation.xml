@@ -32,13 +32,6 @@
 
     </fragment>
 
-    <activity
-        android:id="@+id/scheduleInputActivity"
-        android:name="com.goingbacking.goingbacking.UI.Main.Third.ScheduleInputActivity"
-        android:label="ScheduleInputActivity"
-        tools:layout="@layout/activity_schedule_input"/>
-
-
     <!-- forth -->
     <fragment
         android:id="@+id/forthMainFragment"

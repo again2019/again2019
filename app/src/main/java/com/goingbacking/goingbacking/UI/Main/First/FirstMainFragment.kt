@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 
@@ -20,10 +21,7 @@ import com.goingbacking.goingbacking.UI.Base.BaseFragment
 import com.goingbacking.goingbacking.UI.Main.Third.ScheduleInputActivity
 import com.goingbacking.goingbacking.UI.Main.Third.TotalCalendarActivity
 import com.goingbacking.goingbacking.databinding.FragmentFirstMainBinding
-import com.goingbacking.goingbacking.util.PrefUtil
-import com.goingbacking.goingbacking.util.makeGONE
-import com.goingbacking.goingbacking.util.makeInVisible
-import com.goingbacking.goingbacking.util.makeVisible
+import com.goingbacking.goingbacking.util.*
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
 import dagger.hilt.android.AndroidEntryPoint
@@ -34,6 +32,8 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class FirstMainFragment : BaseFragment<FragmentFirstMainBinding>() {
+
+    val viewModel: FirstViewModel by viewModels()
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
@@ -44,7 +44,10 @@ class FirstMainFragment : BaseFragment<FragmentFirstMainBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        observer()
 
+        binding.tmpTimeButton.setMinAndMaxProgress(0f, 1f)
+        binding.tmpTimeButton.playAnimation()
         binding.tmpTimeButton.setOnClickListener {
             moveTmpTimePage()
         }
@@ -73,7 +76,7 @@ class FirstMainFragment : BaseFragment<FragmentFirstMainBinding>() {
 
         binding.todayTextHide.setOnClickListener {
             binding.todayTextHide.makeGONE()
-           // binding.todayText.makeVisible()
+            binding.todayText.makeVisible()
         }
 
         binding.addPlanButton.setOnClickListener {
@@ -84,6 +87,28 @@ class FirstMainFragment : BaseFragment<FragmentFirstMainBinding>() {
         }
 
 
+    }
+
+    private fun observer() {
+        viewModel.getTmpTimeInfo()
+        viewModel.tmpTimeDTOs.observe(viewLifecycleOwner) { state ->
+            when(state) {
+                is UiState.Success -> {
+                    val tmpTimeCount = state.data.size
+                    if (tmpTimeCount == 0) {
+                        binding.tmpTimeStateTextView.text = "저장해야 하는 시간이 없어요"
+                    }
+                    binding.tmpTimeStateTextView.text = "저장하지 않은 시간이 " + tmpTimeCount.toString() + "개 있어요."
+                }
+                is UiState.Failure -> {
+
+                }
+                is UiState.Loading -> {
+
+                }
+            }
+
+        }
     }
 
     private fun moveTmpTimePage() {
