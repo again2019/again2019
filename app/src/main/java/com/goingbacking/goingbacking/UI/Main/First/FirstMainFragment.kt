@@ -35,49 +35,20 @@ class FirstMainFragment : BaseFragment<FragmentFirstMainBinding>() {
         return FragmentFirstMainBinding.inflate(inflater, container, false)
     }
 
-    private var myToken : String = ""
-    companion object {
-        private const val TAG = "experiment"
-    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //
-        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
-            if (!task.isSuccessful) {
-                Log.w(TAG, "Fetching FCM registration token failed", task.exception)
-                return@OnCompleteListener
-            }
-            // Get new FCM registration token
-            myToken = task.result
-
-            Log.d(TAG +"토큰:", myToken)  ///나의 토큰을 알수있는 Firebase 메서드
-        })
-
-        binding.tmp.setOnClickListener {
-            PushNotification(
-                NotificationData("title", "message"),
-                myToken
-            ).also {
-                sendNotification(it)
-            }
-
-//            val intent = Intent(context, AlarmService::class.java)
-//            intent.putExtra("wakeUpTime", System.currentTimeMillis().plus(50000000))
-//            val milliseconds: Long = 8000000
-//            intent.putExtra("duration", milliseconds)
-//            intent.action = "START_FOREGROUND"
-//            requireActivity().startService(intent)
-
-        }
-        ////
 
         binding.tmpTimeButton.setOnClickListener {
             moveTmpTimePage()
         }
 
-        binding.todayTime.text = PrefUtil.getTodayTotalTime(requireContext()).toString()
 
+        binding.todayTime.text = PrefUtil.getTodayTotalTime(requireContext()).toString()
+        val todayTime = PrefUtil.getTodayTotalTime(requireContext())
+
+        binding.todayHour.text = (todayTime / 60).toString()
+        binding.todayMinute.text = (todayTime % 60).toString()
         val todayWhatToDo = PrefUtil.getTodayWhatToDo(requireActivity()).toString()
         val todayWhatToDoTime = PrefUtil.getTodayWhatToDoTime(requireActivity()).toString()
 
@@ -89,7 +60,7 @@ class FirstMainFragment : BaseFragment<FragmentFirstMainBinding>() {
             binding.todayRecyclerView.layoutManager = LinearLayoutManager(requireContext())
             binding.todayRecyclerView.adapter = adapter
         } else {
-            binding.todayRecyclerView.makeGONE()
+            binding.todayScrollView.makeGONE()
        }
     }
 
@@ -98,19 +69,6 @@ class FirstMainFragment : BaseFragment<FragmentFirstMainBinding>() {
         startActivity(intent)
     }
 
-
-    private fun sendNotification(notification: PushNotification) = CoroutineScope(Dispatchers.IO).launch {
-        try {
-            val response = RetrofitInstance.api.postNotification(notification)
-            if(response.isSuccessful) {
-
-            } else {
-                Log.e(TAG, response.errorBody().toString())
-            }
-        } catch(e: Exception) {
-            Log.e(TAG, e.toString())
-        }
-    }
 
 }
 

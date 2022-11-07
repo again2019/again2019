@@ -10,8 +10,11 @@
         android:id="@+id/progress_bar"
         android:layout_width="match_parent"
         android:layout_height="80dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:lottie_autoPlay="false"
-        app:lottie_rawRes="@raw/progress_bar" />
+        app:lottie_rawRes="@raw/progress_bar"
+        tools:layout_editor_absoluteY="53dp" />
 
     <TextView
         android:id="@+id/textView"
