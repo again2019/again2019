@@ -90,6 +90,7 @@
         android:fontFamily="@font/medium"
         android:hint="이메일을 입력해주세요."
         android:paddingBottom="17dp"
+        android:layout_marginLeft="-3dp"
         android:textColorHint="#B4BCC4"
         android:textSize="20dp"
         app:layout_constraintStart_toStartOf="@+id/text5"

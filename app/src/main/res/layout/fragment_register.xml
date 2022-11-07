@@ -102,6 +102,7 @@
         android:fontFamily="@font/medium"
         android:hint="이메일을 입력해주세요."
         android:paddingBottom="17dp"
+        android:layout_marginLeft="-3dp"
         android:textColorHint="#B4BCC4"
         android:textSize="20dp"
         app:layout_constraintStart_toStartOf="@+id/text5"
@@ -134,12 +135,13 @@
         android:textColorHint="#B4BCC4"
         android:backgroundTint="#B4BCC4"
         android:inputType="textPassword" />
+
     <android.widget.Button
         android:id="@+id/signupbtn"
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="360dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="28dp"
         android:layout_marginBottom="68dp"
         android:background="@drawable/btn_line"
         android:backgroundTint="#3FC2B0"
