@@ -8,12 +8,12 @@
     android:orientation="vertical"
     >
 
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/progress_bar"
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        app:lottie_autoPlay="false"
-        app:lottie_rawRes="@raw/progress_bar" />
+<!--    <com.airbnb.lottie.LottieAnimationView-->
+<!--        android:id="@+id/progress_bar"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="80dp"-->
+<!--        app:lottie_autoPlay="false"-->
+<!--        app:lottie_rawRes="@raw/progress_bar" />-->
 
     <EditText
         android:id="@+id/nickNameEdittext"
