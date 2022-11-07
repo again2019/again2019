@@ -41,7 +41,7 @@ class FirstMainFragment : BaseFragment<FragmentFirstMainBinding>() {
         return FragmentFirstMainBinding.inflate(inflater, container, false)
     }
 
-    
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

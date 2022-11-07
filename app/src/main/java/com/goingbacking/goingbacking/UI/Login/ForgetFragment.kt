@@ -33,7 +33,7 @@ class ForgetFragment : BaseFragment<FragmentForgetBinding>() {
         observer()
         binding.forgotPassBtn.setOnClickListener {
             if(validation()) {
-                findNavController().navigate(R.id.action_forgotFragment_to_loginFragment)
+                //findNavController().navigate(R.id.action_forgotFragment_to_loginFragment)
             }
         }
     }

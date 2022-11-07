@@ -44,6 +44,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
         onClick()
 
     }
@@ -54,14 +55,12 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
             findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
         }
         emailLoginButton.setOnClickListener {
-            emailLogin()
+            findNavController().navigate(R.id.action_loginFragment_to_emailLoginFragment)
+
         }
-        loginButton.setOnClickListener {
+        googleloginbtn.setOnClickListener {
             googleLoginObserver()
             toast(requireContext(), FirebaseAuth.getInstance().currentUser?.uid.toString())
-        }
-        passwordButton.setOnClickListener {
-            findNavController().navigate(R.id.action_loginFragment_to_forgetFrgament)
         }
     }
 
@@ -121,87 +120,87 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
     }
 
     // email 로그인 코드
-    private fun emailLogin() = with(binding) {
-        if (validation()) {
-            viewModel.emailLogin(emailEdittext.text.toString(), passwordEdittext.text.toString())
-            emailLoginObserver()
-
-        }
-    }
-
-    private fun emailLoginObserver() {
-        viewModel.emailLogin.observe(viewLifecycleOwner) { state ->
-            when (state) {
-                is UiState.Success -> {
-                    binding.progressCircular.hide()
-                    toast(requireActivity(), getString(R.string.login_success))
-                    moveInputPage()
-                }
-                is UiState.Loading -> {
-                    binding.progressCircular.isIndeterminate = true
-                    binding.progressCircular.show()
-                }
-                is UiState.Failure -> {
-                    binding.progressCircular.hide()
-                    toast(requireActivity(), getString(R.string.login_fail))
-                }
-            }
-        }
-    }
-
-    // email 로그인 코드
-    // 유효한지를 판단하는 기준
-    private fun validation(): Boolean = with(binding) {
-            var isValid = true
-
-            if (emailEdittext.text.isNullOrEmpty()){
-                isValid = false
-                toast(requireActivity(), getString(R.string.email_again))
-            }else{
-                if (!emailEdittext.text.toString().isValidEmail()){
-                    isValid = false
-                    toast(requireActivity(), getString(R.string.email_invalid))
-                }
-            }
-            if (passwordEdittext.text.isNullOrEmpty()){
-                isValid = false
-                toast(requireActivity(), getString(R.string.password_again))
-
-            }else{
-                if (passwordEdittext.text.toString().length < 8){
-                    isValid = false
-                    toast(requireActivity(), getString(R.string.password_again))
-                }
-            }
-            return isValid
-        }
-
-
-    // 만약 로그인을 미리 해놨었다면 바로 mainActivity로 넘어가는 코드
-    override fun onStart() {
-        super.onStart()
-
-        if (!(PrefUtil.getCurrentUid(requireContext()) == null)) {
-            if (PrefUtil.firebaseUid().equals(PrefUtil.getCurrentUid(requireContext()))) {
-                viewModel.getCurrentSession()
-                viewModel.currentSession.observe(viewLifecycleOwner) { state ->
-                    when (state) {
-                        is UiState.Success -> {
-                            binding.progressCircular.hide()
-                            moveMainPage()
-                        }
-                        is UiState.Loading -> {
-                            binding.progressCircular.show()
-                        }
-                        is UiState.Failure -> {
-                            binding.progressCircular.hide()
-                            toast(requireContext(), getString(R.string.auto_login_fail))
-                        }
-                    }
-                }
-            }
-        }
-    }
+//    private fun emailLogin() = with(binding) {
+//        if (validation()) {
+//            viewModel.emailLogin(emailEdittext.text.toString(), passwordEdittext.text.toString())
+//            emailLoginObserver()
+//
+//        }
+//    }
+//
+//    private fun emailLoginObserver() {
+//        viewModel.emailLogin.observe(viewLifecycleOwner) { state ->
+//            when (state) {
+//                is UiState.Success -> {
+//                    binding.progressCircular.hide()
+//                    toast(requireActivity(), getString(R.string.login_success))
+//                    moveInputPage()
+//                }
+//                is UiState.Loading -> {
+//                    binding.progressCircular.isIndeterminate = true
+//                    binding.progressCircular.show()
+//                }
+//                is UiState.Failure -> {
+//                    binding.progressCircular.hide()
+//                    toast(requireActivity(), getString(R.string.login_fail))
+//                }
+//            }
+//        }
+//    }
+//
+//    // email 로그인 코드
+//    // 유효한지를 판단하는 기준
+//    private fun validation(): Boolean = with(binding) {
+//            var isValid = true
+//
+//            if (emailEdittext.text.isNullOrEmpty()){
+//                isValid = false
+//                toast(requireActivity(), getString(R.string.email_again))
+//            }else{
+//                if (!emailEdittext.text.toString().isValidEmail()){
+//                    isValid = false
+//                    toast(requireActivity(), getString(R.string.email_invalid))
+//                }
+//            }
+//            if (passwordEdittext.text.isNullOrEmpty()){
+//                isValid = false
+//                toast(requireActivity(), getString(R.string.password_again))
+//
+//            }else{
+//                if (passwordEdittext.text.toString().length < 8){
+//                    isValid = false
+//                    toast(requireActivity(), getString(R.string.password_again))
+//                }
+//            }
+//            return isValid
+//        }
+//
+//
+//    // 만약 로그인을 미리 해놨었다면 바로 mainActivity로 넘어가는 코드
+//    override fun onStart() {
+//        super.onStart()
+//
+//        if (!(PrefUtil.getCurrentUid(requireContext()) == null)) {
+//            if (PrefUtil.firebaseUid().equals(PrefUtil.getCurrentUid(requireContext()))) {
+//                viewModel.getCurrentSession()
+//                viewModel.currentSession.observe(viewLifecycleOwner) { state ->
+//                    when (state) {
+//                        is UiState.Success -> {
+//                            binding.progressCircular.hide()
+//                            moveMainPage()
+//                        }
+//                        is UiState.Loading -> {
+//                            binding.progressCircular.show()
+//                        }
+//                        is UiState.Failure -> {
+//                            binding.progressCircular.hide()
+//                            toast(requireContext(), getString(R.string.auto_login_fail))
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//    }
 
 
     private fun moveInputPage() {

@@ -1,73 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:orientation="vertical"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    >
+    android:background="#fafafa">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="136dp"
+        android:fontFamily="@font/bold"
+        android:text="왔다갔다와\n자투리 시간 관리를 시작해봐요."
+        android:textColor="#525C6C"
+        android:textSize="23dp"
+        android:id="@+id/ment1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/semibold"
+        android:text="더이상 통학/통근 시간이 아깝다는 생각이 안드실거에요!"
+        android:textColor="#BCBEC1"
+        android:textSize="16dp"
+        android:letterSpacing="-0.02"
+        android:id="@+id/ment2"
+        app:layout_constraintStart_toStartOf="@+id/ment1"
+        app:layout_constraintTop_toBottomOf="@+id/ment1" />
 
 
+    <Button
+        android:id="@+id/googleloginbtn"
+        android:layout_width="370dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/btn_line"
+        android:drawableStart="@drawable/googlelogo"
+        android:fontFamily="@font/bold"
+        android:padding="19dp"
+        android:text="구글 로그인으로 빠르게 시작하기"
+        android:textColor="@color/black"
+        android:textSize="17dp"
+        app:layout_constraintBottom_toTopOf="@id/emailLoginButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <LinearLayout android:id="@+id/signin_layout"
+
+    <Button
+        android:id="@+id/emailLoginButton"
+        android:layout_width="370dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/btn_line"
+        android:fontFamily="@font/bold"
+        android:padding="19dp"
+        android:text="이메일로 로그인"
+        android:textColor="#555555"
+        android:textSize="17dp"
+        app:layout_constraintBottom_toTopOf="@+id/ment3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/googleloginbtn" />
+
+    <TextView
+        android:id="@+id/ment3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:orientation="vertical">
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp">
-            <EditText android:id="@+id/email_edittext"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="이메일"/>
-        </com.google.android.material.textfield.TextInputLayout>
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp">
-            <EditText android:inputType="textPassword"
-                android:id="@+id/password_edittext"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="password"/>
-        </com.google.android.material.textfield.TextInputLayout>
-    </LinearLayout>
-    <Button android:id="@+id/email_login_button"
-        android:text="로그인 및 회원가입"
+        android:fontFamily="@font/bold"
+        android:letterSpacing="-0.02"
+        android:text="아직 회원이 아니신가요?"
+        android:textAlignment="center"
+        android:textColor="#999999"
+        app:layout_constraintBottom_toTopOf="@+id/registerButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
 
+    <TextView
+        android:id="@+id/registerButton"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="35dp"/>
-    
-    <com.google.android.gms.common.SignInButton
-        android:id="@+id/login_button"
-        android:layout_width="127dp"
-        android:layout_height="wrap_content" />
-
-    <Button
-        android:id="@+id/register_button"
-        android:text="등록"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
-    <Button
-        android:id="@+id/password_button"
-        android:text="비밀번호 찾기"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
-    <Button
-        android:id="@+id/sss"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:fontFamily="@font/bold"
+        android:letterSpacing="-0.02"
+        android:text="@string/signup"
+        android:textAlignment="center"
+        android:textColor="#999999"
+        android:textSize="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.progressindicator.CircularProgressIndicator
         android:id="@+id/progress_circular"
@@ -77,5 +103,81 @@
         android:indeterminate="true"
         android:visibility="invisible" />
 
+</androidx.constraintlayout.widget.ConstraintLayout>
 
-</LinearLayout>
+
+    <!--<?xml version="1.0" encoding="utf-8"?>-->
+    <!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
+    <!--    xmlns:tools="http://schemas.android.com/tools"-->
+    <!--    android:layout_width="match_parent"-->
+    <!--    android:orientation="vertical"-->
+    <!--    android:layout_height="match_parent"-->
+    <!--    android:background="@color/white"-->
+    <!--    >-->
+
+
+
+    <!--    <LinearLayout android:id="@+id/signin_layout"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_alignParentBottom="true"-->
+    <!--        android:orientation="vertical">-->
+    <!--        <com.google.android.material.textfield.TextInputLayout-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_marginLeft="20dp"-->
+    <!--            android:layout_marginRight="20dp">-->
+    <!--            <EditText android:id="@+id/email_edittext"-->
+    <!--                android:layout_width="match_parent"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                android:hint="이메일"/>-->
+    <!--        </com.google.android.material.textfield.TextInputLayout>-->
+    <!--        <com.google.android.material.textfield.TextInputLayout-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_marginLeft="20dp"-->
+    <!--            android:layout_marginRight="20dp">-->
+    <!--            <EditText android:inputType="textPassword"-->
+    <!--                android:id="@+id/password_edittext"-->
+    <!--                android:layout_width="match_parent"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                android:hint="password"/>-->
+    <!--        </com.google.android.material.textfield.TextInputLayout>-->
+    <!--    </LinearLayout>-->
+    <!--    <Button android:id="@+id/email_login_button"-->
+    <!--        android:text="로그인 및 회원가입"-->
+
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="40dp"-->
+    <!--        android:layout_marginTop="15dp"-->
+    <!--        android:layout_marginLeft="20dp"-->
+    <!--        android:layout_marginRight="20dp"-->
+    <!--        android:layout_marginBottom="35dp"/>-->
+    <!--    -->
+    <!--    <com.google.android.gms.common.SignInButton-->
+    <!--        android:id="@+id/login_button"-->
+    <!--        android:layout_width="127dp"-->
+    <!--        android:layout_height="wrap_content" />-->
+
+    <!--    <Button-->
+    <!--        android:id="@+id/register_button"-->
+    <!--        android:text="등록"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"/>-->
+
+    <!--    <Button-->
+    <!--        android:id="@+id/password_button"-->
+    <!--        android:text="비밀번호 찾기"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"/>-->
+
+    <!--    <Button-->
+    <!--        android:id="@+id/sss"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"/>-->
+
+
+
+
+    <!--</LinearLayout>-->

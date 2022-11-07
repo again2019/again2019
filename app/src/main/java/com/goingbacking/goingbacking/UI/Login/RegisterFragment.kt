@@ -38,7 +38,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
                 }
                 is UiState.Success -> {
                     toast(requireContext(), getString(R.string.sign_up_success))
-                    findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
+                    //findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
                 }
                 is UiState.Failure -> {
                     toast(requireContext(), getString(R.string.sign_up_fail))
