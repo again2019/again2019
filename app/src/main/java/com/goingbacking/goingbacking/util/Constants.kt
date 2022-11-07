@@ -15,6 +15,8 @@ class Constants {
         const val USERINFO = "UserInfo"
         const val CALENDARINFO = "CalendarInfo"
         const val DATE = "Date"
+        const val DATE2 = "date"
+
         const val TMPTIMEINFO = "TmpTimeInfo"
         const val SAVETIMEINFO = "SaveTimeInfo"
         const val WHATTODOINFO = "WhatToDoInfo"

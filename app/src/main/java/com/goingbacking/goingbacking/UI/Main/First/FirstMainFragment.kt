@@ -18,6 +18,8 @@ import com.goingbacking.goingbacking.UI.Base.BaseFragment
 import com.goingbacking.goingbacking.databinding.FragmentFirstMainBinding
 import com.goingbacking.goingbacking.util.PrefUtil
 import com.goingbacking.goingbacking.util.makeGONE
+import com.goingbacking.goingbacking.util.makeInVisible
+import com.goingbacking.goingbacking.util.makeVisible
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
 import dagger.hilt.android.AndroidEntryPoint
@@ -62,6 +64,16 @@ class FirstMainFragment : BaseFragment<FragmentFirstMainBinding>() {
         } else {
             binding.todayScrollView.makeGONE()
        }
+
+        //binding.todayText.makeInVisible()
+        binding.todayTextHide.makeVisible()
+
+        binding.todayTextHide.setOnClickListener {
+            binding.todayTextHide.makeGONE()
+           // binding.todayText.makeVisible()
+        }
+
+
     }
 
     private fun moveTmpTimePage() {
