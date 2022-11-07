@@ -13,13 +13,6 @@
         tools:layout="@layout/fragment_first_main">
     </fragment>
 
-    <activity
-        android:id="@+id/tmpTimeActivity"
-        android:name="com.goingbacking.goingbacking.UI.Main.First.TmpTimeActivity"
-        android:label="TmpTimeActivity"
-        tools:layout="@layout/activity_tmp_time"/>
-
-
     <!-- second -->
     <fragment
         android:id="@+id/secondMainFragment"
@@ -35,6 +28,7 @@
         android:name="com.goingbacking.goingbacking.UI.Main.ThirdMainFragment"
         android:label="ThirdMainFragment"
         tools:layout="@layout/fragment_third_main">
+
 
     </fragment>
 

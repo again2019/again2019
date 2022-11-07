@@ -8,13 +8,17 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.goingbacking.goingbacking.Adapter.TodayRecyclerViewAdapter
 import com.goingbacking.goingbacking.FCM.NotificationData
 import com.goingbacking.goingbacking.FCM.PushNotification
 import com.goingbacking.goingbacking.FCM.RetrofitInstance
+import com.goingbacking.goingbacking.R
 import com.goingbacking.goingbacking.UI.Base.BaseFragment
+import com.goingbacking.goingbacking.UI.Main.Third.ScheduleInputActivity
+import com.goingbacking.goingbacking.UI.Main.Third.TotalCalendarActivity
 import com.goingbacking.goingbacking.databinding.FragmentFirstMainBinding
 import com.goingbacking.goingbacking.util.PrefUtil
 import com.goingbacking.goingbacking.util.makeGONE
@@ -46,7 +50,6 @@ class FirstMainFragment : BaseFragment<FragmentFirstMainBinding>() {
         }
 
 
-        binding.todayTime.text = PrefUtil.getTodayTotalTime(requireContext()).toString()
         val todayTime = PrefUtil.getTodayTotalTime(requireContext())
 
         binding.todayHour.text = (todayTime / 60).toString()
@@ -73,11 +76,28 @@ class FirstMainFragment : BaseFragment<FragmentFirstMainBinding>() {
            // binding.todayText.makeVisible()
         }
 
+        binding.addPlanButton.setOnClickListener {
+            moveAddPlanPage()
+        }
+        binding.goThirdButton.setOnClickListener {
+            moveTotalCalendarPage()
+        }
+
 
     }
 
     private fun moveTmpTimePage() {
         val intent = Intent(requireActivity(), TmpTimeActivity::class.java)
+        startActivity(intent)
+    }
+
+    private fun moveAddPlanPage() {
+        val intent = Intent(requireActivity(), ScheduleInputActivity::class.java)
+        startActivity(intent)
+    }
+
+    private fun moveTotalCalendarPage() {
+        val intent = Intent(requireActivity(), TotalCalendarActivity::class.java)
         startActivity(intent)
     }
 
