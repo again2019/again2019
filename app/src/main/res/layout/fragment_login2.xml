@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fafafa"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+<!--<ImageView-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="match_parent"-->
+<!--    android:src="@drawable/login_secondpage"-->
+<!--    ></ImageView>-->
+
+    <TextView
+        android:id="@+id/text1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="33dp"
+        android:layout_marginTop="116dp"
+        android:fontFamily="@font/bold"
+        android:text="이메일"
+        android:textColor="#525C6C"
+        android:letterSpacing="0.02"
+        android:textSize="22dp"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"></TextView>
+
+    <TextView
+        android:id="@+id/text2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/medium"
+        android:text="과"
+        android:textSize="22dp"
+        android:textColor="#525C6C"
+        android:letterSpacing="0.02"
+        app:layout_constraintLeft_toRightOf="@+id/text1"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="116dp"
+        ></TextView>
+
+    <TextView
+        android:id="@+id/text3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="116dp"
+        android:fontFamily="@font/bold"
+        android:letterSpacing="0.02"
+        android:text="비밀번호"
+        android:textColor="#525C6C"
+        android:textSize="22dp"
+        app:layout_constraintLeft_toRightOf="@+id/text2"
+        app:layout_constraintTop_toTopOf="parent"></TextView>
+
+    <TextView
+        android:id="@+id/text4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="116dp"
+        android:fontFamily="@font/medium"
+        android:text="를"
+        android:letterSpacing="0.02"
+        android:textColor="#525C6C"
+        android:textSize="22dp"
+        app:layout_constraintLeft_toRightOf="@+id/text3"
+        app:layout_constraintTop_toTopOf="parent"></TextView>
+
+    <TextView
+        android:id="@+id/text5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="입력해주세요!"
+        android:textSize="22dp"
+        android:textColor="#525C6C"
+        android:fontFamily="@font/medium"
+        android:layout_marginTop="4dp"
+        android:letterSpacing="0.02"
+        app:layout_constraintTop_toBottomOf="@+id/text1"
+        app:layout_constraintStart_toStartOf="@+id/text1"
+        ></TextView>
+
+
+    <EditText
+        android:id="@+id/email_edittext"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:backgroundTint="#B4BCC4"
+        android:fontFamily="@font/medium"
+        android:hint="이메일을 입력해주세요."
+        android:paddingBottom="17dp"
+        android:layout_marginLeft="-3dp"
+        android:textColorHint="#B4BCC4"
+        android:textSize="20dp"
+        app:layout_constraintStart_toStartOf="@+id/text5"
+        app:layout_constraintTop_toBottomOf="@+id/text5" />
+
+    <EditText
+            android:id="@+id/password_edittext"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/medium"
+            android:textSize="20dp"
+            app:layout_constraintTop_toBottomOf="@+id/email_edittext"
+            app:layout_constraintStart_toStartOf="@+id/email_edittext"
+            android:layout_marginTop="5dp"
+            android:hint="비밀번호를 입력해주세요."
+             android:paddingBottom="17dp"
+            android:textColorHint="#B4BCC4"
+            android:backgroundTint="#B4BCC4"
+            android:inputType="textPassword" />
+
+    <android.widget.Button
+        android:id="@+id/loginbtn"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="360dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginBottom="68dp"
+        android:background="@drawable/btn_line"
+        android:backgroundTint="#3FC2B0"
+        android:fontFamily="@font/bold"
+        android:padding="19dp"
+        android:text="로그인"
+        android:textColor="@color/white"
+        android:textSize="17dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+    <android.widget.Button
+        android:id="@+id/forgetbtn"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="360dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginBottom="68dp"
+        android:fontFamily="@font/medium"
+        android:padding="19dp"
+        android:text="비밀번호를 잊어버렸다면? >"
+        android:textColor="@color/black"
+        android:textSize="16dp"
+        app:layout_constraintTop_toBottomOf="@id/loginbtn"
+        app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
