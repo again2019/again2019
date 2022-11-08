@@ -30,27 +30,30 @@ class ForgetFragment : BaseFragment<FragmentForgetBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        observer()
+
         binding.forgotPassBtn.setOnClickListener {
             if(validation()) {
-                //findNavController().navigate(R.id.action_forgotFragment_to_loginFragment)
+                observer()
             }
         }
     }
 
     private fun observer()  {
+        viewModel.emailForgetPassword(binding.emailEdittext.text.toString())
         viewModel.forgotPassword.observe(viewLifecycleOwner) {
             state ->
             when(state) {
                 is UiState.Loading -> {
-
+                    binding.progressCircular.show()
                 }
                 is UiState.Failure -> {
+                    binding.progressCircular.hide()
                     toast(requireContext(), getString(R.string.email_link_send_fail))
                 }
                 is UiState.Success -> {
+                    binding.progressCircular.hide()
                     toast(requireContext(), getString(R.string.email_link_send_success))
-                    viewModel.emailForgetPassword(binding.emailEt.text.toString())
+                    findNavController().navigate(R.id.action_forgotFragment_to_emailLoginFragment)
                 }
             }
         }
@@ -59,12 +62,12 @@ class ForgetFragment : BaseFragment<FragmentForgetBinding>() {
     fun validation(): Boolean = with(binding) {
         var isValid = true
 
-        if (emailEt.text.isNullOrEmpty()){
+        if (emailEdittext.text.isNullOrEmpty()){
             isValid = false
             toast(requireContext(), getString(R.string.email_again))
 
         } else{
-            if (!emailEt.text.toString().isValidEmail()){
+            if (!emailEdittext.text.toString().isValidEmail()){
                 isValid = false
                 toast(requireContext(), getString(R.string.email_again))
             }

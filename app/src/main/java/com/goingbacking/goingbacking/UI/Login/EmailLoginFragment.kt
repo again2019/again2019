@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.goingbacking.goingbacking.R
 import com.goingbacking.goingbacking.UI.Base.BaseFragment
 import com.goingbacking.goingbacking.UI.Input.InputActivity
@@ -38,6 +39,9 @@ class EmailLoginFragment : BaseFragment<FragmentEmailLoginBinding>() {
     private fun onClick() = with(binding) {
         loginButton.setOnClickListener {
             emailLogin()
+        }
+        forgotButton.setOnClickListener {
+            findNavController().navigate(R.id.action_emailLoginFragment_to_forgotFragment)
         }
     }
 
