@@ -4,11 +4,15 @@
     android:layout_height="match_parent"
     android:background="#fafafa"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <!--<ImageView-->
-    <!--    android:layout_width="match_parent"-->
-    <!--    android:layout_height="match_parent"-->
-    <!--    android:src="@drawable/login_secondpage"-->
-    <!--    ></ImageView>-->
+
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/progress_circular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:indicatorColor="@color/example_3_blue"
+        android:indeterminate="true"
+        android:visibility="invisible" />
+
 
     <TextView
         android:id="@+id/text1"
@@ -82,7 +86,7 @@
 
 
     <EditText
-        android:id="@+id/email_edittext"
+        android:id="@+id/emailEdittext"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
@@ -97,13 +101,13 @@
         app:layout_constraintTop_toBottomOf="@+id/text5" />
 
     <EditText
-        android:id="@+id/password_edittext"
+        android:id="@+id/passwordEdittext"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:fontFamily="@font/medium"
         android:textSize="20dp"
-        app:layout_constraintTop_toBottomOf="@+id/email_edittext"
-        app:layout_constraintStart_toStartOf="@+id/email_edittext"
+        app:layout_constraintTop_toBottomOf="@+id/emailEdittext"
+        app:layout_constraintStart_toStartOf="@+id/emailEdittext"
         android:layout_marginTop="5dp"
         android:hint="비밀번호를 입력해주세요."
         android:paddingBottom="17dp"
@@ -111,8 +115,8 @@
         android:backgroundTint="#B4BCC4"
         android:inputType="textPassword" />
 
-    <android.widget.Button
-        android:id="@+id/loginbtn"
+    <Button
+        android:id="@+id/loginButton"
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="360dp"
         android:layout_height="wrap_content"
@@ -127,8 +131,8 @@
         android:textSize="17dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-    <android.widget.Button
-        android:id="@+id/forgetbtn"
+    <TextView
+        android:id="@+id/forgotButton"
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="360dp"
         android:layout_height="wrap_content"
@@ -139,6 +143,6 @@
         android:text="비밀번호를 잊어버렸다면? >"
         android:textColor="@color/black"
         android:textSize="16dp"
-        app:layout_constraintTop_toBottomOf="@id/loginbtn"
+        app:layout_constraintTop_toBottomOf="@id/loginButton"
         app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

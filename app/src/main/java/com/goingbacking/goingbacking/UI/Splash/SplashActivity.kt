@@ -24,7 +24,7 @@ class SplashActivity : AppCompatActivity() {
             val intent = Intent(applicationContext, LoginActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
             startActivity(intent)
-
+            finish()
 
 
         }
