@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#fafafa"
@@ -13,62 +14,78 @@
         android:indeterminate="true"
         android:visibility="invisible" />
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ToolbarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="로그인"
+            android:layout_gravity="center"
+            android:id="@+id/toolbar_title"
+            android:textSize="20sp"
+            />
+
+
+    </androidx.appcompat.widget.Toolbar>
 
     <TextView
         android:id="@+id/text1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="33dp"
-        android:layout_marginTop="116dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="80dp"
         android:fontFamily="@font/bold"
+        android:letterSpacing="0.02"
         android:text="이메일"
         android:textColor="#525C6C"
-        android:letterSpacing="0.02"
-        android:textSize="22dp"
 
+        android:textSize="22dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"></TextView>
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"></TextView>
 
     <TextView
         android:id="@+id/text2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/medium"
-        android:text="과"
-        android:textSize="22dp"
-        android:textColor="#525C6C"
         android:letterSpacing="0.02"
+        android:text="과"
+        android:textColor="#525C6C"
+        android:textSize="22dp"
         app:layout_constraintLeft_toRightOf="@+id/text1"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="116dp"
-        ></TextView>
+        app:layout_constraintTop_toTopOf="@+id/text1"></TextView>
 
     <TextView
         android:id="@+id/text3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
-        android:layout_marginTop="116dp"
         android:fontFamily="@font/bold"
         android:letterSpacing="0.02"
         android:text="비밀번호"
         android:textColor="#525C6C"
         android:textSize="22dp"
         app:layout_constraintLeft_toRightOf="@+id/text2"
-        app:layout_constraintTop_toTopOf="parent"></TextView>
+        app:layout_constraintTop_toTopOf="@+id/text1"></TextView>
 
     <TextView
         android:id="@+id/text4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="116dp"
         android:fontFamily="@font/medium"
-        android:text="를"
         android:letterSpacing="0.02"
+        android:text="를"
         android:textColor="#525C6C"
         android:textSize="22dp"
         app:layout_constraintLeft_toRightOf="@+id/text3"
-        app:layout_constraintTop_toTopOf="parent"></TextView>
+        app:layout_constraintTop_toTopOf="@+id/text1"></TextView>
 
     <TextView
         android:id="@+id/text5"
