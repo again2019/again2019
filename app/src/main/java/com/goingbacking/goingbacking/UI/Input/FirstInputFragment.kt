@@ -32,7 +32,7 @@ class FirstInputFragment : BaseFragment<FragmentFirstInputBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.progressBar.setMinAndMaxProgress(0f, 0.35f)
+        binding.progressBar.setMinAndMaxProgress(0f, 0f)
         binding.progressBar.playAnimation()
         onClick()
     }

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#fafafa"
@@ -29,27 +30,30 @@
         android:id="@+id/progress_bar"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        app:lottie_autoPlay="false"
-        android:scaleType="fitXY"
+        android:layout_marginTop="40dp"
 
-        app:lottie_rawRes="@raw/progress_bar"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="20dp" />
+        android:scaleType="fitXY"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:lottie_autoPlay="false"
+        app:lottie_fileName="progress_bar.json" />
 
     <TextView
         android:id="@+id/text1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="144dp"
+        android:layout_marginStart="31dp"
+        android:layout_marginTop="8dp"
         android:fontFamily="@font/bold"
         android:letterSpacing="0.02"
+
         android:text="만나서 반가워요!"
         android:textColor="#525C6C"
         android:textSize="22dp"
-
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@+id/progress_bar" />
 
     <TextView
         android:id="@+id/text2"
@@ -102,20 +106,21 @@
         app:layout_constraintLeft_toRightOf="@+id/text3"
         ></TextView>
 
+
     <EditText
         android:id="@+id/nickNameEdittext"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="12dp"
         android:backgroundTint="#B4BCC4"
         android:fontFamily="@font/medium"
         android:hint="닉네임을 입력해주세요."
         android:paddingBottom="17dp"
         android:textColorHint="#B4BCC4"
         android:textSize="20dp"
-        app:layout_constraintStart_toStartOf="@+id/text2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text2" />
-
 
     <android.widget.Button
         android:id="@+id/firstInputButton"
@@ -133,6 +138,18 @@
         android:textSize="17dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="116dp"
+        android:layout_marginEnd="4dp"
+        android:fontFamily="@font/light"
+        android:text="3단계 남았어요!"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toEndOf="@+id/nickNameEdittext"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

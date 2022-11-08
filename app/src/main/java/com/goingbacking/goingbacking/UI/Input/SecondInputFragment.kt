@@ -27,6 +27,10 @@ class SecondInputFragment : BaseFragment<FragmentSecondInputBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.progressBar.setMinAndMaxProgress(0f, 0.35f)
+        binding.progressBar.playAnimation()
+        onClick()
+
         setArrayAdapter()
         onClick()
     }
