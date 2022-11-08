@@ -46,7 +46,8 @@
             style="@style/Colors_Widget.MaterialComponents.Chip.Choice"
             android:layout_width="150dp"
             android:layout_height="70dp"
-
+            android:checked="true"
+            android:clickable="false"
             android:text="독서"
             android:textAppearance="@style/AppTheme.GenderChip"
             android:theme="@style/Theme.MaterialComponents.Light"
@@ -59,7 +60,8 @@
             style="@style/Colors_Widget.MaterialComponents.Chip.Choice"
             android:layout_width="150dp"
             android:layout_height="70dp"
-
+            android:checked="true"
+            android:clickable="false"
             android:text="영어 듣기"
             android:theme="@style/Theme.MaterialComponents.Light" />
 
@@ -68,7 +70,8 @@
             style="@style/Colors_Widget.MaterialComponents.Chip.Choice"
             android:layout_width="150dp"
             android:layout_height="70dp"
-
+            android:checked="true"
+            android:clickable="false"
             android:text="시사 공부"
             android:textAlignment="center"
             android:theme="@style/Theme.MaterialComponents.Light" />
