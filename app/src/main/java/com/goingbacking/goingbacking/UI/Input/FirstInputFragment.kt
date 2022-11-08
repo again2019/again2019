@@ -4,10 +4,12 @@ import android.animation.ObjectAnimator
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import com.goingbacking.goingbacking.Model.UserInfoDTO
 import com.goingbacking.goingbacking.R
@@ -32,10 +34,31 @@ class FirstInputFragment : BaseFragment<FragmentFirstInputBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.progressBar.setMinAndMaxProgress(0f, 0.35f)
+        binding.progressBar.setMinAndMaxProgress(0f, 0.05f)
         binding.progressBar.playAnimation()
+
+        val menuHost: MenuHost = requireActivity()
+
+        (activity as AppCompatActivity).setSupportActionBar(binding.toolbar)
+        (activity as AppCompatActivity).supportActionBar?.setDisplayShowTitleEnabled(false)
+        (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        menuHost.addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                when(menuItem.itemId) {
+                    android.R.id.home -> {
+                        return true
+                    }
+                }
+                return true
+            }
+        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
         onClick()
     }
+
 
     private fun onClick() = with(binding) {
         // 다음으로 이동하는 버튼
@@ -63,7 +86,9 @@ class FirstInputFragment : BaseFragment<FragmentFirstInputBinding>() {
         // 만약에 edittext가 비어있지 않다면
         else {
             viewModel.addFirstInput(nickNameEdittext.text.toString())
-            findNavController().navigate(R.id.action_firstInputFragment_to_secondInputFragment)
+            val action = FirstInputFragmentDirections.actionFirstInputFragmentToSecondInputFragment(nickNameEdittext.text.toString())
+
+            findNavController().navigate(action)
         }
     }
 

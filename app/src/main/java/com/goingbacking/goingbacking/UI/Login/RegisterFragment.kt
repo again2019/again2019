@@ -1,10 +1,12 @@
 package com.goingbacking.goingbacking.UI.Login
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import com.goingbacking.goingbacking.R
 import com.goingbacking.goingbacking.UI.Base.BaseFragment
@@ -27,6 +29,30 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        (activity as AppCompatActivity).setSupportActionBar(binding.toolbar)
+        (activity as AppCompatActivity).supportActionBar?.setDisplayShowTitleEnabled(false)
+        (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        val menuHost: MenuHost = requireActivity()
+        menuHost.addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                when(menuItem.itemId) {
+                    android.R.id.home -> {
+                        findNavController().navigate(R.id.action_emailLoginFragment_to_loginFragment)
+                        (activity as AppCompatActivity).supportFragmentManager.popBackStack()
+
+                        return true
+                    }
+                }
+
+
+
+                return true
+            }
+        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
+
         onClick()
     }
 
@@ -34,13 +60,15 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
         viewModel.register.observe(viewLifecycleOwner) {state ->
             when(state) {
                 is UiState.Loading -> {
-                    binding.registerProgress.visibility
+                    binding.progressCircular.show()
                 }
                 is UiState.Success -> {
+                    binding.progressCircular.hide()
                     toast(requireContext(), getString(R.string.sign_up_success))
-                    findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
+                    findNavController().navigate(R.id.action_registerFragment_to_emailLoginFragment)
                 }
                 is UiState.Failure -> {
+                    binding.progressCircular.hide()
                     toast(requireContext(), getString(R.string.sign_up_fail))
                 }
              }

@@ -1,9 +1,11 @@
 package com.goingbacking.goingbacking.Repository.Alarm
 
+import android.util.Log
 import com.goingbacking.goingbacking.Model.*
 import com.goingbacking.goingbacking.util.*
 import com.goingbacking.goingbacking.util.Constants.Companion.DATE
 import com.goingbacking.goingbacking.util.Constants.Companion.CALENDARINFO
+import com.goingbacking.goingbacking.util.Constants.Companion.DATE2
 import com.goingbacking.goingbacking.util.Constants.Companion.DAY
 import com.goingbacking.goingbacking.util.Constants.Companion.MONTH
 import com.goingbacking.goingbacking.util.Constants.Companion.RANKMONTHINFO
@@ -112,13 +114,19 @@ class AlarmRepository : AlarmRepositoryIF {
 
         val TodayDTOList = arrayListOf<CalendarInfoDTO>()
 
+        Log.d("experiemnt", currentday("yyyy-MM"))
+        Log.d("experiemnt", currentday("yyyy-MM-dd"))
+
         firebaseFirestore.collection(CALENDARINFO).document(myUid)
-            .collection(currentday("yyyy-MM")).whereEqualTo(DATE, currentday("yyyy-MM-dd")).get()
+            .collection(currentday("yyyy-MM")).whereEqualTo(DATE2, currentday("yyyy-MM-dd")).get()
             .addOnSuccessListener {
 
                 for (document in it) {
+
                     TodayDTOList.add(document.toObject(CalendarInfoDTO::class.java))
                 }
+
+                Log.d("experiemnt", TodayDTOList.toString())
 
                 result.invoke(
                     TodayDTOList

@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#353C49"
+    android:background="#fafafa"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 <!--    <ImageView-->
 <!--        android:layout_width="match_parent"-->
@@ -11,21 +13,47 @@
 <!--        ></ImageView>-->
 
 
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/progress_circular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:indicatorColor="@color/example_3_blue"
+        android:indeterminate="true"
+        android:visibility="invisible" />
+
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ToolbarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="비밀번호 찾기"
+            android:layout_gravity="center"
+            android:id="@+id/toolbar_title"
+            android:textSize="20sp"
+            />
+    </androidx.appcompat.widget.Toolbar>
+
     <TextView
-        android:id="@+id/text1"
+        android:id="@+id/nickname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="128dp"
+        android:layout_marginTop="80dp"
         android:fontFamily="@font/bold"
         android:letterSpacing="0.02"
         android:text="가입한 이메일 계정을 입력해주세요."
-        android:textColor="@color/white"
+        android:textColor="#525C6C"
+
         android:textSize="22dp"
-
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"></TextView>
-
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     <EditText
         android:id="@+id/email_edittext"
@@ -38,22 +66,24 @@
         android:paddingBottom="17dp"
         android:textColorHint="#B4BCC4"
         android:textSize="20dp"
-        app:layout_constraintStart_toStartOf="@+id/text1"
-        app:layout_constraintTop_toBottomOf="@+id/text1" />
 
-    <android.widget.Button
-        android:id="@+id/loginbtn"
+        app:layout_constraintStart_toStartOf="@+id/nickname"
+        app:layout_constraintTop_toBottomOf="@+id/nickname" />
+
+    <Button
+        android:id="@+id/forgotPassBtn"
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="360dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginBottom="68dp"
         android:background="@drawable/btn_line"
-        android:backgroundTint="@color/white"
+
+        android:backgroundTint="@color/colorMain"
         android:fontFamily="@font/bold"
         android:padding="19dp"
         android:text="비밀번호 재설정"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="17dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

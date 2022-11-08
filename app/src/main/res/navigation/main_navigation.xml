@@ -13,13 +13,6 @@
         tools:layout="@layout/fragment_first_main">
     </fragment>
 
-    <activity
-        android:id="@+id/tmpTimeActivity"
-        android:name="com.goingbacking.goingbacking.UI.Main.First.TmpTimeActivity"
-        android:label="TmpTimeActivity"
-        tools:layout="@layout/activity_tmp_time"/>
-
-
     <!-- second -->
     <fragment
         android:id="@+id/secondMainFragment"
@@ -36,14 +29,8 @@
         android:label="ThirdMainFragment"
         tools:layout="@layout/fragment_third_main">
 
+
     </fragment>
-
-    <activity
-        android:id="@+id/scheduleInputActivity"
-        android:name="com.goingbacking.goingbacking.UI.Main.Third.ScheduleInputActivity"
-        android:label="ScheduleInputActivity"
-        tools:layout="@layout/activity_schedule_input"/>
-
 
     <!-- forth -->
     <fragment

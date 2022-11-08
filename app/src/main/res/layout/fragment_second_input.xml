@@ -1,68 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#fafafa"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-<!--        <ImageView-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:src="@drawable/insertjob"-->
-<!--            ></ImageView>-->
-<!--    <com.airbnb.lottie.LottieAnimationView-->
-<!--        android:id="@+id/progress_bar"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="80dp"-->
-<!--        app:lottie_autoPlay="false"-->
-<!--        app:lottie_rawRes="@raw/progress_bar"-->
-<!--        app:lottie_colorFilter="#3FC2B0"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        android:layout_marginTop="20dp"-->
-<!--        />-->
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ToolbarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="직업 입력"
+            android:layout_gravity="center"
+            android:id="@+id/toolbar_title"
+            android:textSize="20sp"
+            />
+    </androidx.appcompat.widget.Toolbar>
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/progress_bar"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginTop="40dp"
+
+        android:scaleType="fitXY"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:lottie_autoPlay="false"
+        app:lottie_fileName="progress_bar.json" />
+
 
     <TextView
-        android:id="@+id/text1"
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="116dp"
+        android:layout_marginEnd="4dp"
+        android:fontFamily="@font/light"
+        android:text="2단계 남았어요!"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toEndOf="@+id/type_edittext"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+    <TextView
+        android:id="@+id/nickname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="140dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/bold"
+        android:letterSpacing="0.02"
+        android:text="ㅇㅇㅇ"
+        android:textColor="@color/colorMain"
+        android:textSize="22dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/progress_bar" />
+
+
+    <TextView
+        android:id="@+id/text8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/bold"
+        android:letterSpacing="0.02"
+        android:text="님!"
+        android:textColor="#525C6C"
+        android:textSize="22dp"
+        app:layout_constraintStart_toEndOf="@+id/nickname"
+        app:layout_constraintTop_toTopOf="@+id/nickname" />
+
+    <TextView
+        android:id="@+id/text7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:fontFamily="@font/bold"
         android:letterSpacing="0.02"
         android:text="직업을 입력해주세요!"
         android:textColor="#525C6C"
         android:textSize="22dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"></TextView>
-
-
-    <TextView
-        android:id="@+id/text2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:fontFamily="@font/medium"
-        android:letterSpacing="0.02"
-        android:text="알맞은 자기계발을 추천해드릴게요 :)"
-        android:textColor="#a6a6a6"
-        android:textSize="13dp"
-        app:layout_constraintStart_toStartOf="@+id/text1"
-        app:layout_constraintTop_toBottomOf="@+id/text1"></TextView>
-
+        app:layout_constraintStart_toStartOf="@+id/nickname"
+        app:layout_constraintTop_toBottomOf="@+id/nickname" />
 
     <EditText
-        android:id="@+id/email_edittext"
+        android:id="@+id/type_edittext"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="12dp"
         android:backgroundTint="#B4BCC4"
         android:fontFamily="@font/medium"
         android:hint="ex) 학생, 직장인"
         android:paddingBottom="17dp"
         android:textColorHint="#B4BCC4"
         android:textSize="20dp"
-        android:layout_marginLeft="-3dp"
-        app:layout_constraintStart_toStartOf="@+id/text2"
-        app:layout_constraintTop_toBottomOf="@+id/text2" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text7" />
 
     <android.widget.Button
         android:id="@+id/loginbtn"
@@ -83,29 +124,3 @@
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-<!--<?xml version="1.0" encoding="utf-8"?>-->
-<!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
-<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
-<!--    xmlns:tools="http://schemas.android.com/tools"-->
-<!--    android:layout_width="match_parent"-->
-<!--    android:layout_height="match_parent"-->
-<!--    android:orientation="vertical">-->
-<!--    <Button-->
-<!--        android:id="@+id/SecondInputButton1"-->
-<!--        android:text="이전"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"/>-->
-
-<!--    <Button-->
-<!--        android:id="@+id/SecondInputButton2"-->
-<!--        android:text="다음"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"/>-->
-
-<!--    <Spinner-->
-<!--        android:id="@+id/SecondInputSpinner"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"/>-->
-
-<!--</LinearLayout>-->

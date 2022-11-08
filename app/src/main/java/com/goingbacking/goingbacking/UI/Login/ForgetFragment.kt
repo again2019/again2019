@@ -1,10 +1,12 @@
 package com.goingbacking.goingbacking.UI.Login
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import com.goingbacking.goingbacking.R
 import com.goingbacking.goingbacking.UI.Base.BaseFragment
@@ -30,27 +32,52 @@ class ForgetFragment : BaseFragment<FragmentForgetBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        observer()
+        val menuHost: MenuHost = requireActivity()
+
+        (activity as AppCompatActivity).setSupportActionBar(binding.toolbar)
+        (activity as AppCompatActivity).supportActionBar?.setDisplayShowTitleEnabled(false)
+        (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        menuHost.addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                when(menuItem.itemId) {
+                    android.R.id.home -> {
+                        findNavController().navigate(R.id.action_emailLoginFragment_to_loginFragment)
+                        (activity as AppCompatActivity).supportFragmentManager.popBackStack()
+
+                        return true
+                    }
+                }
+                return true
+            }
+        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
+
         binding.forgotPassBtn.setOnClickListener {
             if(validation()) {
-                findNavController().navigate(R.id.action_forgotFragment_to_loginFragment)
+                observer()
             }
         }
     }
 
     private fun observer()  {
+        viewModel.emailForgetPassword(binding.emailEdittext.text.toString())
         viewModel.forgotPassword.observe(viewLifecycleOwner) {
             state ->
             when(state) {
                 is UiState.Loading -> {
-
+                    binding.progressCircular.show()
                 }
                 is UiState.Failure -> {
+                    binding.progressCircular.hide()
                     toast(requireContext(), getString(R.string.email_link_send_fail))
                 }
                 is UiState.Success -> {
+                    binding.progressCircular.hide()
                     toast(requireContext(), getString(R.string.email_link_send_success))
-                    viewModel.emailForgetPassword(binding.emailEt.text.toString())
+                    findNavController().navigate(R.id.action_forgotFragment_to_emailLoginFragment)
                 }
             }
         }
@@ -59,12 +86,12 @@ class ForgetFragment : BaseFragment<FragmentForgetBinding>() {
     fun validation(): Boolean = with(binding) {
         var isValid = true
 
-        if (emailEt.text.isNullOrEmpty()){
+        if (emailEdittext.text.isNullOrEmpty()){
             isValid = false
             toast(requireContext(), getString(R.string.email_again))
 
         } else{
-            if (!emailEt.text.toString().isValidEmail()){
+            if (!emailEdittext.text.toString().isValidEmail()){
                 isValid = false
                 toast(requireContext(), getString(R.string.email_again))
             }

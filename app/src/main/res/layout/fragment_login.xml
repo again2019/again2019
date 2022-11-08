@@ -6,11 +6,6 @@
     android:layout_height="match_parent"
     android:background="#fafafa">
 
-<!--<ImageView-->
-<!--    xmlns:tools="http://schemas.android.com/tools"-->
-<!--    android:layout_width="match_parent"-->
-<!--    android:src="@drawable/login_firstpage"-->
-<!--    android:layout_height="match_parent"/>-->
 
     <TextView
         android:layout_width="wrap_content"
@@ -39,49 +34,39 @@
         app:layout_constraintTop_toBottomOf="@+id/ment1" />
 
 
-    <android.widget.Button
+    <Button
         android:id="@+id/googleloginbtn"
-        style="?android:attr/borderlessButtonStyle"
         android:layout_width="370dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="300dp"
         android:layout_marginBottom="15dp"
         android:background="@drawable/btn_line"
+        android:drawableStart="@drawable/googlelogo"
+
         android:fontFamily="@font/bold"
         android:padding="19dp"
         android:text="구글 로그인으로 빠르게 시작하기"
         android:textColor="@color/black"
         android:textSize="17dp"
-        app:layout_constraintBottom_toTopOf="@id/emailloginbtn"
-        app:layout_constraintTop_toBottomOf="@id/ment2"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="20dp" />
+        app:layout_constraintBottom_toTopOf="@id/emailLoginButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <ImageView
-        android:layout_width="33dp"
-        android:layout_height="27dp"
-        android:src="@drawable/googlelogo"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="55dp"
-        tools:layout_editor_absoluteY="499dp" />
 
-    <android.widget.Button
-        android:id="@+id/emailloginbtn"
-        style="?android:attr/borderlessButtonStyle"
+    <Button
+        android:id="@+id/emailLoginButton"
         android:layout_width="370dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:layout_marginBottom="80dp"
+        android:layout_marginBottom="8dp"
         android:background="@drawable/btn_line"
         android:fontFamily="@font/bold"
         android:padding="19dp"
         android:text="이메일로 로그인"
         android:textColor="#555555"
         android:textSize="17dp"
-        app:layout_constraintBottom_toTopOf="@id/ment3"
-        app:layout_constraintTop_toBottomOf="@+id/googleloginbtn"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="20dp" />
+        app:layout_constraintBottom_toTopOf="@+id/ment3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/googleloginbtn" />
 
     <TextView
         android:id="@+id/ment3"
@@ -89,34 +74,28 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/bold"
         android:letterSpacing="-0.02"
-        android:textAlignment="center"
         android:text="아직 회원이 아니신가요?"
+        android:textAlignment="center"
         android:textColor="#999999"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/signupbtn"
-        tools:layout_editor_absoluteX="139dp" />
+        app:layout_constraintBottom_toTopOf="@+id/registerButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
+        android:id="@+id/registerButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="none"
-        android:backgroundTint="@color/white"
+        android:layout_marginBottom="20dp"
         android:fontFamily="@font/bold"
         android:letterSpacing="-0.02"
         android:text="@string/signup"
         android:textAlignment="center"
-        android:layout_marginBottom="33dp"
         android:textColor="#999999"
         android:textSize="16dp"
-        android:id="@+id/signupbtn"
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:layout_editor_absoluteX="149dp" />
-
-    <!--        <LinearLayout android:id="@+id/signin_layout"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_alignParentBottom="true"-->
-<!--        android:orientation="vertical">-->
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 <!--        <com.google.android.material.textfield.TextInputLayout-->
 <!--            android:layout_width="match_parent"-->
@@ -181,5 +160,6 @@
 <!--        android:indeterminate="true"-->
 <!--        android:visibility="invisible" />-->
 
-
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+
