@@ -1,66 +1,224 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UI.Login.RegisterFragment"
-    android:orientation="vertical">
+    android:background="#fafafa"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <LinearLayout android:id="@+id/signin_layout"
-        android:layout_width="match_parent"
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/progress_circular"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:orientation="vertical">
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp">
-            <EditText android:id="@+id/register_email_edittext"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="이메일"/>
-        </com.google.android.material.textfield.TextInputLayout>
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp">
-            <EditText android:inputType="textPassword"
-                android:id="@+id/register_password_edittext1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="password"/>
-        </com.google.android.material.textfield.TextInputLayout>
+        app:indicatorColor="@color/example_3_blue"
+        android:indeterminate="true"
+        android:visibility="invisible" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp">
-            <EditText android:inputType="textPassword"
-                android:id="@+id/register_password_edittext2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="password 확인"/>
-        </com.google.android.material.textfield.TextInputLayout>
+    <TextView
+        android:id="@+id/text1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="33dp"
+        android:layout_marginTop="116dp"
+        android:fontFamily="@font/medium"
+        android:text="사용하실"
+        android:textColor="#525C6C"
+        android:letterSpacing="0.02"
+        android:textSize="22dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
-    </LinearLayout>
+    <TextView
+        android:id="@+id/text2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/bold"
+        android:text="이메일"
+        android:textSize="22dp"
+        android:textColor="#525C6C"
+        android:letterSpacing="0.02"
+        android:layout_marginLeft="3dp"
+        app:layout_constraintLeft_toRightOf="@+id/text1"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="116dp" />
+
+    <TextView
+        android:id="@+id/text3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="116dp"
+        android:fontFamily="@font/medium"
+        android:letterSpacing="0.02"
+        android:text="과"
+        android:textColor="#525C6C"
+        android:textSize="22dp"
+        app:layout_constraintLeft_toRightOf="@+id/text2"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/text4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="116dp"
+        android:fontFamily="@font/bold"
+        android:layout_marginLeft="3dp"
+        android:text="비밀번호"
+        android:letterSpacing="0.02"
+        android:textColor="#525C6C"
+        android:textSize="22dp"
+        app:layout_constraintLeft_toRightOf="@+id/text3"
+        app:layout_constraintTop_toTopOf="parent"/>
+    <TextView
+        android:id="@+id/text6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="116dp"
+        android:fontFamily="@font/medium"
+        android:text="를"
+        android:letterSpacing="0.02"
+        android:textColor="#525C6C"
+        android:textSize="22dp"
+        app:layout_constraintLeft_toRightOf="@+id/text4"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/text5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="입력해주세요!"
+        android:textSize="22dp"
+        android:textColor="#525C6C"
+        android:fontFamily="@font/medium"
+        android:layout_marginTop="4dp"
+        android:letterSpacing="0.02"
+        app:layout_constraintTop_toBottomOf="@+id/text1"
+        app:layout_constraintStart_toStartOf="@+id/text1" />
+
+
+    <EditText
+        android:id="@+id/register_email_edittext"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:backgroundTint="#B4BCC4"
+        android:fontFamily="@font/medium"
+        android:hint="이메일을 입력해주세요."
+        android:paddingBottom="17dp"
+        android:layout_marginLeft="-3dp"
+        android:textColorHint="#B4BCC4"
+        android:textSize="20dp"
+        app:layout_constraintStart_toStartOf="@+id/text5"
+        app:layout_constraintTop_toBottomOf="@+id/text5" />
+
+    <EditText
+        android:id="@+id/register_password_edittext1"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/medium"
+        android:textSize="20dp"
+        app:layout_constraintTop_toBottomOf="@+id/register_email_edittext"
+        app:layout_constraintStart_toStartOf="@+id/register_email_edittext"
+        android:layout_marginTop="5dp"
+        android:hint="비밀번호를 입력해주세요."
+        android:paddingBottom="17dp"
+        android:textColorHint="#B4BCC4"
+        android:backgroundTint="#B4BCC4"
+        android:inputType="textPassword" />
+    <EditText
+        android:id="@+id/register_password_edittext2"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/medium"
+        android:textSize="20dp"
+        app:layout_constraintTop_toBottomOf="@+id/register_password_edittext1"
+        app:layout_constraintStart_toStartOf="@+id/register_password_edittext1"
+        android:layout_marginTop="5dp"
+        android:hint="비밀번호를 한번 더 입력해주세요."
+        android:paddingBottom="17dp"
+        android:textColorHint="#B4BCC4"
+        android:backgroundTint="#B4BCC4"
+        android:inputType="textPassword" />
 
     <Button
         android:id="@+id/register_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="360dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginBottom="68dp"
+        android:background="@drawable/btn_line"
+        android:backgroundTint="#3FC2B0"
+        android:fontFamily="@font/bold"
+        android:padding="19dp"
+        android:text="회원가입 하기"
+        android:textColor="@color/white"
+        android:textSize="17dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <ProgressBar
-        android:id="@+id/register_progress"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="16dp"
-        android:elevation="10dp"
-        android:indeterminateTint="@color/blue_800"
-        android:visibility="invisible" />
+</androidx.constraintlayout.widget.ConstraintLayout>
 
-</LinearLayout>
+<!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    xmlns:tools="http://schemas.android.com/tools"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="match_parent"-->
+<!--    tools:context=".UI.Login.RegisterFragment"-->
+<!--    android:orientation="vertical">-->
+
+<!--    <LinearLayout android:id="@+id/signin_layout"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_alignParentBottom="true"-->
+<!--        android:orientation="vertical">-->
+<!--        <com.google.android.material.textfield.TextInputLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginLeft="20dp"-->
+<!--            android:layout_marginRight="20dp">-->
+<!--            <EditText android:id="@+id/register_email_edittext"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:hint="이메일"/>-->
+<!--        </com.google.android.material.textfield.TextInputLayout>-->
+<!--        <com.google.android.material.textfield.TextInputLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginLeft="20dp"-->
+<!--            android:layout_marginRight="20dp">-->
+<!--            <EditText android:inputType="textPassword"-->
+<!--                android:id="@+id/register_password_edittext1"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:hint="password"/>-->
+<!--        </com.google.android.material.textfield.TextInputLayout>-->
+
+<!--        <com.google.android.material.textfield.TextInputLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginLeft="20dp"-->
+<!--            android:layout_marginRight="20dp">-->
+<!--            <EditText android:inputType="textPassword"-->
+<!--                android:id="@+id/register_password_edittext2"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:hint="password 확인"/>-->
+<!--        </com.google.android.material.textfield.TextInputLayout>-->
+
+<!--    </LinearLayout>-->
+
+<!--    <Button-->
+<!--        android:id="@+id/register_button"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"/>-->
+
+<!--    <ProgressBar-->
+<!--        android:id="@+id/register_progress"-->
+<!--        style="?android:attr/progressBarStyle"-->
+<!--        android:layout_width="36dp"-->
+<!--        android:layout_height="36dp"-->
+<!--        android:layout_centerInParent="true"-->
+<!--        android:layout_marginTop="16dp"-->
+<!--        android:elevation="10dp"-->
+<!--        android:indeterminateTint="@color/blue_800"-->
+<!--        android:visibility="invisible" />-->
+
+<!--</LinearLayout>-->

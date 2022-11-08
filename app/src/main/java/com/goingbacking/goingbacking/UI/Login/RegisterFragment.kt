@@ -34,13 +34,15 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
         viewModel.register.observe(viewLifecycleOwner) {state ->
             when(state) {
                 is UiState.Loading -> {
-                    binding.registerProgress.visibility
+                    binding.progressCircular.show()
                 }
                 is UiState.Success -> {
+                    binding.progressCircular.hide()
                     toast(requireContext(), getString(R.string.sign_up_success))
-                    //findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
+                    findNavController().navigate(R.id.action_registerFragment_to_emailLoginFragment)
                 }
                 is UiState.Failure -> {
+                    binding.progressCircular.hide()
                     toast(requireContext(), getString(R.string.sign_up_fail))
                 }
              }
