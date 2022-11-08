@@ -35,7 +35,7 @@
 
 
     <TextView
-        android:id="@+id/text1"
+        android:id="@+id/nickname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="33dp"
@@ -58,8 +58,8 @@
         android:text="이메일"
         android:textColor="#525C6C"
         android:textSize="22dp"
-        app:layout_constraintLeft_toRightOf="@+id/text1"
-        app:layout_constraintTop_toTopOf="@+id/text1" />
+        app:layout_constraintLeft_toRightOf="@+id/nickname"
+        app:layout_constraintTop_toTopOf="@+id/nickname" />
 
     <TextView
         android:id="@+id/text3"
@@ -71,7 +71,7 @@
         android:textColor="#525C6C"
         android:textSize="22dp"
         app:layout_constraintLeft_toRightOf="@+id/text2"
-        app:layout_constraintTop_toTopOf="@+id/text1" />
+        app:layout_constraintTop_toTopOf="@+id/nickname" />
 
     <TextView
         android:id="@+id/text4"
@@ -84,7 +84,7 @@
         android:textColor="#525C6C"
         android:textSize="22dp"
         app:layout_constraintLeft_toRightOf="@+id/text3"
-        app:layout_constraintTop_toTopOf="@+id/text1" />
+        app:layout_constraintTop_toTopOf="@+id/nickname" />
 
     <TextView
         android:id="@+id/text6"
@@ -96,7 +96,7 @@
         android:textColor="#525C6C"
         android:textSize="22dp"
         app:layout_constraintLeft_toRightOf="@+id/text4"
-        app:layout_constraintTop_toTopOf="@+id/text1" />
+        app:layout_constraintTop_toTopOf="@+id/nickname" />
 
     <TextView
         android:id="@+id/text5"
@@ -108,8 +108,8 @@
         android:fontFamily="@font/medium"
         android:layout_marginTop="4dp"
         android:letterSpacing="0.02"
-        app:layout_constraintTop_toBottomOf="@+id/text1"
-        app:layout_constraintStart_toStartOf="@+id/text1" />
+        app:layout_constraintTop_toBottomOf="@+id/nickname"
+        app:layout_constraintStart_toStartOf="@+id/nickname" />
 
 
     <EditText

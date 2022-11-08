@@ -19,7 +19,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="비밀번호 찾기"
+            android:text="닉네임 입력"
             android:layout_gravity="center"
             android:id="@+id/toolbar_title"
             android:textSize="20sp"
@@ -41,7 +41,7 @@
         app:lottie_fileName="progress_bar.json" />
 
     <TextView
-        android:id="@+id/text1"
+        android:id="@+id/nickname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="31dp"
@@ -64,8 +64,8 @@
         android:textColor="#525C6C"
         android:fontFamily="@font/medium"
         android:letterSpacing="0.02"
-        app:layout_constraintTop_toBottomOf="@+id/text1"
-        app:layout_constraintStart_toStartOf="@+id/text1" />
+        app:layout_constraintTop_toBottomOf="@+id/nickname"
+        app:layout_constraintStart_toStartOf="@+id/nickname" />
     <TextView
         android:layout_width="60dp"
         android:layout_height="10dp"
@@ -78,7 +78,7 @@
         android:background="#9dded5"
         android:layout_marginTop="20dp"
         app:layout_constraintLeft_toRightOf="@+id/text2"
-        app:layout_constraintTop_toBottomOf="@id/text1"
+        app:layout_constraintTop_toBottomOf="@id/nickname"
         ></TextView>
     <TextView
         android:id="@+id/text3"
@@ -91,7 +91,7 @@
         android:fontFamily="@font/bold"
         android:letterSpacing="0.02"
         app:layout_constraintLeft_toRightOf="@+id/text2"
-        app:layout_constraintTop_toBottomOf="@id/text1"/>
+        app:layout_constraintTop_toBottomOf="@id/nickname"/>
 
     <TextView
         android:id="@+id/text4"
@@ -102,7 +102,7 @@
         android:textColor="#525C6C"
         android:fontFamily="@font/medium"
         android:letterSpacing="0.02"
-        app:layout_constraintTop_toBottomOf="@id/text1"
+        app:layout_constraintTop_toBottomOf="@id/nickname"
         app:layout_constraintLeft_toRightOf="@+id/text3"
         ></TextView>
 
