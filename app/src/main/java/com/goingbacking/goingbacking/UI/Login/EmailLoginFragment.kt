@@ -22,7 +22,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class EmailLoginFragment : BaseFragment<FragmentEmailLoginBinding>() {
+class EmailLoginFragment : BaseFragment<FragmentEmailLoginBinding>(), LoginActivity.onBackPressedListener {
     private val viewModel : LoginViewModel by viewModels()
 
     override fun getFragmentBinding(
@@ -68,9 +68,6 @@ class EmailLoginFragment : BaseFragment<FragmentEmailLoginBinding>() {
 
 
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return super.onOptionsItemSelected(item)
-    }
 
     private fun onClick() = with(binding) {
         loginButton.setOnClickListener {
@@ -142,6 +139,9 @@ class EmailLoginFragment : BaseFragment<FragmentEmailLoginBinding>() {
         startActivity(intent)
     }
 
+    override fun onBackPressed() {
+
+    }
 
 
 }
