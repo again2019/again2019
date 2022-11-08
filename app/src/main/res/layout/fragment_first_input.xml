@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
@@ -67,7 +66,6 @@
         android:letterSpacing="0.02"
         app:layout_constraintTop_toBottomOf="@+id/nickname"
         app:layout_constraintStart_toStartOf="@+id/nickname" />
-
     <TextView
         android:layout_width="60dp"
         android:layout_height="10dp"
@@ -81,7 +79,6 @@
         android:layout_marginTop="20dp"
         app:layout_constraintLeft_toRightOf="@+id/text2"
         app:layout_constraintTop_toBottomOf="@id/nickname"
-
         ></TextView>
     <TextView
         android:id="@+id/text3"
@@ -115,7 +112,6 @@
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-
         android:backgroundTint="#B4BCC4"
         android:fontFamily="@font/medium"
         android:hint="닉네임을 입력해주세요."
@@ -128,7 +124,6 @@
 
     <android.widget.Button
         android:id="@+id/firstInputButton"
-
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="360dp"
         android:layout_height="wrap_content"
@@ -164,7 +159,6 @@
 <!--    android:layout_width="match_parent"-->
 <!--    android:layout_height="match_parent"-->
 <!--    android:orientation="vertical">-->
-
 
 <!--    <com.airbnb.lottie.LottieAnimationView-->
 <!--        android:id="@+id/progress_bar"-->
@@ -229,4 +223,3 @@
 
 
 <!--</androidx.constraintlayout.widget.ConstraintLayout>-->
-
