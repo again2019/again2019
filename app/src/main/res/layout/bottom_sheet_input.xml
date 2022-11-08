@@ -40,7 +40,42 @@
     <com.google.android.material.chip.ChipGroup
         android:id="@+id/chipGroup"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content">
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip1"
+            style="@style/Colors_Widget.MaterialComponents.Chip.Choice"
+            android:layout_width="150dp"
+            android:layout_height="70dp"
+
+            android:text="독서"
+            android:textAppearance="@style/AppTheme.GenderChip"
+            android:theme="@style/Theme.MaterialComponents.Light"
+            app:closeIconStartPadding="0dp"
+            app:iconEndPadding="0dp"
+            app:iconStartPadding="15dp" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip2"
+            style="@style/Colors_Widget.MaterialComponents.Chip.Choice"
+            android:layout_width="150dp"
+            android:layout_height="70dp"
+
+            android:text="영어 듣기"
+            android:theme="@style/Theme.MaterialComponents.Light" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip3"
+            style="@style/Colors_Widget.MaterialComponents.Chip.Choice"
+            android:layout_width="150dp"
+            android:layout_height="70dp"
+
+            android:text="시사 공부"
+            android:textAlignment="center"
+            android:theme="@style/Theme.MaterialComponents.Light" />
+
+
+
+    </com.google.android.material.chip.ChipGroup>
 
     <Button
         android:id="@+id/okayButton"

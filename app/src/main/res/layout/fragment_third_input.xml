@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -10,85 +10,188 @@
         android:id="@+id/progress_circular"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:indicatorColor="@color/black"
+        app:indicatorColor="@color/example_3_blue"
         android:indeterminate="true"
         android:visibility="invisible" />
 
-    <Button
-        android:id="@+id/ThirdInputButton1"
-        android:text="이전"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
 
-    <Button
-        android:id="@+id/ThirdInputButton2"
-        android:text="다음"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
-    <TextView
-        android:id="@+id/whatToDoEditText"
-        android:layout_width="164.5dp"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="55dp"
-        android:includeFontPadding="false"
-        android:text="자기계발 입력"
-        android:textSize="24dp"
-        />
+        android:theme="@style/ToolbarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="자기계발 입력"
+            android:layout_gravity="center"
+            android:id="@+id/toolbar_title"
+            android:textSize="20sp"
+            />
+    </androidx.appcompat.widget.Toolbar>
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/progress_bar"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginTop="40dp"
+
+        android:scaleType="fitXY"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:lottie_autoPlay="false"
+        app:lottie_fileName="progress_bar.json" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="116dp"
+        android:fontFamily="@font/light"
+        android:text="거의 다 왔어요!"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toEndOf="@+id/chipGroup"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
 
     <TextView
-        android:text="많은 사람들이 하는 것"
+        android:id="@+id/nickname"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/bold"
+        android:letterSpacing="0.02"
+        android:text="어떤 자기계발을 하실 건가요?"
+        android:textColor="#525C6C"
+        android:textSize="22dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/progress_bar" />
 
     <com.google.android.material.chip.ChipGroup
         android:id="@+id/chipGroup"
-        android:layout_width="wrap_content"
+        android:layout_width="350dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="40dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.524"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintWidth_percent="0.8">
+        app:layout_constraintTop_toBottomOf="@+id/nickname">
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chip1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/Widget.MaterialComponents.Chip.Filter"
-            android:text="독서" />
+            style="@style/Colors_Widget.MaterialComponents.Chip.Choice"
+            android:layout_width="150dp"
+            android:layout_height="70dp"
+
+            android:text="독서"
+            android:textAppearance="@style/AppTheme.GenderChip"
+            android:theme="@style/Theme.MaterialComponents.Light"
+            app:closeIconStartPadding="0dp"
+            app:iconEndPadding="0dp"
+            app:iconStartPadding="15dp" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chip2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/Widget.MaterialComponents.Chip.Filter"
-            android:text="영어 듣기" />
+            style="@style/Colors_Widget.MaterialComponents.Chip.Choice"
+            android:layout_width="150dp"
+            android:layout_height="70dp"
+
+            android:text="영어 듣기"
+            android:theme="@style/Theme.MaterialComponents.Light" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chip3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/Widget.MaterialComponents.Chip.Filter"
-            android:text="시사 공부" />
+            style="@style/Colors_Widget.MaterialComponents.Chip.Choice"
+            android:layout_width="150dp"
+            android:layout_height="70dp"
+
+            android:text="시사 공부"
+            android:textAlignment="center"
+            android:theme="@style/Theme.MaterialComponents.Light" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chip4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/Widget.MaterialComponents.Chip.Filter"
-            android:text="전공 과제" />
+            style="@style/Colors_Widget.MaterialComponents.Chip.Choice"
+            android:layout_width="150dp"
+            android:layout_height="70dp"
+
+            android:text="전공 과제"
+
+            android:theme="@style/Theme.MaterialComponents.Light" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chip5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/Widget.MaterialComponents.Chip.Filter"
-            android:text="뉴스" />
-
+            style="@style/Colors_Widget.MaterialComponents.Chip.Choice"
+            android:layout_width="150dp"
+            android:layout_height="70dp"
+            android:text="뉴스"
+            android:theme="@style/Theme.MaterialComponents.Light" />
 
     </com.google.android.material.chip.ChipGroup>
 
+    <Button
+        android:id="@+id/thirdInputButton"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="28dp"
+        android:background="@drawable/btn_line"
+        android:backgroundTint="#3FC2B0"
+        android:fontFamily="@font/bold"
+        android:padding="19dp"
+        android:text="시작하기"
+        android:textColor="@color/white"
+        android:textSize="17dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/chipGroup"
+        app:layout_constraintStart_toStartOf="@+id/chipGroup" />
 
-</LinearLayout>
+
+    <!--            style="@style/Widget.MaterialComponents.Chip.Filter"-->
+
+    <!--    <TextView-->
+<!--        android:id="@+id/textView"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="116dp"-->
+<!--        android:layout_marginEnd="4dp"-->
+<!--        android:fontFamily="@font/light"-->
+<!--        android:text="거의 다 왔어요!"-->
+<!--        android:textSize="10sp"-->
+<!--        app:layout_constraintEnd_toEndOf="@+id/type_edittext"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/toolbar" />-->
+
+
+    <!--    <com.google.android.material.progressindicator.CircularProgressIndicator-->
+<!--        android:id="@+id/progress_circular"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:indicatorColor="@color/black"-->
+<!--        android:indeterminate="true"-->
+<!--        android:visibility="invisible" />-->
+
+<!--    <Button-->
+<!--        android:id="@+id/ThirdInputButton1"-->
+<!--        android:text="이전"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"/>-->
+
+<!--    <Button-->
+<!--        android:id="@+id/ThirdInputButton2"-->
+<!--        android:text="다음"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"/>-->
+
+
+
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

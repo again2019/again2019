@@ -3,6 +3,7 @@ package com.goingbacking.goingbacking.bottomsheet
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.ContextThemeWrapper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -48,34 +49,45 @@ class InputBottomSheet : BottomSheetDialogFragment() {
                     progressCircular.hide()
                     nickName.text = state.data.userNickName
                     type.text = state.data.userType
+                    val whattodolist = state.data.whatToDoList
+                    if (whattodolist.size == 1) {
+                        chip2.makeGONE()
+                        chip3.makeGONE()
+                    } else if (whattodolist.size == 2) {
+                        chip3.makeGONE()
+                    }
 
+                    var count = 0
                     for (whattodo in state.data.whatToDoList) {
-                          whattodoList.add(whattodo)
+                        whattodoList.add(whattodo)
 
-                          // chart 표시를 위해 초기화 하기 위해 arrayList에 넣는 코드
-                          val whatToDoMonthDTO = WhatToDoMonthDTO(
-                              count = 0,
-                              month = currentday("MM").toInt(),
-                              whatToDo = whattodo
-                          )
-                          InitWhatToDoMonthList.add(whatToDoMonthDTO)
-
-                          val whatToDoYearDTO = WhatToDoYearDTO(
-                              count = 0,
-                              year = currentday("yyyy").toInt(),
-                              whatToDo = whattodo
-                          )
-
-                          InitWhatToDoYearList.add(whatToDoYearDTO)
-                          // ----------------------------------------------
-
-                          // chip을 추가하는 코드
-                          chipGroup.addView(Chip(requireActivity()).apply {
-                                text = whattodo
-                                isCheckable = false
-                                isChecked = false
-                          })
+                        // chart 표시를 위해 초기화 하기 위해 arrayList에 넣는 코드
+                        val whatToDoMonthDTO = WhatToDoMonthDTO(
+                            count = 0,
+                            month = currentday("MM").toInt(),
+                            whatToDo = whattodo
+                        )
+                        InitWhatToDoMonthList.add(whatToDoMonthDTO)
+                        val whatToDoYearDTO = WhatToDoYearDTO(
+                            count = 0,
+                            year = currentday("yyyy").toInt(),
+                            whatToDo = whattodo
+                        )
+                        InitWhatToDoYearList.add(whatToDoYearDTO)
+                        // ----------------------------------------------
+                        // chip을 추가하는 코드
+                        if (count == 0) {
+                            chip1.text = whattodo
+                        } else if(count == 1) {
+                            chip2.text = whattodo
+                        } else if (count == 2) {
+                            chip3.text = whattodo
                         }
+
+                        count += 1
+                    }
+
+
 
                 }
                 is UiState.Failure -> {
