@@ -7,15 +7,57 @@
     tools:context=".UI.Main.First.FirstMainFragment">
     <!--    android:background="@drawable/first_main_fragment"-->
 
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/tmpTimeButton"
-        android:layout_width="35dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="52dp"
-        android:layout_marginEnd="32dp"
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:theme="@style/ToolbarTheme"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:lottie_fileName="bell.json" />
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/bold"
+            android:text="@string/app_name"
+            android:textColor="#8B929E"
+            android:textSize="23sp" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginRight="20dp" >
+
+            <ImageView
+                android:id="@+id/tmpTimeDot"
+                android:layout_width="10dp"
+                android:layout_height="8dp"
+                android:src="@drawable/dot3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/tmpTimeButton"
+                android:layout_width="32dp"
+                android:layout_height="42dp"
+
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0"
+                app:lottie_fileName="bell.json" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.appcompat.widget.Toolbar>
+
 
     <TextView
         android:id="@+id/today_hour"
@@ -79,7 +121,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="40dp"
         android:fontFamily="@font/medium"
         android:text="오늘 당신이 SAVE할 시간은"
         android:textColor="@color/black"
@@ -87,7 +129,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     <TextView
         android:id="@+id/textView8"
@@ -115,35 +157,6 @@
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/imageView2"
-        android:layout_width="250dp"
-        android:layout_height="35dp"
-        android:layout_marginStart="84dp"
-        android:layout_marginTop="57dp"
-        android:background="@drawable/button_radius"
-        android:backgroundTint="#8B929E"
-        android:src="@drawable/alarm"
-        app:layout_constraintEnd_toStartOf="@+id/tmpTimeButton"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/tmpTimeStateTextView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="16dp"
-            android:gravity="center"
-            android:text="저장하지 않은 시간이 있어요"
-            android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="350dp"
         android:layout_height="250dp"
@@ -161,7 +174,8 @@
             android:layout_height="30dp"
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="20dp"
-            android:background="@drawable/button_radius"
+            android:background="@drawable/btn_line"
+            android:backgroundTint="@color/colorMain"
             android:gravity="center"
             android:text="일정 추가하기"
             android:textColor="@color/white"
@@ -252,17 +266,16 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-
-<!--    <ImageButton-->
-<!--        android:id="@+id/tmpTimeButton"-->
-<!--        android:layout_width="35dp"-->
-<!--        android:layout_height="45dp"-->
-<!--        android:layout_marginTop="52dp"-->
-<!--        android:layout_marginEnd="32dp"-->
-<!--        android:background="@android:color/transparent"-->
-<!--        android:scaleType="fitCenter"-->
-<!--        android:src="@drawable/notification"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent" />-->
+    <!--    <ImageButton-->
+    <!--        android:id="@+id/tmpTimeButton"-->
+    <!--        android:layout_width="35dp"-->
+    <!--        android:layout_height="45dp"-->
+    <!--        android:layout_marginTop="52dp"-->
+    <!--        android:layout_marginEnd="32dp"-->
+    <!--        android:background="@android:color/transparent"-->
+    <!--        android:scaleType="fitCenter"-->
+    <!--        android:src="@drawable/notification"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintTop_toTopOf="parent" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

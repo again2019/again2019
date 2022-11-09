@@ -24,6 +24,7 @@ import com.goingbacking.goingbacking.databinding.FragmentFirstMainBinding
 import com.goingbacking.goingbacking.util.*
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
+import com.skydoves.balloon.*
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -34,6 +35,8 @@ import kotlinx.coroutines.launch
 class FirstMainFragment : BaseFragment<FragmentFirstMainBinding>() {
 
     val viewModel: FirstViewModel by viewModels()
+    private lateinit var balloon :Balloon
+
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
@@ -45,6 +48,8 @@ class FirstMainFragment : BaseFragment<FragmentFirstMainBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
 
         observer()
 
@@ -98,16 +103,20 @@ class FirstMainFragment : BaseFragment<FragmentFirstMainBinding>() {
                 is UiState.Success -> {
                     val tmpTimeCount = state.data.size
                     if (tmpTimeCount == 0) {
-                        binding.tmpTimeStateTextView.text = "저장해야 하는 시간이 없어요"
                         binding.tmpTimeButton.setMinAndMaxProgress(1f, 1f)
+                        binding.tmpTimeDot.makeGONE()
+                        balloon = balloonBuild("저장해야 하는 시간이 없어요")
                     } else {
-                        binding.tmpTimeStateTextView.text = "저장하지 않은 시간이 " + tmpTimeCount.toString() + "개 있어요."
                         binding.tmpTimeButton.setMinAndMaxProgress(0f, 1f)
                         binding.tmpTimeButton.repeatCount = 50
+                        binding.tmpTimeDot.makeVisible()
+                        balloon = balloonBuild("저장하지 않은 시간이 " + tmpTimeCount.toString() + "개 있어요.")
+
+
                     }
+                    balloon.showAlignBottom(binding.tmpTimeButton)
+                    balloon.dismissWithDelay(2000)
                     binding.tmpTimeButton.playAnimation()
-
-
                 }
                 is UiState.Failure -> {
 
@@ -118,6 +127,24 @@ class FirstMainFragment : BaseFragment<FragmentFirstMainBinding>() {
             }
 
         }
+    }
+
+    private fun balloonBuild(string: String) : Balloon {
+        val balloon = Balloon.Builder(requireContext())
+            .setHeight(BalloonSizeSpec.WRAP)
+            .setWidth(BalloonSizeSpec.WRAP)
+            .setText(string)
+            .setTextColorResource(R.color.white)
+            .setTextSize(15f)
+            .setArrowSize(10)
+            .setPadding(12)
+            .setArrowPosition(0.5f)
+            .setCornerRadius(8f)
+            .setBackgroundColorResource(R.color.colorPrimaryDark)
+            .setArrowPositionRules(ArrowPositionRules.ALIGN_ANCHOR)
+            .setIconDrawableResource(R.drawable.dot2)
+            .build()
+        return balloon
     }
 
     private fun moveTmpTimePage() {
