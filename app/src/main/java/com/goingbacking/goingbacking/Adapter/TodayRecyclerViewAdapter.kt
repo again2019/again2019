@@ -1,18 +1,14 @@
 package com.goingbacking.goingbacking.Adapter
 
-import android.annotation.SuppressLint
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.goingbacking.goingbacking.R
 import com.goingbacking.goingbacking.databinding.ItemTodayListBinding
-import com.goingbacking.goingbacking.util.calendar
 import com.goingbacking.goingbacking.util.calendarSchedule
-import com.google.type.Color
-import kotlin.concurrent.thread
+
 
 class TodayRecyclerViewAdapter
     (val context: Context,
@@ -83,7 +79,7 @@ class TodayRecyclerViewAdapter
             }
 
 
-            binding.todayDurationTextView.text = startHourStr + ":" + startMinuteStr + " ~ " + endHourStr + ":" + endMinuteStr
+            binding.todayDurationTextView.text = String.format("%s:%s ~ %s:%s", startHourStr, startMinuteStr, endHourStr, endMinuteStr)
             binding.todayWhatToDoTextView.text = todayWhatToDoItem
             }
     }
