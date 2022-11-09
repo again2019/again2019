@@ -70,11 +70,16 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                 state ->
             when (state) {
                 is UiState.Success -> {
+                    binding.progressCircular.hide()
                     googleSignInClient = getClient(requireActivity(), state.data)
                     launcher.launch(googleSignInClient.signInIntent)
                 }
                 is UiState.Failure -> {
+                    binding.progressCircular.hide()
                     toast(requireActivity(), getString(R.string.login_fail))
+                }
+                is UiState.Loading -> {
+                    binding.progressCircular.show()
                 }
 
             }

@@ -35,7 +35,7 @@
     <!-- forth -->
     <fragment
         android:id="@+id/forthMainFragment"
-        android:name="com.goingbacking.goingbacking.UI.Main.First.ForthMainFragment"
+        android:name="com.goingbacking.goingbacking.UI.Main.Forth.ForthMainFragment"
         android:label="ForthMainFragment"
         tools:layout="@layout/fragment_forth_main">
     </fragment>
