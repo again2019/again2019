@@ -30,14 +30,14 @@ class TodayRecyclerViewAdapter
     inner class MyViewHolder(val binding: ItemTodayListBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(todayWhatToDoItem: String, todayWhatToDoTimeItem :String) {
 
-            thread(state) {
-                while(true) {
-                    val cur = System.currentTimeMillis()
-                    Log.d("experiment", cur.toString())
-
-                    Thread.sleep(1000)
-                }
-            }
+//            thread(state) {
+//                while(true) {
+//                    val cur = System.currentTimeMillis()
+//                    Log.d("experiment", cur.toString())
+//
+//                    Thread.sleep(1000)
+//                }
+//            }
 
 
             val startEndItem = todayWhatToDoTimeItem.split('-')

@@ -73,7 +73,7 @@ dependencies {
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0" // 새로 고침 UI
     implementation 'com.airbnb.android:lottie:4.1.0' // 애니메이션 UI
     implementation 'com.shobhitpuri.custombuttons:google-signin:1.1.0' // 구글 로그인 버튼 UI
-
+    implementation "com.github.skydoves:balloon:1.3.3"
     // lifecycle
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.0-rc01")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.5.0-rc01")
