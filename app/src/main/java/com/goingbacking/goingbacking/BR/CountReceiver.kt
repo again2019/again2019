@@ -228,7 +228,7 @@ class CountReceiver : BroadcastReceiver() {
         val contentIntent = Intent(context, MainActivity::class.java)
         val contentPendingIntent = PendingIntent.getActivity(context, id, contentIntent, FLAG_MUTABLE)
         val builder = NotificationCompat.Builder(context, "notificationChannel_$id")
-            .setSmallIcon(R.mipmap.comeback_new)
+            .setSmallIcon(R.mipmap.com_back_new)
             .setContentTitle("매일마다 울리는 알림입니다")
             .setContentText("매일마다 울리는 알림입니다")
             .setContentIntent(contentPendingIntent)
