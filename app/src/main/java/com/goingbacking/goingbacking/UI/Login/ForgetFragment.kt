@@ -45,8 +45,7 @@ class ForgetFragment : BaseFragment<FragmentForgetBinding>() {
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
                 when(menuItem.itemId) {
                     android.R.id.home -> {
-                        findNavController().navigate(R.id.action_emailLoginFragment_to_loginFragment)
-                        (activity as AppCompatActivity).supportFragmentManager.popBackStack()
+                        findNavController().navigate(R.id.action_forgotFragment_to_emailLoginFragment)
 
                         return true
                     }

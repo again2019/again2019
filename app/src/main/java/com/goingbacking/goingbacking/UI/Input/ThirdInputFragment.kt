@@ -74,11 +74,12 @@ class ThirdInputFragment : BaseFragment<FragmentThirdInputBinding>() {
                 selected.add(chip)
             }
 
-            Log.d("experiment", selected.toString())
-
-            if (selected.equals("[]"))  {
+            if (selected.size == 0)  {
                 toast(requireContext(), getString(R.string.chip_no_selected))
-            } else {
+            } else if (selected.size > 3) {
+                toast(requireContext(), "3개 이하로 선택해주세요.")
+            }
+            else {
                 // 데이터 베이스에 입력하는 코드
                 // 입력이 성공적인지 확인하는 코드
                 observer(selected.toList())

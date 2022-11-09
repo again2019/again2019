@@ -6,6 +6,17 @@
     android:layout_height="match_parent"
     android:background="#fafafa">
 
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/progress_circular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:visibility="invisible"
+        app:indicatorColor="@color/colorMain"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -41,7 +52,6 @@
         android:layout_marginBottom="15dp"
         android:background="@drawable/btn_line"
         android:drawableStart="@drawable/googlelogo"
-
         android:fontFamily="@font/bold"
         android:padding="19dp"
         android:text="구글 로그인으로 빠르게 시작하기"
@@ -97,69 +107,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-<!--        <com.google.android.material.textfield.TextInputLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginLeft="20dp"-->
-<!--            android:layout_marginRight="20dp">-->
-<!--            <EditText android:id="@+id/email_edittext"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:hint="이메일"/>-->
-<!--        </com.google.android.material.textfield.TextInputLayout>-->
-<!--        <com.google.android.material.textfield.TextInputLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginLeft="20dp"-->
-<!--            android:layout_marginRight="20dp">-->
-<!--            <EditText android:inputType="textPassword"-->
-<!--                android:id="@+id/password_edittext"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:hint="password"/>-->
-<!--        </com.google.android.material.textfield.TextInputLayout>-->
-<!--    </LinearLayout>-->
-<!--    <Button android:id="@+id/email_login_button"-->
-<!--        android:text="로그인 및 회원가입"-->
-
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="40dp"-->
-<!--        android:layout_marginTop="15dp"-->
-<!--        android:layout_marginLeft="20dp"-->
-<!--        android:layout_marginRight="20dp"-->
-<!--        android:layout_marginBottom="35dp"/>-->
-
-<!--    <com.google.android.gms.common.SignInButton-->
-<!--        android:id="@+id/login_button"-->
-<!--        android:layout_width="127dp"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        />-->
-
-<!--    <Button-->
-<!--        android:id="@+id/register_button"-->
-<!--        android:text="등록"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"/>-->
-
-<!--    <Button-->
-<!--        android:id="@+id/password_button"-->
-<!--        android:text="비밀번호 찾기"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"/>-->
-
-<!--    <Button-->
-<!--        android:id="@+id/sss"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"/>-->
-
-<!--    <com.google.android.material.progressindicator.CircularProgressIndicator-->
-<!--        android:id="@+id/progress_circular"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        app:indicatorColor="@color/example_3_blue"-->
-<!--        android:indeterminate="true"-->
-<!--        android:visibility="invisible" />-->
-
 </androidx.constraintlayout.widget.ConstraintLayout>
-
 

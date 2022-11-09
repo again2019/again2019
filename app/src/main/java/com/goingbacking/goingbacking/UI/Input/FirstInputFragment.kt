@@ -1,6 +1,7 @@
 package com.goingbacking.goingbacking.UI.Input
 
 import android.animation.ObjectAnimator
+import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
@@ -14,6 +15,7 @@ import androidx.navigation.fragment.findNavController
 import com.goingbacking.goingbacking.Model.UserInfoDTO
 import com.goingbacking.goingbacking.R
 import com.goingbacking.goingbacking.UI.Base.BaseFragment
+import com.goingbacking.goingbacking.UI.Login.LoginActivity
 import com.goingbacking.goingbacking.databinding.FragmentFirstInputBinding
 import com.goingbacking.goingbacking.util.PrefUtil
 import com.goingbacking.goingbacking.util.UiState
@@ -50,6 +52,8 @@ class FirstInputFragment : BaseFragment<FragmentFirstInputBinding>() {
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
                 when(menuItem.itemId) {
                     android.R.id.home -> {
+                        moveLoginPage()
+
                         return true
                     }
                 }
@@ -59,6 +63,11 @@ class FirstInputFragment : BaseFragment<FragmentFirstInputBinding>() {
         onClick()
     }
 
+    private fun moveLoginPage() {
+        val intent = Intent(requireActivity(), LoginActivity::class.java)
+        startActivity(intent)
+        requireActivity().finishAffinity()
+    }
 
     private fun onClick() = with(binding) {
         // 다음으로 이동하는 버튼

@@ -40,8 +40,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
                 when(menuItem.itemId) {
                     android.R.id.home -> {
-                        findNavController().navigate(R.id.action_emailLoginFragment_to_loginFragment)
-                        (activity as AppCompatActivity).supportFragmentManager.popBackStack()
+                        findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
 
                         return true
                     }
@@ -65,7 +64,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
                 is UiState.Success -> {
                     binding.progressCircular.hide()
                     toast(requireContext(), getString(R.string.sign_up_success))
-                    findNavController().navigate(R.id.action_registerFragment_to_emailLoginFragment)
+                    findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
                 }
                 is UiState.Failure -> {
                     binding.progressCircular.hide()

@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
@@ -68,6 +67,7 @@
         app:layout_constraintTop_toBottomOf="@+id/nickname"
         app:layout_constraintStart_toStartOf="@+id/nickname" />
 
+
     <TextView
         android:layout_width="60dp"
         android:layout_height="10dp"
@@ -80,9 +80,7 @@
         android:background="#9dded5"
         android:layout_marginTop="20dp"
         app:layout_constraintLeft_toRightOf="@+id/text2"
-        app:layout_constraintTop_toBottomOf="@id/nickname"
-
-        ></TextView>
+        app:layout_constraintTop_toBottomOf="@id/nickname"/>
     <TextView
         android:id="@+id/text3"
         android:layout_width="wrap_content"
@@ -106,8 +104,7 @@
         android:fontFamily="@font/medium"
         android:letterSpacing="0.02"
         app:layout_constraintTop_toBottomOf="@id/nickname"
-        app:layout_constraintLeft_toRightOf="@+id/text3"
-        ></TextView>
+        app:layout_constraintLeft_toRightOf="@+id/text3" />
 
 
     <EditText
@@ -115,20 +112,20 @@
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-
         android:backgroundTint="#B4BCC4"
         android:fontFamily="@font/medium"
         android:hint="닉네임을 입력해주세요."
         android:paddingBottom="17dp"
         android:textColorHint="#B4BCC4"
         android:textSize="20dp"
+        android:inputType="text"
+        android:imeOptions="actionDone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text2" />
 
     <android.widget.Button
         android:id="@+id/firstInputButton"
-
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="360dp"
         android:layout_height="wrap_content"
@@ -157,76 +154,3 @@
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-
-<!--<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
-<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
-<!--    xmlns:tools="http://schemas.android.com/tools"-->
-<!--    android:layout_width="match_parent"-->
-<!--    android:layout_height="match_parent"-->
-<!--    android:orientation="vertical">-->
-
-
-<!--    <com.airbnb.lottie.LottieAnimationView-->
-<!--        android:id="@+id/progress_bar"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="80dp"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:lottie_autoPlay="false"-->
-<!--        app:lottie_rawRes="@raw/progress_bar"-->
-<!--        tools:layout_editor_absoluteY="53dp" />-->
-
-<!--    <TextView-->
-<!--        android:id="@+id/textView"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="188dp"-->
-<!--        android:text="만나서 반가워요!"-->
-<!--        android:textSize="20dp"-->
-<!--        android:textStyle="bold"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.204"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent" />-->
-
-<!--    <TextView-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="8dp"-->
-<!--        android:text="@string/input_nickname"-->
-<!--        android:textSize="20dp"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.41"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/textView" />-->
-
-<!--    <EditText-->
-<!--        android:id="@+id/nickNameEdittext"-->
-<!--        android:layout_width="300dp"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:hint="닉네임을 입력해주세요."-->
-<!--        android:imeOptions="actionDone"-->
-<!--        android:inputType="text"-->
-<!--        app:layout_constraintBottom_toTopOf="@+id/firstInputButton"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.495"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:layout_constraintVertical_bias="0.455" />-->
-
-<!--    <Button-->
-<!--        android:id="@+id/firstInputButton"-->
-<!--        style="@style/NextButton"-->
-<!--        android:layout_width="300dp"-->
-<!--        android:layout_height="50dp"-->
-<!--        android:text="다음 단계로 가기"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.495"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="@+id/progress_bar"-->
-<!--        app:layout_constraintVertical_bias="0.929" />-->
-
-
-<!--</androidx.constraintlayout.widget.ConstraintLayout>-->
-

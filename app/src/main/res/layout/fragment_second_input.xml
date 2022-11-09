@@ -6,6 +6,7 @@
     android:background="#fafafa"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -101,6 +102,8 @@
         android:paddingBottom="17dp"
         android:textColorHint="#B4BCC4"
         android:textSize="20dp"
+        android:inputType="text"
+        android:imeOptions="actionDone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text7" />
@@ -123,4 +126,3 @@
         app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-

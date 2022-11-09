@@ -51,7 +51,6 @@ class EmailLoginFragment : BaseFragment<FragmentEmailLoginBinding>(), LoginActiv
                when(menuItem.itemId) {
                    android.R.id.home -> {
                        findNavController().navigate(R.id.action_emailLoginFragment_to_loginFragment)
-                       (activity as AppCompatActivity).supportFragmentManager.popBackStack()
 
                        return true
                    }
