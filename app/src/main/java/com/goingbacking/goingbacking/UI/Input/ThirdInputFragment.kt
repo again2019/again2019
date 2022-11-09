@@ -74,8 +74,6 @@ class ThirdInputFragment : BaseFragment<FragmentThirdInputBinding>() {
                 selected.add(chip)
             }
 
-            Log.d("experiment", selected.toString())
-
             if (selected.size == 0)  {
                 toast(requireContext(), getString(R.string.chip_no_selected))
             } else if (selected.size > 3) {
