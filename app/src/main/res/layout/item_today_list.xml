@@ -5,6 +5,7 @@
     android:orientation="horizontal">
 
     <ImageView
+        android:id="@+id/todayDot"
         android:layout_width="5dp"
         android:layout_height="5dp"
         android:layout_marginLeft="10dp"

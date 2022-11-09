@@ -36,7 +36,7 @@
 
             <ImageView
                 android:id="@+id/tmpTimeDot"
-                android:layout_width="8dp"
+                android:layout_width="10dp"
                 android:layout_height="8dp"
                 android:src="@drawable/dot3"
                 app:layout_constraintEnd_toEndOf="parent"
