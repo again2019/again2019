@@ -1,6 +1,7 @@
 package com.goingbacking.goingbacking.UI.Input
 
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.*
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
@@ -14,6 +15,7 @@ import com.goingbacking.goingbacking.R
 import com.goingbacking.goingbacking.UI.Base.BaseFragment
 import com.goingbacking.goingbacking.databinding.FragmentSecondInputBinding
 import com.goingbacking.goingbacking.util.UiState
+import com.goingbacking.goingbacking.util.toast
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -64,10 +66,34 @@ class SecondInputFragment : BaseFragment<FragmentSecondInputBinding>() {
     private fun onClick() = with(binding) {
 
         loginbtn.setOnClickListener {
-            viewModel.updateSecondInput(typeEdittext.toString())
-            findNavController().navigate(R.id.action_secondInputFragment_to_thirdInputFragment)
+            completeAction()
+        }
+        typeEdittext.setOnEditorActionListener { _, _, _ ->
+            completeAction()
+            true
         }
     }
+
+
+    // 입력 조건이 맞는 경우
+    // 데이터 베이스에 저장 + 다음 fragment로 넘어감
+    private fun completeAction() = with(binding) {
+        // 만약에 edittext가 비어있다면
+        if (TextUtils.isEmpty(typeEdittext.text)) {
+            toast(requireContext(), "직업란이 비었어요.")
+        }
+        // 만약에 edittext의 입력 길이가 너무 길다면
+        else if (typeEdittext.text.length >= 10) {
+            toast(requireContext(), "직업명이 너무 길어요.")
+        }
+        // 만약에 edittext가 비어있지 않다면
+        else {
+            viewModel.updateSecondInput(typeEdittext.text.toString())
+            findNavController().navigate(R.id.action_secondInputFragment_to_thirdInputFragment)
+
+        }
+    }
+
 
 
 }
