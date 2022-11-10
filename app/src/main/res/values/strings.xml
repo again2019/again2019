@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name"> 왔다갔다 </string>
-
-    <string name="some_id">왔다갔다... \n 시간 너무 아깝지 않나요?\n 하루를 48시간으로 사는 법!</string>
-
-    <string name="signup"><u>회원가입 하기</u></string>
-
+    <string name="team_name"> again2019 </string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="example_1_title">Example 1</string>
@@ -33,6 +29,11 @@
     <string name="clear">Clear</string>
     <string name="week_mode">Week mode</string>
 
+
+    <!-- Splash -->
+    <string name="some_id">왔다갔다...\n시간 너무 아깝지 않나요?\n하루를 48시간으로 사는 법!</string>
+
+
     <!-- firstInput Fragment -->
     <string name="input_nickname">사용하실 <b>닉네임</b>을 입력해주세요.</string>
 
@@ -42,6 +43,33 @@
     <string name="fail"> 실패 </string>
 
     <!-- 로그인 관련 string -->
+    <string name="login_ment1"> 왔다갔다와\n자투리 시간 관리를 시작해봐요. </string>
+    <string name="login_ment2"> 더이상 통학/통근 시간이 아깝다는 생각이 안드실거에요! </string>
+    <string name="login_ment3"> 이메일로 로그인</string>
+    <string name="login_ment4"> 아직 회원이 아니신가요? </string>
+    <string name="login_ment5"> <u>회원가입 하기</u> </string>
+    <string name="login_ment6"> 구글 로그인으로 빠르게 시작하기 </string>
+    <string name="login_ment7"> 로그인 </string>
+    <string name="login_ment8"> 이메일 </string>
+    <string name="login_ment9"> 과 </string>
+    <string name="login_ment10"> 비밀번호 </string>
+    <string name="login_ment11"> 를 </string>
+    <string name="login_ment12"> 입력해주세요! </string>
+    <string name="login_ment13"> 이메일을 입력해주세요. </string>
+    <string name="login_ment14"> 비밀번호를 입력해주세요. </string>
+    <string name="login_ment15"> 비밀번호를 잊어버렸다면? > </string>
+    <string name="login_ment16"> 비밀번호 찾기 </string>
+    <string name="login_ment17"> 가입한 이메일 계정을 입력해주세요. </string>
+    <string name="login_ment18"> 비밀번호 재설정 </string>
+    <string name="login_ment19"> 비밀번호를 잊어버렸다면? </string>
+    <string name="login_ment20"> 회원 가입 </string>
+    <string name="login_ment21"> 사용하실 </string>
+    <string name="login_ment22"> 비밀번호를 잊어버렸다면? </string>
+    <string name="login_ment23"> 밀번호를 한번 더 입력해주세요. </string>
+    <string name="login_ment24"> 회원가입 하기 </string>
+
+
+    <!-- 로그인 toast 관련 string -->
     <string name="login_success"> 로그인 성공 </string>
     <string name="login_fail"> 로그인 실패 </string>
     <string name="email_again"> 이메일을 다시 입력해주세요. </string>
@@ -56,6 +84,36 @@
     <string name="sign_up_fail"> 회원 가입 실패 </string>
     <string name="auto_login_fail"> 자동 로그인 실패 </string>
 
+    <!-- input 관련 string -->
+    <string name="input_ment1"> 닉네임 입력 </string>
+    <string name="input_ment2"> 만나서 반가워요! </string>
+    <string name="input_ment3"> 사용하실 </string>
+    <string name="input_ment4"> 닉네임 </string>
+    <string name="input_ment5"> 을 입력해주세요. </string>
+    <string name="input_ment6"> 닉네임을 입력해주세요. </string>
+    <string name="input_ment7"> 다음 단계로 가기 </string>
+    <string name="input_ment8"> 3단계 남았어요! </string>
+    <string name="input_ment9"> 닉네임을 입력해주세요. </string>
+    <string name="input_ment10"> 직업 입력 </string>
+    <string name="input_ment11"> 2단계 남았어요! </string>
+    <string name="input_ment12"> ㅇㅇㅇ </string>
+    <string name="input_ment13"> 님! </string>
+    <string name="input_ment14"> 직업을 입력해주세요! </string>
+    <string name="input_ment15"> ex) 학생, 직장인 </string>
+    <string name="input_ment16"> 다음 단계로 가기 </string>
+    <string name="input_ment17"> 자기계발 입력 </string>
+    <string name="input_ment18"> 거의 다 왔어요! </string>
+    <string name="input_ment19"> 어떤 자기계발을 하실 건가요? </string>
+    <string name="input_ment20"> 시작하기 </string>
+
+
+    <!-- input toast 관련 string -->
+    <string name="check_input_fail"> 입력하신 정보를 불러올 수 없습니다. </string>
+    <string name="nickname_input_fail"> 닉네임을 입력하세요. </string>
+    <string name="nickname_input_long_fail"> 닉네임이 너무 길어요. </string>
+    <string name="chip_no_selected"> 통근/통학 시간에 하고싶은 일을 선택해주세요. </string>
+
+
     <!-- forthMainFragment string -->
     <string name="cheer_message"> 응원 메시지를 입력해주세요. </string>
     <string name="no_information"> 정보를 받아올 수 없습니다. </string>
@@ -65,11 +123,7 @@
     <string name="logout_success"> 로그 아웃 완료 </string>
 
 
-    <!-- input 관련 string -->
-    <string name="check_input_fail"> 입력하신 정보를 불러올 수 없습니다. </string>
-    <string name="nickname_input_fail"> 닉네임을 입력하세요. </string>
-    <string name="nickname_input_long_fail"> 닉네임이 너무 길어요. </string>
-    <string name="chip_no_selected"> 통근/통학 시간에 하고싶은 일을 선택해주세요. </string>
+
 
 
     <!-- 임시 저장 -> 데이터 베이스 저장 관련 string -->
@@ -94,6 +148,16 @@
 
     <!-- alarm 관련 -->
     <string name="no_schedule"> 오늘 일정은 없습니다. </string>
+
+    <!-- 자기 계발 -->
+    <string name="self_dev1"> 독서 </string>
+    <string name="self_dev2"> 영어 듣기 </string>
+    <string name="self_dev3"> 시사 공부 </string>
+    <string name="self_dev4"> 전공 과제 </string>
+    <string name="self_dev5"> 뉴스 </string>
+    <string name="self_dev6"> 독서 </string>
+    <string name="self_dev7"> 독서 </string>
+
 
 
 </resources>

@@ -28,7 +28,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="회원 가입"
+        android:text="@string/login_ment20"
         android:layout_gravity="center"
         android:id="@+id/toolbar_title"
         android:textSize="20sp"
@@ -44,7 +44,7 @@
         android:layout_marginTop="80dp"
         android:fontFamily="@font/medium"
         android:letterSpacing="0.02"
-        android:text="사용하실"
+        android:text="@string/login_ment21"
         android:textColor="@color/titleMain"
         android:textSize="22sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -57,7 +57,7 @@
         android:layout_marginLeft="3dp"
         android:fontFamily="@font/bold"
         android:letterSpacing="0.02"
-        android:text="이메일"
+        android:text="@string/login_ment8"
         android:textColor="@color/titleMain"
         android:textSize="22sp"
         app:layout_constraintLeft_toRightOf="@+id/nickname"
@@ -69,8 +69,8 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/medium"
         android:letterSpacing="0.02"
-        android:text="과"
-        android:textColor="#525C6C"
+        android:text="@string/login_ment9"
+        android:textColor="@color/titleMain"
         android:textSize="22sp"
         app:layout_constraintLeft_toRightOf="@+id/text2"
         app:layout_constraintTop_toTopOf="@+id/nickname" />
@@ -82,8 +82,8 @@
         android:layout_marginLeft="3dp"
         android:fontFamily="@font/bold"
         android:letterSpacing="0.02"
-        android:text="비밀번호"
-        android:textColor="#525C6C"
+        android:text="@string/login_ment10"
+        android:textColor="@color/titleMain"
         android:textSize="22sp"
         app:layout_constraintLeft_toRightOf="@+id/text3"
         app:layout_constraintTop_toTopOf="@+id/nickname" />
@@ -94,8 +94,8 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/medium"
         android:letterSpacing="0.02"
-        android:text="를"
-        android:textColor="#525C6C"
+        android:text="@string/login_ment11"
+        android:textColor="@color/titleMain"
         android:textSize="22sp"
         app:layout_constraintLeft_toRightOf="@+id/text4"
         app:layout_constraintTop_toTopOf="@+id/nickname" />
@@ -104,9 +104,9 @@
         android:id="@+id/text5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="입력해주세요!"
+        android:text="@string/login_ment12"
         android:textSize="22sp"
-        android:textColor="#525C6C"
+        android:textColor="@color/titleMain"
         android:fontFamily="@font/medium"
         android:layout_marginTop="4dp"
         android:letterSpacing="0.02"
@@ -120,7 +120,7 @@
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        android:hint="이메일을 입력해주세요."
+        android:hint="@string/login_ment13"
         android:imeOptions="actionNext"
         android:inputType="textEmailAddress"
         android:paddingBottom="17dp"
@@ -135,7 +135,7 @@
         app:layout_constraintTop_toBottomOf="@+id/register_email_edittext"
         app:layout_constraintStart_toStartOf="@+id/register_email_edittext"
         android:layout_marginTop="5dp"
-        android:hint="비밀번호를 입력해주세요."
+        android:hint="@string/login_ment14"
         android:paddingBottom="17dp"
         android:inputType="textPassword" />
     <EditText
@@ -146,7 +146,7 @@
         app:layout_constraintTop_toBottomOf="@+id/register_password_edittext1"
         app:layout_constraintStart_toStartOf="@+id/register_password_edittext1"
         android:layout_marginTop="5dp"
-        android:hint="비밀번호를 한번 더 입력해주세요."
+        android:hint="@string/login_ment23"
         android:paddingBottom="17dp"
         android:inputType="textPassword" />
 
@@ -158,7 +158,7 @@
         android:layout_marginStart="28dp"
         android:layout_marginBottom="68dp"
         android:padding="19dp"
-        android:text="회원가입 하기"
+        android:text="@string/login_ment24"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 

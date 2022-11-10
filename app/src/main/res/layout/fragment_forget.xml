@@ -28,7 +28,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="비밀번호 찾기"
+            android:text="@string/login_ment16"
             android:layout_gravity="center"
             android:id="@+id/toolbar_title"
             android:textSize="20sp"
@@ -43,7 +43,7 @@
         android:layout_marginTop="80dp"
         android:fontFamily="@font/bold"
         android:letterSpacing="0.02"
-        android:text="가입한 이메일 계정을 입력해주세요."
+        android:text="@string/login_ment17"
         android:textColor="@color/titleMain"
 
         android:textSize="22sp"
@@ -57,7 +57,7 @@
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:hint="이메일을 입력해주세요."
+        android:hint="@string/login_ment13"
         android:paddingBottom="17dp"
         android:inputType="textEmailAddress"
         android:imeOptions="actionDone"
@@ -72,7 +72,7 @@
         android:layout_marginStart="24dp"
         android:layout_marginBottom="68dp"
         android:padding="19dp"
-        android:text="비밀번호 재설정"
+        android:text="@string/login_ment18"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
