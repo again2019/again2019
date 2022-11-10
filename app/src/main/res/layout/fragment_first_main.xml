@@ -6,6 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".UI.Main.First.FirstMainFragment">
 
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/progress_circular"
+        style="@style/ProgressCircular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -207,6 +216,8 @@
             android:layout_marginBottom="20dp"
             android:gravity="center"
             android:text="@string/first_ment10"
+            android:fontFamily="@font/medium"
+            android:textColorHint="@color/titleMain"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -245,6 +256,8 @@
             android:backgroundTint="@color/white"
             android:gravity="center"
             android:text="@string/first_ment11"
+            android:fontFamily="@font/medium"
+            android:textColorHint="@color/titleMain"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -259,23 +272,11 @@
             android:gravity="center"
             android:text="@string/first_ment12"
             android:textColor="@color/white"
+            android:fontFamily="@font/medium"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-    <!--    <ImageButton-->
-    <!--        android:id="@+id/tmpTimeButton"-->
-    <!--        android:layout_width="35dp"-->
-    <!--        android:layout_height="45dp"-->
-    <!--        android:layout_marginTop="52dp"-->
-    <!--        android:layout_marginEnd="32dp"-->
-    <!--        android:background="@android:color/transparent"-->
-    <!--        android:scaleType="fitCenter"-->
-    <!--        android:src="@drawable/notification"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintTop_toTopOf="parent" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

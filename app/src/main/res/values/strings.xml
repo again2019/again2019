@@ -127,6 +127,11 @@
     <string name="first_ment11"> 꺾이지 않는 마음 </string>
     <string name="first_ment12"> 저희가 당신을 위해 준비한 한마디에요. \n 여기를 긁어보세요! </string>
 
+    <string name="first_tmp_fail"> 임시 저장 정보를 불러오기를 실패했습니다. </string>
+    <string name="first_no_store"> 저장해야 하는 시간이 없어요. </string>
+    <string name="first_yes_store1"> 저장하지 않은 시간이 </string>
+    <string name="first_yes_store2"> 개 있어요! </string>
+
 
 
 
