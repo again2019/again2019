@@ -1,8 +1,10 @@
 package com.goingbacking.goingbacking.UI.Splash
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.goingbacking.goingbacking.R
 import com.goingbacking.goingbacking.UI.Login.LoginActivity
 
@@ -13,11 +15,15 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
+@SuppressLint("CustomSplashScreen")
 @AndroidEntryPoint
 class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
+
+        val window = getWindow()
+        window.statusBarColor = ContextCompat.getColor(this, R.color.colorMain)
 
         CoroutineScope(Dispatchers.IO).launch {
             delay(DURATION)

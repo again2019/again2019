@@ -1,6 +1,9 @@
 package com.goingbacking.goingbacking.UI.Login
 
 
+import android.os.Bundle
+import androidx.core.content.ContextCompat
+import com.goingbacking.goingbacking.R
 import com.goingbacking.goingbacking.UI.Base.BaseActivity
 import com.goingbacking.goingbacking.databinding.ActivityLoginBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -9,19 +12,11 @@ import dagger.hilt.android.AndroidEntryPoint
 class LoginActivity : BaseActivity<ActivityLoginBinding>({
     ActivityLoginBinding.inflate(it)
 }) {
-    interface onBackPressedListener {
-        fun onBackPressed()
-    }
 
-    override fun onBackPressed() {
-        super.onBackPressed()
-        val fragmentList = supportFragmentManager.fragments
-        for (fragment in fragmentList) {
-            if (fragment is onBackPressedListener) {
-                (fragment as onBackPressedListener).onBackPressed()
-                return
-            }
-        }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val window = getWindow()
+        window.statusBarColor = ContextCompat.getColor(this, R.color.black)
     }
 
 }
