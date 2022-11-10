@@ -8,11 +8,7 @@
 
     <com.google.android.material.progressindicator.CircularProgressIndicator
         android:id="@+id/progress_circular"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:indeterminate="true"
-        android:visibility="invisible"
-        app:indicatorColor="@color/colorMain"
+        style="@style/ProgressCircular"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -47,16 +43,14 @@
 
     <Button
         android:id="@+id/googleloginbtn"
+        style="@style/BtnType2"
         android:layout_width="370dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="15dp"
-        android:background="@drawable/btn_line"
         android:drawableStart="@drawable/googlelogo"
         android:fontFamily="@font/bold"
         android:padding="19dp"
         android:text="구글 로그인으로 빠르게 시작하기"
-        android:textColor="@color/black"
-        android:textSize="17dp"
         app:layout_constraintBottom_toTopOf="@id/emailLoginButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -64,15 +58,12 @@
 
     <Button
         android:id="@+id/emailLoginButton"
+        style="@style/BtnType2"
         android:layout_width="370dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:background="@drawable/btn_line"
-        android:fontFamily="@font/bold"
         android:padding="19dp"
         android:text="이메일로 로그인"
-        android:textColor="#555555"
-        android:textSize="17dp"
         app:layout_constraintBottom_toTopOf="@+id/ment3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

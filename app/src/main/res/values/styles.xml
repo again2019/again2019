@@ -10,6 +10,7 @@
         <item name="windowNoTitle">true</item>
         <item name="colorControlNormal">@color/normalColor</item>
         <item name="android:timePickerStyle">@style/MyTimePickerTheme</item>
+
     </style>
 
     <style name="ToolbarTheme" parent="ThemeOverlay.AppCompat.Light">
@@ -18,21 +19,15 @@
 
     </style>
 
+    <!-- Chip -->
+
     <style name="AppTheme.GenderChip" parent="TextAppearance.MaterialComponents.Chip">
         <item name="android:textSize">18sp</item>
         <item name="android:textStyle">bold</item>
         <item name="fontFamily">@font/bold</item>
-
     </style>
-
-    <style name="TextStyleBNV">
-        <item name="android:textSize">10sp</item>
-        <item name="android:fontFamily">@font/bold</item>
-    </style>
-
 
     <style name="Colors_Widget.MaterialComponents.Chip.Choice" parent="Widget.MaterialComponents.Chip.Choice">
-
         <item name="android:textAppearance">@style/AppTheme.GenderChip</item>
         <item name="chipBackgroundColor">@color/bg_chip_state_list</item>
         <item name="chipStrokeColor">#888888</item>
@@ -52,10 +47,13 @@
         <item name="checkedIconEnabled">true</item>
         <item name="android:clickable">true</item>
         <item name="rippleColor">#D9F3EF</item>
+    </style>
 
+    <!-- BottomNaviagtion -->
 
-
-
+    <style name="TextStyleBNV">
+        <item name="android:textSize">10sp</item>
+        <item name="android:fontFamily">@font/bold</item>
     </style>
 
 
@@ -72,9 +70,45 @@
         <item name="android:background">@android:color/transparent</item>
     </style>
 
-    <style name="NextButton" parent="TextAppearance.AppCompat.Button">
-        <item name="android:background"> @drawable/button_radius </item>
+
+    <!-- progress circular -->
+    <style name="ProgressCircular" parent="Widget.Material3.CircularProgressIndicator">
+        <item name="android:indeterminate"> true </item>
+        <item name="android:visibility"> invisible </item>
+        <item name="indicatorColor"> @color/colorMain </item>
+        <item name="android:layout_width"> wrap_content  </item>
+        <item name="android:layout_height"> wrap_content  </item>
+
+
+
+
+    </style>
+
+
+    <!-- EditText Type1 -->
+    <style name="EditTextType1" parent="Widget.AppCompat.EditText">
+        <item name="backgroundTint"> @color/colorPrimaryGray </item>
+        <item name="fontFamily"> @font/medium </item>
+        <item name="android:textColorHint"> @color/colorPrimaryGray </item>
+        <item name="android:textSize"> 20sp </item>
+
+    </style>
+
+    <!-- Button Type1 -->
+
+    <style name="BtnType1">
         <item name="android:textColor"> @color/white </item>
+        <item name="fontFamily"> @font/bold </item>
+        <item name="android:textSize"> 17sp </item>
+        <item name="android:background">@drawable/btn_design1</item>
+    </style>
+
+    <!-- Button Type2 : white button -->
+    <style name="BtnType2" >
+        <item name="android:textColor"> @color/textColorPrimary </item>
+        <item name="fontFamily"> @font/bold </item>
+        <item name="android:textSize"> 17sp </item>
+        <item name="android:background"> @drawable/btn_design2 </item>
 
     </style>
 
