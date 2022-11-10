@@ -2,30 +2,30 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id ="@+id/firstMainFragment"
-        android:icon ="@drawable/common_full_open_on_phone"
+        android:icon ="@drawable/home"
         android:enabled="true"
-        android:title="home"/>
+        android:title="홈"/>
 
     <item
         android:id="@+id/secondMainFragment"
-        android:icon="@drawable/common_full_open_on_phone"
+        android:icon="@drawable/chart"
         android:enabled="true"
-        android:title="stat"/>
+        android:title="통계"/>
     <item
         android:id="@+id/thirdMainFragment"
-        android:icon="@drawable/common_full_open_on_phone"
+        android:icon="@drawable/calendar"
         android:enabled="true"
-        android:title="plan"/>
+        android:title="캘린더"/>
     <item
         android:id="@+id/forthMainFragment"
-        android:icon="@drawable/common_full_open_on_phone"
+        android:icon="@drawable/rank"
         android:enabled="true"
-        android:title="shop"/>
+        android:title="랭킹"/>
     <item
         android:id="@+id/fifthMainFragment"
-        android:icon="@drawable/common_full_open_on_phone"
+        android:icon="@drawable/user"
         android:enabled="true"
-        android:title="mypage"/>
+        android:title="my"/>
 
 
 </menu>

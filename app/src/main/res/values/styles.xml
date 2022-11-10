@@ -25,6 +25,12 @@
 
     </style>
 
+    <style name="TextStyleBNV">
+        <item name="android:textSize">10sp</item>
+        <item name="android:fontFamily">@font/bold</item>
+    </style>
+
+
     <style name="Colors_Widget.MaterialComponents.Chip.Choice" parent="Widget.MaterialComponents.Chip.Choice">
 
         <item name="android:textAppearance">@style/AppTheme.GenderChip</item>
