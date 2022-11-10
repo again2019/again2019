@@ -1,12 +1,15 @@
 package com.goingbacking.goingbacking.UI.Input
 
 import android.animation.ObjectAnimator
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import android.view.*
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat.finishAffinity
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.viewModels
@@ -25,7 +28,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class FirstInputFragment : BaseFragment<FragmentFirstInputBinding>() {
     val viewModel: InputViewModel by viewModels()
-
+    private lateinit var callback: OnBackPressedCallback
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
@@ -53,7 +56,6 @@ class FirstInputFragment : BaseFragment<FragmentFirstInputBinding>() {
                 when(menuItem.itemId) {
                     android.R.id.home -> {
                         moveLoginPage()
-
                         return true
                     }
                 }
@@ -99,6 +101,21 @@ class FirstInputFragment : BaseFragment<FragmentFirstInputBinding>() {
 
             findNavController().navigate(action)
         }
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                moveLoginPage()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        callback.remove()
     }
 
 
