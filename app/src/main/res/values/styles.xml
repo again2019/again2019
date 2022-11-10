@@ -109,9 +109,26 @@
         <item name="fontFamily"> @font/bold </item>
         <item name="android:textSize"> 17sp </item>
         <item name="android:background"> @drawable/btn_design2 </item>
-
     </style>
 
+    <!-- Text Type -->
+    <!-- Main Title-->
+    <style name="MainTitle" >
+        <item name="android:textColor"> @color/titleMain </item>
+        <item name="fontFamily"> @font/bold </item>
+    </style>
+    <!-- Sub Title Title-->
+    <style name="SubTitle" >
+        <item name="android:textColor"> @color/titleSub </item>
+        <item name="fontFamily"> @font/semibold </item>
+        <item name="android:letterSpacing"> -0.02 </item>
+    </style>
+
+    <style name="mainText" >
+        <item name="android:textColor"> @color/textGray </item>
+        <item name="fontFamily"> @font/bold </item>
+        <item name="android:letterSpacing"> -0.02 </item>
+    </style>
 
 
     <style name="MyTimePickerTheme" parent="android:Widget.Material.Light.TimePicker">
