@@ -8,15 +8,12 @@
 
     <com.google.android.material.progressindicator.CircularProgressIndicator
         android:id="@+id/progress_circular"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:indeterminate="true"
-        android:visibility="invisible"
-        app:indicatorColor="@color/colorMain"
+        style="@style/ProgressCircular"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 
 
     <androidx.appcompat.widget.Toolbar
@@ -58,7 +55,7 @@
         android:layout_marginTop="116dp"
         android:fontFamily="@font/light"
         android:text="거의 다 왔어요!"
-        android:textSize="10sp"
+        android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="@+id/chipGroup"
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
@@ -72,8 +69,8 @@
         android:fontFamily="@font/bold"
         android:letterSpacing="0.02"
         android:text="어떤 자기계발을 하실 건가요?"
-        android:textColor="#525C6C"
-        android:textSize="22dp"
+        android:textColor="@color/titleMain"
+        android:textSize="22sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/progress_bar" />
 
@@ -141,17 +138,12 @@
 
     <Button
         android:id="@+id/thirdInputButton"
-        style="?android:attr/borderlessButtonStyle"
+        style="@style/BtnType1"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="28dp"
-        android:background="@drawable/btn_design1"
-        android:backgroundTint="#3FC2B0"
-        android:fontFamily="@font/bold"
         android:padding="19dp"
         android:text="시작하기"
-        android:textColor="@color/white"
-        android:textSize="17dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/chipGroup"
         app:layout_constraintStart_toStartOf="@+id/chipGroup" />

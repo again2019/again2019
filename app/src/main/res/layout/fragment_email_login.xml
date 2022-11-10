@@ -3,16 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fafafa"
+    android:background="@color/colorBackGround"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <com.google.android.material.progressindicator.CircularProgressIndicator
+   <com.google.android.material.progressindicator.CircularProgressIndicator
         android:id="@+id/progress_circular"
+        style="@style/ProgressCircular"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:indeterminate="true"
-        android:visibility="invisible"
-        app:indicatorColor="@color/colorMain"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -48,11 +46,10 @@
         android:fontFamily="@font/bold"
         android:letterSpacing="0.02"
         android:text="이메일"
-        android:textColor="#525C6C"
-
-        android:textSize="22dp"
+        android:textColor="@color/titleMain"
+        android:textSize="22sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar"></TextView>
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"/>
 
     <TextView
         android:id="@+id/text2"
@@ -61,10 +58,10 @@
         android:fontFamily="@font/medium"
         android:letterSpacing="0.02"
         android:text="과"
-        android:textColor="#525C6C"
-        android:textSize="22dp"
+        android:textColor="@color/titleMain"
+        android:textSize="22sp"
         app:layout_constraintLeft_toRightOf="@+id/nickname"
-        app:layout_constraintTop_toTopOf="@+id/nickname"></TextView>
+        app:layout_constraintTop_toTopOf="@+id/nickname"/>
 
     <TextView
         android:id="@+id/text3"
@@ -74,10 +71,10 @@
         android:fontFamily="@font/bold"
         android:letterSpacing="0.02"
         android:text="비밀번호"
-        android:textColor="#525C6C"
-        android:textSize="22dp"
+        android:textColor="@color/titleMain"
+        android:textSize="22sp"
         app:layout_constraintLeft_toRightOf="@+id/text2"
-        app:layout_constraintTop_toTopOf="@+id/nickname"></TextView>
+        app:layout_constraintTop_toTopOf="@+id/nickname"/>
 
     <TextView
         android:id="@+id/text4"
@@ -86,70 +83,62 @@
         android:fontFamily="@font/medium"
         android:letterSpacing="0.02"
         android:text="를"
-        android:textColor="#525C6C"
-        android:textSize="22dp"
+        android:textColor="@color/titleMain"
+        android:textSize="22sp"
         app:layout_constraintLeft_toRightOf="@+id/text3"
-        app:layout_constraintTop_toTopOf="@+id/nickname"></TextView>
+        app:layout_constraintTop_toTopOf="@+id/nickname"/>
 
     <TextView
         android:id="@+id/text5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="입력해주세요!"
-        android:textSize="22dp"
-        android:textColor="#525C6C"
+        android:textSize="22sp"
+        android:textColor="@color/titleMain"
         android:fontFamily="@font/medium"
         android:layout_marginTop="4dp"
         android:letterSpacing="0.02"
         app:layout_constraintTop_toBottomOf="@+id/nickname"
         app:layout_constraintStart_toStartOf="@+id/nickname"
-        ></TextView>
+        />
 
 
     <EditText
+        style="@style/EditTextType1"
         android:id="@+id/emailEdittext"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        android:backgroundTint="#B4BCC4"
-        android:fontFamily="@font/medium"
         android:hint="이메일을 입력해주세요."
         android:paddingBottom="17dp"
         android:layout_marginLeft="-3dp"
-        android:textColorHint="#B4BCC4"
-        android:textSize="20dp"
+        android:inputType="textEmailAddress"
+        android:imeOptions="actionNext"
         app:layout_constraintStart_toStartOf="@+id/text5"
         app:layout_constraintTop_toBottomOf="@+id/text5" />
 
     <EditText
+        style="@style/EditTextType1"
         android:id="@+id/passwordEdittext"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/medium"
-        android:textSize="20dp"
         app:layout_constraintTop_toBottomOf="@+id/emailEdittext"
         app:layout_constraintStart_toStartOf="@+id/emailEdittext"
         android:layout_marginTop="5dp"
         android:hint="비밀번호를 입력해주세요."
         android:paddingBottom="17dp"
-        android:textColorHint="#B4BCC4"
-        android:backgroundTint="#B4BCC4"
-        android:inputType="textPassword" />
+        android:inputType="textPassword"
+        android:imeOptions="actionDone"/>
 
     <Button
         android:id="@+id/loginButton"
-        style="?android:attr/borderlessButtonStyle"
+        style="@style/BtnType1"
         android:layout_width="360dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginBottom="68dp"
-        android:background="@drawable/btn_design1"
-        android:backgroundTint="#3FC2B0"
-        android:fontFamily="@font/bold"
         android:padding="19dp"
         android:text="로그인"
-        android:textColor="@color/white"
-        android:textSize="17dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
     <TextView
@@ -162,8 +151,8 @@
         android:gravity="center"
         android:padding="19dp"
         android:text="비밀번호를 잊어버렸다면? >"
-        android:textColor="@color/black"
-        android:textSize="16dp"
+        android:textColor="@color/titleMain"
+        android:textSize="16sp"
         app:layout_constraintTop_toBottomOf="@id/loginButton"
         app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

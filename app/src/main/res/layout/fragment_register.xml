@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fafafa"
+    android:background="@color/colorBackGround"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <com.google.android.material.progressindicator.CircularProgressIndicator
@@ -45,7 +45,7 @@
         android:fontFamily="@font/medium"
         android:letterSpacing="0.02"
         android:text="사용하실"
-        android:textColor="#525C6C"
+        android:textColor="@color/titleMain"
         android:textSize="22sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
@@ -58,7 +58,7 @@
         android:fontFamily="@font/bold"
         android:letterSpacing="0.02"
         android:text="이메일"
-        android:textColor="#525C6C"
+        android:textColor="@color/titleMain"
         android:textSize="22sp"
         app:layout_constraintLeft_toRightOf="@+id/nickname"
         app:layout_constraintTop_toTopOf="@+id/nickname" />

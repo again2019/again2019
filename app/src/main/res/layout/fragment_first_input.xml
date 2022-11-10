@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fafafa"
+    android:background="@color/colorBackGround"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
@@ -50,8 +50,8 @@
         android:letterSpacing="0.02"
 
         android:text="만나서 반가워요!"
-        android:textColor="#525C6C"
-        android:textSize="22dp"
+        android:textColor="@color/titleMain"
+        android:textSize="22sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/progress_bar" />
 
@@ -60,8 +60,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="사용하실"
-        android:textSize="22dp"
-        android:textColor="#525C6C"
+        android:textSize="22sp"
+        android:textColor="@color/titleMain"
         android:fontFamily="@font/medium"
         android:letterSpacing="0.02"
         app:layout_constraintTop_toBottomOf="@+id/nickname"
@@ -71,13 +71,13 @@
     <TextView
         android:layout_width="60dp"
         android:layout_height="10dp"
-        android:textSize="22dp"
+        android:textSize="22sp"
         android:textColor="#525C6C"
         android:fontFamily="@font/extrabold"
         android:letterSpacing="0.02"
         android:layout_marginLeft="4dp"
-        android:backgroundTint="#9dded5"
-        android:background="#9dded5"
+        android:backgroundTint="@color/colorEmp"
+        android:background="@color/colorEmp"
         android:layout_marginTop="20dp"
         app:layout_constraintLeft_toRightOf="@+id/text2"
         app:layout_constraintTop_toBottomOf="@id/nickname"/>
@@ -86,8 +86,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="닉네임"
-        android:textSize="22dp"
-        android:textColor="#525C6C"
+        android:textSize="22sp"
+        android:textColor="@color/titleMain"
         android:layout_marginLeft="4dp"
         android:fontFamily="@font/bold"
         android:letterSpacing="0.02"
@@ -99,8 +99,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="을 입력해주세요."
-        android:textSize="22dp"
-        android:textColor="#525C6C"
+        android:textSize="22sp"
+        android:textColor="@color/titleMain"
         android:fontFamily="@font/medium"
         android:letterSpacing="0.02"
         app:layout_constraintTop_toBottomOf="@id/nickname"
@@ -108,16 +108,14 @@
 
 
     <EditText
+        style="@style/EditTextType1"
         android:id="@+id/nickNameEdittext"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        android:backgroundTint="#B4BCC4"
-        android:fontFamily="@font/medium"
         android:hint="닉네임을 입력해주세요."
         android:paddingBottom="17dp"
         android:textColorHint="#B4BCC4"
-        android:textSize="20dp"
         android:inputType="text"
         android:imeOptions="actionDone"
         app:layout_constraintEnd_toEndOf="parent"
@@ -126,18 +124,13 @@
 
     <android.widget.Button
         android:id="@+id/firstInputButton"
-        style="?android:attr/borderlessButtonStyle"
+        style="@style/BtnType1"
         android:layout_width="360dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginBottom="28dp"
-        android:background="@drawable/btn_design1"
-        android:backgroundTint="#3FC2B0"
-        android:fontFamily="@font/bold"
         android:padding="19dp"
         android:text="다음 단계로 가기"
-        android:textColor="@color/white"
-        android:textSize="17dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -149,7 +142,7 @@
         android:layout_marginEnd="4dp"
         android:fontFamily="@font/light"
         android:text="3단계 남았어요!"
-        android:textSize="10sp"
+        android:textSize="11sp"
         app:layout_constraintEnd_toEndOf="@+id/nickNameEdittext"
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
