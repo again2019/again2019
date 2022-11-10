@@ -3,22 +3,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fafafa"
+    android:background="@color/colorBackGround"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
     <com.google.android.material.progressindicator.CircularProgressIndicator
         android:id="@+id/progress_circular"
+        style="@style/ProgressCircular"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:indeterminate="true"
-        android:visibility="invisible"
-        app:indicatorColor="@color/colorMain"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -31,7 +28,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="비밀번호 찾기"
+            android:text="@string/login_ment16"
             android:layout_gravity="center"
             android:id="@+id/toolbar_title"
             android:textSize="20sp"
@@ -46,42 +43,36 @@
         android:layout_marginTop="80dp"
         android:fontFamily="@font/bold"
         android:letterSpacing="0.02"
-        android:text="가입한 이메일 계정을 입력해주세요."
-        android:textColor="#525C6C"
+        android:text="@string/login_ment17"
+        android:textColor="@color/titleMain"
 
-        android:textSize="22dp"
+        android:textSize="22sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
 
     <EditText
         android:id="@+id/email_edittext"
+        style="@style/EditTextType1"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:backgroundTint="#B4BCC4"
-        android:fontFamily="@font/medium"
-        android:hint="이메일을 입력해주세요."
+        android:hint="@string/login_ment13"
         android:paddingBottom="17dp"
-        android:textColorHint="#B4BCC4"
-        android:textSize="20dp"
+        android:inputType="textEmailAddress"
+        android:imeOptions="actionDone"
         app:layout_constraintStart_toStartOf="@+id/nickname"
         app:layout_constraintTop_toBottomOf="@+id/nickname" />
 
     <Button
         android:id="@+id/forgotPassBtn"
-        style="?android:attr/borderlessButtonStyle"
+        style="@style/BtnType1"
         android:layout_width="360dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginBottom="68dp"
-        android:background="@drawable/btn_line"
-        android:backgroundTint="@color/colorMain"
-        android:fontFamily="@font/bold"
         android:padding="19dp"
-        android:text="비밀번호 재설정"
-        android:textColor="@color/white"
-        android:textSize="17dp"
+        android:text="@string/login_ment18"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 

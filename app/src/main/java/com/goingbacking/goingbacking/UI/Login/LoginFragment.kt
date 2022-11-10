@@ -59,7 +59,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
         }
         googleloginbtn.setOnClickListener {
             googleLoginObserver()
-            toast(requireContext(), FirebaseAuth.getInstance().currentUser?.uid.toString())
         }
     }
 

@@ -5,8 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".UI.Main.First.FirstMainFragment">
-    <!--    android:background="@drawable/first_main_fragment"-->
 
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/progress_circular"
+        style="@style/ProgressCircular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -25,7 +33,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/bold"
             android:text="@string/app_name"
-            android:textColor="#8B929E"
+            android:textColor="@color/textGray"
             android:textSize="23sp" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -64,7 +72,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/medium"
-        android:text="3"
+        android:text="@string/first_ment2"
         android:textColor="@color/colorMain"
         android:textSize="23sp"
         app:layout_constraintStart_toStartOf="@+id/textView3"
@@ -75,7 +83,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/medium"
-        android:text="시간"
+        android:text="@string/first_ment3"
         android:textColor="@color/colorMain"
         android:textSize="23sp"
         app:layout_constraintStart_toEndOf="@+id/today_hour"
@@ -86,7 +94,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/medium"
-        android:text="37"
+        android:text="@string/first_ment4"
         android:textColor="@color/colorMain"
         android:textSize="23sp"
         app:layout_constraintStart_toEndOf="@+id/textView5"
@@ -97,7 +105,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/medium"
-        android:text="분"
+        android:text="@string/first_ment5"
         android:textColor="@color/colorMain"
         android:textSize="23sp"
         app:layout_constraintStart_toEndOf="@+id/today_minute"
@@ -107,9 +115,9 @@
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/medium"
-        android:text="입니다."
-        android:textColor="@color/black"
+        android:fontFamily="@font/bold"
+        android:text="@string/first_ment6"
+        android:textColor="@color/titleMain"
         android:textSize="23sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -122,9 +130,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
         android:layout_marginTop="40dp"
-        android:fontFamily="@font/medium"
-        android:text="오늘 당신이 SAVE할 시간은"
-        android:textColor="@color/black"
+        android:fontFamily="@font/bold"
+        android:text="@string/first_ment1"
+        android:textColor="@color/titleMain"
         android:textSize="23sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -135,37 +143,36 @@
         android:id="@+id/textView8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
+        android:layout_marginBottom="12dp"
         android:fontFamily="@font/medium"
-        android:text="오늘의 시간 관리 일정"
-        android:textColor="@color/black"
+        android:text="@string/first_ment7"
+        android:textColor="@color/titleMain"
         android:textSize="15sp"
-        app:layout_constraintStart_toStartOf="@+id/today_hour"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
+        app:layout_constraintStart_toStartOf="@+id/constraintLayout" />
 
     <TextView
         android:id="@+id/textView9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
+        android:layout_marginBottom="12dp"
         android:fontFamily="@font/medium"
-        android:text="Motivation"
+        android:text="@string/first_ment8"
         android:textColor="@color/black"
         android:textSize="15sp"
-        app:layout_constraintStart_toStartOf="@+id/constraintLayout"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
+        app:layout_constraintStart_toStartOf="@+id/constraintLayout2" />
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="350dp"
         android:layout_height="250dp"
-        android:layout_marginTop="12dp"
         android:background="@drawable/first_main_radius"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/textView8"
-        app:layout_constraintTop_toBottomOf="@+id/textView8">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4">
 
 
         <Button
@@ -174,10 +181,10 @@
             android:layout_height="30dp"
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="20dp"
-            android:background="@drawable/btn_line"
+            android:background="@drawable/btn_design1"
             android:backgroundTint="@color/colorMain"
             android:gravity="center"
-            android:text="일정 추가하기"
+            android:text="@string/first_ment9"
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
@@ -208,7 +215,9 @@
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="20dp"
             android:gravity="center"
-            android:text="오늘은 등록된 일정이 없습니다."
+            android:text="@string/first_ment10"
+            android:fontFamily="@font/medium"
+            android:textColorHint="@color/titleMain"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -229,22 +238,26 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout2"
         android:layout_width="350dp"
         android:layout_height="150dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginBottom="40dp"
         android:background="@drawable/first_main_radius"
-        app:layout_constraintStart_toStartOf="@+id/textView9"
-        app:layout_constraintTop_toBottomOf="@+id/textView9">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
 
         <TextView
+
             android:id="@+id/todayText"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/button_radius"
             android:backgroundTint="@color/white"
             android:gravity="center"
-            android:text="꺾이지 않는 마음"
+            android:text="@string/first_ment11"
+            android:fontFamily="@font/medium"
+            android:textColorHint="@color/titleMain"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -254,28 +267,16 @@
             android:id="@+id/todayTextHide"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/button_radius"
-            android:backgroundTint="#000000"
+            android:background="@drawable/first_main_radius"
+            android:backgroundTint="@color/black"
             android:gravity="center"
-            android:text="저희가 당신을 위해 준비한 한마디에요. \n 여기를 긁어보세요!"
+            android:text="@string/first_ment12"
             android:textColor="@color/white"
+            android:fontFamily="@font/medium"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-    <!--    <ImageButton-->
-    <!--        android:id="@+id/tmpTimeButton"-->
-    <!--        android:layout_width="35dp"-->
-    <!--        android:layout_height="45dp"-->
-    <!--        android:layout_marginTop="52dp"-->
-    <!--        android:layout_marginEnd="32dp"-->
-    <!--        android:background="@android:color/transparent"-->
-    <!--        android:scaleType="fitCenter"-->
-    <!--        android:src="@drawable/notification"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintTop_toTopOf="parent" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

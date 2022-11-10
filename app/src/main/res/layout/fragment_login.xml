@@ -4,42 +4,35 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fafafa">
+    android:background="@color/colorBackGround">
 
     <com.google.android.material.progressindicator.CircularProgressIndicator
         android:id="@+id/progress_circular"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:indeterminate="true"
-        android:visibility="invisible"
-        app:indicatorColor="@color/colorMain"
+        style="@style/ProgressCircular"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        style="@style/MainTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
         android:layout_marginTop="136dp"
-        android:fontFamily="@font/bold"
-        android:text="왔다갔다와\n자투리 시간 관리를 시작해봐요."
-        android:textColor="#525C6C"
-        android:textSize="23dp"
+        android:text="@string/login_ment1"
+        android:textSize="23sp"
         android:id="@+id/ment1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        style="@style/SubTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:fontFamily="@font/semibold"
-        android:text="더이상 통학/통근 시간이 아깝다는 생각이 안드실거에요!"
-        android:textColor="#BCBEC1"
-        android:textSize="16dp"
-        android:letterSpacing="-0.02"
+        android:text="@string/login_ment2"
+        android:textSize="14sp"
         android:id="@+id/ment2"
         app:layout_constraintStart_toStartOf="@+id/ment1"
         app:layout_constraintTop_toBottomOf="@+id/ment1" />
@@ -47,16 +40,14 @@
 
     <Button
         android:id="@+id/googleloginbtn"
+        style="@style/BtnType2"
         android:layout_width="370dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="15dp"
-        android:background="@drawable/btn_line"
         android:drawableStart="@drawable/googlelogo"
         android:fontFamily="@font/bold"
         android:padding="19dp"
-        android:text="구글 로그인으로 빠르게 시작하기"
-        android:textColor="@color/black"
-        android:textSize="17dp"
+        android:text="@string/login_ment6"
         app:layout_constraintBottom_toTopOf="@id/emailLoginButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -64,45 +55,38 @@
 
     <Button
         android:id="@+id/emailLoginButton"
+        style="@style/BtnType2"
         android:layout_width="370dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:background="@drawable/btn_line"
-        android:fontFamily="@font/bold"
         android:padding="19dp"
-        android:text="이메일로 로그인"
-        android:textColor="#555555"
-        android:textSize="17dp"
+        android:text="@string/login_ment3"
         app:layout_constraintBottom_toTopOf="@+id/ment3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/googleloginbtn" />
 
     <TextView
+        style="@style/mainText"
         android:id="@+id/ment3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/bold"
-        android:letterSpacing="-0.02"
-        android:text="아직 회원이 아니신가요?"
+        android:text="@string/login_ment4"
         android:textAlignment="center"
-        android:textColor="#999999"
         app:layout_constraintBottom_toTopOf="@+id/registerButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
+        style="@style/mainText"
         android:id="@+id/registerButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
-        android:fontFamily="@font/bold"
-        android:letterSpacing="-0.02"
-        android:text="@string/signup"
+        android:text="@string/login_ment5"
         android:textAlignment="center"
-        android:textColor="#999999"
-        android:textSize="16dp"
+        android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

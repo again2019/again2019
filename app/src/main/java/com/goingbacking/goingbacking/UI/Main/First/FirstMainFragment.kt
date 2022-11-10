@@ -101,16 +101,17 @@ class FirstMainFragment : BaseFragment<FragmentFirstMainBinding>() {
         viewModel.tmpTimeDTOs.observe(viewLifecycleOwner) { state ->
             when(state) {
                 is UiState.Success -> {
+                    binding.progressCircular.hide()
                     val tmpTimeCount = state.data.size
                     if (tmpTimeCount == 0) {
                         binding.tmpTimeButton.setMinAndMaxProgress(1f, 1f)
                         binding.tmpTimeDot.makeGONE()
-                        balloon = balloonBuild("저장해야 하는 시간이 없어요")
+                        balloon = balloonBuild(getString(R.string.first_no_store))
                     } else {
                         binding.tmpTimeButton.setMinAndMaxProgress(0f, 1f)
                         binding.tmpTimeButton.repeatCount = 50
                         binding.tmpTimeDot.makeVisible()
-                        balloon = balloonBuild("저장하지 않은 시간이 " + tmpTimeCount.toString() + "개 있어요.")
+                        balloon = balloonBuild(getString(R.string.first_yes_store1) + tmpTimeCount.toString() + getString(R.string.first_yes_store2))
 
 
                     }
@@ -119,10 +120,11 @@ class FirstMainFragment : BaseFragment<FragmentFirstMainBinding>() {
                     binding.tmpTimeButton.playAnimation()
                 }
                 is UiState.Failure -> {
-
+                    binding.progressCircular.hide()
+                    toast(requireContext(), getString(R.string.first_tmp_fail))
                 }
                 is UiState.Loading -> {
-
+                    binding.progressCircular.show()
                 }
             }
 

@@ -22,7 +22,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class EmailLoginFragment : BaseFragment<FragmentEmailLoginBinding>(), LoginActivity.onBackPressedListener {
+class EmailLoginFragment : BaseFragment<FragmentEmailLoginBinding>() {
     private val viewModel : LoginViewModel by viewModels()
 
     override fun getFragmentBinding(
@@ -136,11 +136,6 @@ class EmailLoginFragment : BaseFragment<FragmentEmailLoginBinding>(), LoginActiv
     private fun moveInputPage() {
         val intent = Intent(requireActivity(), InputActivity::class.java)
         startActivity(intent)
+        requireActivity().finishAffinity()
     }
-
-    override fun onBackPressed() {
-
-    }
-
-
 }

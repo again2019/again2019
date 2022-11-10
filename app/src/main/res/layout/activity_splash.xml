@@ -4,22 +4,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#3FC2B0"
+    android:background="@color/colorMain"
     tools:context=".UI.Splash.SplashActivity">
+
+
 
     <TextView
         android:id="@+id/typologo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="224dp"
-        android:layout_marginEnd="112dp"
         android:fontFamily="@font/blackhansans"
-        android:text="왔다갔다"
+        android:text="@string/app_name"
 
         android:textAlignment="viewStart"
         android:textColor="@color/white"
-        android:textSize="55dp"
+        android:textSize="55sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -29,13 +31,12 @@
         android:layout_marginTop="16dp"
         android:fontFamily="@font/medium"
         android:letterSpacing="-0.02"
-        android:text="왔다갔다...\n시간 너무 아깝지 않나요?\n하루를 48시간으로 사는법!
-    "
+        android:text="@string/some_id"
         android:textAlignment="textStart"
         android:textColor="@color/white"
-        android:textSize="17dp"
+        android:textSize="17sp"
         app:layout_constraintStart_toStartOf="@+id/typologo"
-        app:layout_constraintTop_toBottomOf="@+id/typologo"></TextView>
+        app:layout_constraintTop_toBottomOf="@+id/typologo"/>
 
     <ImageView
         android:layout_width="174dp"
@@ -45,20 +46,20 @@
         android:src="@drawable/logo_white"
         android:id="@+id/whitelogo"
         app:layout_constraintStart_toStartOf="@+id/main_ment"
-        app:layout_constraintTop_toBottomOf="@+id/main_ment"></ImageView>
+        app:layout_constraintTop_toBottomOf="@+id/main_ment"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="36dp"
-        android:fontFamily="@font/medium"
-        android:text="`@again2019`"
-        android:textAlignment="textStart"
-        android:textColor="#999999"
-        android:textSize="15dp"
         android:layout_marginBottom="50dp"
-        app:layout_constraintStart_toStartOf="@+id/whitelogo"
-        app:layout_constraintBottom_toBottomOf="parent"></TextView>
+        android:fontFamily="@font/bold"
+        android:text="@string/team_name"
+        android:textAlignment="textStart"
+        android:textColor="@color/textGray"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
