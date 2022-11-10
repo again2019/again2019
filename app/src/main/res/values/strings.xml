@@ -113,6 +113,22 @@
     <string name="nickname_input_long_fail"> 닉네임이 너무 길어요. </string>
     <string name="chip_no_selected"> 통근/통학 시간에 하고싶은 일을 선택해주세요. </string>
 
+    <!-- firstMainFragment string -->
+    <string name="first_ment1"> 오늘 당신이 SAVE할 시간은 </string>
+    <string name="first_ment2"> 0 </string>
+    <string name="first_ment3"> 시간 </string>
+    <string name="first_ment4"> 00 </string>
+    <string name="first_ment5"> 분 </string>
+    <string name="first_ment6"> 입니다. </string>
+    <string name="first_ment7"> 오늘의 시간 관리 일정 </string>
+    <string name="first_ment8"> Motivation </string>
+    <string name="first_ment9"> 일정 추가하기 </string>
+    <string name="first_ment10"> 오늘은 등록된 일정이 없습니다. </string>
+    <string name="first_ment11"> 꺾이지 않는 마음 </string>
+    <string name="first_ment12"> 저희가 당신을 위해 준비한 한마디에요. \n 여기를 긁어보세요! </string>
+
+
+
 
     <!-- forthMainFragment string -->
     <string name="cheer_message"> 응원 메시지를 입력해주세요. </string>
@@ -158,6 +174,12 @@
     <string name="self_dev6"> 독서 </string>
     <string name="self_dev7"> 독서 </string>
 
+    <!-- menu -->
+    <string name="home"> 홈 </string>
+    <string name="stat"> 통계 </string>
+    <string name="calendar"> 캘린더 </string>
+    <string name="rank"> 랭킹 </string>
+    <string name="my"> my </string>
 
 
 </resources>
