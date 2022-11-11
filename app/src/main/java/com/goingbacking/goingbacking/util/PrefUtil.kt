@@ -7,6 +7,20 @@ import com.google.firebase.auth.FirebaseAuth
 class PrefUtil {
 
     companion object {
+        private const val RECENT_DATE = "recent_date"
+
+        fun setRecentDate(date: String?, context: Context){
+            val editor = PreferenceManager.getDefaultSharedPreferences(context).edit()
+            editor.putString(RECENT_DATE, date)
+            editor.apply()
+        }
+        fun getRecentDate(context: Context): String? {
+            val preferences = PreferenceManager.getDefaultSharedPreferences(context)
+            return preferences.getString(RECENT_DATE, "")
+        }
+
+
+
         private const val CURRENT_UID = "current_uid"
 
         fun setCurrentUid(uid: String?, context: Context){

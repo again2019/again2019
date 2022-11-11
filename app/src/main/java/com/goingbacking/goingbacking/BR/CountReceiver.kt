@@ -19,14 +19,11 @@ import com.goingbacking.goingbacking.Model.CalendarInfoDTO
 import com.goingbacking.goingbacking.R
 
 import com.goingbacking.goingbacking.Repository.Alarm.AlarmRepository
+import com.goingbacking.goingbacking.util.*
 import com.goingbacking.goingbacking.util.Constants.Companion.END_TIME
 import com.goingbacking.goingbacking.util.Constants.Companion.ID
 import com.goingbacking.goingbacking.util.Constants.Companion.MOVETIME
 import com.goingbacking.goingbacking.util.Constants.Companion.TYPE
-import com.goingbacking.goingbacking.util.PrefUtil
-import com.goingbacking.goingbacking.util.calendar
-import com.goingbacking.goingbacking.util.calendarAlarm
-import com.goingbacking.goingbacking.util.toast
 
 import java.util.*
 
@@ -43,6 +40,8 @@ class CountReceiver : BroadcastReceiver() {
         Toast.makeText(context, "count receiverstart", Toast.LENGTH_SHORT).show()
 
         // 매일/매달/매년 마다 새로운 날짜에 데이터베이스를 초기화함
+
+        PrefUtil.setRecentDate(currentday("yyyy-MM-dd"), context)
         saveDailyInfo()
         saveWhatToDoInfo(context)
         saveRankInfo()
