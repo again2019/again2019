@@ -51,7 +51,7 @@ class FirstMainFragment : BaseFragment<FragmentFirstMainBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
         observer()
-        
+
         val todayTime = PrefUtil.getTodayTotalTime(requireContext())
 
         binding.todayHour.text = (todayTime / 60).toString()

@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.goingbacking.goingbacking">
-
-    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
@@ -42,7 +41,7 @@
         <service
             android:name=".Service.AlarmService"
             android:enabled="true"
-            android:exported="true" />
+            android:exported="false" />
 
         <activity
             android:name=".UI.Main.First.TmpTimeActivity"
@@ -72,15 +71,20 @@
         <receiver
             android:name=".BR.CountReceiver"
             android:enabled="true"
-            android:exported="true" />
+            android:exported="false" />
         <receiver
             android:name=".BR.DeviceBootReceiver"
             android:enabled="true"
-            android:exported="false" />
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+
+        </receiver>
         <receiver
             android:name=".BR.DoingReceiver"
             android:enabled="true"
-            android:exported="true" />
+            android:exported="false" />
     </application>
 
 </manifest>

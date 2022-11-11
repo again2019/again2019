@@ -183,19 +183,8 @@ class CountReceiver : BroadcastReceiver() {
                 second = 0,
                 millisecond = 0
             )
-
-
-//            calendar.timeInMillis = System.currentTimeMillis()
-//            calendar.set(Calendar.HOUR_OF_DAY, (beforeInfoDTO.end!! / 60))
-//            calendar.set(Calendar.MINUTE, (beforeInfoDTO.end!! % 60))
-//            calendar.set(Calendar.SECOND, 0)
-//            calendar.set(Calendar.MILLISECOND, 0)
         }
 
-//        Log.d(
-//            "experiment",
-//            "just alarm SET:$id | type: $type | ${calendar.timeInMillis} | ${SimpleDateFormat("yyyy.MM.dd G 'at' HH:mm").format(calendar.timeInMillis) } |"
-//        )
         nextIntent.putExtra(ID, id)
         nextIntent.putExtra(TYPE, type)
         val pendingIntent = PendingIntent.getBroadcast(context, id, nextIntent, FLAG_MUTABLE)
@@ -244,11 +233,6 @@ class CountReceiver : BroadcastReceiver() {
         nextIntent.putExtra(TYPE, type)
 
         val pendingIntent = PendingIntent.getBroadcast(context, id, nextIntent, FLAG_MUTABLE)
-
-//        Log.d(
-//            "experiment",
-//            "recursive SET:$id | type: $type |"
-//        )
 
         val calendar = calendar(0,0,0,0)
         alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP,

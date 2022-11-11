@@ -36,40 +36,14 @@ class MainActivity : BaseActivity<ActivityMainBinding>({
         super.onCreate(savedInstanceState)
 
         initBottomNavigation()
-         notification()
+
     }
 
     private fun initBottomNavigation() {
         NavigationUI.setupWithNavController(binding.bottomNavigation, findNavController(R.id.nav_host))
     }
 
-    @RequiresApi(Build.VERSION_CODES.S)
-    private fun notification() {
-        val calendar = calendar(14,42,0,0)
-        val pm: PackageManager = this.packageManager
-        val receiver = ComponentName(this, DeviceBootReceiver::class.java)
-        // 매일 12시마다 초기화가 되면 CountReceiver의 작업을 수행함.
-        val alarmIntent = Intent(this, CountReceiver::class.java)
-        alarmIntent.putExtra(ID, VALUE)
-        alarmIntent.putExtra(TYPE, CHANNEL)
 
-        val pendingIntent: PendingIntent = PendingIntent.getBroadcast(
-            this, VALUE, alarmIntent, FLAG_MUTABLE
-        )
-
-        val alarmManager: AlarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        alarmManager.setExactAndAllowWhileIdle(
-            AlarmManager.RTC_WAKEUP,
-            calendar.timeInMillis,
-            pendingIntent
-        )
-
-        pm.setComponentEnabledSetting(
-            receiver,
-            PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
-            PackageManager.DONT_KILL_APP
-        )
-    }
 }
 
 
