@@ -20,6 +20,7 @@ import com.goingbacking.goingbacking.R
 import com.goingbacking.goingbacking.UI.Base.BaseFragment
 import com.goingbacking.goingbacking.UI.Main.Third.ScheduleInputActivity
 import com.goingbacking.goingbacking.UI.Main.Third.TotalCalendarActivity
+import com.goingbacking.goingbacking.bottomsheet.CheerBottomSheet
 import com.goingbacking.goingbacking.databinding.FragmentFirstMainBinding
 import com.goingbacking.goingbacking.util.*
 import com.google.android.gms.tasks.OnCompleteListener
@@ -49,15 +50,7 @@ class FirstMainFragment : BaseFragment<FragmentFirstMainBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-
         observer()
-
-
-
-        binding.tmpTimeButton.setOnClickListener {
-            moveTmpTimePage()
-        }
 
 
         val todayTime = PrefUtil.getTodayTotalTime(requireContext())
@@ -78,21 +71,38 @@ class FirstMainFragment : BaseFragment<FragmentFirstMainBinding>() {
             binding.todayScrollView.makeGONE()
        }
 
-        //binding.todayText.makeInVisible()
-        binding.todayTextHide.makeVisible()
+        onClick()
 
-        binding.todayTextHide.setOnClickListener {
-            binding.todayTextHide.makeGONE()
-            binding.todayText.makeVisible()
+
+
+    }
+
+    private fun onClick() = with(binding) {
+
+        myMessage.setOnClickListener {
+            val bottom = CheerBottomSheet()
+            val bundle = Bundle()
+            bundle.putString("destinationUid", PrefUtil.getCurrentUid(requireContext()))
+            bottom.arguments = bundle
+            bottom.show(childFragmentManager, bottom.tag)
         }
 
-        binding.addPlanButton.setOnClickListener {
+        tmpTimeButton.setOnClickListener {
+            moveTmpTimePage()
+        }
+
+        todayTextHide.makeVisible()
+        todayTextHide.setOnClickListener {
+            todayTextHide.makeGONE()
+            todayText.makeVisible()
+        }
+
+        addPlanButton.setOnClickListener {
             moveAddPlanPage()
         }
-        binding.goThirdButton.setOnClickListener {
+        goThirdButton.setOnClickListener {
             moveTotalCalendarPage()
         }
-
 
     }
 

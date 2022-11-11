@@ -13,7 +13,9 @@ import com.goingbacking.goingbacking.Adapter.CheerRecyclerViewAdapter
 import com.goingbacking.goingbacking.R
 import com.goingbacking.goingbacking.ViewModel.ForthViewModel
 import com.goingbacking.goingbacking.databinding.BottomSheetCheerBinding
+import com.goingbacking.goingbacking.util.PrefUtil
 import com.goingbacking.goingbacking.util.UiState
+import com.goingbacking.goingbacking.util.makeGONE
 import com.goingbacking.goingbacking.util.toast
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
@@ -34,25 +36,36 @@ class CheerBottomSheet : BottomSheetDialogFragment() {
         binding = BottomSheetCheerBinding.inflate(inflater, container, false)
 
         val destinationUid = arguments?.getString("destinationUid")
-        //Log.d("experiment", destinationUid.toString())
 
         if (destinationUid == null) {
             toast(requireContext(), getString(R.string.no_information))
         } else {
-            binding.cheerRecyclerView.apply {
-                layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
-                adapter = cheerAdapter
-                addItemDecoration(DividerItemDecoration(requireContext(), RecyclerView.VERTICAL))
+            if (destinationUid.equals(PrefUtil.getCurrentUid(requireContext()))) {
+                binding.cheerEditText.makeGONE()
+                binding.cheerOkayButton.makeGONE()
             }
-            observer1(destinationUid)
-            binding.cheerOkayButton.setOnClickListener {
-                val message = binding.cheerEditText.text.toString()
-                if (message.equals("")) {
-                    toast(requireContext(), getString(R.string.cheer_message))
-                } else {
-                    observer2(destinationUid, message)
-                    binding.cheerEditText.setText("")
+
+            binding.cheerRecyclerView.apply {
+                layoutManager =
+                        LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
+                    adapter = cheerAdapter
+                    addItemDecoration(
+                        DividerItemDecoration(
+                            requireContext(),
+                            RecyclerView.VERTICAL
+                        )
+                    )
                 }
+                observer1(destinationUid)
+                binding.cheerOkayButton.setOnClickListener {
+                    val message = binding.cheerEditText.text.toString()
+                    if (message.equals("")) {
+                        toast(requireContext(), getString(R.string.cheer_message))
+                    } else {
+                        observer2(destinationUid, message)
+                        binding.cheerEditText.setText("")
+                    }
+
             }
         }
 
