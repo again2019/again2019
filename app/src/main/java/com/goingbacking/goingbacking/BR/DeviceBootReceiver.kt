@@ -137,6 +137,17 @@ class DeviceBootReceiver : BroadcastReceiver() {
                 millisecond = 0
             )
 
+            val stateCalendar = calendarAlarm(
+                hour = nowInfoDTO.start!! / 60,
+                minute = nowInfoDTO.start!! % 60,
+                second = 0,
+                millisecond = 0
+            )
+
+            if (System.currentTimeMillis() > stateCalendar.timeInMillis) {
+                return
+            }
+
         } else if (beforeInfoDTO.equals(nowInfoDTO)) {
             todayTotalTime = todayTotalTime + beforeInfoDTO.end_t!!.toInt()
 
@@ -153,6 +164,18 @@ class DeviceBootReceiver : BroadcastReceiver() {
                 second = 0,
                 millisecond = 0
             )
+
+
+            val stateCalendar = calendarAlarm(
+                hour = (nowInfoDTO.end!!  + nowInfoDTO.end_t!!) / 60,
+                minute = (nowInfoDTO.end!!  + nowInfoDTO.end_t!!)  % 60,
+                second = 0,
+                millisecond = 0
+            )
+
+            if (System.currentTimeMillis() > stateCalendar.timeInMillis) {
+                return
+            }
         }
 
         else {
@@ -171,11 +194,23 @@ class DeviceBootReceiver : BroadcastReceiver() {
                 second = 0,
                 millisecond = 0
             )
+
+            val stateCalendar = calendarAlarm(
+                hour = (nowInfoDTO.start!!) / 60,
+                minute = (nowInfoDTO.start!!)  % 60,
+                second = 0,
+                millisecond = 0
+            )
+
+            if (System.currentTimeMillis() > stateCalendar.timeInMillis) {
+                return
+            }
         }
 
         nextIntent.putExtra(Constants.ID, id)
         nextIntent.putExtra(Constants.TYPE, type)
         val pendingIntent = PendingIntent.getBroadcast(context, id, nextIntent, FLAG_MUTABLE)
+
 
         alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP,
             calendar.timeInMillis, pendingIntent)
