@@ -11,6 +11,7 @@ import com.goingbacking.goingbacking.util.FBConstants.Companion.USERINFO
 import com.goingbacking.goingbacking.util.FBConstants.Companion.WHATTODOINFO
 import com.goingbacking.goingbacking.util.FBConstants.Companion.YEAR
 import com.goingbacking.goingbacking.util.UiState
+import com.goingbacking.goingbacking.util.currentday
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Source
@@ -73,24 +74,6 @@ class MainRepository (
     }
 
 
-//    override fun getThirdDateInfo(result: (UiState<DateDTO>) -> Unit) {
-//        firebaseFirestore?.collection(DATE)?.document(uid)
-//            ?.get()
-//            ?.addOnSuccessListener { document ->
-//                val data: DateDTO? = document.toObject(DateDTO::class.java)
-//                if (data == null) {
-//                    result.invoke(UiState.Failure("fail"))
-//                } else {
-//                    result.invoke(
-//                        UiState.Success(data!!)
-//                    )
-//                }
-//            }
-//            ?.addOnFailureListener {
-//                result.invoke(UiState.Failure(it.localizedMessage))
-//            }
-//    }
-
     override fun getThirdDateInfo2(year_month: String, result: (UiState<DateDTO>) -> Unit) {
             firebaseFirestore.collection(DATE).document(uid)
                 .collection(year_month).document(year_month)
@@ -114,13 +97,10 @@ class MainRepository (
 
     override fun getThirdCalendarInfo(yearList : MutableList<String>, result: (UiState<MutableMap<LocalDate, List<Event>>>) -> Unit) {
         val events = mutableMapOf<LocalDate, List<Event>>()
-        val now = LocalDate.now()
-        val Strnow = now.format(DateTimeFormatter.ofPattern("yyyy-MM"))
-
         events.clear()
         for (i in yearList) {
             firebaseFirestore
-                .collection(CALENDARINFO).document(uid).collection(Strnow)
+                .collection(CALENDARINFO).document(uid).collection(currentday("yyyy-MM"))
                 .whereEqualTo("date", i).get()
                 .addOnSuccessListener { querySnapshot ->
                     if (querySnapshot.count() == 1) {
@@ -458,15 +438,9 @@ class MainRepository (
 
     // SecondMainFragment
     override fun getSecondSaveDayInfo(result: (UiState<ArrayList<SaveTimeDayDTO>>) -> Unit) {
-        val current = LocalDateTime.now()
-        val simpleDate1 = DateTimeFormatter.ofPattern("yyyy-MM")
-        val curYearMonth = current.format(simpleDate1)
-
-
-
         firebaseFirestore.collection(SAVETIMEINFO).document(uid)
-            .collection(DAY).document(curYearMonth)
-            .collection(curYearMonth).get()
+            .collection(DAY).document(currentday("yyyy-MM"))
+            .collection(currentday("yyyy-MM")).get()
             .addOnSuccessListener {
                 val saveTimeDayDTOList = arrayListOf<SaveTimeDayDTO>()
 
@@ -489,19 +463,10 @@ class MainRepository (
 
     }
 
-
-
-
-
     override fun getSecondSaveMonthInfo(result: (UiState<ArrayList<SaveTimeMonthDTO>>) -> Unit) {
-        val current = LocalDateTime.now()
-        val simpleDate1 = DateTimeFormatter.ofPattern("yyyy")
-
-        val curYear = current.format(simpleDate1)
-
         firebaseFirestore.collection(SAVETIMEINFO).document(uid)
-            .collection(MONTH).document(curYear)
-            .collection(curYear).get()
+            .collection(MONTH).document(currentday("yyyy"))
+            .collection(currentday("yyyy")).get()
             .addOnSuccessListener {
                 val saveTimeMonthDTOList = arrayListOf<SaveTimeMonthDTO>()
 
@@ -543,12 +508,9 @@ class MainRepository (
     }
 
     override fun getSecondWhatToDoMonthInfo(result: (UiState<ArrayList<WhatToDoMonthDTO>>) -> Unit) {
-        val now = LocalDate.now()
-        val Strnow = now.format(DateTimeFormatter.ofPattern("yyyy-MM"))
-
         firebaseFirestore.collection(WHATTODOINFO).document(uid)
-            .collection(MONTH).document(Strnow)
-            .collection(Strnow).get()
+            .collection(MONTH).document(currentday("yyyy-MM"))
+            .collection(currentday("yyyy-MM")).get()
             .addOnSuccessListener {
                 val whatToDoMonthDTOList = arrayListOf<WhatToDoMonthDTO>()
                 for (document in it) {
@@ -569,12 +531,9 @@ class MainRepository (
     }
 
     override fun getSecondWhatToDoYearInfo(result: (UiState<ArrayList<WhatToDoYearDTO>>) -> Unit)  {
-        val now = LocalDate.now()
-        val Strnow = now.format(DateTimeFormatter.ofPattern("yyyy"))
-
         firebaseFirestore.collection(WHATTODOINFO).document(uid)
-            .collection(YEAR).document(Strnow)
-            .collection(Strnow).get()
+            .collection(YEAR).document(currentday("yyyy"))
+            .collection(currentday("yyyy")).get()
             .addOnSuccessListener {
                 val whatToDoYearDTOList = arrayListOf<WhatToDoYearDTO>()
                 for (document in it) {
