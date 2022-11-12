@@ -52,6 +52,14 @@ class FirstMainFragment : BaseFragment<FragmentFirstMainBinding>() {
 
         observer()
 
+        Log.d("experiment", currentday("yyyy-MM-dd"))
+        Log.d("experiment", PrefUtil.getRecentDate(requireContext()).toString())
+        if (currentday("yyyy-MM-dd").equals(PrefUtil.getRecentDate(requireContext()).toString())) {
+            Log.d("experiment", "true")
+
+        }
+
+
         val todayTime = PrefUtil.getTodayTotalTime(requireContext())
 
         binding.todayHour.text = (todayTime / 60).toString()

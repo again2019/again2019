@@ -19,25 +19,18 @@
         android:layout_height="500dp">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/cheer_recyclerView"
-            android:layout_width="wrap_content"
+            android:id="@+id/cheer_recycler_view"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/cheer_okay_button"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-
-            >
-
-        </androidx.recyclerview.widget.RecyclerView>
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="0dp" />
 
         <EditText
             android:id="@+id/cheer_editText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
             android:layout_alignParentBottom="true"
             android:layout_toLeftOf="@+id/cheer_okay_button"
             android:enabled="true" />

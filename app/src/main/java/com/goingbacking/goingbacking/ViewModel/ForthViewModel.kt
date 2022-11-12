@@ -43,9 +43,9 @@ class ForthViewModel @Inject constructor(
     val cheerInfo : LiveData<UiState<List<String>>>
         get() = _cheerInfo
 
-    fun getCheerInfo(destinationUid : String) = viewModelScope.launch {
+    fun getCheerInfo(destinationUid : String)  {
         _cheerInfo.value = UiState.Loading
-        forthRepository.getCheerInfo(destinationUid) { _cheerInfo.postValue(it) }
+        forthRepository.getCheerInfo(destinationUid) { _cheerInfo.value = it }
     }
 
     // 응원 메시지 입력
