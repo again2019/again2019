@@ -49,7 +49,7 @@ class InputBottomSheet : BottomSheetDialogFragment() {
                     progressCircular.hide()
                     nickName.text = state.data.userNickName
                     type.text = state.data.userType
-                    val whattodolist = state.data.whatToDoList
+                    whatToDo.text = state.data.whatToDoList.toString().removeSurrounding("[","]")
 //                    if (whattodolist.size == 1) {
 //                        chip2.makeGONE()
 //                        chip3.makeGONE()
