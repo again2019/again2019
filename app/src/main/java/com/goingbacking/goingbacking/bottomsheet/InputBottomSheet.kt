@@ -50,12 +50,12 @@ class InputBottomSheet : BottomSheetDialogFragment() {
                     nickName.text = state.data.userNickName
                     type.text = state.data.userType
                     val whattodolist = state.data.whatToDoList
-                    if (whattodolist.size == 1) {
-                        chip2.makeGONE()
-                        chip3.makeGONE()
-                    } else if (whattodolist.size == 2) {
-                        chip3.makeGONE()
-                    }
+//                    if (whattodolist.size == 1) {
+//                        chip2.makeGONE()
+//                        chip3.makeGONE()
+//                    } else if (whattodolist.size == 2) {
+//                        chip3.makeGONE()
+//                    }
 
                     var count = 0
                     for (whattodo in state.data.whatToDoList) {
@@ -76,13 +76,13 @@ class InputBottomSheet : BottomSheetDialogFragment() {
                         InitWhatToDoYearList.add(whatToDoYearDTO)
                         // ----------------------------------------------
                         // chip을 추가하는 코드
-                        if (count == 0) {
-                            chip1.text = whattodo
-                        } else if(count == 1) {
-                            chip2.text = whattodo
-                        } else if (count == 2) {
-                            chip3.text = whattodo
-                        }
+//                        if (count == 0) {
+//                            chip1.text = whattodo
+//                        } else if(count == 1) {
+//                            chip2.text = whattodo
+//                        } else if (count == 2) {
+//                            chip3.text = whattodo
+//                        }
 
                         count += 1
                     }
@@ -117,6 +117,9 @@ class InputBottomSheet : BottomSheetDialogFragment() {
 
             PrefUtil.setCurrentUid(PrefUtil.firebaseUid(), requireContext())
             moveTutorialPage()
+        }
+        xBtn.setOnClickListener {
+            dismiss()
         }
         noButton.setOnClickListener {
             dismiss()

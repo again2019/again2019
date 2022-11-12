@@ -17,6 +17,10 @@
     <color name="colorBackGround">#fafafa</color>
     <color name="colorEmp">#9dded5</color>
 
+    <!-- Text-->
+    <color name="Btn3Color">#EFEFEF</color>
+
+
 
     <color name="colorHorizontal">#F1F1F1</color>
     <color name="colorCategory">#C4C4C4</color>
