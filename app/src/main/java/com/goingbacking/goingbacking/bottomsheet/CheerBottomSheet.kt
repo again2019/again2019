@@ -21,14 +21,14 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 
 class CheerBottomSheet : BottomSheetDialogFragment() {
-    private lateinit var binding : BottomSheetCheerBinding
-    private val viewModel : ForthViewModel by activityViewModels()
+    private lateinit var binding: BottomSheetCheerBinding
+    private val viewModel: ForthViewModel by activityViewModels()
     private val cheerAdapter = CheerRecyclerViewAdapter(
         onDeleteClick = { hostUid, original_cheer ->
             viewModel.deleteCheerInfo(hostUid, original_cheer)
-            observer1(hostUid)
         }
     )
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -47,24 +47,27 @@ class CheerBottomSheet : BottomSheetDialogFragment() {
 
             binding.cheerRecyclerView.apply {
                 layoutManager =
-                        LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
-                    adapter = cheerAdapter
-                    addItemDecoration(
-                        DividerItemDecoration(
-                            requireContext(),
-                            RecyclerView.VERTICAL
-                        )
+                    LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
+                adapter = cheerAdapter
+                addItemDecoration(
+                    DividerItemDecoration(
+                        requireContext(),
+                        RecyclerView.VERTICAL
                     )
+                )
+            }
+//            val list = listOf<String>("ss:aa:ss", "aa:aa:aa")
+//            cheerAdapter.submitList(list)
+
+            observer1(destinationUid)
+            binding.cheerOkayButton.setOnClickListener {
+                val message = binding.cheerEditText.text.toString()
+                if (message.equals("")) {
+                    toast(requireContext(), getString(R.string.cheer_message))
+                } else {
+                    observer2(destinationUid, message)
+                    binding.cheerEditText.setText("")
                 }
-                observer1(destinationUid)
-                binding.cheerOkayButton.setOnClickListener {
-                    val message = binding.cheerEditText.text.toString()
-                    if (message.equals("")) {
-                        toast(requireContext(), getString(R.string.cheer_message))
-                    } else {
-                        observer2(destinationUid, message)
-                        binding.cheerEditText.setText("")
-                    }
 
             }
         }
@@ -73,14 +76,17 @@ class CheerBottomSheet : BottomSheetDialogFragment() {
 
     }
 
-    private fun observer1(destinationUid :String) = with(binding) {
+    private fun observer1(destinationUid: String) = with(binding) {
 
         viewModel.getCheerInfo(destinationUid)
         viewModel.cheerInfo.observe(viewLifecycleOwner) { state ->
-            when(state) {
+            when (state) {
                 is UiState.Success -> {
                     progressCircular.hide()
-                    updateAdapterForDate(state.data, destinationUid)
+                    val lis = state.data
+                    cheerAdapter.submitList(lis)
+
+//                    updateAdapterForDate(state.data, destinationUid)
                 }
                 is UiState.Failure -> {
                     progressCircular.hide()
@@ -92,14 +98,15 @@ class CheerBottomSheet : BottomSheetDialogFragment() {
         }
     }
 
-    private fun observer2(destinationUid :String, message:String) = with(binding) {
+    private fun observer2(destinationUid: String, message: String) = with(binding) {
         viewModel.addCheerInfo(destinationUid, message)
         viewModel.addCheerInfo.observe(viewLifecycleOwner) { state ->
-            when(state) {
+            when (state) {
                 is UiState.Success -> {
                     binding.progressCircular.hide()
                     Log.d("experiment", state.data.toString())
-                    updateAdapterForDate(state.data, destinationUid)
+//                    cheerAdapter.submitList(state.data)
+//                    updateAdapterForDate(state.data, destinationUid)
                     state.data.toTypedArray()
                 }
                 is UiState.Failure -> {
@@ -111,12 +118,12 @@ class CheerBottomSheet : BottomSheetDialogFragment() {
             }
         }
     }
-
-    private fun updateAdapterForDate(list: List<String>, destinationUid :String) {
-        cheerAdapter.apply {
-            events = list
-            hostUid = destinationUid
-            notifyDataSetChanged()
-            }
-        }
-    }
+}
+//    private fun updateAdapterForDate(list: List<String>, destinationUid :String) {
+//        cheerAdapter.apply {
+//            events = list
+//            hostUid = destinationUid
+//            notifyDataSetChanged()
+//            }
+//        }
+//    }

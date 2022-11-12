@@ -71,11 +71,11 @@
         <receiver
             android:name=".BR.CountReceiver"
             android:enabled="true"
-            android:exported="false" />
+            android:exported="true" />
         <receiver
             android:name=".BR.DeviceBootReceiver"
             android:enabled="true"
-            android:exported="false">
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
             </intent-filter>
@@ -84,7 +84,7 @@
         <receiver
             android:name=".BR.DoingReceiver"
             android:enabled="true"
-            android:exported="false" />
+            android:exported="true" />
     </application>
 
 </manifest>

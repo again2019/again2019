@@ -111,6 +111,14 @@
         <item name="android:background"> @drawable/btn_design2 </item>
     </style>
 
+    <!-- Button Type3 : gray button -->
+    <style name="BtnType3" >
+        <item name="android:textColor"> @color/textColorPrimary </item>
+        <item name="fontFamily"> @font/bold </item>
+        <item name="android:textSize"> 17sp </item>
+        <item name="android:background"> @drawable/btn_design3 </item>
+    </style>
+
     <!-- Text Type -->
     <!-- Main Title-->
     <style name="MainTitle" >
