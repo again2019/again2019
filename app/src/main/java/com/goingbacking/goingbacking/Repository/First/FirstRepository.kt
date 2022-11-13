@@ -27,7 +27,7 @@ class FirstRepository(
 
     override fun getTmpTimeInfo(result: (UiState<ArrayList<TmpTimeDTO>>) -> Unit) {
         firebaseFirestore.collection(FBConstants.TMPTIMEINFO).document(myUid)
-            .collection(myUid).get(cache)
+            .collection(myUid).get()
             .addOnSuccessListener {
                 val tmpTimeDTOList : ArrayList<TmpTimeDTO> = arrayListOf()
                 for(document in it){

@@ -8,6 +8,8 @@ import com.goingbacking.goingbacking.Model.TmpTimeDTO
 import com.goingbacking.goingbacking.databinding.ItemTmpBinding
 import com.google.firebase.firestore.FieldValue
 import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 class TmpTimeRecyclerViewAdapter(
     val onItemClicked: (String, String, String, String, FieldValue, Double) -> Unit
@@ -37,35 +39,31 @@ class TmpTimeRecyclerViewAdapter(
     inner class MyViewHolder(val binding: ItemTmpBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: TmpTimeDTO) {
 
-            binding.nowSeconds.text = item.nowSeconds.toString()
-            binding.startTime.text = item.startTime.toString()
-            binding.wakeUpTime.text = item.wakeUpTime.toString()
+            val hour = item.nowSeconds!!.toInt() / 60
+            val minute = item.nowSeconds!!.toInt() % 60
 
-            val simpleDate1 = SimpleDateFormat("yyyy-MM")
-            val simpleDate2 = SimpleDateFormat("dd")
-            val simpleDate3 = SimpleDateFormat("yyyy")
-            val simpleDate4 = SimpleDateFormat("MM")
+            binding.nowSeconds.text = String.format("%d시간 %d분", hour, minute)
+            val simpleDate1 = SimpleDateFormat("yyyy년 MM월 dd일", Locale.getDefault()).format(item.wakeUpTime)
+            Log.d("experiment", item.startTime.toString() + item.wakeUpTime.toString())
+            val simpleDate2 = SimpleDateFormat("a HH시 mm분", Locale.getDefault()).format(item.startTime)
+            val simpleDate3 = SimpleDateFormat("a HH시 mm분", Locale.getDefault()).format(item.wakeUpTime)
 
+            binding.wakeUpDate.text = simpleDate1
+            binding.startTime.text = simpleDate2
+            binding.wakeUpTime.text = simpleDate3
 
-            val wakeUpTime1 = simpleDate1.format(item.wakeUpTime!!).toString()
-            val wakeUpTime2 = simpleDate2.format(item.wakeUpTime!!).toString()
-            val wakeUpTime3 = simpleDate3.format(item.wakeUpTime!!).toString()
-            val wakeUpTime4 = simpleDate4.format(item.wakeUpTime!!).toString()
+            val wakeUpTime1 = SimpleDateFormat("yyyy-MM", Locale.getDefault()).format(item.wakeUpTime!!)
+            val wakeUpTime2 = SimpleDateFormat("dd", Locale.getDefault()).format(item.wakeUpTime!!)
+            val wakeUpTime3 = SimpleDateFormat("yyyy", Locale.getDefault()).format(item.wakeUpTime!!)
+            val wakeUpTime4 = SimpleDateFormat("MM", Locale.getDefault()).format(item.wakeUpTime!!)
 
             val count = FieldValue.increment(item.nowSeconds!!.toDouble())
 
-            Log.d("experiment", "wakeUptime: " + wakeUpTime1 + " " + wakeUpTime2)
 
             binding.saveButton.setOnClickListener {
                 onItemClicked.invoke(wakeUpTime1, wakeUpTime2, wakeUpTime3, wakeUpTime4, count, item.nowSeconds!!.toDouble())
-
-
+                
             }
-
         }
     }
-
-
-
-
 }
