@@ -44,7 +44,6 @@ class TmpTimeRecyclerViewAdapter(
 
             binding.nowSeconds.text = String.format("%d시간 %d분", hour, minute)
             val simpleDate1 = SimpleDateFormat("yyyy년 MM월 dd일", Locale.getDefault()).format(item.wakeUpTime)
-            Log.d("experiment", item.startTime.toString() + item.wakeUpTime.toString())
             val simpleDate2 = SimpleDateFormat("a HH시 mm분", Locale.getDefault()).format(item.startTime)
             val simpleDate3 = SimpleDateFormat("a HH시 mm분", Locale.getDefault()).format(item.wakeUpTime)
 

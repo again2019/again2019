@@ -15,8 +15,7 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Source
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
+
 
 class FirstRepository(
     val user: FirebaseUser?,
