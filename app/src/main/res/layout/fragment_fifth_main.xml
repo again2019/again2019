@@ -100,7 +100,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="350dp"
-        android:layout_height="300dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         app:layout_constraintEnd_toEndOf="@+id/constraintLayout7"
         app:layout_constraintStart_toStartOf="@+id/constraintLayout7"
@@ -109,53 +109,70 @@
         <TextView
             android:id="@+id/using"
             android:layout_width="match_parent"
-
             android:layout_height="60dp"
-            android:layout_marginTop="128dp"
+            android:gravity="center_vertical"
+            android:padding="10dp"
             android:text="📃 이용약관"
+            android:textColor="@color/titleMain"
+            android:textSize="15sp"
+            android:fontFamily="@font/medium"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
 
         <View
             android:id="@+id/view1"
             android:layout_width="350dp"
             android:layout_height="1dp"
-            android:layout_marginBottom="10dp"
             android:background="@color/colorHorizontal"
-            app:layout_constraintStart_toStartOf="parent" />
-
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/using" />
 
         <TextView
             android:id="@+id/changing"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:gravity="left"
+            android:gravity="center_vertical"
+            android:padding="10dp"
+            android:text="⚙️ 환경 설정"
+            android:textColor="@color/titleMain"
+            android:textSize="15sp"
+            android:fontFamily="@font/medium"
             app:layout_constraintStart_toStartOf="parent"
-            tools:layout_editor_absoluteY="82dp" />
+            app:layout_constraintTop_toBottomOf="@+id/using" />
 
         <View
             android:id="@+id/view2"
-            android:layout_width="350dp"
-            android:layout_height="1dp"
-            android:layout_marginBottom="10dp"
+            android:layout_width="346dp"
+            android:layout_height="3dp"
             android:background="@color/colorHorizontal"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/changing" />
 
         <TextView
             android:id="@+id/out"
             android:layout_width="match_parent"
             android:layout_height="60dp"
+            android:gravity="center_vertical"
+            android:padding="10dp"
+            android:text="👋🏻 회원 탈퇴"
+            android:textColor="@color/titleMain"
+            android:textSize="15sp"
+            android:fontFamily="@font/medium"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/changing" />
 
         <View
             android:id="@+id/view3"
             android:layout_width="350dp"
             android:layout_height="1dp"
-            android:layout_marginStart="16dp"
             android:background="@color/colorHorizontal"
             app:layout_constraintStart_toStartOf="parent"
-            tools:layout_editor_absoluteY="197dp" />
+            app:layout_constraintTop_toBottomOf="@+id/view2" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
