@@ -50,7 +50,6 @@ class FifthMainFragment : BaseFragment<FragmentFifthMainBinding>() {
                     progressCircular.hide()
                     myNickNameTextView.text = state.data.userNickName
                     myTypeTextView.text = state.data.userType
-                    myWhatToDoTextView.text = state.data.whatToDoList.toString()
                 }
                 is UiState.Failure -> {
                     progressCircular.hide()
@@ -68,12 +67,11 @@ class FifthMainFragment : BaseFragment<FragmentFifthMainBinding>() {
         changeInfoTextView.setOnClickListener {
             val nickName = myNickNameTextView.text.toString()
             val userType = myTypeTextView.text.toString()
-            val whatToDo = myWhatToDoTextView.text.toString()
 
             val intent = Intent(requireContext(), ChangeInfoActivity::class.java)
             intent.putExtra("nickName", nickName)
             intent.putExtra("userType", userType)
-            intent.putExtra("whatToDo", whatToDo)
+//            intent.putExtra("whatToDo", whatToDo)
             startActivity(intent)
         }
 
@@ -90,8 +88,8 @@ class FifthMainFragment : BaseFragment<FragmentFifthMainBinding>() {
                         val intent = Intent(requireContext(), LoginActivity::class.java)
                         startActivity(intent)
                         finishAffinity(requireActivity())
-
                     }
+
                 }
             }
         }

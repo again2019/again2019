@@ -79,7 +79,7 @@ class TmpTimeActivity : BaseActivity<ActivityTmpTimeBinding>({
             }
         }, this, Lifecycle.State.RESUMED)
 
-    
+
 
 
 
