@@ -39,8 +39,8 @@ class FirstViewModel @Inject constructor(
     val whatToDoYearDTOs : LiveData<UiState<String>>
         get() = _whatToDoYearDTOs
 
-    private val _whatToDoListDTOs = MutableLiveData<UiState<String>>()
-    val whatToDoListDTOs : LiveData<UiState<String>>
+    private val _whatToDoListDTOs = MutableLiveData<UiState<List<String>>>()
+    val whatToDoListDTOs : LiveData<UiState<List<String>>>
         get() = _whatToDoListDTOs
 
     fun getTmpTimeInfo() {

@@ -15,5 +15,5 @@ interface FirstRepositoryIF {
     fun updateWhatToDoYearInfo(whatToDo: String, count: FieldValue, result: (UiState<String>) -> Unit)
 
 
-    fun getWhatToDoInfo(result: (UiState<String>) -> Unit)
+    fun getWhatToDoInfo(result: (UiState<List<String>>) -> Unit)
 }

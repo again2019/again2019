@@ -22,7 +22,7 @@ class TmpTimeActivity : BaseActivity<ActivityTmpTimeBinding>({
 
     val adapter by lazy {
         TmpTimeRecyclerViewAdapter(
-            onItemClicked = { wakeUpTime1, wakeUpTime2, wakeUpTime3, wakeUpTime4, count, count_double ->
+            onItemClicked = { wakeUpTime1, wakeUpTime2, wakeUpTime3, wakeUpTime4, count, count_double, simpleFormat1, simpleFormat2, simpleFormat3, simpleFormat4 ->
                 TmpTimeDayOberver(wakeUpTime1, wakeUpTime2, count)
                 TmpTimeMonthOberver(wakeUpTime3, wakeUpTime2, count)
                 TmpTimeYearOberver(wakeUpTime3, count)
@@ -31,7 +31,12 @@ class TmpTimeActivity : BaseActivity<ActivityTmpTimeBinding>({
                 if (count_double.equals(0.0)) {
                     Toast.makeText(this, R.string.no_time_input, Toast.LENGTH_SHORT).show()
                 } else {
-                    bundle.putDouble("count", count_double)
+                    bundle.putDouble("count_double", count_double)
+                    bundle.putString("simpleFormat1", simpleFormat1)
+                    bundle.putString("simpleFormat2", simpleFormat2)
+                    bundle.putString("simpleFormat3", simpleFormat3)
+                    bundle.putString("simpleFormat4", simpleFormat4)
+
                     bottom.arguments = bundle
                     bottom.show(supportFragmentManager, bottom.tag)
                 }

@@ -117,13 +117,13 @@ class FirstRepository(
 
     }
 
-    override fun getWhatToDoInfo(result: (UiState<String>) -> Unit) {
+    override fun getWhatToDoInfo(result: (UiState<List<String>>) -> Unit) {
         firebaseFirestore.collection(FBConstants.USERINFO).document(myUid)
             .get()
             .addOnSuccessListener { document ->
                 val data :UserInfoDTO? = document.toObject(UserInfoDTO::class.java)
                 result.invoke(
-                    UiState.Success(data?.whatToDoList.toString())
+                    UiState.Success(data?.whatToDoList!!)
                 )
             }
 
