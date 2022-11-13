@@ -136,7 +136,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         app:layout_constraintStart_toStartOf="@+id/text2"
-        app:layout_constraintTop_toBottomOf="@+id/text3">
+        app:layout_constraintTop_toBottomOf="@+id/text3"
+        app:singleSelection="true">
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chip1"
@@ -153,8 +154,8 @@
             style="@style/Colors_Widget.MaterialComponents.Chip.Choice2"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
-            android:textAppearance="@style/AppTheme.GenderChip"
             android:text="영어 듣기"
+            android:textAppearance="@style/AppTheme.GenderChip"
             android:textSize="15sp"
             android:theme="@style/Theme.MaterialComponents.Light" />
 
@@ -163,9 +164,9 @@
             style="@style/Colors_Widget.MaterialComponents.Chip.Choice2"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
-            android:textAppearance="@style/AppTheme.GenderChip"
             android:text="시사 공부"
             android:textAlignment="center"
+            android:textAppearance="@style/AppTheme.GenderChip"
             android:textSize="15sp"
             android:theme="@style/Theme.MaterialComponents.Light" />
 
