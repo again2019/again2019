@@ -49,6 +49,23 @@
         <item name="rippleColor">#D9F3EF</item>
     </style>
 
+
+    <style name="Colors_Widget.MaterialComponents.Chip.Choice2" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="android:textAppearance">@style/AppTheme.GenderChip</item>
+        <item name="chipBackgroundColor">@color/bg_chip_state_list</item>
+        <item name="chipStrokeColor">#888888</item>
+        <item name="chipStrokeWidth">0.5dp</item>
+        <item name="android:textColor">@color/bg_chip_text_state_list</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:layout_margin">0dp</item>
+        <item name="android:fontFamily">@font/bold</item>
+        <item name="chipCornerRadius">10dp</item>
+        <item name="android:layoutDirection">rtl</item>
+        <item name="android:checkable">true</item>
+        <item name="checkedIconVisible">false</item>
+        <item name="android:clickable">true</item>
+        <item name="rippleColor">#D9F3EF</item>
+    </style>
     <!-- BottomNaviagtion -->
 
     <style name="TextStyleBNV">

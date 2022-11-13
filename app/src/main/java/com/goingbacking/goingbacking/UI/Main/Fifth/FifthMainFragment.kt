@@ -14,6 +14,7 @@ import com.goingbacking.goingbacking.UI.Login.LoginActivity
 import com.goingbacking.goingbacking.databinding.FragmentFifthMainBinding
 import com.goingbacking.goingbacking.util.PrefUtil
 import com.goingbacking.goingbacking.util.UiState
+import com.goingbacking.goingbacking.util.makeInVisible
 import com.goingbacking.goingbacking.util.toast
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -21,6 +22,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class FifthMainFragment : BaseFragment<FragmentFifthMainBinding>() {
     val viewModel: FifthViewModel by viewModels()
+    private lateinit var whatToDoList : List<String>
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
@@ -50,7 +52,25 @@ class FifthMainFragment : BaseFragment<FragmentFifthMainBinding>() {
                     progressCircular.hide()
                     myNickNameTextView.text = state.data.userNickName
                     myTypeTextView.text = state.data.userType
-                    myWhatToDoTextView.text = state.data.whatToDoList.toString()
+                    whatToDoList = state.data.whatToDoList
+                    if (whatToDoList.size == 0) {
+                        chip1.makeInVisible()
+                        chip2.makeInVisible()
+                        chip3.makeInVisible()
+                    } else if (whatToDoList.size == 1) {
+                        chip1.text = whatToDoList.get(0)
+                        chip2.makeInVisible()
+                        chip3.makeInVisible()
+                    } else if (whatToDoList.size == 2) {
+                        chip1.text = whatToDoList.get(0)
+                        chip2.text = whatToDoList.get(1)
+                        chip3.makeInVisible()
+                    } else {
+                        chip1.text = whatToDoList.get(0)
+                        chip2.text = whatToDoList.get(1)
+                        chip3.text = whatToDoList.get(2)
+                    }
+
                 }
                 is UiState.Failure -> {
                     progressCircular.hide()
@@ -68,18 +88,17 @@ class FifthMainFragment : BaseFragment<FragmentFifthMainBinding>() {
         changeInfoTextView.setOnClickListener {
             val nickName = myNickNameTextView.text.toString()
             val userType = myTypeTextView.text.toString()
-            val whatToDo = myWhatToDoTextView.text.toString()
 
             val intent = Intent(requireContext(), ChangeInfoActivity::class.java)
             intent.putExtra("nickName", nickName)
             intent.putExtra("userType", userType)
-            intent.putExtra("whatToDo", whatToDo)
+            intent.putExtra("whatToDo", whatToDoList.toTypedArray())
             startActivity(intent)
         }
 
 
         // 로그아웃이 아니라 계정 탈퇴
-        logoutButton.setOnClickListener {
+        out.setOnClickListener {
             viewModel.logout()
             viewModel.logout.observe(viewLifecycleOwner) { state ->
                 when (state) {
@@ -90,8 +109,8 @@ class FifthMainFragment : BaseFragment<FragmentFifthMainBinding>() {
                         val intent = Intent(requireContext(), LoginActivity::class.java)
                         startActivity(intent)
                         finishAffinity(requireActivity())
-
                     }
+
                 }
             }
         }

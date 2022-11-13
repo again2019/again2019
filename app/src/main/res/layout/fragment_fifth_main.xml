@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,62 +7,230 @@
     android:orientation="vertical"
     tools:context=".UI.Main.Fifth.FifthMainFragment">
 
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="내 닉네임" />
-    <TextView
-        android:id="@+id/myNickNameTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-       />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="내 닉네임" />
-    <TextView
-        android:id="@+id/myTypeTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-         />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="관심 분야" />
-    <TextView
-        android:id="@+id/myWhatToDoTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        />
-
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="정보 수정" />
-    <Button
-        android:id="@+id/changeInfoTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-         />
-
-    <Button
-        android:id="@+id/logoutButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="로그아웃"
-
-        />
-
     <com.google.android.material.progressindicator.CircularProgressIndicator
         android:id="@+id/progress_circular"
+        style="@style/ProgressCircular"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:indicatorColor="@color/example_3_blue"
-        android:indeterminate="true"
-        android:visibility="invisible" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</LinearLayout>
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ToolbarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="마이페이지"
+            android:layout_gravity="center"
+            android:id="@+id/toolbar_title"
+            android:textSize="20sp" />
+    </androidx.appcompat.widget.Toolbar>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout7"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/basic_image"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <TextView
+            android:id="@+id/myNickNameTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/bold"
+            android:text="안세훈"
+            android:textSize="20sp"
+            app:layout_constraintStart_toEndOf="@+id/imageView"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/myTypeTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:fontFamily="@font/medium"
+            android:text="직장인"
+            android:textColor="@color/colorPrimaryGray"
+            app:layout_constraintBottom_toBottomOf="@+id/myNickNameTextView"
+            app:layout_constraintStart_toEndOf="@+id/myNickNameTextView" />
+
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chipGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@+id/changeInfoTextView"
+            app:layout_constraintStart_toStartOf="@+id/myNickNameTextView"
+            app:layout_constraintTop_toBottomOf="@+id/myNickNameTextView"
+            app:layout_constraintVertical_bias="0.0">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip1"
+                style="@style/Colors_Widget.MaterialComponents.Chip.Choice2"
+                android:clickable="false"
+                android:checked="true"
+                android:layout_width="70dp"
+                android:layout_height="50dp"
+                android:text="독서"
+                android:textAppearance="@style/AppTheme.GenderChip"
+                android:textSize="12sp"
+                android:theme="@style/Theme.MaterialComponents.Light" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip2"
+                style="@style/Colors_Widget.MaterialComponents.Chip.Choice2"
+                android:clickable="false"
+                android:checked="true"
+                android:layout_width="70dp"
+                android:layout_height="50dp"
+                android:text="영어 듣기"
+                android:textAppearance="@style/AppTheme.GenderChip"
+                android:textSize="12sp"
+                android:theme="@style/Theme.MaterialComponents.Light" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip3"
+                style="@style/Colors_Widget.MaterialComponents.Chip.Choice2"
+                android:clickable="false"
+                android:checked="true"
+                android:layout_width="70dp"
+                android:layout_height="50dp"
+                android:text="시사 공부"
+                android:textAlignment="center"
+                android:textAppearance="@style/AppTheme.GenderChip"
+                android:textSize="12sp"
+                android:theme="@style/Theme.MaterialComponents.Light" />
+
+        </com.google.android.material.chip.ChipGroup>
+
+        <Button
+            android:id="@+id/changeInfoTextView"
+            style="@style/BtnType3"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="30dp"
+            android:fontFamily="@font/medium"
+            android:text="프로필 수정"
+            android:textColor="#636363"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        app:layout_constraintEnd_toEndOf="@+id/constraintLayout7"
+        app:layout_constraintStart_toStartOf="@+id/constraintLayout7"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout7">
+
+        <View
+            android:id="@+id/view4"
+            android:layout_width="350dp"
+            android:layout_height="1dp"
+            android:background="@color/colorHorizontal"
+            app:layout_constraintTop_toTopOf="@+id/using" />
+
+        <TextView
+            android:id="@+id/using"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:gravity="center_vertical"
+            android:padding="10dp"
+            android:text="📃 이용약관"
+            android:textColor="@color/titleMain"
+            android:textSize="15sp"
+            android:fontFamily="@font/medium"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <View
+            android:id="@+id/view1"
+            android:layout_width="350dp"
+            android:layout_height="1dp"
+            android:background="@color/colorHorizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/using" />
+
+        <TextView
+            android:id="@+id/changing"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:gravity="center_vertical"
+            android:padding="10dp"
+            android:text="⚙️ 환경설정"
+            android:textColor="@color/titleMain"
+            android:textSize="15sp"
+            android:fontFamily="@font/medium"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/using" />
+
+        <View
+            android:id="@+id/view2"
+            android:layout_width="346dp"
+            android:layout_height="1dp"
+            android:background="@color/colorHorizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/changing" />
+
+        <TextView
+            android:id="@+id/out"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:gravity="center_vertical"
+            android:padding="10dp"
+            android:text="👋🏻 회원탈퇴"
+            android:textColor="@color/titleMain"
+            android:textSize="15sp"
+            android:fontFamily="@font/medium"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/changing" />
+
+        <View
+            android:id="@+id/view3"
+            android:layout_width="350dp"
+            android:layout_height="1dp"
+            android:background="@color/colorHorizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/out" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -15,8 +15,7 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Source
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
+
 
 class FirstRepository(
     val user: FirebaseUser?,
@@ -27,7 +26,7 @@ class FirstRepository(
 
     override fun getTmpTimeInfo(result: (UiState<ArrayList<TmpTimeDTO>>) -> Unit) {
         firebaseFirestore.collection(FBConstants.TMPTIMEINFO).document(myUid)
-            .collection(myUid).get(cache)
+            .collection(myUid).get()
             .addOnSuccessListener {
                 val tmpTimeDTOList : ArrayList<TmpTimeDTO> = arrayListOf()
                 for(document in it){
@@ -117,13 +116,13 @@ class FirstRepository(
 
     }
 
-    override fun getWhatToDoInfo(result: (UiState<String>) -> Unit) {
+    override fun getWhatToDoInfo(result: (UiState<List<String>>) -> Unit) {
         firebaseFirestore.collection(FBConstants.USERINFO).document(myUid)
             .get()
             .addOnSuccessListener { document ->
                 val data :UserInfoDTO? = document.toObject(UserInfoDTO::class.java)
                 result.invoke(
-                    UiState.Success(data?.whatToDoList.toString())
+                    UiState.Success(data?.whatToDoList!!)
                 )
             }
 
