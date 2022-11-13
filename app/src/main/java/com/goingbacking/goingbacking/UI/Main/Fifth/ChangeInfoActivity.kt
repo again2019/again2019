@@ -39,9 +39,9 @@ class ChangeInfoActivity : BaseActivity<ActivityChangeInfoBinding>({
         changeNickNameEditText.setText(intent.getStringExtra("nickName"))
         changeTypeEditText.setText(intent.getStringExtra("userType"))
 
-        Log.d("experiment",intent.getStringExtra("whatToDo")!!.toString())
-        val whatToDo = intent.getStringExtra("whatToDo")!!
-            .removeSurrounding("[", "]").split(", ")
+        Log.d("experiment",intent.getStringArrayExtra("whatToDo")!!.toString())
+        val whatToDo = intent.getStringArrayExtra("whatToDo")!!.toList()
+
 
         for (i in whatToDo) {
             Log.d("experiment",whatToDo.toString())

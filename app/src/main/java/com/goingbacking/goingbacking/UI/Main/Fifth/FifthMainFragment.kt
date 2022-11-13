@@ -22,6 +22,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class FifthMainFragment : BaseFragment<FragmentFifthMainBinding>() {
     val viewModel: FifthViewModel by viewModels()
+    private lateinit var whatToDoList : List<String>
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
@@ -51,7 +52,7 @@ class FifthMainFragment : BaseFragment<FragmentFifthMainBinding>() {
                     progressCircular.hide()
                     myNickNameTextView.text = state.data.userNickName
                     myTypeTextView.text = state.data.userType
-                    val whatToDoList = state.data.whatToDoList
+                    whatToDoList = state.data.whatToDoList
                     if (whatToDoList.size == 0) {
                         chip1.makeInVisible()
                         chip2.makeInVisible()
@@ -91,7 +92,7 @@ class FifthMainFragment : BaseFragment<FragmentFifthMainBinding>() {
             val intent = Intent(requireContext(), ChangeInfoActivity::class.java)
             intent.putExtra("nickName", nickName)
             intent.putExtra("userType", userType)
-//            intent.putExtra("whatToDo", whatToDo)
+            intent.putExtra("whatToDo", whatToDoList.toTypedArray())
             startActivity(intent)
         }
 
