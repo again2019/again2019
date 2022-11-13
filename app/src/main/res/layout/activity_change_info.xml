@@ -6,6 +6,24 @@
     android:layout_height="match_parent"
     tools:context=".UI.Main.Fifth.ChangeInfoActivity">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ToolbarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="내 정보 수정"
+            android:layout_gravity="center"
+            android:id="@+id/toolbar_title"
+            android:textSize="20sp" />
+    </androidx.appcompat.widget.Toolbar>
+
+
     <com.google.android.material.progressindicator.CircularProgressIndicator
         android:id="@+id/progress_circular"
         style="@style/ProgressCircular"
@@ -16,24 +34,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/ToolbarTheme"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="내 정보 수정"
-            android:layout_gravity="center"
-            android:id="@+id/toolbar_title"
-            android:textSize="20sp" />
-    </androidx.appcompat.widget.Toolbar>
 
 
     <ImageView

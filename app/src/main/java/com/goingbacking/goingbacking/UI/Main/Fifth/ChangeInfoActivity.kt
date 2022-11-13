@@ -2,8 +2,14 @@ package com.goingbacking.goingbacking.UI.Main.Fifth
 
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import androidx.activity.viewModels
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.core.view.children
+import androidx.lifecycle.Lifecycle
 import com.goingbacking.goingbacking.Model.UserInfoDTO
 import com.goingbacking.goingbacking.Model.WhatToDoMonthDTO
 import com.goingbacking.goingbacking.Model.WhatToDoYearDTO
@@ -29,6 +35,25 @@ class ChangeInfoActivity : BaseActivity<ActivityChangeInfoBinding>({
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        setSupportActionBar(binding.toolbar)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        val menuHost: MenuHost = this
+        menuHost.addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                when(menuItem.itemId) {
+                    android.R.id.home -> {
+                        finish()
+                        return true
+                    }
+                }
+                return true
+            }
+        }, this, Lifecycle.State.RESUMED)
         historyWhatToDo = PrefUtil.getHistoryWhatToDo(this)!!
 
         editInit()
@@ -68,35 +93,41 @@ class ChangeInfoActivity : BaseActivity<ActivityChangeInfoBinding>({
                 selected.add(chip)
             }
 
-            if (selected.equals(""))  {
+            if (selected.size == 0)  {
                 toast(this@ChangeInfoActivity, getString(R.string.chip_no_selected))
             }  else {
-                for (whattodo in selected) {
-                    if (!historyWhatToDo.contains(whattodo)) {
-                        val whatToDoMonthDTO = WhatToDoMonthDTO(
-                            count = 0,
-                            month = currentday("MM").toInt(),
-                            whatToDo = whattodo
-                        )
+                if (selected.size <= 3) {
+                    for (whattodo in selected) {
+                        if (!historyWhatToDo.contains(whattodo)) {
+                            val whatToDoMonthDTO = WhatToDoMonthDTO(
+                                count = 0,
+                                month = currentday("MM").toInt(),
+                                whatToDo = whattodo
+                            )
 
-                        viewModel.addInitWhatToDoMonthTime(whatToDoMonthDTO)
+                            viewModel.addInitWhatToDoMonthTime(whatToDoMonthDTO)
 
-                        val whatToDoYearDTO = WhatToDoYearDTO(
-                            count = 0,
-                            year = currentday("yyyy").toInt(),
-                            whatToDo = whattodo
-                        )
+                            val whatToDoYearDTO = WhatToDoYearDTO(
+                                count = 0,
+                                year = currentday("yyyy").toInt(),
+                                whatToDo = whattodo
+                            )
 
-                        viewModel.addInitWhatToDoYearTime(whatToDoYearDTO)
+                            viewModel.addInitWhatToDoYearTime(whatToDoYearDTO)
 
+                        }
+                        historyWhatToDo.add(whattodo)
                     }
-                    historyWhatToDo.add(whattodo)
+                    PrefUtil.setHistoryWhatToDo(historyWhatToDo, this@ChangeInfoActivity)
+
+                    viewModel.reviseUserInfo(changeNickNameEditText.text.toString(), changeTypeEditText.text.toString(), selected.toList())
+                    finish()
+                }
+                else {
+                    toast(this@ChangeInfoActivity, "3개 이하로 선택해주세요.")
                 }
 
-                PrefUtil.setHistoryWhatToDo(historyWhatToDo, this@ChangeInfoActivity)
 
-                viewModel.reviseUserInfo(changeNickNameEditText.text.toString(), changeTypeEditText.text.toString(), selected.toList())
-                finish()
             }
         }
     }

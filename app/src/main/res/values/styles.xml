@@ -13,7 +13,7 @@
 
     </style>
 
-    <style name="ToolbarTheme" parent="ThemeOverlay.AppCompat.Dark">
+    <style name="ToolbarTheme" parent="ThemeOverlay.AppCompat.Light">
         <item name="android:fontFamily">@font/bold</item>
         <item name="android:textColor">@color/titleMain</item>
 
