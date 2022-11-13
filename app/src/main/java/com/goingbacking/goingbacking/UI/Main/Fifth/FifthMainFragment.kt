@@ -14,6 +14,7 @@ import com.goingbacking.goingbacking.UI.Login.LoginActivity
 import com.goingbacking.goingbacking.databinding.FragmentFifthMainBinding
 import com.goingbacking.goingbacking.util.PrefUtil
 import com.goingbacking.goingbacking.util.UiState
+import com.goingbacking.goingbacking.util.makeInVisible
 import com.goingbacking.goingbacking.util.toast
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -50,6 +51,25 @@ class FifthMainFragment : BaseFragment<FragmentFifthMainBinding>() {
                     progressCircular.hide()
                     myNickNameTextView.text = state.data.userNickName
                     myTypeTextView.text = state.data.userType
+                    val whatToDoList = state.data.whatToDoList
+                    if (whatToDoList.size == 0) {
+                        chip1.makeInVisible()
+                        chip2.makeInVisible()
+                        chip3.makeInVisible()
+                    } else if (whatToDoList.size == 1) {
+                        chip1.text = whatToDoList.get(0)
+                        chip2.makeInVisible()
+                        chip3.makeInVisible()
+                    } else if (whatToDoList.size == 2) {
+                        chip1.text = whatToDoList.get(0)
+                        chip2.text = whatToDoList.get(1)
+                        chip3.makeInVisible()
+                    } else {
+                        chip1.text = whatToDoList.get(0)
+                        chip2.text = whatToDoList.get(1)
+                        chip3.text = whatToDoList.get(2)
+                    }
+
                 }
                 is UiState.Failure -> {
                     progressCircular.hide()
@@ -77,7 +97,7 @@ class FifthMainFragment : BaseFragment<FragmentFifthMainBinding>() {
 
 
         // 로그아웃이 아니라 계정 탈퇴
-        logoutButton.setOnClickListener {
+        out.setOnClickListener {
             viewModel.logout()
             viewModel.logout.observe(viewLifecycleOwner) { state ->
                 when (state) {

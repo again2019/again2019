@@ -50,7 +50,7 @@
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="80dp"
-            android:layout_height="70dp"
+            android:layout_height="80dp"
             android:src="@drawable/basic_image"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -79,12 +79,61 @@
             app:layout_constraintBottom_toBottomOf="@+id/myNickNameTextView"
             app:layout_constraintStart_toEndOf="@+id/myNickNameTextView" />
 
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chipGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@+id/changeInfoTextView"
+            app:layout_constraintStart_toStartOf="@+id/myNickNameTextView"
+            app:layout_constraintTop_toBottomOf="@+id/myNickNameTextView"
+            app:layout_constraintVertical_bias="0.0">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip1"
+                style="@style/Colors_Widget.MaterialComponents.Chip.Choice2"
+                android:clickable="false"
+                android:checked="true"
+                android:layout_width="70dp"
+                android:layout_height="50dp"
+                android:text="독서"
+                android:textAppearance="@style/AppTheme.GenderChip"
+                android:textSize="12sp"
+                android:theme="@style/Theme.MaterialComponents.Light" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip2"
+                style="@style/Colors_Widget.MaterialComponents.Chip.Choice2"
+                android:clickable="false"
+                android:checked="true"
+                android:layout_width="70dp"
+                android:layout_height="50dp"
+                android:text="영어 듣기"
+                android:textAppearance="@style/AppTheme.GenderChip"
+                android:textSize="12sp"
+                android:theme="@style/Theme.MaterialComponents.Light" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip3"
+                style="@style/Colors_Widget.MaterialComponents.Chip.Choice2"
+                android:clickable="false"
+                android:checked="true"
+                android:layout_width="70dp"
+                android:layout_height="50dp"
+                android:text="시사 공부"
+                android:textAlignment="center"
+                android:textAppearance="@style/AppTheme.GenderChip"
+                android:textSize="12sp"
+                android:theme="@style/Theme.MaterialComponents.Light" />
+
+        </com.google.android.material.chip.ChipGroup>
+
         <Button
             android:id="@+id/changeInfoTextView"
             style="@style/BtnType3"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="30dp"
             android:fontFamily="@font/medium"
             android:text="프로필 수정"
             android:textColor="#636363"
@@ -105,6 +154,13 @@
         app:layout_constraintEnd_toEndOf="@+id/constraintLayout7"
         app:layout_constraintStart_toStartOf="@+id/constraintLayout7"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout7">
+
+        <View
+            android:id="@+id/view4"
+            android:layout_width="350dp"
+            android:layout_height="1dp"
+            android:background="@color/colorHorizontal"
+            app:layout_constraintTop_toTopOf="@+id/using" />
 
         <TextView
             android:id="@+id/using"
@@ -135,7 +191,7 @@
             android:layout_height="60dp"
             android:gravity="center_vertical"
             android:padding="10dp"
-            android:text="⚙️ 환경 설정"
+            android:text="⚙️ 환경설정"
             android:textColor="@color/titleMain"
             android:textSize="15sp"
             android:fontFamily="@font/medium"
@@ -145,7 +201,7 @@
         <View
             android:id="@+id/view2"
             android:layout_width="346dp"
-            android:layout_height="3dp"
+            android:layout_height="1dp"
             android:background="@color/colorHorizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -157,7 +213,7 @@
             android:layout_height="60dp"
             android:gravity="center_vertical"
             android:padding="10dp"
-            android:text="👋🏻 회원 탈퇴"
+            android:text="👋🏻 회원탈퇴"
             android:textColor="@color/titleMain"
             android:textSize="15sp"
             android:fontFamily="@font/medium"
@@ -172,33 +228,9 @@
             android:layout_height="1dp"
             android:background="@color/colorHorizontal"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view2" />
+            app:layout_constraintTop_toBottomOf="@+id/out" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="내 닉네임" />
-
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="내 닉네임" />
-
-
-
-
-    <Button
-        android:id="@+id/logoutButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-
-        android:text="로그아웃"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="476dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
