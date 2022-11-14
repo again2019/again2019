@@ -8,8 +8,10 @@ import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.goingbacking.goingbacking.R
 import com.goingbacking.goingbacking.UI.Base.BaseFragment
+import com.goingbacking.goingbacking.UI.Input.SecondInputFragmentArgs
 import com.goingbacking.goingbacking.databinding.FragmentScheduleInput2Binding
 import com.goingbacking.goingbacking.databinding.FragmentThirdMainBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -42,12 +44,21 @@ class ScheduleInputFragment2 : BaseFragment<FragmentScheduleInput2Binding>() {
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
                 when(menuItem.itemId) {
                     android.R.id.home -> {
+                        findNavController().navigate(R.id.action_scheduleInputFragment2_to_scheduleInputFragment1)
                         return true
                     }
                 }
                 return true
             }
         }, viewLifecycleOwner, Lifecycle.State.RESUMED)
+
+
+        val args : ScheduleInputFragment2Args by navArgs()
+        val date = args.date
+        val yearMonth = args.yearMonth
+
+
+
 
     }
 

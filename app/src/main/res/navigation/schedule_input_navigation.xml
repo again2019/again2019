@@ -18,6 +18,12 @@
             app:exitAnim="@anim/anim_slide_out_right"
             app:popEnterAnim="@anim/anim_slide_in_right"
             app:popExitAnim="@anim/anim_slide_out_left" />
+        <argument
+            android:name="date"
+            app:argType="string" />
+        <argument
+            android:name="yearMonth"
+            app:argType="string" />
 
     </fragment>
 
@@ -33,5 +39,11 @@
             app:exitAnim="@anim/anim_slide_out_right"
             app:popEnterAnim="@anim/anim_slide_in_right"
             app:popExitAnim="@anim/anim_slide_out_left" />
+        <argument
+            android:name="date"
+            app:argType="string" />
+        <argument
+            android:name="yearMonth"
+            app:argType="string" />
     </fragment>
 </navigation>

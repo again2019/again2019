@@ -17,13 +17,6 @@ class ThirdRepository(
     override fun addDateInfo(yearMonth : String, date: DateDTO, result: (UiState<String>) -> Unit) {
         firebaseFirestore.collection(FBConstants.DATE).document(uid)
             .collection(yearMonth).document(yearMonth).set(date)
-            .addOnSuccessListener {
-                result.invoke(UiState.Success("DateInfo Success"))
-            }
-            .addOnFailureListener {
-                result.invoke(UiState.Failure(it.localizedMessage))
-            }
-
     }
 
 }

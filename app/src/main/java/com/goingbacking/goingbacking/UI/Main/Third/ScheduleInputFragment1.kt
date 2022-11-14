@@ -76,10 +76,8 @@ class ScheduleInputFragment1 : BaseFragment<FragmentScheduleInput1Binding>() {
             var yearMonth = ""
             var state = true
 
-            Log.d("experiment", durationList.size.toString())
-
             if (durationList.size == 0) {
-
+                toast(requireContext(), "날짜를 선택해주세요.")
             } else {
 
                 for (day in 0..(durationList.size-1)) {
@@ -110,10 +108,6 @@ class ScheduleInputFragment1 : BaseFragment<FragmentScheduleInput1Binding>() {
                             break
                         }
                     }
-
-                    Log.d("experiment", "ssss" + dayofweek.toString())
-
-
                     if (binding.chip1.isChecked && dayofweek.equals("2")) {
                         yearList.add(year + '-' + month + '-' + dayofmonth)
                     }
@@ -136,11 +130,6 @@ class ScheduleInputFragment1 : BaseFragment<FragmentScheduleInput1Binding>() {
                         yearList.add(year + '-' + month + '-' + dayofmonth)
                     }
                 }
-
-                Log.d("experiment", state.toString())
-                Log.d("experiment", yearList.toString())
-
-
                 if (state) {
                     if (yearList.size == 0) {
                         toast(requireContext(), "요일을 선택해주세요.")
@@ -148,10 +137,9 @@ class ScheduleInputFragment1 : BaseFragment<FragmentScheduleInput1Binding>() {
                         val dateDTO = DateDTO(
                             date = yearList.joinToString(",")
                         )
-                        Log.d("experiment", dateDTO.toString())
-                        Log.d("experiment", yearMonth.toString())
-
                         viewModel.addDateInfo(yearMonth, dateDTO)
+                        val action = ScheduleInputFragment1Directions.actionScheduleInputFragment1ToScheduleInputFragment2(yearList.joinToString(","), yearMonth)
+                        findNavController().navigate(action)
                     }
 
                 } else {
