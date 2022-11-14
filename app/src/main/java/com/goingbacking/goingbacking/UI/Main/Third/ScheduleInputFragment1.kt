@@ -134,10 +134,7 @@ class ScheduleInputFragment1 : BaseFragment<FragmentScheduleInput1Binding>() {
                     if (yearList.size == 0) {
                         toast(requireContext(), "요일을 선택해주세요.")
                     } else {
-                        val dateDTO = DateDTO(
-                            date = yearList.joinToString(",")
-                        )
-                        viewModel.addDateInfo(yearMonth, dateDTO)
+
                         val action = ScheduleInputFragment1Directions.actionScheduleInputFragment1ToScheduleInputFragment2(yearList.toTypedArray(), yearMonth)
                         findNavController().navigate(action)
                     }

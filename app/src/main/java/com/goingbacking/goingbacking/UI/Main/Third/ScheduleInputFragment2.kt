@@ -12,6 +12,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.goingbacking.goingbacking.Model.DateDTO
 import com.goingbacking.goingbacking.Model.Event
 import com.goingbacking.goingbacking.R
 import com.goingbacking.goingbacking.UI.Base.BaseFragment
@@ -79,7 +80,15 @@ class ScheduleInputFragment2 : BaseFragment<FragmentScheduleInput2Binding>() {
                 val timeSetListener =
                     TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
                         home1time = (hourOfDay * 60) + minute
-                        binding.home1Button.text = String.format("%d-%d", hourOfDay, minute)
+                        var hourOfDay_str = hourOfDay.toString()
+                        var minute_str = minute.toString()
+                        if (hourOfDay / 10 == 0) {
+                            hourOfDay_str = '0' + hourOfDay.toString()
+                        }
+                        if (minute / 10 == 0 ) {
+                            minute_str = '0' + minute.toString()
+                        }
+                        binding.home1Button.text = String.format("%s-%s", hourOfDay_str, minute_str)
                     }
                 TimePickerDialog(
                     requireContext(),
@@ -93,7 +102,15 @@ class ScheduleInputFragment2 : BaseFragment<FragmentScheduleInput2Binding>() {
                 val timeSetListener =
                     TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
                         home2time = (hourOfDay * 60) + minute
-                        binding.home2Button.text = String.format("%d-%d", hourOfDay, minute)
+                        var hourOfDay_str = hourOfDay.toString()
+                        var minute_str = minute.toString()
+                        if (hourOfDay / 10 == 0) {
+                            hourOfDay_str = '0' + hourOfDay.toString()
+                        }
+                        if (minute / 10 == 0 ) {
+                            minute_str = '0' + minute.toString()
+                        }
+                        binding.home2Button.text = String.format("%s-%s", hourOfDay_str, minute_str)
                     }
                 TimePickerDialog(
                     requireContext(),
@@ -107,7 +124,15 @@ class ScheduleInputFragment2 : BaseFragment<FragmentScheduleInput2Binding>() {
                 val timeSetListener =
                     TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
                         dest1time = (hourOfDay * 60) + minute
-                        binding.dest1Button.text = String.format("%d-%d", hourOfDay, minute)
+                        var hourOfDay_str = hourOfDay.toString()
+                        var minute_str = minute.toString()
+                        if (hourOfDay / 10 == 0) {
+                            hourOfDay_str = '0' + hourOfDay.toString()
+                        }
+                        if (minute / 10 == 0 ) {
+                            minute_str = '0' + minute.toString()
+                        }
+                        binding.dest1Button.text = String.format("%s-%s", hourOfDay_str, minute_str)
                     }
                 TimePickerDialog(
                     requireContext(),
@@ -121,7 +146,15 @@ class ScheduleInputFragment2 : BaseFragment<FragmentScheduleInput2Binding>() {
                 val timeSetListener =
                     TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
                         dest2time = (hourOfDay * 60) + minute
-                        binding.dest2Button.text = String.format("%d-%d", hourOfDay, minute)
+                        var hourOfDay_str = hourOfDay.toString()
+                        var minute_str = minute.toString()
+                        if (hourOfDay / 10 == 0) {
+                            hourOfDay_str = '0' + hourOfDay.toString()
+                        }
+                        if (minute / 10 == 0 ) {
+                            minute_str = '0' + minute.toString()
+                        }
+                        binding.dest2Button.text = String.format("%s-%s", hourOfDay_str, minute_str)
                     }
                 TimePickerDialog(
                     requireContext(),
@@ -133,32 +166,36 @@ class ScheduleInputFragment2 : BaseFragment<FragmentScheduleInput2Binding>() {
             }
 
             finishBtn.setOnClickListener {
-            if (destinationPlaceEditText.text.equals("")) {
-                toast(requireActivity(), getString(R.string.destination_input_fail))
-//            } else if (list == null) {
-//                Toast.makeText(this@ScheduleInputActivity, R.string.date_list_input_fail, Toast.LENGTH_SHORT).show()
-//            } else if (home1time == null) {
-//                Toast.makeText(this@ScheduleInputActivity, R.string.first_start_time_fail, Toast.LENGTH_SHORT).show()
-//            } else if (home2time == null) {
-//                Toast.makeText(this@ScheduleInputActivity, R.string.first_end_time_fail, Toast.LENGTH_SHORT).show()
-//            } else if (dest1time == null) {
-//                Toast.makeText(this@ScheduleInputActivity, R.string.second_start_time_fail, Toast.LENGTH_SHORT).show()
-//            } else if (dest2time == null) {
-//                Toast.makeText(this@ScheduleInputActivity, R.string.second_end_time_fail, Toast.LENGTH_SHORT).show()
-//            } else if (monday || tuesday || wednesday || thursday || friday || saturday || sunday) {
-//                Toast.makeText(this@ScheduleInputActivity, R.string.day_select_fail, Toast.LENGTH_SHORT).show()
-            } else {
-                for (day in date) {
-                    val event = Event()
-                    event.dest = binding.destinationPlaceEditText.text.toString()
-                    event.date = day
-                    event.start = home2time
-                    event.end = dest1time
-                    event.start_t = home2time!!-home1time!!
-                    event.end_t = dest2time!! - dest1time!!
+                if (destinationPlaceEditText.text.isNullOrEmpty()) {
+                    toast(requireActivity(), getString(R.string.destination_input_fail))
+                } else if (home1time == null) {
+                        toast(requireActivity(), getString(R.string.first_start_time_fail))
+                } else if (home2time == null) {
+                        toast(requireActivity(), getString(R.string.first_end_time_fail))
+                } else if (dest1time == null) {
+                        toast(requireActivity(), getString(R.string.second_start_time_fail))
+                } else if (dest2time == null) {
+                        toast(requireActivity(), getString(R.string.second_end_time_fail))
+                } else {
+                    for (day in date) {
+                        val event = Event(
+                            dest = binding.destinationPlaceEditText.text.toString(),
+                            date = day,
+                            start = home2time,
+                            end = dest1time,
+                            start_t = home2time!! - home1time!!,
+                            end_t = dest2time!! - dest1time!!
+                        )
 
-                    val path2 = convertDateToTimeStamp(day + "-" + binding.home2Button.text.toString()).toString()
-                    viewModel.addScheduleEventInfo(yearMonth, path2, event)
+                        val path2 =
+                            convertDateToTimeStamp(day + "-" + binding.home2Button.text.toString()).toString()
+
+                        val dateDTO = DateDTO(
+                            date = date.joinToString(",")
+                        )
+                        viewModel.addDateInfo(yearMonth, dateDTO)
+                        viewModel.addScheduleEventInfo(yearMonth, path2, event)
+                    }
                 }
             }
         }

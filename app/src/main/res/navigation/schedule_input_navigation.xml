@@ -14,10 +14,10 @@
         <action
             android:id="@+id/action_scheduleInputFragment1_to_scheduleInputFragment2"
             app:destination="@+id/scheduleInputFragment2"
-            app:enterAnim="@anim/anim_slide_in_left"
-            app:exitAnim="@anim/anim_slide_out_right"
-            app:popEnterAnim="@anim/anim_slide_in_right"
-            app:popExitAnim="@anim/anim_slide_out_left" />
+            app:enterAnim="@anim/anim_slide_in_right"
+            app:exitAnim="@anim/anim_slide_out_left"
+            app:popEnterAnim="@anim/anim_slide_in_left"
+            app:popExitAnim="@anim/anim_slide_out_right" />
         <argument
             android:name="dateList"
             app:argType="string[]" />
