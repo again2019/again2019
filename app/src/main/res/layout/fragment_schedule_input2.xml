@@ -163,7 +163,7 @@
         app:layout_constraintTop_toTopOf="@+id/dest1Button" />
 
     <android.widget.Button
-        android:id="@+id/nextbtn"
+        android:id="@+id/finishBtn"
         style="@style/BtnType1"
         android:layout_width="360dp"
         android:layout_height="wrap_content"

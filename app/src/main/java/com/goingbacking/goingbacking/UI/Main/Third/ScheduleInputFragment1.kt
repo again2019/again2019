@@ -138,7 +138,7 @@ class ScheduleInputFragment1 : BaseFragment<FragmentScheduleInput1Binding>() {
                             date = yearList.joinToString(",")
                         )
                         viewModel.addDateInfo(yearMonth, dateDTO)
-                        val action = ScheduleInputFragment1Directions.actionScheduleInputFragment1ToScheduleInputFragment2(yearList.joinToString(","), yearMonth)
+                        val action = ScheduleInputFragment1Directions.actionScheduleInputFragment1ToScheduleInputFragment2(yearList.toTypedArray(), yearMonth)
                         findNavController().navigate(action)
                     }
 

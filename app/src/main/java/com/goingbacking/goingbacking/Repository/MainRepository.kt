@@ -32,17 +32,7 @@ class MainRepository (
     val uid = user?.uid!!
     val cache = Source.CACHE
 
-    override fun addEventInfo(path1: String, path2: String, event: Event, result: (UiState<String>) -> Unit) {
-        firebaseFirestore.collection(CALENDARINFO).document(uid)
-            .collection(path1).document(path2)
-            .set(event)
-            .addOnSuccessListener {
-                result.invoke(UiState.Success("ScheduleInput Success"))
-            }
-            .addOnFailureListener {
-                result.invoke(UiState.Failure(it.localizedMessage))
-            }
-    }
+
 
 
 

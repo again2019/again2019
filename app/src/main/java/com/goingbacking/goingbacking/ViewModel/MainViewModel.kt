@@ -18,9 +18,7 @@ class MainViewModel @Inject constructor (
 
 
 
-    private val _eventDTOs = MutableLiveData<UiState<String>>()
-    val eventDTO : LiveData<UiState<String>>
-        get() = _eventDTOs
+
 
 
 
@@ -64,10 +62,6 @@ class MainViewModel @Inject constructor (
         get() = _thirdSelectedDateDTOs
 
 
-    fun addScheduleEventInfo(path1 :String, path2: String, event: Event) {
-        _eventDTOs.value = UiState.Loading
-        mainRepository.addEventInfo(path1, path2, event) { _eventDTOs.value = it}
-    }
 
 
 
