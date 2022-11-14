@@ -22,6 +22,7 @@
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/drawable/ic_launcher_background.xml" value="0.22604166666666667" />
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/drawable/ic_maintime.xml" value="0.175" />
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/drawable/layout_shape.xml" value="0.26979166666666665" />
+        <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/drawable/selected_rectangle.xml" value="0.26979166666666665" />
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/drawable/x.xml" value="0.26979166666666665" />
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/font/font.xml" value="0.2838541666666667" />
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/layout/activity_change_info.xml" value="0.4187116564417178" />
@@ -73,7 +74,9 @@
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/layout/fragment_third_input.xml" value="0.152" />
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/layout/fragment_third_main.xml" value="0.264" />
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/layout/ite_calendar_header_main.xml" value="0.13958333333333334" />
+        <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/layout/item_calendar_day.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/layout/item_calendar_header.xml" value="0.10648148148148148" />
+        <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/layout/item_calendar_header_main.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/layout/item_cheer.xml" value="0.18981481481481483" />
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/layout/item_comment.xml" value="0.1" />
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/layout/item_event.xml" value="0.1" />
