@@ -12,6 +12,7 @@
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/drawable-v24/ic_add.xml" value="0.23072916666666668" />
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/drawable-v24/maintime.xml" value="0.175" />
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/drawable-v24/today_rectangle.xml" value="0.26564102564102565" />
+        <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/drawable/arrow.xml" value="0.26564102564102565" />
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/drawable/bnm_shape.xml" value="0.26979166666666665" />
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/drawable/bottomsheet_shape.xml" value="0.4" />
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/drawable/btn_design1.xml" value="0.1638888888888889" />
@@ -81,7 +82,7 @@
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/layout/item_calendar_header_main.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/layout/item_cheer.xml" value="0.18981481481481483" />
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/layout/item_comment.xml" value="0.1" />
-        <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/layout/item_event.xml" value="0.1" />
+        <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/layout/item_event.xml" value="0.4" />
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/layout/item_ranking.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/layout/item_tmp.xml" value="0.6" />
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/layout/item_today_list.xml" value="0.72" />
