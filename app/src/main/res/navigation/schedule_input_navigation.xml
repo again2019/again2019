@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/schedule_input_navigation"
+    app:startDestination="@id/scheduleInputFragment1"
+    >
+
+    <fragment
+        android:id="@+id/scheduleInputFragment1"
+        android:name="com.goingbacking.goingbacking.UI.Main.Third.ScheduleInputFragment1"
+        android:label="ScheduleInputFragment">
+
+        <action
+            android:id="@+id/action_scheduleInputFragment1_to_scheduleInputFragment2"
+            app:destination="@+id/scheduleInputFragment2"
+            app:enterAnim="@anim/anim_slide_in_left"
+            app:exitAnim="@anim/anim_slide_out_right"
+            app:popEnterAnim="@anim/anim_slide_in_right"
+            app:popExitAnim="@anim/anim_slide_out_left" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/scheduleInputFragment2"
+        android:name="com.goingbacking.goingbacking.UI.Main.Third.ScheduleInputFragment2"
+        android:label="ScheduleInputFragment">
+
+        <action
+            android:id="@+id/action_scheduleInputFragment2_to_scheduleInputFragment1"
+            app:destination="@+id/scheduleInputFragment1"
+            app:enterAnim="@anim/anim_slide_in_left"
+            app:exitAnim="@anim/anim_slide_out_right"
+            app:popEnterAnim="@anim/anim_slide_in_right"
+            app:popExitAnim="@anim/anim_slide_out_left" />
+    </fragment>
+</navigation>

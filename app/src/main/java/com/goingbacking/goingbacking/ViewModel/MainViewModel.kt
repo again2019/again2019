@@ -71,9 +71,9 @@ class MainViewModel @Inject constructor (
         mainRepository.addEventInfo(path1, path2, event) { _eventDTOs.value = it}
     }
 
-    fun addDateInfo(date: DateDTO) {
+    fun addDateInfo(yearMonth: String, date: DateDTO) {
         _dateDTOs.value = UiState.Loading
-        mainRepository.addDateInfo(date) { _dateDTOs.value = it}
+        mainRepository.addDateInfo(yearMonth, date) { _dateDTOs.value = it}
     }
 
     fun getThirdDateInfo() {

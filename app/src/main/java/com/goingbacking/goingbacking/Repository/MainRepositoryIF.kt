@@ -7,7 +7,7 @@ import java.time.LocalDate
 interface MainRepositoryIF {
 
     fun addEventInfo(path1: String, path2: String, event: Event, result: (UiState<String>) -> Unit)
-    fun addDateInfo(date: DateDTO, result: (UiState<String>) -> Unit)
+    fun addDateInfo(yearMonth : String, date: DateDTO, result: (UiState<String>) -> Unit)
 
     // ThirdMainFragment
 

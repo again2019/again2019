@@ -44,8 +44,9 @@ class MainRepository (
             }
     }
 
-    override fun addDateInfo(date: DateDTO, result: (UiState<String>) -> Unit) {
-        firebaseFirestore.collection(DATE).document(uid).set(date)
+    override fun addDateInfo(yearMonth : String, date: DateDTO, result: (UiState<String>) -> Unit) {
+        firebaseFirestore.collection(DATE).document(uid)
+            .collection(yearMonth).document(yearMonth).set(date)
             .addOnSuccessListener {
                 result.invoke(UiState.Success("DateInfo Success"))
             }

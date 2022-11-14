@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    tools:context=".UI.Main.Third.ScheduleInputFragment1">
+
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ToolbarTheme"
+        android:background="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="시간 추가하기"
+            android:layout_gravity="center"
+            android:id="@+id/toolbar_title"
+            android:textSize="20sp" />
+    </androidx.appcompat.widget.Toolbar>
+
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/bold"
+        android:text="기간을 선택해주세요."
+        android:textColor="@color/titleMain"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+    <com.applikeysolutions.cosmocalendar.view.CalendarView
+        android:id="@+id/durationCalendarView"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:background="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView10"
+        app:calendarBackgroundColor="@color/white"
+        app:selectedDayBackgroundColor="@color/colorMain"
+        app:selectedDayBackgroundStartColor="@color/colorMain"
+        app:selectedDayBackgroundEndColor="@color/colorMain"
+        app:dayTextColor="@color/black"
+        app:weekendDayTextColor="@color/colorMain"
+        android:animationCache="false"
+        app:orientation="horizontal"
+        app:selectionType="range" />
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/bold"
+        android:text="반복을 원하시는 요일을 선택해주세요."
+        android:textColor="@color/titleMain"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/durationCalendarView" />
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/chipGroup"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="20dp"
+        app:chipSpacingHorizontal="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView11">
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip1"
+            style="@style/Colors_Widget.MaterialComponents.Chip.Choice2"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:text="월"
+            android:textAppearance="@style/AppTheme.GenderChip"
+            android:textSize="12sp"
+            android:theme="@style/Theme.MaterialComponents.Light"
+            app:chipEndPadding="2dp"
+            app:chipStartPadding="2dp" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip2"
+            style="@style/Colors_Widget.MaterialComponents.Chip.Choice2"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:text="화"
+            android:textAppearance="@style/AppTheme.GenderChip"
+            android:textSize="12sp"
+            android:theme="@style/Theme.MaterialComponents.Light"
+            app:chipEndPadding="2dp"
+            app:chipStartPadding="2dp" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip3"
+            style="@style/Colors_Widget.MaterialComponents.Chip.Choice2"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:text="수"
+            android:textAlignment="center"
+            android:textAppearance="@style/AppTheme.GenderChip"
+            android:textSize="12sp"
+            android:theme="@style/Theme.MaterialComponents.Light"
+            app:chipEndPadding="2dp"
+            app:chipStartPadding="2dp" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip4"
+            style="@style/Colors_Widget.MaterialComponents.Chip.Choice2"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:text="목"
+            android:textAlignment="center"
+            android:textAppearance="@style/AppTheme.GenderChip"
+            android:textSize="12sp"
+            android:theme="@style/Theme.MaterialComponents.Light"
+            app:chipEndPadding="2dp"
+            app:chipStartPadding="2dp" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip5"
+            style="@style/Colors_Widget.MaterialComponents.Chip.Choice2"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:text="금"
+            android:textAlignment="center"
+            android:textAppearance="@style/AppTheme.GenderChip"
+            android:textSize="12sp"
+            android:theme="@style/Theme.MaterialComponents.Light"
+            app:chipEndPadding="2dp"
+            app:chipStartPadding="2dp" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip6"
+            style="@style/Colors_Widget.MaterialComponents.Chip.Choice2"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:text="토"
+            android:textAlignment="center"
+            android:textAppearance="@style/AppTheme.GenderChip"
+            android:textSize="12sp"
+            android:theme="@style/Theme.MaterialComponents.Light"
+            app:chipEndPadding="2dp"
+            app:chipStartPadding="2dp" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip7"
+            style="@style/Colors_Widget.MaterialComponents.Chip.Choice2"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:text="일"
+            android:textAlignment="center"
+            android:textAppearance="@style/AppTheme.GenderChip"
+            android:textSize="12sp"
+            android:theme="@style/Theme.MaterialComponents.Light"
+            app:chipEndPadding="2dp"
+            app:chipStartPadding="2dp" />
+
+    </com.google.android.material.chip.ChipGroup>
+
+    <android.widget.Button
+        android:id="@+id/nextbtn"
+        style="@style/BtnType1"
+        android:layout_width="360dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginBottom="28dp"
+        android:padding="19dp"
+        android:text="다음"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
