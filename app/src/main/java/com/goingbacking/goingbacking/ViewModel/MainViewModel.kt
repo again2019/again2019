@@ -22,9 +22,7 @@ class MainViewModel @Inject constructor (
     val eventDTO : LiveData<UiState<String>>
         get() = _eventDTOs
 
-    private val _dateDTOs = MutableLiveData<UiState<String>>()
-    val dateDTOs : LiveData<UiState<String>>
-        get() = _dateDTOs
+
 
     private val _thirdDateDTOs = MutableLiveData<UiState<DateDTO>>()
     val thirdDateDTOs : LiveData<UiState<DateDTO>>
@@ -71,10 +69,7 @@ class MainViewModel @Inject constructor (
         mainRepository.addEventInfo(path1, path2, event) { _eventDTOs.value = it}
     }
 
-    fun addDateInfo(yearMonth: String, date: DateDTO) {
-        _dateDTOs.value = UiState.Loading
-        mainRepository.addDateInfo(yearMonth, date) { _dateDTOs.value = it}
-    }
+
 
     fun getThirdDateInfo() {
         _thirdDateDTOs.value = UiState.Loading

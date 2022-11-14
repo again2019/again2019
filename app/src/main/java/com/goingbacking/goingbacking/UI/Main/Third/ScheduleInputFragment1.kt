@@ -22,10 +22,12 @@ import com.goingbacking.goingbacking.ViewModel.MainViewModel
 import com.goingbacking.goingbacking.databinding.FragmentScheduleInput1Binding
 import com.goingbacking.goingbacking.util.toast
 import com.google.android.material.chip.Chip
+import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 
+@AndroidEntryPoint
 class ScheduleInputFragment1 : BaseFragment<FragmentScheduleInput1Binding>() {
-    private val viewModel : MainViewModel by viewModels()
+    private val viewModel : ThirdViewModel by viewModels()
 
     private var durationList = mutableListOf<Day>()
     private var yearList = mutableListOf<String>()
@@ -140,10 +142,18 @@ class ScheduleInputFragment1 : BaseFragment<FragmentScheduleInput1Binding>() {
 
 
                 if (state) {
-                    val dateDTO = DateDTO(
-                        date = yearList.joinToString(",")
-                    )
-                viewModel.addDateInfo(yearMonth, dateDTO)
+                    if (yearList.size == 0) {
+                        toast(requireContext(), "요일을 선택해주세요.")
+                    } else {
+                        val dateDTO = DateDTO(
+                            date = yearList.joinToString(",")
+                        )
+                        Log.d("experiment", dateDTO.toString())
+                        Log.d("experiment", yearMonth.toString())
+
+                        viewModel.addDateInfo(yearMonth, dateDTO)
+                    }
+
                 } else {
                     toast(requireContext(), "같은 달 내의 날짜를 선택해주세요.")
                }
