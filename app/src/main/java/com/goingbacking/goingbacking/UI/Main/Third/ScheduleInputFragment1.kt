@@ -28,16 +28,8 @@ class ScheduleInputFragment1 : BaseFragment<FragmentScheduleInput1Binding>() {
     private val viewModel : MainViewModel by viewModels()
 
     private var durationList = mutableListOf<Day>()
-    private var checkedList = mutableListOf<String>()
     private var yearList = mutableListOf<String>()
 
-    private var monday : Boolean = false
-    private var tuesday : Boolean = false
-    private var wednesday : Boolean = false
-    private var thursday : Boolean = false
-    private var friday : Boolean = false
-    private var saturday : Boolean = false
-    private var sunday : Boolean = false
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
@@ -73,15 +65,6 @@ class ScheduleInputFragment1 : BaseFragment<FragmentScheduleInput1Binding>() {
             durationList = binding.durationCalendarView.selectedDays
             Log.d("experiment", durationList.toString())
         })
-
-        if(binding.chip1.isChecked) { monday = true } else { monday = false }
-        if(binding.chip2.isChecked) { tuesday = true } else { tuesday = false }
-        if(binding.chip3.isChecked) { wednesday = true } else { wednesday = false }
-        if(binding.chip4.isChecked) { thursday = true } else { thursday = false }
-        if(binding.chip5.isChecked) { friday = true } else { friday = false }
-        if(binding.chip6.isChecked) { saturday = true } else { saturday = false }
-        if(binding.chip7.isChecked) { sunday = true } else { sunday = false }
-
 
         onClick()
 
@@ -160,7 +143,7 @@ class ScheduleInputFragment1 : BaseFragment<FragmentScheduleInput1Binding>() {
                     val dateDTO = DateDTO(
                         date = yearList.joinToString(",")
                     )
-//                viewModel.addDateInfo(yearMonth, dateDTO)
+                viewModel.addDateInfo(yearMonth, dateDTO)
                 } else {
                     toast(requireContext(), "같은 달 내의 날짜를 선택해주세요.")
                }

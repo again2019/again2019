@@ -13,6 +13,8 @@ import com.goingbacking.goingbacking.Repository.Input.InputRepository
 import com.goingbacking.goingbacking.Repository.Input.InputRepositoryIF
 import com.goingbacking.goingbacking.Repository.Login.LoginRepository
 import com.goingbacking.goingbacking.Repository.Login.LoginRepositoryIF
+import com.goingbacking.goingbacking.Repository.Third.ThirdRepository
+import com.goingbacking.goingbacking.Repository.Third.ThirdRepositoryIF
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
@@ -72,6 +74,16 @@ object RepositoryModule {
         firebaseAuth: FirebaseAuth
     ) : LoginRepositoryIF {
         return LoginRepository(firebaseAuth, firebaseFirestore)
+    }
+
+
+    @Provides
+    @Singleton
+    fun provideThirdRepository (
+        firebaseFirestore: FirebaseFirestore,
+        firebaseAuth: FirebaseAuth
+    ) : ThirdRepositoryIF {
+        return ThirdRepository(firebaseFirestore, firebaseAuth)
     }
 
 
