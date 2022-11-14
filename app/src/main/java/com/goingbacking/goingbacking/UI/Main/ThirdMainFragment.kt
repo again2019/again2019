@@ -66,7 +66,7 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
     
     private var selectedDate: LocalDate? = null
     private val today = LocalDate.now()
-    private val selectionFormatter = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일")
+    private val selectionFormatter = DateTimeFormatter.ofPattern("MM/dd(E)")
     private var events = mutableMapOf<LocalDate, List<Event>>()
 
 
@@ -125,7 +125,7 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
                     textView.makeVisible()
                     when (day.date) {
                         today -> {
-                            textView.setBackgroundResource(R.drawable.selected_rectangle)
+                            textView.setBackgroundResource(R.drawable.today_rectangle)
                             dotView.makeGONE()
                         }
                         selectedDate -> {
@@ -134,7 +134,6 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
                         }
                         else -> {
                             textView.background = null
-
                             observer2(day.date, dotView)
                         }
                     }
@@ -252,7 +251,7 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
             oldDate?.let { binding.threeCalendar.notifyDateChanged(it) }
             binding.threeCalendar.notifyDateChanged(date)
             updateAdapterForDate(date)
-            binding.exThreeSelectedDateText.text = selectionFormatter.format(date)
+            binding.threeSelectedDateText.text = selectionFormatter.format(date)
 
         }
     }
