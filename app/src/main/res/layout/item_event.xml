@@ -14,7 +14,7 @@
         android:textColor="@color/titleMain"
         android:text="11시 11분"
         android:layout_marginBottom="5dp"
-        android:textSize="17sp"
+        android:textSize="15sp"
         app:layout_constraintBottom_toTopOf="@+id/imageView2"
         app:layout_constraintEnd_toStartOf="@+id/view3"
         app:layout_constraintHorizontal_bias="0.5"
@@ -37,7 +37,7 @@
         android:fontFamily="@font/medium"
         android:text="1시 11분"
         android:textColor="@color/titleMain"
-        android:textSize="17sp"
+        android:textSize="15sp"
         android:layout_marginTop="5dp"
         app:layout_constraintEnd_toStartOf="@+id/view3"
         app:layout_constraintHorizontal_bias="0.5"
@@ -60,11 +60,11 @@
         android:id="@+id/whatTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
+        android:layout_marginStart="20dp"
         android:fontFamily="@font/medium"
         android:text="통근 시간"
         android:textColor="@color/colorMain"
-        android:textSize="17sp"
+        android:textSize="15sp"
         app:layout_constraintStart_toEndOf="@+id/view3"
         app:layout_constraintTop_toTopOf="@+id/startTime" />
 
@@ -76,7 +76,7 @@
         android:fontFamily="@font/bold"
         android:text="회사"
         android:textColor="@color/titleMain"
-        android:textSize="17sp"
+        android:textSize="15sp"
         app:layout_constraintStart_toStartOf="@+id/whatTime"
         app:layout_constraintTop_toBottomOf="@+id/whatTime" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -97,7 +97,6 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
         binding.threeRecyclerView.apply {
             layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
             adapter = eventsAdapter
-            addItemDecoration(DividerItemDecoration(requireContext(), RecyclerView.VERTICAL))
 
         }
 

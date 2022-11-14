@@ -26,7 +26,7 @@ class CalendarEventAdapter2() : RecyclerView.Adapter<CalendarEventAdapter2.MyVie
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(event: Event) {
-            binding.itemEventText.text = event.dest
+//            binding.itemEventText.text = event.dest
         }
 
     }
