@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#F6F6F6"
     android:clickable="true"
     android:focusable="true"
     tools:context=".UI.Main.ThirdMainFragment">
@@ -13,6 +14,7 @@
       android:id="@+id/toolbar"
       android:layout_width="match_parent"
       android:layout_height="70dp"
+      android:background="@color/white"
       android:theme="@style/ToolbarTheme"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintHorizontal_bias="1.0"
@@ -20,21 +22,83 @@
       app:layout_constraintTop_toTopOf="parent">
 
     <TextView
+        android:id="@+id/toolbar_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="나의 일정"
         android:layout_gravity="center"
-        android:id="@+id/toolbar_title"
+        android:text="나의 일정"
         android:textSize="20sp" />
 
     <ImageView
-      android:id="@+id/calendarMode"
-        android:src="@drawable/calendar_mode"
-        android:layout_marginRight="20dp"
-        android:layout_gravity="right"
+        android:id="@+id/calendarMode"
         android:layout_width="32dp"
-        android:layout_height="42dp"/>
+        android:layout_height="42dp"
+        android:layout_gravity="right"
+        android:layout_marginRight="20dp"
+        android:src="@drawable/calendar_mode" />
   </androidx.appcompat.widget.Toolbar>
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+      android:id="@+id/constraintLayout11"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:background="@color/white"
+      android:backgroundTint="@color/white"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+    <TextView
+        android:id="@+id/myNickName"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/bold"
+        android:text="안세훈"
+        android:textColor="@color/titleMain"
+        android:textSize="17sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:fontFamily="@font/bold"
+        android:text="님의 캘린더"
+        android:textColor="@color/titleMain"
+        android:textSize="17sp"
+        app:layout_constraintStart_toEndOf="@+id/myNickName"
+        app:layout_constraintTop_toTopOf="@+id/myNickName" />
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
+        android:layout_width="380dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/myNickName">
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="500dp"
+          android:orientation="vertical">
+
+        <com.kizitonwose.calendarview.CalendarView
+            android:id="@+id/threeCalendar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:cv_dayViewResource="@layout/item_calendar_day"
+            app:cv_monthHeaderResource="@layout/item_calendar_header_main"
+            app:cv_orientation="horizontal"
+            app:cv_scrollMode="paged" />
+
+      </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+  </androidx.constraintlayout.widget.ConstraintLayout>
 
   <com.google.android.material.progressindicator.CircularProgressIndicator
       android:id="@+id/progress_circular"
@@ -46,76 +110,37 @@
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent" />
 
-  <TextView
-      android:id="@+id/myNickName"
-      android:layout_width="wrap_content"
-      android:layout_height="30dp"
-      android:layout_marginStart="20dp"
-      android:layout_marginTop="20dp"
-      android:fontFamily="@font/bold"
-      android:text="안세훈"
-      android:textColor="@color/titleMain"
-      android:textSize="17sp"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
   <TextView
-      android:layout_width="wrap_content"
-      android:layout_height="30dp"
-      android:fontFamily="@font/bold"
-      android:text="님의 캘린더"
-      android:textColor="@color/titleMain"
-      android:textSize="17sp"
-      app:layout_constraintStart_toEndOf="@+id/myNickName"
-      app:layout_constraintTop_toTopOf="@+id/myNickName" />
-
-
-  <androidx.core.widget.NestedScrollView
-      android:layout_width="match_parent"
+      android:id="@+id/threeSelectedDateText"
+      android:layout_width="350dp"
       android:layout_height="wrap_content"
-      android:layout_marginTop="20dp"
-      app:layout_constraintTop_toBottomOf="@+id/myNickName">
+      android:layout_marginTop="10dp"
+      android:background="#F6F6F6"
+      android:backgroundTint="#F6F6F6"
+      android:fontFamily="@font/medium"
+      android:paddingStart="0dp"
+      android:paddingTop="12dp"
+      android:paddingBottom="12dp"
+      android:textColor="@color/titleMain"
+      android:textSize="12sp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/constraintLayout11"
+      tools:text="11/11(화)" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-      <com.kizitonwose.calendarview.CalendarView
-          android:id="@+id/threeCalendar"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          app:cv_dayViewResource="@layout/item_calendar_day"
-          app:cv_monthHeaderResource="@layout/item_calendar_header_main"
-          app:cv_orientation="horizontal"
-          app:cv_scrollMode="paged" />
-
-
-      <TextView
-          android:id="@+id/threeSelectedDateText"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:paddingStart="20dp"
-          android:paddingTop="12dp"
-          android:paddingEnd="20dp"
-          android:paddingBottom="12dp"
-          android:fontFamily="@font/medium"
-          android:textColor="@color/titleMain"
-          android:textSize="12sp"
-          tools:text="7 Jan, 2019" />
-
-      <androidx.recyclerview.widget.RecyclerView
-          android:id="@+id/exThreeRv"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:nestedScrollingEnabled="false" />
-
-    </LinearLayout>
-
-  </androidx.core.widget.NestedScrollView>
+  <androidx.recyclerview.widget.RecyclerView
+      android:id="@+id/threeRecyclerView"
+      android:layout_width="350dp"
+      android:layout_height="wrap_content"
+      android:background="#F6F6F6"
+      android:nestedScrollingEnabled="true"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/threeSelectedDateText" />
 
   <com.google.android.material.floatingactionbutton.FloatingActionButton
-      android:id="@+id/exThreeAddButton"
+      android:id="@+id/threeAddButton"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_gravity="end|bottom"
@@ -126,122 +151,4 @@
       app:srcCompat="@drawable/add"
       app:tint="@color/white" />
 
-
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-<!--<?xml version="1.0" encoding="utf-8"?>-->
-<!--<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
-<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
-<!--    xmlns:tools="http://schemas.android.com/tools"-->
-<!--    android:layout_width="match_parent"-->
-<!--    android:layout_height="match_parent"-->
-<!--    tools:context=".UI.Main.ThirdMainFragment">-->
-
-<!--  <com.google.android.material.progressindicator.CircularProgressIndicator-->
-<!--      android:id="@+id/progress_circular"-->
-<!--      style="@style/ProgressCircular"-->
-<!--      android:layout_width="wrap_content"-->
-<!--      android:layout_height="wrap_content"-->
-<!--      app:layout_constraintBottom_toBottomOf="parent"-->
-<!--      app:layout_constraintEnd_toEndOf="parent"-->
-<!--      app:layout_constraintStart_toStartOf="parent"-->
-<!--      app:layout_constraintTop_toTopOf="parent" />-->
-<!--  <androidx.appcompat.widget.Toolbar-->
-<!--      android:id="@+id/toolbar"-->
-<!--      android:layout_width="match_parent"-->
-<!--      android:layout_height="70dp"-->
-<!--      android:theme="@style/ToolbarTheme"-->
-<!--      app:layout_constraintEnd_toEndOf="parent"-->
-<!--      app:layout_constraintHorizontal_bias="1.0"-->
-<!--      app:layout_constraintStart_toStartOf="parent"-->
-<!--      app:layout_constraintTop_toTopOf="parent">-->
-
-<!--    <TextView-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="나의 일정"-->
-<!--        android:layout_gravity="center"-->
-<!--        android:id="@+id/toolbar_title"-->
-<!--        android:textSize="20sp" />-->
-
-
-<!--    <ImageView-->
-<!--        android:id="@+id/calendarMode"-->
-<!--        android:layout_width="32dp"-->
-<!--        android:layout_height="42dp"-->
-<!--        android:layout_gravity="right"-->
-<!--        android:layout_marginRight="20dp"-->
-<!--        android:src="@drawable/calendar_mode" />-->
-<!--  </androidx.appcompat.widget.Toolbar>-->
-
-
-<!--  <androidx.core.widget.NestedScrollView-->
-<!--      android:layout_width="match_parent"-->
-<!--      android:layout_height="wrap_content"-->
-<!--      app:layout_constraintBottom_toBottomOf="parent"-->
-<!--      app:layout_constraintEnd_toEndOf="parent"-->
-<!--      app:layout_constraintHorizontal_bias="1.0"-->
-<!--      app:layout_constraintStart_toStartOf="parent"-->
-<!--      app:layout_constraintTop_toBottomOf="@+id/toolbar"-->
-<!--      app:layout_constraintVertical_bias="0.0">-->
-
-
-<!--    <LinearLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:orientation="vertical">-->
-
-<!--      <com.kizitonwose.calendarview.CalendarView-->
-<!--          android:id="@+id/exThreeCalendar"-->
-<!--          android:layout_width="match_parent"-->
-<!--          android:layout_height="wrap_content"-->
-<!--          app:cv_dayViewResource="@layout/item_calendar_day"-->
-<!--          app:cv_monthHeaderResource="@layout/item_calendar_header"-->
-<!--          app:cv_orientation="horizontal"-->
-<!--          app:cv_scrollMode="continuous" />-->
-
-
-
-<!--      <TextView-->
-<!--          android:id="@+id/exThreeSelectedDateText"-->
-<!--          android:layout_width="match_parent"-->
-<!--          android:layout_height="wrap_content"-->
-<!--          android:layout_marginTop="8dp"-->
-<!--          android:background="#EEEEEE"-->
-<!--          android:fontFamily="sans-serif-medium"-->
-<!--          android:paddingStart="20dp"-->
-<!--          android:paddingTop="12dp"-->
-<!--          android:paddingEnd="20dp"-->
-<!--          android:paddingBottom="12dp"-->
-<!--          android:textAllCaps="true"-->
-<!--          android:textColor="@color/example_3_black"-->
-<!--          android:textSize="14sp"-->
-<!--          tools:text="7 Jan, 2019" />-->
-
-<!--      <androidx.recyclerview.widget.RecyclerView-->
-<!--          android:id="@+id/exThreeRv"-->
-<!--          android:layout_width="match_parent"-->
-<!--          android:layout_height="wrap_content"-->
-<!--          android:nestedScrollingEnabled="false" />-->
-
-<!--    </LinearLayout>-->
-
-<!--  </androidx.core.widget.NestedScrollView>-->
-
-<!--  <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-<!--      android:id="@+id/exThreeAddButton"-->
-<!--      android:layout_width="wrap_content"-->
-<!--      android:layout_height="wrap_content"-->
-<!--      android:layout_gravity="end|bottom"-->
-<!--      app:backgroundTint="@color/colorMain"-->
-<!--      android:layout_margin="10dp"-->
-<!--      app:layout_constraintBottom_toBottomOf="parent"-->
-<!--      app:layout_constraintEnd_toEndOf="parent"-->
-<!--      app:srcCompat="@drawable/add"-->
-<!--      app:tint="@color/white" />-->
-
-
-<!--</androidx.constraintlayout.widget.ConstraintLayout>-->

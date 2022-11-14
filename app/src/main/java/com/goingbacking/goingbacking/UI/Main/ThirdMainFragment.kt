@@ -94,7 +94,7 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
 
-        binding.exThreeRv.apply {
+        binding.threeRecyclerView.apply {
             layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
             adapter = eventsAdapter
             addItemDecoration(DividerItemDecoration(requireContext(), RecyclerView.VERTICAL))
@@ -157,7 +157,7 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
 
         binding.threeCalendar.scrollToDate(today)
 
-        binding.exThreeAddButton.setOnClickListener {
+        binding.threeAddButton.setOnClickListener {
             val intent = Intent(requireContext(), ScheduleInputActivity::class.java)
             startActivity(intent)
         }
