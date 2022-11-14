@@ -1,4 +1,4 @@
-package com.goingbacking.goingbacking.UI.Main
+package com.goingbacking.goingbacking.UI.Main.Third
 
 import android.content.Intent
 import android.os.Bundle
@@ -10,10 +10,8 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 
-import androidx.core.view.children
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.goingbacking.goingbacking.Adapter.CalendarEventAdapter1
@@ -21,8 +19,6 @@ import com.goingbacking.goingbacking.Model.Event
 
 import com.goingbacking.goingbacking.R
 import com.goingbacking.goingbacking.UI.Base.BaseFragment
-import com.goingbacking.goingbacking.UI.Main.Third.ScheduleInputActivity
-import com.goingbacking.goingbacking.UI.Main.Third.TotalCalendarActivity
 import com.goingbacking.goingbacking.ViewModel.MainViewModel
 import com.goingbacking.goingbacking.databinding.FragmentThirdMainBinding
 import com.goingbacking.goingbacking.databinding.ItemCalendarDayBinding

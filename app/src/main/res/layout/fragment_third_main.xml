@@ -7,7 +7,7 @@
     android:background="#F6F6F6"
     android:clickable="true"
     android:focusable="true"
-    tools:context=".UI.Main.ThirdMainFragment">
+    tools:context=".UI.Main.Third.ThirdMainFragment">
 
 
   <androidx.appcompat.widget.Toolbar

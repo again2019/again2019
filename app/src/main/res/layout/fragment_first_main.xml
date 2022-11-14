@@ -74,7 +74,7 @@
                 android:fontFamily="@font/medium"
                 android:gravity="center"
                 android:text="@string/first_ment12"
-                android:textColor="@color/white"
+                android:textColor="@color/colorMain"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"

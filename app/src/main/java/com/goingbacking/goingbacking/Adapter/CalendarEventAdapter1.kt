@@ -27,12 +27,6 @@ class CalendarEventAdapter1(val onClick: (Event) -> Unit)
 
     inner class MyViewHolder(private val binding: ItemEventBinding) :
         RecyclerView.ViewHolder(binding.root) {
-            init {
-                itemView.setOnClickListener {
-                    onClick(events[bindingAdapterPosition])
-                }
-            }
-
             fun bind(event:Event) {
                 val start_hour = event.start!!.toInt() / 60
                 val start_minute = event.start!!.toInt() % 60
@@ -44,9 +38,13 @@ class CalendarEventAdapter1(val onClick: (Event) -> Unit)
                 if (event.dest.equals("move")) {
                     binding.whatTime.text = "통근 시간"
                     binding.detailwhatTime.makeGONE()
+
                 } else {
                     binding.whatTime.text = "일/공부하는 시간"
                     binding.detailwhatTime.text = event.dest
+                    itemView.setOnClickListener {
+                        onClick(events[bindingAdapterPosition])
+                    }
                 }
             }
         }
