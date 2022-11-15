@@ -16,10 +16,16 @@ interface ThirdRepositoryIF {
     // 스케줄을 불러오는 코드
     fun getThirdCalendarInfo(yearList : MutableList<String>,result: (UiState<MutableMap<LocalDate, List<Event>>>) -> Unit)
 
+    // 해당 스케줄을 제거하는 코드
+    fun deleteThirdCalendarInfo(eventDate :String, timeStamp : String, result: (UiState<MutableMap<LocalDate, List<Event>>>) -> Unit)
+
     // 스케줄이 있는 날짜를 불러오는 코드
     fun getThirdDateInfo(year_month: String, result: (UiState<DateDTO>) -> Unit)
 
     // CalendarDetailBottomSheet
     fun getSelectedDateInfo(year_month: String, date: String, result: (UiState<MutableMap<LocalDate, List<Event>>>) -> Unit)
+
+    // 닉네임 불러오는 코드
+    fun getNickNameInfo(result: (UiState<String>) -> Unit)
 
 }

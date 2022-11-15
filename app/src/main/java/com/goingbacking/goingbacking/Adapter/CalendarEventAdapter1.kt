@@ -8,7 +8,7 @@ import com.goingbacking.goingbacking.Model.Event
 import com.goingbacking.goingbacking.databinding.ItemEventBinding
 import com.goingbacking.goingbacking.util.makeGONE
 
-class CalendarEventAdapter1(val onClick: (Event) -> Unit)
+class CalendarEventAdapter1(val onClick: (String, Int) -> Unit)
     : RecyclerView.Adapter<CalendarEventAdapter1.MyViewHolder>() {
 
         var events = mutableListOf<Event>()
@@ -43,7 +43,7 @@ class CalendarEventAdapter1(val onClick: (Event) -> Unit)
                     binding.whatTime.text = "일/공부하는 시간"
                     binding.detailwhatTime.text = event.dest
                     itemView.setOnClickListener {
-                        onClick(events[bindingAdapterPosition])
+                        onClick(event.date!!, (event.start)!!.toInt())
                     }
                 }
             }

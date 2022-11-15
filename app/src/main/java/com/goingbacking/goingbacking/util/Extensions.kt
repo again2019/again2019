@@ -90,6 +90,9 @@ fun beforeday(type :String) :String {
         bef_date_text = SimpleDateFormat("mm", Locale.getDefault()).format(beforeDateTime).toString()
     }
     return bef_date_text
+}
 
-
+fun convertDateToTimeStamp(date: String) : Long {
+    val sdf = SimpleDateFormat("yyyy-MM-dd-hh-mm", Locale.getDefault())
+    return sdf.parse(date).time
 }

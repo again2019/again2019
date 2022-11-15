@@ -49,11 +49,16 @@ import java.util.*
 
 @AndroidEntryPoint
 class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
-    private val eventsAdapter = CalendarEventAdapter1 {
+    private val eventsAdapter = CalendarEventAdapter1 { eventDate, start ->
+        val hour = start / 60
+        val minute = start % 60
+        val route = String.format("%s-%d-%d", eventDate, hour, minute)
+
         AlertDialog.Builder(requireContext())
             .setMessage(R.string.example_3_dialog_delete_confirmation)
             .setPositiveButton(R.string.delete) { _, _ ->
-               // deleteEvent(it)
+               deleteEvent(eventDate, convertDateToTimeStamp(route).toString())
+                selectedDateList.remove(eventDate)
             }
             .setNegativeButton(R.string.close, null)
             .show()
@@ -63,7 +68,8 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
     private val today = LocalDate.now()
     private val selectionFormatter = DateTimeFormatter.ofPattern("MM/dd(E)")
     private var events = mutableMapOf<LocalDate, List<Event>>()
-
+    private var eventss = mutableMapOf<LocalDate, List<Event>>()
+    private var selectedDateList = mutableListOf<String>()
 
 
     val viewModel : ThirdViewModel by viewModels()
@@ -76,39 +82,12 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
         return FragmentThirdMainBinding.inflate(inflater, container, false)
     }
 
-    override fun onStart() {
-        super.onStart()
-
-        Log.d("experiment", "onStart")
-
-    }
-
-    override fun onResume() {
-        super.onResume()
-        Log.d("experiment", "resume")
-
-
-        observer1(currentday("yyyy-MM"))
-
-    }
-
-    override fun onPause() {
-        super.onPause()
-
-        Log.d("experiment", "pause")
-    }
-
-    override fun onStop() {
-        super.onStop()
-
-        Log.d("experiment", "stop")
-    }
-
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        Log.d("experiment", "onViewCreated")
+        observer4()
+        //observer1(currentday("yyyy-MM"))
+
 
         binding.threeRecyclerView.apply {
             layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
@@ -145,8 +124,10 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
                         }
                         selectedDate -> {
                             textView.setBackgroundResource(R.drawable.selected_rectangle)
+
                         }
                         else -> {
+
                             textView.background = null
                             observer2(day.date, dotView)
                         }
@@ -209,17 +190,17 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
     }
 
     private fun observer2(date:LocalDate, dotView:View) {
-
+        Log.d("experiment", date.toString())
+        viewModel.getThirdDateInfo(currentday("yyyy-MM"))
         viewModel.thirdDateDTOs.observe(viewLifecycleOwner) { state ->
             when(state) {
                 is UiState.Success -> {
                     binding.progressCircular.hide()
-                    val data = state.data.date.toString().split(',')
+                    selectedDateList = state.data.date.toString().split(',').toMutableList()
 
-                    if(data.contains(date.toString())) {
-
-                                        dotView.isVisible = true
-                                    }
+                    if(selectedDateList.contains(date.toString())) {
+                        dotView.isVisible = true
+                    }
                     Log.d("experiment", "observer2: " + state.data.date.toString().split(',').toString())
                 }
                 is UiState.Loading -> {
@@ -254,8 +235,26 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
                 }
             }
         }
+    }
 
+    private fun observer4() {
+        viewModel.getNickNameInfo()
+        viewModel.nickNameInfoDTOs.observe(viewLifecycleOwner) { state ->
+            when(state) {
+                is UiState.Success -> {
+                    binding.progressCircular.hide()
+                    binding.myNickName.text = state.data
+                }
+                is UiState.Loading -> {
+                    binding.progressCircular.show()
+                }
 
+                is UiState.Failure -> {
+                    binding.progressCircular.hide()
+                }
+            }
+
+        }
     }
 
     private fun selectDate(date: LocalDate) {
@@ -277,10 +276,43 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
             view.setOnClickListener {
                 if (day.owner == DayOwner.THIS_MONTH) {
                     selectDate(day.date)
+
+                    observer(currentday("yyyy-MM"), day.date)
+
                 }
             }
 
         }
+    }
+
+    private fun observer(currentday: String, date: LocalDate) {
+        viewModel.getSelectedDateInfo(currentday, date.toString())
+        viewModel.thirdSelectedDateDTOs.observe(viewLifecycleOwner) { state ->
+            when(state) {
+                is UiState.Success -> {
+                    binding.progressCircular.hide()
+                    events = state.data
+                    Log.d("experiment", events.toString())
+                    if (events.size == 0) {
+                        binding.threeRecyclerView.makeGONE()
+                    } else {
+                        updateAdapterForDate(date)
+                        binding.threeRecyclerView.makeVisible()
+//                        binding.noScheduleTextView.makeGONE()
+                    }
+
+                }
+                is UiState.Loading -> {
+                    binding.progressCircular.show()
+                }
+                is UiState.Failure -> {
+                    binding.progressCircular.hide()
+
+                }
+            }
+
+        }
+
     }
 
     inner class MonthViewContainer(view: View) : ViewContainer(view) {
@@ -289,11 +321,35 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
 
 
 
-//    private fun deleteEvent(event: Event) {
-//        val date = event.date
-//        events[date] = events[date].orEmpty().minus(event)
-//        updateAdapterForDate(date)
-//    }
+    private fun deleteEvent(eventDate: String, route : String) {
+        viewModel.deleteThirdCalendarInfo(eventDate, route)
+        viewModel.deleteThirdCalendarDTOs.observe(viewLifecycleOwner) { state ->
+            when(state) {
+                is UiState.Success -> {
+                    binding.progressCircular.hide()
+                    events = state.data
+                    Log.d("experiment", events.toString())
+                    if (events.size == 0) {
+                        binding.threeRecyclerView.makeGONE()
+                    } else {
+                        updateAdapterForDate(selectedDate!!)
+                        binding.threeRecyclerView.makeVisible()
+//                        binding.noScheduleTextView.makeGONE()
+                    }
+
+                }
+                is UiState.Loading -> {
+                    binding.progressCircular.show()
+                }
+                is UiState.Failure -> {
+                    binding.progressCircular.hide()
+
+                }
+            }
+
+        }
+
+    }
 
     private fun updateAdapterForDate(date: LocalDate) {
         eventsAdapter.apply {
