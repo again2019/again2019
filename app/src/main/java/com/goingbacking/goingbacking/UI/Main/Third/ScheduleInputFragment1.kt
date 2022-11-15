@@ -55,6 +55,7 @@ class ScheduleInputFragment1 : BaseFragment<FragmentScheduleInput1Binding>() {
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
                 when(menuItem.itemId) {
                     android.R.id.home -> {
+                        activity!!.finish()
                         return true
                     }
                 }

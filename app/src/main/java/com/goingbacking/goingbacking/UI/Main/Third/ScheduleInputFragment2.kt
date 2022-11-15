@@ -1,5 +1,6 @@
 package com.goingbacking.goingbacking.UI.Main.Third
 
+import android.annotation.SuppressLint
 import android.app.TimePickerDialog
 import android.os.Bundle
 import android.view.*
@@ -75,6 +76,7 @@ class ScheduleInputFragment2 : BaseFragment<FragmentScheduleInput2Binding>() {
         onClick()
     }
 
+        @SuppressLint("ResourceAsColor")
         private fun onClick() = with(binding) {
             home1Button.setOnClickListener {
                 val timeSetListener =
@@ -88,7 +90,7 @@ class ScheduleInputFragment2 : BaseFragment<FragmentScheduleInput2Binding>() {
                         if (minute / 10 == 0 ) {
                             minute_str = '0' + minute.toString()
                         }
-                        binding.home1Button.text = String.format("%s-%s", hourOfDay_str, minute_str)
+                        binding.home1Button.text = String.format("%s:%s", hourOfDay_str, minute_str)
                     }
                 TimePickerDialog(
                     requireContext(),
@@ -110,7 +112,8 @@ class ScheduleInputFragment2 : BaseFragment<FragmentScheduleInput2Binding>() {
                         if (minute / 10 == 0 ) {
                             minute_str = '0' + minute.toString()
                         }
-                        binding.home2Button.text = String.format("%s-%s", hourOfDay_str, minute_str)
+                        binding.home2Button.text = String.format("%s:%s", hourOfDay_str, minute_str)
+//                        binding.home2Button.setStrokeColorResource(R.color.textMint1)
                     }
                 TimePickerDialog(
                     requireContext(),
@@ -132,7 +135,7 @@ class ScheduleInputFragment2 : BaseFragment<FragmentScheduleInput2Binding>() {
                         if (minute / 10 == 0 ) {
                             minute_str = '0' + minute.toString()
                         }
-                        binding.dest1Button.text = String.format("%s-%s", hourOfDay_str, minute_str)
+                        binding.dest1Button.text = String.format("%s:%s", hourOfDay_str, minute_str)
                     }
                 TimePickerDialog(
                     requireContext(),
@@ -154,7 +157,7 @@ class ScheduleInputFragment2 : BaseFragment<FragmentScheduleInput2Binding>() {
                         if (minute / 10 == 0 ) {
                             minute_str = '0' + minute.toString()
                         }
-                        binding.dest2Button.text = String.format("%s-%s", hourOfDay_str, minute_str)
+                        binding.dest2Button.text = String.format("%s:%s", hourOfDay_str, minute_str)
                     }
                 TimePickerDialog(
                     requireContext(),
@@ -195,6 +198,7 @@ class ScheduleInputFragment2 : BaseFragment<FragmentScheduleInput2Binding>() {
                         )
                         viewModel.addDateInfo(yearMonth, dateDTO)
                         viewModel.addScheduleEventInfo(yearMonth, path2, event)
+                        activity!!.finish()
                     }
                 }
             }

@@ -41,8 +41,10 @@
         android:layout_width="350dp"
         android:layout_height="40dp"
         android:layout_marginTop="20dp"
-        android:textSize="15sp"
         android:hint="ex) 회사, 학교"
+        style="@style/EditTextType2"
+
+        android:textSize="15sp"
         app:layout_constraintStart_toStartOf="@+id/textView1"
         app:layout_constraintTop_toBottomOf="@+id/textView1" />
 
@@ -79,6 +81,7 @@
         android:fontFamily="@font/medium"
         android:gravity="center"
         android:padding="0dp"
+        style="@style/BtnType2"
         android:text="00:00"
         android:textSize="12sp"
         app:layout_constraintStart_toEndOf="@+id/textView3"
@@ -102,6 +105,7 @@
         android:layout_width="100dp"
         android:layout_height="30dp"
         android:layout_marginStart="10dp"
+        style="@style/BtnType2"
         android:fontFamily="@font/medium"
         android:gravity="center"
         android:padding="0dp"
@@ -128,6 +132,7 @@
         android:layout_width="100dp"
         android:layout_height="30dp"
         android:layout_marginStart="20dp"
+        style="@style/BtnType2"
         android:fontFamily="@font/medium"
         android:gravity="center"
         android:padding="0dp"
@@ -153,6 +158,8 @@
         android:id="@+id/dest2Button"
         android:layout_width="100dp"
         android:layout_height="30dp"
+        style="@style/BtnType2"
+        android:theme="@style/ShapeAppearanceOverlay.Material3.Button"
         android:layout_marginStart="10dp"
         android:fontFamily="@font/medium"
         android:gravity="center"
@@ -162,7 +169,7 @@
         app:layout_constraintStart_toEndOf="@+id/textView6"
         app:layout_constraintTop_toTopOf="@+id/dest1Button" />
 
-    <android.widget.Button
+    <Button
         android:id="@+id/finishBtn"
         style="@style/BtnType1"
         android:layout_width="360dp"
