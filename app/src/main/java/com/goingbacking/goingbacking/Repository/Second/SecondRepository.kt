@@ -1,13 +1,11 @@
-package com.goingbacking.goingbacking.Repository
+package com.goingbacking.goingbacking.Repository.Second
 
-import android.util.Log
 import com.goingbacking.goingbacking.Model.*
 import com.goingbacking.goingbacking.util.FBConstants.Companion.CALENDARINFO
 import com.goingbacking.goingbacking.util.FBConstants.Companion.DATE
 import com.goingbacking.goingbacking.util.FBConstants.Companion.DAY
 import com.goingbacking.goingbacking.util.FBConstants.Companion.MONTH
 import com.goingbacking.goingbacking.util.FBConstants.Companion.SAVETIMEINFO
-import com.goingbacking.goingbacking.util.FBConstants.Companion.USERINFO
 import com.goingbacking.goingbacking.util.FBConstants.Companion.WHATTODOINFO
 import com.goingbacking.goingbacking.util.FBConstants.Companion.YEAR
 import com.goingbacking.goingbacking.util.UiState
@@ -21,13 +19,12 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 
 import java.time.LocalDate
-import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
-class MainRepository (
+class SecondRepository (
     val user: FirebaseUser?,
     val firebaseFirestore: FirebaseFirestore
-        ): MainRepositoryIF {
+        ): SecondRepositoryIF {
 
     val uid = user?.uid!!
     val cache = Source.CACHE

@@ -1,6 +1,5 @@
 package com.goingbacking.goingbacking.DI
 
-import com.goingbacking.goingbacking.Repository.*
 import com.goingbacking.goingbacking.Repository.Alarm.AlarmRepository
 import com.goingbacking.goingbacking.Repository.Alarm.AlarmRepositoryIF
 import com.goingbacking.goingbacking.Repository.Fifth.FifthRepository
@@ -9,10 +8,14 @@ import com.goingbacking.goingbacking.Repository.First.FirstRepository
 import com.goingbacking.goingbacking.Repository.First.FirstRepositoryIF
 import com.goingbacking.goingbacking.Repository.Forth.ForthRepository
 import com.goingbacking.goingbacking.Repository.Forth.ForthRepositoryIF
+import com.goingbacking.goingbacking.Repository.Forth.RankRepository
+import com.goingbacking.goingbacking.Repository.Forth.RankRepositoryIF
 import com.goingbacking.goingbacking.Repository.Input.InputRepository
 import com.goingbacking.goingbacking.Repository.Input.InputRepositoryIF
 import com.goingbacking.goingbacking.Repository.Login.LoginRepository
 import com.goingbacking.goingbacking.Repository.Login.LoginRepositoryIF
+import com.goingbacking.goingbacking.Repository.Second.SecondRepository
+import com.goingbacking.goingbacking.Repository.Second.SecondRepositoryIF
 import com.goingbacking.goingbacking.Repository.Third.ThirdRepository
 import com.goingbacking.goingbacking.Repository.Third.ThirdRepositoryIF
 import com.google.firebase.auth.FirebaseAuth
@@ -45,11 +48,11 @@ object RepositoryModule {
 
     @Provides
     @Singleton
-    fun provideMainRepository(
+    fun provideSecondRepository(
         user: FirebaseUser?,
         firebaseFirestore: FirebaseFirestore
-    ) : MainRepositoryIF {
-        return MainRepository(user, firebaseFirestore)
+    ) : SecondRepositoryIF {
+        return SecondRepository(user, firebaseFirestore)
     }
 
     @Provides

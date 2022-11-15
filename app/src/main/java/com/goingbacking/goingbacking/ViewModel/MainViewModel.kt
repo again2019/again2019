@@ -3,18 +3,16 @@ package com.goingbacking.goingbacking.ViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.goingbacking.goingbacking.Model.*
-import com.goingbacking.goingbacking.Repository.MainRepositoryIF
+import com.goingbacking.goingbacking.Repository.Second.SecondRepositoryIF
 import com.goingbacking.goingbacking.util.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
-import java.time.LocalDate
 import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor (
-    val mainRepository: MainRepositoryIF) : ViewModel() {
+    val secondRepository: SecondRepositoryIF
+) : ViewModel() {
 
     private val _secondSaveYearDTOs = MutableLiveData<UiState<ArrayList<SaveTimeYearDTO>>>()
     val secondSaveYearDTOs : LiveData<UiState<ArrayList<SaveTimeYearDTO>>>
@@ -40,27 +38,27 @@ class MainViewModel @Inject constructor (
 
     fun getSecondSaveYearInfo() {
         _secondSaveYearDTOs.value = UiState.Loading
-        mainRepository.getSecondSaveYearInfo() { _secondSaveYearDTOs.value = it }
+        secondRepository.getSecondSaveYearInfo() { _secondSaveYearDTOs.value = it }
     }
 
     fun getSecondSaveMonthInfo() {
         _secondSaveYearDTOs.value = UiState.Loading
-        mainRepository.getSecondSaveMonthInfo() { _secondSaveMonthDTOs.value = it }
+        secondRepository.getSecondSaveMonthInfo() { _secondSaveMonthDTOs.value = it }
     }
 
     fun getSecondSaveDayInfo() {
         _secondSaveDayDTOs.value = UiState.Loading
-        mainRepository.getSecondSaveDayInfo() { _secondSaveDayDTOs.value = it }
+        secondRepository.getSecondSaveDayInfo() { _secondSaveDayDTOs.value = it }
     }
 
     fun getSecondWhatToDoMonthInfo() {
         _secondwhatToDoMonthDTOs.value = UiState.Loading
-        mainRepository.getSecondWhatToDoMonthInfo() { _secondwhatToDoMonthDTOs.value = it }
+        secondRepository.getSecondWhatToDoMonthInfo() { _secondwhatToDoMonthDTOs.value = it }
     }
 
     fun getSecondWhatToDoYearInfo() {
         _secondwhatToDoYearDTOs.value = UiState.Loading
-        mainRepository.getSecondWhatToDoYearInfo() { _secondwhatToDoYearDTOs.value = it }
+        secondRepository.getSecondWhatToDoYearInfo() { _secondwhatToDoYearDTOs.value = it }
     }
 
 }

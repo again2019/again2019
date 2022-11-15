@@ -1,4 +1,4 @@
-package com.goingbacking.goingbacking.Repository
+package com.goingbacking.goingbacking.Repository.Forth
 
 import com.goingbacking.goingbacking.Model.*
 import com.goingbacking.goingbacking.util.FBConstants
@@ -6,9 +6,6 @@ import com.goingbacking.goingbacking.util.UiState
 import com.goingbacking.goingbacking.util.currentday
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
-import java.time.LocalDate
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 
 class RankRepository  (
     val user: FirebaseUser?,

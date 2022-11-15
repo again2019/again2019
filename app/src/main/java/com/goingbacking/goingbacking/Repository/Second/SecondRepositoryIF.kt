@@ -1,10 +1,10 @@
-package com.goingbacking.goingbacking.Repository
+package com.goingbacking.goingbacking.Repository.Second
 
 import com.goingbacking.goingbacking.Model.*
 import com.goingbacking.goingbacking.util.UiState
 import java.time.LocalDate
 
-interface MainRepositoryIF {
+interface SecondRepositoryIF {
 
 
     // ThirdMainFragment
