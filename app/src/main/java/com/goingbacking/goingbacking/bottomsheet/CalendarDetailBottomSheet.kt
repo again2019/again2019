@@ -14,6 +14,8 @@ import com.goingbacking.goingbacking.Model.Event
 import com.goingbacking.goingbacking.ViewModel.MainViewModel
 import com.goingbacking.goingbacking.databinding.BottomSheetCalendarDetailBinding
 import com.goingbacking.goingbacking.util.UiState
+import com.goingbacking.goingbacking.util.makeGONE
+import com.goingbacking.goingbacking.util.makeVisible
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 import java.time.LocalDate
@@ -35,12 +37,12 @@ class CalendarDetailBottomSheet : BottomSheetDialogFragment() {
         binding.recyclerView.apply {
             layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
             adapter = eventsAdapter
-            addItemDecoration(DividerItemDecoration(requireContext(), RecyclerView.VERTICAL))
         }
-
+        binding.xBtn.setOnClickListener {
+            dismiss()
+        }
         binding.detailDate.text = arguments?.getString("date")
         val year_month = arguments?.getString("date")!!.substring(0 until 7)
-        Log.d("experiment", "year_month " + year_month)
 
         observer(year_month, arguments?.getString("date")!!)
 
@@ -54,10 +56,16 @@ class CalendarDetailBottomSheet : BottomSheetDialogFragment() {
             when(state) {
                 is UiState.Success -> {
                     binding.progressCircular.hide()
-                    val date = LocalDate.parse(date, DateTimeFormatter.ISO_DATE)
-
+                    val dates = LocalDate.parse(date, DateTimeFormatter.ISO_DATE)
                     eventss = state.data
-                    updateAdapterForDate(date)
+                    if (eventss.size == 0) {
+                        binding.recyclerView.makeGONE()
+                        binding.noScheduleTextView.makeVisible()
+                    } else {
+                        updateAdapterForDate(dates)
+                        binding.recyclerView.makeVisible()
+                        binding.noScheduleTextView.makeGONE()
+                    }
 
                 }
                 is UiState.Loading -> {

@@ -37,8 +37,6 @@ class TotalCalendarActivity : BaseActivity<ActivityTotalCalendarBinding>({
 }) {
     private var selectedDate: LocalDate? = null
     private val today = LocalDate.now()
-    private val selectionFormatter = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일")
-    private var events = mutableMapOf<LocalDate, List<Event>>()
 
     val viewModel: MainViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,15 +45,15 @@ class TotalCalendarActivity : BaseActivity<ActivityTotalCalendarBinding>({
 
         val daysOfWeek = daysOfWeekFromLocale()
         val currentMonth = YearMonth.now()
-        binding.exThreeCalendar.setup(
+        binding.totalthreeCalendar.setup(
             currentMonth.minusMonths(10),
             currentMonth.plusMonths(10),
             daysOfWeek.first()
         )
-        binding.exThreeCalendar.scrollToMonth(currentMonth)
-        binding.exThreeCalendar.post { selectDate(today) }
+        binding.totalthreeCalendar.scrollToMonth(currentMonth)
+        binding.totalthreeCalendar.post { selectDate(today) }
 
-        binding.exThreeCalendar.dayBinder = object : DayBinder<DayViewContainer> {
+        binding.totalthreeCalendar.dayBinder = object : DayBinder<DayViewContainer> {
             override fun create(view: View) = DayViewContainer(view)
             override fun bind(container: DayViewContainer, day: CalendarDay) {
                 container.day = day
@@ -79,17 +77,14 @@ class TotalCalendarActivity : BaseActivity<ActivityTotalCalendarBinding>({
                     textView.makeVisible()
                     when (day.date) {
                         today -> {
-                            textView.setTextColorRes(R.color.example_3_white)
-                            textView.setBackgroundResource(R.drawable.example_3_today_bg)
+                            textView.setBackgroundResource(R.drawable.today_rectangle)
                             dotView.makeGONE()
                         }
                         selectedDate -> {
-                            textView.setTextColorRes(R.color.example_3_blue)
-                            textView.setBackgroundResource(R.drawable.example_3_selected_bg)
+                            textView.setBackgroundResource(R.drawable.selected_rectangle)
                             dotView.makeGONE()
                         }
                         else -> {
-                            textView.setTextColorRes(R.color.example_3_black)
                             textView.background = null
 
                             observer2(day.date, dotView, year_month)
@@ -103,7 +98,7 @@ class TotalCalendarActivity : BaseActivity<ActivityTotalCalendarBinding>({
             }
         }
 
-        binding.exThreeCalendar.monthHeaderBinder = object :
+        binding.totalthreeCalendar.monthHeaderBinder = object :
             MonthHeaderFooterBinder<MonthViewContainer> {
             override fun create(view: View) = MonthViewContainer(view)
             override fun bind(container: MonthViewContainer, month: CalendarMonth) {
@@ -114,10 +109,7 @@ class TotalCalendarActivity : BaseActivity<ActivityTotalCalendarBinding>({
             }
         }
 
-        binding.exThreeCalendar.monthScrollListener = {
-
-
-        }
+        binding.totalthreeCalendar.monthScrollListener = {}
 
     }
 
@@ -149,8 +141,8 @@ class TotalCalendarActivity : BaseActivity<ActivityTotalCalendarBinding>({
         if (selectedDate != date) {
             val oldDate = selectedDate
             selectedDate = date
-            oldDate?.let { binding.exThreeCalendar.notifyDateChanged(it) }
-            binding.exThreeCalendar.notifyDateChanged(date)
+            oldDate?.let { binding.totalthreeCalendar.notifyDateChanged(it) }
+            binding.totalthreeCalendar.notifyDateChanged(date)
 
         }
     }
