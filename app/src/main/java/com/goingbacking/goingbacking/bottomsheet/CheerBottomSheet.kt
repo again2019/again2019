@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.goingbacking.goingbacking.Adapter.CheerRecyclerViewAdapter
 import com.goingbacking.goingbacking.R
-import com.goingbacking.goingbacking.ViewModel.ForthViewModel
+import com.goingbacking.goingbacking.UI.Main.Forth.ForthViewModel
 import com.goingbacking.goingbacking.databinding.BottomSheetCheerBinding
 import com.goingbacking.goingbacking.util.PrefUtil
 import com.goingbacking.goingbacking.util.UiState

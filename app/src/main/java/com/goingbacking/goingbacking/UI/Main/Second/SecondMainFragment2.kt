@@ -2,7 +2,6 @@ package com.goingbacking.goingbacking.UI.Main.Second
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +9,6 @@ import androidx.fragment.app.viewModels
 import com.github.aachartmodel.aainfographics.aachartcreator.*
 import com.goingbacking.goingbacking.R
 import com.goingbacking.goingbacking.UI.Base.BaseFragment
-import com.goingbacking.goingbacking.ViewModel.MainViewModel
 import com.goingbacking.goingbacking.databinding.FragmentSecondMain2Binding
 import com.goingbacking.goingbacking.util.Constants.Companion.colorArray
 import com.goingbacking.goingbacking.util.UiState
@@ -21,7 +19,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class SecondMainFragment2 : BaseFragment<FragmentSecondMain2Binding>(), AAChartView.AAChartViewCallBack {
     var chartType: String = ""
 
-    val viewModel: MainViewModel by viewModels()
+    val viewModel: SecondViewModel by viewModels()
 
     override fun getFragmentBinding(
         inflater: LayoutInflater,

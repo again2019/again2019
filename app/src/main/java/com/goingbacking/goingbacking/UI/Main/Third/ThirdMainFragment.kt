@@ -19,7 +19,6 @@ import com.goingbacking.goingbacking.Model.Event
 
 import com.goingbacking.goingbacking.R
 import com.goingbacking.goingbacking.UI.Base.BaseFragment
-import com.goingbacking.goingbacking.ViewModel.MainViewModel
 import com.goingbacking.goingbacking.databinding.FragmentThirdMainBinding
 import com.goingbacking.goingbacking.databinding.ItemCalendarDayBinding
 import com.goingbacking.goingbacking.databinding.ItemCalendarHeaderMainBinding
@@ -77,18 +76,39 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
         return FragmentThirdMainBinding.inflate(inflater, container, false)
     }
 
+    override fun onStart() {
+        super.onStart()
+
+        Log.d("experiment", "onStart")
+
+    }
 
     override fun onResume() {
         super.onResume()
+        Log.d("experiment", "resume")
+
 
         observer1(currentday("yyyy-MM"))
 
+    }
+
+    override fun onPause() {
+        super.onPause()
+
+        Log.d("experiment", "pause")
+    }
+
+    override fun onStop() {
+        super.onStop()
+
+        Log.d("experiment", "stop")
     }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        Log.d("experiment", "onViewCreated")
 
         binding.threeRecyclerView.apply {
             layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
@@ -125,7 +145,6 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
                         }
                         selectedDate -> {
                             textView.setBackgroundResource(R.drawable.selected_rectangle)
-                            dotView.makeGONE()
                         }
                         else -> {
                             textView.background = null
@@ -223,7 +242,7 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
                 is UiState.Success -> {
                     binding.progressCircular.hide()
                     events = state.data
-                    updateAdapterForDate(LocalDate.now())
+                    updateAdapterForDate(selectedDate!!)
                 }
                 is UiState.Loading -> {
                     binding.progressCircular.show()

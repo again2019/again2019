@@ -1,6 +1,5 @@
 package com.goingbacking.goingbacking.UI.Main.Second
 
-import android.hardware.camera2.params.RggbChannelVector.RED
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,22 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.github.aachartmodel.aainfographics.aachartcreator.*
-import com.github.mikephil.charting.charts.BarChart
-import com.github.mikephil.charting.components.Description
-import com.github.mikephil.charting.components.Legend
-import com.github.mikephil.charting.components.XAxis
-import com.github.mikephil.charting.components.YAxis
-import com.github.mikephil.charting.data.BarData
-import com.github.mikephil.charting.data.BarDataSet
-import com.github.mikephil.charting.data.BarEntry
 import com.goingbacking.goingbacking.R
 import com.goingbacking.goingbacking.UI.Base.BaseFragment
-import com.goingbacking.goingbacking.ViewModel.MainViewModel
 import com.goingbacking.goingbacking.databinding.FragmentSecondMain1Binding
 import com.goingbacking.goingbacking.util.Constants.Companion.colorArray
 import com.goingbacking.goingbacking.util.UiState
-import com.google.firebase.database.collection.LLRBNode
-import com.google.type.Color
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -31,7 +19,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class SecondMainFragment1 : BaseFragment<FragmentSecondMain1Binding>(), AAChartView.AAChartViewCallBack {
 
     var chartType: String = ""
-    val viewModel: MainViewModel by viewModels()
+    val viewModel: SecondViewModel by viewModels()
 
     override fun getFragmentBinding(
         inflater: LayoutInflater,

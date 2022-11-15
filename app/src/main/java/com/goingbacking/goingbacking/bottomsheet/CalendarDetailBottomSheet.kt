@@ -1,18 +1,15 @@
 package com.goingbacking.goingbacking.bottomsheet
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.goingbacking.goingbacking.Adapter.CalendarEventAdapter2
 import com.goingbacking.goingbacking.Model.Event
 import com.goingbacking.goingbacking.UI.Main.Third.ThirdViewModel
-import com.goingbacking.goingbacking.ViewModel.MainViewModel
 import com.goingbacking.goingbacking.databinding.BottomSheetCalendarDetailBinding
 import com.goingbacking.goingbacking.util.UiState
 import com.goingbacking.goingbacking.util.makeGONE
