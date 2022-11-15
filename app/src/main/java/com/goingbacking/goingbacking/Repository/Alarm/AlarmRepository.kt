@@ -77,7 +77,7 @@ class AlarmRepository : AlarmRepositoryIF {
 
     // month마다 초기화
     override fun addInitSaveTimeMonthInfo() {
-        if (beforeday("mm") != currentday("MM")) {
+        if (beforeday("MM") != currentday("MM")) {
             val saveTimeMonthDTO = SaveTimeMonthDTO(
                 month = currentday("MM").toInt(),
                 year = currentday("yyyy").toInt(),
@@ -86,7 +86,7 @@ class AlarmRepository : AlarmRepositoryIF {
 
             firebaseFirestore.collection(SAVETIMEINFO).document(myUid)
                 .collection(MONTH).document(currentday("yyyy"))
-                .collection(currentday("yyyy")).document(myUid + currentday("dd"))
+                .collection(currentday("yyyy")).document(myUid + currentday("MM"))
                 .set(saveTimeMonthDTO)
 
         }
@@ -148,7 +148,7 @@ class AlarmRepository : AlarmRepositoryIF {
 
 
     override fun addInitWhatToDoMonthInfo(whatToDOList : MutableSet<String>) {
-        if (beforeday("mm") != currentday("MM")) {
+        if (beforeday("MM") != currentday("MM")) {
             for (whattodo in whatToDOList) {
                 val whatToDoMonthDTO = WhatToDoMonthDTO()
                 whatToDoMonthDTO.whatToDo = whattodo
@@ -186,7 +186,7 @@ class AlarmRepository : AlarmRepositoryIF {
 
             val userInfo = firebaseFirestore.collection(USERINFO).document(myUid).get(cache).await().toObject(UserInfoDTO::class.java)!!
 
-            if (beforeday("mm") != currentday("MM")) {
+            if (beforeday("MM") != currentday("MM")) {
                 val newSaveTimeMonthDTO = NewSaveTimeMonthDTO(
                     uid = myUid,
                     token = userInfo.token,

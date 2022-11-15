@@ -72,6 +72,36 @@
     <color name="black">#000</color>
 
 
+    <color name="charColor1">#76CEC2</color>
+    <color name="charColor2">#6D7BF5</color>
+    <color name="charColor3">#A47CF6</color>
+    <color name="charColor4">#E385F3</color>
+    <color name="charColor5">#01D0B6</color>
+    <color name="charColor6">#0BB6EC</color>
+    <color name="charColor7">#50B478</color>
+    <color name="charColor8">#B8C6FF</color>
+    <color name="charColor9">#FEDE8B</color>
+    <color name="charColor10">#D9F3EF</color>
+    <color name="charColor11">#b2ebf2</color>
+    <color name="charColor12">#FFF78B</color>
+    <color name="charColor13">#FFD38D</color>
+    <color name="charColor14">#8CEBFF</color>
+    <color name="charColor15">#FF8E9C</color>
+    <color name="charColor16">#C6FF8C</color>
+    <color name="charColor17">#509CF2</color>
+    <color name="charColor18">#EAA2B7</color>
+    <color name="charColor19">#A9C7E3</color>
+    <color name="charColor20">#DCE0AC</color>
+    <color name="charColor21">#DEC0AE</color>
+    <color name="charColor22">#ABE0E1</color>
+    <color name="charColor23">#D8B4D9</color>
+    <color name="charColor24">#98F4A1</color>
+    <color name="charColor25">#FDB98F</color>
+    <color name="charColor26">#9C98F4</color>
+    <color name="charColor27">#C4C7C8</color>
+    <color name="charColor28">#C9CCC0</color>
+    <color name="charColor29">#D4B8B8</color>
+
 
 </resources>
 
