@@ -108,12 +108,22 @@
         <item name="fontFamily"> @font/medium </item>
         <item name="android:textColorHint"> @color/colorPrimaryGray </item>
         <item name="android:textSize"> 20sp </item>
-
     </style>
+
+    <!-- EditText Type2 -->
+    <style name="EditTextType2" parent="Widget.AppCompat.EditText">
+        <item name="backgroundTint"> @color/colorPrimaryGray </item>
+        <item name="fontFamily"> @font/medium </item>
+        <item name="android:textColorHint"> @color/colorPrimaryGray </item>
+        <item name="android:textSize"> 20sp </item>
+        <item name="android:colorControlActivated"> @color/colorMain </item>
+    </style>
+
+
 
     <!-- Button Type1 -->
 
-    <style name="BtnType1">
+    <style name="BtnType1" >
         <item name="android:textColor"> @color/white </item>
         <item name="fontFamily"> @font/bold </item>
         <item name="android:textSize"> 17sp </item>
@@ -121,7 +131,7 @@
     </style>
 
     <!-- Button Type2 : white button -->
-    <style name="BtnType2" >
+    <style name="BtnType2">
         <item name="android:textColor"> @color/textColorPrimary </item>
         <item name="fontFamily"> @font/bold </item>
         <item name="android:textSize"> 17sp </item>
@@ -129,12 +139,13 @@
     </style>
 
     <!-- Button Type3 : gray button -->
-    <style name="BtnType3" >
+    <style name="BtnType3">
         <item name="android:textColor"> @color/textColorPrimary </item>
         <item name="fontFamily"> @font/bold </item>
         <item name="android:textSize"> 17sp </item>
         <item name="android:background"> @drawable/btn_design3 </item>
     </style>
+
 
     <!-- Text Type -->
     <!-- Main Title-->

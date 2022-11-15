@@ -1,13 +1,11 @@
-package com.goingbacking.goingbacking.Repository
+package com.goingbacking.goingbacking.Repository.Second
 
 import com.goingbacking.goingbacking.Model.*
 import com.goingbacking.goingbacking.util.UiState
 import java.time.LocalDate
 
-interface MainRepositoryIF {
+interface SecondRepositoryIF {
 
-    fun addEventInfo(path1: String, path2: String, event: Event, result: (UiState<String>) -> Unit)
-    fun addDateInfo(date: DateDTO, result: (UiState<String>) -> Unit)
 
     // ThirdMainFragment
 

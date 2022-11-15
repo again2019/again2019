@@ -4,8 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center"
-    android:orientation="horizontal"
-    tools:ignore="HardcodedText">
+    android:orientation="horizontal">
 
     <TextView
         android:id="@+id/legendText1"
@@ -13,9 +12,10 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="center"
-        android:text="SUN"
-        android:textColor="@color/black"
-        android:textSize="14sp" />
+        android:text="일"
+        android:textColor="#666666"
+        android:textSize="14sp"
+        android:fontFamily="@font/medium"/>
 
     <TextView
         android:id="@+id/legendText2"
@@ -23,9 +23,10 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="center"
-        android:text="MON"
-        android:textColor="@color/black"
-        android:textSize="14sp" />
+        android:text="월"
+        android:textColor="#666666"
+        android:textSize="14sp"
+        android:fontFamily="@font/medium"/>
 
     <TextView
         android:id="@+id/legendText3"
@@ -33,9 +34,10 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="center"
-        android:text="TUE"
-        android:textColor="@color/black"
-        android:textSize="14sp" />
+        android:text="화"
+        android:textColor="#666666"
+        android:textSize="14sp"
+        android:fontFamily="@font/medium"/>
 
     <TextView
         android:id="@+id/legendText4"
@@ -43,9 +45,10 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="center"
-        android:text="WED"
-        android:textColor="@color/black"
-        android:textSize="14sp" />
+        android:text="수"
+        android:textColor="#666666"
+        android:textSize="14sp"
+        android:fontFamily="@font/medium"/>
 
     <TextView
         android:id="@+id/legendText5"
@@ -53,9 +56,10 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="center"
-        android:text="THU"
-        android:textColor="@color/black"
-        android:textSize="14sp" />
+        android:text="목"
+        android:textColor="#666666"
+        android:textSize="14sp"
+        android:fontFamily="@font/medium"/>
 
     <TextView
         android:id="@+id/legendText6"
@@ -63,9 +67,10 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="center"
-        android:text="FRI"
-        android:textColor="@color/black"
-        android:textSize="14sp" />
+        android:text="금"
+        android:textColor="#666666"
+        android:textSize="14sp"
+        android:fontFamily="@font/medium"/>
 
     <TextView
         android:id="@+id/legendText7"
@@ -73,8 +78,9 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="center"
-        android:text="SAT"
-        android:textColor="@color/black"
-        android:textSize="14sp" />
+        android:text="토"
+        android:textColor="#666666"
+        android:textSize="14sp"
+        android:fontFamily="@font/medium"/>
 
 </LinearLayout>

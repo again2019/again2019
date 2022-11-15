@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.goingbacking.goingbacking.Model.*
-import com.goingbacking.goingbacking.Repository.RankRepositoryIF
+import com.goingbacking.goingbacking.Repository.Forth.RankRepositoryIF
 import com.goingbacking.goingbacking.util.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -13,7 +13,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class RankViewModel @Inject constructor(
-    val rankRepository :RankRepositoryIF):ViewModel() {
+    val rankRepository : RankRepositoryIF
+):ViewModel() {
 
     private val _secondSaveYearDTOs = MutableLiveData<UiState<ArrayList<SaveTimeYearDTO>>>()
     val secondSaveYearDTOs : LiveData<UiState<ArrayList<SaveTimeYearDTO>>>

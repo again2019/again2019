@@ -1,4 +1,4 @@
-package com.goingbacking.goingbacking.UI.Main
+package com.goingbacking.goingbacking.UI.Main.Third
 
 import android.content.Intent
 import android.os.Bundle
@@ -10,10 +10,8 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 
-import androidx.core.view.children
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.goingbacking.goingbacking.Adapter.CalendarEventAdapter1
@@ -21,8 +19,6 @@ import com.goingbacking.goingbacking.Model.Event
 
 import com.goingbacking.goingbacking.R
 import com.goingbacking.goingbacking.UI.Base.BaseFragment
-import com.goingbacking.goingbacking.UI.Main.Third.ScheduleInputActivity
-import com.goingbacking.goingbacking.UI.Main.Third.TotalCalendarActivity
 import com.goingbacking.goingbacking.ViewModel.MainViewModel
 import com.goingbacking.goingbacking.databinding.FragmentThirdMainBinding
 import com.goingbacking.goingbacking.databinding.ItemCalendarDayBinding
@@ -66,12 +62,12 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
     
     private var selectedDate: LocalDate? = null
     private val today = LocalDate.now()
-    private val selectionFormatter = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일")
+    private val selectionFormatter = DateTimeFormatter.ofPattern("MM/dd(E)")
     private var events = mutableMapOf<LocalDate, List<Event>>()
 
 
 
-    val viewModel : MainViewModel by viewModels()
+    val viewModel : ThirdViewModel by viewModels()
 
 
     override fun getFragmentBinding(
@@ -85,7 +81,7 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
     override fun onResume() {
         super.onResume()
 
-        observer1()
+        observer1(currentday("yyyy-MM"))
 
     }
 
@@ -94,23 +90,22 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
 
-        binding.exThreeRv.apply {
+        binding.threeRecyclerView.apply {
             layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
             adapter = eventsAdapter
-            addItemDecoration(DividerItemDecoration(requireContext(), RecyclerView.VERTICAL))
 
         }
 
         val daysOfWeek = daysOfWeekFromLocale()
         val currentMonth = YearMonth.now()
-        binding.exThreeCalendar.setup(currentMonth.minusMonths(0), currentMonth.plusMonths(0), daysOfWeek.first())
-        binding.exThreeCalendar.scrollToMonth(currentMonth)
-        binding.exThreeCalendar.post { selectDate(today) }
-        binding.exThreeCalendar.inDateStyle = InDateStyle.FIRST_MONTH
-        binding.exThreeCalendar.maxRowCount = 1
-        binding.exThreeCalendar.hasBoundaries = true
+        binding.threeCalendar.setup(currentMonth.minusMonths(0), currentMonth.plusMonths(0), daysOfWeek.first())
+        binding.threeCalendar.scrollToMonth(currentMonth)
+        binding.threeCalendar.post { selectDate(today) }
+        binding.threeCalendar.inDateStyle = InDateStyle.FIRST_MONTH
+        binding.threeCalendar.maxRowCount = 1
+        binding.threeCalendar.hasBoundaries = true
 
-        binding.exThreeCalendar.dayBinder = object : DayBinder<DayViewContainer> {
+        binding.threeCalendar.dayBinder = object : DayBinder<DayViewContainer> {
             override fun create(view: View) = DayViewContainer(view)
             override fun bind(container: DayViewContainer, day: CalendarDay) {
                 container.day = day
@@ -125,19 +120,15 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
                     textView.makeVisible()
                     when (day.date) {
                         today -> {
-                            textView.setTextColorRes(R.color.example_3_white)
-                            textView.setBackgroundResource(R.drawable.example_3_today_bg)
+                            textView.setBackgroundResource(R.drawable.today_rectangle)
                             dotView.makeGONE()
                         }
                         selectedDate -> {
-                            textView.setTextColorRes(R.color.example_3_blue)
-                            textView.setBackgroundResource(R.drawable.example_3_selected_bg)
+                            textView.setBackgroundResource(R.drawable.selected_rectangle)
                             dotView.makeGONE()
                         }
                         else -> {
-                            textView.setTextColorRes(R.color.example_3_black)
                             textView.background = null
-
                             observer2(day.date, dotView)
                         }
                     }
@@ -149,27 +140,19 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
             }
         }
 
-        binding.exThreeCalendar.monthHeaderBinder = object :
+        binding.threeCalendar.monthHeaderBinder = object :
             MonthHeaderFooterBinder<MonthViewContainer> {
             override fun create(view: View) = MonthViewContainer(view)
             override fun bind(container: MonthViewContainer, month: CalendarMonth) {
-                // Setup each header day text if we have not done that already.
-                if (container.legendLayout.tag == null) {
-                    container.legendLayout.tag = month.yearMonth
-                    container.legendLayout.children.map { it as TextView }.forEachIndexed { index, tv ->
-                        tv.text = daysOfWeek[index].name.first().toString()
-                        tv.setTextColorRes(R.color.example_3_black)
-                    }
-                }
             }
         }
 
 
 
 
-        binding.exThreeCalendar.scrollToDate(today)
+        binding.threeCalendar.scrollToDate(today)
 
-        binding.exThreeAddButton.setOnClickListener {
+        binding.threeAddButton.setOnClickListener {
             val intent = Intent(requireContext(), ScheduleInputActivity::class.java)
             startActivity(intent)
         }
@@ -184,8 +167,8 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
 
     // dotView를 찍는 역할
     // 어떤 날짜에 스케줄이 있는지 없는지를 알려주는 역할
-    private fun observer1() {
-        viewModel.getThirdDateInfo()
+    private fun observer1(yearMonth: String) {
+        viewModel.getThirdDateInfo(yearMonth)
         viewModel.thirdDateDTOs.observe(viewLifecycleOwner) { state ->
             when(state) {
                 is UiState.Success -> {
@@ -199,7 +182,6 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
                 }
                 is UiState.Failure -> {
                     binding.progressCircular.hide()
-                    Log.e("experiment", state.error.toString())
                 }
             }
         }
@@ -261,10 +243,10 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
         if (selectedDate != date) {
             val oldDate = selectedDate
             selectedDate = date
-            oldDate?.let { binding.exThreeCalendar.notifyDateChanged(it) }
-            binding.exThreeCalendar.notifyDateChanged(date)
+            oldDate?.let { binding.threeCalendar.notifyDateChanged(it) }
+            binding.threeCalendar.notifyDateChanged(date)
             updateAdapterForDate(date)
-            binding.exThreeSelectedDateText.text = selectionFormatter.format(date)
+            binding.threeSelectedDateText.text = selectionFormatter.format(date)
 
         }
     }

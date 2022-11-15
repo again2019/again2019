@@ -134,8 +134,6 @@
     <string name="first_yes_store2"> 개 있어요! </string>
 
 
-
-
     <!-- forthMainFragment string -->
     <string name="cheer_message"> 응원 메시지를 입력해주세요. </string>
     <string name="no_information"> 정보를 받아올 수 없습니다. </string>
@@ -143,9 +141,6 @@
     <!-- fifthMainFragment string -->
     <string name="get_user_info_fail"> 개인 정보를 불러오는데 실패했습니다. </string>
     <string name="logout_success"> 로그 아웃 완료 </string>
-
-
-
 
 
     <!-- 임시 저장 -> 데이터 베이스 저장 관련 string -->

@@ -25,7 +25,7 @@
     <!-- third -->
     <fragment
         android:id="@+id/thirdMainFragment"
-        android:name="com.goingbacking.goingbacking.UI.Main.ThirdMainFragment"
+        android:name="com.goingbacking.goingbacking.UI.Main.Third.ThirdMainFragment"
         android:label="ThirdMainFragment"
         tools:layout="@layout/fragment_third_main">
 
