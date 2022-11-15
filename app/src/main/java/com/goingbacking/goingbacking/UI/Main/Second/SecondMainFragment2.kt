@@ -2,15 +2,15 @@ package com.goingbacking.goingbacking.UI.Main.Second
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.github.aachartmodel.aainfographics.aachartcreator.*
+import com.goingbacking.goingbacking.R
 import com.goingbacking.goingbacking.UI.Base.BaseFragment
-import com.goingbacking.goingbacking.ViewModel.MainViewModel
 import com.goingbacking.goingbacking.databinding.FragmentSecondMain2Binding
+import com.goingbacking.goingbacking.util.Constants.Companion.colorArray
 import com.goingbacking.goingbacking.util.UiState
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -19,7 +19,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class SecondMainFragment2 : BaseFragment<FragmentSecondMain2Binding>(), AAChartView.AAChartViewCallBack {
     var chartType: String = ""
 
-    val viewModel: MainViewModel by viewModels()
+    val viewModel: SecondViewModel by viewModels()
 
     override fun getFragmentBinding(
         inflater: LayoutInflater,
@@ -44,21 +44,24 @@ class SecondMainFragment2 : BaseFragment<FragmentSecondMain2Binding>(), AAChartV
     private fun configureAAChartModel(array: Array<Any>): AAChartModel {
         chartType = AAChartType.Pie.value
         val chartTypeEnum = AAChartType.Pie
-
+        colorArray.shuffle()
         val aaChartModel = AAChartModel.Builder(requireActivity())
 
             .setChartType(chartTypeEnum)
-            .setBackgroundColor("#4b2b7f")
+            .setBackgroundColor(R.color.colorBackGround)
             .setDataLabelsEnabled(true)
-            .setYAxisGridLineWidth(0f)
+            .setAxesTextColorRes(R.color.titleMain)
+            .setColorsTheme(colorArray)
+            .setTooltipEnabled(false)
+            .setTouchEventEnabled(false)
             .setLegendEnabled(false)
-            .setTouchEventEnabled(true)
-
             .setSeries(
                 AASeriesElement()
+                    .colorByPoint(true)
                     .data(array)
             )
             .build()
+
 
         return aaChartModel
     }
@@ -79,6 +82,7 @@ class SecondMainFragment2 : BaseFragment<FragmentSecondMain2Binding>(), AAChartV
         viewModel.secondwhatToDoMonthDTOs.observe(viewLifecycleOwner) { state ->
             when(state) {
                 is UiState.Success -> {
+                    binding.progressCircular.hide()
                     val whatToDoMonthDTOList = arrayListOf<Any>()
                     for (data in state.data) {
                         val tmpList = arrayListOf<Any>()
@@ -92,7 +96,11 @@ class SecondMainFragment2 : BaseFragment<FragmentSecondMain2Binding>(), AAChartV
 
                 }
                 is UiState.Failure -> {
+                    binding.progressCircular.hide()
                     Log.e("experiment", state.error.toString())
+                }
+                is UiState.Loading -> {
+                    binding.progressCircular.show()
                 }
             }
 
@@ -104,9 +112,11 @@ class SecondMainFragment2 : BaseFragment<FragmentSecondMain2Binding>(), AAChartV
         viewModel.secondwhatToDoYearDTOs.observe(viewLifecycleOwner) { state ->
             when(state) {
                 is UiState.Success -> {
+                    binding.progressCircular.hide()
                     val whatToDoYearDTOList = arrayListOf<Any>()
                     for (data in state.data) {
                         val tmpList = arrayListOf<Any>()
+                        Log.d("experiment", "aaa" + tmpList.toString())
                         tmpList.add(data.whatToDo!!)
                         tmpList.add(data.count!!)
                         tmpList.toTypedArray()
@@ -117,7 +127,11 @@ class SecondMainFragment2 : BaseFragment<FragmentSecondMain2Binding>(), AAChartV
 
                 }
                 is UiState.Failure -> {
-                    Log.e("experiment", state.error.toString())
+                    binding.progressCircular.hide()
+                    Log.e("experiment", "this " + state.error.toString())
+                }
+                is UiState.Loading -> {
+                    binding.progressCircular.show()
                 }
             }
         }

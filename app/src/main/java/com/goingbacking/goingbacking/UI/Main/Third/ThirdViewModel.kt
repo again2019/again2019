@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.goingbacking.goingbacking.Model.DateDTO
 import com.goingbacking.goingbacking.Model.Event
+import com.goingbacking.goingbacking.Model.UserInfoDTO
 import com.goingbacking.goingbacking.Repository.Fifth.FifthRepositoryIF
 import com.goingbacking.goingbacking.Repository.Third.ThirdRepositoryIF
 import com.goingbacking.goingbacking.util.UiState
@@ -53,6 +54,16 @@ class ThirdViewModel @Inject constructor(
         thirdRepository.getThirdCalendarInfo(yearList) { _thirdCalendarDTOs.value = it }
     }
 
+    private val _deleteThirdCalendarDTOs = MutableLiveData<UiState<MutableMap<LocalDate, List<Event>>>>()
+    val deleteThirdCalendarDTOs : LiveData<UiState<MutableMap<LocalDate, List<Event>>>>
+        get() = _deleteThirdCalendarDTOs
+
+    fun deleteThirdCalendarInfo(eventDate: String, timeStamp: String) {
+        _deleteThirdCalendarDTOs.value = UiState.Loading
+        thirdRepository.deleteThirdCalendarInfo(eventDate, timeStamp) { _deleteThirdCalendarDTOs.value = it }
+    }
+
+
     private val _thirdSelectedDateDTOs = MutableLiveData<UiState<MutableMap<LocalDate, List<Event>>>>()
     val thirdSelectedDateDTOs : LiveData<UiState<MutableMap<LocalDate, List<Event>>>>
         get() = _thirdSelectedDateDTOs
@@ -62,6 +73,14 @@ class ThirdViewModel @Inject constructor(
         thirdRepository.getSelectedDateInfo(year_month, date) { _thirdSelectedDateDTOs.value = it }
     }
 
+    private val _nickNameInfoDTOs = MutableLiveData<UiState<String>>()
+    val nickNameInfoDTOs : LiveData<UiState<String>>
+        get() = _nickNameInfoDTOs
+
+    fun getNickNameInfo() = viewModelScope.launch {
+        _nickNameInfoDTOs.value = UiState.Loading
+        thirdRepository.getNickNameInfo  { _nickNameInfoDTOs.value = it }
+    }
 
 
 }

@@ -7,9 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.github.aachartmodel.aainfographics.aachartcreator.*
+import com.goingbacking.goingbacking.R
 import com.goingbacking.goingbacking.UI.Base.BaseFragment
-import com.goingbacking.goingbacking.ViewModel.MainViewModel
 import com.goingbacking.goingbacking.databinding.FragmentSecondMain1Binding
+import com.goingbacking.goingbacking.util.Constants.Companion.colorArray
 import com.goingbacking.goingbacking.util.UiState
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -18,7 +19,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class SecondMainFragment1 : BaseFragment<FragmentSecondMain1Binding>(), AAChartView.AAChartViewCallBack {
 
     var chartType: String = ""
-    val viewModel: MainViewModel by viewModels()
+    val viewModel: SecondViewModel by viewModels()
 
     override fun getFragmentBinding(
         inflater: LayoutInflater,
@@ -35,6 +36,7 @@ class SecondMainFragment1 : BaseFragment<FragmentSecondMain1Binding>(), AAChartV
         dayObserver()
     }
 
+
     private fun setUpAAChartView(aaCharView: AAChartView, list1: ArrayList<Int>, list2: ArrayList<String>) {
         aaCharView.setBackgroundColor(0)
         aaCharView.callBack = this
@@ -46,23 +48,29 @@ class SecondMainFragment1 : BaseFragment<FragmentSecondMain1Binding>(), AAChartV
         chartType = AAChartType.Column.value
         val chartTypeEnum = AAChartType.Column
 
+        colorArray.shuffle()
         val aaChartModel = AAChartModel.Builder(requireActivity())
 
             .setChartType(chartTypeEnum)
-            .setBackgroundColor("#4b2b7f")
+            .setBackgroundColor(R.color.colorBackGround)
             .setDataLabelsEnabled(true)
+            .setYAxisLabelsEnabled(false)
             .setYAxisGridLineWidth(0f)
+            .setYAxisTitle("")
+            .setAxesTextColorRes(R.color.titleMain)
+            .setColorsTheme(colorArray)
             .setLegendEnabled(false)
-            .setTouchEventEnabled(true)
-
+            .setTouchEventEnabled(false)
+            .setPolar(false)
+            .setTooltipEnabled(false)
             .setSeries(
                 AASeriesElement()
-                    .data(DTOList.toTypedArray()),
+                    .colorByPoint(true)
+                    .data(DTOList.toTypedArray())
             )
             .build()
 
         aaChartModel.categories(categoryList.toTypedArray())
-
         return aaChartModel
     }
 
@@ -81,17 +89,22 @@ class SecondMainFragment1 : BaseFragment<FragmentSecondMain1Binding>(), AAChartV
         viewModel.secondSaveYearDTOs.observe(viewLifecycleOwner) { state ->
             when(state) {
                 is UiState.Success -> {
+                    binding.progressCircular.hide()
                     val saveTimeYearDTOList = arrayListOf<Int>()
                     val saveCategoryList1 = arrayListOf<String>()
                     for (data in state.data) {
                         saveTimeYearDTOList.add(data.count!!)
-                        saveCategoryList1.add(data.year!!.toString())
+                        saveCategoryList1.add(data.year!!.toString() + "년")
                     }
-                    setUpAAChartView(binding.AAChartView1, saveTimeYearDTOList, saveCategoryList1)
+                    setUpAAChartView(binding.AAChartView3, saveTimeYearDTOList, saveCategoryList1)
 
                 }
                 is UiState.Failure -> {
+                    binding.progressCircular.hide()
                     Log.e("experiment", state.error.toString())
+                }
+                is UiState.Loading -> {
+                    binding.progressCircular.show()
                 }
             }
 
@@ -103,11 +116,12 @@ class SecondMainFragment1 : BaseFragment<FragmentSecondMain1Binding>(), AAChartV
         viewModel.secondSaveMonthDTOs.observe(viewLifecycleOwner) { state ->
             when(state) {
                 is UiState.Success -> {
+                    binding.progressCircular.hide()
                     val saveTimeMonthDTOList = arrayListOf<Int>()
                     val saveCategoryList2 = arrayListOf<String>()
                     for (data in state.data) {
                         saveTimeMonthDTOList.add(data.count!!)
-                        saveCategoryList2.add(data.month!!.toString())
+                        saveCategoryList2.add(data.month!!.toString() + "월")
                     }
 
                     Log.e("experiment", "month: " + saveTimeMonthDTOList.toString())
@@ -115,7 +129,11 @@ class SecondMainFragment1 : BaseFragment<FragmentSecondMain1Binding>(), AAChartV
 
                 }
                 is UiState.Failure -> {
+                    binding.progressCircular.hide()
                     Log.e("experiment", state.error.toString())
+                }
+                is UiState.Loading -> {
+                    binding.progressCircular.show()
                 }
             }
 
@@ -127,18 +145,23 @@ class SecondMainFragment1 : BaseFragment<FragmentSecondMain1Binding>(), AAChartV
         viewModel.secondSaveDayDTOs.observe(viewLifecycleOwner) { state ->
             when(state) {
                 is UiState.Success -> {
+                    binding.progressCircular.hide()
                     val saveTimeDayDTOList = arrayListOf<Int>()
                     val saveCategoryList3 = arrayListOf<String>()
                     for (data in state.data) {
                         saveTimeDayDTOList.add(data.count!!)
-                        saveCategoryList3.add(data.month!!.toString())
+                        saveCategoryList3.add(data.day!!.toString() + "월")
                     }
 
-                    setUpAAChartView(binding.AAChartView3, saveTimeDayDTOList, saveCategoryList3)
+                    setUpAAChartView(binding.AAChartView1, saveTimeDayDTOList, saveCategoryList3)
 
                 }
                 is UiState.Failure -> {
+                    binding.progressCircular.hide()
                     Log.e("experiment", state.error.toString())
+                }
+                is UiState.Loading -> {
+                    binding.progressCircular.show()
                 }
             }
 

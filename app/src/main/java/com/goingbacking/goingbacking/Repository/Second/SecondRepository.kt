@@ -510,7 +510,7 @@ class SecondRepository (
 
     override fun getSecondWhatToDoYearInfo(result: (UiState<ArrayList<WhatToDoYearDTO>>) -> Unit)  {
         firebaseFirestore.collection(WHATTODOINFO).document(uid)
-            .collection(YEAR).document(currentday("yyyy"))
+            .collection("year").document(currentday("yyyy"))
             .collection(currentday("yyyy")).get()
             .addOnSuccessListener {
                 val whatToDoYearDTOList = arrayListOf<WhatToDoYearDTO>()

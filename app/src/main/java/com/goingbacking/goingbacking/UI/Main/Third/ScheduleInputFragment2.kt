@@ -20,6 +20,7 @@ import com.goingbacking.goingbacking.UI.Base.BaseFragment
 import com.goingbacking.goingbacking.UI.Input.SecondInputFragmentArgs
 import com.goingbacking.goingbacking.databinding.FragmentScheduleInput2Binding
 import com.goingbacking.goingbacking.databinding.FragmentThirdMainBinding
+import com.goingbacking.goingbacking.util.convertDateToTimeStamp
 import com.goingbacking.goingbacking.util.toast
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
@@ -36,7 +37,7 @@ class ScheduleInputFragment2 : BaseFragment<FragmentScheduleInput2Binding>() {
     private val cal = Calendar.getInstance()
     private var date = arrayOf<String>()
     private var yearMonth = ""
-
+    private var home2ButtonText = ""
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
@@ -113,7 +114,7 @@ class ScheduleInputFragment2 : BaseFragment<FragmentScheduleInput2Binding>() {
                             minute_str = '0' + minute.toString()
                         }
                         binding.home2Button.text = String.format("%s:%s", hourOfDay_str, minute_str)
-//                        binding.home2Button.setStrokeColorResource(R.color.textMint1)
+                        home2ButtonText = String.format("%s-%s", hourOfDay_str, minute_str)
                     }
                 TimePickerDialog(
                     requireContext(),
@@ -191,10 +192,10 @@ class ScheduleInputFragment2 : BaseFragment<FragmentScheduleInput2Binding>() {
                         )
 
                         val path2 =
-                            convertDateToTimeStamp(day + "-" + binding.home2Button.text.toString()).toString()
+                            convertDateToTimeStamp(day + "-" + home2ButtonText).toString()
 
                         val dateDTO = DateDTO(
-                            date = date.joinToString(",")
+                            dateList = date.toList()
                         )
                         viewModel.addDateInfo(yearMonth, dateDTO)
                         viewModel.addScheduleEventInfo(yearMonth, path2, event)
@@ -203,11 +204,6 @@ class ScheduleInputFragment2 : BaseFragment<FragmentScheduleInput2Binding>() {
                 }
             }
         }
-
-        fun convertDateToTimeStamp(date: String) : Long {
-            val sdf = SimpleDateFormat("yyyy-MM-dd-hh-mm", Locale.getDefault())
-            return sdf.parse(date).time
-        }
-
-
 }
+
+

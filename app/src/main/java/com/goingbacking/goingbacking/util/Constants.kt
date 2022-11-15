@@ -67,7 +67,36 @@ class Constants {
         const val CURRENTTIME = "currentTime"
         const val DURATION2 = "duration"
 
-
+        val colorArray = arrayOf<Any>(
+            "#76CEC2",
+            "#6D7BF5",
+            "#A47CF6",
+            "#76CEC2",
+            "#E385F3",
+            "#01D0B6",
+            "#50B478",
+            "#B8C6FF",
+            "#FEDE8B",
+            "#D9F3EF",
+            "#b2ebf2",
+            "#FFF78B",
+            "#FFD38D",
+            "#8CEBFF",
+            "#FF8E9C",
+            "#C6FF8C",
+            "#509CF2",
+            "#EAA2B7",
+            "#A9C7E3",
+            "#DCE0AC",
+            "#DEC0AE",
+            "#ABE0E1",
+            "#D8B4D9",
+            "#98F4A1",
+            "#FDB98F",
+            "#9C98F4",
+            "#C4C7C8",
+            "#C9CCC0",
+            "#D4B8B8")
 
 
     }

@@ -7,9 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.goingbacking.goingbacking.Adapter.SecondFragmentPagerAdapter
 import com.goingbacking.goingbacking.UI.Base.BaseFragment
-import com.goingbacking.goingbacking.UI.Main.Second.SecondMainFragment1
-import com.goingbacking.goingbacking.UI.Main.Second.SecondMainFragment2
-import com.goingbacking.goingbacking.ViewModel.MainViewModel
 
 import com.goingbacking.goingbacking.databinding.FragmentSecondMainBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -24,7 +21,7 @@ class SecondMainFragment : BaseFragment<FragmentSecondMainBinding>() {
         return FragmentSecondMainBinding.inflate(inflater, container, false)
 
     }
-    val viewModel: MainViewModel by viewModels()
+    val viewModel: SecondViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
