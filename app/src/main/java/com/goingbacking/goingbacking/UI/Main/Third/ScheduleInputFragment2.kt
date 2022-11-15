@@ -195,7 +195,7 @@ class ScheduleInputFragment2 : BaseFragment<FragmentScheduleInput2Binding>() {
                             convertDateToTimeStamp(day + "-" + home2ButtonText).toString()
 
                         val dateDTO = DateDTO(
-                            date = date.joinToString(",")
+                            dateList = date.toList()
                         )
                         viewModel.addDateInfo(yearMonth, dateDTO)
                         viewModel.addScheduleEventInfo(yearMonth, path2, event)

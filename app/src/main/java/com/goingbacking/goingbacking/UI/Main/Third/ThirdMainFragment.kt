@@ -59,6 +59,7 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
             .setPositiveButton(R.string.delete) { _, _ ->
                deleteEvent(eventDate, convertDateToTimeStamp(route).toString())
                 selectedDateList.remove(eventDate)
+                binding.threeCalendar.notifyDateChanged(LocalDate.parse(eventDate, DateTimeFormatter.ISO_DATE))
             }
             .setNegativeButton(R.string.close, null)
             .show()
@@ -86,7 +87,7 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
         observer4()
-        //observer1(currentday("yyyy-MM"))
+//        observer1(currentday("yyyy-MM"))
 
 
         binding.threeRecyclerView.apply {
@@ -196,12 +197,11 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
             when(state) {
                 is UiState.Success -> {
                     binding.progressCircular.hide()
-                    selectedDateList = state.data.date.toString().split(',').toMutableList()
+                    selectedDateList = state.data.dateList.toMutableList()
 
                     if(selectedDateList.contains(date.toString())) {
                         dotView.isVisible = true
                     }
-                    Log.d("experiment", "observer2: " + state.data.date.toString().split(',').toString())
                 }
                 is UiState.Loading -> {
                     binding.progressCircular.show()

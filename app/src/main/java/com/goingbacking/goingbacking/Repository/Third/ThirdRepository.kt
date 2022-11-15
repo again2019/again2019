@@ -5,9 +5,11 @@ import com.goingbacking.goingbacking.Model.Event
 import com.goingbacking.goingbacking.Model.UserInfoDTO
 import com.goingbacking.goingbacking.util.Constants
 import com.goingbacking.goingbacking.util.FBConstants
+import com.goingbacking.goingbacking.util.FBConstants.Companion.DATE
 import com.goingbacking.goingbacking.util.UiState
 import com.goingbacking.goingbacking.util.currentday
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Source
 import kotlinx.coroutines.CoroutineScope
@@ -247,6 +249,10 @@ class ThirdRepository(
         result: (UiState<MutableMap<LocalDate, List<Event>>>) -> Unit
     ) {
         CoroutineScope(Dispatchers.IO).launch {
+            firebaseFirestore.collection(DATE).document(uid)
+                .collection(currentday("yyyy-MM")).document(currentday("yyyy-MM"))
+                .update("dateList", FieldValue.arrayRemove(eventDate)).await()
+
             firebaseFirestore.collection(FBConstants.CALENDARINFO).document(uid)
                 .collection(currentday("yyyy-MM")).document(timeStamp).delete().await()
 
