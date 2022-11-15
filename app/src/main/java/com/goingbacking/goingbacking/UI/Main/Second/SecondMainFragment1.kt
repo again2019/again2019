@@ -20,6 +20,7 @@ import com.goingbacking.goingbacking.R
 import com.goingbacking.goingbacking.UI.Base.BaseFragment
 import com.goingbacking.goingbacking.ViewModel.MainViewModel
 import com.goingbacking.goingbacking.databinding.FragmentSecondMain1Binding
+import com.goingbacking.goingbacking.util.Constants.Companion.colorArray
 import com.goingbacking.goingbacking.util.UiState
 import com.google.firebase.database.collection.LLRBNode
 import com.google.type.Color
@@ -31,36 +32,7 @@ class SecondMainFragment1 : BaseFragment<FragmentSecondMain1Binding>(), AAChartV
 
     var chartType: String = ""
     val viewModel: MainViewModel by viewModels()
-    val colorArray = arrayOf<Any>(
-        "#76CEC2",
-        "#6D7BF5",
-        "#A47CF6",
-        "#76CEC2",
-        "#E385F3",
-        "#01D0B6",
-        "#50B478",
-        "#B8C6FF",
-        "#FEDE8B",
-        "#D9F3EF",
-        "#b2ebf2",
-        "#FFF78B",
-        "#FFD38D",
-        "#8CEBFF",
-        "#FF8E9C",
-        "#C6FF8C",
-        "#509CF2",
-        "#EAA2B7",
-        "#A9C7E3",
-        "#DCE0AC",
-        "#DEC0AE",
-        "#ABE0E1",
-        "#D8B4D9",
-        "#98F4A1",
-        "#FDB98F",
-        "#9C98F4",
-        "#C4C7C8",
-        "#C9CCC0",
-        "#D4B8B8")
+
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
@@ -88,6 +60,7 @@ class SecondMainFragment1 : BaseFragment<FragmentSecondMain1Binding>(), AAChartV
         chartType = AAChartType.Column.value
         val chartTypeEnum = AAChartType.Column
 
+        colorArray.shuffle()
         val aaChartModel = AAChartModel.Builder(requireActivity())
 
             .setChartType(chartTypeEnum)
@@ -103,13 +76,9 @@ class SecondMainFragment1 : BaseFragment<FragmentSecondMain1Binding>(), AAChartV
             .setPolar(false)
             .setTooltipEnabled(false)
             .setSeries(
-
                 AASeriesElement()
                     .colorByPoint(true)
                     .data(DTOList.toTypedArray())
-
-
-
             )
             .build()
 
