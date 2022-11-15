@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.goingbacking.goingbacking.Adapter.CalendarEventAdapter2
 import com.goingbacking.goingbacking.Model.Event
+import com.goingbacking.goingbacking.UI.Main.Third.ThirdViewModel
 import com.goingbacking.goingbacking.ViewModel.MainViewModel
 import com.goingbacking.goingbacking.databinding.BottomSheetCalendarDetailBinding
 import com.goingbacking.goingbacking.util.UiState
@@ -24,7 +25,7 @@ import java.time.format.DateTimeFormatter
 @AndroidEntryPoint
 class CalendarDetailBottomSheet : BottomSheetDialogFragment() {
   private lateinit var binding : BottomSheetCalendarDetailBinding
-  private val viewModel : MainViewModel by activityViewModels()
+  private val viewModel : ThirdViewModel by activityViewModels()
     private var eventss = mutableMapOf<LocalDate, List<Event>>()
     private val eventsAdapter = CalendarEventAdapter2()
 

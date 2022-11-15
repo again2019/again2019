@@ -27,7 +27,6 @@ import java.util.*
 
 @AndroidEntryPoint
 class ScheduleInputFragment1 : BaseFragment<FragmentScheduleInput1Binding>() {
-    private val viewModel : ThirdViewModel by viewModels()
 
     private var durationList = mutableListOf<Day>()
     private var yearList = mutableListOf<String>()

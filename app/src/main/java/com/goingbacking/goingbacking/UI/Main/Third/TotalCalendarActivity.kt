@@ -45,7 +45,7 @@ class TotalCalendarActivity : BaseActivity<ActivityTotalCalendarBinding>({
     private var selectedDate: LocalDate? = null
     private val today = LocalDate.now()
 
-    val viewModel: MainViewModel by viewModels()
+    val viewModel: ThirdViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -190,11 +190,11 @@ class TotalCalendarActivity : BaseActivity<ActivityTotalCalendarBinding>({
     private fun observer2(date :LocalDate, dotView:View, year_month:String) {
         // date : LocalDate, dotView: View,
         // 첫번 째로 실행 후
-        viewModel.getThirdDateInfo2(year_month)
+        viewModel.getThirdDateInfo(year_month)
 
 
         // 두 번째로 실행
-        viewModel.thirdDateDTOs2.observe(this) { state ->
+        viewModel.thirdDateDTOs.observe(this) { state ->
             when(state) {
                 is UiState.Success -> {
                     binding.progressCircular.hide()

@@ -16,24 +16,6 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor (
     val mainRepository: MainRepositoryIF) : ViewModel() {
 
-
-
-
-
-
-
-    private val _thirdDateDTOs = MutableLiveData<UiState<DateDTO>>()
-    val thirdDateDTOs : LiveData<UiState<DateDTO>>
-        get() = _thirdDateDTOs
-
-    private val _thirdDateDTOs2 = MutableLiveData<UiState<DateDTO>>()
-    val thirdDateDTOs2 : LiveData<UiState<DateDTO>>
-        get() = _thirdDateDTOs2
-
-    private val _thirdCalendarDTOs = MutableLiveData<UiState<MutableMap<LocalDate, List<Event>>>>()
-    val thirdCalendarDTOs : LiveData<UiState<MutableMap<LocalDate, List<Event>>>>
-        get() = _thirdCalendarDTOs
-
     private val _secondSaveYearDTOs = MutableLiveData<UiState<ArrayList<SaveTimeYearDTO>>>()
     val secondSaveYearDTOs : LiveData<UiState<ArrayList<SaveTimeYearDTO>>>
         get() = _secondSaveYearDTOs
@@ -53,37 +35,6 @@ class MainViewModel @Inject constructor (
     private val _secondwhatToDoYearDTOs = MutableLiveData<UiState<ArrayList<WhatToDoYearDTO>>>()
     val secondwhatToDoYearDTOs : LiveData<UiState<ArrayList<WhatToDoYearDTO>>>
         get() = _secondwhatToDoYearDTOs
-
-
-
-
-    private val _thirdSelectedDateDTOs = MutableLiveData<UiState<MutableMap<LocalDate, List<Event>>>>()
-    val thirdSelectedDateDTOs : LiveData<UiState<MutableMap<LocalDate, List<Event>>>>
-        get() = _thirdSelectedDateDTOs
-
-
-
-
-
-    fun getThirdDateInfo() {
-        _thirdDateDTOs.value = UiState.Loading
-        mainRepository.getThirdDateInfo { _thirdDateDTOs.postValue(it) }
-    }
-    fun getThirdDateInfo2(year_month:String) = viewModelScope.launch {
-        _thirdDateDTOs2.value = UiState.Loading
-        mainRepository.getThirdDateInfo2(year_month) { _thirdDateDTOs2.value = it }
-    }
-
-    fun getThirdCalendarInfo(yearList : MutableList<String>) {
-        _thirdCalendarDTOs.value = UiState.Loading
-        mainRepository.getThirdCalendarInfo(yearList) { _thirdCalendarDTOs.value = it }
-    }
-
-
-    fun getSelectedDateInfo(year_month: String, date: String) {
-        _thirdSelectedDateDTOs.value = UiState.Loading
-        mainRepository.getSelectedDateInfo(year_month, date) { _thirdSelectedDateDTOs.value = it }
-    }
 
 
 

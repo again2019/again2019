@@ -67,7 +67,7 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
 
 
 
-    val viewModel : MainViewModel by viewModels()
+    val viewModel : ThirdViewModel by viewModels()
 
 
     override fun getFragmentBinding(
@@ -81,7 +81,7 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
     override fun onResume() {
         super.onResume()
 
-        observer1()
+        observer1(currentday("yyyy-MM"))
 
     }
 
@@ -167,8 +167,8 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
 
     // dotView를 찍는 역할
     // 어떤 날짜에 스케줄이 있는지 없는지를 알려주는 역할
-    private fun observer1() {
-        viewModel.getThirdDateInfo()
+    private fun observer1(yearMonth: String) {
+        viewModel.getThirdDateInfo(yearMonth)
         viewModel.thirdDateDTOs.observe(viewLifecycleOwner) { state ->
             when(state) {
                 is UiState.Success -> {
