@@ -1,11 +1,18 @@
 package com.goingbacking.goingbacking.UI.Main.Third
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.core.view.children
 import androidx.core.view.isVisible
+import androidx.lifecycle.Lifecycle
 
 import com.goingbacking.goingbacking.Model.Event
 import com.goingbacking.goingbacking.R
@@ -42,7 +49,26 @@ class TotalCalendarActivity : BaseActivity<ActivityTotalCalendarBinding>({
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        val menuHost: MenuHost = this
 
+        setSupportActionBar(binding.toolbar)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        menuHost.addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                when(menuItem.itemId) {
+                    android.R.id.home -> {
+                        finish()
+                        return true
+                    }
+                }
+                return true
+            }
+        }, this, Lifecycle.State.RESUMED)
         val daysOfWeek = daysOfWeekFromLocale()
         val currentMonth = YearMonth.now()
         binding.totalthreeCalendar.setup(
