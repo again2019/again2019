@@ -44,7 +44,7 @@ class QuestionActivity : BaseActivity<ActivityQuestionBinding>({
                 return true
             }
         }, this, Lifecycle.State.RESUMED)
-        
+
         onClick()
     }
 
