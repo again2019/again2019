@@ -67,17 +67,7 @@ class RankActivity : BaseActivity<ActivityRankBinding>({
         observer4(destinationUid)
     }
 
-    override fun onResume() = with(binding) {
-        super.onResume()
 
-        Log.d("experiment", "resume")
-        val destinationUid = intent.getStringExtra("destinationUid")!!
-
-        viewModel.getFifthUserInfo(destinationUid)
-
-
-
-    }
 
     override fun onPause() {
         super.onPause()
@@ -112,6 +102,7 @@ class RankActivity : BaseActivity<ActivityRankBinding>({
 
             supportFragmentManager.executePendingTransactions()
             bottom.dialog!!.setOnDismissListener {
+                viewModel.getFifthUserInfo(destinationUid)
                 viewModel.userInfoDTO.observe(this@RankActivity) { state ->
                     when (state) {
                         is UiState.Success -> {
