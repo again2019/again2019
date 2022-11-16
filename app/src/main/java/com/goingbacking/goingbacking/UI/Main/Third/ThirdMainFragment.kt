@@ -55,13 +55,13 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
         val route = String.format("%s-%d-%d", eventDate, hour, minute)
 
         AlertDialog.Builder(requireContext())
-            .setMessage(R.string.example_3_dialog_delete_confirmation)
-            .setPositiveButton(R.string.delete) { _, _ ->
+            .setMessage("해당 스케줄을 삭제하시겠습니까?")
+            .setPositiveButton("삭제하기") { _, _ ->
                deleteEvent(eventDate, convertDateToTimeStamp(route).toString())
                 selectedDateList.remove(eventDate)
                 binding.threeCalendar.notifyDateChanged(LocalDate.parse(eventDate, DateTimeFormatter.ISO_DATE))
             }
-            .setNegativeButton(R.string.close, null)
+            .setNegativeButton("나가기", null)
             .show()
     }
     
@@ -69,7 +69,6 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
     private val today = LocalDate.now()
     private val selectionFormatter = DateTimeFormatter.ofPattern("MM/dd(E)")
     private var events = mutableMapOf<LocalDate, List<Event>>()
-    private var eventss = mutableMapOf<LocalDate, List<Event>>()
     private var selectedDateList = mutableListOf<String>()
 
 
@@ -87,7 +86,6 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
         observer4()
-//        observer1(currentday("yyyy-MM"))
 
 
         binding.threeRecyclerView.apply {
@@ -166,28 +164,8 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
     }
 
 
-    // dotView를 찍는 역할
-    // 어떤 날짜에 스케줄이 있는지 없는지를 알려주는 역할
-    private fun observer1(yearMonth: String) {
-        viewModel.getThirdDateInfo(yearMonth)
-        viewModel.thirdDateDTOs.observe(viewLifecycleOwner) { state ->
-            when(state) {
-                is UiState.Success -> {
-                    binding.progressCircular.hide()
-                    val dateDTO = state.data.dateList.toMutableList()
-                    observer3(dateDTO)
-                    }
-                is UiState.Loading -> {
-                    binding.progressCircular.show()
-                }
-                is UiState.Failure -> {
-                    binding.progressCircular.hide()
-                }
-            }
-        }
 
 
-    }
 
     private fun observer2(date:LocalDate, dotView:View) {
         Log.d("experiment", date.toString())
@@ -214,27 +192,7 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
         }
     }
 
-    //
-    private fun observer3(yearList : MutableList<String>) {
-        viewModel.getThirdCalendarInfo(yearList)
-        viewModel.thirdCalendarDTOs.observe(viewLifecycleOwner) { state ->
-            when(state) {
-                is UiState.Success -> {
-                    binding.progressCircular.hide()
-                    events = state.data
-                    updateAdapterForDate(selectedDate!!)
-                }
-                is UiState.Loading -> {
-                    binding.progressCircular.show()
-                }
 
-                is UiState.Failure -> {
-                    binding.progressCircular.hide()
-                    Log.e("experiment", state.error.toString())
-                }
-            }
-        }
-    }
 
     private fun observer4() {
         viewModel.getNickNameInfo()

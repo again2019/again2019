@@ -62,50 +62,50 @@ class RankRecyclerViewAdapter2 (
         fun bind(item: NewSaveTimeYearDTO, position: Int) = with(binding) {
 
             var rankLikeNum = item.likes.size
-            rankLike.text = rankLikeNum.toString()
-            var isSwitch = true
-            if (item.likes.contains(PrefUtil.firebaseUid())) {
-                likeButton.setMinAndMaxProgress(1f, 1f)
-                likeButton.playAnimation()
-                isSwitch = false
-            } else {
-                likeButton.setMinAndMaxProgress(0f,0f)
-                likeButton.playAnimation()
-
-            }
-            likeButton.setOnClickListener {
-                if (isSwitch) {
-                    likeButton.setMinAndMaxProgress(1f, 1f)
-                    likeButton.playAnimation()
-                    PushNotification(
-                        NotificationData("title", "message"),
-                        item.token!!
-                        ).also {
-                        FirebaseTokenManager.sendNotification(it)
-                    }
-                    isSwitch = false
-                    rankLikeNum = rankLikeNum + 1
-                    rankLike.text = rankLikeNum.toString()
-
-                } else {
-                    likeButton.setMinAndMaxProgress(0f,0f)
-                    likeButton.playAnimation()
-                    isSwitch = true
-                    rankLikeNum = rankLikeNum - 1
-                    rankLike.text = rankLikeNum.toString()
-
-                }
-
-            }
-
-
+//            rankLike.text = rankLikeNum.toString()
+//            var isSwitch = true
+//            if (item.likes.contains(PrefUtil.firebaseUid())) {
+//                likeButton.setMinAndMaxProgress(1f, 1f)
+//                likeButton.playAnimation()
+//                isSwitch = false
+//            } else {
+//                likeButton.setMinAndMaxProgress(0f,0f)
+//                likeButton.playAnimation()
+//
+//            }
+//            likeButton.setOnClickListener {
+//                if (isSwitch) {
+//                    likeButton.setMinAndMaxProgress(1f, 1f)
+//                    likeButton.playAnimation()
+//                    PushNotification(
+//                        NotificationData("title", "message"),
+//                        item.token!!
+//                        ).also {
+//                        FirebaseTokenManager.sendNotification(it)
+//                    }
+//                    isSwitch = false
+//                    rankLikeNum = rankLikeNum + 1
+//                    rankLike.text = rankLikeNum.toString()
+//
+//                } else {
+//                    likeButton.setMinAndMaxProgress(0f,0f)
+//                    likeButton.playAnimation()
+//                    isSwitch = true
+//                    rankLikeNum = rankLikeNum - 1
+//                    rankLike.text = rankLikeNum.toString()
+//
+//                }
+//
+//            }
+//
+//
 
             rankNum.text = (position+1).toString()
-            rankCount.text = item.count.toString()
+//            rankCount.text = item.count.toString()
             rankNickname.text = item.nickname.toString()
-            rankType.text = item.nickname.toString()
-            rankWhattodo.text = item.whattodo.toString()
-            rankButton.setOnClickListener {
+//            rankType.text = item.nickname.toString()
+//            rankWhattodo.text = item.whattodo.toString()
+            itemView.setOnClickListener {
                 onItemClicked.invoke(item.uid.toString())
             }
         }

@@ -71,56 +71,61 @@ class RankRecyclerViewAdapter1 (
 
 
             var rankLikeNum = item.likes.size
-            rankLike.text = rankLikeNum.toString()
-            var isSwitch = true
-            if (item.likes.contains(PrefUtil.firebaseUid())) {
-                likeButton.setMinAndMaxProgress(1f, 1f)
-                likeButton.playAnimation()
-                isSwitch = false
-            } else {
-                likeButton.setMinAndMaxProgress(0f,0f)
-                likeButton.playAnimation()
-
-            }
-            likeButton.setOnClickListener {
-                if (isSwitch) {
-                    likeButton.setMinAndMaxProgress(1f, 1f)
-                    likeButton.playAnimation()
-                    viewModel.likeButtonInfo(item.uid.toString(), "plus")
-                    PushNotification(
-                        NotificationData("title", "message"),
-                            item.token!!
-                    ).also {
-                        FirebaseTokenManager.sendNotification(it)
-                    }
-                    isSwitch = false
-                    rankLikeNum = rankLikeNum + 1
-                    rankLike.text = rankLikeNum.toString()
-
-                } else {
-                    likeButton.setMinAndMaxProgress(0f,0f)
-                    likeButton.playAnimation()
-                    viewModel.likeButtonInfo(item.uid.toString(), "minus")
-
-                    isSwitch = true
-                    rankLikeNum = rankLikeNum - 1
-                    rankLike.text = rankLikeNum.toString()
-
-                }
-
-            }
-
-            cheerButton.setOnClickListener {
-                onCheerClicked.invoke(item.uid.toString())
-
-            }
-
+//            rankLike.text = rankLikeNum.toString()
+//            var isSwitch = true
+//            if (item.likes.contains(PrefUtil.firebaseUid())) {
+//                likeButton.setMinAndMaxProgress(1f, 1f)
+//                likeButton.playAnimation()
+//                isSwitch = false
+//            } else {
+//                likeButton.setMinAndMaxProgress(0f,0f)
+//                likeButton.playAnimation()
+//
+//            }
+//            likeButton.setOnClickListener {
+//                if (isSwitch) {
+//                    likeButton.setMinAndMaxProgress(1f, 1f)
+//                    likeButton.playAnimation()
+//                    viewModel.likeButtonInfo(item.uid.toString(), "plus")
+//                    PushNotification(
+//                        NotificationData("title", "message"),
+//                            item.token!!
+//                    ).also {
+//                        FirebaseTokenManager.sendNotification(it)
+//                    }
+//                    isSwitch = false
+//                    rankLikeNum = rankLikeNum + 1
+//                    rankLike.text = rankLikeNum.toString()
+//
+//                } else {
+//                    likeButton.setMinAndMaxProgress(0f,0f)
+//                    likeButton.playAnimation()
+//                    viewModel.likeButtonInfo(item.uid.toString(), "minus")
+//
+//                    isSwitch = true
+//                    rankLikeNum = rankLikeNum - 1
+//                    rankLike.text = rankLikeNum.toString()
+//
+//                }
+//
+//            }
+//
+//            cheerButton.setOnClickListener {
+//                onCheerClicked.invoke(item.uid.toString())
+//
+//            }
+//
             rankNum.text = (position+1).toString()
-            rankCount.text = item.count.toString()
+
+            val hour = item.count!!.toInt() / 60
+            val minute = item.count!!.toInt() % 60
+
+            rankCount.text = String.format("%d시간 %d분", hour, minute)
+
             rankNickname.text = item.nickname.toString()
-            rankType.text = item.nickname.toString()
-            rankWhattodo.text = item.whattodo.toString()
-            rankButton.setOnClickListener {
+//            rankType.text = item.nickname.toString()
+//            rankWhattodo.text = item.whattodo.toString()
+            itemView.setOnClickListener {
                 onItemClicked.invoke(item.uid.toString())
             }
         }
