@@ -16,18 +16,18 @@ class CheerRecyclerViewAdapter(
             fun bind(myUid :String, nickname :String, cheertext: String, original : String) = with(binding) {
                 itemCheerNickname.text = nickname
                 itemCheer.text = cheertext
-                if (myUid.equals(PrefUtil.firebaseUid())) {
-                    itemCheerDelete.makeVisible()
-                    itemCheerDelete.setOnClickListener {
-                        val newList = currentList.toMutableList()
-                        newList.removeAt(bindingAdapterPosition)
-                        submitList(newList)
-
-                        onDeleteClick(PrefUtil.firebaseUid(), original)
-                    }
-                } else {
-                    itemCheerDelete.makeInVisible()
-                }
+//                if (myUid.equals(PrefUtil.firebaseUid())) {
+//                    itemCheerDelete.makeVisible()
+//                    itemCheerDelete.setOnClickListener {
+//                        val newList = currentList.toMutableList()
+//                        newList.removeAt(bindingAdapterPosition)
+//                        submitList(newList)
+//
+//                        onDeleteClick(PrefUtil.firebaseUid(), original)
+//                    }
+//                } else {
+//                    itemCheerDelete.makeInVisible()
+//                }
 
             }
         }

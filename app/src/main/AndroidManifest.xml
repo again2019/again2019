@@ -19,6 +19,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".UI.Main.Forth.RankActivity"
+            android:exported="true" />
+        <activity
             android:name=".UI.Main.Fifth.QuestionActivity"
             android:exported="true" />
 

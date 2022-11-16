@@ -40,21 +40,15 @@ class CheerBottomSheet : BottomSheetDialogFragment() {
         if (destinationUid == null) {
             toast(requireContext(), getString(R.string.no_information))
         } else {
-            if (destinationUid.equals(PrefUtil.getCurrentUid(requireContext()))) {
-                binding.cheerEditText.makeGONE()
-                binding.cheerOkayButton.makeGONE()
-            }
+//            if (destinationUid.equals(PrefUtil.getCurrentUid(requireContext()))) {
+//                binding.cheerEditText.makeGONE()
+//                binding.cheerOkayButton.makeGONE()
+//            }
 
             binding.cheerRecyclerView.apply {
                 layoutManager =
                     LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
                 adapter = cheerAdapter
-                addItemDecoration(
-                    DividerItemDecoration(
-                        requireContext(),
-                        RecyclerView.VERTICAL
-                    )
-                )
             }
 //            val list = listOf<String>("ss:aa:ss", "aa:aa:aa")
 //            cheerAdapter.submitList(list)

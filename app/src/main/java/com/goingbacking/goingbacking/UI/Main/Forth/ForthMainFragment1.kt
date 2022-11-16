@@ -1,5 +1,6 @@
 package com.goingbacking.goingbacking.UI.Main.Forth
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -30,11 +31,15 @@ class ForthMainFragment1 : BaseFragment<FragmentForthMain1Binding>() {
         RankRecyclerViewAdapter1(
             viewModel,
             onItemClicked = { destinationUid ->
-                val bottom  = RankBottomSheet()
-                val bundle = Bundle()
-                bundle.putString("destinationUid", destinationUid)
-                bottom.arguments = bundle
-                bottom.show(childFragmentManager, bottom.tag)
+//                val bottom  = RankBottomSheet()
+//                val bundle = Bundle()
+//                bundle.putString("destinationUid", destinationUid)
+//                bottom.arguments = bundle
+//                bottom.show(childFragmentManager, bottom.tag)
+
+                val intent = Intent(requireContext(), RankActivity::class.java)
+                intent.putExtra("destinationUid", destinationUid)
+                startActivity(intent)
             },
             onCheerClicked = { destinationUid ->
                 val bottom = CheerBottomSheet()
