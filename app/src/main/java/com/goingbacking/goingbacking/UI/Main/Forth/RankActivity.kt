@@ -6,9 +6,13 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import android.view.View
+import android.widget.PopupMenu
+import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
+import androidx.fragment.app.commitNow
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import com.github.aachartmodel.aainfographics.aachartcreator.*
@@ -16,10 +20,8 @@ import com.goingbacking.goingbacking.R
 import com.goingbacking.goingbacking.UI.Base.BaseActivity
 import com.goingbacking.goingbacking.bottomsheet.CheerBottomSheet
 import com.goingbacking.goingbacking.databinding.ActivityRankBinding
-import com.goingbacking.goingbacking.util.Constants
-import com.goingbacking.goingbacking.util.PrefUtil
-import com.goingbacking.goingbacking.util.UiState
-import com.goingbacking.goingbacking.util.makeInVisible
+import com.goingbacking.goingbacking.util.*
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -29,8 +31,11 @@ class RankActivity : BaseActivity<ActivityRankBinding>({
     private var likeState = true
     var chartType: String = ""
     val viewModel: RankViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        Log.d("experiment", "create")
 
         val destinationUid = intent.getStringExtra("destinationUid")!!
 
@@ -54,13 +59,44 @@ class RankActivity : BaseActivity<ActivityRankBinding>({
             }
         }, this, Lifecycle.State.RESUMED)
 
-
         onClick(destinationUid)
-
+        supportFragmentManager.executePendingTransactions()
         observer1(destinationUid)
         observer2(destinationUid)
         observer3(destinationUid)
         observer4(destinationUid)
+    }
+
+    override fun onResume() = with(binding) {
+        super.onResume()
+
+        Log.d("experiment", "resume")
+        val destinationUid = intent.getStringExtra("destinationUid")!!
+
+        viewModel.getFifthUserInfo(destinationUid)
+
+
+
+    }
+
+    override fun onPause() {
+        super.onPause()
+
+        Log.d("experiment", "pause")
+
+    }
+
+    override fun onStop() {
+        super.onStop()
+
+        Log.d("experiment", "stop")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        Log.d("experiment", "destroy")
+
     }
 
 
@@ -73,7 +109,29 @@ class RankActivity : BaseActivity<ActivityRankBinding>({
             bundle.putString("destinationUid", destinationUid)
             bottom.arguments = bundle
             bottom.show(supportFragmentManager, bottom.tag)
-        }
+
+            supportFragmentManager.executePendingTransactions()
+            bottom.dialog!!.setOnDismissListener {
+                viewModel.userInfoDTO.observe(this@RankActivity) { state ->
+                    when (state) {
+                        is UiState.Success -> {
+                            progressCircular.hide()
+                            cheerCount.text = state.data.cheers.size.toString()
+                        }
+                        is UiState.Failure -> {
+                            progressCircular.hide()
+
+                        }
+                        is UiState.Loading -> {
+                            progressCircular.show()
+
+                        }
+                    }
+                }
+            }
+            }
+
+
         likeButton.setOnClickListener {
             if (likeState == false) {
                 likeButton.setMinAndMaxProgress(0f, 1f)

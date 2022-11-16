@@ -99,9 +99,9 @@ class CheerBottomSheet : BottomSheetDialogFragment() {
                 is UiState.Success -> {
                     binding.progressCircular.hide()
                     Log.d("experiment", state.data.toString())
-//                    cheerAdapter.submitList(state.data)
+                    cheerAdapter.submitList(state.data)
 //                    updateAdapterForDate(state.data, destinationUid)
-                    state.data.toTypedArray()
+//                    state.data.toTypedArray()
                 }
                 is UiState.Failure -> {
                     binding.progressCircular.hide()

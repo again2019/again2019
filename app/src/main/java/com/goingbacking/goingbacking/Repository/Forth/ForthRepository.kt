@@ -5,6 +5,7 @@ import com.goingbacking.goingbacking.FCM.FirebaseTokenManager
 import com.goingbacking.goingbacking.FCM.NotificationData
 import com.goingbacking.goingbacking.FCM.PushNotification
 import com.goingbacking.goingbacking.Model.*
+import com.goingbacking.goingbacking.util.Constants
 import com.goingbacking.goingbacking.util.Constants.Companion.CHEERS
 import com.goingbacking.goingbacking.util.Constants.Companion.COUNT
 import com.goingbacking.goingbacking.util.Constants.Companion.FAIL
@@ -69,22 +70,35 @@ class ForthRepository (
 
 
     override fun getCheerInfo(destinationUid: String, result: (UiState<List<String>>) -> Unit) {
-        firebaseFirestore.collection(RANKYEARINFO).document(currentday("yyyy"))
-            .collection(currentday("yyyy")).document(destinationUid).get()
-            .addOnSuccessListener { document ->
-                if (document != null) {
-//                    Log.d("experiment", document.toObject(NewSaveTimeYearDTO::class.java)!!.cheers.toString())
-
-                    result.invoke(UiState.Success(
+        firebaseFirestore.collection(USERINFO).document(destinationUid)
+            .get().addOnSuccessListener { document ->
+                result.invoke(
+                    UiState.Success(
                         document.toObject(NewSaveTimeYearDTO::class.java)!!.cheers
-                    ))
-                } else {
-                    result.invoke(UiState.Failure(FAIL))
-                }
+                    )
+                )
             }
             .addOnFailureListener {
                 result.invoke(UiState.Failure(FAIL))
             }
+
+
+    //        firebaseFirestore.collection(RANKYEARINFO).document(currentday("yyyy"))
+//            .collection(currentday("yyyy")).document(destinationUid).get()
+//            .addOnSuccessListener { document ->
+//                if (document != null) {
+////                    Log.d("experiment", document.toObject(NewSaveTimeYearDTO::class.java)!!.cheers.toString())
+//
+//                    result.invoke(UiState.Success(
+//                        document.toObject(NewSaveTimeYearDTO::class.java)!!.cheers
+//                    ))
+//                } else {
+//                    result.invoke(UiState.Failure(FAIL))
+//                }
+//            }
+//            .addOnFailureListener {
+//                result.invoke(UiState.Failure(FAIL))
+//            }
 
 
 
@@ -93,37 +107,58 @@ class ForthRepository (
 
     override fun addCheerInfo(destinationUid: String, text: String, result: (UiState<List<String>>) -> Unit) {
 
-        val tsDoc = firebaseFirestore.collection(RANKYEARINFO).document(currentday("yyyy"))
-            .collection(currentday("yyyy")).document(destinationUid)
+//        val tsDoc = firebaseFirestore.collection(RANKYEARINFO).document(currentday("yyyy"))
+//            .collection(currentday("yyyy")).document(destinationUid)
 
         CoroutineScope(Dispatchers.IO).launch {
-            val destinationInfo = firebaseFirestore.collection(USERINFO).document(destinationUid).get().await().toObject(UserInfoDTO::class.java)
+
+            val tsDoc = firebaseFirestore.collection(USERINFO).document(destinationUid)
             val userInfo = firebaseFirestore.collection(USERINFO).document(myUid).get(cache).await().toObject(UserInfoDTO::class.java)
             val cheer = myUid + ":" + userInfo!!.userNickName + ":" + text
             tsDoc.update(CHEERS, FieldValue.arrayUnion(cheer)).await()
+            val destinationInfo = tsDoc.get().await().toObject(UserInfoDTO::class.java)
+            result.invoke(
+                UiState.Success(
+                    destinationInfo!!.cheers
+                )
+            )
+
 
             PushNotification(
                 NotificationData(text, text),
-                destinationInfo!!.token!!
+                destinationInfo.token!!
             ).also {
                 FirebaseTokenManager.sendNotification(it)
             }
-            firebaseFirestore.collection(RANKYEARINFO).document(currentday("yyyy"))
-                .collection(currentday("yyyy")).document(destinationUid).get()
-                .addOnSuccessListener { document ->
-                    if (document != null) {
-                        //Log.d("experiment", document.toObject(NewSaveTimeYearDTO::class.java)!!.cheers.toString())
 
-                        result.invoke(UiState.Success(
-                            document.toObject(NewSaveTimeYearDTO::class.java)!!.cheers
-                        ))
-                    } else {
-                        result.invoke(UiState.Failure(FAIL))
-                    }
-                }
-                .addOnFailureListener {
-                    result.invoke(UiState.Failure(FAIL))
-                }.await()
+
+//            val destinationInfo = firebaseFirestore.collection(USERINFO).document(destinationUid).get().await().toObject(UserInfoDTO::class.java)
+//            val userInfo = firebaseFirestore.collection(USERINFO).document(myUid).get(cache).await().toObject(UserInfoDTO::class.java)
+//            val cheer = myUid + ":" + userInfo!!.userNickName + ":" + text
+//            tsDoc.update(CHEERS, FieldValue.arrayUnion(cheer)).await()
+
+//            PushNotification(
+//                NotificationData(text, text),
+//                destinationInfo!!.token!!
+//            ).also {
+//                FirebaseTokenManager.sendNotification(it)
+//            }
+//            firebaseFirestore.collection(RANKYEARINFO).document(currentday("yyyy"))
+//                .collection(currentday("yyyy")).document(destinationUid).get()
+//                .addOnSuccessListener { document ->
+//                    if (document != null) {
+//                        //Log.d("experiment", document.toObject(NewSaveTimeYearDTO::class.java)!!.cheers.toString())
+//
+//                        result.invoke(UiState.Success(
+//                            document.toObject(NewSaveTimeYearDTO::class.java)!!.cheers
+//                        ))
+//                    } else {
+//                        result.invoke(UiState.Failure(FAIL))
+//                    }
+//                }
+//                .addOnFailureListener {
+//                    result.invoke(UiState.Failure(FAIL))
+//                }.await()
 
 
         }
