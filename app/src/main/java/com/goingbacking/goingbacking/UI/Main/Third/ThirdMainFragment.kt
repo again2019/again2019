@@ -174,9 +174,8 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
             when(state) {
                 is UiState.Success -> {
                     binding.progressCircular.hide()
-                    val dateDTO = state.data.date
-                    val data = dateDTO.toString().split(',').toMutableList()
-                    observer3(data)
+                    val dateDTO = state.data.dateList.toMutableList()
+                    observer3(dateDTO)
                     }
                 is UiState.Loading -> {
                     binding.progressCircular.show()

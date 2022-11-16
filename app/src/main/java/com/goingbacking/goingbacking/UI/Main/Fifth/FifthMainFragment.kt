@@ -50,7 +50,6 @@ class FifthMainFragment : BaseFragment<FragmentFifthMainBinding>() {
                         chip3.makeInVisible()
                     } else if (whatToDoList.size == 1) {
                         chip1.text = whatToDoList.get(0)
-                        chip1.makeVisible()
                         chip2.makeInVisible()
                         chip3.makeInVisible()
                     } else if (whatToDoList.size == 2) {
@@ -63,9 +62,6 @@ class FifthMainFragment : BaseFragment<FragmentFifthMainBinding>() {
                         chip1.text = whatToDoList.get(0)
                         chip2.text = whatToDoList.get(1)
                         chip3.text = whatToDoList.get(2)
-                        chip1.makeVisible()
-                        chip2.makeVisible()
-                        chip3.makeVisible()
                     }
 
                 }
@@ -75,9 +71,6 @@ class FifthMainFragment : BaseFragment<FragmentFifthMainBinding>() {
                 }
                 is UiState.Loading -> {
                     progressCircular.show()
-                    chip1.makeInVisible()
-                    chip2.makeInVisible()
-                    chip3.makeInVisible()
 
                 }
             }
@@ -97,6 +90,10 @@ class FifthMainFragment : BaseFragment<FragmentFifthMainBinding>() {
             startActivity(intent)
         }
 
+        question.setOnClickListener {
+            val intent = Intent(requireContext(), QuestionActivity::class.java)
+            startActivity(intent)
+        }
 
         // 로그아웃이 아니라 계정 탈퇴
         out.setOnClickListener {

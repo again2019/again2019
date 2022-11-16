@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.goingbacking.goingbacking">
+
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
@@ -17,15 +18,18 @@
         android:roundIcon="@mipmap/com_back_new"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity
+            android:name=".UI.Main.Fifth.QuestionActivity"
+            android:exported="true" />
+
         <service
             android:name=".FCM.FirebaseService"
-            android:permission="com.google.android.c2dm.permission.SEND"
-            android:exported="false">
+            android:exported="false"
+            android:permission="com.google.android.c2dm.permission.SEND">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
             </intent-filter>
-
         </service>
 
         <activity
@@ -77,9 +81,8 @@
             android:enabled="true"
             android:exported="true">
             <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
-
         </receiver>
         <receiver
             android:name=".BR.DoingReceiver"
