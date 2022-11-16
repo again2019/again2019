@@ -66,22 +66,7 @@ class ForthRepository (
             }
     }
 
-    // 달별
-    override fun likeButtonInfo(destinationUid :String, state :String, result: (UiState<String>) -> Unit) {
-        val tsDoc1 = firebaseFirestore.collection(RANKMONTHINFO).document(currentday("yyyy-MM"))
-            .collection(currentday("yyyy-MM")).document(destinationUid)
-        val tsDoc2 = firebaseFirestore.collection(RANKYEARINFO).document(currentday("yyyy"))
-            .collection(currentday("yyyy")).document(destinationUid)
-        if (state.equals("plus")) {
-            tsDoc1.update(LIKES, FieldValue.arrayUnion(myUid))
-            tsDoc2.update(LIKES, FieldValue.arrayUnion(myUid))
 
-        } else {
-            tsDoc1.update(LIKES, FieldValue.arrayRemove(myUid))
-            tsDoc2.update(LIKES, FieldValue.arrayUnion(myUid))
-
-        }
-    }
 
     override fun getCheerInfo(destinationUid: String, result: (UiState<List<String>>) -> Unit) {
         firebaseFirestore.collection(RANKYEARINFO).document(currentday("yyyy"))

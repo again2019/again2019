@@ -1,11 +1,18 @@
 package com.goingbacking.goingbacking.Repository.Forth
 
 import com.goingbacking.goingbacking.Model.*
+import com.goingbacking.goingbacking.util.Constants
 import com.goingbacking.goingbacking.util.FBConstants
 import com.goingbacking.goingbacking.util.UiState
 import com.goingbacking.goingbacking.util.currentday
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 
 class RankRepository  (
     val user: FirebaseUser?,
@@ -41,8 +48,6 @@ class RankRepository  (
 
 
 
-
-
     override fun getSecondSaveMonthInfo(destinationUid : String, result: (UiState<ArrayList<SaveTimeMonthDTO>>) -> Unit) {
         firebaseFirestore.collection(FBConstants.SAVETIMEINFO).document(destinationUid)
             .collection(FBConstants.MONTH).document(currentday("yyyy"))
@@ -57,11 +62,6 @@ class RankRepository  (
                     UiState.Success(saveTimeMonthDTOList)
                 )
             }
-
-
-
-
-
     }
 
     override fun getSecondSaveYearInfo(destinationUid : String, result: (UiState<ArrayList<SaveTimeYearDTO>>) -> Unit) {
@@ -131,6 +131,83 @@ class RankRepository  (
                     )
                 )
             }
+    }
+
+    override fun getSaveTimeMonthInfo(
+        destinationUid: String,
+        result: (UiState<NewSaveTimeMonthDTO>) -> Unit
+    ) {
+
+        firebaseFirestore.collection(FBConstants.RANKMONTHINFO).document(currentday("yyyy-MM"))
+            .collection(currentday("yyyy-MM")).document(destinationUid).get()
+            .addOnSuccessListener { document ->
+                val doc = document.toObject(NewSaveTimeMonthDTO::class.java)!!
+                result.invoke(UiState.Success(doc))
+            }.addOnFailureListener {
+                result.invoke(UiState.Failure(Constants.FAIL))
+            }
+    }
+
+    override fun getSaveTimeYearInfo(
+        destinationUid: String,
+        result: (UiState<NewSaveTimeYearDTO>) -> Unit
+    ) {
+        firebaseFirestore.collection(FBConstants.RANKYEARINFO).document(currentday("yyyy"))
+            .collection(currentday("yyyy")).document(destinationUid).get()
+            .addOnSuccessListener { document ->
+                val doc = document.toObject(NewSaveTimeYearDTO::class.java)!!
+                result.invoke(UiState.Success(doc))
+            }.addOnFailureListener {
+                result.invoke(UiState.Failure(Constants.FAIL))
+            }
+    }
+
+    override fun getFifthUserInfo(destinationUid: String, result: (UiState<UserInfoDTO>) -> Unit) {
+        firebaseFirestore.collection(Constants.USERINFO).document(destinationUid)
+            .get()
+            .addOnSuccessListener { document ->
+                val data : UserInfoDTO? = document.toObject(UserInfoDTO::class.java)
+                result.invoke(
+                    UiState.Success(data!!)
+                )
+            }
+
+            .addOnFailureListener {
+                result.invoke(
+                    UiState.Failure(
+                        it.localizedMessage
+                    )
+                )
+            }
+    }
+
+    // 달별
+    override fun likeButtonInfo(destinationUid :String, state :String, result: (UiState<String>) -> Unit) {
+
+        CoroutineScope(Dispatchers.IO).launch {
+            val tsDoc1 = firebaseFirestore.collection(Constants.USERINFO).document(destinationUid)
+            if (state.equals("plus")) {
+                tsDoc1.update(Constants.LIKES, FieldValue.arrayUnion(uid)).await()
+
+            } else {
+                tsDoc1.update(Constants.LIKES, FieldValue.arrayRemove(uid)).await()
+            }
+
+            tsDoc1.get().addOnSuccessListener {
+                val likeCount = it.toObject(UserInfoDTO::class.java)!!.likes.size
+                result.invoke(
+                    UiState.Success(
+                        likeCount.toString()
+                    )
+                )
+            }.addOnFailureListener {
+                result.invoke(
+                    UiState.Failure(
+                        it.localizedMessage
+                    )
+                )
+            }.await()
+        }
     }
 
 

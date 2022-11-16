@@ -57,7 +57,7 @@ class ForthMainFragment1 : BaseFragment<FragmentForthMain1Binding>() {
         binding.forth1Recyclerview.adapter = adapter
         binding.forth1RefreshLayout.setOnRefreshListener {
             binding.forth1RefreshLayout.isRefreshing = false
-            observer()
+            observer1()
         }
 
 
@@ -66,12 +66,11 @@ class ForthMainFragment1 : BaseFragment<FragmentForthMain1Binding>() {
     override fun onResume() {
         super.onResume()
 
-        observer()
+        observer1()
     }
 
-
-
-    private fun observer() {
+    // 랭킹을 받아오는 코드
+    private fun observer1() {
         viewModel.getSaveTimeMonthInfo()
         viewModel.newSaveTimeMonth.observe(viewLifecycleOwner) { state ->
             when(state) {
@@ -81,8 +80,6 @@ class ForthMainFragment1 : BaseFragment<FragmentForthMain1Binding>() {
                         newSaveTimeMonthList = state.data
                         notifyDataSetChanged()
                     }
-
-                    //adapter.updateList(state.data)
                 }
                 is UiState.Failure -> {
                     binding.progressCircular.hide()
