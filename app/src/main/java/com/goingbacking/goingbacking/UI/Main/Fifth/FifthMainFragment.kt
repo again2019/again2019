@@ -27,6 +27,11 @@ class FifthMainFragment : BaseFragment<FragmentFifthMainBinding>() {
         return FragmentFifthMainBinding.inflate(inflater, container, false)
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        observer()
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
