@@ -9,9 +9,17 @@
         <entry key="..\:/Users/PC/Documents/GitHub/GoingBacking/app/src/main/res/layout/fragment_first_main1.xml" value="0.18333333333333332" />
         <entry key="..\:/Users/PC/Documents/GitHub/GoingBacking/app/src/main/res/menu/bottom_navigation_main.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/drawable-v24/bottom_sheet_clicked.xml" value="0.26979166666666665" />
+        <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/drawable-v24/bottom_sheet_selector.xml" value="0.16111111111111112" />
+        <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/drawable-v24/bottom_sheet_unclicked.xml" value="0.16111111111111112" />
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/drawable-v24/btn_design3.xml" value="0.26979166666666665" />
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/drawable-v24/btn_design4.xml" value="0.26979166666666665" />
+        <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/drawable-v24/example_1_selected_bg.xml" value="0.16111111111111112" />
+        <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/drawable-v24/example_1_today_bg.xml" value="0.16111111111111112" />
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/drawable-v24/example_2_selected_bg.xml" value="0.26979166666666665" />
+        <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/drawable-v24/example_3_selected_bg.xml" value="0.16111111111111112" />
+        <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/drawable-v24/example_4_single_selected_bg.xml" value="0.16111111111111112" />
+        <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/drawable-v24/example_4_today_bg.xml" value="0.16111111111111112" />
+        <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/drawable-v24/example_5_selected_bg.xml" value="0.16111111111111112" />
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/drawable-v24/ic_add.xml" value="0.23072916666666668" />
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/drawable-v24/ic_airplane_takeoff.xml" value="0.26979166666666665" />
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/drawable-v24/ic_check.xml" value="0.26979166666666665" />
@@ -35,6 +43,7 @@
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/drawable/ic_launcher_background.xml" value="0.22604166666666667" />
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/drawable/ic_maintime.xml" value="0.175" />
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/drawable/layout_shape.xml" value="0.26979166666666665" />
+        <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/drawable/maintime.xml" value="0.16111111111111112" />
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/drawable/selected_rectangle.xml" value="0.26979166666666665" />
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/drawable/small_dot_1.xml" value="0.26564102564102565" />
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/drawable/x.xml" value="0.26979166666666665" />
