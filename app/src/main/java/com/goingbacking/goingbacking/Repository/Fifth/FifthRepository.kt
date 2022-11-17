@@ -66,21 +66,12 @@ class FifthRepository(
 
     // 정보 수정 저장
     override fun reviseUserInfo(nickname :String, type :String, selected : List<String>, result: (UiState<String>) -> Unit) {
-        CoroutineScope(Dispatchers.IO).launch {
 
-            var token = ""
-            CoroutineScope(Dispatchers.IO).launch {
-                token = firebaseMessage.token.await()
-                val userInfoDTO = UserInfoDTO(
-                    uid = myUid,
-                    userNickName = nickname,
-                    userType = type,
-                    whatToDoList = selected,
-                    token = token
-                )
-                firebaseFirestore.collection(USERINFO).document(myUid).set(userInfoDTO).await()
-            }
-        }
+        val myDoc =  firebaseFirestore.collection(USERINFO).document(myUid)
+        myDoc.update("userNickName", nickname)
+        myDoc.update("userType", type)
+        myDoc.update("whatToDoList", selected)
+
     }
 
     override fun addInitWhatToDoMonthTime(
