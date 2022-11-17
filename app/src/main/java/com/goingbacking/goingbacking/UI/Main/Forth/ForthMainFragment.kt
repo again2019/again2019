@@ -21,10 +21,9 @@ class ForthMainFragment : BaseFragment<FragmentForthMainBinding>() {
 
     }
 
-    private val viewModel : ForthViewModel by viewModels()
     private val tabTitleArray = arrayOf (
-        "이번 달",
-        "이번 년도"
+        "이번 달 랭킹",
+        "이번 연도 랭킹"
             )
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
