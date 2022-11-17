@@ -29,7 +29,7 @@ class ForthMainFragment2 : BaseFragment<FragmentForthMain2Binding>() {
     val adapter by lazy {
         RankRecyclerViewAdapter2(
             onItemClicked = { destinationUid ->
-                val intent = Intent(requireContext(), RankActivity1::class.java)
+                val intent = Intent(requireContext(), RankActivity2::class.java)
                 intent.putExtra("destinationUid", destinationUid)
                 startActivity(intent)
             }

@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".UI.Main.Forth.RankFragment">
+    android:layout_height="match_parent">
 
     <com.google.android.material.progressindicator.CircularProgressIndicator
         android:id="@+id/progress_circular"
@@ -265,7 +264,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout14"
-        android:layout_width="160dp"
+        android:layout_width="350dp"
         android:layout_height="150dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/btn_design2"
@@ -290,28 +289,4 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="160dp"
-        android:layout_height="150dp"
-        android:background="@drawable/btn_design2"
-        android:backgroundTint="@color/mainBackground"
-        app:layout_constraintEnd_toEndOf="@+id/AAChartView1Layout"
-        app:layout_constraintTop_toTopOf="@+id/constraintLayout14">
-
-        <com.github.aachartmodel.aainfographics.aachartcreator.AAChartView
-            android:id="@+id/AAChartView3"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="4dp"
-            android:layout_marginBottom="4dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

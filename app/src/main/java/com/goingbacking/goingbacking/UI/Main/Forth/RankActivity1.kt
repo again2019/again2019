@@ -27,9 +27,6 @@ class RankActivity1 : BaseActivity<ActivityRank1Binding>({
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        Log.d("experiment", "create")
-
         val destinationUid = intent.getStringExtra("destinationUid")!!
 
         setSupportActionBar(binding.toolbar)
@@ -57,33 +54,7 @@ class RankActivity1 : BaseActivity<ActivityRank1Binding>({
         observer1(destinationUid)
         observer2(destinationUid)
         observer3(destinationUid)
-        observer4(destinationUid)
     }
-
-
-
-    override fun onPause() {
-        super.onPause()
-
-        Log.d("experiment", "pause")
-
-    }
-
-    override fun onStop() {
-        super.onStop()
-
-        Log.d("experiment", "stop")
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-
-        Log.d("experiment", "destroy")
-
-    }
-
-
-
 
     private fun onClick(destinationUid :String) = with(binding) {
         cheer.setOnClickListener {
@@ -246,35 +217,6 @@ class RankActivity1 : BaseActivity<ActivityRank1Binding>({
     }
 
     private fun observer3(destinationUid: String) {
-        viewModel.getSecondSaveMonthInfo(destinationUid)
-        viewModel.secondSaveMonthDTOs.observe(this) { state ->
-            when(state) {
-                is UiState.Success -> {
-                    binding.progressCircular.hide()
-                    val saveTimeMonthDTOList = arrayListOf<Int>()
-                    val saveCategoryList2 = arrayListOf<String>()
-                    for (data in state.data) {
-                        saveTimeMonthDTOList.add(data.count!!)
-                        saveCategoryList2.add(data.month!!.toString())
-                    }
-
-                    Log.e("experiment", "month: " + saveTimeMonthDTOList.toString())
-                    setUpAAChartView1(binding.AAChartView2, saveTimeMonthDTOList, saveCategoryList2)
-
-                }
-                is UiState.Failure -> {
-                    binding.progressCircular.hide()
-                    Log.e("experiment", state.error.toString())
-                }
-                is UiState.Loading -> {
-                    binding.progressCircular.show()
-                }
-            }
-
-        }
-    }
-
-    private fun observer4(destinationUid: String) {
         viewModel.getSecondWhatToDoMonthInfo(destinationUid)
         viewModel.secondwhatToDoMonthDTOs.observe(this) { state ->
             when(state) {
@@ -289,7 +231,7 @@ class RankActivity1 : BaseActivity<ActivityRank1Binding>({
                         whatToDoMonthDTOList.add(tmpList)
                     }
 
-                    setUpAAChartView2(binding.AAChartView3, whatToDoMonthDTOList.toTypedArray())
+                    setUpAAChartView2(binding.AAChartView2, whatToDoMonthDTOList.toTypedArray())
 
                 }
                 is UiState.Failure -> {

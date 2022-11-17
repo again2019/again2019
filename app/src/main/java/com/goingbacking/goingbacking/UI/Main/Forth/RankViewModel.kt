@@ -65,23 +65,6 @@ class RankViewModel @Inject constructor(
     }
 
 
-    private val _saveTimeMonthDTOs = MutableLiveData<UiState<NewSaveTimeMonthDTO>>()
-    val saveTimeMonthDTOs : LiveData<UiState<NewSaveTimeMonthDTO>>
-        get() = _saveTimeMonthDTOs
-
-    fun getSaveTimeMonthInfo(destinationUid :String) {
-        _saveTimeMonthDTOs.value = UiState.Loading
-        rankRepository.getSaveTimeMonthInfo(destinationUid) { _saveTimeMonthDTOs.value = it }
-    }
-
-    private val _saveTimeYearDTOs = MutableLiveData<UiState<NewSaveTimeYearDTO>>()
-    val saveTimeYearDTOs : LiveData<UiState<NewSaveTimeYearDTO>>
-        get() = _saveTimeYearDTOs
-
-    fun getSaveTimeYearInfo(destinationUid :String) {
-        _saveTimeYearDTOs.value = UiState.Loading
-        rankRepository.getSaveTimeYearInfo(destinationUid) { _saveTimeYearDTOs.value = it }
-    }
 
     private val _userInfoDTOs = MutableLiveData<UiState<UserInfoDTO>>()
     val userInfoDTO : LiveData<UiState<UserInfoDTO>>
