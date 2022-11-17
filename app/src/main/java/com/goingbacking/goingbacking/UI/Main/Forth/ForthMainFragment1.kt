@@ -28,24 +28,10 @@ class ForthMainFragment1 : BaseFragment<FragmentForthMain1Binding>() {
     val viewModel : ForthViewModel by viewModels()
     val adapter by lazy {
         RankRecyclerViewAdapter1(
-            viewModel,
             onItemClicked = { destinationUid ->
-//                val bottom  = RankBottomSheet()
-//                val bundle = Bundle()
-//                bundle.putString("destinationUid", destinationUid)
-//                bottom.arguments = bundle
-//                bottom.show(childFragmentManager, bottom.tag)
-
                 val intent = Intent(requireContext(), RankActivity1::class.java)
                 intent.putExtra("destinationUid", destinationUid)
                 startActivity(intent)
-            },
-            onCheerClicked = { destinationUid ->
-                val bottom = CheerBottomSheet()
-                val bundle = Bundle()
-                bundle.putString("destinationUid", destinationUid)
-                bottom.arguments = bundle
-                bottom.show(childFragmentManager, bottom.tag)
             }
         )
     }
