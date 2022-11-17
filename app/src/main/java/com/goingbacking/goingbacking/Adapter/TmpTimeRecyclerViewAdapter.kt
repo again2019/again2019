@@ -11,11 +11,9 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
-//RecyclerView.Adapter<TmpTimeRecyclerViewAdapter.MyViewHolder>()
 class TmpTimeRecyclerViewAdapter(
     val onItemClicked: (String, String, String, String, Double, String, String, String, String) -> Unit
 ): ListAdapter<TmpTimeDTO, TmpTimeRecyclerViewAdapter.MyViewHolder>(diffUtil) {
-    //private var tmpTimeDTOList : ArrayList<TmpTimeDTO> = arrayListOf()
     inner class MyViewHolder(private val binding: ItemTmpBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: TmpTimeDTO) {
 
@@ -44,14 +42,6 @@ class TmpTimeRecyclerViewAdapter(
             }
         }
     }
-
-
-
-
-//    fun updateList(list: ArrayList<TmpTimeDTO>) {
-//        this.tmpTimeDTOList = list
-//        notifyDataSetChanged()
-//    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val itemView = ItemTmpBinding.inflate(LayoutInflater.from(parent.context), parent, false)

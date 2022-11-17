@@ -61,10 +61,8 @@ class ForthMainFragment1 : BaseFragment<FragmentForthMain1Binding>() {
             when(state) {
                 is UiState.Success -> {
                     binding.progressCircular.hide()
-                    adapter.apply {
-                        newSaveTimeMonthList = state.data
-                        notifyDataSetChanged()
-                    }
+                    adapter.submitList(state.data)
+
                 }
                 is UiState.Failure -> {
                     binding.progressCircular.hide()
