@@ -1,19 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".UI.Main.Forth.ForthMainFragment2"
-    android:orientation="vertical">
+    tools:context=".UI.Main.Forth.ForthMainFragment1"
+    >
 
     <com.google.android.material.progressindicator.CircularProgressIndicator
         android:id="@+id/progress_circular"
+        style="@style/ProgressCircular"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:indicatorColor="@color/example_3_blue"
-        android:indeterminate="true"
-        android:visibility="invisible" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/forth2_refreshLayout"
@@ -22,11 +24,11 @@
         android:orientation="vertical"
         tools:context=".MainActivity">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/forth2_recyclerview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/forth2_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

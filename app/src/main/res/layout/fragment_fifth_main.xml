@@ -160,6 +160,8 @@
             android:layout_width="350dp"
             android:layout_height="1dp"
             android:background="@color/colorHorizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/using" />
 
         <TextView
@@ -186,7 +188,7 @@
             app:layout_constraintTop_toBottomOf="@+id/using" />
 
         <TextView
-            android:id="@+id/changing"
+            android:id="@+id/question"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:gravity="center_vertical"
@@ -205,7 +207,7 @@
             android:background="@color/colorHorizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/changing" />
+            app:layout_constraintTop_toBottomOf="@+id/question" />
 
         <TextView
             android:id="@+id/out"
@@ -220,7 +222,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/changing" />
+            app:layout_constraintTop_toBottomOf="@+id/question" />
 
         <View
             android:id="@+id/view3"

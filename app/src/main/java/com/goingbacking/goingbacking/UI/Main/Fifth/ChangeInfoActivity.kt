@@ -121,6 +121,8 @@ class ChangeInfoActivity : BaseActivity<ActivityChangeInfoBinding>({
                     PrefUtil.setHistoryWhatToDo(historyWhatToDo, this@ChangeInfoActivity)
 
                     viewModel.reviseUserInfo(changeNickNameEditText.text.toString(), changeTypeEditText.text.toString(), selected.toList())
+
+
                     finish()
                 }
                 else {

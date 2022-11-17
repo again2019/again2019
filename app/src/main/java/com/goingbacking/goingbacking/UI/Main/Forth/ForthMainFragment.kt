@@ -21,13 +21,24 @@ class ForthMainFragment : BaseFragment<FragmentForthMainBinding>() {
 
     }
 
-    private val viewModel : ForthViewModel by viewModels()
     private val tabTitleArray = arrayOf (
-        "이번 달",
-        "이번 년도"
+        "이번 달 랭킹",
+        "이번 연도 랭킹"
             )
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val viewPager = binding.forthViewPager
+        val tabs = binding.forthTabs
+        viewPager.adapter = ForthFragmentPagerAdapter(childFragmentManager, lifecycle)
+        TabLayoutMediator(tabs,viewPager) { tab, position ->
+            tab.text = tabTitleArray[position]
+        }.attach()
+
+    }
+
+    override fun onResume() {
+        super.onResume()
 
         val viewPager = binding.forthViewPager
         val tabs = binding.forthTabs

@@ -1,5 +1,6 @@
 package com.goingbacking.goingbacking.UI.Main.Forth
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,7 +10,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.goingbacking.goingbacking.Adapter.RankRecyclerViewAdapter2
 import com.goingbacking.goingbacking.R
 import com.goingbacking.goingbacking.UI.Base.BaseFragment
-import com.goingbacking.goingbacking.bottomsheet.RankBottomSheet
 import com.goingbacking.goingbacking.databinding.FragmentForthMain2Binding
 import com.goingbacking.goingbacking.util.UiState
 import com.goingbacking.goingbacking.util.toast
@@ -28,13 +28,10 @@ class ForthMainFragment2 : BaseFragment<FragmentForthMain2Binding>() {
     val viewModel : ForthViewModel by viewModels()
     val adapter by lazy {
         RankRecyclerViewAdapter2(
-            viewModel,
             onItemClicked = { destinationUid ->
-                val bottom  = RankBottomSheet()
-                val bundle = Bundle()
-                bundle.putString("destinationUid", destinationUid)
-                bottom.arguments = bundle
-                bottom.show(childFragmentManager, bottom.tag)
+                val intent = Intent(requireContext(), RankActivity2::class.java)
+                intent.putExtra("destinationUid", destinationUid)
+                startActivity(intent)
             }
         )
     }

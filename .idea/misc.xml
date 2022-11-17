@@ -22,6 +22,8 @@
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/drawable-v24/maintime.xml" value="0.175" />
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/drawable-v24/today_rectangle.xml" value="0.26564102564102565" />
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/drawable/arrow.xml" value="0.26564102564102565" />
+        <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/drawable/arrow_up.xml" value="0.20185185185185187" />
+        <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/drawable/basic_image.xml" value="0.196875" />
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/drawable/bnm_shape.xml" value="0.26979166666666665" />
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/drawable/bottomsheet_shape.xml" value="0.4" />
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/drawable/btn_design1.xml" value="0.1638888888888889" />
@@ -41,7 +43,11 @@
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/layout/activity_first_input.xml" value="0.115625" />
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/layout/activity_input.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/layout/activity_login.xml" value="0.1835032437442076" />
-        <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/layout/activity_main.xml" value="0.4" />
+        <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/layout/activity_main.xml" value="0.176" />
+        <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/layout/activity_question.xml" value="0.264" />
+        <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/layout/activity_rank.xml" value="0.25364583333333335" />
+        <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/layout/activity_rank1.xml" value="0.264" />
+        <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/layout/activity_rank2.xml" value="0.1" />
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/layout/activity_schedule_input.xml" value="0.2" />
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/layout/activity_second_input.xml" value="0.115625" />
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/layout/activity_splash.xml" value="0.264" />
@@ -52,7 +58,7 @@
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/layout/activity_what_to_do_save.xml" value="0.1" />
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/layout/bottom_sheet_calendar.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/layout/bottom_sheet_calendar_detail.xml" value="0.2" />
-        <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/layout/bottom_sheet_cheer.xml" value="0.4" />
+        <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/layout/bottom_sheet_cheer.xml" value="0.536" />
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/layout/bottom_sheet_input.xml" value="0.2" />
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/layout/bottom_sheet_rank.xml" value="0.264" />
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/layout/bottom_sheet_what_to_do_save.xml" value="0.15841584158415842" />
@@ -66,7 +72,7 @@
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/layout/fade_in.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/layout/fragment_before_login.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/layout/fragment_email_login.xml" value="0.264" />
-        <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/layout/fragment_fifth_main.xml" value="0.455535390199637" />
+        <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/layout/fragment_fifth_main.xml" value="0.4" />
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/layout/fragment_first_input.xml" value="0.3276661514683153" />
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/layout/fragment_first_main.xml" value="0.264" />
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/layout/fragment_forget.xml" value="0.2" />
@@ -76,6 +82,8 @@
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/layout/fragment_input_bottom_sheet.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/layout/fragment_login.xml" value="0.2727272727272727" />
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/layout/fragment_login2.xml" value="0.19166666666666668" />
+        <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/layout/fragment_rank.xml" value="0.2" />
+        <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/layout/fragment_rank0.xml" value="0.176" />
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/layout/fragment_rank1.xml" value="0.1" />
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/layout/fragment_rank2.xml" value="0.1" />
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/layout/fragment_register.xml" value="0.264" />
@@ -83,7 +91,7 @@
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/layout/fragment_schedule_input2.xml" value="0.536" />
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/layout/fragment_second_input.xml" value="0.12749003984063745" />
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/layout/fragment_second_main.xml" value="0.1" />
-        <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/layout/fragment_second_main1.xml" value="0.1" />
+        <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/layout/fragment_second_main1.xml" value="0.152" />
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/layout/fragment_second_main2.xml" value="0.264" />
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/layout/fragment_third_input.xml" value="0.152" />
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/layout/fragment_third_main.xml" value="0.2323049001814882" />
@@ -91,10 +99,10 @@
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/layout/item_calendar_day.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/layout/item_calendar_header.xml" value="0.10648148148148148" />
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/layout/item_calendar_header_main.xml" value="0.25364583333333335" />
-        <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/layout/item_cheer.xml" value="0.18981481481481483" />
+        <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/layout/item_cheer.xml" value="0.1" />
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/layout/item_comment.xml" value="0.1" />
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/layout/item_event.xml" value="0.4" />
-        <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/layout/item_ranking.xml" value="0.25364583333333335" />
+        <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/layout/item_ranking.xml" value="0.4692028985507246" />
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/layout/item_tmp.xml" value="0.6" />
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/layout/item_today_list.xml" value="0.72" />
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/layout/progress_circular.xml" value="0.25364583333333335" />

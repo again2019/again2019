@@ -1,10 +1,12 @@
 package com.goingbacking.goingbacking.bottomsheet
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,11 +15,10 @@ import com.goingbacking.goingbacking.Adapter.CheerRecyclerViewAdapter
 import com.goingbacking.goingbacking.R
 import com.goingbacking.goingbacking.UI.Main.Forth.ForthViewModel
 import com.goingbacking.goingbacking.databinding.BottomSheetCheerBinding
-import com.goingbacking.goingbacking.util.PrefUtil
-import com.goingbacking.goingbacking.util.UiState
-import com.goingbacking.goingbacking.util.makeGONE
-import com.goingbacking.goingbacking.util.toast
+import com.goingbacking.goingbacking.util.*
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 
 class CheerBottomSheet : BottomSheetDialogFragment() {
@@ -40,24 +41,16 @@ class CheerBottomSheet : BottomSheetDialogFragment() {
         if (destinationUid == null) {
             toast(requireContext(), getString(R.string.no_information))
         } else {
-            if (destinationUid.equals(PrefUtil.getCurrentUid(requireContext()))) {
-                binding.cheerEditText.makeGONE()
-                binding.cheerOkayButton.makeGONE()
-            }
+//            if (destinationUid.equals(PrefUtil.getCurrentUid(requireContext()))) {
+//                binding.cheerEditText.makeGONE()
+//                binding.cheerOkayButton.makeGONE()
+//            }
 
             binding.cheerRecyclerView.apply {
                 layoutManager =
                     LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
                 adapter = cheerAdapter
-                addItemDecoration(
-                    DividerItemDecoration(
-                        requireContext(),
-                        RecyclerView.VERTICAL
-                    )
-                )
             }
-//            val list = listOf<String>("ss:aa:ss", "aa:aa:aa")
-//            cheerAdapter.submitList(list)
 
             observer1(destinationUid)
             binding.cheerOkayButton.setOnClickListener {
@@ -105,9 +98,9 @@ class CheerBottomSheet : BottomSheetDialogFragment() {
                 is UiState.Success -> {
                     binding.progressCircular.hide()
                     Log.d("experiment", state.data.toString())
-//                    cheerAdapter.submitList(state.data)
+                    cheerAdapter.submitList(state.data)
 //                    updateAdapterForDate(state.data, destinationUid)
-                    state.data.toTypedArray()
+//                    state.data.toTypedArray()
                 }
                 is UiState.Failure -> {
                     binding.progressCircular.hide()
@@ -119,11 +112,3 @@ class CheerBottomSheet : BottomSheetDialogFragment() {
         }
     }
 }
-//    private fun updateAdapterForDate(list: List<String>, destinationUid :String) {
-//        cheerAdapter.apply {
-//            events = list
-//            hostUid = destinationUid
-//            notifyDataSetChanged()
-//            }
-//        }
-//    }

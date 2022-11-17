@@ -1,5 +1,6 @@
 package com.goingbacking.goingbacking.UI.Main.Forth
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +11,6 @@ import com.goingbacking.goingbacking.Adapter.RankRecyclerViewAdapter1
 import com.goingbacking.goingbacking.R
 import com.goingbacking.goingbacking.UI.Base.BaseFragment
 import com.goingbacking.goingbacking.bottomsheet.CheerBottomSheet
-import com.goingbacking.goingbacking.bottomsheet.RankBottomSheet
 import com.goingbacking.goingbacking.databinding.FragmentForthMain1Binding
 import com.goingbacking.goingbacking.util.UiState
 import com.goingbacking.goingbacking.util.toast
@@ -28,20 +28,10 @@ class ForthMainFragment1 : BaseFragment<FragmentForthMain1Binding>() {
     val viewModel : ForthViewModel by viewModels()
     val adapter by lazy {
         RankRecyclerViewAdapter1(
-            viewModel,
             onItemClicked = { destinationUid ->
-                val bottom  = RankBottomSheet()
-                val bundle = Bundle()
-                bundle.putString("destinationUid", destinationUid)
-                bottom.arguments = bundle
-                bottom.show(childFragmentManager, bottom.tag)
-            },
-            onCheerClicked = { destinationUid ->
-                val bottom = CheerBottomSheet()
-                val bundle = Bundle()
-                bundle.putString("destinationUid", destinationUid)
-                bottom.arguments = bundle
-                bottom.show(childFragmentManager, bottom.tag)
+                val intent = Intent(requireContext(), RankActivity1::class.java)
+                intent.putExtra("destinationUid", destinationUid)
+                startActivity(intent)
             }
         )
     }
@@ -52,7 +42,7 @@ class ForthMainFragment1 : BaseFragment<FragmentForthMain1Binding>() {
         binding.forth1Recyclerview.adapter = adapter
         binding.forth1RefreshLayout.setOnRefreshListener {
             binding.forth1RefreshLayout.isRefreshing = false
-            observer()
+            observer1()
         }
 
 
@@ -61,12 +51,11 @@ class ForthMainFragment1 : BaseFragment<FragmentForthMain1Binding>() {
     override fun onResume() {
         super.onResume()
 
-        observer()
+        observer1()
     }
 
-
-
-    private fun observer() {
+    // 랭킹을 받아오는 코드
+    private fun observer1() {
         viewModel.getSaveTimeMonthInfo()
         viewModel.newSaveTimeMonth.observe(viewLifecycleOwner) { state ->
             when(state) {
@@ -76,8 +65,6 @@ class ForthMainFragment1 : BaseFragment<FragmentForthMain1Binding>() {
                         newSaveTimeMonthList = state.data
                         notifyDataSetChanged()
                     }
-
-                    //adapter.updateList(state.data)
                 }
                 is UiState.Failure -> {
                     binding.progressCircular.hide()

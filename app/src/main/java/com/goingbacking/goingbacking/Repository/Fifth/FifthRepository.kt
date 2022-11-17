@@ -1,5 +1,7 @@
 package com.goingbacking.goingbacking.Repository.Fifth
 
+import com.goingbacking.goingbacking.AppConstants.Companion.RANKMONTHINFO
+import com.goingbacking.goingbacking.AppConstants.Companion.RANKYEARINFO
 import com.goingbacking.goingbacking.AppConstants.Companion.SUCCESS
 import com.goingbacking.goingbacking.Model.UserInfoDTO
 import com.goingbacking.goingbacking.Model.WhatToDoMonthDTO
@@ -66,21 +68,18 @@ class FifthRepository(
 
     // 정보 수정 저장
     override fun reviseUserInfo(nickname :String, type :String, selected : List<String>, result: (UiState<String>) -> Unit) {
-        CoroutineScope(Dispatchers.IO).launch {
+        val myDoc1 =  firebaseFirestore.collection(USERINFO).document(myUid)
+        myDoc1.update("userNickName", nickname)
+        myDoc1.update("userType", type)
+        myDoc1.update("whatToDoList", selected)
 
-            var token = ""
-            CoroutineScope(Dispatchers.IO).launch {
-                token = firebaseMessage.token.await()
-                val userInfoDTO = UserInfoDTO(
-                    uid = myUid,
-                    userNickName = nickname,
-                    userType = type,
-                    whatToDoList = selected,
-                    token = token
-                )
-                firebaseFirestore.collection(USERINFO).document(myUid).set(userInfoDTO).await()
-            }
-        }
+        firebaseFirestore.collection(RANKMONTHINFO).document(currentday("yyyy-MM"))
+            .collection(currentday("yyyy-MM")).document(myUid)
+            .update("nickname", nickname)
+
+        firebaseFirestore.collection(RANKYEARINFO).document(currentday("yyyy"))
+            .collection(currentday("yyyy")).document(myUid)
+            .update("nickname", nickname)
     }
 
     override fun addInitWhatToDoMonthTime(

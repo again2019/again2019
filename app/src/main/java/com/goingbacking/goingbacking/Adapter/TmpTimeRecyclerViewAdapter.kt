@@ -12,7 +12,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class TmpTimeRecyclerViewAdapter(
-    val onItemClicked: (String, String, String, String, FieldValue, Double, String, String, String, String) -> Unit
+    val onItemClicked: (String, String, String, String, Double, String, String, String, String) -> Unit
 ): RecyclerView.Adapter<TmpTimeRecyclerViewAdapter.MyViewHolder>() {
     private var tmpTimeDTOList : ArrayList<TmpTimeDTO> = arrayListOf()
 
@@ -56,11 +56,10 @@ class TmpTimeRecyclerViewAdapter(
             val wakeUpTime3 = SimpleDateFormat("yyyy", Locale.getDefault()).format(item.wakeUpTime!!)
             val wakeUpTime4 = SimpleDateFormat("MM", Locale.getDefault()).format(item.wakeUpTime!!)
 
-            val count = FieldValue.increment(item.nowSeconds!!.toDouble())
 
 
             binding.saveButton.setOnClickListener {
-                onItemClicked.invoke(wakeUpTime1, wakeUpTime2, wakeUpTime3, wakeUpTime4, count, item.nowSeconds!!.toDouble(), String.format("%d시간 %d분", hour, minute), simpleDate1, simpleDate2, simpleDate3)
+                onItemClicked.invoke(wakeUpTime1, wakeUpTime2, wakeUpTime3, wakeUpTime4, item.nowSeconds!!.toDouble(), String.format("%d시간 %d분", hour, minute), simpleDate1, simpleDate2, simpleDate3)
 
             }
         }

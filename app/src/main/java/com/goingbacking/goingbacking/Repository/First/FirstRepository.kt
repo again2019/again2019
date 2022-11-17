@@ -6,6 +6,8 @@ import com.goingbacking.goingbacking.util.Constants.Companion.SUCCESS
 import com.goingbacking.goingbacking.util.FBConstants
 import com.goingbacking.goingbacking.util.FBConstants.Companion.DAY
 import com.goingbacking.goingbacking.util.FBConstants.Companion.MONTH
+import com.goingbacking.goingbacking.util.FBConstants.Companion.RANKMONTHINFO
+import com.goingbacking.goingbacking.util.FBConstants.Companion.RANKYEARINFO
 import com.goingbacking.goingbacking.util.FBConstants.Companion.SAVETIMEINFO
 import com.goingbacking.goingbacking.util.FBConstants.Companion.WHATTODOINFO
 import com.goingbacking.goingbacking.util.FBConstants.Companion.YEAR
@@ -22,7 +24,6 @@ class FirstRepository(
     val firebaseFirestore: FirebaseFirestore
 ) : FirstRepositoryIF {
     val myUid = user?.uid!!
-    val cache = Source.CACHE
 
     override fun getTmpTimeInfo(result: (UiState<ArrayList<TmpTimeDTO>>) -> Unit) {
         firebaseFirestore.collection(FBConstants.TMPTIMEINFO).document(myUid)
@@ -58,14 +59,7 @@ class FirstRepository(
             .collection(DAY).document(wakeUpTime1)
             .collection(wakeUpTime1).document(myUid + wakeUpTime2)
             .update("count", count)
-            .addOnSuccessListener {
-                result.invoke(UiState.Success(SUCCESS))
-            }
-            .addOnFailureListener {
-                result.invoke(UiState.Failure(
-                    it.localizedMessage
-                ))
-            }
+
     }
 
     override fun updateTmpTimeMonthInfo(
@@ -87,33 +81,55 @@ class FirstRepository(
         result: (UiState<String>) -> Unit
     ) {
         firebaseFirestore.collection(SAVETIMEINFO).document(myUid)
-                    .collection(YEAR).document(wakeUpTime)
+                    .collection("year").document(wakeUpTime)
                     .update("count", count)
 
     }
 
     override fun updateWhatToDoMonthInfo(
+        yyyyMM :String,
         whatToDo: String,
         count: FieldValue,
         result: (UiState<String>) -> Unit
     ) {
         firebaseFirestore.collection(WHATTODOINFO).document(myUid)
-            .collection(MONTH).document(currentday("yyyy-MM"))
-            .collection(currentday("yyyy-MM")).document(myUid + whatToDo)
+            .collection("month").document(yyyyMM)
+            .collection(yyyyMM).document(myUid + whatToDo)
             .update("count", count)
 
     }
 
     override fun updateWhatToDoYearInfo(
+        yyyy :String,
         whatToDo: String,
         count: FieldValue,
         result: (UiState<String>) -> Unit
     ) {
         firebaseFirestore.collection(WHATTODOINFO).document(myUid)
-            .collection(YEAR).document(currentday("yyyy"))
-            .collection(currentday("yyyy")).document(myUid + whatToDo)
+            .collection("year").document(yyyy)
+            .collection(yyyy).document(myUid + whatToDo)
             .update("count", count)
 
+    }
+
+    override fun updateRankMonthInfo(
+        yyyyMM: String,
+        count: FieldValue,
+        result: (UiState<String>) -> Unit
+    ) {
+        firebaseFirestore.collection(RANKMONTHINFO).document(yyyyMM)
+            .collection(yyyyMM).document(myUid)
+            .update("count",count)
+    }
+
+    override fun updateRankYearInfo(
+        yyyy: String,
+        count: FieldValue,
+        result: (UiState<String>) -> Unit
+    ) {
+        firebaseFirestore.collection(RANKYEARINFO).document(yyyy)
+            .collection(yyyy).document(myUid)
+            .update("count",count)
     }
 
     override fun getWhatToDoInfo(result: (UiState<List<String>>) -> Unit) {

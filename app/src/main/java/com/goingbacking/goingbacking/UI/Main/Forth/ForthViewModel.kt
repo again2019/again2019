@@ -66,13 +66,6 @@ class ForthViewModel @Inject constructor(
         forthRepository.deleteCheerInfo(destinationUid, text) { _deleteCheerInfo.postValue(it) }
     }
 
-    // 좋아요 버튼 클릭/해제시 나타내는 코드
-    private val _likeButtonInfo = MutableLiveData<UiState<String>>()
-
-    fun likeButtonInfo(destinationUid :String, state :String) = viewModelScope.launch {
-        _likeButtonInfo.value = UiState.Loading
-        forthRepository.likeButtonInfo(destinationUid, state) { _likeButtonInfo.postValue(it) }
-    }
 
 
 

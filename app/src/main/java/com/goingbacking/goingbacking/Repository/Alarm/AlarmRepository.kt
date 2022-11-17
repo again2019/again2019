@@ -189,10 +189,7 @@ class AlarmRepository : AlarmRepositoryIF {
             if (beforeday("MM") != currentday("MM")) {
                 val newSaveTimeMonthDTO = NewSaveTimeMonthDTO(
                     uid = myUid,
-                    token = userInfo.token,
                     nickname = userInfo.userNickName,
-                    type = userInfo.userType,
-                    whattodo = userInfo.whatToDoList,
                     count = 0
                 )
 
@@ -206,9 +203,6 @@ class AlarmRepository : AlarmRepositoryIF {
                     uid = myUid,
                     count = 0,
                     nickname = userInfo.userNickName,
-                    type = userInfo.userType,
-                    whattodo = userInfo.whatToDoList,
-                    token = userInfo.token,
                 )
                 firebaseFirestore.collection(RANKYEARINFO).document(currentday("yyyy"))
                     .collection(currentday("yyyy")).document(myUid).set(newSaveTimeYearDTO)

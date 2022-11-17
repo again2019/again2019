@@ -72,14 +72,14 @@ class FirstViewModel @Inject constructor(
         firstRepository.updateTmpTimeYearInfo(wakeUpTime, count) { _tmpTimeYearDTOs.value = it }
     }
 
-    fun updateWhatToDoMonthInfo(whatToDo: String, count: FieldValue) {
+    fun updateWhatToDoMonthInfo(yyyyMM : String, whatToDo: String, count: FieldValue) {
         _whatToDoMonthDTOs.value = UiState.Loading
-        firstRepository.updateWhatToDoMonthInfo(whatToDo, count) { _whatToDoMonthDTOs.value = it }
+        firstRepository.updateWhatToDoMonthInfo(yyyyMM, whatToDo, count) { _whatToDoMonthDTOs.value = it }
     }
 
-    fun updateWhatToDoYearInfo(whatToDo: String, count: FieldValue) {
+    fun updateWhatToDoYearInfo(yyyy : String, whatToDo: String, count: FieldValue) {
         _whatToDoYearDTOs.value = UiState.Loading
-        firstRepository.updateWhatToDoYearInfo(whatToDo, count) { _whatToDoYearDTOs.value = it }
+        firstRepository.updateWhatToDoYearInfo(yyyy, whatToDo, count) { _whatToDoYearDTOs.value = it }
     }
 
     fun getWhatToDoInfo() {
@@ -88,7 +88,26 @@ class FirstViewModel @Inject constructor(
 
     }
 
+    private val _rankMonthDTOs = MutableLiveData<UiState<String>>()
 
-
-
+    fun updateRankMonthInfo(yyyyMM: String,
+                            count: FieldValue,
+    ) {
+        _rankMonthDTOs.value = UiState.Loading
+        firstRepository.updateRankMonthInfo(yyyyMM, count) { _rankMonthDTOs.value = it }
     }
+
+    private val _rankYearDTOs = MutableLiveData<UiState<String>>()
+
+    fun updateRankYearInfo(yyyy: String,
+                              count: FieldValue
+    ) {
+        _rankYearDTOs.value = UiState.Loading
+        firstRepository.updateRankYearInfo(yyyy, count) { _rankYearDTOs.value = it }
+    }
+
+
+
+
+
+}
