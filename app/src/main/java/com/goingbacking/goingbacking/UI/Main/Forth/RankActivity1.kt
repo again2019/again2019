@@ -42,6 +42,8 @@ class RankActivity1 : BaseActivity<ActivityRank1Binding>({
                 when(menuItem.itemId) {
                     android.R.id.home -> {
                         finish()
+
+
                         return true
                     }
                 }
@@ -50,7 +52,6 @@ class RankActivity1 : BaseActivity<ActivityRank1Binding>({
         }, this, Lifecycle.State.RESUMED)
 
         onClick(destinationUid)
-        supportFragmentManager.executePendingTransactions()
         observer1(destinationUid)
         observer2(destinationUid)
         observer3(destinationUid)
@@ -65,6 +66,25 @@ class RankActivity1 : BaseActivity<ActivityRank1Binding>({
             bottom.show(supportFragmentManager, bottom.tag)
 
             supportFragmentManager.executePendingTransactions()
+            bottom.dialog!!.setOnCancelListener {
+                viewModel.getFifthUserInfo(destinationUid)
+                viewModel.userInfoDTO.observe(this@RankActivity1) { state ->
+                    when (state) {
+                        is UiState.Success -> {
+                            progressCircular.hide()
+                            cheerCount.text = state.data.cheers.size.toString()
+                        }
+                        is UiState.Failure -> {
+                            progressCircular.hide()
+
+                        }
+                        is UiState.Loading -> {
+                            progressCircular.show()
+
+                        }
+                    }
+                }
+            }
             bottom.dialog!!.setOnDismissListener {
                 viewModel.getFifthUserInfo(destinationUid)
                 viewModel.userInfoDTO.observe(this@RankActivity1) { state ->

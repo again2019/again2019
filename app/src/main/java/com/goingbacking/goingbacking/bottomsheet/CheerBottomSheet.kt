@@ -1,5 +1,6 @@
 package com.goingbacking.goingbacking.bottomsheet
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -21,21 +22,11 @@ import java.time.format.DateTimeFormatter
 
 
 class CheerBottomSheet : BottomSheetDialogFragment() {
-    var destinationUid = ""
     private lateinit var binding: BottomSheetCheerBinding
     private val viewModel: ForthViewModel by activityViewModels()
     private val cheerAdapter = CheerRecyclerViewAdapter(
         onDeleteClick = { hostUid, original_cheer ->
             viewModel.deleteCheerInfo(hostUid, original_cheer)
-//            AlertDialog.Builder(requireContext())
-//                .setMessage("해당 댓글을 삭제하시겠습니까?")
-//                .setPositiveButton("삭제하기") { _,_ ->
-//                    viewModel.deleteCheerInfo(hostUid, original_cheer)
-//                    return
-//                //                    observer1(destinationUid)
-//                }
-//                .setNegativeButton("나가기", null)
-//                .show()
         }
     )
 
@@ -45,7 +36,7 @@ class CheerBottomSheet : BottomSheetDialogFragment() {
     ): View {
         binding = BottomSheetCheerBinding.inflate(inflater, container, false)
 
-        destinationUid = arguments?.getString("destinationUid")!!
+        val destinationUid = arguments?.getString("destinationUid")
 
         if (destinationUid == null) {
             toast(requireContext(), getString(R.string.no_information))
@@ -60,8 +51,6 @@ class CheerBottomSheet : BottomSheetDialogFragment() {
                     LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
                 adapter = cheerAdapter
             }
-//            val list = listOf<String>("ss:aa:ss", "aa:aa:aa")
-//            cheerAdapter.submitList(list)
 
             observer1(destinationUid)
             binding.cheerOkayButton.setOnClickListener {
@@ -73,9 +62,6 @@ class CheerBottomSheet : BottomSheetDialogFragment() {
                     binding.cheerEditText.setText("")
                 }
 
-            }
-            binding.xBtn.setOnClickListener {
-                dismiss()
             }
         }
 
