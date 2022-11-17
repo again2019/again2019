@@ -44,7 +44,7 @@ class TmpTimeActivity : BaseActivity<ActivityTmpTimeBinding>({
                     bundle.putString("simpleFormat2", simpleFormat2)
                     bundle.putString("simpleFormat3", simpleFormat3)
                     bundle.putString("simpleFormat4", simpleFormat4)
-
+                    binding.progressCircular.hide()
                     bottom.arguments = bundle
                     bottom.show(supportFragmentManager, bottom.tag)
                 }
