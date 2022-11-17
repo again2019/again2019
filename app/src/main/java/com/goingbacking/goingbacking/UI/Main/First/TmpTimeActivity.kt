@@ -32,7 +32,7 @@ class TmpTimeActivity : BaseActivity<ActivityTmpTimeBinding>({
         TmpTimeRecyclerViewAdapter(
             onItemClicked = { wakeUpTime1, wakeUpTime2, wakeUpTime3, wakeUpTime4, count, count_double, simpleFormat1, simpleFormat2, simpleFormat3, simpleFormat4 ->
                 TmpTimeDayOberver(wakeUpTime1, wakeUpTime2, count)
-                TmpTimeMonthOberver(wakeUpTime3, wakeUpTime2, count)
+                TmpTimeMonthOberver(wakeUpTime3, wakeUpTime4, count)
                 TmpTimeYearOberver(wakeUpTime3, count)
                 val bottom  = WhatToDoSaveBottomSheet()
                 val bundle = Bundle()

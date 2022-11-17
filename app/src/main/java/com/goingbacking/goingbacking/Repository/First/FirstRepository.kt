@@ -22,7 +22,6 @@ class FirstRepository(
     val firebaseFirestore: FirebaseFirestore
 ) : FirstRepositoryIF {
     val myUid = user?.uid!!
-    val cache = Source.CACHE
 
     override fun getTmpTimeInfo(result: (UiState<ArrayList<TmpTimeDTO>>) -> Unit) {
         firebaseFirestore.collection(FBConstants.TMPTIMEINFO).document(myUid)
@@ -58,14 +57,7 @@ class FirstRepository(
             .collection(DAY).document(wakeUpTime1)
             .collection(wakeUpTime1).document(myUid + wakeUpTime2)
             .update("count", count)
-            .addOnSuccessListener {
-                result.invoke(UiState.Success(SUCCESS))
-            }
-            .addOnFailureListener {
-                result.invoke(UiState.Failure(
-                    it.localizedMessage
-                ))
-            }
+
     }
 
     override fun updateTmpTimeMonthInfo(
@@ -87,7 +79,7 @@ class FirstRepository(
         result: (UiState<String>) -> Unit
     ) {
         firebaseFirestore.collection(SAVETIMEINFO).document(myUid)
-                    .collection(YEAR).document(wakeUpTime)
+                    .collection("year").document(wakeUpTime)
                     .update("count", count)
 
     }
