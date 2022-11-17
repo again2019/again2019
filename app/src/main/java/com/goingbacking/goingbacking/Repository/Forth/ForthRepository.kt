@@ -70,18 +70,18 @@ class ForthRepository (
 
 
     override fun getCheerInfo(destinationUid: String, result: (UiState<List<String>>) -> Unit) {
-        firebaseFirestore.collection(USERINFO).document(destinationUid)
-            .get().addOnSuccessListener { document ->
-                result.invoke(
-                    UiState.Success(
-                        document.toObject(NewSaveTimeYearDTO::class.java)!!.cheers
-                    )
-                )
-            }
-            .addOnFailureListener {
-                result.invoke(UiState.Failure(FAIL))
-            }
-
+//        firebaseFirestore.collection(USERINFO).document(destinationUid)
+//            .get().addOnSuccessListener { document ->
+//                result.invoke(
+//                    UiState.Success(
+//                        document.toObject(NewSaveTimeYearDTO::class.java)!!.cheers
+//                    )
+//                )
+//            }
+//            .addOnFailureListener {
+//                result.invoke(UiState.Failure(FAIL))
+//            }
+//
 
     //        firebaseFirestore.collection(RANKYEARINFO).document(currentday("yyyy"))
 //            .collection(currentday("yyyy")).document(destinationUid).get()

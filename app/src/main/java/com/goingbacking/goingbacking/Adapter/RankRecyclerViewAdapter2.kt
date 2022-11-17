@@ -12,7 +12,6 @@ import com.goingbacking.goingbacking.databinding.ItemRankingBinding
 import com.goingbacking.goingbacking.util.PrefUtil
 
 class RankRecyclerViewAdapter2 (
-    val viewModel: ForthViewModel,
     val onItemClicked : (String) -> Unit
         ): RecyclerView.Adapter<RankRecyclerViewAdapter2.MyViewHolder>() {
     var newSaveTimeYearDTOList : ArrayList<NewSaveTimeYearDTO> = arrayListOf()
@@ -60,59 +59,18 @@ class RankRecyclerViewAdapter2 (
 
     inner class MyViewHolder(val binding: ItemRankingBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: NewSaveTimeYearDTO, position: Int) = with(binding) {
-
-            var rankLikeNum = item.likes.size
-//            rankLike.text = rankLikeNum.toString()
-//            var isSwitch = true
-//            if (item.likes.contains(PrefUtil.firebaseUid())) {
-//                likeButton.setMinAndMaxProgress(1f, 1f)
-//                likeButton.playAnimation()
-//                isSwitch = false
-//            } else {
-//                likeButton.setMinAndMaxProgress(0f,0f)
-//                likeButton.playAnimation()
-//
-//            }
-//            likeButton.setOnClickListener {
-//                if (isSwitch) {
-//                    likeButton.setMinAndMaxProgress(1f, 1f)
-//                    likeButton.playAnimation()
-//                    PushNotification(
-//                        NotificationData("title", "message"),
-//                        item.token!!
-//                        ).also {
-//                        FirebaseTokenManager.sendNotification(it)
-//                    }
-//                    isSwitch = false
-//                    rankLikeNum = rankLikeNum + 1
-//                    rankLike.text = rankLikeNum.toString()
-//
-//                } else {
-//                    likeButton.setMinAndMaxProgress(0f,0f)
-//                    likeButton.playAnimation()
-//                    isSwitch = true
-//                    rankLikeNum = rankLikeNum - 1
-//                    rankLike.text = rankLikeNum.toString()
-//
-//                }
-//
-//            }
-//
-//
-
             rankNum.text = (position+1).toString()
-//            rankCount.text = item.count.toString()
+
+            val hour = item.count!!.toInt() / 60
+            val minute = item.count!!.toInt() % 60
+
+            rankCount.text = String.format("%d시간 %d분", hour, minute)
+
             rankNickname.text = item.nickname.toString()
-//            rankType.text = item.nickname.toString()
-//            rankWhattodo.text = item.whattodo.toString()
             itemView.setOnClickListener {
                 onItemClicked.invoke(item.uid.toString())
             }
         }
-
-
-
-
     }
 
 
