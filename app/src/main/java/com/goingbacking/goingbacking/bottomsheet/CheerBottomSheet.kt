@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,19 +14,28 @@ import com.goingbacking.goingbacking.Adapter.CheerRecyclerViewAdapter
 import com.goingbacking.goingbacking.R
 import com.goingbacking.goingbacking.UI.Main.Forth.ForthViewModel
 import com.goingbacking.goingbacking.databinding.BottomSheetCheerBinding
-import com.goingbacking.goingbacking.util.PrefUtil
-import com.goingbacking.goingbacking.util.UiState
-import com.goingbacking.goingbacking.util.makeGONE
-import com.goingbacking.goingbacking.util.toast
+import com.goingbacking.goingbacking.util.*
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 
 class CheerBottomSheet : BottomSheetDialogFragment() {
+    var destinationUid = ""
     private lateinit var binding: BottomSheetCheerBinding
     private val viewModel: ForthViewModel by activityViewModels()
     private val cheerAdapter = CheerRecyclerViewAdapter(
         onDeleteClick = { hostUid, original_cheer ->
             viewModel.deleteCheerInfo(hostUid, original_cheer)
+//            AlertDialog.Builder(requireContext())
+//                .setMessage("해당 댓글을 삭제하시겠습니까?")
+//                .setPositiveButton("삭제하기") { _,_ ->
+//                    viewModel.deleteCheerInfo(hostUid, original_cheer)
+//                    return
+//                //                    observer1(destinationUid)
+//                }
+//                .setNegativeButton("나가기", null)
+//                .show()
         }
     )
 
@@ -35,7 +45,7 @@ class CheerBottomSheet : BottomSheetDialogFragment() {
     ): View {
         binding = BottomSheetCheerBinding.inflate(inflater, container, false)
 
-        val destinationUid = arguments?.getString("destinationUid")
+        destinationUid = arguments?.getString("destinationUid")!!
 
         if (destinationUid == null) {
             toast(requireContext(), getString(R.string.no_information))
@@ -116,11 +126,3 @@ class CheerBottomSheet : BottomSheetDialogFragment() {
         }
     }
 }
-//    private fun updateAdapterForDate(list: List<String>, destinationUid :String) {
-//        cheerAdapter.apply {
-//            events = list
-//            hostUid = destinationUid
-//            notifyDataSetChanged()
-//            }
-//        }
-//    }

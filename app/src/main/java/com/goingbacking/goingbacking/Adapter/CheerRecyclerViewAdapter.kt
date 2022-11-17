@@ -1,10 +1,13 @@
 package com.goingbacking.goingbacking.Adapter
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.goingbacking.goingbacking.UI.Main.Forth.ForthViewModel
 import com.goingbacking.goingbacking.databinding.ItemCheerBinding
 import com.goingbacking.goingbacking.util.PrefUtil
 import com.goingbacking.goingbacking.util.makeInVisible
@@ -16,6 +19,17 @@ class CheerRecyclerViewAdapter(
             fun bind(myUid :String, nickname :String, cheertext: String, original : String) = with(binding) {
                 itemCheerNickname.text = nickname
                 itemCheer.text = cheertext
+
+                xBtn.setOnClickListener {
+                    onDeleteClick(PrefUtil.firebaseUid(), original)
+                    val newList = currentList.toMutableList()
+                    newList.removeAt(bindingAdapterPosition)
+                    submitList(newList)
+//                    onDeleteClick(PrefUtil.firebaseUid(), original)
+//                    val newList = currentList.toMutableList()
+//                    newList.removeAt(bindingAdapterPosition)
+//                    submitList(newList)
+                }
 //                if (myUid.equals(PrefUtil.firebaseUid())) {
 //                    itemCheerDelete.makeVisible()
 //                    itemCheerDelete.setOnClickListener {
@@ -41,6 +55,7 @@ class CheerRecyclerViewAdapter(
     }
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val cheer = currentList[position].split(':')
+
 
         holder.bind(cheer.get(0), cheer.get(1), cheer.get(2), currentList[position])
     }

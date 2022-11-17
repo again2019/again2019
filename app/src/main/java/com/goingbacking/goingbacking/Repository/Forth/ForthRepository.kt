@@ -81,28 +81,6 @@ class ForthRepository (
             .addOnFailureListener {
                 result.invoke(UiState.Failure(FAIL))
             }
-
-
-    //        firebaseFirestore.collection(RANKYEARINFO).document(currentday("yyyy"))
-//            .collection(currentday("yyyy")).document(destinationUid).get()
-//            .addOnSuccessListener { document ->
-//                if (document != null) {
-////                    Log.d("experiment", document.toObject(NewSaveTimeYearDTO::class.java)!!.cheers.toString())
-//
-//                    result.invoke(UiState.Success(
-//                        document.toObject(NewSaveTimeYearDTO::class.java)!!.cheers
-//                    ))
-//                } else {
-//                    result.invoke(UiState.Failure(FAIL))
-//                }
-//            }
-//            .addOnFailureListener {
-//                result.invoke(UiState.Failure(FAIL))
-//            }
-
-
-
-
     }
 
     override fun addCheerInfo(destinationUid: String, text: String, result: (UiState<List<String>>) -> Unit) {
@@ -171,8 +149,7 @@ class ForthRepository (
         text: String,
         result: (UiState<String>) -> Unit
     ) {
-        val tsDoc = firebaseFirestore.collection(RANKYEARINFO).document(currentday("yyyy"))
-            .collection(currentday("yyyy")).document(destinationUid)
+        val tsDoc = firebaseFirestore.collection(USERINFO).document(myUid)
         CoroutineScope(Dispatchers.IO).launch {
             tsDoc.update(CHEERS, FieldValue.arrayRemove(text)).await()
         }
