@@ -1,5 +1,8 @@
 package com.goingbacking.goingbacking.Repository.Forth
 
+import com.goingbacking.goingbacking.FCM.FirebaseTokenManager
+import com.goingbacking.goingbacking.FCM.NotificationData
+import com.goingbacking.goingbacking.FCM.PushNotification
 import com.goingbacking.goingbacking.Model.*
 import com.goingbacking.goingbacking.util.Constants
 import com.goingbacking.goingbacking.util.FBConstants
@@ -188,26 +191,52 @@ class RankRepository  (
             val tsDoc1 = firebaseFirestore.collection(Constants.USERINFO).document(destinationUid)
             if (state.equals("plus")) {
                 tsDoc1.update(Constants.LIKES, FieldValue.arrayUnion(uid)).await()
+                tsDoc1.get().addOnSuccessListener {
+                    val likeCount = it.toObject(UserInfoDTO::class.java)!!.likes.size
 
+
+                    PushNotification(
+                        NotificationData(it.toObject(UserInfoDTO::class.java)!!.userNickName!! + "의 좋아요 수가 늘었어요!", it.toObject(UserInfoDTO::class.java)!!.userNickName!! + "의 좋아요 수가 늘었어요!"),
+                        it.toObject(UserInfoDTO::class.java)!!.token!!
+                    ).also {
+                        FirebaseTokenManager.sendNotification(it)
+                    }
+
+                    result.invoke(
+                        UiState.Success(
+                            likeCount.toString()
+                        )
+                    )
+                }.addOnFailureListener {
+                    result.invoke(
+                        UiState.Failure(
+                            it.localizedMessage
+                        )
+                    )
+                }.await()
             } else {
                 tsDoc1.update(Constants.LIKES, FieldValue.arrayRemove(uid)).await()
+                tsDoc1.get().addOnSuccessListener {
+                    val likeCount = it.toObject(UserInfoDTO::class.java)!!.likes.size
+                    result.invoke(
+                        UiState.Success(
+                            likeCount.toString()
+                        )
+                    )
+                }.addOnFailureListener {
+                    result.invoke(
+                        UiState.Failure(
+                            it.localizedMessage
+                        )
+                    )
+                }.await()
             }
 
-            tsDoc1.get().addOnSuccessListener {
-                val likeCount = it.toObject(UserInfoDTO::class.java)!!.likes.size
-                result.invoke(
-                    UiState.Success(
-                        likeCount.toString()
-                    )
-                )
-            }.addOnFailureListener {
-                result.invoke(
-                    UiState.Failure(
-                        it.localizedMessage
-                    )
-                )
-            }.await()
+
         }
+
+
+
     }
 
 
