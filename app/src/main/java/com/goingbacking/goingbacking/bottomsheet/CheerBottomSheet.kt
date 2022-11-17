@@ -64,6 +64,9 @@ class CheerBottomSheet : BottomSheetDialogFragment() {
                 }
 
             }
+            binding.xBtn.setOnClickListener {
+                dismiss()
+            }
         }
 
         return binding.root
