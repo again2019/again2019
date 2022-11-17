@@ -36,4 +36,16 @@ class ForthMainFragment : BaseFragment<FragmentForthMainBinding>() {
         }.attach()
 
     }
+
+    override fun onResume() {
+        super.onResume()
+
+        val viewPager = binding.forthViewPager
+        val tabs = binding.forthTabs
+        viewPager.adapter = ForthFragmentPagerAdapter(childFragmentManager, lifecycle)
+        TabLayoutMediator(tabs,viewPager) { tab, position ->
+            tab.text = tabTitleArray[position]
+        }.attach()
+
+    }
 }
