@@ -194,7 +194,7 @@ class TotalCalendarActivity : BaseActivity<ActivityTotalCalendarBinding>({
                 is UiState.Success -> {
                     binding.progressCircular.hide()
 
-                    val data = state.data.date.toString().split(',')
+                    val data = state.data.dateList
 
                     if(data.contains(date.toString())) {
 

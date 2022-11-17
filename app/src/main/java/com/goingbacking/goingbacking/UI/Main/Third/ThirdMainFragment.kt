@@ -309,11 +309,7 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
     }
 
     private fun updateAdapterForDate(date: LocalDate) {
-        eventsAdapter.apply {
-            events.clear()
-            events.addAll(this@ThirdMainFragment.events[date].orEmpty())
-            notifyDataSetChanged()
-        }
+        eventsAdapter.submitList(this@ThirdMainFragment.events[date].orEmpty())
     }
 
 

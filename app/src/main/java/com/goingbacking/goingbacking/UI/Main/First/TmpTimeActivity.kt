@@ -101,7 +101,8 @@ class TmpTimeActivity : BaseActivity<ActivityTmpTimeBinding>({
             when(state){
                 is UiState.Success -> {
                     binding.progressCircular.hide()
-                    adapter.updateList(state.data)
+                    adapter.submitList(state.data)
+//                    adapter.updateList(state.data)
                 }
                 is UiState.Loading -> {
                     binding.progressCircular.show()

@@ -107,9 +107,7 @@ class FirstMainFragment : BaseFragment<FragmentFirstMainBinding>() {
         addPlanButton.setOnClickListener {
             moveAddPlanPage()
         }
-//        goThirdButton.setOnClickListener {
-//            moveTotalCalendarPage()
-//        }
+
 
     }
 
