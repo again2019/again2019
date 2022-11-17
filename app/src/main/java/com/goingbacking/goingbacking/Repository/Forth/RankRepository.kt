@@ -115,7 +115,7 @@ class RankRepository  (
 
     override fun getSecondWhatToDoYearInfo(destinationUid : String, result: (UiState<ArrayList<WhatToDoYearDTO>>) -> Unit)  {
         firebaseFirestore.collection(FBConstants.WHATTODOINFO).document(destinationUid)
-            .collection(FBConstants.YEAR).document(currentday("yyyy"))
+            .collection("year").document(currentday("yyyy"))
             .collection(currentday("yyyy")).get()
             .addOnSuccessListener {
                 val whatToDoYearDTOList = arrayListOf<WhatToDoYearDTO>()
