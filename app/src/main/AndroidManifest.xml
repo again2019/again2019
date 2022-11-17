@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.goingbacking.goingbacking">
+    package="com.goingbacking.goingbacking" >
 
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
@@ -17,9 +17,12 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/com_back_new"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme" >
         <activity
-            android:name=".UI.Main.Forth.RankActivity"
+            android:name=".UI.Main.Forth.RankActivity2"
+            android:exported="true" />
+        <activity
+            android:name=".UI.Main.Forth.RankActivity1"
             android:exported="true" />
         <activity
             android:name=".UI.Main.Fifth.QuestionActivity"
@@ -28,7 +31,7 @@
         <service
             android:name=".FCM.FirebaseService"
             android:exported="false"
-            android:permission="com.google.android.c2dm.permission.SEND">
+            android:permission="com.google.android.c2dm.permission.SEND" >
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
@@ -67,7 +70,7 @@
             android:exported="true" />
         <activity
             android:name=".UI.Splash.SplashActivity"
-            android:exported="true">
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -82,7 +85,7 @@
         <receiver
             android:name=".BR.DeviceBootReceiver"
             android:enabled="true"
-            android:exported="true">
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>

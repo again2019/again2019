@@ -1,32 +1,25 @@
 package com.goingbacking.goingbacking.UI.Main.Forth
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
-import android.view.View
-import android.widget.PopupMenu
-import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
-import androidx.fragment.app.commitNow
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import com.github.aachartmodel.aainfographics.aachartcreator.*
 import com.goingbacking.goingbacking.R
 import com.goingbacking.goingbacking.UI.Base.BaseActivity
 import com.goingbacking.goingbacking.bottomsheet.CheerBottomSheet
-import com.goingbacking.goingbacking.databinding.ActivityRankBinding
+import com.goingbacking.goingbacking.databinding.ActivityRank1Binding
 import com.goingbacking.goingbacking.util.*
-import com.google.android.material.bottomsheet.BottomSheetBehavior
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class RankActivity : BaseActivity<ActivityRankBinding>({
-   ActivityRankBinding.inflate(it)
+class RankActivity1 : BaseActivity<ActivityRank1Binding>({
+   ActivityRank1Binding.inflate(it)
 }), AAChartView.AAChartViewCallBack {
     private var likeState = true
     var chartType: String = ""
@@ -103,7 +96,7 @@ class RankActivity : BaseActivity<ActivityRankBinding>({
             supportFragmentManager.executePendingTransactions()
             bottom.dialog!!.setOnDismissListener {
                 viewModel.getFifthUserInfo(destinationUid)
-                viewModel.userInfoDTO.observe(this@RankActivity) { state ->
+                viewModel.userInfoDTO.observe(this@RankActivity1) { state ->
                     when (state) {
                         is UiState.Success -> {
                             progressCircular.hide()
@@ -132,7 +125,7 @@ class RankActivity : BaseActivity<ActivityRankBinding>({
                 viewModel.likeButtonInfo(destinationUid, "plus")
 
 
-                viewModel.likeButtonInfo.observe(this@RankActivity) { state ->
+                viewModel.likeButtonInfo.observe(this@RankActivity1) { state ->
                     when(state) {
                         is UiState.Success -> {
                             progressCircular.hide()
@@ -153,7 +146,7 @@ class RankActivity : BaseActivity<ActivityRankBinding>({
                 likeState = false
 
                 viewModel.likeButtonInfo(destinationUid, "minus")
-                viewModel.likeButtonInfo.observe(this@RankActivity) { state ->
+                viewModel.likeButtonInfo.observe(this@RankActivity1) { state ->
                     when(state) {
                         is UiState.Success -> {
                             progressCircular.hide()
@@ -176,7 +169,7 @@ class RankActivity : BaseActivity<ActivityRankBinding>({
 
     private fun observer1(destinationUid: String) = with(binding) {
         viewModel.getFifthUserInfo(destinationUid)
-        viewModel.userInfoDTO.observe(this@RankActivity) { state ->
+        viewModel.userInfoDTO.observe(this@RankActivity1) { state ->
             when(state) {
                 is UiState.Success -> {
                     progressCircular.hide()
@@ -184,7 +177,7 @@ class RankActivity : BaseActivity<ActivityRankBinding>({
                     cheerCount.text = state.data.cheers.size.toString()
 
                     val likes = state.data.likes
-                    if (likes.contains(PrefUtil.getCurrentUid(this@RankActivity))) {
+                    if (likes.contains(PrefUtil.getCurrentUid(this@RankActivity1))) {
                         likeButton.setMinAndMaxProgress(1f, 1f)
                         likeButton.playAnimation()
                         likeState = true

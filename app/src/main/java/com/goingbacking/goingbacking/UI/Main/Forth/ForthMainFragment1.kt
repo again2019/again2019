@@ -11,7 +11,6 @@ import com.goingbacking.goingbacking.Adapter.RankRecyclerViewAdapter1
 import com.goingbacking.goingbacking.R
 import com.goingbacking.goingbacking.UI.Base.BaseFragment
 import com.goingbacking.goingbacking.bottomsheet.CheerBottomSheet
-import com.goingbacking.goingbacking.bottomsheet.RankBottomSheet
 import com.goingbacking.goingbacking.databinding.FragmentForthMain1Binding
 import com.goingbacking.goingbacking.util.UiState
 import com.goingbacking.goingbacking.util.toast
@@ -37,7 +36,7 @@ class ForthMainFragment1 : BaseFragment<FragmentForthMain1Binding>() {
 //                bottom.arguments = bundle
 //                bottom.show(childFragmentManager, bottom.tag)
 
-                val intent = Intent(requireContext(), RankActivity::class.java)
+                val intent = Intent(requireContext(), RankActivity1::class.java)
                 intent.putExtra("destinationUid", destinationUid)
                 startActivity(intent)
             },
