@@ -23,7 +23,7 @@ import java.time.format.DateTimeFormatter
 class CalendarDetailBottomSheet : BottomSheetDialogFragment() {
   private lateinit var binding : BottomSheetCalendarDetailBinding
   private val viewModel : ThirdViewModel by activityViewModels()
-    private var eventss = mutableMapOf<LocalDate, List<Event>>()
+    private var events = mutableMapOf<LocalDate, List<Event>>()
     private val eventsAdapter = CalendarEventAdapter2()
 
     override fun onCreateView(
@@ -55,8 +55,8 @@ class CalendarDetailBottomSheet : BottomSheetDialogFragment() {
                 is UiState.Success -> {
                     binding.progressCircular.hide()
                     val dates = LocalDate.parse(date, DateTimeFormatter.ISO_DATE)
-                    eventss = state.data
-                    if (eventss.size == 0) {
+                    events = state.data
+                    if (events.size == 0) {
                         binding.recyclerView.makeGONE()
                         binding.noScheduleTextView.makeVisible()
                     } else {
@@ -80,11 +80,8 @@ class CalendarDetailBottomSheet : BottomSheetDialogFragment() {
     }
 
     private fun updateAdapterForDate(date: LocalDate) {
-        eventsAdapter.apply {
-            events.clear()
-            events.addAll(eventss[date].orEmpty())
-            notifyDataSetChanged()
-        }
+        eventsAdapter.submitList(this.events[date].orEmpty())
+
     }
 
 
