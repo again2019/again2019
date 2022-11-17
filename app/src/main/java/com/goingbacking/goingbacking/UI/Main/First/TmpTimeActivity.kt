@@ -30,10 +30,7 @@ class TmpTimeActivity : BaseActivity<ActivityTmpTimeBinding>({
 
     val adapter by lazy {
         TmpTimeRecyclerViewAdapter(
-            onItemClicked = { wakeUpTime1, wakeUpTime2, wakeUpTime3, wakeUpTime4, count, count_double, simpleFormat1, simpleFormat2, simpleFormat3, simpleFormat4 ->
-                TmpTimeDayOberver(wakeUpTime1, wakeUpTime2, count)
-                TmpTimeMonthOberver(wakeUpTime3, wakeUpTime4, count)
-                TmpTimeYearOberver(wakeUpTime3, count)
+            onItemClicked = { wakeUpTime1, wakeUpTime2, wakeUpTime3, wakeUpTime4,count_double, simpleFormat1, simpleFormat2, simpleFormat3, simpleFormat4 ->
                 val bottom  = WhatToDoSaveBottomSheet()
                 val bundle = Bundle()
                 if (count_double.equals(0.0)) {
@@ -44,6 +41,13 @@ class TmpTimeActivity : BaseActivity<ActivityTmpTimeBinding>({
                     bundle.putString("simpleFormat2", simpleFormat2)
                     bundle.putString("simpleFormat3", simpleFormat3)
                     bundle.putString("simpleFormat4", simpleFormat4)
+
+
+                    bundle.putString("wakeUpTime1", wakeUpTime1)
+                    bundle.putString("wakeUpTime2", wakeUpTime2)
+                    bundle.putString("wakeUpTime3", wakeUpTime3)
+                    bundle.putString("wakeUpTime4", wakeUpTime4)
+
                     binding.progressCircular.hide()
                     bottom.arguments = bundle
                     bottom.show(supportFragmentManager, bottom.tag)
@@ -111,62 +115,6 @@ class TmpTimeActivity : BaseActivity<ActivityTmpTimeBinding>({
         }
     }
 
-    private fun TmpTimeDayOberver(wakeUpTime1: String, wakeUpTime2: String, count: FieldValue){
-        viewModel.updateTmpTimeDayInfo(wakeUpTime1, wakeUpTime2, count)
-        viewModel.tmpTimeDayDTOs.observe(this) { state ->
-            when(state){
-                is UiState.Success -> {
-                    binding.progressCircular.hide()
-                }
-                is UiState.Loading -> {
-                    binding.progressCircular.show()
-                }
-                is UiState.Failure -> {
-                    binding.progressCircular.hide()
-                    toast(this, getString(R.string.update_day_fail))
-                }
-
-            }
-        }
-    }
-
-    private fun TmpTimeMonthOberver(wakeUpTime1: String, wakeUpTime2: String, count: FieldValue){
-        viewModel.updateTmpTimeMonthInfo(wakeUpTime1, wakeUpTime2, count)
-        viewModel.tmpTimeMonthDTOs.observe(this) { state ->
-            when(state){
-                is UiState.Success -> {
-                    binding.progressCircular.hide()
-                }
-                is UiState.Loading -> {
-                    binding.progressCircular.show()
-                }
-                is UiState.Failure -> {
-                    binding.progressCircular.hide()
-                    toast(this, getString(R.string.update_month_fail))
-                }
-
-            }
-        }
-    }
-
-    private fun TmpTimeYearOberver(wakeUpTime: String, count: FieldValue){
-        viewModel.updateTmpTimeYearInfo(wakeUpTime, count)
-        viewModel.tmpTimeYearDTOs.observe(this) { state ->
-            when(state){
-                is UiState.Success -> {
-                    binding.progressCircular.hide()
-                }
-                is UiState.Loading -> {
-                    binding.progressCircular.show()
-                }
-                is UiState.Failure -> {
-                    binding.progressCircular.hide()
-                    toast(this, getString(R.string.update_year_fail))
-                }
-
-            }
-        }
-    }
 
 
 }

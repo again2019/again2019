@@ -14,6 +14,7 @@ import com.goingbacking.goingbacking.databinding.BottomSheetWhatToDoSaveBinding
 import com.goingbacking.goingbacking.util.UiState
 import com.goingbacking.goingbacking.util.makeGONE
 import com.goingbacking.goingbacking.util.makeVisible
+import com.goingbacking.goingbacking.util.toast
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.chip.Chip
 import com.google.firebase.firestore.FieldValue
@@ -21,12 +22,17 @@ import com.google.firebase.firestore.FieldValue
 class WhatToDoSaveBottomSheet : BottomSheetDialogFragment() {
     private lateinit var binding : BottomSheetWhatToDoSaveBinding
     private val viewModel: FirstViewModel by activityViewModels()
-    private lateinit var simpleFormat1 : String
-    private lateinit var simpleFormat2 : String
-    private lateinit var simpleFormat3 : String
-    private lateinit var simpleFormat4 : String
+    private lateinit var simpleFormat1 : String //"yyyy-MM"
+    private lateinit var simpleFormat2 : String //"dd"
+    private lateinit var simpleFormat3 : String //"yyyy"
+    private lateinit var simpleFormat4 : String //"MM"
+
+    private lateinit var wakeUpTime1 : String
+    private lateinit var wakeUpTime2 : String
+    private lateinit var wakeUpTime3 : String
+    private lateinit var wakeUpTime4 : String
+
     private var count_double = 0.0
-    private var finalWhatToDo = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,10 +46,17 @@ class WhatToDoSaveBottomSheet : BottomSheetDialogFragment() {
         simpleFormat3 = arguments?.getString("simpleFormat3")!!
         simpleFormat4 = arguments?.getString("simpleFormat4")!!
 
+        wakeUpTime1 = arguments?.getString("wakeUpTime1")!!
+        wakeUpTime2 = arguments?.getString("wakeUpTime2")!!
+        wakeUpTime3 = arguments?.getString("wakeUpTime3")!!
+        wakeUpTime4 = arguments?.getString("wakeUpTime4")!!
+
         binding.time.text = simpleFormat1
         binding.date.text = simpleFormat2
         binding.from.text = simpleFormat3
         binding.to.text = simpleFormat4
+
+
 
         whatToDoObserver()
 
@@ -52,19 +65,7 @@ class WhatToDoSaveBottomSheet : BottomSheetDialogFragment() {
         return binding.root
     }
 
-    private fun onClick() = with(binding) {
-        binding.whatToDoSaveButton.setOnClickListener {
-            monthObserver(finalWhatToDo, FieldValue.increment(count_double))
-            yearObserver(finalWhatToDo, FieldValue.increment(count_double))
-            dismiss()
-        }
-        binding.xBtn.setOnClickListener {
-            dismiss()
-        }
-        binding.exitButton.setOnClickListener {
-            dismiss()
-        }
-    }
+
     private fun whatToDoObserver() {
         viewModel.getWhatToDoInfo()
         viewModel.whatToDoListDTOs.observe(this) { state ->
@@ -104,40 +105,42 @@ class WhatToDoSaveBottomSheet : BottomSheetDialogFragment() {
     }
 
 
-    private fun monthObserver(whatToDoText :String, count: FieldValue) {
-        viewModel.updateWhatToDoMonthInfo(whatToDoText, count)
-        viewModel.whatToDoMonthDTOs.observe(this) { state ->
-            when(state) {
-                is UiState.Success -> {
-                    binding.progressCircular.hide()
-                }
-                is UiState.Loading -> {
-                    binding.progressCircular.show()
-                }
-                is UiState.Failure -> {
-                    binding.progressCircular.hide()
-                    Toast.makeText(requireContext(), R.string.whatToDo_update_time_fail, Toast.LENGTH_SHORT).show()
-                }
+
+    private fun onClick() = with(binding) {
+        binding.whatToDoSaveButton.setOnClickListener {
+            val selected = mutableListOf<String>()
+            chipGroup.checkedChipIds.forEach {
+                val chip = root.findViewById<Chip>(it).text.toString()
+                selected.add(chip)
             }
+
+            if (selected.size == 0) {
+                toast(requireContext(), "자기 계발을 한 개 선택해주세요.")
+            } else {
+                val count = FieldValue.increment(count_double)
+                tmpTimeObserver(count)
+                viewModel.updateWhatToDoMonthInfo(wakeUpTime1, selected.get(0), count)
+                viewModel.updateWhatToDoYearInfo(wakeUpTime3, selected.get(0), count)
+                viewModel.updateRankMonthInfo(wakeUpTime1, count)
+                viewModel.updateRankYearInfo(wakeUpTime3, count)
+
+                dismiss()
+            }
+        }
+
+        binding.xBtn.setOnClickListener {
+            dismiss()
+        }
+        binding.exitButton.setOnClickListener {
+            dismiss()
         }
     }
 
-    private fun yearObserver(whatToDoText :String, count: FieldValue) {
-        viewModel.updateWhatToDoYearInfo(whatToDoText, count)
-        viewModel.whatToDoYearDTOs.observe(this) { state ->
-            when(state) {
-                is UiState.Success -> {
-                    binding.progressCircular.hide()
-                }
-                is UiState.Loading -> {
-                    binding.progressCircular.show()
-                }
-                is UiState.Failure -> {
-                    binding.progressCircular.hide()
-                    Toast.makeText(requireContext(), R.string.whatToDo_update_time_fail, Toast.LENGTH_SHORT).show()
-                }
-            }
-        }
-    }
 
+    private fun tmpTimeObserver(count : FieldValue) {
+
+        viewModel.updateTmpTimeDayInfo(wakeUpTime1, wakeUpTime2, count)
+        viewModel.updateTmpTimeMonthInfo(wakeUpTime3, wakeUpTime4, count)
+        viewModel.updateTmpTimeYearInfo(wakeUpTime3, count)
+    }
 }
