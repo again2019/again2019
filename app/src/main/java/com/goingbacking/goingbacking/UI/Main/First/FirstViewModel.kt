@@ -15,6 +15,11 @@ class FirstViewModel @Inject constructor(
     val firstRepository: FirstRepositoryIF
 ) : ViewModel(){
 
+    /*
+    TmpTimeActivity
+     */
+
+    // 임시 저장된 정보를 가져오는 코드
     private val _tmpTimeDTOs = MutableLiveData<UiState<ArrayList<TmpTimeDTO>>>()
     val tmpTimeDTOs : LiveData<UiState<ArrayList<TmpTimeDTO>>>
         get() = _tmpTimeDTOs
@@ -22,18 +27,17 @@ class FirstViewModel @Inject constructor(
     fun getTmpTimeInfo() {
         _tmpTimeDTOs.value = UiState.Loading
         firstRepository.getTmpTimeInfo { _tmpTimeDTOs.value = it }
-
     }
 
+
+    // 임시 저장된 정보 -> 최종 정보로 바꾸고 삭제하는 코드
     private val _deletetmpTimeDTOs = MutableLiveData<UiState<String>>()
-    val deletetmpTimeDTOs : LiveData<UiState<String>>
-        get() = _deletetmpTimeDTOs
 
     fun deleteTmpTimeInfo(startTime: String) {
         _deletetmpTimeDTOs.value = UiState.Loading
         firstRepository.deleteTmpTimeInfo(startTime) { _deletetmpTimeDTOs.value = it }
-
     }
+
 
     private val _tmpTimeDayDTOs = MutableLiveData<UiState<String>>()
 
