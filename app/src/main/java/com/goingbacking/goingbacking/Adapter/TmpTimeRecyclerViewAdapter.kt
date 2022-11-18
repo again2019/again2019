@@ -12,15 +12,17 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.goingbacking.goingbacking.Model.TmpTimeDTO
 import com.goingbacking.goingbacking.R
+import com.goingbacking.goingbacking.UI.Main.First.FirstViewModel
 import com.goingbacking.goingbacking.bottomsheet.WhatToDoSaveBottomSheet
 import com.goingbacking.goingbacking.databinding.ItemTmpBinding
+import com.goingbacking.goingbacking.util.UiState
 import com.goingbacking.goingbacking.util.toast
 import kotlinx.coroutines.NonDisposableHandle.parent
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
-class TmpTimeRecyclerViewAdapter(): ListAdapter<TmpTimeDTO, TmpTimeRecyclerViewAdapter.MyViewHolder>(diffUtil) {
+class TmpTimeRecyclerViewAdapter: ListAdapter<TmpTimeDTO, TmpTimeRecyclerViewAdapter.MyViewHolder>(diffUtil) {
 
     inner class MyViewHolder(private val binding: ItemTmpBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: TmpTimeDTO) {
@@ -71,6 +73,7 @@ class TmpTimeRecyclerViewAdapter(): ListAdapter<TmpTimeDTO, TmpTimeRecyclerViewA
                     fm.executePendingTransactions()
 
                     bottom.dialog!!.setOnCancelListener {
+
                         val newList = currentList.toMutableList()
                         newList.removeAt(bindingAdapterPosition)
                         submitList(newList)

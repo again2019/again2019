@@ -69,7 +69,7 @@ class TimerUtils {
             Log.d("experiment", "wakeupTime: " + wakeUpTime.toString())
             Log.d("experiment", "currentTime: " + currentTime.toString())
 
-            alarmRepository.addTmpTimeInfo(tmpTimeDTO)
+            alarmRepository.addTmpTimeInfo(currentTime.toString(), tmpTimeDTO)
 
             val intent = Intent(context, AlarmService::class.java)
             intent.action = "FINISH_FOREGROUND"

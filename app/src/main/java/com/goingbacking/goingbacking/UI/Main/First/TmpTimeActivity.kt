@@ -26,11 +26,8 @@ import dagger.hilt.android.AndroidEntryPoint
 class TmpTimeActivity : BaseActivity<ActivityTmpTimeBinding>({
     ActivityTmpTimeBinding.inflate(it)
 }) {
-
     val adapter by lazy {
-        TmpTimeRecyclerViewAdapter (
-
-                )
+        TmpTimeRecyclerViewAdapter ()
     }
     val viewModel : FirstViewModel by viewModels()
 

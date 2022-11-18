@@ -140,10 +140,11 @@ class AlarmRepository : AlarmRepositoryIF {
     }
 
     override fun addTmpTimeInfo(
+        currentTime: String,
         tmpTimeDTO: TmpTimeDTO
     ) {
         firebaseFirestore.collection(TMPTIMEINFO).document(myUid)
-            .collection(myUid).add(tmpTimeDTO)
+            .collection(myUid).document(myUid + currentTime).set(tmpTimeDTO)
     }
 
 
