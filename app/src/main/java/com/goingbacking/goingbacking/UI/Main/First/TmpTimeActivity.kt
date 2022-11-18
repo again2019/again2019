@@ -9,17 +9,14 @@ import androidx.activity.viewModels
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.lifecycle.Lifecycle
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.goingbacking.goingbacking.Adapter.TmpTimeRecyclerViewAdapter
 import com.goingbacking.goingbacking.R
 import com.goingbacking.goingbacking.UI.Base.BaseActivity
 
-import com.goingbacking.goingbacking.bottomsheet.WhatToDoSaveBottomSheet
 import com.goingbacking.goingbacking.databinding.ActivityTmpTimeBinding
 import com.goingbacking.goingbacking.util.UiState
 import com.goingbacking.goingbacking.util.toast
-import com.google.firebase.firestore.FieldValue
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -53,10 +50,6 @@ class TmpTimeActivity : BaseActivity<ActivityTmpTimeBinding>({
                 return true
             }
         }, this, Lifecycle.State.RESUMED)
-
-
-
-
 
         TmpTimeOberver()
 

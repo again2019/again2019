@@ -7,20 +7,17 @@ import android.app.PendingIntent
 import android.app.PendingIntent.FLAG_MUTABLE
 import android.content.BroadcastReceiver
 import android.content.Context
-import android.content.Context.MODE_PRIVATE
 import android.content.Intent
 import android.os.Build
 import android.util.Log
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import com.goingbacking.goingbacking.AppConstants
-import com.goingbacking.goingbacking.Model.CalendarInfoDTO
+import com.goingbacking.goingbacking.Model.Event
 import com.goingbacking.goingbacking.R
 import com.goingbacking.goingbacking.Repository.Alarm.AlarmRepository
 import com.goingbacking.goingbacking.UI.Main.MainActivity
 import com.goingbacking.goingbacking.util.*
-import java.text.SimpleDateFormat
 import java.util.*
 
 class DeviceBootReceiver : BroadcastReceiver() {
@@ -79,7 +76,7 @@ class DeviceBootReceiver : BroadcastReceiver() {
                 PrefUtil.setTodayWhatToDoTime(whatToDoTimeArrayList.toString(), context)
             } else {
                 // 만약에 통근/통학 시간에 대한 일정이 있다면
-                var beforeInfo = CalendarInfoDTO()
+                var beforeInfo = Event()
 
                 for (IdCount in it.indices) {
                     beforefireReminder(context, intent, IdCount+1, beforeInfo, it.get(IdCount))
@@ -109,7 +106,7 @@ class DeviceBootReceiver : BroadcastReceiver() {
     }
 
     @RequiresApi(Build.VERSION_CODES.S)
-    private fun beforefireReminder(context: Context, intent: Intent, IdCount: Int, beforeInfoDTO: CalendarInfoDTO, nowInfoDTO: CalendarInfoDTO) {
+    private fun beforefireReminder(context: Context, intent: Intent, IdCount: Int, beforeInfoDTO: Event, nowInfoDTO: Event) {
         val id = IdCount
         val type = intent.getStringExtra(Constants.TYPE) + "wakeUpAlarm ${id}"
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager

@@ -1,7 +1,6 @@
 package com.goingbacking.goingbacking.Repository.Alarm
 
 import com.goingbacking.goingbacking.Model.*
-import com.goingbacking.goingbacking.util.UiState
 
 interface AlarmRepositoryIF {
 
@@ -19,7 +18,7 @@ interface AlarmRepositoryIF {
     fun addInitSaveTimeYearInfo()
 
     // broadcast에서 매일 일정 가져오기
-    fun getTodayInfo(result: (ArrayList<CalendarInfoDTO>) -> Unit)
+    fun getTodayInfo(result: (ArrayList<Event>) -> Unit)
     fun addTmpTimeInfo(currentTime: String, tmpTimeDTO: TmpTimeDTO)
 
 

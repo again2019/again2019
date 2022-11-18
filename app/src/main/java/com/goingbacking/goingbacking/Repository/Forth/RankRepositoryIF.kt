@@ -4,21 +4,31 @@ import com.goingbacking.goingbacking.Model.*
 import com.goingbacking.goingbacking.util.UiState
 
 interface RankRepositoryIF {
+    /*
+    RankActivity1
+     */
 
-
-    // 상대방 통계에 대한 정보 불러오기
+    // 일별 통계 받아오는 코드
     fun getSecondSaveDayInfo(destinationUid : String, result: (UiState<ArrayList<SaveTimeDayDTO>>) -> Unit)
-    fun getSecondSaveMonthInfo(destinationUid : String, result: (UiState<ArrayList<SaveTimeMonthDTO>>) -> Unit)
-    fun getSecondSaveYearInfo(destinationUid : String, result: (UiState<ArrayList<SaveTimeYearDTO>>) -> Unit)
-
+    // 달별 자기계발 통계 받아오는 코드
     fun getSecondWhatToDoMonthInfo(destinationUid : String, result: (UiState<ArrayList<WhatToDoMonthDTO>>) -> Unit)
+
+    /*
+     RankActivity2
+      */
+
+    // 달별 통계 받아오는 코드
+    fun getSecondSaveMonthInfo(destinationUid : String, result: (UiState<ArrayList<SaveTimeMonthDTO>>) -> Unit)
+    // 연도별 자기계발 통계 받아오는 코드
     fun getSecondWhatToDoYearInfo(destinationUid : String, result: (UiState<ArrayList<WhatToDoYearDTO>>) -> Unit)
 
-    // 상대방 좋아요, 응원 댓글 수에 대한 정보 불러오기
-    fun getSaveTimeMonthInfo(destinationUid: String, result: (UiState<NewSaveTimeMonthDTO>) -> Unit)
-    fun getSaveTimeYearInfo(destinationUid: String, result: (UiState<NewSaveTimeYearDTO>) -> Unit )
+    /*
+    RankActivity1
+    RankActivity2
+     */
 
-    // 상대방 개인 정보 불러오기
+
+    // 개인정보 받아오는 코드
     fun getFifthUserInfo(destinationUid: String, result: (UiState<UserInfoDTO>) -> Unit)
 
     // 좋아요 버튼 기능 month, year

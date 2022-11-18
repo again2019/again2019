@@ -1,14 +1,11 @@
 package com.goingbacking.goingbacking.bottomsheet
 
-import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.activityViewModels
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.goingbacking.goingbacking.Adapter.CheerRecyclerViewAdapter
@@ -18,9 +15,6 @@ import com.goingbacking.goingbacking.databinding.BottomSheetCheerBinding
 import com.goingbacking.goingbacking.util.*
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
-
 
 @AndroidEntryPoint
 class CheerBottomSheet : BottomSheetDialogFragment() {
@@ -84,8 +78,6 @@ class CheerBottomSheet : BottomSheetDialogFragment() {
                     progressCircular.hide()
                     val lis = state.data
                     cheerAdapter.submitList(lis)
-
-//                    updateAdapterForDate(state.data, destinationUid)
                 }
                 is UiState.Failure -> {
                     progressCircular.hide()
@@ -105,8 +97,6 @@ class CheerBottomSheet : BottomSheetDialogFragment() {
                     binding.progressCircular.hide()
                     Log.d("experiment", state.data.toString())
                     cheerAdapter.submitList(state.data)
-//                    updateAdapterForDate(state.data, destinationUid)
-//                    state.data.toTypedArray()
                 }
                 is UiState.Failure -> {
                     binding.progressCircular.hide()

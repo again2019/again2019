@@ -18,24 +18,11 @@ class RankViewModel @Inject constructor(
     val rankRepository : RankRepositoryIF
 ):ViewModel() {
 
-    private val _secondSaveYearDTOs = MutableLiveData<UiState<ArrayList<SaveTimeYearDTO>>>()
-    val secondSaveYearDTOs : LiveData<UiState<ArrayList<SaveTimeYearDTO>>>
-        get() = _secondSaveYearDTOs
+    /*
+    RankActivity1
+     */
 
-    fun getSecondSaveYearInfo(destinationUid :String) {
-        _secondSaveYearDTOs.value = UiState.Loading
-        rankRepository.getSecondSaveYearInfo(destinationUid)  { _secondSaveYearDTOs.value = it }
-    }
-
-    private val _secondSaveMonthDTOs = MutableLiveData<UiState<ArrayList<SaveTimeMonthDTO>>>()
-    val secondSaveMonthDTOs : LiveData<UiState<ArrayList<SaveTimeMonthDTO>>>
-        get() = _secondSaveMonthDTOs
-
-    fun getSecondSaveMonthInfo(destinationUid :String) {
-        _secondSaveYearDTOs.value = UiState.Loading
-        rankRepository.getSecondSaveMonthInfo(destinationUid) { _secondSaveMonthDTOs.value = it }
-    }
-
+    // 일별 통계 받아오는 코드
     private val _secondSaveDayDTOs = MutableLiveData<UiState<ArrayList<SaveTimeDayDTO>>>()
     val secondSaveDayDTOs : LiveData<UiState<ArrayList<SaveTimeDayDTO>>>
         get() = _secondSaveDayDTOs
@@ -45,6 +32,7 @@ class RankViewModel @Inject constructor(
         rankRepository.getSecondSaveDayInfo(destinationUid) { _secondSaveDayDTOs.value = it }
     }
 
+    // 달별 자기계발 통계 받아오는 코드
     private val _secondwhatToDoMonthDTOs = MutableLiveData<UiState<ArrayList<WhatToDoMonthDTO>>>()
     val secondwhatToDoMonthDTOs : LiveData<UiState<ArrayList<WhatToDoMonthDTO>>>
         get() = _secondwhatToDoMonthDTOs
@@ -55,6 +43,21 @@ class RankViewModel @Inject constructor(
     }
 
 
+    /*
+    RankActivity2
+     */
+
+    // 달별 통계 받아오는 코드
+    private val _secondSaveMonthDTOs = MutableLiveData<UiState<ArrayList<SaveTimeMonthDTO>>>()
+    val secondSaveMonthDTOs : LiveData<UiState<ArrayList<SaveTimeMonthDTO>>>
+        get() = _secondSaveMonthDTOs
+
+    fun getSecondSaveMonthInfo(destinationUid :String) {
+        _secondSaveMonthDTOs.value = UiState.Loading
+        rankRepository.getSecondSaveMonthInfo(destinationUid) { _secondSaveMonthDTOs.value = it }
+    }
+
+    // 연도별 자기계발 통계 받아오는 코드
     private val _secondwhatToDoYearDTOs = MutableLiveData<UiState<ArrayList<WhatToDoYearDTO>>>()
     val secondwhatToDoYearDTOs : LiveData<UiState<ArrayList<WhatToDoYearDTO>>>
         get() = _secondwhatToDoYearDTOs
@@ -64,8 +67,13 @@ class RankViewModel @Inject constructor(
         rankRepository.getSecondWhatToDoYearInfo(destinationUid) { _secondwhatToDoYearDTOs.value = it }
     }
 
+    /*
+    RankActivity1
+    RankActivity2
+     */
 
 
+    // 개인정보 받아오는 코드
     private val _userInfoDTOs = MutableLiveData<UiState<UserInfoDTO>>()
     val userInfoDTO : LiveData<UiState<UserInfoDTO>>
         get() = _userInfoDTOs

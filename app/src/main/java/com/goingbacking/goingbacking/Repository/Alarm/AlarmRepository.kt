@@ -110,9 +110,9 @@ class AlarmRepository : AlarmRepositoryIF {
         }
     }
 
-    override fun getTodayInfo(result: (ArrayList<CalendarInfoDTO>) -> Unit) {
+    override fun getTodayInfo(result: (ArrayList<Event>) -> Unit) {
 
-        val TodayDTOList = arrayListOf<CalendarInfoDTO>()
+        val TodayDTOList = arrayListOf<Event>()
 
         Log.d("experiemnt", currentday("yyyy-MM"))
         Log.d("experiemnt", currentday("yyyy-MM-dd"))
@@ -123,7 +123,7 @@ class AlarmRepository : AlarmRepositoryIF {
 
                 for (document in it) {
 
-                    TodayDTOList.add(document.toObject(CalendarInfoDTO::class.java))
+                    TodayDTOList.add(document.toObject(Event::class.java))
                 }
 
                 Log.d("experiemnt", TodayDTOList.toString())

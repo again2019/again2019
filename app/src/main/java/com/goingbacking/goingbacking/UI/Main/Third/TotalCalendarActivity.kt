@@ -83,8 +83,6 @@ class TotalCalendarActivity : BaseActivity<ActivityTotalCalendarBinding>({
                 textView.text = day.date.dayOfMonth.toString()
                 dotView.isVisible = false
 
-                //Log.d("experiment", "okay2")
-
                 if (day.owner == DayOwner.THIS_MONTH) {
                     var year_month = ""
                     if (day.date.monthValue / 10 == 1) {
@@ -92,8 +90,6 @@ class TotalCalendarActivity : BaseActivity<ActivityTotalCalendarBinding>({
                     } else {
                         year_month = day.date.year.toString() + "-0" + day.date.monthValue.toString()
                     }
-
-                    //Log.e("experiment","day.owner: " + year_month + " " + day.date.dayOfMonth)
 
                     textView.makeVisible()
                     when (day.date) {
@@ -136,7 +132,7 @@ class TotalCalendarActivity : BaseActivity<ActivityTotalCalendarBinding>({
 
 
     inner class DayViewContainer(view: View) : ViewContainer(view) {
-        lateinit var day: CalendarDay // Will be set when this container is bound.
+        lateinit var day: CalendarDay
         val binding = ItemCalendarDayBinding.bind(view)
 
         init {
@@ -183,32 +179,21 @@ class TotalCalendarActivity : BaseActivity<ActivityTotalCalendarBinding>({
 
 
     private fun observer2(date :LocalDate, dotView:View, year_month:String) {
-        // date : LocalDate, dotView: View,
-        // 첫번 째로 실행 후
         viewModel.getThirdDateInfo(year_month)
-
-
-        // 두 번째로 실행
         viewModel.thirdDateDTOs.observe(this) { state ->
             when(state) {
                 is UiState.Success -> {
                     binding.progressCircular.hide()
-
                     val data = state.data.dateList
-
                     if(data.contains(date.toString())) {
-
                         dotView.makeVisible()
                     }
-
-
                 }
                     is UiState.Loading -> {
                     binding.progressCircular.show()
                 }
                 is UiState.Failure -> {
                     binding.progressCircular.hide()
-                    //Log.e("experiment",state.error.toString())
                 }
             }
 

@@ -14,7 +14,6 @@ import com.github.aachartmodel.aainfographics.aachartcreator.*
 import com.goingbacking.goingbacking.R
 import com.goingbacking.goingbacking.UI.Base.BaseActivity
 import com.goingbacking.goingbacking.bottomsheet.CheerBottomSheet
-import com.goingbacking.goingbacking.databinding.ActivityRank1Binding
 import com.goingbacking.goingbacking.databinding.ActivityRank2Binding
 import com.goingbacking.goingbacking.util.Constants
 import com.goingbacking.goingbacking.util.PrefUtil

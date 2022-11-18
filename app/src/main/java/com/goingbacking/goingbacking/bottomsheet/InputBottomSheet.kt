@@ -2,8 +2,6 @@ package com.goingbacking.goingbacking.bottomsheet
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.view.ContextThemeWrapper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,7 +14,6 @@ import com.goingbacking.goingbacking.UI.Input.InputViewModel
 import com.goingbacking.goingbacking.databinding.BottomSheetInputBinding
 import com.goingbacking.goingbacking.util.*
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.google.android.material.chip.Chip
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -50,13 +47,6 @@ class InputBottomSheet : BottomSheetDialogFragment() {
                     nickName.text = state.data.userNickName
                     type.text = state.data.userType
                     whatToDo.text = state.data.whatToDoList.toString().removeSurrounding("[","]")
-//                    if (whattodolist.size == 1) {
-//                        chip2.makeGONE()
-//                        chip3.makeGONE()
-//                    } else if (whattodolist.size == 2) {
-//                        chip3.makeGONE()
-//                    }
-
                     var count = 0
                     for (whattodo in state.data.whatToDoList) {
                         whattodoList.add(whattodo)
@@ -74,21 +64,8 @@ class InputBottomSheet : BottomSheetDialogFragment() {
                             whatToDo = whattodo
                         )
                         InitWhatToDoYearList.add(whatToDoYearDTO)
-                        // ----------------------------------------------
-                        // chip을 추가하는 코드
-//                        if (count == 0) {
-//                            chip1.text = whattodo
-//                        } else if(count == 1) {
-//                            chip2.text = whattodo
-//                        } else if (count == 2) {
-//                            chip3.text = whattodo
-//                        }
-
                         count += 1
                     }
-
-
-
                 }
                 is UiState.Failure -> {
                     progressCircular.hide()

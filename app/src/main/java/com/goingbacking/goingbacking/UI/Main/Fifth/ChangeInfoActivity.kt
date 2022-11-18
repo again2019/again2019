@@ -1,29 +1,24 @@
 package com.goingbacking.goingbacking.UI.Main.Fifth
 
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
-import androidx.core.view.children
 import androidx.lifecycle.Lifecycle
-import com.goingbacking.goingbacking.Model.UserInfoDTO
 import com.goingbacking.goingbacking.Model.WhatToDoMonthDTO
 import com.goingbacking.goingbacking.Model.WhatToDoYearDTO
 import com.goingbacking.goingbacking.R
 import com.goingbacking.goingbacking.UI.Base.BaseActivity
-import com.goingbacking.goingbacking.UI.Input.InputViewModel
 import com.goingbacking.goingbacking.databinding.ActivityChangeInfoBinding
 import com.goingbacking.goingbacking.util.PrefUtil
 import com.goingbacking.goingbacking.util.currentday
 import com.goingbacking.goingbacking.util.toast
 import com.google.android.material.chip.Chip
 import dagger.hilt.android.AndroidEntryPoint
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
+
 
 @AndroidEntryPoint
 class ChangeInfoActivity : BaseActivity<ActivityChangeInfoBinding>({
@@ -64,13 +59,10 @@ class ChangeInfoActivity : BaseActivity<ActivityChangeInfoBinding>({
         changeNickNameEditText.setText(intent.getStringExtra("nickName"))
         changeTypeEditText.setText(intent.getStringExtra("userType"))
 
-        Log.d("experiment",intent.getStringArrayExtra("whatToDo")!!.toString())
         val whatToDo = intent.getStringArrayExtra("whatToDo")!!.toList()
 
 
         for (i in whatToDo) {
-            Log.d("experiment",whatToDo.toString())
-            Log.d("experiment",i)
             if (i.equals("독서")) { chip1.isChecked = true}
             if (i.equals("영어 듣기")) { chip2.isChecked = true }
             if (i.equals("시사 공부")) { chip3.isChecked = true }

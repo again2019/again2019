@@ -1,13 +1,12 @@
 package com.goingbacking.goingbacking.bottomsheet
 
 import android.os.Bundle
-import android.os.Message
+
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.view.isInvisible
-import androidx.core.view.isVisible
+
 import androidx.fragment.app.activityViewModels
 import com.goingbacking.goingbacking.R
 import com.goingbacking.goingbacking.UI.Main.First.FirstViewModel
@@ -20,7 +19,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.chip.Chip
 import com.google.firebase.firestore.FieldValue
 import dagger.hilt.android.AndroidEntryPoint
-import io.grpc.okhttp.internal.framed.FrameReader
+
 
 @AndroidEntryPoint
 class WhatToDoSaveBottomSheet : BottomSheetDialogFragment() {
@@ -62,10 +61,7 @@ class WhatToDoSaveBottomSheet : BottomSheetDialogFragment() {
         binding.from.text = simpleFormat3
         binding.to.text = simpleFormat4
 
-
-
         whatToDoObserver()
-
         onClick()
 
         return binding.root

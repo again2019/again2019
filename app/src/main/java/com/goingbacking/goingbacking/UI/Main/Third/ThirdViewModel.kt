@@ -21,7 +21,11 @@ class ThirdViewModel @Inject constructor(
     val thirdRepository: ThirdRepositoryIF
 ) : ViewModel() {
 
+    /*
+    ScheduleInputFragment2
+     */
 
+    // 날짜만 데이터 베이스에 저장
     private val _dateDTOs = MutableLiveData<UiState<String>>()
 
     fun addDateInfo(yearMonth: String, date: DateDTO) {
@@ -29,6 +33,7 @@ class ThirdViewModel @Inject constructor(
         thirdRepository.addDateInfo(yearMonth, date) { _dateDTOs.value = it}
     }
 
+    // 스케줄을 데이터 베이스에 저장
     private val _eventDTOs = MutableLiveData<UiState<String>>()
 
     fun addScheduleEventInfo(path1 :String, path2: String, event: Event) {
@@ -36,6 +41,11 @@ class ThirdViewModel @Inject constructor(
         thirdRepository.addEventInfo(path1, path2, event) { _eventDTOs.value = it}
     }
 
+    /*
+    ThirdMainFragment
+     */
+
+    // 날짜의 스케줄 유무를 가져오는 코드
     private val _thirdDateDTOs = MutableLiveData<UiState<DateDTO>>()
     val thirdDateDTOs : LiveData<UiState<DateDTO>>
         get() = _thirdDateDTOs
@@ -45,15 +55,7 @@ class ThirdViewModel @Inject constructor(
         thirdRepository.getThirdDateInfo(year_month) { _thirdDateDTOs.value = it }
     }
 
-    private val _thirdCalendarDTOs = MutableLiveData<UiState<MutableMap<LocalDate, List<Event>>>>()
-    val thirdCalendarDTOs : LiveData<UiState<MutableMap<LocalDate, List<Event>>>>
-        get() = _thirdCalendarDTOs
-
-    fun getThirdCalendarInfo(yearList : MutableList<String>) {
-        _thirdCalendarDTOs.value = UiState.Loading
-        thirdRepository.getThirdCalendarInfo(yearList) { _thirdCalendarDTOs.value = it }
-    }
-
+    // 날짜의 스케줄 삭제하는 코드
     private val _deleteThirdCalendarDTOs = MutableLiveData<UiState<MutableMap<LocalDate, List<Event>>>>()
     val deleteThirdCalendarDTOs : LiveData<UiState<MutableMap<LocalDate, List<Event>>>>
         get() = _deleteThirdCalendarDTOs
@@ -64,15 +66,7 @@ class ThirdViewModel @Inject constructor(
     }
 
 
-    private val _thirdSelectedDateDTOs = MutableLiveData<UiState<MutableList<Event>>>()
-    val thirdSelectedDateDTOs : LiveData<UiState<MutableList<Event>>>
-        get() = _thirdSelectedDateDTOs
-
-    fun getSelectedDateInfo(year_month: String, date: String) {
-        _thirdSelectedDateDTOs.value = UiState.Loading
-        thirdRepository.getSelectedDateInfo(year_month, date) { _thirdSelectedDateDTOs.value = it }
-    }
-
+    // 닉네임을 가져오는 코드
     private val _nickNameInfoDTOs = MutableLiveData<UiState<String>>()
     val nickNameInfoDTOs : LiveData<UiState<String>>
         get() = _nickNameInfoDTOs
@@ -82,5 +76,18 @@ class ThirdViewModel @Inject constructor(
         thirdRepository.getNickNameInfo  { _nickNameInfoDTOs.value = it }
     }
 
+    /*
+    ThirdMainFragment
+    TotalCalendarActivity
+     */
 
+    // 날짜의 선택된 스케줄을 가져오는 코드
+    private val _thirdSelectedDateDTOs = MutableLiveData<UiState<MutableList<Event>>>()
+    val thirdSelectedDateDTOs : LiveData<UiState<MutableList<Event>>>
+        get() = _thirdSelectedDateDTOs
+
+    fun getSelectedDateInfo(year_month: String, date: String) {
+        _thirdSelectedDateDTOs.value = UiState.Loading
+        thirdRepository.getSelectedDateInfo(year_month, date) { _thirdSelectedDateDTOs.value = it }
+    }
 }
