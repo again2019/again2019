@@ -129,7 +129,7 @@ class WhatToDoSaveBottomSheet : BottomSheetDialogFragment() {
         }
 
         binding.xBtn.setOnClickListener {
-            dismiss()
+            dialog!!.dismiss()
         }
         binding.exitButton.setOnClickListener {
             dismiss()
