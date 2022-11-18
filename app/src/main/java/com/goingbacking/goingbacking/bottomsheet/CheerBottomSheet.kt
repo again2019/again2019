@@ -17,10 +17,12 @@ import com.goingbacking.goingbacking.UI.Main.Forth.ForthViewModel
 import com.goingbacking.goingbacking.databinding.BottomSheetCheerBinding
 import com.goingbacking.goingbacking.util.*
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import dagger.hilt.android.AndroidEntryPoint
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 
+@AndroidEntryPoint
 class CheerBottomSheet : BottomSheetDialogFragment() {
     private lateinit var binding: BottomSheetCheerBinding
     private val viewModel: ForthViewModel by activityViewModels()

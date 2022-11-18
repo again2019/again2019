@@ -19,8 +19,10 @@ import com.goingbacking.goingbacking.util.toast
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.chip.Chip
 import com.google.firebase.firestore.FieldValue
+import dagger.hilt.android.AndroidEntryPoint
 import io.grpc.okhttp.internal.framed.FrameReader
 
+@AndroidEntryPoint
 class WhatToDoSaveBottomSheet : BottomSheetDialogFragment() {
     private lateinit var binding : BottomSheetWhatToDoSaveBinding
     private val viewModel: FirstViewModel by activityViewModels()
