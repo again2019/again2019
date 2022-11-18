@@ -53,7 +53,7 @@
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/layout/activity_input.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/layout/activity_login.xml" value="0.1835032437442076" />
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/layout/activity_main.xml" value="0.176" />
-        <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/layout/activity_question.xml" value="0.264" />
+        <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/layout/activity_question.xml" value="0.2990936555891239" />
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/layout/activity_rank.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/layout/activity_rank1.xml" value="0.264" />
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/layout/activity_rank2.xml" value="0.1" />
@@ -118,6 +118,7 @@
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/layout/today_list_item.xml" value="0.536" />
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/menu/bottom_navigation_main.xml" value="0.1" />
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/mipmap-anydpi-v26/com_back_new.xml" value="0.26979166666666665" />
+        <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/mipmap-anydpi-v26/com_back_new_round.xml" value="0.1984375" />
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1" />
         <entry key="..\:/Users/PC/Documents/GitHub/again2019_teams/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1" />
       </map>

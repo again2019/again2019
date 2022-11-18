@@ -1,5 +1,7 @@
 package com.goingbacking.goingbacking.UI.Main.Fifth
 
+import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -49,21 +51,91 @@ class QuestionActivity : BaseActivity<ActivityQuestionBinding>({
     }
 
     private fun onClick() = with(binding) {
-        binding.layout01.setOnClickListener{
-            if(binding.layoutDetail01.visibility == View.VISIBLE) {
-                binding.layoutDetail01.makeGONE()
-                binding.layoutBtn01.animate().apply {
+        layout01.setOnClickListener{
+            if(layoutDetail01.visibility == View.VISIBLE) {
+                layoutDetail01.makeGONE()
+                layoutBtn01.animate().apply {
                     duration = 300
                     rotation(0f)
                 }
             } else {
-                binding.layoutDetail01.makeVisible()
-                binding.layoutBtn01.animate().apply {
+                layoutDetail01.makeVisible()
+                layoutBtn01.animate().apply {
                     duration = 300
                     rotation(180f)
                 }
             }
         }
+        layout02.setOnClickListener{
+            if(layoutDetail02.visibility == View.VISIBLE) {
+                layoutDetail02.makeGONE()
+                layoutBtn02.animate().apply {
+                    duration = 300
+                    rotation(0f)
+                }
+            } else {
+                layoutDetail02.makeVisible()
+                layoutBtn02.animate().apply {
+                    duration = 300
+                    rotation(180f)
+                }
+            }
+        }
+
+        layout03.setOnClickListener{
+            if(layoutDetail03.visibility == View.VISIBLE) {
+                layoutDetail03.makeGONE()
+                layoutBtn02.animate().apply {
+                    duration = 300
+                    rotation(0f)
+                }
+            } else {
+                layoutDetail03.makeVisible()
+                layoutBtn03.animate().apply {
+                    duration = 300
+                    rotation(180f)
+                }
+            }
+        }
+
+        layout04.setOnClickListener{
+            if(layoutDetail04.visibility == View.VISIBLE) {
+                layoutDetail04.makeGONE()
+                layoutBtn04.animate().apply {
+                    duration = 300
+                    rotation(0f)
+                }
+            } else {
+                layoutDetail04.makeVisible()
+                layoutBtn04.animate().apply {
+                    duration = 300
+                    rotation(180f)
+                }
+            }
+        }
+
+        layout05.setOnClickListener{
+            if(layoutDetail05.visibility == View.VISIBLE) {
+                layoutDetail05.makeGONE()
+                layoutBtn05.animate().apply {
+                    duration = 300
+                    rotation(0f)
+                }
+            } else {
+                layoutDetail05.makeVisible()
+                layoutBtn05.animate().apply {
+                    duration = 300
+                    rotation(180f)
+                }
+            }
+        }
+        linkButton.setOnClickListener{
+            val intent = Intent(Intent.ACTION_VIEW)
+            val uri = Uri.parse("https://docs.google.com/forms/d/e/1FAIpQLSf_rvMCDbYi_poib9CAzN-wulhDbFB0tMd0g8BgxLsRpdLAog/viewform?usp=sf_link")
+            intent.setData(uri)
+            startActivity(intent)
+        }
+
     }
 
 
