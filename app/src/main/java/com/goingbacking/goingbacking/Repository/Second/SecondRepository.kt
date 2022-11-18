@@ -27,9 +27,125 @@ class SecondRepository (
         ): SecondRepositoryIF {
 
     val uid = user?.uid!!
-    val cache = Source.CACHE
+
+    /*
+    SecondMainFragment1
+     */
+
+    // 매일 통계를 보여주는 코드
+    override fun getSecondSaveDayInfo(result: (UiState<ArrayList<SaveTimeDayDTO>>) -> Unit) {
+        firebaseFirestore.collection(SAVETIMEINFO).document(uid)
+            .collection(DAY).document(currentday("yyyy-MM"))
+            .collection(currentday("yyyy-MM")).get()
+            .addOnSuccessListener {
+                val saveTimeDayDTOList = arrayListOf<SaveTimeDayDTO>()
+
+                for (document in it) {
+                    saveTimeDayDTOList.add(document.toObject(SaveTimeDayDTO::class.java))
+                }
+
+                result.invoke(
+                    UiState.Success(saveTimeDayDTOList)
+                )
+            }
+            .addOnFailureListener {
+                result.invoke(
+                    UiState.Failure(
+                        it.localizedMessage
+                    )
+                )
+            }
+    }
 
 
+    // 달 통계를 보여주는 코드
+    override fun getSecondSaveMonthInfo(result: (UiState<ArrayList<SaveTimeMonthDTO>>) -> Unit) {
+        firebaseFirestore.collection(SAVETIMEINFO).document(uid)
+            .collection(MONTH).document(currentday("yyyy"))
+            .collection(currentday("yyyy")).get()
+            .addOnSuccessListener {
+                val saveTimeMonthDTOList = arrayListOf<SaveTimeMonthDTO>()
+
+                for (document in it) {
+                    saveTimeMonthDTOList.add(document.toObject(SaveTimeMonthDTO::class.java))
+                }
+                result.invoke(
+                    UiState.Success(saveTimeMonthDTOList)
+                )
+            }
+    }
+
+    // 연도 통계를 보여주는 코드
+    override fun getSecondSaveYearInfo(result: (UiState<ArrayList<SaveTimeYearDTO>>) -> Unit) {
+
+        firebaseFirestore.collection(SAVETIMEINFO).document(uid)
+            .collection(YEAR).get()
+            .addOnSuccessListener {
+                val saveTimeYearDTOList = arrayListOf<SaveTimeYearDTO>()
+                for(document in it){
+                    saveTimeYearDTOList.add(document.toObject(SaveTimeYearDTO::class.java))
+                }
+
+                result.invoke(
+                    UiState.Success(saveTimeYearDTOList)
+                )
+            }
+            .addOnFailureListener {
+                result.invoke(
+                    UiState.Failure(
+                        it.localizedMessage
+                    )
+                )
+            }
+    }
+
+    // 어떤 자기계발을 했는지 달 통계를 보여주는 코드
+    override fun getSecondWhatToDoMonthInfo(result: (UiState<ArrayList<WhatToDoMonthDTO>>) -> Unit) {
+        firebaseFirestore.collection(WHATTODOINFO).document(uid)
+            .collection(MONTH).document(currentday("yyyy-MM"))
+            .collection(currentday("yyyy-MM")).get()
+            .addOnSuccessListener {
+                val whatToDoMonthDTOList = arrayListOf<WhatToDoMonthDTO>()
+                for (document in it) {
+                    whatToDoMonthDTOList.add(document.toObject(WhatToDoMonthDTO::class.java))
+                }
+
+                result.invoke(
+                    UiState.Success(whatToDoMonthDTOList)
+                )
+            }
+            .addOnFailureListener {
+                result.invoke(
+                    UiState.Failure(
+                        it.localizedMessage
+                    )
+                )
+            }
+    }
+
+    // 어떤 자기계발을 했는지 연도 통계를 보여주는 코드
+    override fun getSecondWhatToDoYearInfo(result: (UiState<ArrayList<WhatToDoYearDTO>>) -> Unit)  {
+        firebaseFirestore.collection(WHATTODOINFO).document(uid)
+            .collection("year").document(currentday("yyyy"))
+            .collection(currentday("yyyy")).get()
+            .addOnSuccessListener {
+                val whatToDoYearDTOList = arrayListOf<WhatToDoYearDTO>()
+                for (document in it) {
+                    whatToDoYearDTOList.add(document.toObject(WhatToDoYearDTO::class.java))
+                }
+
+                result.invoke(
+                    UiState.Success(whatToDoYearDTOList)
+                )
+            }
+            .addOnFailureListener {
+                result.invoke(
+                    UiState.Failure(
+                        it.localizedMessage
+                    )
+                )
+            }
+    }
 
 
 
@@ -415,121 +531,7 @@ class SecondRepository (
 
 
     // SecondMainFragment
-    override fun getSecondSaveDayInfo(result: (UiState<ArrayList<SaveTimeDayDTO>>) -> Unit) {
-        firebaseFirestore.collection(SAVETIMEINFO).document(uid)
-            .collection(DAY).document(currentday("yyyy-MM"))
-            .collection(currentday("yyyy-MM")).get()
-            .addOnSuccessListener {
-                val saveTimeDayDTOList = arrayListOf<SaveTimeDayDTO>()
 
-                for (document in it) {
-                    saveTimeDayDTOList.add(document.toObject(SaveTimeDayDTO::class.java))
-                }
-
-                result.invoke(
-                    UiState.Success(saveTimeDayDTOList)
-                )
-            }
-            .addOnFailureListener {
-                result.invoke(
-                    UiState.Failure(
-                        it.localizedMessage
-                    )
-                )
-            }
-
-
-    }
-
-    override fun getSecondSaveMonthInfo(result: (UiState<ArrayList<SaveTimeMonthDTO>>) -> Unit) {
-        firebaseFirestore.collection(SAVETIMEINFO).document(uid)
-            .collection(MONTH).document(currentday("yyyy"))
-            .collection(currentday("yyyy")).get()
-            .addOnSuccessListener {
-                val saveTimeMonthDTOList = arrayListOf<SaveTimeMonthDTO>()
-
-                for (document in it) {
-                    saveTimeMonthDTOList.add(document.toObject(SaveTimeMonthDTO::class.java))
-                }
-                result.invoke(
-                    UiState.Success(saveTimeMonthDTOList)
-                )
-            }
-
-
-
-
-
-    }
-
-    override fun getSecondSaveYearInfo(result: (UiState<ArrayList<SaveTimeYearDTO>>) -> Unit) {
-
-        firebaseFirestore.collection(SAVETIMEINFO).document(uid)
-            .collection(YEAR).get()
-            .addOnSuccessListener {
-                val saveTimeYearDTOList = arrayListOf<SaveTimeYearDTO>()
-                 for(document in it){
-                        saveTimeYearDTOList.add(document.toObject(SaveTimeYearDTO::class.java))
-                }
-
-                result.invoke(
-                    UiState.Success(saveTimeYearDTOList)
-                )
-            }
-            .addOnFailureListener {
-                result.invoke(
-                    UiState.Failure(
-                        it.localizedMessage
-                    )
-                )
-            }
-    }
-
-    override fun getSecondWhatToDoMonthInfo(result: (UiState<ArrayList<WhatToDoMonthDTO>>) -> Unit) {
-        firebaseFirestore.collection(WHATTODOINFO).document(uid)
-            .collection(MONTH).document(currentday("yyyy-MM"))
-            .collection(currentday("yyyy-MM")).get()
-            .addOnSuccessListener {
-                val whatToDoMonthDTOList = arrayListOf<WhatToDoMonthDTO>()
-                for (document in it) {
-                    whatToDoMonthDTOList.add(document.toObject(WhatToDoMonthDTO::class.java))
-                }
-
-                result.invoke(
-                    UiState.Success(whatToDoMonthDTOList)
-                )
-            }
-            .addOnFailureListener {
-                result.invoke(
-                    UiState.Failure(
-                        it.localizedMessage
-                    )
-                )
-            }
-    }
-
-    override fun getSecondWhatToDoYearInfo(result: (UiState<ArrayList<WhatToDoYearDTO>>) -> Unit)  {
-        firebaseFirestore.collection(WHATTODOINFO).document(uid)
-            .collection("year").document(currentday("yyyy"))
-            .collection(currentday("yyyy")).get()
-            .addOnSuccessListener {
-                val whatToDoYearDTOList = arrayListOf<WhatToDoYearDTO>()
-                for (document in it) {
-                    whatToDoYearDTOList.add(document.toObject(WhatToDoYearDTO::class.java))
-                }
-
-                result.invoke(
-                    UiState.Success(whatToDoYearDTOList)
-                )
-            }
-            .addOnFailureListener {
-                result.invoke(
-                    UiState.Failure(
-                        it.localizedMessage
-                    )
-                )
-            }
-    }
 
 }
 
