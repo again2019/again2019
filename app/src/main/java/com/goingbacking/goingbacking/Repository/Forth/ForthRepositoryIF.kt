@@ -2,25 +2,25 @@ package com.goingbacking.goingbacking.Repository.Forth
 
 import com.goingbacking.goingbacking.Model.NewSaveTimeMonthDTO
 import com.goingbacking.goingbacking.Model.NewSaveTimeYearDTO
-import com.goingbacking.goingbacking.Model.SaveTimeMonthDTO
-import com.goingbacking.goingbacking.Model.SaveTimeYearDTO
 import com.goingbacking.goingbacking.util.UiState
-import com.google.firebase.auth.UserInfo
 
 interface ForthRepositoryIF {
 
-
-
-
-
-
-
-
-
+    /*
+    ForthMainFragment1
+     */
 
     fun getSaveTimeMonthInfo(result: (UiState<ArrayList<NewSaveTimeMonthDTO>>) -> Unit)
+
+    /*
+    ForthMainFragment2
+    */
+
     fun getSaveTimeYearInfo(result: (UiState<ArrayList<NewSaveTimeYearDTO>>) -> Unit )
 
+    /*
+    CheerBottomSheet
+     */
 
     // 응원 댓글 받아오는 코드
     fun getCheerInfo(destinationUid :String, result: (UiState<List<String>>) -> Unit)

@@ -1,19 +1,15 @@
 package com.goingbacking.goingbacking.Repository.Forth
 
-import android.util.Log
 import com.goingbacking.goingbacking.FCM.FirebaseTokenManager
 import com.goingbacking.goingbacking.FCM.NotificationData
 import com.goingbacking.goingbacking.FCM.PushNotification
 import com.goingbacking.goingbacking.Model.*
-import com.goingbacking.goingbacking.util.Constants
 import com.goingbacking.goingbacking.util.Constants.Companion.CHEERS
 import com.goingbacking.goingbacking.util.Constants.Companion.COUNT
 import com.goingbacking.goingbacking.util.Constants.Companion.FAIL
-import com.goingbacking.goingbacking.util.Constants.Companion.LIKES
 import com.goingbacking.goingbacking.util.Constants.Companion.USERINFO
 import com.goingbacking.goingbacking.util.FBConstants.Companion.RANKMONTHINFO
 import com.goingbacking.goingbacking.util.FBConstants.Companion.RANKYEARINFO
-import com.goingbacking.goingbacking.util.PrefUtil
 import com.goingbacking.goingbacking.util.UiState
 import com.goingbacking.goingbacking.util.currentday
 import com.google.firebase.auth.FirebaseUser
@@ -25,8 +21,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 
 
 class ForthRepository (
@@ -36,6 +30,10 @@ class ForthRepository (
 
     val myUid = user?.uid!!
     val cache = Source.CACHE
+
+    /*
+    ForthMainFragment1
+     */
 
     override fun getSaveTimeMonthInfo(result: (UiState<ArrayList<NewSaveTimeMonthDTO>>)-> Unit) {
         val arrayList = ArrayList<NewSaveTimeMonthDTO>()
@@ -52,6 +50,9 @@ class ForthRepository (
             }
     }
 
+    /*
+    ForthMainFragment2
+    */
     override fun getSaveTimeYearInfo(result: (UiState<ArrayList<NewSaveTimeYearDTO>>)-> Unit) {
         val arrayList = ArrayList<NewSaveTimeYearDTO>()
 
@@ -68,7 +69,11 @@ class ForthRepository (
     }
 
 
+    /*
+    CheerBottomSheet
+     */
 
+    // 응원 댓글 받아오는 코드
     override fun getCheerInfo(destinationUid: String, result: (UiState<List<String>>) -> Unit) {
         firebaseFirestore.collection(USERINFO).document(destinationUid)
             .get().addOnSuccessListener { document ->
@@ -83,11 +88,8 @@ class ForthRepository (
             }
     }
 
+    // 응원 댓글 입력
     override fun addCheerInfo(destinationUid: String, text: String, result: (UiState<List<String>>) -> Unit) {
-
-//        val tsDoc = firebaseFirestore.collection(RANKYEARINFO).document(currentday("yyyy"))
-//            .collection(currentday("yyyy")).document(destinationUid)
-
         CoroutineScope(Dispatchers.IO).launch {
 
             val tsDoc = firebaseFirestore.collection(USERINFO).document(destinationUid)
@@ -100,50 +102,16 @@ class ForthRepository (
                     destinationInfo!!.cheers
                 )
             )
-
-
             PushNotification(
                 NotificationData(text, text),
                 destinationInfo.token!!
             ).also {
                 FirebaseTokenManager.sendNotification(it)
             }
-
-
-//            val destinationInfo = firebaseFirestore.collection(USERINFO).document(destinationUid).get().await().toObject(UserInfoDTO::class.java)
-//            val userInfo = firebaseFirestore.collection(USERINFO).document(myUid).get(cache).await().toObject(UserInfoDTO::class.java)
-//            val cheer = myUid + ":" + userInfo!!.userNickName + ":" + text
-//            tsDoc.update(CHEERS, FieldValue.arrayUnion(cheer)).await()
-
-//            PushNotification(
-//                NotificationData(text, text),
-//                destinationInfo!!.token!!
-//            ).also {
-//                FirebaseTokenManager.sendNotification(it)
-//            }
-//            firebaseFirestore.collection(RANKYEARINFO).document(currentday("yyyy"))
-//                .collection(currentday("yyyy")).document(destinationUid).get()
-//                .addOnSuccessListener { document ->
-//                    if (document != null) {
-//                        //Log.d("experiment", document.toObject(NewSaveTimeYearDTO::class.java)!!.cheers.toString())
-//
-//                        result.invoke(UiState.Success(
-//                            document.toObject(NewSaveTimeYearDTO::class.java)!!.cheers
-//                        ))
-//                    } else {
-//                        result.invoke(UiState.Failure(FAIL))
-//                    }
-//                }
-//                .addOnFailureListener {
-//                    result.invoke(UiState.Failure(FAIL))
-//                }.await()
-
-
         }
-
-
     }
 
+    // 응원 댓글 삭제
     override fun deleteCheerInfo(
         destinationUid: String,
         text: String,

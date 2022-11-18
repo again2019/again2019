@@ -11,7 +11,6 @@ import com.goingbacking.goingbacking.util.currentday
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.Query
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -23,6 +22,11 @@ class RankRepository  (
 ): RankRepositoryIF {
     val uid = user?.uid!!
 
+    /*
+    RankActivity1
+     */
+
+    // 일별 통계 받아오는 코드
     override fun getSecondSaveDayInfo(destinationUid : String, result: (UiState<ArrayList<SaveTimeDayDTO>>) -> Unit) {
         firebaseFirestore.collection(FBConstants.SAVETIMEINFO).document(destinationUid)
             .collection(FBConstants.DAY).document(currentday("yyyy-MM"))
@@ -45,51 +49,9 @@ class RankRepository  (
                     )
                 )
             }
-
-
     }
 
-
-
-    override fun getSecondSaveMonthInfo(destinationUid : String, result: (UiState<ArrayList<SaveTimeMonthDTO>>) -> Unit) {
-        firebaseFirestore.collection(FBConstants.SAVETIMEINFO).document(destinationUid)
-            .collection(FBConstants.MONTH).document(currentday("yyyy"))
-            .collection(currentday("yyyy")).get()
-            .addOnSuccessListener {
-                val saveTimeMonthDTOList = arrayListOf<SaveTimeMonthDTO>()
-
-                for (document in it) {
-                    saveTimeMonthDTOList.add(document.toObject(SaveTimeMonthDTO::class.java))
-                }
-                result.invoke(
-                    UiState.Success(saveTimeMonthDTOList)
-                )
-            }
-    }
-
-    override fun getSecondSaveYearInfo(destinationUid : String, result: (UiState<ArrayList<SaveTimeYearDTO>>) -> Unit) {
-
-        firebaseFirestore.collection(FBConstants.SAVETIMEINFO).document(destinationUid)
-            .collection(FBConstants.YEAR).get()
-            .addOnSuccessListener {
-                val saveTimeYearDTOList = arrayListOf<SaveTimeYearDTO>()
-                for(document in it){
-                    saveTimeYearDTOList.add(document.toObject(SaveTimeYearDTO::class.java))
-                }
-
-                result.invoke(
-                    UiState.Success(saveTimeYearDTOList)
-                )
-            }
-            .addOnFailureListener {
-                result.invoke(
-                    UiState.Failure(
-                        it.localizedMessage
-                    )
-                )
-            }
-    }
-
+    // 달별 자기계발 통계 받아오는 코드
     override fun getSecondWhatToDoMonthInfo(destinationUid : String, result: (UiState<ArrayList<WhatToDoMonthDTO>>) -> Unit) {
         firebaseFirestore.collection(FBConstants.WHATTODOINFO).document(destinationUid)
             .collection(FBConstants.MONTH).document(currentday("yyyy-MM"))
@@ -113,6 +75,28 @@ class RankRepository  (
             }
     }
 
+    /*
+     RankActivity2
+      */
+
+    // 달별 통계 받아오는 코드
+    override fun getSecondSaveMonthInfo(destinationUid : String, result: (UiState<ArrayList<SaveTimeMonthDTO>>) -> Unit) {
+        firebaseFirestore.collection(FBConstants.SAVETIMEINFO).document(destinationUid)
+            .collection(FBConstants.MONTH).document(currentday("yyyy"))
+            .collection(currentday("yyyy")).get()
+            .addOnSuccessListener {
+                val saveTimeMonthDTOList = arrayListOf<SaveTimeMonthDTO>()
+
+                for (document in it) {
+                    saveTimeMonthDTOList.add(document.toObject(SaveTimeMonthDTO::class.java))
+                }
+                result.invoke(
+                    UiState.Success(saveTimeMonthDTOList)
+                )
+            }
+    }
+
+    // 연도별 자기계발 통계 받아오는 코드
     override fun getSecondWhatToDoYearInfo(destinationUid : String, result: (UiState<ArrayList<WhatToDoYearDTO>>) -> Unit)  {
         firebaseFirestore.collection(FBConstants.WHATTODOINFO).document(destinationUid)
             .collection("year").document(currentday("yyyy"))
@@ -136,35 +120,14 @@ class RankRepository  (
             }
     }
 
-    override fun getSaveTimeMonthInfo(
-        destinationUid: String,
-        result: (UiState<NewSaveTimeMonthDTO>) -> Unit
-    ) {
 
-        firebaseFirestore.collection(FBConstants.RANKMONTHINFO).document(currentday("yyyy-MM"))
-            .collection(currentday("yyyy-MM")).document(destinationUid).get()
-            .addOnSuccessListener { document ->
-                val doc = document.toObject(NewSaveTimeMonthDTO::class.java)!!
-                result.invoke(UiState.Success(doc))
-            }.addOnFailureListener {
-                result.invoke(UiState.Failure(Constants.FAIL))
-            }
-    }
+    /*
+    RankActivity1
+    RankActivity2
+     */
 
-    override fun getSaveTimeYearInfo(
-        destinationUid: String,
-        result: (UiState<NewSaveTimeYearDTO>) -> Unit
-    ) {
-        firebaseFirestore.collection(FBConstants.RANKYEARINFO).document(currentday("yyyy"))
-            .collection(currentday("yyyy")).document(destinationUid).get()
-            .addOnSuccessListener { document ->
-                val doc = document.toObject(NewSaveTimeYearDTO::class.java)!!
-                result.invoke(UiState.Success(doc))
-            }.addOnFailureListener {
-                result.invoke(UiState.Failure(Constants.FAIL))
-            }
-    }
 
+    // 개인정보 받아오는 코드
     override fun getFifthUserInfo(destinationUid: String, result: (UiState<UserInfoDTO>) -> Unit) {
         firebaseFirestore.collection(Constants.USERINFO).document(destinationUid)
             .get()
@@ -184,9 +147,8 @@ class RankRepository  (
             }
     }
 
-    // 달별
+    // 좋아요 버튼 기능 month, year
     override fun likeButtonInfo(destinationUid :String, state :String, result: (UiState<String>) -> Unit) {
-
         CoroutineScope(Dispatchers.IO).launch {
             val tsDoc1 = firebaseFirestore.collection(Constants.USERINFO).document(destinationUid)
             if (state.equals("plus")) {
@@ -231,13 +193,6 @@ class RankRepository  (
                     )
                 }.await()
             }
-
-
         }
-
-
-
     }
-
-
 }

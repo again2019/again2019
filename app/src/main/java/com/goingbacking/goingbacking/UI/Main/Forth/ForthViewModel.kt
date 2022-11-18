@@ -18,15 +18,9 @@ class ForthViewModel @Inject constructor(
     val forthRepository: ForthRepositoryIF
 ) : ViewModel() {
 
-    // year 기준으로 랭킹화
-    private val _newSaveTimeYear = MutableLiveData<UiState<ArrayList<NewSaveTimeYearDTO>>>()
-    val newSaveTimeYear : LiveData<UiState<ArrayList<NewSaveTimeYearDTO>>>
-        get() = _newSaveTimeYear
-
-    fun getSaveTimeYearInfo() = viewModelScope.launch {
-        _newSaveTimeYear.value = UiState.Loading
-        forthRepository.getSaveTimeYearInfo { _newSaveTimeYear.value = it }
-    }
+    /*
+    ForthMainFragment1
+     */
 
     // month 기준으로 랭킹화
     private val _newSaveTimeMonth = MutableLiveData<UiState<ArrayList<NewSaveTimeMonthDTO>>>()
@@ -37,6 +31,26 @@ class ForthViewModel @Inject constructor(
         _newSaveTimeMonth.value = UiState.Loading
         forthRepository.getSaveTimeMonthInfo { _newSaveTimeMonth.value = it }
     }
+
+    /*
+    ForthMainFragment2
+     */
+
+    // year 기준으로 랭킹화
+    private val _newSaveTimeYear = MutableLiveData<UiState<ArrayList<NewSaveTimeYearDTO>>>()
+    val newSaveTimeYear : LiveData<UiState<ArrayList<NewSaveTimeYearDTO>>>
+        get() = _newSaveTimeYear
+
+    fun getSaveTimeYearInfo() = viewModelScope.launch {
+        _newSaveTimeYear.value = UiState.Loading
+        forthRepository.getSaveTimeYearInfo { _newSaveTimeYear.value = it }
+    }
+
+
+    /*
+    CheerBottomSheet
+     */
+
 
     // 응원 메시지 불러오기
     private val _cheerInfo = MutableLiveData<UiState<List<String>>>()
