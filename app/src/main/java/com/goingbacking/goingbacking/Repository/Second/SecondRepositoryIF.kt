@@ -26,14 +26,5 @@ interface SecondRepositoryIF {
     // 어떤 자기계발을 했는지 연도 통계를 보여주는 코드
     fun getSecondWhatToDoYearInfo(result: (UiState<ArrayList<WhatToDoYearDTO>>) -> Unit)
 
-    fun getThirdDateInfo(result: (UiState<DateDTO>) -> Unit)
-    fun getThirdDateInfo2(year_month: String, result: (UiState<DateDTO>) -> Unit)
-
-    fun getThirdCalendarInfo(yearList : MutableList<String>,result: (UiState<MutableMap<LocalDate, List<Event>>>) -> Unit)
-
-    // CalendarDetailBottomSheet
-    fun getSelectedDateInfo(year_month: String, date: String, result: (UiState<MutableMap<LocalDate, List<Event>>>) -> Unit)
-
-
 
 }
