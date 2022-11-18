@@ -17,7 +17,6 @@ import com.goingbacking.goingbacking.util.makeVisible
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 
 @AndroidEntryPoint
 class CalendarDetailBottomSheet : BottomSheetDialogFragment() {
@@ -55,14 +54,12 @@ class CalendarDetailBottomSheet : BottomSheetDialogFragment() {
             when(state) {
                 is UiState.Success -> {
                     binding.progressCircular.hide()
-                    val dates = LocalDate.parse(date, DateTimeFormatter.ISO_DATE)
                     eventsList = state.data
                     if (eventsList.size == 0) {
                         binding.recyclerView.makeGONE()
                         binding.noScheduleTextView.makeVisible()
                     } else {
                         eventsAdapter.submitList(eventsList)
-//                        updateAdapterForDate(dates)
                         binding.recyclerView.makeVisible()
                         binding.noScheduleTextView.makeGONE()
                     }
@@ -80,12 +77,4 @@ class CalendarDetailBottomSheet : BottomSheetDialogFragment() {
         }
 
     }
-
-    private fun updateAdapterForDate(date: LocalDate) {
-        eventsAdapter.submitList(this.events[date].orEmpty())
-
-    }
-
-
-
 }
