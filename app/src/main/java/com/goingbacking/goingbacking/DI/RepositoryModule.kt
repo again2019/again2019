@@ -109,10 +109,8 @@ object RepositoryModule {
         firebaseFirestore: FirebaseFirestore,
         user: FirebaseUser?,
         firebaseAuth: FirebaseAuth,
-        firebaseMessage : FirebaseMessaging
-
     ) : FifthRepositoryIF {
-        return FifthRepository(user, firebaseFirestore, firebaseAuth, firebaseMessage)
+        return FifthRepository(user, firebaseFirestore, firebaseAuth)
     }
 
 

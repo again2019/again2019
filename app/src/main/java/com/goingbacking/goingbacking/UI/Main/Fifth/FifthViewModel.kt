@@ -10,7 +10,6 @@ import com.goingbacking.goingbacking.Model.WhatToDoYearDTO
 import com.goingbacking.goingbacking.Repository.Fifth.FifthRepositoryIF
 import com.goingbacking.goingbacking.util.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -19,7 +18,9 @@ class FifthViewModel @Inject constructor(
     val fifthRepository: FifthRepositoryIF
 ) : ViewModel() {
 
-    // fifthMainFragment
+    /*
+     FifthMainFragment
+     */
 
     // 개인 정보(닉네임, 타입, 할 것)을 불러오는 부분
     private val _userInfoDTOs = MutableLiveData<UiState<UserInfoDTO>>()
@@ -43,11 +44,9 @@ class FifthViewModel @Inject constructor(
         }
     }
 
-
-
-
-
-
+    /*
+     ChangeInfoActivity
+     */
 
     // 개인 정보 수정
     private val _userInfo = MutableLiveData<UiState<String>>()

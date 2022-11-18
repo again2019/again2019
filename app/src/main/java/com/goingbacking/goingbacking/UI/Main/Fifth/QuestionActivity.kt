@@ -2,13 +2,10 @@ package com.goingbacking.goingbacking.UI.Main.Fifth
 
 import android.content.Intent
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
-import androidx.constraintlayout.widget.ConstraintSet.GONE
-import androidx.constraintlayout.widget.ConstraintSet.VISIBLE
 import com.goingbacking.goingbacking.UI.Base.BaseActivity
 import com.goingbacking.goingbacking.databinding.ActivityQuestionBinding
 import com.goingbacking.goingbacking.util.makeGONE

@@ -24,13 +24,16 @@ class FifthRepository(
     val user : FirebaseUser?,
     val firebaseFirestore: FirebaseFirestore,
     val firebaseAuth: FirebaseAuth,
-    val firebaseMessage : FirebaseMessaging
 ) : FifthRepositoryIF {
 
     val myUid = user?.uid!!
     val cache = Source.CACHE
 
-    // 개인 정보 불러오는 코드
+    /*
+     FifthMainFragment
+     */
+
+    // 개인 정보(닉네임, 타입, 할 것)을 불러오는 부분
     override fun getFifthUserInfo(result: (UiState<UserInfoDTO>) -> Unit) {
         firebaseFirestore.collection(USERINFO).document(myUid)
             .get(cache)
@@ -66,7 +69,11 @@ class FifthRepository(
         }
     }
 
-    // 정보 수정 저장
+    /*
+     ChangeInfoActivity
+     */
+
+    // 개인 정보 수정
     override fun reviseUserInfo(nickname :String, type :String, selected : List<String>, result: (UiState<String>) -> Unit) {
         val myDoc1 =  firebaseFirestore.collection(USERINFO).document(myUid)
         myDoc1.update("userNickName", nickname)
@@ -82,6 +89,7 @@ class FifthRepository(
             .update("nickname", nickname)
     }
 
+    // month whattodo chart를 위해 초기화하는 코드
     override fun addInitWhatToDoMonthTime(
         whatToDoMonthDTO: WhatToDoMonthDTO,
         result: (UiState<String>) -> Unit
@@ -101,6 +109,7 @@ class FifthRepository(
             }
     }
 
+    // year whattodo chart를 위해 초기화하는 코드
     override fun addInitWhatToDoYearTime(
         whatToDoYearDTO: WhatToDoYearDTO,
         result: (UiState<String>) -> Unit
@@ -117,7 +126,5 @@ class FifthRepository(
                     UiState.Failure(Constants.FAIL)
                 )
             }
-
     }
-
 }
