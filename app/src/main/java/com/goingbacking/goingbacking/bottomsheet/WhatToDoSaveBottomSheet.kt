@@ -1,6 +1,7 @@
 package com.goingbacking.goingbacking.bottomsheet
 
 import android.os.Bundle
+import android.os.Message
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,6 +19,7 @@ import com.goingbacking.goingbacking.util.toast
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.chip.Chip
 import com.google.firebase.firestore.FieldValue
+import io.grpc.okhttp.internal.framed.FrameReader
 
 class WhatToDoSaveBottomSheet : BottomSheetDialogFragment() {
     private lateinit var binding : BottomSheetWhatToDoSaveBinding
@@ -26,6 +28,7 @@ class WhatToDoSaveBottomSheet : BottomSheetDialogFragment() {
     private lateinit var simpleFormat2 : String //"dd"
     private lateinit var simpleFormat3 : String //"yyyy"
     private lateinit var simpleFormat4 : String //"MM"
+    private lateinit var startTime : String
 
     private lateinit var wakeUpTime1 : String
     private lateinit var wakeUpTime2 : String
@@ -45,6 +48,7 @@ class WhatToDoSaveBottomSheet : BottomSheetDialogFragment() {
         simpleFormat2 = arguments?.getString("simpleFormat2")!!
         simpleFormat3 = arguments?.getString("simpleFormat3")!!
         simpleFormat4 = arguments?.getString("simpleFormat4")!!
+        startTime = arguments?.getString("startTime")!!
 
         wakeUpTime1 = arguments?.getString("wakeUpTime1")!!
         wakeUpTime2 = arguments?.getString("wakeUpTime2")!!
@@ -123,16 +127,19 @@ class WhatToDoSaveBottomSheet : BottomSheetDialogFragment() {
                 viewModel.updateWhatToDoYearInfo(wakeUpTime3, selected.get(0), count)
                 viewModel.updateRankMonthInfo(wakeUpTime1, count)
                 viewModel.updateRankYearInfo(wakeUpTime3, count)
+                viewModel.deleteTmpTimeInfo(startTime)
 
-                dismiss()
+                dialog!!.cancel()
+
             }
         }
 
         binding.xBtn.setOnClickListener {
             dialog!!.dismiss()
+
         }
         binding.exitButton.setOnClickListener {
-            dismiss()
+            dialog!!.dismiss()
         }
     }
 
