@@ -61,10 +61,7 @@ class WhatToDoSaveBottomSheet : BottomSheetDialogFragment() {
         binding.from.text = simpleFormat3
         binding.to.text = simpleFormat4
 
-
-
         whatToDoObserver()
-
         onClick()
 
         return binding.root
