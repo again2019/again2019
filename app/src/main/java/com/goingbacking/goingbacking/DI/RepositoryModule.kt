@@ -33,37 +33,6 @@ import javax.inject.Singleton
 @Module
 object RepositoryModule {
 
-
-
-    @Provides
-    @Singleton
-    fun provideInputRepository(
-        user: FirebaseUser?,
-        firebaseFirestore: FirebaseFirestore,
-        firebaseMessage : FirebaseMessaging
-    ) : InputRepositoryIF {
-        return InputRepository(user, firebaseFirestore, firebaseMessage)
-    }
-
-
-    @Provides
-    @Singleton
-    fun provideSecondRepository(
-        user: FirebaseUser?,
-        firebaseFirestore: FirebaseFirestore
-    ) : SecondRepositoryIF {
-        return SecondRepository(user, firebaseFirestore)
-    }
-
-    @Provides
-    @Singleton
-    fun provideFirstRepository (
-        user: FirebaseUser?,
-        firebaseFirestore: FirebaseFirestore
-    ) : FirstRepositoryIF {
-        return FirstRepository(user, firebaseFirestore)
-    }
-
     @Provides
     @Singleton
     fun provideAlarmRepository() : AlarmRepositoryIF {
@@ -78,7 +47,34 @@ object RepositoryModule {
     ) : LoginRepositoryIF {
         return LoginRepository(firebaseAuth, firebaseFirestore)
     }
+    
+    @Provides
+    @Singleton
+    fun provideInputRepository(
+        user: FirebaseUser?,
+        firebaseFirestore: FirebaseFirestore,
+        firebaseMessage : FirebaseMessaging
+    ) : InputRepositoryIF {
+        return InputRepository(user, firebaseFirestore, firebaseMessage)
+    }
 
+    @Provides
+    @Singleton
+    fun provideFirstRepository (
+        user: FirebaseUser?,
+        firebaseFirestore: FirebaseFirestore
+    ) : FirstRepositoryIF {
+        return FirstRepository(user, firebaseFirestore)
+    }
+
+    @Provides
+    @Singleton
+    fun provideSecondRepository(
+        user: FirebaseUser?,
+        firebaseFirestore: FirebaseFirestore
+    ) : SecondRepositoryIF {
+        return SecondRepository(user, firebaseFirestore)
+    }
 
     @Provides
     @Singleton
@@ -89,7 +85,6 @@ object RepositoryModule {
         return ThirdRepository(firebaseFirestore, firebaseAuth)
     }
 
-
     @Provides
     @Singleton
     fun provideForthRepository (
@@ -97,6 +92,15 @@ object RepositoryModule {
         user: FirebaseUser?,
     ) : ForthRepositoryIF {
         return ForthRepository(user, firebaseFirestore)
+    }
+
+    @Provides
+    @Singleton
+    fun provideRankRepository (
+        firebaseFirestore: FirebaseFirestore,
+        user: FirebaseUser?,
+    ) : RankRepositoryIF {
+        return RankRepository(user, firebaseFirestore)
     }
 
     @Provides
@@ -110,14 +114,19 @@ object RepositoryModule {
     ) : FifthRepositoryIF {
         return FifthRepository(user, firebaseFirestore, firebaseAuth, firebaseMessage)
     }
-    @Provides
-    @Singleton
-    fun provideRankRepository (
-        firebaseFirestore: FirebaseFirestore,
-        user: FirebaseUser?,
-    ) : RankRepositoryIF {
-        return RankRepository(user, firebaseFirestore)
-    }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 }
