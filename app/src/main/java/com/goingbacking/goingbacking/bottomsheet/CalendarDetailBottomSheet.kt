@@ -25,6 +25,7 @@ class CalendarDetailBottomSheet : BottomSheetDialogFragment() {
   private val viewModel : ThirdViewModel by activityViewModels()
     private var events = mutableMapOf<LocalDate, List<Event>>()
     private val eventsAdapter = CalendarEventAdapter2()
+    private var eventsList = mutableListOf<Event>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -55,12 +56,13 @@ class CalendarDetailBottomSheet : BottomSheetDialogFragment() {
                 is UiState.Success -> {
                     binding.progressCircular.hide()
                     val dates = LocalDate.parse(date, DateTimeFormatter.ISO_DATE)
-                    events = state.data
-                    if (events.size == 0) {
+                    eventsList = state.data
+                    if (eventsList.size == 0) {
                         binding.recyclerView.makeGONE()
                         binding.noScheduleTextView.makeVisible()
                     } else {
-                        updateAdapterForDate(dates)
+                        eventsAdapter.submitList(eventsList)
+//                        updateAdapterForDate(dates)
                         binding.recyclerView.makeVisible()
                         binding.noScheduleTextView.makeGONE()
                     }

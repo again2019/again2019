@@ -71,7 +71,7 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
     private var events = mutableMapOf<LocalDate, List<Event>>()
     private var selectedDateList = mutableListOf<String>()
 
-
+    private var eventsList = mutableListOf<Event>()
     val viewModel : ThirdViewModel by viewModels()
 
 
@@ -127,6 +127,7 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
                         }
                         else -> {
 
+                            Log.d("experiment", "click")
                             textView.background = null
                             observer2(day.date, dotView)
                         }
@@ -168,7 +169,7 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
 
 
     private fun observer2(date:LocalDate, dotView:View) {
-        Log.d("experiment", date.toString())
+        Log.d("experiment", "update date" + date.toString())
         viewModel.getThirdDateInfo(currentday("yyyy-MM"))
         viewModel.thirdDateDTOs.observe(viewLifecycleOwner) { state ->
             when(state) {
@@ -215,12 +216,15 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
     }
 
     private fun selectDate(date: LocalDate) {
+        Log.d("experiment", "selected date " + selectedDate.toString() + " just date " + date.toString())
+
         if (selectedDate != date) {
             val oldDate = selectedDate
             selectedDate = date
             oldDate?.let { binding.threeCalendar.notifyDateChanged(it) }
             binding.threeCalendar.notifyDateChanged(date)
-            updateAdapterForDate(date)
+
+//            updateAdapterForDate(date)
             binding.threeSelectedDateText.text = selectionFormatter.format(date)
 
         }
@@ -229,12 +233,16 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
     inner class DayViewContainer(view: View) : ViewContainer(view) {
         lateinit var day: CalendarDay // Will be set when this container is bound.
         val binding = ItemCalendarDayBinding.bind(view)
+
         init {
+
             view.setOnClickListener {
                 if (day.owner == DayOwner.THIS_MONTH) {
-                    selectDate(day.date)
+                    if (day.date.equals(selectedDate))
 
+                    Log.d("experiment", "selected date" + day.date.toString())
                     observer(currentday("yyyy-MM"), day.date)
+                    selectDate(day.date)
 
                 }
             }
@@ -248,12 +256,14 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
             when(state) {
                 is UiState.Success -> {
                     binding.progressCircular.hide()
-                    events = state.data
-                    Log.d("experiment", events.toString())
-                    if (events.size == 0) {
+
+                    eventsList = state.data
+                    Log.d("experiment", "events" + eventsList.toString())
+                    if (eventsList.size == 0) {
                         binding.threeRecyclerView.makeGONE()
                     } else {
-                        updateAdapterForDate(date)
+//                        updateAdapterForDate(date)
+                        eventsAdapter.submitList(eventsList)
                         binding.threeRecyclerView.makeVisible()
 //                        binding.noScheduleTextView.makeGONE()
                     }

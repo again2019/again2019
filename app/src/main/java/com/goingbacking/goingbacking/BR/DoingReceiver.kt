@@ -114,7 +114,7 @@ class DoingReceiver : BroadcastReceiver() {
                 Log.d("experiment", "wakeupTime: " + wakeUpTime.toString())
                 Log.d("experiment", "currentTime: " + currentTime.toString())
 
-                alarmRepository.addTmpTimeInfo(tmpTimeDTO)
+                alarmRepository.addTmpTimeInfo(currentTime, tmpTimeDTO)
             }
 
         }

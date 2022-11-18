@@ -66,25 +66,7 @@ class RankActivity1 : BaseActivity<ActivityRank1Binding>({
             bottom.show(supportFragmentManager, bottom.tag)
 
             supportFragmentManager.executePendingTransactions()
-            bottom.dialog!!.setOnCancelListener {
-                viewModel.getFifthUserInfo(destinationUid)
-                viewModel.userInfoDTO.observe(this@RankActivity1) { state ->
-                    when (state) {
-                        is UiState.Success -> {
-                            progressCircular.hide()
-                            cheerCount.text = state.data.cheers.size.toString()
-                        }
-                        is UiState.Failure -> {
-                            progressCircular.hide()
 
-                        }
-                        is UiState.Loading -> {
-                            progressCircular.show()
-
-                        }
-                    }
-                }
-            }
             bottom.dialog!!.setOnDismissListener {
                 viewModel.getFifthUserInfo(destinationUid)
                 viewModel.userInfoDTO.observe(this@RankActivity1) { state ->

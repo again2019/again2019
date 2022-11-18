@@ -23,7 +23,7 @@ interface ThirdRepositoryIF {
     fun getThirdDateInfo(year_month: String, result: (UiState<DateDTO>) -> Unit)
 
     // CalendarDetailBottomSheet
-    fun getSelectedDateInfo(year_month: String, date: String, result: (UiState<MutableMap<LocalDate, List<Event>>>) -> Unit)
+    fun getSelectedDateInfo(year_month: String, date: String, result: (UiState<MutableList<Event>>) -> Unit)
 
     // 닉네임 불러오는 코드
     fun getNickNameInfo(result: (UiState<String>) -> Unit)

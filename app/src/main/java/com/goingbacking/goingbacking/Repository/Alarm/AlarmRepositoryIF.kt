@@ -20,7 +20,7 @@ interface AlarmRepositoryIF {
 
     // broadcast에서 매일 일정 가져오기
     fun getTodayInfo(result: (ArrayList<CalendarInfoDTO>) -> Unit)
-    fun addTmpTimeInfo(tmpTimeDTO: TmpTimeDTO)
+    fun addTmpTimeInfo(currentTime: String, tmpTimeDTO: TmpTimeDTO)
 
 
     // month마다 whattodo 초기화

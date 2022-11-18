@@ -40,7 +40,7 @@ class NotificationUtil {
             nBuilder.setContentTitle("Timer Expired!")
                 .setContentText("저장하러 가실래요?")
                 .setContentIntent(getPendingIntentWithStack(context, MainActivity::class.java))
-                .addAction(R.drawable.border_top_bottom, "저장하러 가기", startPendingIntent)
+                .addAction(R.mipmap.com_back_new, "저장하러 가기", startPendingIntent)
 
             val nManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             nManager.createNotificationChannel(CHANNEL_ID_TIMER, CHANNEL_NAME_TIMER, true)
@@ -60,7 +60,7 @@ class NotificationUtil {
                 .setContentText("시작?")
                 .setContentIntent(getPendingIntentWithStack(context, MainActivity::class.java))
                 .setOngoing(true)
-                .addAction(R.drawable.btn_google_signin_dark_focus, "Start?", readyPendingIntent)
+                .addAction(R.mipmap.com_back_new, "Start?", readyPendingIntent)
 
             val nManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             nManager.createNotificationChannel(CHANNEL_ID_TIMER, CHANNEL_NAME_TIMER, true)
@@ -88,7 +88,7 @@ class NotificationUtil {
                 .setContentText("End: ${df.format(Date(wakeUpTime))}")
                 .setContentIntent(getPendingIntentWithStack(context, MainActivity::class.java))
                 .setOngoing(true)
-                .addAction(R.drawable.bottom_sheet_unclicked, "Stop", stopPendingIntent)
+                .addAction(R.mipmap.com_back_new, "Stop", stopPendingIntent)
 
             val nManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             nManager.createNotificationChannel(CHANNEL_ID_TIMER, CHANNEL_NAME_TIMER, true)
@@ -107,7 +107,7 @@ class NotificationUtil {
                 : NotificationCompat.Builder{
             val notificationSound: Uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
             val nBuilder = NotificationCompat.Builder(context, channelId)
-                .setSmallIcon(R.drawable.btn_google_signin_light_disabled)
+                .setSmallIcon(R.mipmap.com_back_new)
                 .setAutoCancel(true)
                 .setDefaults(0)
             if (playSound) nBuilder.setSound(notificationSound)

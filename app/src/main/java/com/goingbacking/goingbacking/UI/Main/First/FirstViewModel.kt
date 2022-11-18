@@ -19,35 +19,23 @@ class FirstViewModel @Inject constructor(
     val tmpTimeDTOs : LiveData<UiState<ArrayList<TmpTimeDTO>>>
         get() = _tmpTimeDTOs
 
-    private val _tmpTimeDayDTOs = MutableLiveData<UiState<String>>()
-    val tmpTimeDayDTOs : LiveData<UiState<String>>
-        get() = _tmpTimeDayDTOs
-
-    private val _tmpTimeMonthDTOs = MutableLiveData<UiState<String>>()
-    val tmpTimeMonthDTOs : LiveData<UiState<String>>
-        get() = _tmpTimeMonthDTOs
-
-    private val _tmpTimeYearDTOs = MutableLiveData<UiState<String>>()
-    val tmpTimeYearDTOs : LiveData<UiState<String>>
-        get() = _tmpTimeYearDTOs
-
-    private val _whatToDoMonthDTOs = MutableLiveData<UiState<String>>()
-    val whatToDoMonthDTOs : LiveData<UiState<String>>
-        get() = _whatToDoMonthDTOs
-
-    private val _whatToDoYearDTOs = MutableLiveData<UiState<String>>()
-    val whatToDoYearDTOs : LiveData<UiState<String>>
-        get() = _whatToDoYearDTOs
-
-    private val _whatToDoListDTOs = MutableLiveData<UiState<List<String>>>()
-    val whatToDoListDTOs : LiveData<UiState<List<String>>>
-        get() = _whatToDoListDTOs
-
     fun getTmpTimeInfo() {
         _tmpTimeDTOs.value = UiState.Loading
         firstRepository.getTmpTimeInfo { _tmpTimeDTOs.value = it }
 
     }
+
+    private val _deletetmpTimeDTOs = MutableLiveData<UiState<String>>()
+    val deletetmpTimeDTOs : LiveData<UiState<String>>
+        get() = _deletetmpTimeDTOs
+
+    fun deleteTmpTimeInfo(startTime: String) {
+        _deletetmpTimeDTOs.value = UiState.Loading
+        firstRepository.deleteTmpTimeInfo(startTime) { _deletetmpTimeDTOs.value = it }
+
+    }
+
+    private val _tmpTimeDayDTOs = MutableLiveData<UiState<String>>()
 
     fun updateTmpTimeDayInfo(wakeUpTime1: String,
                              wakeUpTime2: String,
@@ -57,36 +45,55 @@ class FirstViewModel @Inject constructor(
         firstRepository.updateTmpTimeDayInfo(wakeUpTime1, wakeUpTime2, count) { _tmpTimeDayDTOs.value = it }
     }
 
+
+    private val _tmpTimeMonthDTOs = MutableLiveData<UiState<String>>()
+
     fun updateTmpTimeMonthInfo(wakeUpTime1: String,
-                             wakeUpTime2: String,
-                             count: FieldValue
+                               wakeUpTime2: String,
+                               count: FieldValue
     ) {
         _tmpTimeDayDTOs.value = UiState.Loading
         firstRepository.updateTmpTimeMonthInfo(wakeUpTime1, wakeUpTime2, count) { _tmpTimeMonthDTOs.value = it }
     }
 
+
+    private val _tmpTimeYearDTOs = MutableLiveData<UiState<String>>()
+
     fun updateTmpTimeYearInfo(wakeUpTime: String,
-                               count: FieldValue
+                              count: FieldValue
     ) {
         _tmpTimeDayDTOs.value = UiState.Loading
         firstRepository.updateTmpTimeYearInfo(wakeUpTime, count) { _tmpTimeYearDTOs.value = it }
     }
+
+
+    private val _whatToDoMonthDTOs = MutableLiveData<UiState<String>>()
 
     fun updateWhatToDoMonthInfo(yyyyMM : String, whatToDo: String, count: FieldValue) {
         _whatToDoMonthDTOs.value = UiState.Loading
         firstRepository.updateWhatToDoMonthInfo(yyyyMM, whatToDo, count) { _whatToDoMonthDTOs.value = it }
     }
 
+
+
+    private val _whatToDoYearDTOs = MutableLiveData<UiState<String>>()
+
+
     fun updateWhatToDoYearInfo(yyyy : String, whatToDo: String, count: FieldValue) {
         _whatToDoYearDTOs.value = UiState.Loading
         firstRepository.updateWhatToDoYearInfo(yyyy, whatToDo, count) { _whatToDoYearDTOs.value = it }
     }
+
+    private val _whatToDoListDTOs = MutableLiveData<UiState<List<String>>>()
+    val whatToDoListDTOs : LiveData<UiState<List<String>>>
+        get() = _whatToDoListDTOs
 
     fun getWhatToDoInfo() {
         _whatToDoListDTOs.value = UiState.Loading
         firstRepository.getWhatToDoInfo { _whatToDoListDTOs.value = it }
 
     }
+
 
     private val _rankMonthDTOs = MutableLiveData<UiState<String>>()
 

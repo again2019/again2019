@@ -48,6 +48,11 @@ class FirstRepository(
 
     }
 
+    override fun deleteTmpTimeInfo(startTime: String, result: (UiState<String>) -> Unit) {
+        firebaseFirestore.collection(FBConstants.TMPTIMEINFO).document(myUid)
+            .collection(myUid).document(myUid + startTime).delete()
+    }
+
     override fun updateTmpTimeDayInfo(
         wakeUpTime1: String,
         wakeUpTime2: String,

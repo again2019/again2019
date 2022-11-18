@@ -1,21 +1,33 @@
 package com.goingbacking.goingbacking.Adapter
 
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.findFragment
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.goingbacking.goingbacking.Model.TmpTimeDTO
+import com.goingbacking.goingbacking.R
+import com.goingbacking.goingbacking.UI.Main.First.FirstViewModel
+import com.goingbacking.goingbacking.bottomsheet.WhatToDoSaveBottomSheet
 import com.goingbacking.goingbacking.databinding.ItemTmpBinding
+import com.goingbacking.goingbacking.util.UiState
+import com.goingbacking.goingbacking.util.toast
+import kotlinx.coroutines.NonDisposableHandle.parent
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
-class TmpTimeRecyclerViewAdapter(
-    val onItemClicked: (String, String, String, String, Double, String, String, String, String) -> Unit
-): ListAdapter<TmpTimeDTO, TmpTimeRecyclerViewAdapter.MyViewHolder>(diffUtil) {
+class TmpTimeRecyclerViewAdapter: ListAdapter<TmpTimeDTO, TmpTimeRecyclerViewAdapter.MyViewHolder>(diffUtil) {
+
     inner class MyViewHolder(private val binding: ItemTmpBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: TmpTimeDTO) {
+
+            val fm : FragmentManager = (binding.root.context as AppCompatActivity).supportFragmentManager
 
             val hour = item.nowSeconds!!.toInt() / 60
             val minute = item.nowSeconds!!.toInt() % 60
@@ -37,7 +49,41 @@ class TmpTimeRecyclerViewAdapter(
 
 
             binding.saveButton.setOnClickListener {
-                onItemClicked.invoke(wakeUpTime1, wakeUpTime2, wakeUpTime3, wakeUpTime4, item.nowSeconds!!.toDouble(), String.format("%d시간 %d분", hour, minute), simpleDate1, simpleDate2, simpleDate3)
+                val bottom = WhatToDoSaveBottomSheet()
+                val bundle = Bundle()
+                if (item.nowSeconds!!.toDouble().equals(0.0)) {
+                    toast(binding.root.context, binding.root.context.getString(R.string.no_time_input))
+                } else {
+                    bundle.putDouble("count_double", item.nowSeconds!!.toDouble())
+                    bundle.putString("simpleFormat1", String.format("%d시간 %d분", hour, minute))
+                    bundle.putString("simpleFormat2", simpleDate1)
+                    bundle.putString("simpleFormat3", simpleDate2)
+                    bundle.putString("simpleFormat4", simpleDate3)
+                    bundle.putString("startTime", item.startTime.toString())
+
+                    bundle.putString("wakeUpTime1", wakeUpTime1)
+                    bundle.putString("wakeUpTime2", wakeUpTime2)
+                    bundle.putString("wakeUpTime3", wakeUpTime3)
+                    bundle.putString("wakeUpTime4", wakeUpTime4)
+
+                    bottom.arguments = bundle
+                    bottom.show(fm, bottom.tag)
+
+
+                    fm.executePendingTransactions()
+
+                    bottom.dialog!!.setOnCancelListener {
+
+                        val newList = currentList.toMutableList()
+                        newList.removeAt(bindingAdapterPosition)
+                        submitList(newList)
+                        it.dismiss()
+                    }
+                }
+
+
+
+
 
             }
         }
@@ -53,8 +99,6 @@ class TmpTimeRecyclerViewAdapter(
         val item = getItem(position)
         holder.bind(item)
     }
-
-
 
 
     companion object{
