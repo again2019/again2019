@@ -64,8 +64,8 @@ class ThirdViewModel @Inject constructor(
     }
 
 
-    private val _thirdSelectedDateDTOs = MutableLiveData<UiState<MutableMap<LocalDate, List<Event>>>>()
-    val thirdSelectedDateDTOs : LiveData<UiState<MutableMap<LocalDate, List<Event>>>>
+    private val _thirdSelectedDateDTOs = MutableLiveData<UiState<MutableList<Event>>>()
+    val thirdSelectedDateDTOs : LiveData<UiState<MutableList<Event>>>
         get() = _thirdSelectedDateDTOs
 
     fun getSelectedDateInfo(year_month: String, date: String) {

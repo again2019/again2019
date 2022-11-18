@@ -431,28 +431,26 @@ class ThirdRepository(
 
 
 
-    override fun getSelectedDateInfo(year_month: String, date: String, result: (UiState<MutableMap<LocalDate, List<Event>>>) -> Unit) {
-        val events = mutableMapOf<LocalDate, List<Event>>()
-        events.clear()
-
+    override fun getSelectedDateInfo(year_month: String, date: String, result: (UiState<MutableList<Event>>) -> Unit) {
+        val events = mutableListOf<Event>()
         firebaseFirestore.collection(FBConstants.CALENDARINFO).document(uid)
             .collection(year_month).whereEqualTo("date", date).get()
             .addOnSuccessListener { querySnapshot ->
                 if (querySnapshot.count() == 1) {
                     for (snapshot in querySnapshot!!) {
-                        val x = LocalDate.parse(snapshot["date"].toString(), DateTimeFormatter.ISO_DATE)
-                        events[x] = events[x].orEmpty().plus(
+                        events.add(
                             Event(
                                 "move",
                                 snapshot["date"].toString(),
-                                snapshot["start"].toString().toInt() - snapshot["start_t"].toString().toInt(),
+                                snapshot["start"].toString()
+                                    .toInt() - snapshot["start_t"].toString()
+                                    .toInt(),
                                 0,
                                 snapshot["start"].toString().toInt(),
                                 0
                             )
                         )
-
-                        events[x] = events[x].orEmpty().plus(
+                        events.add(
                             Event(
                                 snapshot["dest"].toString(),
                                 snapshot["date"].toString(),
@@ -462,42 +460,39 @@ class ThirdRepository(
                                 snapshot["end_t"].toString().toInt()
                             )
                         )
-
-                        events[x] = events[x].orEmpty().plus(
+                        events.add(
                             Event(
                                 "move",
                                 snapshot["date"].toString(),
                                 snapshot["end"].toString().toInt(),
                                 0,
-                                snapshot["end"].toString().toInt() + snapshot["end_t"].toString().toInt(),
+                                snapshot["end"].toString().toInt() + snapshot["end_t"].toString()
+                                    .toInt(),
                                 0
                             )
                         )
-
-
-
                     }
-                }
-
-                else {
+                } else {
                     var count = 1
-                    var before = Event("", "", 0,0,0)
+                    var before = Event("", "", 0, 0, 0)
                     for (snapshot in querySnapshot!!) {
-                        val x = LocalDate.parse(snapshot["date"].toString(), DateTimeFormatter.ISO_DATE)
+                        val x =
+                            LocalDate.parse(snapshot["date"].toString(), DateTimeFormatter.ISO_DATE)
 
                         if (count == 1) {
-                            events[x] = events[x].orEmpty().plus(
+                            events.add(
                                 Event(
                                     "move",
                                     snapshot["date"].toString(),
-                                    snapshot["start"].toString().toInt() - snapshot["start_t"].toString().toInt(),
+                                    snapshot["start"].toString()
+                                        .toInt() - snapshot["start_t"].toString().toInt(),
                                     0,
                                     snapshot["start"].toString().toInt(),
                                     0
                                 )
                             )
 
-                            events[x] = events[x].orEmpty().plus(
+                            events.add(
                                 Event(
                                     snapshot["dest"].toString(),
                                     snapshot["date"].toString(),
@@ -508,9 +503,8 @@ class ThirdRepository(
                                 )
                             )
 
-
                         } else if (count == querySnapshot.count()) {
-                            events[x] = events[x].orEmpty().plus(
+                            events.add(
                                 Event(
                                     "move",
                                     snapshot["date"].toString(),
@@ -522,7 +516,7 @@ class ThirdRepository(
                             )
 
 
-                            events[x] = events[x].orEmpty().plus(
+                            events.add(
                                 Event(
                                     snapshot["dest"].toString(),
                                     snapshot["date"].toString(),
@@ -533,20 +527,21 @@ class ThirdRepository(
                                 )
                             )
 
-                            events[x] = events[x].orEmpty().plus(
+                            events.add(
                                 Event(
                                     "move",
                                     snapshot["date"].toString(),
                                     snapshot["end"].toString().toInt(),
                                     0,
-                                    snapshot["end"].toString().toInt() + snapshot["end_t"].toString().toInt(),
+                                    snapshot["end"].toString()
+                                        .toInt() + snapshot["end_t"].toString().toInt(),
                                     0
                                 )
                             )
 
                         } else {
 
-                            events[x] = events[x].orEmpty().plus(
+                            events.add(
                                 Event(
                                     "move",
                                     snapshot["date"].toString(),
@@ -559,7 +554,7 @@ class ThirdRepository(
 
 
 
-                            events[x] = events[x].orEmpty().plus(
+                            events.add(
                                 Event(
                                     snapshot["dest"].toString(),
                                     snapshot["date"].toString(),
@@ -584,8 +579,6 @@ class ThirdRepository(
                         )
                     }
                 }
-
-
                 result.invoke(
                     UiState.Success(events)
                 )
@@ -596,7 +589,172 @@ class ThirdRepository(
                 )
             }
 
-    }
+        }
+//        val events = mutableMapOf<LocalDate, List<Event>>()
+//        events.clear()
+//
+//        firebaseFirestore.collection(FBConstants.CALENDARINFO).document(uid)
+//            .collection(year_month).whereEqualTo("date", date).get()
+//            .addOnSuccessListener { querySnapshot ->
+//                if (querySnapshot.count() == 1) {
+//                    for (snapshot in querySnapshot!!) {
+//                        val x = LocalDate.parse(snapshot["date"].toString(), DateTimeFormatter.ISO_DATE)
+//                        events[x] = events[x].orEmpty().plus(
+//                            Event(
+//                                "move",
+//                                snapshot["date"].toString(),
+//                                snapshot["start"].toString().toInt() - snapshot["start_t"].toString().toInt(),
+//                                0,
+//                                snapshot["start"].toString().toInt(),
+//                                0
+//                            )
+//                        )
+//
+//                        events[x] = events[x].orEmpty().plus(
+//                            Event(
+//                                snapshot["dest"].toString(),
+//                                snapshot["date"].toString(),
+//                                snapshot["start"].toString().toInt(),
+//                                snapshot["start_t"].toString().toInt(),
+//                                snapshot["end"].toString().toInt(),
+//                                snapshot["end_t"].toString().toInt()
+//                            )
+//                        )
+//
+//                        events[x] = events[x].orEmpty().plus(
+//                            Event(
+//                                "move",
+//                                snapshot["date"].toString(),
+//                                snapshot["end"].toString().toInt(),
+//                                0,
+//                                snapshot["end"].toString().toInt() + snapshot["end_t"].toString().toInt(),
+//                                0
+//                            )
+//                        )
+//
+//
+//
+//                    }
+//                }
+//
+//                else {
+//                    var count = 1
+//                    var before = Event("", "", 0,0,0)
+//                    for (snapshot in querySnapshot!!) {
+//                        val x = LocalDate.parse(snapshot["date"].toString(), DateTimeFormatter.ISO_DATE)
+//
+//                        if (count == 1) {
+//                            events[x] = events[x].orEmpty().plus(
+//                                Event(
+//                                    "move",
+//                                    snapshot["date"].toString(),
+//                                    snapshot["start"].toString().toInt() - snapshot["start_t"].toString().toInt(),
+//                                    0,
+//                                    snapshot["start"].toString().toInt(),
+//                                    0
+//                                )
+//                            )
+//
+//                            events[x] = events[x].orEmpty().plus(
+//                                Event(
+//                                    snapshot["dest"].toString(),
+//                                    snapshot["date"].toString(),
+//                                    snapshot["start"].toString().toInt(),
+//                                    snapshot["start_t"].toString().toInt(),
+//                                    snapshot["end"].toString().toInt(),
+//                                    snapshot["end_t"].toString().toInt()
+//                                )
+//                            )
+//
+//
+//                        } else if (count == querySnapshot.count()) {
+//                            events[x] = events[x].orEmpty().plus(
+//                                Event(
+//                                    "move",
+//                                    snapshot["date"].toString(),
+//                                    before.end!!.toInt(),
+//                                    0,
+//                                    snapshot["start"].toString().toInt(),
+//                                    0,
+//                                )
+//                            )
+//
+//
+//                            events[x] = events[x].orEmpty().plus(
+//                                Event(
+//                                    snapshot["dest"].toString(),
+//                                    snapshot["date"].toString(),
+//                                    snapshot["start"].toString().toInt(),
+//                                    snapshot["start_t"].toString().toInt(),
+//                                    snapshot["end"].toString().toInt(),
+//                                    snapshot["end_t"].toString().toInt()
+//                                )
+//                            )
+//
+//                            events[x] = events[x].orEmpty().plus(
+//                                Event(
+//                                    "move",
+//                                    snapshot["date"].toString(),
+//                                    snapshot["end"].toString().toInt(),
+//                                    0,
+//                                    snapshot["end"].toString().toInt() + snapshot["end_t"].toString().toInt(),
+//                                    0
+//                                )
+//                            )
+//
+//                        } else {
+//
+//                            events[x] = events[x].orEmpty().plus(
+//                                Event(
+//                                    "move",
+//                                    snapshot["date"].toString(),
+//                                    before.end!!.toInt(),
+//                                    0,
+//                                    snapshot["start"].toString().toInt(),
+//                                    0,
+//                                )
+//                            )
+//
+//
+//
+//                            events[x] = events[x].orEmpty().plus(
+//                                Event(
+//                                    snapshot["dest"].toString(),
+//                                    snapshot["date"].toString(),
+//                                    snapshot["start"].toString().toInt(),
+//                                    snapshot["start_t"].toString().toInt(),
+//                                    snapshot["end"].toString().toInt(),
+//                                    snapshot["end_t"].toString().toInt()
+//                                )
+//                            )
+//
+//
+//                        }
+//
+//                        count = count + 1
+//                        before = Event(
+//                            snapshot["dest"].toString(),
+//                            snapshot["date"].toString(),
+//                            snapshot["start"].toString().toInt(),
+//                            snapshot["start_t"].toString().toInt(),
+//                            snapshot["end"].toString().toInt(),
+//                            snapshot["end_t"].toString().toInt()
+//                        )
+//                    }
+//                }
+
+
+//                result.invoke(
+//                    UiState.Success(events)
+//                )
+//            }
+//            .addOnFailureListener {
+//                result.invoke(
+//                    UiState.Failure(it.localizedMessage)
+//                )
+//            }
+
+
 
     override fun getNickNameInfo(result: (UiState<String>) -> Unit) {
         firebaseFirestore.collection(Constants.USERINFO).document(uid)
