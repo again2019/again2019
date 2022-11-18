@@ -3,19 +3,14 @@ package com.goingbacking.goingbacking.UI.Main.First
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.goingbacking.goingbacking.Adapter.TodayRecyclerViewAdapter
-import com.goingbacking.goingbacking.FCM.NotificationData
-import com.goingbacking.goingbacking.FCM.PushNotification
-import com.goingbacking.goingbacking.FCM.RetrofitInstance
 import com.goingbacking.goingbacking.R
 import com.goingbacking.goingbacking.UI.Base.BaseFragment
 import com.goingbacking.goingbacking.UI.Main.Third.ScheduleInputActivity
@@ -23,13 +18,10 @@ import com.goingbacking.goingbacking.UI.Main.Third.TotalCalendarActivity
 import com.goingbacking.goingbacking.bottomsheet.CheerBottomSheet
 import com.goingbacking.goingbacking.databinding.FragmentFirstMainBinding
 import com.goingbacking.goingbacking.util.*
-import com.google.android.gms.tasks.OnCompleteListener
-import com.google.firebase.messaging.FirebaseMessaging
+
 import com.skydoves.balloon.*
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+
 
 
 @AndroidEntryPoint
@@ -51,14 +43,6 @@ class FirstMainFragment : BaseFragment<FragmentFirstMainBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
         observer()
-
-        Log.d("experiment", currentday("yyyy-MM-dd"))
-        Log.d("experiment", PrefUtil.getRecentDate(requireContext()).toString())
-        if (currentday("yyyy-MM-dd").equals(PrefUtil.getRecentDate(requireContext()).toString())) {
-            Log.d("experiment", "true")
-
-        }
-
 
         val todayTime = PrefUtil.getTodayTotalTime(requireContext())
 
