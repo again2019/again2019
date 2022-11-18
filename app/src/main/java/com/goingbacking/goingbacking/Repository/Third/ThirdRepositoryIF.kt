@@ -13,9 +13,6 @@ interface ThirdRepositoryIF {
     // 스케줄을 데이터 베이스에 저장
     fun addEventInfo(path1: String, path2: String, event: Event, result: (UiState<String>) -> Unit)
 
-    // 스케줄을 불러오는 코드
-    fun getThirdCalendarInfo(yearList : MutableList<String>,result: (UiState<MutableMap<LocalDate, List<Event>>>) -> Unit)
-
     // 해당 스케줄을 제거하는 코드
     fun deleteThirdCalendarInfo(eventDate :String, timeStamp : String, result: (UiState<MutableMap<LocalDate, List<Event>>>) -> Unit)
 

@@ -223,8 +223,6 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
             selectedDate = date
             oldDate?.let { binding.threeCalendar.notifyDateChanged(it) }
             binding.threeCalendar.notifyDateChanged(date)
-
-//            updateAdapterForDate(date)
             binding.threeSelectedDateText.text = selectionFormatter.format(date)
 
         }
@@ -262,10 +260,8 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
                     if (eventsList.size == 0) {
                         binding.threeRecyclerView.makeGONE()
                     } else {
-//                        updateAdapterForDate(date)
                         eventsAdapter.submitList(eventsList)
                         binding.threeRecyclerView.makeVisible()
-//                        binding.noScheduleTextView.makeGONE()
                     }
 
                 }
@@ -301,7 +297,6 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
                     } else {
                         updateAdapterForDate(selectedDate!!)
                         binding.threeRecyclerView.makeVisible()
-//                        binding.noScheduleTextView.makeGONE()
                     }
 
                 }
