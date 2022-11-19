@@ -53,6 +53,9 @@ class AlarmService () : Service() {
                 startActivity(intent1)
                 stopForeground(true)
             }
+            "this_no_start" -> {
+                stopForeground(true)
+            }
         }
 
 

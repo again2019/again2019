@@ -7,6 +7,7 @@ import android.content.Intent
 import android.util.Log
 import com.goingbacking.goingbacking.Service.AlarmService
 import com.goingbacking.goingbacking.AppConstants
+import com.goingbacking.goingbacking.AppConstants.Companion.ACTION_THIS_NO_START
 import com.goingbacking.goingbacking.Model.TmpTimeDTO
 import com.goingbacking.goingbacking.util.PrefUtil
 import com.goingbacking.goingbacking.Repository.Alarm.AlarmRepository
@@ -120,6 +121,11 @@ class DoingReceiver : BroadcastReceiver() {
                 val intent4 = Intent(context, AlarmService::class.java)
                 intent4.action = "MOVE"
                 context.startService(intent4)
+            }
+            ACTION_THIS_NO_START -> {
+                val intent5 = Intent(context, AlarmService::class.java)
+                intent5.action = ACTION_THIS_NO_START
+                context.startService(intent5)
             }
 
         }

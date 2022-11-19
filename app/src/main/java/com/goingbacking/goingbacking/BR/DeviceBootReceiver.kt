@@ -134,16 +134,16 @@ class DeviceBootReceiver : BroadcastReceiver() {
                 millisecond = 0
             )
 
-//            val stateCalendar = calendarAlarm(
-//                hour = nowInfoDTO.start!! / 60,
-//                minute = nowInfoDTO.start!! % 60,
-//                second = 0,
-//                millisecond = 0
-//            )
-//
-//            if (System.currentTimeMillis() > stateCalendar.timeInMillis) {
-//                return
-//            }
+            val stateCalendar = calendarAlarm(
+                hour = nowInfoDTO.start!! / 60,
+                minute = nowInfoDTO.start!! % 60,
+                second = 0,
+                millisecond = 0
+            )
+
+            if (System.currentTimeMillis() > stateCalendar.timeInMillis) {
+                return
+            }
 
         } else if (beforeInfoDTO.equals(nowInfoDTO)) {
             todayTotalTime = todayTotalTime + beforeInfoDTO.end_t!!.toInt()
