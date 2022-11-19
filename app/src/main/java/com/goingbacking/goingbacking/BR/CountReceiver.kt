@@ -37,7 +37,6 @@ class CountReceiver : BroadcastReceiver() {
 
     @RequiresApi(Build.VERSION_CODES.S)
     override fun onReceive(context: Context, intent: Intent) {
-        Toast.makeText(context, "count receiverstart", Toast.LENGTH_SHORT).show()
 
         // 매일/매달/매년 마다 새로운 날짜에 데이터베이스를 초기화함
 
@@ -57,8 +56,8 @@ class CountReceiver : BroadcastReceiver() {
 
     // 매일/매달/매년 마다 새로운 날짜에 데이터베이스를 초기화함
     private fun saveDailyInfo() {
-        alarmRepository.addFirstInitSaveTimeMonthInfo ()
-        alarmRepository.addFirstInitSaveTimeYearInfo ()
+        alarmRepository.addInitSaveTimeMonthInfo ()
+        alarmRepository.addInitSaveTimeYearInfo ()
         alarmRepository.addInitSaveTimeDayInfo ()
 
 

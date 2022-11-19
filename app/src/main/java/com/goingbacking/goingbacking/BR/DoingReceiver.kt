@@ -7,6 +7,7 @@ import android.content.Intent
 import android.util.Log
 import com.goingbacking.goingbacking.Service.AlarmService
 import com.goingbacking.goingbacking.AppConstants
+import com.goingbacking.goingbacking.AppConstants.Companion.ACTION_THIS_NO_START
 import com.goingbacking.goingbacking.Model.TmpTimeDTO
 import com.goingbacking.goingbacking.util.PrefUtil
 import com.goingbacking.goingbacking.Repository.Alarm.AlarmRepository
@@ -84,37 +85,47 @@ class DoingReceiver : BroadcastReceiver() {
             }
             AppConstants.ACTION_STOP -> {
                 TimerUtils.pauseTimer()
-                currentTime = PrefUtil.getStartTime(context)
+                val start_currentTime = PrefUtil.getStartTime(context)
 
                 val intent3 = Intent(context, AlarmService::class.java)
                 intent3.action = FINISH_FOREGROUND
                 context.startService(intent3)
 
                 Log.d("experiment",  System.currentTimeMillis().toString())
-                Log.d("experiment",  currentTime.toString())
+                Log.d("experiment",  start_currentTime.toString())
 
                 val current = System.currentTimeMillis()
                 val tmpTimeDTO = TmpTimeDTO(
-                    nowSeconds =  current- currentTime,
-                    startTime = currentTime,
+                    nowSeconds =  (current- start_currentTime) / 60000,
+                    startTime = start_currentTime,
                     wakeUpTime = current
                 )
 
                 val df = SimpleDateFormat("HH:mm:ss", Locale.KOREA)
 
-                Log.d("experiment", "total: " + (current- currentTime).toString())
-                Log.d("experiment", "wakeupTime: " + currentTime.toString())
+                Log.d("experiment", "total: " + (current- start_currentTime).toString())
+                Log.d("experiment", "wakeupTime: " + start_currentTime.toString())
                 Log.d("experiment", "currentTime: " + current)
 
-                val total = df.format(Date((current- currentTime)))
-                val wakeUpTime = df.format(Date(currentTime))
+                val total = df.format(Date((current- start_currentTime)))
+                val wakeUpTime = df.format(Date(start_currentTime))
                 val currentTime = df.format(Date(current))
 
                 Log.d("experiment", "total: " +total.toString())
                 Log.d("experiment", "wakeupTime: " + wakeUpTime.toString())
                 Log.d("experiment", "currentTime: " + currentTime.toString())
 
-                alarmRepository.addTmpTimeInfo(currentTime, tmpTimeDTO)
+                alarmRepository.addTmpTimeInfo(start_currentTime.toString(), tmpTimeDTO)
+            }
+            "MOVE" -> {
+                val intent4 = Intent(context, AlarmService::class.java)
+                intent4.action = "MOVE"
+                context.startService(intent4)
+            }
+            ACTION_THIS_NO_START -> {
+                val intent5 = Intent(context, AlarmService::class.java)
+                intent5.action = ACTION_THIS_NO_START
+                context.startService(intent5)
             }
 
         }

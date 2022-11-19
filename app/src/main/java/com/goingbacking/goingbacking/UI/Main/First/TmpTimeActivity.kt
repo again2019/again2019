@@ -52,9 +52,31 @@ class TmpTimeActivity : BaseActivity<ActivityTmpTimeBinding>({
         }, this, Lifecycle.State.RESUMED)
 
         TmpTimeOberver()
-
+        observer()
         binding.TmprecyclerView.layoutManager = LinearLayoutManager(this)
         binding.TmprecyclerView.adapter = adapter
+
+    }
+
+    private fun observer() {
+        viewModel.getFifthUserInfo()
+        viewModel.userInfoDTO.observe(this) { state ->
+            when(state){
+                is UiState.Success -> {
+                    binding.progressCircular.hide()
+                    binding.nickName.text = state.data.userNickName.toString()
+                }
+                is UiState.Loading -> {
+                    binding.progressCircular.show()
+                }
+                is UiState.Failure -> {
+                    binding.progressCircular.hide()
+                    toast(this, getString(R.string.load_tmpTime_fail))
+                }
+
+            }
+        }
+
 
     }
 

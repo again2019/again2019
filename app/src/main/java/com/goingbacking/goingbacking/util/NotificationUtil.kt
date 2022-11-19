@@ -15,11 +15,6 @@ import com.goingbacking.goingbacking.AppConstants
 import com.goingbacking.goingbacking.BR.DoingReceiver
 import com.goingbacking.goingbacking.UI.Main.MainActivity
 import com.goingbacking.goingbacking.R
-import com.goingbacking.goingbacking.UI.Main.First.TmpTimeActivity
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -32,8 +27,9 @@ class NotificationUtil {
 
         @RequiresApi(Build.VERSION_CODES.S)
         fun showTimerExpiredNotification(context: Context) : Notification{
-            val startIntent = Intent(context, TmpTimeActivity::class.java)
-            val startPendingIntent = PendingIntent.getActivity(context,
+            val startIntent = Intent(context, DoingReceiver::class.java)
+            startIntent.action = "MOVE"
+            val startPendingIntent = PendingIntent.getBroadcast(context,
                 0, startIntent, FLAG_MUTABLE)
 
             val nBuilder = getBasicNotificationBuilder(context, CHANNEL_ID_TIMER, true)
@@ -50,17 +46,23 @@ class NotificationUtil {
 
         @RequiresApi(Build.VERSION_CODES.S)
         fun showTimerReadyNotification(context: Context) :Notification {
-            val readyIntent = Intent(context, DoingReceiver::class.java)
-            readyIntent.action = AppConstants.ACTION_START
-            val readyPendingIntent = PendingIntent.getBroadcast(context,
-                0, readyIntent, FLAG_MUTABLE)
+            val readyIntent1 = Intent(context, DoingReceiver::class.java)
+            readyIntent1.action = AppConstants.ACTION_START
+            val readyPendingIntent1 = PendingIntent.getBroadcast(context,
+                0, readyIntent1, FLAG_MUTABLE)
 
+            val readyIntent2 = Intent(context, DoingReceiver::class.java)
+            readyIntent2.action = AppConstants.ACTION_THIS_NO_START
+            val readyPendingIntent2 = PendingIntent.getBroadcast(context,
+                0, readyIntent2, FLAG_MUTABLE)
             val nBuilder = getBasicNotificationBuilder(context, CHANNEL_ID_TIMER, true)
             nBuilder.setContentTitle("시작?")
                 .setContentText("시작?")
                 .setContentIntent(getPendingIntentWithStack(context, MainActivity::class.java))
                 .setOngoing(true)
-                .addAction(R.mipmap.com_back_new, "Start?", readyPendingIntent)
+                .addAction(R.mipmap.com_back_new, "Start?", readyPendingIntent1)
+                .addAction(R.mipmap.com_back_new, "지금 안하기", readyPendingIntent2)
+
 
             val nManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             nManager.createNotificationChannel(CHANNEL_ID_TIMER, CHANNEL_NAME_TIMER, true)

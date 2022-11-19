@@ -14,6 +14,9 @@ interface FirstRepositoryIF {
     // 임시 저장된 정보를 가져오는 코드
     fun getTmpTimeInfo(result: (UiState<ArrayList<TmpTimeDTO>>) -> Unit)
 
+    // 개인 정보(닉네임, 타입, 할 것)을 불러오는 부분
+    fun getFifthUserInfo(result: (UiState<UserInfoDTO>) -> Unit)
+
     /*
     WhatToDoSaveBottomSheet
      */

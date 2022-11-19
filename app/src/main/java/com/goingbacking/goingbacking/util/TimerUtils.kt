@@ -51,11 +51,11 @@ class TimerUtils {
             val current = System.currentTimeMillis()
 
             val tmpTimeDTO = TmpTimeDTO()
-            tmpTimeDTO.nowSeconds =  current- PrefUtil.getSecondsRemaining(context)
-            tmpTimeDTO.startTime = PrefUtil.getSecondsRemaining(context)
+            tmpTimeDTO.nowSeconds =  ((current- PrefUtil.getStartTime(context)) / 60000)
+            tmpTimeDTO.startTime = PrefUtil.getStartTime(context)
             tmpTimeDTO.wakeUpTime = current
 
-            val df = SimpleDateFormat("HH:mm:ss")
+            val df = SimpleDateFormat("HH:mm:ss", Locale.getDefault())
 
             Log.d("experiment", "total: " + (current - PrefUtil.getSecondsRemaining(context)).toString())
             Log.d("experiment", "wakeupTime: " + PrefUtil.getSecondsRemaining(context).toString())
@@ -69,7 +69,7 @@ class TimerUtils {
             Log.d("experiment", "wakeupTime: " + wakeUpTime.toString())
             Log.d("experiment", "currentTime: " + currentTime.toString())
 
-            alarmRepository.addTmpTimeInfo(currentTime.toString(), tmpTimeDTO)
+            alarmRepository.addTmpTimeInfo(PrefUtil.getStartTime(context).toString(), tmpTimeDTO)
 
             val intent = Intent(context, AlarmService::class.java)
             intent.action = "FINISH_FOREGROUND"

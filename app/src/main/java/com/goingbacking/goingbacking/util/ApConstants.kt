@@ -10,6 +10,8 @@ class AppConstants {
         const val ACTION_STOP = "stop"
         const val ACTION_START = "start"
         const val ACTION_READY = "ready"
+        const val ACTION_MOVE = "move"
+        const val ACTION_THIS_NO_START = "this_no_start"
 
         enum class TimerState {
             Stopped, Running

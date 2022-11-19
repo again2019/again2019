@@ -3,11 +3,14 @@ package com.goingbacking.goingbacking.UI.Main.First
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.goingbacking.goingbacking.Model.TmpTimeDTO
+import com.goingbacking.goingbacking.Model.UserInfoDTO
 import com.goingbacking.goingbacking.Repository.First.FirstRepositoryIF
 import com.goingbacking.goingbacking.util.UiState
 import com.google.firebase.firestore.FieldValue
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -27,6 +30,16 @@ class FirstViewModel @Inject constructor(
     fun getTmpTimeInfo() {
         _tmpTimeDTOs.value = UiState.Loading
         firstRepository.getTmpTimeInfo { _tmpTimeDTOs.value = it }
+    }
+
+    // 개인 정보(닉네임, 타입, 할 것)을 불러오는 부분
+    private val _userInfoDTOs = MutableLiveData<UiState<UserInfoDTO>>()
+    val userInfoDTO : LiveData<UiState<UserInfoDTO>>
+        get() = _userInfoDTOs
+
+    fun getFifthUserInfo() = viewModelScope.launch {
+        _userInfoDTOs.value = UiState.Loading
+        firstRepository.getFifthUserInfo  { _userInfoDTOs.value = it }
     }
 
     /*
