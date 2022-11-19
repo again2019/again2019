@@ -15,12 +15,6 @@ import com.goingbacking.goingbacking.AppConstants
 import com.goingbacking.goingbacking.BR.DoingReceiver
 import com.goingbacking.goingbacking.UI.Main.MainActivity
 import com.goingbacking.goingbacking.R
-import com.goingbacking.goingbacking.Service.AlarmService
-import com.goingbacking.goingbacking.UI.Main.First.TmpTimeActivity
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit

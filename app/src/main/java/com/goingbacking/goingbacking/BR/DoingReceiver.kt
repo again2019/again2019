@@ -84,7 +84,7 @@ class DoingReceiver : BroadcastReceiver() {
             }
             AppConstants.ACTION_STOP -> {
                 TimerUtils.pauseTimer()
-                val start_currentTime = PrefUtil.getSecondsRemaining(context)
+                val start_currentTime = PrefUtil.getStartTime(context)
 
                 val intent3 = Intent(context, AlarmService::class.java)
                 intent3.action = FINISH_FOREGROUND
