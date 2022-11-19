@@ -2,6 +2,7 @@ package com.goingbacking.goingbacking.Repository.First
 
 import com.goingbacking.goingbacking.Model.TmpTimeDTO
 import com.goingbacking.goingbacking.Model.UserInfoDTO
+import com.goingbacking.goingbacking.util.Constants
 import com.goingbacking.goingbacking.util.FBConstants
 import com.goingbacking.goingbacking.util.FBConstants.Companion.DAY
 import com.goingbacking.goingbacking.util.FBConstants.Companion.MONTH
@@ -13,12 +14,14 @@ import com.goingbacking.goingbacking.util.UiState
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Source
 
 class FirstRepository(
     val user: FirebaseUser?,
     val firebaseFirestore: FirebaseFirestore
 ) : FirstRepositoryIF {
     val myUid = user?.uid!!
+    val cache = Source.CACHE
 
     /*
     TmpTimeActivity
@@ -46,6 +49,26 @@ class FirstRepository(
                 )
             }
 
+    }
+
+    // 개인 정보(닉네임, 타입, 할 것)을 불러오는 부분
+    override fun getFifthUserInfo(result: (UiState<UserInfoDTO>) -> Unit) {
+        firebaseFirestore.collection(Constants.USERINFO).document(myUid)
+            .get(cache)
+            .addOnSuccessListener { document ->
+                val data : UserInfoDTO? = document.toObject(UserInfoDTO::class.java)
+                result.invoke(
+                    UiState.Success(data!!)
+                )
+            }
+
+            .addOnFailureListener {
+                result.invoke(
+                    UiState.Failure(
+                        it.localizedMessage
+                    )
+                )
+            }
     }
 
     /*
