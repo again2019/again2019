@@ -6,6 +6,7 @@ import android.os.Build
 import android.os.IBinder
 import android.util.Log
 import androidx.annotation.RequiresApi
+import com.goingbacking.goingbacking.UI.Main.First.TmpTimeActivity
 import com.goingbacking.goingbacking.util.NotificationUtil
 import kotlinx.coroutines.*
 import java.util.concurrent.TimeUnit
@@ -15,6 +16,7 @@ class AlarmService () : Service() {
         private const val START_FOREGROUND = 19
         private const val FINISH_FOREGROUND = 20
         private const val STOP_FOREGROUND = 21
+        private const val MOVE_ONGROUND = 22
 
     }
 
@@ -37,15 +39,22 @@ class AlarmService () : Service() {
             "FINISH_FOREGROUND" -> {
                 stopSelf(FINISH_FOREGROUND)
                 startForegroundService3()
-               // NotificationUtil.showTimerExpired()
             }
             "STOP_FOREGROUND" -> {
                 stopSelf(FINISH_FOREGROUND)
             }
             "STOP_FOREGROUND2" -> {
                 stopSelf(STOP_FOREGROUND)
-            }
 
+            }
+            "MOVE" -> {
+                val intent1 = Intent(this, TmpTimeActivity::class.java)
+                intent1.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                startActivity(intent1)
+                stopForeground(true)
+
+
+            }
         }
 
 

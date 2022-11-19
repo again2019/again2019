@@ -15,6 +15,7 @@ import com.goingbacking.goingbacking.AppConstants
 import com.goingbacking.goingbacking.BR.DoingReceiver
 import com.goingbacking.goingbacking.UI.Main.MainActivity
 import com.goingbacking.goingbacking.R
+import com.goingbacking.goingbacking.Service.AlarmService
 import com.goingbacking.goingbacking.UI.Main.First.TmpTimeActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -32,8 +33,9 @@ class NotificationUtil {
 
         @RequiresApi(Build.VERSION_CODES.S)
         fun showTimerExpiredNotification(context: Context) : Notification{
-            val startIntent = Intent(context, TmpTimeActivity::class.java)
-            val startPendingIntent = PendingIntent.getActivity(context,
+            val startIntent = Intent(context, DoingReceiver::class.java)
+            startIntent.action = "MOVE"
+            val startPendingIntent = PendingIntent.getBroadcast(context,
                 0, startIntent, FLAG_MUTABLE)
 
             val nBuilder = getBasicNotificationBuilder(context, CHANNEL_ID_TIMER, true)
