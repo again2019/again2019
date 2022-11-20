@@ -35,8 +35,22 @@ class ThirdRepository(
 
     // 날짜만 데이터 베이스에 저장
     override fun addDateInfo(yearMonth: String, date: DateDTO, result: (UiState<String>) -> Unit) {
-        firebaseFirestore.collection(DATE).document(uid)
-            .collection(yearMonth).document(yearMonth).set(date)
+        CoroutineScope(Dispatchers.IO).launch {
+            val tmp = firebaseFirestore.collection(DATE).document(uid)
+                .collection(yearMonth).document(yearMonth).get(cache).await().toObject(DateDTO::class.java)
+
+            if (tmp == null) {
+                firebaseFirestore.collection(DATE).document(uid)
+                    .collection(yearMonth).document(yearMonth).set(date)
+            } else {
+                for (subDate in date.dateList) {
+                    firebaseFirestore.collection(DATE).document(uid)
+                        .collection(yearMonth).document(yearMonth).update("dateList", FieldValue.arrayUnion(subDate))
+                }
+            }
+        }
+
+
     }
 
     // 스케줄을 데이터 베이스에 저장

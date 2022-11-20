@@ -219,9 +219,6 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
         super.onStop()
 
         lifecycleState = false
-        Log.d("experiments", lifecycleState.toString())
-
-
     }
 
 
