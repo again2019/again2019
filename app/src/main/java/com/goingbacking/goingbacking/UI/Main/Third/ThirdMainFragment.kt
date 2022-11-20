@@ -74,14 +74,16 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
 
     private var eventsList = mutableListOf<Event>()
     val viewModel : ThirdViewModel by viewModels()
-
-
+    private var lifecycleState = true
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
     ): FragmentThirdMainBinding {
         return FragmentThirdMainBinding.inflate(inflater, container, false)
     }
+
+
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -199,6 +201,30 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
             startActivity(intent)
         }
     }
+
+    override fun onResume() {
+        super.onResume()
+
+        if(!lifecycleState) {
+            CoroutineScope(Dispatchers.Main).launch {
+                val example = async { observer2() }
+                selectedDateList = example.await()
+                binding.threeCalendar.notifyCalendarChanged()
+            }
+        }
+    }
+
+
+    override fun onStop() {
+        super.onStop()
+
+        lifecycleState = false
+        Log.d("experiments", lifecycleState.toString())
+
+
+    }
+
+
 
 
 
