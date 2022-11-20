@@ -46,13 +46,23 @@ class ThirdViewModel @Inject constructor(
      */
 
     // 날짜의 스케줄 유무를 가져오는 코드
-    private val _thirdDateDTOs = MutableLiveData<UiState<DateDTO>>()
-    val thirdDateDTOs : LiveData<UiState<DateDTO>>
-        get() = _thirdDateDTOs
+    private val _thirdDateDTOs1 = MutableLiveData<UiState<DateDTO>>()
+    val thirdDateDTOs1 : LiveData<UiState<DateDTO>>
+        get() = _thirdDateDTOs1
 
-    fun getThirdDateInfo(year_month:String) = viewModelScope.launch {
-        _thirdDateDTOs.value = UiState.Loading
-        thirdRepository.getThirdDateInfo(year_month) { _thirdDateDTOs.value = it }
+    fun getThirdDateInfo1(year_month:String) = viewModelScope.launch {
+        _thirdDateDTOs1.value = UiState.Loading
+        thirdRepository.getThirdDateInfo1(year_month) { _thirdDateDTOs1.postValue(it) }
+    }
+
+    // 날짜의 스케줄 유무를 가져오는 코드
+    private val _thirdDateDTOs2 = MutableLiveData<UiState<List<String>>>()
+    val thirdDateDTOs2 : LiveData<UiState<List<String>>>
+        get() = _thirdDateDTOs2
+
+    fun getThirdDateInfo2(year_month:String) = viewModelScope.launch {
+        _thirdDateDTOs2.value = UiState.Loading
+        thirdRepository.getThirdDateInfo2(year_month) { _thirdDateDTOs2.postValue(it) }
     }
 
     // 날짜의 스케줄 삭제하는 코드
@@ -90,4 +100,14 @@ class ThirdViewModel @Inject constructor(
         _thirdSelectedDateDTOs.value = UiState.Loading
         thirdRepository.getSelectedDateInfo(year_month, date) { _thirdSelectedDateDTOs.value = it }
     }
+
+    private val _thirdAllCalendarDTOs = MutableLiveData<UiState<MutableMap<LocalDate, List<Event>>>>()
+    val thirdAllCalendarDTOs : LiveData<UiState<MutableMap<LocalDate, List<Event>>>>
+        get() = _thirdAllCalendarDTOs
+
+    fun getAllCalendarInfo() {
+        _thirdAllCalendarDTOs.value = UiState.Loading
+        thirdRepository.getAllCalendarInfo() { _thirdAllCalendarDTOs.value = it }
+    }
+
 }
