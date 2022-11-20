@@ -37,31 +37,29 @@
 
     <TextView
         android:id="@+id/nickname"
+        style="@style/MainTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
         android:layout_marginTop="80dp"
-        android:fontFamily="@font/bold"
-        android:letterSpacing="0.02"
         android:text="@string/login_ment17"
-        android:textColor="@color/titleMain"
-
         android:textSize="22sp"
-        app:layout_constraintStart_toStartOf="parent"
+        android:letterSpacing="-0.02"
+        app:layout_constraintStart_toStartOf="@+id/email_edittext"
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
 
     <EditText
         android:id="@+id/email_edittext"
         style="@style/EditTextType1"
-        android:layout_width="350dp"
+        android:layout_width="360dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="12dp"
         android:hint="@string/login_ment13"
-        android:paddingBottom="17dp"
-        android:inputType="textEmailAddress"
         android:imeOptions="actionDone"
-        app:layout_constraintStart_toStartOf="@+id/nickname"
+        android:inputType="textEmailAddress"
+        android:paddingBottom="17dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nickname" />
 
     <Button
@@ -69,11 +67,11 @@
         style="@style/BtnType1"
         android:layout_width="360dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginBottom="68dp"
+        android:layout_marginBottom="60dp"
         android:padding="19dp"
         android:text="@string/login_ment18"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

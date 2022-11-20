@@ -85,6 +85,7 @@ class ThirdInputFragment : BaseFragment<FragmentThirdInputBinding>() {
                 observer(selected.toList())
 
                 // bottom sheet으로 이동
+                binding.progressCircular.hide()
                 val bottom  = InputBottomSheet()
                 bottom.show(childFragmentManager, bottom.tag)
             }

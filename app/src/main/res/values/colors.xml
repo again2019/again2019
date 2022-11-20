@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorMain"> #3FC2B0 </color>
+    <color name="black">#000</color>
+    <color name="white">#fff</color>
+
     <color name="colorPrimary">#ffffff</color>
     <color name="colorPrimaryDark">#8B929E</color>
     <color name="colorPrimaryGray">#B4BCC4</color>
@@ -37,12 +40,10 @@
     <color name="example_1_bg">#3A284C</color>
     <color name="example_1_bg_light">#433254</color>
     <color name="example_1_white_light">#4DFFFFFF</color>
-    <color name="example_1_white">#D9FFFFFF</color>
     <color name="example_2_black">#D9000000</color>
     <color name="example_2_white">#D9FFFFFF</color>
     <color name="example_2_red">#F44336</color>
     <color name="example_3_black">#D9000000</color>
-    <color name="example_3_white">#D9FFFFFF</color>
     <color name="example_3_blue">#1973E8</color>
     <color name="example_3_blue_light">#D2E3FC</color>
     <color name="example_3_toolbar_color">#607D8B</color>
@@ -68,8 +69,6 @@
     <color name="example_6_black">#BF000000</color>
     <color name="example_7_white">#D9FFFFFF</color>
     <color name="example_7_yellow">#FFEB3B</color>
-    <color name="white">#fff</color>
-    <color name="black">#000</color>
 
 
     <color name="charColor1">#76CEC2</color>

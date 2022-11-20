@@ -44,15 +44,14 @@
         android:id="@+id/nickname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="31dp"
         android:layout_marginTop="8dp"
         android:fontFamily="@font/bold"
-        android:letterSpacing="0.02"
-        android:textColor="@color/titleMain"
-
+        android:letterSpacing="-0.02"
         android:text="@string/input_ment2"
+
+        android:textColor="@color/titleMain"
         android:textSize="22sp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/nickNameEdittext"
         app:layout_constraintTop_toBottomOf="@+id/progress_bar" />
 
     <TextView
@@ -63,7 +62,7 @@
         android:textSize="22sp"
         android:textColor="@color/titleMain"
         android:fontFamily="@font/medium"
-        android:letterSpacing="0.02"
+        android:letterSpacing="-0.02"
         app:layout_constraintTop_toBottomOf="@+id/nickname"
         app:layout_constraintStart_toStartOf="@+id/nickname" />
 
@@ -90,7 +89,7 @@
         android:textColor="@color/titleMain"
         android:layout_marginLeft="4dp"
         android:fontFamily="@font/bold"
-        android:letterSpacing="0.02"
+        android:letterSpacing="-0.02"
         app:layout_constraintLeft_toRightOf="@+id/text2"
         app:layout_constraintTop_toBottomOf="@id/nickname"/>
 
@@ -102,7 +101,7 @@
         android:textSize="22sp"
         android:textColor="@color/titleMain"
         android:fontFamily="@font/medium"
-        android:letterSpacing="0.02"
+        android:letterSpacing="-0.02"
         app:layout_constraintTop_toBottomOf="@id/nickname"
         app:layout_constraintLeft_toRightOf="@+id/text3" />
 
@@ -126,11 +125,11 @@
         style="@style/BtnType1"
         android:layout_width="360dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginBottom="28dp"
+        android:layout_marginBottom="60dp"
         android:padding="19dp"
         android:text="@string/input_ment7"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
