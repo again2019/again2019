@@ -1,5 +1,6 @@
 package com.goingbacking.goingbacking.Repository.Third
 
+import android.util.Log
 import com.goingbacking.goingbacking.Model.DateDTO
 import com.goingbacking.goingbacking.Model.Event
 import com.goingbacking.goingbacking.Model.UserInfoDTO
@@ -17,6 +18,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import java.time.LocalDate
+import java.time.YearMonth
 import java.time.format.DateTimeFormatter
 
 class ThirdRepository(
@@ -49,27 +51,50 @@ class ThirdRepository(
             .set(event)
     }
 
+    override fun getThirdDateInfo1(year_month: String, result: (UiState<DateDTO>) -> Unit) {
+        CoroutineScope(Dispatchers.IO).launch {
+            val tmp = firebaseFirestore.collection(DATE).document(uid)
+                .collection(year_month).document(year_month)
+                .get().await().toObject(DateDTO::class.java)
+
+
+            Log.d("experiment", "tmp: " + tmp.toString())
+
+            if (tmp == null) {
+                result.invoke(UiState.Failure(
+                    "fail"
+                ))
+            } else {
+                result.invoke(UiState.Success(tmp))
+
+            }
+
+        }
+    }
+
     /*
     ThirdMainFragment
      */
 
     // 날짜의 스케줄 유무를 가져오는 코드
-    override fun getThirdDateInfo(year_month: String, result: (UiState<DateDTO>) -> Unit) {
+    override fun getThirdDateInfo2(year_month: String, result: (UiState<List<String>>) -> Unit) {
         CoroutineScope(Dispatchers.IO).launch {
-            firebaseFirestore.collection(DATE).document(uid)
-                .collection(year_month).document(year_month)
-                .get(cache)
-                .addOnSuccessListener { document ->
-                    val data: DateDTO? = document.toObject(DateDTO::class.java)
-                    if (data == null) {
-                        result.invoke(UiState.Failure("fail"))
-                    } else {
-                        result.invoke(UiState.Success(data))
-                    }
+            var dateList = listOf<String>()
+            for (i in 0..4) {
+                val tmp_year_month = YearMonth.now().plusMonths(i.toLong()).toString()
+                Log.d("experiment", "date " + tmp_year_month)
+                val tmp = firebaseFirestore.collection(DATE).document(uid)
+                    .collection(tmp_year_month).document(tmp_year_month)
+                    .get(cache).await().toObject(DateDTO::class.java)
+                if (tmp == null) {
+                    continue
+                } else {
+                    dateList = dateList + tmp.dateList
+                    Log.d("experiment", "dateList " + dateList)
                 }
-                .addOnFailureListener {
-                    result.invoke(UiState.Failure(it.localizedMessage))
-                }.await()
+            }
+
+            result.invoke(UiState.Success(dateList))
         }
     }
 

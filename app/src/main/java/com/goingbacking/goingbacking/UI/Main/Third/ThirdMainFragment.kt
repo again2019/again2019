@@ -207,8 +207,8 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
     private suspend fun observer2() : MutableList<String> {
         var lis = mutableListOf<String>()
 
-        viewModel.getThirdDateInfo(currentday("yyyy-MM"))
-        viewModel.thirdDateDTOs.observe(viewLifecycleOwner) { state ->
+        viewModel.getThirdDateInfo1(currentday("yyyy-MM"))
+        viewModel.thirdDateDTOs1.observe(viewLifecycleOwner) { state ->
             when (state) {
                 is UiState.Success -> {
                     binding.progressCircular.hide()
