@@ -1,6 +1,7 @@
 package com.goingbacking.goingbacking.UI.Main.Third
 
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
@@ -27,6 +28,9 @@ import com.kizitonwose.calendarview.ui.DayBinder
 import com.kizitonwose.calendarview.ui.MonthHeaderFooterBinder
 import com.kizitonwose.calendarview.ui.ViewContainer
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.YearMonth
@@ -39,7 +43,7 @@ class TotalCalendarActivity : BaseActivity<ActivityTotalCalendarBinding>({
 }) {
     private var selectedDate: LocalDate? = null
     private val today = LocalDate.now()
-
+    private var monthList = mutableListOf<String>()
     val viewModel: ThirdViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,67 +70,76 @@ class TotalCalendarActivity : BaseActivity<ActivityTotalCalendarBinding>({
         }, this, Lifecycle.State.RESUMED)
         val daysOfWeek = daysOfWeekFromLocale()
         val currentMonth = YearMonth.now()
-        binding.totalthreeCalendar.setup(
-            currentMonth.minusMonths(10),
-            currentMonth.plusMonths(10),
-            daysOfWeek.first()
-        )
-        binding.totalthreeCalendar.scrollToMonth(currentMonth)
-        binding.totalthreeCalendar.post { selectDate(today) }
 
-        binding.totalthreeCalendar.dayBinder = object : DayBinder<DayViewContainer> {
-            override fun create(view: View) = DayViewContainer(view)
-            override fun bind(container: DayViewContainer, day: CalendarDay) {
-                container.day = day
-                val textView = container.binding.exThreeDayText
-                val dotView = container.binding.exThreeDotView
-                textView.text = day.date.dayOfMonth.toString()
-                dotView.isVisible = false
+      CoroutineScope(Dispatchers.Main).launch {
 
-                if (day.owner == DayOwner.THIS_MONTH) {
-                    var year_month = ""
-                    if (day.date.monthValue / 10 == 1) {
-                        year_month = day.date.year.toString() + "-" + day.date.monthValue.toString()
-                    } else {
-                        year_month = day.date.year.toString() + "-0" + day.date.monthValue.toString()
-                    }
+          binding.totalthreeCalendar.setup(
+              currentMonth.minusMonths(10),
+              currentMonth.plusMonths(10),
+              daysOfWeek.first()
+          )
+          binding.totalthreeCalendar.scrollToMonth(currentMonth)
+          binding.totalthreeCalendar.post { selectDate(today) }
 
-                    textView.makeVisible()
-                    when (day.date) {
-                        today -> {
-                            textView.setBackgroundResource(R.drawable.today_rectangle)
-                            dotView.makeGONE()
-                        }
-                        selectedDate -> {
-                            textView.setBackgroundResource(R.drawable.selected_rectangle)
-                            dotView.makeGONE()
-                        }
-                        else -> {
-                            textView.background = null
+          binding.totalthreeCalendar.monthHeaderBinder = object :
+              MonthHeaderFooterBinder<MonthViewContainer> {
+              override fun create(view: View) = MonthViewContainer(view)
+              override fun bind(container: MonthViewContainer, month: CalendarMonth) {
+                  container.legendLayout.children.map { it as TextView }.forEach {
+                      it.text = month.yearMonth.toString()
+                      monthList.add(month.yearMonth.toString())
+                      Log.d("experiment", month.yearMonth.toString())
+                  }
+              }
+          }
 
-                            observer2(day.date, dotView, year_month)
-                        }
-                    }
-                } else {
-                    textView.makeGONE()
-                    dotView.makeGONE()
-                }
+          Log.d("experiment", "monthList " + monthList.toString())
+          binding.totalthreeCalendar.dayBinder = object : DayBinder<DayViewContainer> {
+              override fun create(view: View) = DayViewContainer(view)
+              override fun bind(container: DayViewContainer, day: CalendarDay) {
+                  container.day = day
+                  val textView = container.binding.exThreeDayText
+                  val dotView = container.binding.exThreeDotView
+                  textView.text = day.date.dayOfMonth.toString()
+                  dotView.isVisible = false
+                  Log.d("experiment", day.date.dayOfMonth.toString())
+                  if (day.owner == DayOwner.THIS_MONTH) {
+                      var year_month = ""
+                      if (day.date.monthValue / 10 == 1) {
+                          year_month =
+                              day.date.year.toString() + "-" + day.date.monthValue.toString()
+                      } else {
+                          year_month =
+                              day.date.year.toString() + "-0" + day.date.monthValue.toString()
+                      }
 
-            }
-        }
+                      textView.makeVisible()
+                      when (day.date) {
+                          today -> {
+                              textView.setBackgroundResource(R.drawable.today_rectangle)
+                              dotView.makeGONE()
+                          }
+                          selectedDate -> {
+                              textView.setBackgroundResource(R.drawable.selected_rectangle)
+                              dotView.makeGONE()
+                          }
+                          else -> {
+                              textView.background = null
 
-        binding.totalthreeCalendar.monthHeaderBinder = object :
-            MonthHeaderFooterBinder<MonthViewContainer> {
-            override fun create(view: View) = MonthViewContainer(view)
-            override fun bind(container: MonthViewContainer, month: CalendarMonth) {
-                    container.legendLayout.children.map { it as TextView }.forEach {
-                        it.text = month.yearMonth.toString()
-                        it.setTextColorRes(R.color.example_3_black)
-                    }
-            }
-        }
+                              observer2(day.date, dotView, year_month)
+                          }
+                      }
+                  } else {
+                      textView.makeGONE()
+                      dotView.makeGONE()
+                  }
 
-        binding.totalthreeCalendar.monthScrollListener = {}
+              }
+          }
+
+      }
+
+//        binding.totalthreeCalendar.monthScrollListener = {}
 
     }
 

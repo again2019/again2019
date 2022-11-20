@@ -36,4 +36,6 @@ interface ThirdRepositoryIF {
      */
     fun getSelectedDateInfo(year_month: String, date: String, result: (UiState<MutableList<Event>>) -> Unit)
 
+    // 해당 달의 정보를 Map에 담는 코드
+    fun getAllCalendarInfo(result: (UiState<MutableMap<LocalDate, List<Event>>>) -> Unit)
 }
