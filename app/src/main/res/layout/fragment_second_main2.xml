@@ -4,20 +4,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
     tools:context=".UI.Main.Second.SecondMainFragment2">
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="70dp"
         android:theme="@style/ToolbarTheme"
-        android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="통계"
+            android:text="자기계발 통계"
             android:layout_gravity="center"
             android:id="@+id/toolbar_title"
             android:textSize="20sp" />
@@ -51,8 +51,7 @@
         android:layout_width="350dp"
         android:layout_height="220dp"
         android:layout_marginTop="30dp"
-        android:background="@drawable/btn_design2"
-        android:backgroundTint="@color/mainBackground"
+        android:background="@drawable/layout_design1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView1">
@@ -91,8 +90,7 @@
         android:layout_width="350dp"
         android:layout_height="220dp"
         android:layout_marginTop="30dp"
-        android:background="@drawable/btn_design2"
-        android:backgroundTint="@color/mainBackground"
+        android:background="@drawable/layout_design1"
         app:layout_constraintStart_toStartOf="@+id/textView2"
         app:layout_constraintTop_toBottomOf="@+id/textView2">
 
