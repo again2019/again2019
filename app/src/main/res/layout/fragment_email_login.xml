@@ -37,19 +37,18 @@
 
     </androidx.appcompat.widget.Toolbar>
 
-    <TextView
-        android:id="@+id/nickname"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="80dp"
-        android:fontFamily="@font/bold"
-        android:letterSpacing="0.02"
-        android:text="@string/login_ment8"
-        android:textColor="@color/titleMain"
-        android:textSize="22sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar"/>
+ <TextView
+     android:id="@+id/nickname"
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:layout_marginTop="80dp"
+     android:fontFamily="@font/bold"
+     android:letterSpacing="0.02"
+     android:text="@string/login_ment8"
+     android:textColor="@color/titleMain"
+     android:textSize="22sp"
+     app:layout_constraintStart_toStartOf="@+id/emailEdittext"
+     app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     <TextView
         android:id="@+id/text2"
@@ -103,19 +102,19 @@
         />
 
 
-    <EditText
-        style="@style/EditTextType1"
-        android:id="@+id/emailEdittext"
-        android:layout_width="350dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:hint="@string/login_ment13"
-        android:paddingBottom="17dp"
-        android:layout_marginLeft="-3dp"
-        android:inputType="textEmailAddress"
-        android:imeOptions="actionNext"
-        app:layout_constraintStart_toStartOf="@+id/text5"
-        app:layout_constraintTop_toBottomOf="@+id/text5" />
+ <EditText
+     android:id="@+id/emailEdittext"
+     style="@style/EditTextType1"
+     android:layout_width="350dp"
+     android:layout_height="wrap_content"
+     android:layout_marginTop="12dp"
+     android:hint="@string/login_ment13"
+     android:imeOptions="actionNext"
+     android:inputType="textEmailAddress"
+     android:paddingBottom="17dp"
+     app:layout_constraintEnd_toEndOf="parent"
+     app:layout_constraintStart_toStartOf="parent"
+     app:layout_constraintTop_toBottomOf="@+id/text5" />
 
     <EditText
         style="@style/EditTextType1"
@@ -135,24 +134,25 @@
         style="@style/BtnType1"
         android:layout_width="360dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginBottom="68dp"
+        android:layout_marginBottom="60dp"
         android:padding="19dp"
         android:text="@string/login_ment7"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
+
     <TextView
         android:id="@+id/forgotButton"
         android:layout_width="360dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginBottom="68dp"
         android:fontFamily="@font/medium"
         android:gravity="center"
         android:padding="19dp"
         android:text="@string/login_ment15"
-        android:textColor="@color/titleMain"
+        android:textColor="@color/black"
         android:textSize="16sp"
-        app:layout_constraintTop_toBottomOf="@id/loginButton"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loginButton" />
 </androidx.constraintlayout.widget.ConstraintLayout>

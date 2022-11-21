@@ -96,10 +96,10 @@ class InputBottomSheet : BottomSheetDialogFragment() {
             moveTutorialPage()
         }
         xBtn.setOnClickListener {
-            dismiss()
+            dialog!!.dismiss()
         }
         noButton.setOnClickListener {
-            dismiss()
+            dialog!!.dismiss()
         }
 
     }

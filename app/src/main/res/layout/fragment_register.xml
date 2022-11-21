@@ -40,14 +40,13 @@
         android:id="@+id/nickname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="33dp"
         android:layout_marginTop="80dp"
         android:fontFamily="@font/medium"
-        android:letterSpacing="0.02"
+        android:letterSpacing="-0.02"
         android:text="@string/login_ment21"
         android:textColor="@color/titleMain"
         android:textSize="22sp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/register_email_edittext"
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     <TextView
@@ -56,7 +55,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="3dp"
         android:fontFamily="@font/bold"
-        android:letterSpacing="0.02"
+        android:letterSpacing="-0.02"
         android:text="@string/login_ment8"
         android:textColor="@color/titleMain"
         android:textSize="22sp"
@@ -68,7 +67,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/medium"
-        android:letterSpacing="0.02"
+        android:letterSpacing="-0.02"
         android:text="@string/login_ment9"
         android:textColor="@color/titleMain"
         android:textSize="22sp"
@@ -81,7 +80,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="3dp"
         android:fontFamily="@font/bold"
-        android:letterSpacing="0.02"
+        android:letterSpacing="-0.02"
         android:text="@string/login_ment10"
         android:textColor="@color/titleMain"
         android:textSize="22sp"
@@ -93,7 +92,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/medium"
-        android:letterSpacing="0.02"
+        android:letterSpacing="-0.02"
         android:text="@string/login_ment11"
         android:textColor="@color/titleMain"
         android:textSize="22sp"
@@ -109,7 +108,7 @@
         android:textColor="@color/titleMain"
         android:fontFamily="@font/medium"
         android:layout_marginTop="4dp"
-        android:letterSpacing="0.02"
+        android:letterSpacing="-0.02"
         app:layout_constraintTop_toBottomOf="@+id/nickname"
         app:layout_constraintStart_toStartOf="@+id/nickname" />
 
@@ -124,7 +123,8 @@
         android:imeOptions="actionNext"
         android:inputType="textEmailAddress"
         android:paddingBottom="17dp"
-        app:layout_constraintStart_toStartOf="@+id/text5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text5" />
 
     <EditText
@@ -155,11 +155,11 @@
         style="@style/BtnType1"
         android:layout_width="360dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginBottom="68dp"
+        android:layout_marginBottom="60dp"
         android:padding="19dp"
         android:text="@string/login_ment24"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

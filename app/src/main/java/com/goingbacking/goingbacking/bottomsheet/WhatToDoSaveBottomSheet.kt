@@ -117,7 +117,7 @@ class WhatToDoSaveBottomSheet : BottomSheetDialogFragment() {
             }
 
             if (selected.size == 0) {
-                toast(requireContext(), "자기 계발을 한 개 선택해주세요.")
+                toast(requireContext(), getString(R.string.whattodobottomsheet_ment1))
             } else {
                 val count = FieldValue.increment(count_double)
                 tmpTimeObserver(count)

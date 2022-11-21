@@ -4,13 +4,84 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".UI.Main.First.FirstMainFragment">
 
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/progress_circular"
+        style="@style/ProgressCircular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:theme="@style/ToolbarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/bold"
+            android:text="@string/app_name"
+            android:textColor="@color/textGray"
+            android:textSize="23sp" />
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginRight="20dp">
+
+            <ImageView
+                android:id="@+id/myMessage"
+                android:layout_width="32dp"
+                android:layout_height="42dp"
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/home"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/tmpTimeButton"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
+
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/tmpTimeButton"
+                android:layout_width="32dp"
+                android:layout_height="42dp"
+
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:lottie_fileName="bell.json" />
+
+            <ImageView
+                android:id="@+id/tmpTimeDot"
+                android:layout_width="10dp"
+                android:layout_height="8dp"
+                android:src="@drawable/dot3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.appcompat.widget.Toolbar>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout3"
         android:layout_width="350dp"
-        android:layout_height="201dp"
+        android:layout_height="200dp"
         android:layout_marginBottom="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -26,6 +97,7 @@
             android:text="@string/first_ment8"
             android:textColor="@color/black"
             android:textSize="15sp"
+            android:letterSpacing="-0.02"
             app:layout_constraintBottom_toTopOf="@+id/view3"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -44,7 +116,7 @@
             android:id="@+id/constraintLayout2"
             android:layout_width="350dp"
             android:layout_height="150dp"
-            android:background="@drawable/first_main_radius"
+            android:background="@drawable/layout_design1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
@@ -58,6 +130,7 @@
                 android:backgroundTint="@color/white"
                 android:fontFamily="@font/medium"
                 android:gravity="center"
+                android:letterSpacing="-0.02"
                 android:text="@string/first_ment11"
                 android:textColorHint="@color/titleMain"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -69,12 +142,13 @@
                 android:id="@+id/todayTextHide"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/first_main_radius"
+                android:background="@drawable/layout_design2"
                 android:backgroundTint="@color/black"
                 android:fontFamily="@font/medium"
                 android:gravity="center"
                 android:text="@string/first_ment12"
                 android:textColor="@color/colorMain"
+                android:letterSpacing="-0.02"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -86,7 +160,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout5"
         android:layout_width="350dp"
-        android:layout_height="261dp"
+        android:layout_height="260dp"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -102,6 +176,7 @@
             android:gravity="center"
             android:text="@string/first_ment9"
             android:textColor="@color/white"
+            android:letterSpacing="-0.02"
             app:layout_constraintBottom_toTopOf="@+id/view2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -127,6 +202,7 @@
             android:textColorHint="@color/titleMain"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            android:letterSpacing="-0.02"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -135,7 +211,7 @@
             android:id="@+id/constraintLayout4"
             android:layout_width="350dp"
             android:layout_height="210dp"
-            android:background="@drawable/first_main_radius"
+            android:background="@drawable/layout_design1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
@@ -170,6 +246,7 @@
             android:text="@string/first_ment7"
             android:textColor="@color/black"
             android:textSize="15sp"
+            android:letterSpacing="-0.02"
             app:layout_constraintBottom_toTopOf="@+id/view2"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -183,7 +260,7 @@
         android:layout_marginTop="30dp"
         android:background="@drawable/maintime"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.508"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
@@ -265,76 +342,7 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <com.google.android.material.progressindicator.CircularProgressIndicator
-        android:id="@+id/progress_circular"
-        style="@style/ProgressCircular"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:theme="@style/ToolbarTheme"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/bold"
-            android:text="@string/app_name"
-            android:textColor="@color/textGray"
-            android:textSize="23sp" />
-
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="80dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:layout_marginRight="20dp">
-
-            <ImageView
-                android:id="@+id/myMessage"
-                android:layout_width="32dp"
-                android:layout_height="42dp"
-                android:layout_marginEnd="8dp"
-                android:src="@drawable/home"
-                android:visibility="invisible"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/tmpTimeButton"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0" />
-
-
-            <com.airbnb.lottie.LottieAnimationView
-                android:id="@+id/tmpTimeButton"
-                android:layout_width="32dp"
-                android:layout_height="42dp"
-
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:lottie_fileName="bell.json" />
-
-            <ImageView
-                android:id="@+id/tmpTimeDot"
-                android:layout_width="10dp"
-                android:layout_height="8dp"
-                android:src="@drawable/dot3"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </androidx.appcompat.widget.Toolbar>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

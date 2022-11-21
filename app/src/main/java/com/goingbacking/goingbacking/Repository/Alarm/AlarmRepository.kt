@@ -143,8 +143,11 @@ class AlarmRepository : AlarmRepositoryIF {
         currentTime: String,
         tmpTimeDTO: TmpTimeDTO
     ) {
-        firebaseFirestore.collection(TMPTIMEINFO).document(myUid)
-            .collection(myUid).document(myUid + currentTime).set(tmpTimeDTO)
+        if(tmpTimeDTO.nowSeconds!!.toInt() != 0) {
+            firebaseFirestore.collection(TMPTIMEINFO).document(myUid)
+                .collection(myUid).document(myUid + currentTime).set(tmpTimeDTO)
+
+        }
     }
 
 

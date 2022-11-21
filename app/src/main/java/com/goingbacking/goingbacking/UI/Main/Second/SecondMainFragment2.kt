@@ -48,7 +48,7 @@ class SecondMainFragment2 : BaseFragment<FragmentSecondMain2Binding>(), AAChartV
         val aaChartModel = AAChartModel.Builder(requireActivity())
 
             .setChartType(chartTypeEnum)
-            .setBackgroundColor(R.color.colorBackGround)
+            .setBackgroundColor(R.color.white)
             .setDataLabelsEnabled(true)
             .setAxesTextColorRes(R.color.titleMain)
             .setColorsTheme(colorArray)
