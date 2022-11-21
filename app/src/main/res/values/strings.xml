@@ -133,6 +133,8 @@
     <string name="first_yes_store1"> 저장하지 않은 시간이 </string>
     <string name="first_yes_store2"> 개 있어요! </string>
 
+    <!-- WhatToDoSaveBottomSheet string -->
+    <string name="whattodobottomsheet_ment1"> 자기 계발을 한 개 선택해주세요. </string>
 
     <!-- forthMainFragment string -->
     <string name="cheer_message"> 응원 메시지를 입력해주세요. </string>

@@ -14,7 +14,6 @@ import com.goingbacking.goingbacking.Adapter.TodayRecyclerViewAdapter
 import com.goingbacking.goingbacking.R
 import com.goingbacking.goingbacking.UI.Base.BaseFragment
 import com.goingbacking.goingbacking.UI.Main.Third.ScheduleInputActivity
-import com.goingbacking.goingbacking.UI.Main.Third.TotalCalendarActivity
 import com.goingbacking.goingbacking.bottomsheet.CheerBottomSheet
 import com.goingbacking.goingbacking.databinding.FragmentFirstMainBinding
 import com.goingbacking.goingbacking.util.*
@@ -157,13 +156,6 @@ class FirstMainFragment : BaseFragment<FragmentFirstMainBinding>() {
         val intent = Intent(requireActivity(), ScheduleInputActivity::class.java)
         startActivity(intent)
     }
-
-    private fun moveTotalCalendarPage() {
-        val intent = Intent(requireActivity(), TotalCalendarActivity::class.java)
-        startActivity(intent)
-    }
-
-
 }
 
 
