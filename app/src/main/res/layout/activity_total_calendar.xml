@@ -8,7 +8,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout12"
-        android:layout_width="350dp"
+        android:layout_width="380dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -36,7 +36,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/input_ment1"
+            android:text="전체 일정"
             android:textSize="20sp" />
     </androidx.appcompat.widget.Toolbar>
 
@@ -52,12 +52,14 @@
 
     <com.kizitonwose.calendarview.CalendarView
         android:id="@+id/totalthreeCalendar"
-        android:layout_width="350dp"
-        android:layout_height="wrap_content"
+        android:layout_width="380dp"
+        android:layout_height="0dp"
         app:cv_dayViewResource="@layout/item_calendar_day"
         app:cv_monthHeaderResource="@layout/item_calendar_header"
         app:cv_orientation="vertical"
         app:cv_scrollMode="continuous"
+        android:layout_marginBottom="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout12" />
