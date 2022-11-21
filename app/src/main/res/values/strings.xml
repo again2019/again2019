@@ -135,6 +135,26 @@
 
     <!-- WhatToDoSaveBottomSheet string -->
     <string name="whattodobottomsheet_ment1"> 자기 계발을 한 개 선택해주세요. </string>
+    <string name="whattodobottomsheet_ment2"> 저장하시려는 정보가 맞나요? </string>
+    <string name="whattodobottomsheet_ment3"> 2022년 11월 10일 </string>
+    <string name="whattodobottomsheet_ment4"> 오전 11시 11분 </string>
+    <string name="whattodobottomsheet_ment5"> ~ </string>
+    <string name="whattodobottomsheet_ment6"> 📃  저장 시간:  </string>
+    <string name="whattodobottomsheet_ment7"> 1시간 10분  </string>
+    <string name="whattodobottomsheet_ment8"> 무엇을 하셨는지 선택해주세요! </string>
+    <string name="whattodobottomsheet_ment9"> 선택한 자기 계발이 없습니다. </string>
+    <string name="whattodobottomsheet_ment10"> 저장 </string>
+    <string name="whattodobottomsheet_ment11"> 취소 </string>
+
+    <!-- secondMainFragment1,2 string -->
+    <string name="second_ment1"> 날짜별 통계 </string>
+    <string name="second_ment2"> 이번달 통계 </string>
+    <string name="second_ment3"> 월별 통계 </string>
+    <string name="second_ment4"> 연도별 통계 </string>
+    <string name="second_ment5"> 날짜별 통계 </string>
+    <string name="second_ment6"> 분야별 통계 </string>
+    <string name="second_ment7"> 이번년도 통계 </string>
+
 
     <!-- forthMainFragment string -->
     <string name="cheer_message"> 응원 메시지를 입력해주세요. </string>
