@@ -20,6 +20,7 @@ class SecondMainFragment1 : BaseFragment<FragmentSecondMain1Binding>(), AAChartV
 
     var chartType: String = ""
     val viewModel: SecondViewModel by viewModels()
+    private var lifecycleState = true
 
     override fun getFragmentBinding(
         inflater: LayoutInflater,
@@ -28,12 +29,27 @@ class SecondMainFragment1 : BaseFragment<FragmentSecondMain1Binding>(), AAChartV
         return FragmentSecondMain1Binding.inflate(inflater, container, false)
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        if (!lifecycleState) {
+            yearObserver()
+            monthObserver()
+            dayObserver()
+        }
+    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         yearObserver()
         monthObserver()
         dayObserver()
+    }
+
+    override fun onStop() {
+        super.onStop()
+
+        lifecycleState = false
     }
 
 

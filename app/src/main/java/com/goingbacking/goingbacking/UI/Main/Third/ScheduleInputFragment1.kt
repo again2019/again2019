@@ -22,7 +22,6 @@ class ScheduleInputFragment1 : BaseFragment<FragmentScheduleInput1Binding>() {
 
     private var durationList = mutableListOf<Day>()
     private var yearList = mutableListOf<String>()
-
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
