@@ -110,7 +110,7 @@ class FirstMainFragment : BaseFragment<FragmentFirstMainBinding>() {
                         binding.tmpTimeButton.setMinAndMaxProgress(0f, 1f)
                         binding.tmpTimeButton.repeatCount = 50
                         binding.tmpTimeDot.makeVisible()
-                        balloon = balloonBuild(getString(R.string.first_yes_store1) + tmpTimeCount.toString() + getString(R.string.first_yes_store2))
+                        balloon = balloonBuild(getString(R.string.first_yes_store1) + " " + tmpTimeCount.toString() + getString(R.string.first_yes_store2))
 
 
                     }
