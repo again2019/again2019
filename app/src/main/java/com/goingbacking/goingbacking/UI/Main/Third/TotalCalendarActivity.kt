@@ -70,7 +70,7 @@ class TotalCalendarActivity : BaseActivity<ActivityTotalCalendarBinding>({
         }, this, Lifecycle.State.RESUMED)
 
 
-        val job1 = CoroutineScope(Dispatchers.Main).launch {
+        CoroutineScope(Dispatchers.Main).launch {
             for (i in 0..4) {
                 monthList.add(YearMonth.now().plusMonths(i.toLong()).toString())
             }
@@ -207,7 +207,7 @@ class TotalCalendarActivity : BaseActivity<ActivityTotalCalendarBinding>({
 
     private suspend fun observer1(yearMonth : String) : List<String> {
         var lis = listOf<String>()
-        var success = true
+        var fail1 = false
         viewModel.getThirdDateInfo1(yearMonth)
         viewModel.thirdDateDTOs1.observe(this) { state ->
             when (state) {
@@ -221,17 +221,17 @@ class TotalCalendarActivity : BaseActivity<ActivityTotalCalendarBinding>({
                 is UiState.Failure -> {
                     binding.progressCircular.hide()
                     Log.e("experiment", state.error.toString())
-                    success = false
+                    fail1 = true
                 }
             }
 
         }
 
         Log.d("experiment", "new yearmonth: " + yearMonth.toString())
-        Log.d("experiment", "new yearmonth: " + success.toString())
+        Log.d("experiment", "new yearmonth: " + fail1.toString())
 
         while (true) {
-            if (lis.size != 0 || !success) {
+            if (lis.size != 0 || fail1) {
                 binding.progressCircular.hide()
                 break
             } else {
@@ -248,7 +248,7 @@ class TotalCalendarActivity : BaseActivity<ActivityTotalCalendarBinding>({
 
     private suspend fun observer2(year_month:YearMonth) : List<String> {
         var lis = listOf<String>()
-
+        var fail2 = false
 
         viewModel.getThirdDateInfo2(year_month.toString())
         viewModel.thirdDateDTOs2.observe(this) { state ->
@@ -262,14 +262,16 @@ class TotalCalendarActivity : BaseActivity<ActivityTotalCalendarBinding>({
                 }
                 is UiState.Failure -> {
                     binding.progressCircular.hide()
+                    fail2 = true
                 }
             }
 
         }
 
-
-        while (true) {
-            if (lis.size != 0) {
+        Log.d("experiment", "new yearmonth: " + year_month.toString())
+        Log.d("experiment", "new yearmonth: " + fail2.toString())
+        while (true ) {
+            if (lis.size != 0 || fail2) {
                 binding.progressCircular.hide()
                 break
             } else {
