@@ -38,7 +38,7 @@ class AlarmRepository : AlarmRepositoryIF {
         )
         firebaseFirestore.collection(SAVETIMEINFO).document(myUid)
             .collection(MONTH).document(currentday("yyyy"))
-            .collection(currentday("yyyy")).document(myUid + currentday("dd"))
+            .collection(currentday("yyyy")).document(myUid + currentday("MM"))
             .set(saveTimeMonthDTO)
 
     }
@@ -78,36 +78,36 @@ class AlarmRepository : AlarmRepositoryIF {
     // month마다 초기화
     override fun addInitSaveTimeMonthInfo() {
         if (beforeday("MM") != currentday("MM")) {
+
             val saveTimeMonthDTO = SaveTimeMonthDTO(
                 month = currentday("MM").toInt(),
                 year = currentday("yyyy").toInt(),
                 count = 0
             )
 
+            Log.d("experiment", "today tomorrow initsavemonth")
             firebaseFirestore.collection(SAVETIMEINFO).document(myUid)
                 .collection(MONTH).document(currentday("yyyy"))
                 .collection(currentday("yyyy")).document(myUid + currentday("MM"))
                 .set(saveTimeMonthDTO)
 
         }
-
     }
 
     // year마다 초기화
     override fun addInitSaveTimeYearInfo() {
         if (beforeday("yyyy") != currentday("yyyy")) {
-
             val saveTimeYearDTO = SaveTimeYearDTO(
                 year = currentday("yyyy").toInt(),
                 count = 0
             )
+            Log.d("experiment", "today tomorrow initsaveyear")
 
             firebaseFirestore.collection(SAVETIMEINFO).document(myUid)
                 .collection(YEAR).document(currentday("yyyy"))
                 .set(saveTimeYearDTO)
-
-
         }
+
     }
 
     override fun getTodayInfo(result: (ArrayList<Event>) -> Unit) {
@@ -153,11 +153,14 @@ class AlarmRepository : AlarmRepositoryIF {
 
     override fun addInitWhatToDoMonthInfo(whatToDOList : MutableSet<String>) {
         if (beforeday("MM") != currentday("MM")) {
+            Log.d("experiment", "today tomorrow initwhattodomonth")
+
             for (whattodo in whatToDOList) {
-                val whatToDoMonthDTO = WhatToDoMonthDTO()
-                whatToDoMonthDTO.whatToDo = whattodo
-                whatToDoMonthDTO.month = currentday("MM").toInt()
-                whatToDoMonthDTO.count = 0
+                val whatToDoMonthDTO = WhatToDoMonthDTO(
+                    whatToDo = whattodo,
+                    month = currentday("MM").toInt(),
+                    count = 0
+                )
 
                 firebaseFirestore.collection(FBConstants.WHATTODOINFO).document(myUid)
                     .collection(MONTH).document(currentday("yyyy-MM"))
@@ -169,11 +172,15 @@ class AlarmRepository : AlarmRepositoryIF {
 
     override fun addInitWhatToDoYearInfo(whatToDOList : MutableSet<String>) {
         if (beforeday("yyyy") != currentday("yyyy")) {
+            Log.d("experiment", "today tomorrow initwhattodoyear")
+
             for (whattodo in whatToDOList) {
-                val whatToDoYearDTO = WhatToDoYearDTO()
-                whatToDoYearDTO.whatToDo = whattodo
-                whatToDoYearDTO.year = currentday("yyyy").toInt()
-                whatToDoYearDTO.count = 0
+                val whatToDoYearDTO = WhatToDoYearDTO(
+                    whatToDo = whattodo,
+                    year = currentday("yyyy").toInt(),
+                    count = 0
+
+                )
 
                 firebaseFirestore.collection(FBConstants.WHATTODOINFO).document(myUid)
                     .collection(YEAR).document(currentday("yyyy"))

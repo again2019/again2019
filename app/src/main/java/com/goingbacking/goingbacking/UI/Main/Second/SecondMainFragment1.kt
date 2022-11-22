@@ -166,7 +166,7 @@ class SecondMainFragment1 : BaseFragment<FragmentSecondMain1Binding>(), AAChartV
                     val saveCategoryList3 = arrayListOf<String>()
                     for (data in state.data) {
                         saveTimeDayDTOList.add(data.count!!)
-                        saveCategoryList3.add(data.day!!.toString() + "월")
+                        saveCategoryList3.add(data.day!!.toString() + "일")
                     }
 
                     setUpAAChartView(binding.AAChartView1, saveTimeDayDTOList, saveCategoryList3)

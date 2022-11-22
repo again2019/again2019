@@ -69,7 +69,7 @@ class SecondRepository (
     override fun getSecondSaveYearInfo(result: (UiState<ArrayList<SaveTimeYearDTO>>) -> Unit) {
 
         firebaseFirestore.collection(SAVETIMEINFO).document(uid)
-            .collection(YEAR).get()
+            .collection("year").get()
             .addOnSuccessListener {
                 val saveTimeYearDTOList = arrayListOf<SaveTimeYearDTO>()
                 for(document in it){

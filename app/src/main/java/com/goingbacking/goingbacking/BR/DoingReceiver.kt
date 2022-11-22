@@ -115,7 +115,7 @@ class DoingReceiver : BroadcastReceiver() {
                 Log.d("experiment", "wakeupTime: " + wakeUpTime.toString())
                 Log.d("experiment", "currentTime: " + currentTime.toString())
 
-                alarmRepository.addTmpTimeInfo(start_currentTime.toString(), tmpTimeDTO)
+                alarmRepository.addTmpTimeInfo(current.toString(), tmpTimeDTO)
             }
             "MOVE" -> {
                 val intent4 = Intent(context, AlarmService::class.java)

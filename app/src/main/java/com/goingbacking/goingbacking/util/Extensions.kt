@@ -81,13 +81,13 @@ fun calendarAlarm (hour :Int, minute : Int, second : Int, millisecond : Int) : C
 
 fun beforeday(type :String) :String {
     val beforeNotifyTime = Calendar.getInstance()
-    beforeNotifyTime.add(Calendar.DATE, -1)
+    beforeNotifyTime.add(Calendar.DATE, -330)
     val beforeDateTime = beforeNotifyTime.time
     var bef_date_text = ""
     if (type.equals("yyyy")) {
         bef_date_text = SimpleDateFormat("yyyy", Locale.getDefault()).format(beforeDateTime).toString()
-    } else if (type.equals("mm")) {
-        bef_date_text = SimpleDateFormat("mm", Locale.getDefault()).format(beforeDateTime).toString()
+    } else if (type.equals("MM")) {
+        bef_date_text = SimpleDateFormat("MM", Locale.getDefault()).format(beforeDateTime).toString()
     }
     return bef_date_text
 }
