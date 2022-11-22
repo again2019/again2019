@@ -57,7 +57,7 @@ class TutorialActivity : BaseActivity<ActivityTutorialBinding>({
 
     @RequiresApi(Build.VERSION_CODES.S)
     private fun notification() {
-        val calendar = calendar(17,9,0,0)
+        val calendar = calendar(17,48,0,0)
         // 매일 12시마다 초기화가 되면 CountReceiver의 작업을 수행함.
         val alarmIntent = Intent(this, CountReceiver::class.java)
         alarmIntent.putExtra(Constants.ID, Constants.VALUE)

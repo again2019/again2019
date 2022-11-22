@@ -45,6 +45,7 @@ class DoingReceiver : BroadcastReceiver() {
 
             AppConstants.ACTION_READY -> {
                 end_time = intent.getIntExtra(END_TIME, 0)
+                Log.d("experiment", "end_time ${end_time} ")
                 PrefUtil.setEndTime(end_time, context)
                 val intent1 = Intent(context, AlarmService::class.java)
                 intent1.action = FIRST_START_FOREGROUND

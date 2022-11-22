@@ -83,11 +83,9 @@ class NotificationUtil {
                 0, stopIntent, FLAG_MUTABLE)
             // 알림창에 발생하는 pause 버튼의 이벤트
 
-            val df = SimpleDateFormat("aa kk:mm:ss", Locale("ko", "KR"))
-            val seconds = TimeUnit.MILLISECONDS.toSeconds(duration).toInt()
             val nBuilder = getBasicNotificationBuilder(context, CHANNEL_ID_TIMER, true)
             nBuilder.setContentTitle("Timer is Running.")
-                .setContentText("End: ${df.format(Date(wakeUpTime))}")
+                .setContentText("자기계발 중입니다.")
                 .setContentIntent(getPendingIntentWithStack(context, MainActivity::class.java))
                 .setOngoing(true)
                 .addAction(R.mipmap.com_back_new, "Stop", stopPendingIntent)
