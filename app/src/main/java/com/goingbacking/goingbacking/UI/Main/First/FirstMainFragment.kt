@@ -3,6 +3,7 @@ package com.goingbacking.goingbacking.UI.Main.First
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 
 import android.view.LayoutInflater
 import android.view.View
@@ -50,7 +51,7 @@ class FirstMainFragment : BaseFragment<FragmentFirstMainBinding>() {
         val todayWhatToDo = PrefUtil.getTodayWhatToDo(requireActivity()).toString()
         val todayWhatToDoTime = PrefUtil.getTodayWhatToDoTime(requireActivity()).toString()
 
-       if(!(todayWhatToDo.equals("[]") || todayWhatToDoTime.equals("[]"))) {
+       if(!(todayWhatToDo.equals("") || todayWhatToDoTime.equals(""))) {
            binding.noPlanTextView.makeGONE()
            val todayWhatToDo2 = todayWhatToDo.removeSurrounding("[", "]").split(", ")
             val todayWhatToDoTime2 = todayWhatToDoTime.removeSurrounding("[", "]").split(", ")
@@ -59,6 +60,7 @@ class FirstMainFragment : BaseFragment<FragmentFirstMainBinding>() {
             binding.todayRecyclerView.adapter = adapter
         } else {
             binding.todayScrollView.makeGONE()
+            binding.noPlanTextView.makeVisible()
        }
 
         onClick()

@@ -1,9 +1,9 @@
 package com.goingbacking.goingbacking.Repository.Input
 
 import android.util.Log
-import com.goingbacking.goingbacking.Model.UserInfoDTO
-import com.goingbacking.goingbacking.Model.WhatToDoMonthDTO
-import com.goingbacking.goingbacking.Model.WhatToDoYearDTO
+import com.goingbacking.goingbacking.AppConstants
+import com.goingbacking.goingbacking.Model.*
+import com.goingbacking.goingbacking.util.Constants
 import com.goingbacking.goingbacking.util.Constants.Companion.FAIL
 import com.goingbacking.goingbacking.util.Constants.Companion.MONTH
 import com.goingbacking.goingbacking.util.Constants.Companion.SUCCESS
@@ -133,6 +133,28 @@ class InputRepository(
                 )
             }
 
+    }
+
+    override fun addInitRankMonthTime(
+        rankMonthDTO: NewSaveTimeMonthDTO,
+        result: (UiState<String>) -> Unit
+    ) {
+        CoroutineScope(Dispatchers.IO).launch {
+            firebaseFirestore.collection(AppConstants.RANKMONTHINFO).document(currentday("yyyy-MM"))
+                .collection(currentday("yyyy-MM")).document(myUid)
+                .set(rankMonthDTO).await()
+        }
+    }
+
+    override fun addInitRankYearTime(
+        rankYearDTO: NewSaveTimeYearDTO,
+        result: (UiState<String>) -> Unit
+    ) {
+        CoroutineScope(Dispatchers.IO).launch {
+            firebaseFirestore.collection(AppConstants.RANKYEARINFO).document(currentday("yyyy"))
+                .collection(currentday("yyyy")).document(myUid)
+                .set(rankYearDTO).await()
+        }
     }
 }
 

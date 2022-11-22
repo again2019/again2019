@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import com.goingbacking.goingbacking.Model.NewSaveTimeMonthDTO
+import com.goingbacking.goingbacking.Model.NewSaveTimeYearDTO
 import com.goingbacking.goingbacking.Model.WhatToDoMonthDTO
 import com.goingbacking.goingbacking.Model.WhatToDoYearDTO
 import com.goingbacking.goingbacking.R
@@ -93,6 +95,20 @@ class InputBottomSheet : BottomSheetDialogFragment() {
             PrefUtil.setHistoryWhatToDo(whattodoList, requireContext())
 
             PrefUtil.setCurrentUid(PrefUtil.firebaseUid(), requireContext())
+
+            val rankMonthDTO =  NewSaveTimeMonthDTO(
+                uid = PrefUtil.getCurrentUid(requireContext()),
+                count = 0,
+                nickname = nickName.text.toString()
+            )
+            viewModel.addInitRankMonthTime(rankMonthDTO)
+            val rankYearDTO =  NewSaveTimeYearDTO(
+                uid = PrefUtil.getCurrentUid(requireContext()),
+                count = 0,
+                nickname = nickName.text.toString()
+            )
+            viewModel.addInitRankYearTime(rankYearDTO)
+
             moveTutorialPage()
         }
         xBtn.setOnClickListener {
