@@ -229,7 +229,7 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
 
     private suspend fun observer2() : MutableList<String> {
         var lis = mutableListOf<String>()
-
+        var fail = false
         viewModel.getThirdDateInfo1(currentday("yyyy-MM"))
         viewModel.thirdDateDTOs1.observe(viewLifecycleOwner) { state ->
             when (state) {
@@ -242,14 +242,16 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
                 }
                 is UiState.Failure -> {
                     binding.progressCircular.hide()
+                    fail = true
                     Log.e("experiment", state.error.toString())
                 }
             }
 
         }
 
+
         while (true) {
-            if (lis.size != 0) {
+            if (lis.size != 0 || fail) {
                 binding.progressCircular.hide()
                 break
             } else {
