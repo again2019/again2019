@@ -107,7 +107,7 @@ class FifthMainFragment : BaseFragment<FragmentFifthMainBinding>() {
                     is UiState.Success -> {
                         toast(requireContext(), getString(R.string.logout_success))
                         PrefUtil.setCurrentUid(null, requireContext())
-                        //initPref()
+                        initPref()
                         val intent = Intent(requireContext(), LoginActivity::class.java)
                         startActivity(intent)
                         finishAffinity(requireActivity())
@@ -119,6 +119,7 @@ class FifthMainFragment : BaseFragment<FragmentFifthMainBinding>() {
     }
 
     private fun initPref() {
+        PrefUtil.setRecentDate("", requireContext())
         PrefUtil.setHistoryWhatToDo(mutableSetOf(), requireContext())
         PrefUtil.setSecondsRemaining(0L, requireContext())
         PrefUtil.setTodayTotalTime(0, requireContext())

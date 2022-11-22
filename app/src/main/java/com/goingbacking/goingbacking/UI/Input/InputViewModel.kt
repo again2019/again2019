@@ -1,9 +1,7 @@
 package com.goingbacking.goingbacking.UI.Input
 
 import androidx.lifecycle.*
-import com.goingbacking.goingbacking.Model.UserInfoDTO
-import com.goingbacking.goingbacking.Model.WhatToDoMonthDTO
-import com.goingbacking.goingbacking.Model.WhatToDoYearDTO
+import com.goingbacking.goingbacking.Model.*
 import com.goingbacking.goingbacking.Repository.Input.InputRepositoryIF
 import com.goingbacking.goingbacking.util.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -78,6 +76,24 @@ class InputViewModel @Inject constructor (
         _whatToDoInitYearDTOs.value = UiState.Loading
         inputRepository.addInitWhatToDoYearTime(whatToDoYearDTO) {
             _whatToDoInitYearDTOs.postValue(it)
+        }
+    }
+
+    private val _InitRankMonthDTOs = MutableLiveData<UiState<String>>()
+
+    fun addInitRankMonthTime(rankMonthDTO: NewSaveTimeMonthDTO) = viewModelScope.launch {
+        _InitRankMonthDTOs.value = UiState.Loading
+        inputRepository.addInitRankMonthTime(rankMonthDTO) {
+            _InitRankMonthDTOs.postValue(it)
+        }
+    }
+
+    private val _InitRankYearDTOs = MutableLiveData<UiState<String>>()
+
+    fun addInitRankYearTime(rankYearDTO: NewSaveTimeYearDTO) = viewModelScope.launch {
+        _InitRankYearDTOs.value = UiState.Loading
+        inputRepository.addInitRankYearTime(rankYearDTO) {
+            _InitRankYearDTOs.postValue(it)
         }
     }
 

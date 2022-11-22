@@ -1,8 +1,6 @@
 package com.goingbacking.goingbacking.Repository.Input
 
-import com.goingbacking.goingbacking.Model.UserInfoDTO
-import com.goingbacking.goingbacking.Model.WhatToDoMonthDTO
-import com.goingbacking.goingbacking.Model.WhatToDoYearDTO
+import com.goingbacking.goingbacking.Model.*
 import com.goingbacking.goingbacking.util.UiState
 
 interface InputRepositoryIF {
@@ -22,4 +20,8 @@ interface InputRepositoryIF {
     // whatToDo 정보들에 대한 초기화 정보들을 입력
     fun addInitWhatToDoMonthTime(whatToDoMonthDTO : WhatToDoMonthDTO, result: (UiState<String>) -> Unit)
     fun addInitWhatToDoYearTime(whatToDoYearDTO : WhatToDoYearDTO,result: (UiState<String>) -> Unit)
+
+    fun addInitRankMonthTime(rankMonthDTO: NewSaveTimeMonthDTO, result: (UiState<String>) -> Unit)
+    fun addInitRankYearTime(rankYearDTO: NewSaveTimeYearDTO, result: (UiState<String>) -> Unit)
+
 }

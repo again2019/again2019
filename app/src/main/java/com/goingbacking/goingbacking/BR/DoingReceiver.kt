@@ -45,6 +45,7 @@ class DoingReceiver : BroadcastReceiver() {
 
             AppConstants.ACTION_READY -> {
                 end_time = intent.getIntExtra(END_TIME, 0)
+                Log.d("experiment", "end_time ${end_time} ")
                 PrefUtil.setEndTime(end_time, context)
                 val intent1 = Intent(context, AlarmService::class.java)
                 intent1.action = FIRST_START_FOREGROUND
@@ -115,7 +116,7 @@ class DoingReceiver : BroadcastReceiver() {
                 Log.d("experiment", "wakeupTime: " + wakeUpTime.toString())
                 Log.d("experiment", "currentTime: " + currentTime.toString())
 
-                alarmRepository.addTmpTimeInfo(start_currentTime.toString(), tmpTimeDTO)
+                alarmRepository.addTmpTimeInfo(current.toString(), tmpTimeDTO)
             }
             "MOVE" -> {
                 val intent4 = Intent(context, AlarmService::class.java)

@@ -1,5 +1,9 @@
 package com.goingbacking.goingbacking.Model
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class UserInfoDTO (
     var userNickName : String? = null,
     var userType : String? = null,
@@ -8,4 +12,4 @@ data class UserInfoDTO (
     var token : String? = null,
     var likes : List<String> = listOf(),
     var cheers : List<String> = listOf()
-)
+) : Parcelable

@@ -18,13 +18,14 @@
 
     <TextView
         android:id="@+id/detail_date"
-        android:layout_width="340dp"
+        android:layout_width="330dp"
         android:layout_height="30dp"
         android:layout_marginStart="30dp"
         android:layout_marginTop="28dp"
         android:fontFamily="@font/bold"
         android:gravity="left"
         android:text="해당 요일의 일정"
+        android:letterSpacing="-0.02"
         android:textColor="@color/black"
         android:textSize="20sp"
         app:layout_constraintEnd_toStartOf="@+id/xBtn"
@@ -33,8 +34,8 @@
 
     <ImageView
         android:id="@+id/xBtn"
-        android:layout_width="10dp"
-        android:layout_height="20dp"
+        android:layout_width="20dp"
+        android:layout_height="30dp"
         android:layout_marginEnd="30dp"
         android:scaleType="centerInside"
         android:src="@drawable/x"
@@ -46,7 +47,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="350dp"
-        android:layout_height="300dp"
+        android:layout_height="500dp"
         android:layout_marginTop="30dp"
         android:layout_marginBottom="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -57,8 +58,8 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view"
-            android:layout_width="350dp"
-            android:layout_height="300dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

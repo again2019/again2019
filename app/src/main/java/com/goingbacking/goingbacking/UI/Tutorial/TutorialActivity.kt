@@ -12,6 +12,7 @@ import androidx.annotation.RequiresApi
 import com.goingbacking.goingbacking.Adapter.TutorialViewPagerAdapter
 import com.goingbacking.goingbacking.BR.CountReceiver
 import com.goingbacking.goingbacking.BR.DeviceBootReceiver
+import com.goingbacking.goingbacking.Repository.Alarm.AlarmRepository
 import com.goingbacking.goingbacking.UI.Main.MainActivity
 import com.goingbacking.goingbacking.UI.Base.BaseActivity
 import com.goingbacking.goingbacking.databinding.ActivityTutorialBinding
@@ -23,7 +24,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class TutorialActivity : BaseActivity<ActivityTutorialBinding>({
     ActivityTutorialBinding.inflate(it)
 }) {
-
+    private val alarmRepository = AlarmRepository()
     private lateinit var tutorialViewPagerAdapter : TutorialViewPagerAdapter
     @RequiresApi(Build.VERSION_CODES.S)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,6 +38,9 @@ class TutorialActivity : BaseActivity<ActivityTutorialBinding>({
     }
 
     private fun moveMainPage() {
+        alarmRepository.addInitSaveTimeDayInfo()
+        alarmRepository.addFirstInitSaveTimeMonthInfo()
+        alarmRepository.addFirstInitSaveTimeYearInfo()
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
         finishAffinity()
@@ -53,7 +57,7 @@ class TutorialActivity : BaseActivity<ActivityTutorialBinding>({
 
     @RequiresApi(Build.VERSION_CODES.S)
     private fun notification() {
-        val calendar = calendar(0,0,0,0)
+        val calendar = calendar(17,48,0,0)
         // 매일 12시마다 초기화가 되면 CountReceiver의 작업을 수행함.
         val alarmIntent = Intent(this, CountReceiver::class.java)
         alarmIntent.putExtra(Constants.ID, Constants.VALUE)

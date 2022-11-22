@@ -37,7 +37,7 @@ class ThirdRepository(
     override fun addDateInfo(yearMonth: String, date: DateDTO, result: (UiState<String>) -> Unit) {
         CoroutineScope(Dispatchers.IO).launch {
             val tmp = firebaseFirestore.collection(DATE).document(uid)
-                .collection(yearMonth).document(yearMonth).get(cache).await().toObject(DateDTO::class.java)
+                .collection(yearMonth).document(yearMonth).get().await().toObject(DateDTO::class.java)
 
             if (tmp == null) {
                 firebaseFirestore.collection(DATE).document(uid)
@@ -99,7 +99,7 @@ class ThirdRepository(
                 Log.d("experiment", "date " + tmp_year_month)
                 val tmp = firebaseFirestore.collection(DATE).document(uid)
                     .collection(tmp_year_month).document(tmp_year_month)
-                    .get(cache).await().toObject(DateDTO::class.java)
+                    .get().await().toObject(DateDTO::class.java)
                 if (tmp == null) {
                     continue
                 } else {
@@ -108,7 +108,14 @@ class ThirdRepository(
                 }
             }
 
-            result.invoke(UiState.Success(dateList))
+            if (dateList.size == 0) {
+                result.invoke(UiState.Failure(
+                    "fail"
+                ))
+            } else {
+                result.invoke(UiState.Success(dateList))
+            }
+
         }
     }
 

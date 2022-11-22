@@ -147,6 +147,7 @@ class CountReceiver : BroadcastReceiver() {
                 millisecond = 0
             )
 
+
         } else if (beforeInfoDTO.equals(nowInfoDTO)) {
             todayTotalTime = todayTotalTime + beforeInfoDTO.end_t!!.toInt()
 

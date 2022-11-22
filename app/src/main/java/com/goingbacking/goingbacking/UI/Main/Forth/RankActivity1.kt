@@ -263,7 +263,7 @@ class RankActivity1 : BaseActivity<ActivityRank1Binding>({
         val aaChartModel = AAChartModel.Builder(this)
 
             .setChartType(chartTypeEnum)
-            .setBackgroundColor(R.color.colorBackGround)
+            .setBackgroundColor(R.color.white)
             .setDataLabelsEnabled(true)
             .setYAxisLabelsEnabled(false)
             .setYAxisGridLineWidth(0f)
@@ -309,7 +309,7 @@ class RankActivity1 : BaseActivity<ActivityRank1Binding>({
         val aaChartModel = AAChartModel.Builder(this)
 
             .setChartType(chartTypeEnum)
-            .setBackgroundColor(R.color.colorBackGround)
+            .setBackgroundColor(R.color.white)
             .setDataLabelsEnabled(true)
             .setAxesTextColorRes(R.color.titleMain)
             .setColorsTheme(Constants.colorArray)
