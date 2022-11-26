@@ -48,9 +48,6 @@ class AlarmService () : Service() {
 
             }
             "MOVE" -> {
-                val intent1 = Intent(this, TmpTimeActivity::class.java)
-                intent1.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                startActivity(intent1)
                 stopForeground(true)
             }
             "this_no_start" -> {

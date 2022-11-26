@@ -15,6 +15,7 @@ import com.goingbacking.goingbacking.AppConstants
 import com.goingbacking.goingbacking.BR.DoingReceiver
 import com.goingbacking.goingbacking.UI.Main.MainActivity
 import com.goingbacking.goingbacking.R
+import com.goingbacking.goingbacking.UI.Main.First.TmpTimeActivity
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -27,14 +28,14 @@ class NotificationUtil {
 
         @RequiresApi(Build.VERSION_CODES.S)
         fun showTimerExpiredNotification(context: Context) : Notification{
-            val startIntent = Intent(context, DoingReceiver::class.java)
+            val startIntent = Intent(context, TmpTimeActivity::class.java)
             startIntent.action = "MOVE"
-            val startPendingIntent = PendingIntent.getBroadcast(context,
-                0, startIntent, FLAG_MUTABLE)
-
+//            val startPendingIntent = PendingIntent.getBroadcast(context,
+//                0, startIntent, FLAG_MUTABLE)
+            val startPendingIntent = PendingIntent.getActivity(context, 0, startIntent, FLAG_MUTABLE)
             val nBuilder = getBasicNotificationBuilder(context, CHANNEL_ID_TIMER, true)
-            nBuilder.setContentTitle("Timer Expired!")
-                .setContentText("저장하러 가실래요?")
+            nBuilder.setContentTitle("오늘의 자기계발은 여기까지 입니다.")
+                .setContentText("수고하셨습니다. 사용한 시간을 저장하러 가실래요?")
                 .setContentIntent(getPendingIntentWithStack(context, MainActivity::class.java))
                 .addAction(R.mipmap.com_back_new, "저장하러 가기", startPendingIntent)
 
@@ -56,11 +57,11 @@ class NotificationUtil {
             val readyPendingIntent2 = PendingIntent.getBroadcast(context,
                 0, readyIntent2, FLAG_MUTABLE)
             val nBuilder = getBasicNotificationBuilder(context, CHANNEL_ID_TIMER, true)
-            nBuilder.setContentTitle("")
-                .setContentText("시작?")
+            nBuilder.setContentTitle("자기계발을 시작하시겠습니까?")
+                .setContentText("당신의 통근/통학 시간을 사용하시겠습니까?")
                 .setContentIntent(getPendingIntentWithStack(context, MainActivity::class.java))
                 .setOngoing(true)
-                .addAction(R.mipmap.com_back_new, "Start?", readyPendingIntent1)
+                .addAction(R.mipmap.com_back_new, "시작하기", readyPendingIntent1)
                 .addAction(R.mipmap.com_back_new, "지금 안하기", readyPendingIntent2)
 
 
@@ -84,19 +85,14 @@ class NotificationUtil {
             // 알림창에 발생하는 pause 버튼의 이벤트
 
             val nBuilder = getBasicNotificationBuilder(context, CHANNEL_ID_TIMER, true)
-            nBuilder.setContentTitle("Timer is Running.")
-                .setContentText("자기계발 중입니다.")
+            nBuilder.setContentTitle("자기계발 중입니다.")
+                .setContentText("자기계발 중입니다. 오늘도 열심히 사는 당신을 응원합니다.")
                 .setContentIntent(getPendingIntentWithStack(context, MainActivity::class.java))
                 .setOngoing(true)
-                .addAction(R.mipmap.com_back_new, "Stop", stopPendingIntent)
+                .addAction(R.mipmap.com_back_new, "멈추기", stopPendingIntent)
 
             val nManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             nManager.createNotificationChannel(CHANNEL_ID_TIMER, CHANNEL_NAME_TIMER, true)
-
-
-
-
-
 
             return nBuilder.build()
 
@@ -131,7 +127,7 @@ class NotificationUtil {
                                                                   channelName: String,
                                                                   playSound: Boolean){
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-                val channelImportance = if (playSound) NotificationManager.IMPORTANCE_DEFAULT
+                val channelImportance = if (playSound) NotificationManager.IMPORTANCE_HIGH
                 else NotificationManager.IMPORTANCE_LOW
                 val nChannel = NotificationChannel(channelID, channelName, channelImportance)
                 nChannel.enableLights(true)

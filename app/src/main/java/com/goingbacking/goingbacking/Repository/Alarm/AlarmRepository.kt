@@ -195,7 +195,7 @@ class AlarmRepository : AlarmRepositoryIF {
     override fun addInitRankInfo() {
         CoroutineScope(Dispatchers.IO).launch {
 
-            val userInfo = firebaseFirestore.collection(USERINFO).document(myUid).get(cache).await().toObject(UserInfoDTO::class.java)!!
+            val userInfo = firebaseFirestore.collection(USERINFO).document(myUid).get().await().toObject(UserInfoDTO::class.java)!!
 
             if (beforeday("MM") != currentday("MM")) {
                 val newSaveTimeMonthDTO = NewSaveTimeMonthDTO(

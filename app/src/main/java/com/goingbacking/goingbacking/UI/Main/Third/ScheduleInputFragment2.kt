@@ -183,6 +183,8 @@ class ScheduleInputFragment2 : BaseFragment<FragmentScheduleInput2Binding>() {
                             )
                             viewModel.addDateInfo(yearMonth, dateDTO)
                             viewModel.addScheduleEventInfo(yearMonth, path2, event)
+
+                            toast(requireContext(), "등록 완료했습니다. 다음 날부터 사용 가능합니다.")
                             requireActivity().finish()
                         }
                     }

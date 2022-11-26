@@ -1,5 +1,6 @@
 package com.goingbacking.goingbacking.UI.Main.First
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
@@ -13,6 +14,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.goingbacking.goingbacking.Adapter.TmpTimeRecyclerViewAdapter
 import com.goingbacking.goingbacking.R
+import com.goingbacking.goingbacking.Service.AlarmService
 import com.goingbacking.goingbacking.UI.Base.BaseActivity
 
 import com.goingbacking.goingbacking.databinding.ActivityTmpTimeBinding
@@ -31,6 +33,12 @@ class TmpTimeActivity : BaseActivity<ActivityTmpTimeBinding>({
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        if (intent.action.equals("MOVE")) {
+            val intent = Intent(this, AlarmService::class.java)
+            intent.action = "MOVE"
+            startService(intent)
+        }
 
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)

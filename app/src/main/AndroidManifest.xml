@@ -51,11 +51,11 @@
         <service
             android:name=".Service.AlarmService"
             android:enabled="true"
-            android:exported="false" />
+            android:exported="true" />
 
         <activity
             android:name=".UI.Main.First.TmpTimeActivity"
-            android:exported="true" />
+            android:enabled="true" />
         <activity
             android:name=".UI.Main.Fifth.ChangeInfoActivity"
             android:exported="true" />
