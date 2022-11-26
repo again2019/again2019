@@ -14,6 +14,7 @@ import androidx.navigation.fragment.navArgs
 import com.goingbacking.goingbacking.R
 import com.goingbacking.goingbacking.UI.Base.BaseFragment
 import com.goingbacking.goingbacking.databinding.FragmentSecondInputBinding
+import com.goingbacking.goingbacking.util.NetworkManager
 import com.goingbacking.goingbacking.util.UiState
 import com.goingbacking.goingbacking.util.toast
 import dagger.hilt.android.AndroidEntryPoint
@@ -56,10 +57,18 @@ class SecondInputFragment : BaseFragment<FragmentSecondInputBinding>() {
     private fun onClick() = with(binding) {
 
         loginbtn.setOnClickListener {
-            completeAction()
+            if (!NetworkManager.checkNetworkState(requireContext())) {
+                toast(requireContext(), getString(R.string.network_fail))
+            } else {
+                completeAction()
+            }
         }
         typeEdittext.setOnEditorActionListener { _, _, _ ->
-            completeAction()
+            if (!NetworkManager.checkNetworkState(requireContext())) {
+                toast(requireContext(), getString(R.string.network_fail))
+            } else {
+                completeAction()
+            }
             true
         }
     }

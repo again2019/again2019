@@ -20,6 +20,7 @@ import com.goingbacking.goingbacking.R
 import com.goingbacking.goingbacking.UI.Base.BaseFragment
 import com.goingbacking.goingbacking.UI.Login.LoginActivity
 import com.goingbacking.goingbacking.databinding.FragmentFirstInputBinding
+import com.goingbacking.goingbacking.util.NetworkManager
 import com.goingbacking.goingbacking.util.PrefUtil
 import com.goingbacking.goingbacking.util.UiState
 import com.goingbacking.goingbacking.util.toast
@@ -58,11 +59,19 @@ class FirstInputFragment : BaseFragment<FragmentFirstInputBinding>() {
     private fun onClick() = with(binding) {
         // 다음으로 이동하는 버튼
         firstInputButton.setOnClickListener {
-            completeAction()
+            if (!NetworkManager.checkNetworkState(requireContext())) {
+                toast(requireContext(), getString(R.string.network_fail))
+            } else {
+                completeAction()
+            }
         }
         // edittext에서 작성하고 '완료'를 누르면 다음으로 넘어가는 코드
         nickNameEdittext.setOnEditorActionListener { _, _, _ ->
-            completeAction()
+            if (!NetworkManager.checkNetworkState(requireContext())) {
+                toast(requireContext(), getString(R.string.network_fail))
+            } else {
+                completeAction()
+            }
             true
         }
     }

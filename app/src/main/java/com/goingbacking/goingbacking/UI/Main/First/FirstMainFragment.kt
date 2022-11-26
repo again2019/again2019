@@ -80,8 +80,12 @@ class FirstMainFragment : BaseFragment<FragmentFirstMainBinding>() {
 
         todayTextHide.makeVisible()
         todayTextHide.setOnClickListener {
-            todayTextHide.makeGONE()
-            todayText.makeVisible()
+            if (!NetworkManager.checkNetworkState(requireContext())) {
+                toast(requireContext(), getString(R.string.network_fail))
+            } else {
+                todayTextHide.makeGONE()
+                todayText.makeVisible()
+            }
         }
 
         addPlanButton.setOnClickListener {

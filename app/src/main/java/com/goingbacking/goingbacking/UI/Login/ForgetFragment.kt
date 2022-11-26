@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.goingbacking.goingbacking.R
 import com.goingbacking.goingbacking.UI.Base.BaseFragment
 import com.goingbacking.goingbacking.databinding.FragmentForgetBinding
+import com.goingbacking.goingbacking.util.NetworkManager
 import com.goingbacking.goingbacking.util.UiState
 import com.goingbacking.goingbacking.util.isValidEmail
 import com.goingbacking.goingbacking.util.toast
@@ -40,8 +41,12 @@ class ForgetFragment : BaseFragment<FragmentForgetBinding>() {
         }
 
         binding.forgotPassBtn.setOnClickListener {
-            if(validation()) {
-                observer()
+            if (!NetworkManager.checkNetworkState(requireContext())) {
+                toast(requireContext(), getString(R.string.network_fail))
+            } else {
+                if (validation()) {
+                    observer()
+                }
             }
         }
     }

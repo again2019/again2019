@@ -58,9 +58,19 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
         AlertDialog.Builder(requireContext())
             .setMessage("해당 스케줄을 삭제하시겠습니까?")
             .setPositiveButton("삭제하기") { _, _ ->
-               deleteEvent(eventDate, convertDateToTimeStamp(route).toString())
-                selectedDateList.remove(eventDate)
-                binding.threeCalendar.notifyDateChanged(LocalDate.parse(eventDate, DateTimeFormatter.ISO_DATE))
+                if (!NetworkManager.checkNetworkState(requireContext())) {
+                    toast(requireContext(), getString(R.string.network_fail))
+                } else {
+
+                    deleteEvent(eventDate, convertDateToTimeStamp(route).toString())
+                    selectedDateList.remove(eventDate)
+                    binding.threeCalendar.notifyDateChanged(
+                        LocalDate.parse(
+                            eventDate,
+                            DateTimeFormatter.ISO_DATE
+                        )
+                    )
+                }
             }
             .setNegativeButton("나가기", null)
             .show()
@@ -101,6 +111,7 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
 
 
         CoroutineScope(Dispatchers.Main).launch {
+
             val example = async{observer2()}
             selectedDateList = example.await()
 
@@ -238,7 +249,6 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
                 is UiState.Failure -> {
                     binding.progressCircular.hide()
                     fail = true
-                    Log.e("experiment", state.error.toString())
                 }
             }
 
@@ -299,7 +309,6 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
                     binding.progressCircular.hide()
 
                     eventsList = state.data
-                    Log.d("experiment", "events" + eventsList.toString())
                     if (eventsList.size == 0) {
                         binding.threeRecyclerView.makeGONE()
                     } else {
@@ -324,8 +333,6 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
     inner class MonthViewContainer(view: View) : ViewContainer(view) {
         val legendLayout = ItemCalendarHeaderMainBinding.bind(view).legendLayout.root
     }
-
-
 
     private fun deleteEvent(eventDate: String, route : String) {
         viewModel.deleteThirdCalendarInfo(eventDate, route)

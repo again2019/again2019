@@ -15,6 +15,7 @@ import com.goingbacking.goingbacking.R
 import com.goingbacking.goingbacking.UI.Base.BaseFragment
 import com.goingbacking.goingbacking.bottomsheet.InputBottomSheet
 import com.goingbacking.goingbacking.databinding.FragmentThirdInputBinding
+import com.goingbacking.goingbacking.util.NetworkManager
 import com.goingbacking.goingbacking.util.UiState
 import com.goingbacking.goingbacking.util.toast
 import com.google.android.material.chip.Chip
@@ -42,6 +43,7 @@ class ThirdInputFragment : BaseFragment<FragmentThirdInputBinding>() {
         (activity as AppCompatActivity).setSupportActionBar(binding.toolbar)
         (activity as AppCompatActivity).supportActionBar?.setDisplayShowTitleEnabled(false)
 
+        toast(requireContext(), "자기계발 최대 3개 선택해주세요.")
         binding.backbtn.setOnClickListener {
             val action = ThirdInputFragmentDirections.actionThirdInputFragmentToSecondInputFragment(args.nickname)
             findNavController().navigate(action)
@@ -51,31 +53,32 @@ class ThirdInputFragment : BaseFragment<FragmentThirdInputBinding>() {
     }
 
     private fun onClick() = with(binding) {
-
-
         // 다음으로 가는 버튼
         thirdInputButton.setOnClickListener {
+            if (!NetworkManager.checkNetworkState(requireContext())) {
+                toast(requireContext(), getString(R.string.network_fail))
+            } else {
+                val selected = mutableListOf<String>()
+                chipGroup.checkedChipIds.forEach {
+                    val chip = root.findViewById<Chip>(it).text.toString()
+                    selected.add(chip)
+                }
 
-            val selected = mutableListOf<String>()
-            chipGroup.checkedChipIds.forEach {
-                val chip = root.findViewById<Chip>(it).text.toString()
-                selected.add(chip)
-            }
+                if (selected.size == 0)  {
+                    toast(requireContext(), getString(R.string.chip_no_selected))
+                } else if (selected.size > 3) {
+                    toast(requireContext(), "3개 이하로 선택해주세요.")
+                }
+                else {
+                    // 데이터 베이스에 입력하는 코드
+                    // 입력이 성공적인지 확인하는 코드
+                    observer(selected.toList())
 
-            if (selected.size == 0)  {
-                toast(requireContext(), getString(R.string.chip_no_selected))
-            } else if (selected.size > 3) {
-                toast(requireContext(), "3개 이하로 선택해주세요.")
-            }
-            else {
-                // 데이터 베이스에 입력하는 코드
-                // 입력이 성공적인지 확인하는 코드
-                observer(selected.toList())
-
-                // bottom sheet으로 이동
-                binding.progressCircular.hide()
-                val bottom  = InputBottomSheet()
-                bottom.show(childFragmentManager, bottom.tag)
+                    // bottom sheet으로 이동
+                    binding.progressCircular.hide()
+                    val bottom  = InputBottomSheet()
+                    bottom.show(childFragmentManager, bottom.tag)
+                }
             }
         }
     }

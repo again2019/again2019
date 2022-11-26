@@ -30,7 +30,7 @@ class FirstRepository(
     // 임시 저장된 정보를 가져오는 코드
     override fun getTmpTimeInfo(result: (UiState<ArrayList<TmpTimeDTO>>) -> Unit) {
         firebaseFirestore.collection(FBConstants.TMPTIMEINFO).document(myUid)
-            .collection(myUid).get()
+            .collection(myUid).get(cache)
             .addOnSuccessListener {
                 val tmpTimeDTOList : ArrayList<TmpTimeDTO> = arrayListOf()
                 for(document in it){

@@ -160,28 +160,51 @@
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout7">
 
         <View
+            android:id="@+id/view8"
+            android:layout_width="350dp"
+            android:layout_height="1dp"
+            android:background="@color/colorHorizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/version"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:fontFamily="@font/bold"
+            android:gravity="center_vertical"
+            android:letterSpacing="-0.02"
+            android:padding="10dp"
+            android:text="📱  1.0.0"
+            android:textColor="@color/colorMain"
+            android:textSize="15sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view8" />
+
+        <View
             android:id="@+id/view4"
             android:layout_width="350dp"
             android:layout_height="1dp"
             android:background="@color/colorHorizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/using" />
+            app:layout_constraintTop_toBottomOf="@+id/version" />
+
 
         <TextView
             android:id="@+id/using"
             android:layout_width="match_parent"
             android:layout_height="60dp"
+            android:fontFamily="@font/medium"
             android:gravity="center_vertical"
+            android:letterSpacing="-0.02"
             android:padding="10dp"
             android:text="📃 이용약관"
-            android:letterSpacing="-0.02"
             android:textColor="@color/titleMain"
             android:textSize="15sp"
-            android:fontFamily="@font/medium"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
+            app:layout_constraintTop_toBottomOf="@+id/version" />
 
         <View
             android:id="@+id/view1"

@@ -11,6 +11,7 @@ import com.goingbacking.goingbacking.Adapter.RankRecyclerViewAdapter2
 import com.goingbacking.goingbacking.R
 import com.goingbacking.goingbacking.UI.Base.BaseFragment
 import com.goingbacking.goingbacking.databinding.FragmentForthMain2Binding
+import com.goingbacking.goingbacking.util.NetworkManager
 import com.goingbacking.goingbacking.util.UiState
 import com.goingbacking.goingbacking.util.toast
 import dagger.hilt.android.AndroidEntryPoint
@@ -42,14 +43,22 @@ class ForthMainFragment2 : BaseFragment<FragmentForthMain2Binding>() {
         binding.forth2Recyclerview.adapter = adapter
         binding.forth2RefreshLayout.setOnRefreshListener {
             binding.forth2RefreshLayout.isRefreshing = false
-            observer()
+            if (!NetworkManager.checkNetworkState(requireContext())) {
+                toast(requireContext(), getString(R.string.network_fail))
+            } else {
+                observer()
+            }
         }
     }
 
     override fun onResume() {
         super.onResume()
 
-        observer()
+        if (!NetworkManager.checkNetworkState(requireContext())) {
+            toast(requireContext(), getString(R.string.network_fail))
+        } else {
+            observer()
+        }
     }
 
     private fun observer() {

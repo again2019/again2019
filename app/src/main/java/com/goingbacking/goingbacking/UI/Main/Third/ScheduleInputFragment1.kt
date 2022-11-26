@@ -35,6 +35,8 @@ class ScheduleInputFragment1 : BaseFragment<FragmentScheduleInput1Binding>() {
         (activity as AppCompatActivity).setSupportActionBar(binding.toolbar)
         (activity as AppCompatActivity).supportActionBar?.setDisplayShowTitleEnabled(false)
 
+        toast(requireContext(), "같은 달의 스케줄 입력만 가능합니다.")
+
         binding.backbtn.setOnClickListener {
             requireActivity().finish()
         }

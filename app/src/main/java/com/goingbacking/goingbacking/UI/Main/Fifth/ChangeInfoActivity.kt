@@ -13,6 +13,7 @@ import com.goingbacking.goingbacking.Model.WhatToDoYearDTO
 import com.goingbacking.goingbacking.R
 import com.goingbacking.goingbacking.UI.Base.BaseActivity
 import com.goingbacking.goingbacking.databinding.ActivityChangeInfoBinding
+import com.goingbacking.goingbacking.util.NetworkManager
 import com.goingbacking.goingbacking.util.PrefUtil
 import com.goingbacking.goingbacking.util.currentday
 import com.goingbacking.goingbacking.util.toast
@@ -62,54 +63,47 @@ class ChangeInfoActivity : BaseActivity<ActivityChangeInfoBinding>({
 
     }
     private fun onClick() = with(binding) {
-
-
         infoChangeButton.setOnClickListener {
+            if (!NetworkManager.checkNetworkState(this@ChangeInfoActivity)) {
+                toast(this@ChangeInfoActivity, getString(R.string.network_fail))
+            } else {
+                val selected = mutableListOf<String>()
+                chipGroup.checkedChipIds.forEach {
+                    val chip = root.findViewById<Chip>(it).text.toString()
+                    selected.add(chip)
+                }
 
+                if (selected.size == 0)  {
+                    toast(this@ChangeInfoActivity, getString(R.string.chip_no_selected))
+                }  else {
+                    if (selected.size <= 3) {
+                        for (whattodo in selected) {
+                            if (!historyWhatToDo.contains(whattodo)) {
+                                val whatToDoMonthDTO = WhatToDoMonthDTO(
+                                    count = 0,
+                                    month = currentday("MM").toInt(),
+                                    whatToDo = whattodo
+                                )
 
-            val selected = mutableListOf<String>()
-            chipGroup.checkedChipIds.forEach {
-                val chip = root.findViewById<Chip>(it).text.toString()
-                selected.add(chip)
-            }
+                                viewModel.addInitWhatToDoMonthTime(whatToDoMonthDTO)
 
-            if (selected.size == 0)  {
-                toast(this@ChangeInfoActivity, getString(R.string.chip_no_selected))
-            }  else {
-                if (selected.size <= 3) {
-                    for (whattodo in selected) {
-                        if (!historyWhatToDo.contains(whattodo)) {
-                            val whatToDoMonthDTO = WhatToDoMonthDTO(
-                                count = 0,
-                                month = currentday("MM").toInt(),
-                                whatToDo = whattodo
-                            )
-
-                            viewModel.addInitWhatToDoMonthTime(whatToDoMonthDTO)
-
-                            val whatToDoYearDTO = WhatToDoYearDTO(
-                                count = 0,
-                                year = currentday("yyyy").toInt(),
-                                whatToDo = whattodo
-                            )
-
-                            viewModel.addInitWhatToDoYearTime(whatToDoYearDTO)
-
+                                val whatToDoYearDTO = WhatToDoYearDTO(
+                                    count = 0,
+                                    year = currentday("yyyy").toInt(),
+                                    whatToDo = whattodo
+                                )
+                                viewModel.addInitWhatToDoYearTime(whatToDoYearDTO)
+                            }
+                            historyWhatToDo.add(whattodo)
                         }
-                        historyWhatToDo.add(whattodo)
+                        PrefUtil.setHistoryWhatToDo(historyWhatToDo, this@ChangeInfoActivity)
+                        viewModel.reviseUserInfo(changeNickNameEditText.text.toString(), changeTypeEditText.text.toString(), selected.toList())
+                        finish()
                     }
-                    PrefUtil.setHistoryWhatToDo(historyWhatToDo, this@ChangeInfoActivity)
-
-                    viewModel.reviseUserInfo(changeNickNameEditText.text.toString(), changeTypeEditText.text.toString(), selected.toList())
-
-
-                    finish()
+                    else {
+                        toast(this@ChangeInfoActivity, "3개 이하로 선택해주세요.")
+                    }
                 }
-                else {
-                    toast(this@ChangeInfoActivity, "3개 이하로 선택해주세요.")
-                }
-
-
             }
         }
     }
