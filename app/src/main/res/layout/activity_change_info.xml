@@ -187,65 +187,142 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <com.google.android.material.chip.ChipGroup
-            android:id="@+id/chipGroup"
-            android:layout_width="match_parent"
+        <ScrollView
+            android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="10dp"
-            android:textAlignment="center"
+
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView3">
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip1"
-                style="@style/Colors_Widget.MaterialComponents.Chip.Choice2"
-                android:layout_width="70dp"
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="12sp"
-                android:text="독서"
-                android:theme="@style/Theme.MaterialComponents.Light" />
+                android:layout_gravity="center_horizontal">
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip2"
-                style="@style/Colors_Widget.MaterialComponents.Chip.Choice2"
-                android:layout_width="70dp"
-                android:layout_height="wrap_content"
-                android:text="영어 듣기"
-                android:textSize="12sp"
-                android:theme="@style/Theme.MaterialComponents.Light" />
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/chipGroup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:chipSpacingHorizontal="2.5dp">
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip3"
-                style="@style/Colors_Widget.MaterialComponents.Chip.Choice2"
-                android:layout_width="70dp"
-                android:layout_height="wrap_content"
-                android:text="시사 공부"
-                android:textSize="12sp"
-                android:theme="@style/Theme.MaterialComponents.Light" />
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chip1"
+                        style="@style/Colors_Widget.MaterialComponents.Chip.Choice2"
+                        android:layout_width="75dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/self_dev1"
+                        android:textSize="12sp"
+                        android:theme="@style/Theme.MaterialComponents.Light" />
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip4"
-                style="@style/Colors_Widget.MaterialComponents.Chip.Choice2"
-                android:layout_width="70dp"
-                android:layout_height="wrap_content"
-                android:text="전공 과제"
-                android:textSize="12sp"
-                android:theme="@style/Theme.MaterialComponents.Light" />
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chip2"
+                        style="@style/Colors_Widget.MaterialComponents.Chip.Choice2"
+                        android:layout_width="75dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/self_dev2"
+                        android:textSize="12sp"
+                        android:theme="@style/Theme.MaterialComponents.Light" />
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip5"
-                android:textSize="12sp"
-                style="@style/Colors_Widget.MaterialComponents.Chip.Choice2"
-                android:layout_width="70dp"
-                android:layout_height="wrap_content"
-                android:text="뉴스"
-                android:theme="@style/Theme.MaterialComponents.Light" />
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chip3"
+                        style="@style/Colors_Widget.MaterialComponents.Chip.Choice2"
+                        android:layout_width="75dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/self_dev3"
+                        android:textSize="12sp"
+                        android:theme="@style/Theme.MaterialComponents.Light" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chip4"
+                        style="@style/Colors_Widget.MaterialComponents.Chip.Choice2"
+                        android:layout_width="75dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/self_dev4"
+                        android:textSize="12sp"
+                        android:theme="@style/Theme.MaterialComponents.Light" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chip5"
+                        style="@style/Colors_Widget.MaterialComponents.Chip.Choice2"
+                        android:layout_width="75dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/self_dev5"
+                        android:textSize="12sp"
+                        android:theme="@style/Theme.MaterialComponents.Light" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chip6"
+                        style="@style/Colors_Widget.MaterialComponents.Chip.Choice2"
+                        android:layout_width="75dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/self_dev6"
+                        android:textSize="11sp"
+                        android:theme="@style/Theme.MaterialComponents.Light" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chip7"
+                        style="@style/Colors_Widget.MaterialComponents.Chip.Choice2"
+                        android:layout_width="75dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/self_dev7"
+                        android:textSize="12sp"
+                        android:theme="@style/Theme.MaterialComponents.Light" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chip8"
+                        style="@style/Colors_Widget.MaterialComponents.Chip.Choice2"
+                        android:layout_width="75dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/self_dev8"
+                        android:textSize="12sp"
+                        android:theme="@style/Theme.MaterialComponents.Light" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chip9"
+                        style="@style/Colors_Widget.MaterialComponents.Chip.Choice2"
+                        android:layout_width="75dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/self_dev9"
+                        android:textSize="12sp"
+                        android:theme="@style/Theme.MaterialComponents.Light" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chip10"
+                        style="@style/Colors_Widget.MaterialComponents.Chip.Choice2"
+                        android:layout_width="75dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/self_dev10"
+                        android:textSize="12sp"
+                        android:theme="@style/Theme.MaterialComponents.Light" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chip11"
+                        style="@style/Colors_Widget.MaterialComponents.Chip.Choice2"
+                        android:layout_width="75dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/self_dev11"
+                        android:textSize="12sp"
+                        android:theme="@style/Theme.MaterialComponents.Light" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chip12"
+                        style="@style/Colors_Widget.MaterialComponents.Chip.Choice2"
+                        android:layout_width="75dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/self_dev12"
+                        android:textSize="12sp"
+                        android:theme="@style/Theme.MaterialComponents.Light" />
 
 
-        </com.google.android.material.chip.ChipGroup>
+                </com.google.android.material.chip.ChipGroup>
+
+            </LinearLayout>
+        </ScrollView>
+
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

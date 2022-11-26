@@ -32,7 +32,6 @@ class ChangeInfoActivity : BaseActivity<ActivityChangeInfoBinding>({
         super.onCreate(savedInstanceState)
 
         historyWhatToDo = PrefUtil.getHistoryWhatToDo(this)!!
-        toast(this, historyWhatToDo.toString())
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
@@ -52,12 +51,18 @@ class ChangeInfoActivity : BaseActivity<ActivityChangeInfoBinding>({
 
 
         for (i in whatToDo) {
-            if (i.equals("독서")) { chip1.isChecked = true}
-            if (i.equals("영어 듣기")) { chip2.isChecked = true }
-            if (i.equals("시사 공부")) { chip3.isChecked = true }
-            if (i.equals("전공 과제")) { chip4.isChecked = true }
-            if (i.equals("뉴스")) { chip5.isChecked = true}
-
+            if (i.equals(getString(R.string.self_dev1))) { chip1.isChecked = true}
+            if (i.equals(getString(R.string.self_dev2))) { chip2.isChecked = true}
+            if (i.equals(getString(R.string.self_dev3))) { chip3.isChecked = true}
+            if (i.equals(getString(R.string.self_dev4))) { chip4.isChecked = true}
+            if (i.equals(getString(R.string.self_dev5))) { chip5.isChecked = true}
+            if (i.equals(getString(R.string.self_dev6))) { chip6.isChecked = true}
+            if (i.equals(getString(R.string.self_dev7))) { chip7.isChecked = true}
+            if (i.equals(getString(R.string.self_dev8))) { chip8.isChecked = true}
+            if (i.equals(getString(R.string.self_dev9))) { chip9.isChecked = true}
+            if (i.equals(getString(R.string.self_dev10))) { chip10.isChecked = true}
+            if (i.equals(getString(R.string.self_dev11))) { chip11.isChecked = true}
+            if (i.equals(getString(R.string.self_dev12))) { chip12.isChecked = true}
         }
 
 

@@ -56,7 +56,7 @@ class NotificationUtil {
             val readyPendingIntent2 = PendingIntent.getBroadcast(context,
                 0, readyIntent2, FLAG_MUTABLE)
             val nBuilder = getBasicNotificationBuilder(context, CHANNEL_ID_TIMER, true)
-            nBuilder.setContentTitle("시작?")
+            nBuilder.setContentTitle("")
                 .setContentText("시작?")
                 .setContentIntent(getPendingIntentWithStack(context, MainActivity::class.java))
                 .setOngoing(true)

@@ -83,111 +83,116 @@
         android:text="반복을 원하시는 요일을 선택해주세요."
         android:textColor="@color/black"
         android:textSize="19sp"
-        app:layout_constraintBottom_toTopOf="@+id/chipGroup"
+        app:layout_constraintBottom_toTopOf="@+id/chipgroup_linearlayout"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <com.google.android.material.chip.ChipGroup
-        android:id="@+id/chipGroup"
+    <LinearLayout
+        android:id="@+id/chipgroup_linearlayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp"
-        app:chipSpacingHorizontal="0dp"
+        android:gravity="center_horizontal"
         app:layout_constraintBottom_toTopOf="@+id/nextbtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chip1"
-            style="@style/Colors_Widget.MaterialComponents.Chip.Choice2"
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chipGroup"
             android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:text="월"
-            android:textAppearance="@style/AppTheme.GenderChip"
-            android:textSize="12sp"
-            android:theme="@style/Theme.MaterialComponents.Light"
-            app:chipEndPadding="2dp"
-            app:chipStartPadding="2dp" />
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            app:chipSpacingHorizontal="10dp"
+            >
 
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chip2"
-            style="@style/Colors_Widget.MaterialComponents.Chip.Choice2"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:text="화"
-            android:textAppearance="@style/AppTheme.GenderChip"
-            android:textSize="12sp"
-            android:theme="@style/Theme.MaterialComponents.Light"
-            app:chipEndPadding="2dp"
-            app:chipStartPadding="2dp" />
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip1"
+                style="@style/Colors_Widget.MaterialComponents.Chip.Choice2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="월"
+                app:ensureMinTouchTargetSize="false"
+                android:textAppearance="@style/AppTheme.GenderChip"
+                android:textSize="12sp"
+                android:theme="@style/Theme.MaterialComponents.Light"
+                />
 
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chip3"
-            style="@style/Colors_Widget.MaterialComponents.Chip.Choice2"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:text="수"
-            android:textAlignment="center"
-            android:textAppearance="@style/AppTheme.GenderChip"
-            android:textSize="12sp"
-            android:theme="@style/Theme.MaterialComponents.Light"
-            app:chipEndPadding="2dp"
-            app:chipStartPadding="2dp" />
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip2"
+                style="@style/Colors_Widget.MaterialComponents.Chip.Choice2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="화"
+                app:ensureMinTouchTargetSize="false"
+                android:textAppearance="@style/AppTheme.GenderChip"
+                android:textSize="12sp"
+                android:theme="@style/Theme.MaterialComponents.Light" />
 
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chip4"
-            style="@style/Colors_Widget.MaterialComponents.Chip.Choice2"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:text="목"
-            android:textAlignment="center"
-            android:textAppearance="@style/AppTheme.GenderChip"
-            android:textSize="12sp"
-            android:theme="@style/Theme.MaterialComponents.Light"
-            app:chipEndPadding="2dp"
-            app:chipStartPadding="2dp" />
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip3"
+                style="@style/Colors_Widget.MaterialComponents.Chip.Choice2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="수"
+                app:ensureMinTouchTargetSize="false"
+                android:textAlignment="center"
+                android:textAppearance="@style/AppTheme.GenderChip"
+                android:textSize="12sp"
+                android:theme="@style/Theme.MaterialComponents.Light" />
 
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chip5"
-            style="@style/Colors_Widget.MaterialComponents.Chip.Choice2"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:text="금"
-            android:textAlignment="center"
-            android:textAppearance="@style/AppTheme.GenderChip"
-            android:textSize="12sp"
-            android:theme="@style/Theme.MaterialComponents.Light"
-            app:chipEndPadding="2dp"
-            app:chipStartPadding="2dp" />
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip4"
+                style="@style/Colors_Widget.MaterialComponents.Chip.Choice2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="목"
+                app:ensureMinTouchTargetSize="false"
+                android:textAlignment="center"
+                android:textAppearance="@style/AppTheme.GenderChip"
+                android:textSize="12sp"
+                android:theme="@style/Theme.MaterialComponents.Light" />
 
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chip6"
-            style="@style/Colors_Widget.MaterialComponents.Chip.Choice2"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:text="토"
-            android:textAlignment="center"
-            android:textAppearance="@style/AppTheme.GenderChip"
-            android:textSize="12sp"
-            android:theme="@style/Theme.MaterialComponents.Light"
-            app:chipEndPadding="2dp"
-            app:chipStartPadding="2dp" />
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip5"
+                style="@style/Colors_Widget.MaterialComponents.Chip.Choice2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="금"
+                app:ensureMinTouchTargetSize="false"
+                android:textAlignment="center"
+                android:textAppearance="@style/AppTheme.GenderChip"
+                android:textSize="12sp"
+                android:theme="@style/Theme.MaterialComponents.Light" />
 
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chip7"
-            style="@style/Colors_Widget.MaterialComponents.Chip.Choice2"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:text="일"
-            android:textAlignment="center"
-            android:textAppearance="@style/AppTheme.GenderChip"
-            android:textSize="12sp"
-            android:theme="@style/Theme.MaterialComponents.Light"
-            app:chipEndPadding="2dp"
-            app:chipStartPadding="2dp" />
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip6"
+                style="@style/Colors_Widget.MaterialComponents.Chip.Choice2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="토"
+                app:ensureMinTouchTargetSize="false"
+                android:textAlignment="center"
+                android:textAppearance="@style/AppTheme.GenderChip"
+                android:textSize="12sp"
+                android:theme="@style/Theme.MaterialComponents.Light" />
 
-    </com.google.android.material.chip.ChipGroup>
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip7"
+                style="@style/Colors_Widget.MaterialComponents.Chip.Choice2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="일"
+                app:ensureMinTouchTargetSize="false"
+                android:textAlignment="center"
+                android:textAppearance="@style/AppTheme.GenderChip"
+                android:textSize="12sp"
+                android:theme="@style/Theme.MaterialComponents.Light" />
+
+        </com.google.android.material.chip.ChipGroup>
+
+    </LinearLayout>
+
 
     <android.widget.Button
         android:id="@+id/nextbtn"

@@ -48,6 +48,7 @@
         <item name="checkedIconEnabled">true</item>
         <item name="android:clickable">true</item>
         <item name="rippleColor">#D9F3EF</item>
+
     </style>
 
 

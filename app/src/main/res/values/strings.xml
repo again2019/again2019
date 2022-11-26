@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name"> 왔다갔다 </string>
     <string name="team_name"> 부삼컴퍼니 </string>
-    
+
     <!-- Splash -->
     <string name="some_id">왔다갔다...\n시간 너무 아깝지 않나요?\n하루를 48시간으로 사는 법!</string>
 
@@ -165,12 +165,17 @@
 
     <!-- 자기 계발 -->
     <string name="self_dev1"> 독서 </string>
-    <string name="self_dev2"> 영어 공부 </string>
+    <string name="self_dev2"> 언어 공부 </string>
     <string name="self_dev3"> 시사 공부 </string>
     <string name="self_dev4"> 전공 공부 </string>
     <string name="self_dev5"> 뉴스 </string>
-    <string name="self_dev6"> 독서 </string>
-    <string name="self_dev7"> 독서 </string>
+    <string name="self_dev6"> 자격증 </string>
+    <string name="self_dev7"> 진로 계획 </string>
+    <string name="self_dev8"> 재테크 </string>
+    <string name="self_dev9"> 팀 회의 </string>
+    <string name="self_dev10"> 자료 조사 </string>
+    <string name="self_dev11"> 학업 공부 </string>
+    <string name="self_dev12"> 창업 준비 </string>
 
     <!-- menu -->
     <string name="home"> 홈 </string>
