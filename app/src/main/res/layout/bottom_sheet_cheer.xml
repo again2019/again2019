@@ -18,13 +18,13 @@
 
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="340dp"
+        android:layout_width="0dp"
         android:layout_height="30dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="30dp"
         android:fontFamily="@font/bold"
         android:gravity="left"
-        android:text="입력하신 정보가 맞나요?"
+        android:text="상대방을 응원해주세요!"
         android:textColor="@color/black"
         android:textSize="20sp"
         app:layout_constraintEnd_toStartOf="@+id/xBtn"
@@ -33,9 +33,9 @@
 
     <ImageView
         android:id="@+id/xBtn"
-        android:layout_width="10dp"
-        android:layout_height="20dp"
-        android:layout_marginEnd="30dp"
+        android:layout_width="20dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="15dp"
         android:scaleType="centerInside"
         android:src="@drawable/x"
         android:visibility="visible"
@@ -45,11 +45,11 @@
 
 
     <RelativeLayout
-        android:layout_width="350dp"
-        android:layout_height="500dp"
+        android:layout_width="0dp"
+        android:layout_height="300dp"
         android:layout_marginTop="30dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/xBtn"
+        app:layout_constraintStart_toStartOf="@+id/textView2"
         app:layout_constraintTop_toBottomOf="@+id/textView2">
 
         <androidx.recyclerview.widget.RecyclerView
@@ -57,8 +57,10 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_above="@+id/cheer_editText"
+            android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
+            android:layout_marginStart="0dp"
             android:layout_marginTop="0dp"
             android:layout_marginEnd="2dp"
             android:layout_marginBottom="0dp" />

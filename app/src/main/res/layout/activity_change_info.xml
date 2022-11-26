@@ -9,18 +9,27 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="70dp"
         android:theme="@style/ToolbarTheme"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/backbtn"
+            android:layout_width="15dp"
+            android:layout_height="42dp"
+            android:src="@drawable/arrow"
+            android:layout_marginStart="20dp"/>
+
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="내 정보 수정"
-            android:layout_gravity="center"
+            android:layout_gravity="center_horizontal"
             android:id="@+id/toolbar_title"
-            android:textSize="20sp" />
+            android:textSize="17sp" />
     </androidx.appcompat.widget.Toolbar>
 
 
@@ -41,7 +50,6 @@
         android:id="@+id/imageView"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:layout_marginTop="30dp"
         android:src="@drawable/basic_image"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -52,9 +60,9 @@
         android:id="@+id/constraintLayout8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView">
 
@@ -97,7 +105,7 @@
         android:id="@+id/constraintLayout9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
@@ -140,8 +148,10 @@
     <Button
         android:id="@+id/infoChangeButton"
         style="@style/BtnType1"
-        android:layout_width="350dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         android:layout_marginBottom="30dp"
         android:padding="19dp"
         android:text="저장하기"
@@ -151,9 +161,12 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout10"
-        android:layout_width="wrap_content"
-        android:layout_height="190dp"
-        android:layout_marginTop="30dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
         app:layout_constraintBottom_toTopOf="@+id/infoChangeButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -176,8 +189,8 @@
 
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/chipGroup"
-            android:layout_width="345dp"
-            android:layout_height="150dp"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
             android:layout_marginTop="10dp"
             android:textAlignment="center"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -189,7 +202,7 @@
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip1"
                 style="@style/Colors_Widget.MaterialComponents.Chip.Choice2"
-                android:layout_width="80dp"
+                android:layout_width="70dp"
                 android:layout_height="wrap_content"
                 android:textSize="12sp"
                 android:text="독서"
@@ -198,7 +211,7 @@
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip2"
                 style="@style/Colors_Widget.MaterialComponents.Chip.Choice2"
-                android:layout_width="80dp"
+                android:layout_width="70dp"
                 android:layout_height="wrap_content"
                 android:text="영어 듣기"
                 android:textSize="12sp"
@@ -207,7 +220,7 @@
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip3"
                 style="@style/Colors_Widget.MaterialComponents.Chip.Choice2"
-                android:layout_width="80dp"
+                android:layout_width="70dp"
                 android:layout_height="wrap_content"
                 android:text="시사 공부"
                 android:textSize="12sp"
@@ -216,7 +229,7 @@
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip4"
                 style="@style/Colors_Widget.MaterialComponents.Chip.Choice2"
-                android:layout_width="80dp"
+                android:layout_width="70dp"
                 android:layout_height="wrap_content"
                 android:text="전공 과제"
                 android:textSize="12sp"
@@ -226,7 +239,7 @@
                 android:id="@+id/chip5"
                 android:textSize="12sp"
                 style="@style/Colors_Widget.MaterialComponents.Chip.Choice2"
-                android:layout_width="80dp"
+                android:layout_width="70dp"
                 android:layout_height="wrap_content"
                 android:text="뉴스"
                 android:theme="@style/Theme.MaterialComponents.Light" />

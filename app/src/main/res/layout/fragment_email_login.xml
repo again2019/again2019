@@ -19,11 +19,18 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="70dp"
         android:theme="@style/ToolbarTheme"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/backbtn"
+            android:layout_width="15dp"
+            android:layout_height="42dp"
+            android:src="@drawable/arrow"
+            android:layout_marginStart="20dp"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -31,7 +38,7 @@
             android:text="@string/login_ment7"
             android:layout_gravity="center"
             android:id="@+id/toolbar_title"
-            android:textSize="20sp"
+            android:textSize="17sp"
             />
 
 
@@ -105,7 +112,9 @@
  <EditText
      android:id="@+id/emailEdittext"
      style="@style/EditTextType1"
-     android:layout_width="350dp"
+     android:layout_width="0dp"
+     android:layout_marginStart="20dp"
+     android:layout_marginEnd="20dp"
      android:layout_height="wrap_content"
      android:layout_marginTop="12dp"
      android:hint="@string/login_ment13"
@@ -117,22 +126,25 @@
      app:layout_constraintTop_toBottomOf="@+id/text5" />
 
     <EditText
-        style="@style/EditTextType1"
         android:id="@+id/passwordEdittext"
-        android:layout_width="350dp"
+        style="@style/EditTextType1"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/emailEdittext"
-        app:layout_constraintStart_toStartOf="@+id/emailEdittext"
         android:layout_marginTop="5dp"
         android:hint="@string/login_ment14"
-        android:paddingBottom="17dp"
+        android:imeOptions="actionDone"
         android:inputType="textPassword"
-        android:imeOptions="actionDone"/>
+        android:paddingBottom="17dp"
+        app:layout_constraintEnd_toEndOf="@+id/emailEdittext"
+        app:layout_constraintStart_toStartOf="@+id/emailEdittext"
+        app:layout_constraintTop_toBottomOf="@+id/emailEdittext" />
 
     <Button
         android:id="@+id/loginButton"
         style="@style/BtnType1"
-        android:layout_width="360dp"
+        android:layout_width="0dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="60dp"
         android:padding="19dp"
@@ -144,15 +156,15 @@
 
     <TextView
         android:id="@+id/forgotButton"
-        android:layout_width="360dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:fontFamily="@font/medium"
         android:gravity="center"
-        android:padding="19dp"
+        android:layout_marginTop="17dp"
         android:text="@string/login_ment15"
         android:textColor="@color/black"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/loginButton"
+        app:layout_constraintStart_toStartOf="@+id/loginButton"
         app:layout_constraintTop_toBottomOf="@+id/loginButton" />
 </androidx.constraintlayout.widget.ConstraintLayout>

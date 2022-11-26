@@ -36,6 +36,7 @@ class FirebaseService : FirebaseMessagingService() {
     override fun onMessageReceived(message: RemoteMessage) {
         super.onMessageReceived(message)
 
+        Log.d("experiment", message.data.toString())
         val intent = Intent(this, MainActivity::class.java)
         val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         val notificationID = 223
@@ -48,7 +49,7 @@ class FirebaseService : FirebaseMessagingService() {
         val pendingIntent = PendingIntent.getActivity(this, 11, intent, FLAG_MUTABLE)
         val notification = NotificationCompat.Builder(this, CHANNEL_ID)
             .setContentTitle(message.data["title"])
-            .setContentText(message.data["message"])
+            .setContentText(message.data["body"])
             .setSmallIcon(R.mipmap.com_back_new)
             .setAutoCancel(true)
             .setContentIntent(pendingIntent)

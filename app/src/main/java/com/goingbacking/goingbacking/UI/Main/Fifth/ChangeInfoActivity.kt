@@ -30,26 +30,14 @@ class ChangeInfoActivity : BaseActivity<ActivityChangeInfoBinding>({
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        historyWhatToDo = PrefUtil.getHistoryWhatToDo(this)!!
+        toast(this, historyWhatToDo.toString())
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val menuHost: MenuHost = this
-        menuHost.addMenuProvider(object : MenuProvider {
-            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-            }
-
-            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-                when(menuItem.itemId) {
-                    android.R.id.home -> {
-                        finish()
-                        return true
-                    }
-                }
-                return true
-            }
-        }, this, Lifecycle.State.RESUMED)
-        historyWhatToDo = PrefUtil.getHistoryWhatToDo(this)!!
+        binding.backbtn.setOnClickListener {
+            finish()
+        }
 
         editInit()
         onClick()

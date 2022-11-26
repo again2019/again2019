@@ -31,26 +31,10 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
 
         (activity as AppCompatActivity).setSupportActionBar(binding.toolbar)
         (activity as AppCompatActivity).supportActionBar?.setDisplayShowTitleEnabled(false)
-        (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        val menuHost: MenuHost = requireActivity()
-        menuHost.addMenuProvider(object : MenuProvider {
-            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-            }
 
-            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-                when(menuItem.itemId) {
-                    android.R.id.home -> {
-                        findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
-
-                        return true
-                    }
-                }
-
-
-
-                return true
-            }
-        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
+        binding.backbtn.setOnClickListener {
+            findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
+        }
 
         onClick()
     }

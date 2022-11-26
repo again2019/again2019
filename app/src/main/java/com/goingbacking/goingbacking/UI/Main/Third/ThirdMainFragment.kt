@@ -104,7 +104,6 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
             val example = async{observer2()}
             selectedDateList = example.await()
 
-            Log.d("experiment", "coroutine " + selectedDateList.toString())
             val daysOfWeek = daysOfWeekFromLocale()
             val currentMonth = YearMonth.now()
             binding.threeCalendar.setup(currentMonth.minusMonths(0), currentMonth.plusMonths(0), daysOfWeek.first())
@@ -122,9 +121,6 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
 
                     view.setOnClickListener {
                         if (day.owner == DayOwner.THIS_MONTH) {
-//                    if (day.date.equals(selectedDate))
-
-//                    Log.d("experiment", "selected date" + day.date.toString())
                             observer(currentday("yyyy-MM"), day.date)
                             selectDate(day.date)
 
@@ -163,7 +159,6 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
                                 if(selectedDateList.contains(day.date.toString())) {
                                     dotView.isVisible = true
                                 }
-//                            observer2(day.date, dotView)
                             }
                         }
                     } else {
@@ -252,11 +247,9 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
 
         while (true) {
             if (lis.size != 0 || fail) {
-                binding.progressCircular.hide()
                 break
             } else {
                 delay(100)
-                binding.progressCircular.show()
             }
         }
 
@@ -286,8 +279,6 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
     }
 
     private fun selectDate(date: LocalDate) {
-        Log.d("experiment", "selected date " + selectedDate.toString() + " just date " + date.toString())
-
         if (selectedDate != date) {
             val oldDate = selectedDate
             selectedDate = date
@@ -298,25 +289,7 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
         }
     }
 
-    inner class DayViewContainer(view: View) : ViewContainer(view) {
-        lateinit var day: CalendarDay // Will be set when this container is bound.
-        val binding = ItemCalendarDayBinding.bind(view)
 
-        init {
-
-            view.setOnClickListener {
-                if (day.owner == DayOwner.THIS_MONTH) {
-//                    if (day.date.equals(selectedDate))
-
-//                    Log.d("experiment", "selected date" + day.date.toString())
-                    observer(currentday("yyyy-MM"), day.date)
-                    selectDate(day.date)
-
-                }
-            }
-
-        }
-    }
 
     private fun observer(currentday: String, date: LocalDate) {
         viewModel.getSelectedDateInfo(currentday, date.toString())

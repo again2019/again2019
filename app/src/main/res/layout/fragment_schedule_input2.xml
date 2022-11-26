@@ -9,43 +9,53 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="70dp"
         android:theme="@style/ToolbarTheme"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/backbtn"
+            android:layout_width="15dp"
+            android:layout_height="42dp"
+            android:src="@drawable/arrow"
+            android:layout_marginStart="20dp"/>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="시간 추가하기"
             android:layout_gravity="center"
             android:id="@+id/toolbar_title"
-            android:textSize="20sp" />
+            android:textSize="17sp" />
     </androidx.appcompat.widget.Toolbar>
+
 
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginStart="20dp"
         android:letterSpacing="-0.02"
         android:fontFamily="@font/bold"
         android:text="목적지를 알려주세요."
-        android:textColor="@color/titleMain"
-        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:textSize="19sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     <EditText
         android:id="@+id/destinationPlaceEditText"
-        android:layout_width="350dp"
+        style="@style/EditTextType1"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
         android:hint="ex) 회사, 학교"
         android:letterSpacing="-0.02"
         android:textSize="17sp"
-        style="@style/EditTextType1"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/textView1"
         app:layout_constraintTop_toBottomOf="@+id/textView1" />
 
@@ -53,12 +63,12 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:fontFamily="@font/bold"
         android:letterSpacing="-0.02"
         android:text="시간을 선택해주세요."
-        android:textColor="@color/titleMain"
-        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:textSize="19sp"
         app:layout_constraintStart_toStartOf="@+id/destinationPlaceEditText"
         app:layout_constraintTop_toBottomOf="@+id/destinationPlaceEditText" />
 
@@ -180,9 +190,11 @@
     <Button
         android:id="@+id/finishBtn"
         style="@style/BtnType1"
-        android:layout_width="350dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="30dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
         android:padding="19dp"
         android:text="저장하기"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -6,6 +6,7 @@ import android.view.MenuInflater
 import android.view.MenuItem
 
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.lifecycle.Lifecycle
@@ -33,23 +34,10 @@ class TmpTimeActivity : BaseActivity<ActivityTmpTimeBinding>({
 
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val menuHost: MenuHost = this
-        menuHost.addMenuProvider(object : MenuProvider {
-            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-            }
-
-            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-                when(menuItem.itemId) {
-                    android.R.id.home -> {
-                        finish()
-                        return true
-                    }
-                }
-                return true
-            }
-        }, this, Lifecycle.State.RESUMED)
+        binding.backbtn.setOnClickListener {
+            finish()
+        }
 
         TmpTimeOberver()
         observer()

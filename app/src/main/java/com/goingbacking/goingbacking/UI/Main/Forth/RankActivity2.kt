@@ -35,23 +35,10 @@ class RankActivity2 : BaseActivity<ActivityRank2Binding>({
 
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val menuHost: MenuHost = this
-        menuHost.addMenuProvider(object : MenuProvider {
-            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-            }
-
-            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-                when(menuItem.itemId) {
-                    android.R.id.home -> {
-                        finish()
-                        return true
-                    }
-                }
-                return true
-            }
-        }, this, Lifecycle.State.RESUMED)
+        binding.backbtn.setOnClickListener {
+            finish()
+        }
 
         onClick(destinationUid)
         supportFragmentManager.executePendingTransactions()
@@ -267,7 +254,7 @@ class RankActivity2 : BaseActivity<ActivityRank2Binding>({
         val aaChartModel = AAChartModel.Builder(this)
 
             .setChartType(chartTypeEnum)
-            .setBackgroundColor(R.color.colorBackGround)
+            .setBackgroundColor(R.color.white)
             .setDataLabelsEnabled(true)
             .setYAxisLabelsEnabled(false)
             .setYAxisGridLineWidth(0f)
@@ -313,7 +300,7 @@ class RankActivity2 : BaseActivity<ActivityRank2Binding>({
         val aaChartModel = AAChartModel.Builder(this)
 
             .setChartType(chartTypeEnum)
-            .setBackgroundColor(R.color.colorBackGround)
+            .setBackgroundColor(R.color.white)
             .setDataLabelsEnabled(true)
             .setAxesTextColorRes(R.color.titleMain)
             .setColorsTheme(Constants.colorArray)

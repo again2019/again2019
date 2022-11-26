@@ -20,7 +20,7 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="70dp"
         android:theme="@style/ToolbarTheme"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -33,17 +33,18 @@
             android:text="마이페이지"
             android:layout_gravity="center"
             android:id="@+id/toolbar_title"
-            android:textSize="20sp" />
+            android:textSize="17sp" />
     </androidx.appcompat.widget.Toolbar>
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout7"
-        android:layout_width="350dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.491"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
@@ -60,7 +61,7 @@
             android:id="@+id/myNickNameTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="10dp"
             android:fontFamily="@font/bold"
             android:text=""
@@ -85,8 +86,8 @@
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/chipGroup"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@+id/changeInfoTextView"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView"
             app:layout_constraintStart_toStartOf="@+id/myNickNameTextView"
             app:layout_constraintTop_toBottomOf="@+id/myNickNameTextView"
             app:layout_constraintVertical_bias="0.0">
@@ -94,10 +95,10 @@
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip1"
                 style="@style/Colors_Widget.MaterialComponents.Chip.Choice2"
-                android:clickable="false"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:checked="true"
-                android:layout_width="70dp"
-                android:layout_height="50dp"
+                android:clickable="false"
                 android:text=""
                 android:textAppearance="@style/AppTheme.GenderChip"
                 android:textSize="12sp"
@@ -106,10 +107,10 @@
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip2"
                 style="@style/Colors_Widget.MaterialComponents.Chip.Choice2"
-                android:clickable="false"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:checked="true"
-                android:layout_width="70dp"
-                android:layout_height="50dp"
+                android:clickable="false"
                 android:text=""
                 android:textAppearance="@style/AppTheme.GenderChip"
                 android:textSize="12sp"
@@ -118,10 +119,10 @@
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip3"
                 style="@style/Colors_Widget.MaterialComponents.Chip.Choice2"
-                android:clickable="false"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:checked="true"
-                android:layout_width="70dp"
-                android:layout_height="50dp"
+                android:clickable="false"
                 android:text=""
                 android:textAlignment="center"
                 android:textAppearance="@style/AppTheme.GenderChip"
@@ -135,7 +136,7 @@
             style="@style/BtnType3"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
             android:fontFamily="@font/medium"
             android:text="프로필 수정"
             android:textColor="#636363"
@@ -150,9 +151,10 @@
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="350dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
+
         app:layout_constraintEnd_toEndOf="@+id/constraintLayout7"
         app:layout_constraintStart_toStartOf="@+id/constraintLayout7"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout7">

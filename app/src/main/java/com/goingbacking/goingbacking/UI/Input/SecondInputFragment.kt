@@ -33,32 +33,22 @@ class SecondInputFragment : BaseFragment<FragmentSecondInputBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
         val args : SecondInputFragmentArgs by navArgs()
+        // 오류 고치기
         binding.nickname.text = args.nickname
         binding.progressBar.setMinAndMaxProgress(0.05f, 0.355f)
         binding.progressBar.playAnimation()
 
         onClick()
 
-        val menuHost: MenuHost = requireActivity()
+
 
         (activity as AppCompatActivity).setSupportActionBar(binding.toolbar)
         (activity as AppCompatActivity).supportActionBar?.setDisplayShowTitleEnabled(false)
-        (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        menuHost.addMenuProvider(object : MenuProvider {
-            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-            }
+        binding.backbtn.setOnClickListener {
 
-            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-                when(menuItem.itemId) {
-                    android.R.id.home -> {
-                        findNavController().navigate(R.id.action_secondInputFragment_to_firstInputFragment)
-                        return true
-                    }
-                }
-                return true
-            }
-        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
+            findNavController().navigate(R.id.action_secondInputFragment_to_firstInputFragment)
+        }
 
     }
 
@@ -89,8 +79,10 @@ class SecondInputFragment : BaseFragment<FragmentSecondInputBinding>() {
         // 만약에 edittext가 비어있지 않다면
         else {
             viewModel.updateSecondInput(typeEdittext.text.toString())
-            findNavController().navigate(R.id.action_secondInputFragment_to_thirdInputFragment)
 
+            val action = SecondInputFragmentDirections.actionSecondInputFragmentToThirdInputFragment(binding.nickname.text.toString())
+
+            findNavController().navigate(action)
         }
     }
 

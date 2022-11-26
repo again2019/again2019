@@ -32,27 +32,12 @@ class ForgetFragment : BaseFragment<FragmentForgetBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val menuHost: MenuHost = requireActivity()
-
         (activity as AppCompatActivity).setSupportActionBar(binding.toolbar)
         (activity as AppCompatActivity).supportActionBar?.setDisplayShowTitleEnabled(false)
-        (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        menuHost.addMenuProvider(object : MenuProvider {
-            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-            }
-
-            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-                when(menuItem.itemId) {
-                    android.R.id.home -> {
-                        findNavController().navigate(R.id.action_forgotFragment_to_emailLoginFragment)
-
-                        return true
-                    }
-                }
-                return true
-            }
-        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
+        binding.backbtn.setOnClickListener {
+            findNavController().navigate(R.id.action_forgotFragment_to_emailLoginFragment)
+        }
 
         binding.forgotPassBtn.setOnClickListener {
             if(validation()) {

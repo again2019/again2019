@@ -10,6 +10,7 @@ import androidx.core.view.children
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.goingbacking.goingbacking.R
 import com.goingbacking.goingbacking.UI.Base.BaseFragment
 import com.goingbacking.goingbacking.bottomsheet.InputBottomSheet
@@ -33,31 +34,18 @@ class ThirdInputFragment : BaseFragment<FragmentThirdInputBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val args : ThirdInputFragmentArgs by navArgs()
         binding.progressBar.setMinAndMaxProgress(0.355f, 0.63f)
         binding.progressBar.playAnimation()
 
-        val menuHost: MenuHost = requireActivity()
 
         (activity as AppCompatActivity).setSupportActionBar(binding.toolbar)
         (activity as AppCompatActivity).supportActionBar?.setDisplayShowTitleEnabled(false)
-        (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        menuHost.addMenuProvider(object : MenuProvider {
-            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-            }
-
-            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-                when(menuItem.itemId) {
-                    android.R.id.home -> {
-                        findNavController().navigate(R.id.action_thirdInputFragment_to_secondInputFragment)
-                        return true
-                    }
-                }
-                return true
-            }
-        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
-
-
+        binding.backbtn.setOnClickListener {
+            val action = ThirdInputFragmentDirections.actionThirdInputFragmentToSecondInputFragment(args.nickname)
+            findNavController().navigate(action)
+        }
 
         onClick()
     }

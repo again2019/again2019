@@ -103,7 +103,7 @@ class ForthRepository (
                 )
             )
             PushNotification(
-                NotificationData(text, text),
+                NotificationData("응원 메시지가 도착하였습니다.",  userInfo.userNickName + ": " + text),
                 destinationInfo.token!!
             ).also {
                 FirebaseTokenManager.sendNotification(it)
@@ -117,7 +117,7 @@ class ForthRepository (
         text: String,
         result: (UiState<String>) -> Unit
     ) {
-        val tsDoc = firebaseFirestore.collection(USERINFO).document(myUid)
+        val tsDoc = firebaseFirestore.collection(USERINFO).document(destinationUid)
         CoroutineScope(Dispatchers.IO).launch {
             tsDoc.update(CHEERS, FieldValue.arrayRemove(text)).await()
         }

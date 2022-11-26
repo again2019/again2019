@@ -22,11 +22,7 @@ class SecondMainFragment : BaseFragment<FragmentSecondMainBinding>() {
 
     }
     val viewModel: SecondViewModel by viewModels()
-    override fun onResume() {
-        super.onResume()
 
-
-    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -35,6 +31,6 @@ class SecondMainFragment : BaseFragment<FragmentSecondMainBinding>() {
         adapter.fragmentList = fragmentList
 
         binding.viewPager.adapter = adapter
-    }
+        }
 
     }

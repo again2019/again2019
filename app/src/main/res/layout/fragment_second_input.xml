@@ -10,18 +10,26 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="70dp"
         android:theme="@style/ToolbarTheme"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/backbtn"
+            android:layout_width="15dp"
+            android:layout_height="42dp"
+            android:src="@drawable/arrow"
+            android:layout_marginStart="20dp"/>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/input_ment10"
             android:layout_gravity="center"
             android:id="@+id/toolbar_title"
-            android:textSize="20sp"
+            android:textSize="17sp"
             />
     </androidx.appcompat.widget.Toolbar>
 
@@ -29,8 +37,7 @@
         android:id="@+id/progress_bar"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:layout_marginTop="40dp"
-
+        android:layout_marginTop="10dp"
         android:scaleType="fitXY"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -44,26 +51,23 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="116dp"
-        android:layout_marginEnd="4dp"
         android:fontFamily="@font/light"
         android:text="@string/input_ment11"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="@+id/type_edittext"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+        app:layout_constraintTop_toTopOf="@+id/nickname" />
 
     <TextView
         android:id="@+id/nickname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
         android:fontFamily="@font/bold"
         android:letterSpacing="-0.02"
         android:text="@string/input_ment12"
         android:textColor="@color/colorMain"
         android:textSize="22sp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/type_edittext"
         app:layout_constraintTop_toBottomOf="@+id/progress_bar" />
 
 
@@ -94,7 +98,9 @@
     <EditText
         style="@style/EditTextType1"
         android:id="@+id/type_edittext"
-        android:layout_width="350dp"
+        android:layout_width="0dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:hint="@string/input_ment15"
@@ -105,10 +111,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text7" />
 
-    <android.widget.Button
+    <Button
         android:id="@+id/loginbtn"
         style="@style/BtnType1"
-        android:layout_width="360dp"
+        android:layout_width="0dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="60dp"
         android:padding="19dp"

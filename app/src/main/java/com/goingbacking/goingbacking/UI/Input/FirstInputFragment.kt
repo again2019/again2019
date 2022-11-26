@@ -42,26 +42,10 @@ class FirstInputFragment : BaseFragment<FragmentFirstInputBinding>() {
         binding.progressBar.setMinAndMaxProgress(0f, 0.05f)
         binding.progressBar.playAnimation()
 
-        val menuHost: MenuHost = requireActivity()
 
         (activity as AppCompatActivity).setSupportActionBar(binding.toolbar)
         (activity as AppCompatActivity).supportActionBar?.setDisplayShowTitleEnabled(false)
-        (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        menuHost.addMenuProvider(object : MenuProvider {
-            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-            }
-
-            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-                when(menuItem.itemId) {
-                    android.R.id.home -> {
-                        moveLoginPage()
-                        return true
-                    }
-                }
-                return true
-            }
-        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
         onClick()
     }
 
