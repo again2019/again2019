@@ -48,6 +48,7 @@ class FirebaseService : FirebaseMessagingService() {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         val pendingIntent = PendingIntent.getActivity(this, 11, intent, FLAG_MUTABLE)
         val notification = NotificationCompat.Builder(this, CHANNEL_ID)
+            .setAllowSystemGeneratedContextualActions(true)
             .setContentTitle(message.data["title"])
             .setContentText(message.data["body"])
             .setSmallIcon(R.mipmap.com_back_new)

@@ -158,7 +158,7 @@ class RankRepository  (
 
 
                     PushNotification(
-                        NotificationData(it.toObject(UserInfoDTO::class.java)!!.userNickName!! + "님의 좋아요 수가 늘었어요!", it.toObject(UserInfoDTO::class.java)!!.userNickName!! + "님의 좋아요 수가 늘었습니다! 확인해보세요!"),
+                        NotificationData("좋아요", it.toObject(UserInfoDTO::class.java)!!.userNickName!! + "님의 좋아요 수가 늘었습니다! 확인해보세요!"),
                         it.toObject(UserInfoDTO::class.java)!!.token!!
                     ).also {
                         FirebaseTokenManager.sendNotification(it)

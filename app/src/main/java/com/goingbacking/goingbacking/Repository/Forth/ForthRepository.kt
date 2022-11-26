@@ -103,7 +103,7 @@ class ForthRepository (
                 )
             )
             PushNotification(
-                NotificationData("응원 메시지가 도착하였습니다.",  userInfo.userNickName + ": " + text),
+                NotificationData("응원 메시지",  "응원 메시지를 확인해보세요!\n" + userInfo.userNickName + ": " + text),
                 destinationInfo.token!!
             ).also {
                 FirebaseTokenManager.sendNotification(it)
