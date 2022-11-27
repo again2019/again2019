@@ -1,4 +1,4 @@
-# 왔다갔다
+# 왔다갔다 - 통근/통학 시간 관리 어플
 ### ✉️ Commit Message Convention
 - init: 개발 환경 초기 세팅
 - feat: 새로운 기능 추가
