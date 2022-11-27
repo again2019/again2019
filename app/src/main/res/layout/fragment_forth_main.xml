@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="랭킹"
-            android:textSize="20sp" />
+            android:textSize="17sp" />
 
     </androidx.appcompat.widget.Toolbar>
 

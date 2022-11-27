@@ -33,14 +33,14 @@ class FifthViewModel @Inject constructor(
     }
 
     // 로그 아웃
-    private val _logout = MutableLiveData<UiState<String>>()
-    val logout: LiveData<UiState<String>>
-        get() = _logout
+    private val _signout = MutableLiveData<UiState<String>>()
+    val signout: LiveData<UiState<String>>
+        get() = _signout
 
-    fun logout() = viewModelScope.launch {
-        _logout.value = UiState.Loading
-        fifthRepository.logout() {
-            _logout.value = it
+    fun signout() = viewModelScope.launch {
+        _signout.value = UiState.Loading
+        fifthRepository.signout() {
+            _signout.value = it
         }
     }
 

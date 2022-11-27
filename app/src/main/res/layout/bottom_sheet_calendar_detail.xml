@@ -18,10 +18,10 @@
 
     <TextView
         android:id="@+id/detail_date"
-        android:layout_width="330dp"
+        android:layout_width="0dp"
         android:layout_height="30dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="30dp"
         android:fontFamily="@font/bold"
         android:gravity="left"
         android:text="해당 요일의 일정"
@@ -36,7 +36,7 @@
         android:id="@+id/xBtn"
         android:layout_width="20dp"
         android:layout_height="30dp"
-        android:layout_marginEnd="30dp"
+        android:layout_marginEnd="15dp"
         android:scaleType="centerInside"
         android:src="@drawable/x"
         android:visibility="visible"
@@ -46,13 +46,14 @@
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="350dp"
-        android:layout_height="500dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="30dp"
+        android:layout_width="0dp"
+        android:layout_height="300dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/detail_date">
 
@@ -67,10 +68,10 @@
 
         <TextView
             android:id="@+id/noScheduleTextView"
-            android:layout_width="350dp"
-            android:layout_height="300dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:fontFamily="@font/medium"
-            android:gravity="center"
+            android:gravity="center_horizontal"
             android:text="해당 요일에는 스케줄이 없습니다."
             android:textColor="@color/titleMain"
             android:textSize="15sp"

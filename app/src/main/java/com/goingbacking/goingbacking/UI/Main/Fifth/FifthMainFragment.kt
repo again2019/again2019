@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat.finishAffinity
 import androidx.fragment.app.viewModels
 import com.goingbacking.goingbacking.R
@@ -13,6 +14,8 @@ import com.goingbacking.goingbacking.UI.Login.LoginActivity
 import com.goingbacking.goingbacking.databinding.FragmentFifthMainBinding
 import com.goingbacking.goingbacking.util.*
 import dagger.hilt.android.AndroidEntryPoint
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 
 @AndroidEntryPoint
@@ -97,30 +100,33 @@ class FifthMainFragment : BaseFragment<FragmentFifthMainBinding>() {
         question.setOnClickListener {
             val intent = Intent(requireContext(), QuestionActivity::class.java)
             startActivity(intent)
+
         }
 
         // 로그아웃이 아니라 계정 탈퇴
         out.setOnClickListener {
-            viewModel.logout()
-            viewModel.logout.observe(viewLifecycleOwner) { state ->
-                when (state) {
-                    is UiState.Success -> {
-                        toast(requireContext(), getString(R.string.logout_success))
-                        PrefUtil.setCurrentUid(null, requireContext())
+            AlertDialog.Builder(requireContext())
+                .setMessage("계정을 탈퇴하겠습니까?")
+                .setPositiveButton("탈퇴하기") { _, _ ->
+                    if (!NetworkManager.checkNetworkState(requireContext())) {
+                        toast(requireContext(), getString(R.string.network_fail))
+                    } else {
+                        viewModel.signout()
                         initPref()
                         val intent = Intent(requireContext(), LoginActivity::class.java)
                         startActivity(intent)
                         finishAffinity(requireActivity())
                     }
-
                 }
-            }
+                .setNegativeButton("나가기", null)
+                .show()
         }
     }
 
     private fun initPref() {
         PrefUtil.setRecentDate("", requireContext())
         PrefUtil.setHistoryWhatToDo(mutableSetOf(), requireContext())
+        PrefUtil.setCurrentUid("", requireContext())
         PrefUtil.setSecondsRemaining(0L, requireContext())
         PrefUtil.setTodayTotalTime(0, requireContext())
         PrefUtil.setEndTime(0, requireContext())

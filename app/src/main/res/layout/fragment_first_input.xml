@@ -11,18 +11,19 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="70dp"
         android:theme="@style/ToolbarTheme"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/input_ment1"
             android:layout_gravity="center"
             android:id="@+id/toolbar_title"
-            android:textSize="20sp"
+            android:textSize="17sp"
             />
     </androidx.appcompat.widget.Toolbar>
 
@@ -30,7 +31,7 @@
         android:id="@+id/progress_bar"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="10dp"
 
         android:scaleType="fitXY"
         app:layout_constraintEnd_toEndOf="parent"
@@ -109,7 +110,9 @@
     <EditText
         style="@style/EditTextType1"
         android:id="@+id/nickNameEdittext"
-        android:layout_width="350dp"
+        android:layout_width="0dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:hint="@string/input_ment6"
@@ -120,28 +123,29 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text2" />
 
-    <android.widget.Button
+    <Button
         android:id="@+id/firstInputButton"
         style="@style/BtnType1"
-        android:layout_width="360dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         android:layout_marginBottom="60dp"
         android:padding="19dp"
         android:text="@string/input_ment7"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="116dp"
-        android:layout_marginEnd="4dp"
         android:fontFamily="@font/light"
         android:text="@string/input_ment8"
         android:textSize="11sp"
         app:layout_constraintEnd_toEndOf="@+id/nickNameEdittext"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+        app:layout_constraintTop_toTopOf="@+id/nickname" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

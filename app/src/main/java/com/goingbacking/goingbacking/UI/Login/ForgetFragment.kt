@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.goingbacking.goingbacking.R
 import com.goingbacking.goingbacking.UI.Base.BaseFragment
 import com.goingbacking.goingbacking.databinding.FragmentForgetBinding
+import com.goingbacking.goingbacking.util.NetworkManager
 import com.goingbacking.goingbacking.util.UiState
 import com.goingbacking.goingbacking.util.isValidEmail
 import com.goingbacking.goingbacking.util.toast
@@ -32,31 +33,20 @@ class ForgetFragment : BaseFragment<FragmentForgetBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val menuHost: MenuHost = requireActivity()
-
         (activity as AppCompatActivity).setSupportActionBar(binding.toolbar)
         (activity as AppCompatActivity).supportActionBar?.setDisplayShowTitleEnabled(false)
-        (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        menuHost.addMenuProvider(object : MenuProvider {
-            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-            }
-
-            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-                when(menuItem.itemId) {
-                    android.R.id.home -> {
-                        findNavController().navigate(R.id.action_forgotFragment_to_emailLoginFragment)
-
-                        return true
-                    }
-                }
-                return true
-            }
-        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
+        binding.backbtn.setOnClickListener {
+            findNavController().navigate(R.id.action_forgotFragment_to_emailLoginFragment)
+        }
 
         binding.forgotPassBtn.setOnClickListener {
-            if(validation()) {
-                observer()
+            if (!NetworkManager.checkNetworkState(requireContext())) {
+                toast(requireContext(), getString(R.string.network_fail))
+            } else {
+                if (validation()) {
+                    observer()
+                }
             }
         }
     }

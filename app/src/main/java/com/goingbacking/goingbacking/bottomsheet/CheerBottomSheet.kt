@@ -20,11 +20,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class CheerBottomSheet : BottomSheetDialogFragment() {
     private lateinit var binding: BottomSheetCheerBinding
     private val viewModel: ForthViewModel by activityViewModels()
-    private val cheerAdapter = CheerRecyclerViewAdapter(
-        onDeleteClick = { hostUid, original_cheer ->
-            viewModel.deleteCheerInfo(hostUid, original_cheer)
-        }
-    )
+    private lateinit var cheerAdapter :CheerRecyclerViewAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,21 +28,32 @@ class CheerBottomSheet : BottomSheetDialogFragment() {
     ): View {
         binding = BottomSheetCheerBinding.inflate(inflater, container, false)
 
+
+
         val destinationUid = arguments?.getString("destinationUid")
+
+
 
         if (destinationUid == null) {
             toast(requireContext(), getString(R.string.no_information))
         } else {
-//            if (destinationUid.equals(PrefUtil.getCurrentUid(requireContext()))) {
-//                binding.cheerEditText.makeGONE()
-//                binding.cheerOkayButton.makeGONE()
-//            }
+            if (destinationUid.equals(PrefUtil.getCurrentUid(requireContext()))) {
+                binding.cheerEditText.makeInVisible()
+                binding.cheerOkayButton.makeInVisible()
+            }
+
+            cheerAdapter = CheerRecyclerViewAdapter(
+                onDeleteClick = { original_cheer ->
+                    viewModel.deleteCheerInfo(destinationUid, original_cheer)
+                }
+            )
 
             binding.cheerRecyclerView.apply {
                 layoutManager =
                     LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
                 adapter = cheerAdapter
             }
+
 
             observer1(destinationUid)
             binding.cheerOkayButton.setOnClickListener {

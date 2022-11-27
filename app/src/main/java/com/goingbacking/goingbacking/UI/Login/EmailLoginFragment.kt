@@ -14,10 +14,7 @@ import com.goingbacking.goingbacking.R
 import com.goingbacking.goingbacking.UI.Base.BaseFragment
 import com.goingbacking.goingbacking.UI.Input.InputActivity
 import com.goingbacking.goingbacking.databinding.FragmentEmailLoginBinding
-import com.goingbacking.goingbacking.util.PrefUtil
-import com.goingbacking.goingbacking.util.UiState
-import com.goingbacking.goingbacking.util.isValidEmail
-import com.goingbacking.goingbacking.util.toast
+import com.goingbacking.goingbacking.util.*
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -37,30 +34,12 @@ class EmailLoginFragment : BaseFragment<FragmentEmailLoginBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val menuHost: MenuHost = requireActivity()
-
         (activity as AppCompatActivity).setSupportActionBar(binding.toolbar)
         (activity as AppCompatActivity).supportActionBar?.setDisplayShowTitleEnabled(false)
-        (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        menuHost.addMenuProvider(object : MenuProvider {
-            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-            }
-
-            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-               when(menuItem.itemId) {
-                   android.R.id.home -> {
-                       findNavController().navigate(R.id.action_emailLoginFragment_to_loginFragment)
-
-                       return true
-                   }
-               }
-
-
-
-                return true
-            }
-        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
+        binding.backbtn.setOnClickListener {
+            findNavController().navigate(R.id.action_emailLoginFragment_to_loginFragment)
+        }
 
         onClick()
     }
@@ -70,7 +49,11 @@ class EmailLoginFragment : BaseFragment<FragmentEmailLoginBinding>() {
 
     private fun onClick() = with(binding) {
         loginButton.setOnClickListener {
-            emailLogin()
+            if (!NetworkManager.checkNetworkState(requireContext())) {
+                toast(requireContext(), getString(R.string.network_fail))
+            } else {
+                emailLogin()
+            }
         }
         forgotButton.setOnClickListener {
             findNavController().navigate(R.id.action_emailLoginFragment_to_forgotFragment)
@@ -78,11 +61,14 @@ class EmailLoginFragment : BaseFragment<FragmentEmailLoginBinding>() {
     }
 
     private fun emailLogin() = with(binding) {
-        if (validation()) {
-            viewModel.emailLogin(emailEdittext.text.toString(), passwordEdittext.text.toString())
-            emailLoginObserver()
+            if (validation()) {
+                viewModel.emailLogin(
+                    emailEdittext.text.toString(),
+                    passwordEdittext.text.toString()
+                )
+                emailLoginObserver()
 
-        }
+            }
     }
 
     private fun emailLoginObserver() {

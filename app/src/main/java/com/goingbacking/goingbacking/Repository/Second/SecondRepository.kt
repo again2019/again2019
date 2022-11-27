@@ -10,6 +10,7 @@ import com.goingbacking.goingbacking.util.UiState
 import com.goingbacking.goingbacking.util.currentday
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Source
 
 class SecondRepository (
     val user: FirebaseUser?,
@@ -17,7 +18,7 @@ class SecondRepository (
         ): SecondRepositoryIF {
 
     val uid = user?.uid!!
-
+    val cache = Source.CACHE
     /*
     SecondMainFragment1
      */
@@ -26,7 +27,7 @@ class SecondRepository (
     override fun getSecondSaveDayInfo(result: (UiState<ArrayList<SaveTimeDayDTO>>) -> Unit) {
         firebaseFirestore.collection(SAVETIMEINFO).document(uid)
             .collection(DAY).document(currentday("yyyy-MM"))
-            .collection(currentday("yyyy-MM")).get()
+            .collection(currentday("yyyy-MM")).get(cache)
             .addOnSuccessListener {
                 val saveTimeDayDTOList = arrayListOf<SaveTimeDayDTO>()
 
@@ -52,7 +53,7 @@ class SecondRepository (
     override fun getSecondSaveMonthInfo(result: (UiState<ArrayList<SaveTimeMonthDTO>>) -> Unit) {
         firebaseFirestore.collection(SAVETIMEINFO).document(uid)
             .collection(MONTH).document(currentday("yyyy"))
-            .collection(currentday("yyyy")).get()
+            .collection(currentday("yyyy")).get(cache)
             .addOnSuccessListener {
                 val saveTimeMonthDTOList = arrayListOf<SaveTimeMonthDTO>()
 
@@ -69,7 +70,7 @@ class SecondRepository (
     override fun getSecondSaveYearInfo(result: (UiState<ArrayList<SaveTimeYearDTO>>) -> Unit) {
 
         firebaseFirestore.collection(SAVETIMEINFO).document(uid)
-            .collection("year").get()
+            .collection("year").get(cache)
             .addOnSuccessListener {
                 val saveTimeYearDTOList = arrayListOf<SaveTimeYearDTO>()
                 for(document in it){
@@ -98,7 +99,7 @@ class SecondRepository (
     override fun getSecondWhatToDoMonthInfo(result: (UiState<ArrayList<WhatToDoMonthDTO>>) -> Unit) {
         firebaseFirestore.collection(WHATTODOINFO).document(uid)
             .collection(MONTH).document(currentday("yyyy-MM"))
-            .collection(currentday("yyyy-MM")).get()
+            .collection(currentday("yyyy-MM")).get(cache)
             .addOnSuccessListener {
                 val whatToDoMonthDTOList = arrayListOf<WhatToDoMonthDTO>()
                 for (document in it) {
@@ -122,7 +123,7 @@ class SecondRepository (
     override fun getSecondWhatToDoYearInfo(result: (UiState<ArrayList<WhatToDoYearDTO>>) -> Unit)  {
         firebaseFirestore.collection(WHATTODOINFO).document(uid)
             .collection("year").document(currentday("yyyy"))
-            .collection(currentday("yyyy")).get()
+            .collection(currentday("yyyy")).get(cache)
             .addOnSuccessListener {
                 val whatToDoYearDTOList = arrayListOf<WhatToDoYearDTO>()
                 for (document in it) {

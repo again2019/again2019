@@ -17,7 +17,7 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 class CheerRecyclerViewAdapter(
-    val onDeleteClick: (String, String) -> Unit) : ListAdapter<String, CheerRecyclerViewAdapter.MyViewHolder>(diffUtil) {
+    val onDeleteClick: (String) -> Unit) : ListAdapter<String, CheerRecyclerViewAdapter.MyViewHolder>(diffUtil) {
         inner class MyViewHolder(private val binding: ItemCheerBinding) : RecyclerView.ViewHolder(binding.root) {
             fun bind(myUid :String, nickname :String, cheertext: String, original : String) = with(binding) {
                 itemCheerNickname.text = nickname
@@ -30,7 +30,7 @@ class CheerRecyclerViewAdapter(
                     AlertDialog.Builder(binding.root.context)
                         .setMessage("해당 댓글을 삭제하시겠습니까?")
                         .setPositiveButton("삭제하기") { _, _ ->
-                            onDeleteClick(PrefUtil.getCurrentUid(binding.root.context)!!, original)
+                            onDeleteClick(original)
                             val newList = currentList.toMutableList()
                             newList.removeAt(bindingAdapterPosition)
                             submitList(newList)

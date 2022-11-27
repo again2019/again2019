@@ -9,27 +9,35 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="70dp"
         android:theme="@style/ToolbarTheme"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+        <ImageView
+            android:id="@+id/backbtn"
+            android:layout_width="15dp"
+            android:layout_height="42dp"
+            android:src="@drawable/arrow"
+            android:layout_marginStart="20dp"/>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="QA"
             android:layout_gravity="center"
             android:id="@+id/toolbar_title"
-            android:textSize="20sp" />
+            android:textSize="17sp" />
 
 
     </androidx.appcompat.widget.Toolbar>
 
     <ScrollView
         android:id="@+id/scrollview1"
-        android:layout_width="350dp"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         android:layout_marginBottom="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -45,7 +53,7 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/layout01"
-                android:layout_width="350dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/colorMain"
                 android:theme="@style/Widget.MaterialComponents.CardView"
@@ -80,7 +88,7 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/layoutDetail01"
-                android:layout_width="350dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/white"
                 android:theme="@style/Widget.MaterialComponents.CardView"
@@ -89,7 +97,7 @@
                 app:strokeWidth="1dp">
 
                 <TextView
-                    android:layout_width="350dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:fontFamily="@font/medium"
@@ -102,7 +110,7 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/layout02"
-                android:layout_width="350dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:backgroundTint="@color/colorMain"
@@ -139,7 +147,7 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/layoutDetail02"
-                android:layout_width="350dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/white"
                 android:theme="@style/Widget.MaterialComponents.CardView"
@@ -153,7 +161,7 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:layout_width="350dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:fontFamily="@font/medium"
@@ -180,7 +188,7 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/layout03"
-                android:layout_width="350dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:backgroundTint="@color/colorMain"
@@ -216,7 +224,7 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/layoutDetail03"
-                android:layout_width="350dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/white"
                 android:theme="@style/Widget.MaterialComponents.CardView"
@@ -225,7 +233,7 @@
                 app:strokeWidth="1dp">
 
                 <TextView
-                    android:layout_width="350dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:fontFamily="@font/medium"
@@ -238,7 +246,7 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/layout04"
-                android:layout_width="350dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:backgroundTint="@color/colorMain"
@@ -274,7 +282,7 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/layoutDetail04"
-                android:layout_width="350dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/white"
                 android:theme="@style/Widget.MaterialComponents.CardView"
@@ -283,7 +291,7 @@
                 app:strokeWidth="1dp">
 
                 <TextView
-                    android:layout_width="350dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:fontFamily="@font/medium"
@@ -296,7 +304,7 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/layout05"
-                android:layout_width="350dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:backgroundTint="@color/colorMain"
@@ -332,7 +340,7 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/layoutDetail05"
-                android:layout_width="350dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/white"
                 android:theme="@style/Widget.MaterialComponents.CardView"
@@ -341,7 +349,7 @@
                 app:strokeWidth="1dp">
 
                 <TextView
-                    android:layout_width="350dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:fontFamily="@font/medium"

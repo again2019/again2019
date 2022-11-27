@@ -11,6 +11,7 @@ import com.goingbacking.goingbacking.Adapter.RankRecyclerViewAdapter1
 import com.goingbacking.goingbacking.R
 import com.goingbacking.goingbacking.UI.Base.BaseFragment
 import com.goingbacking.goingbacking.databinding.FragmentForthMain1Binding
+import com.goingbacking.goingbacking.util.NetworkManager
 import com.goingbacking.goingbacking.util.UiState
 import com.goingbacking.goingbacking.util.toast
 import dagger.hilt.android.AndroidEntryPoint
@@ -41,7 +42,11 @@ class ForthMainFragment1 : BaseFragment<FragmentForthMain1Binding>() {
         binding.forth1Recyclerview.adapter = adapter
         binding.forth1RefreshLayout.setOnRefreshListener {
             binding.forth1RefreshLayout.isRefreshing = false
-            observer1()
+            if (!NetworkManager.checkNetworkState(requireContext())) {
+                toast(requireContext(), getString(R.string.network_fail))
+            } else {
+                observer1()
+            }
         }
 
 
@@ -50,7 +55,11 @@ class ForthMainFragment1 : BaseFragment<FragmentForthMain1Binding>() {
     override fun onResume() {
         super.onResume()
 
-        observer1()
+        if (!NetworkManager.checkNetworkState(requireContext())) {
+            toast(requireContext(), getString(R.string.network_fail))
+        } else {
+            observer1()
+        }
     }
 
     // 랭킹을 받아오는 코드

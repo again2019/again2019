@@ -52,22 +52,10 @@ class TotalCalendarActivity : BaseActivity<ActivityTotalCalendarBinding>({
 
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        menuHost.addMenuProvider(object : MenuProvider {
-            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-            }
-
-            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-                when(menuItem.itemId) {
-                    android.R.id.home -> {
-                        finish()
-                        return true
-                    }
-                }
-                return true
-            }
-        }, this, Lifecycle.State.RESUMED)
+        binding.backbtn.setOnClickListener {
+            finish()
+        }
 
 
         CoroutineScope(Dispatchers.Main).launch {

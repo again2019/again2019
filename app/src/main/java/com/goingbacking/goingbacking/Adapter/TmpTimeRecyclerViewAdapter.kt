@@ -59,7 +59,7 @@ class TmpTimeRecyclerViewAdapter: ListAdapter<TmpTimeDTO, TmpTimeRecyclerViewAda
                     bundle.putString("simpleFormat2", simpleDate1)
                     bundle.putString("simpleFormat3", simpleDate2)
                     bundle.putString("simpleFormat4", simpleDate3)
-                    bundle.putString("startTime", item.startTime.toString())
+                    bundle.putString("wakeUpTime", item.wakeUpTime.toString())
 
                     bundle.putString("wakeUpTime1", wakeUpTime1)
                     bundle.putString("wakeUpTime2", wakeUpTime2)

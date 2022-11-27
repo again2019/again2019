@@ -29,7 +29,7 @@ class WhatToDoSaveBottomSheet : BottomSheetDialogFragment() {
     private lateinit var simpleFormat2 : String //"dd"
     private lateinit var simpleFormat3 : String //"yyyy"
     private lateinit var simpleFormat4 : String //"MM"
-    private lateinit var startTime : String
+    private lateinit var wakeUpTime : String
 
     private lateinit var wakeUpTime1 : String
     private lateinit var wakeUpTime2 : String
@@ -49,7 +49,7 @@ class WhatToDoSaveBottomSheet : BottomSheetDialogFragment() {
         simpleFormat2 = arguments?.getString("simpleFormat2")!!
         simpleFormat3 = arguments?.getString("simpleFormat3")!!
         simpleFormat4 = arguments?.getString("simpleFormat4")!!
-        startTime = arguments?.getString("startTime")!!
+        wakeUpTime = arguments?.getString("wakeUpTime")!!
 
         wakeUpTime1 = arguments?.getString("wakeUpTime1")!!
         wakeUpTime2 = arguments?.getString("wakeUpTime2")!!
@@ -125,7 +125,7 @@ class WhatToDoSaveBottomSheet : BottomSheetDialogFragment() {
                 viewModel.updateWhatToDoYearInfo(wakeUpTime3, selected.get(0), count)
                 viewModel.updateRankMonthInfo(wakeUpTime1, count)
                 viewModel.updateRankYearInfo(wakeUpTime3, count)
-                viewModel.deleteTmpTimeInfo(startTime)
+                viewModel.deleteTmpTimeInfo(wakeUpTime)
 
                 dialog!!.cancel()
 

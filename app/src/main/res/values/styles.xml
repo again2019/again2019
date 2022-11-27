@@ -34,12 +34,13 @@
         <item name="chipStrokeWidth">0.5dp</item>
         <item name="android:textColor">@color/bg_chip_text_state_list</item>
         <item name="android:textAlignment">center</item>
-        <item name="android:layout_margin">12.5dp</item>
+        <item name="android:layout_margin">5dp</item>
         <item name="android:fontFamily">@font/bold</item>
         <item name="chipCornerRadius">10dp</item>
         <item name="android:layoutDirection">rtl</item>
         <item name="chipIcon">@drawable/eclipse1</item>
         <item name="chipIconVisible">true</item>
+        <item name="android:textSize">17sp</item>
         <item name="iconStartPadding">15dp</item>
         <item name="android:checkable">true</item>
         <item name="checkedIcon">@drawable/eclipse2</item>
@@ -47,6 +48,7 @@
         <item name="checkedIconEnabled">true</item>
         <item name="android:clickable">true</item>
         <item name="rippleColor">#D9F3EF</item>
+
     </style>
 
 
@@ -126,7 +128,7 @@
     <style name="BtnType1" >
         <item name="android:textColor"> @color/white </item>
         <item name="fontFamily"> @font/bold </item>
-        <item name="android:textSize"> 17sp </item>
+        <item name="android:textSize"> 16sp </item>
         <item name="android:background">@drawable/btn_design1</item>
     </style>
 
@@ -134,7 +136,7 @@
     <style name="BtnType2">
         <item name="android:textColor"> @color/textColorPrimary </item>
         <item name="fontFamily"> @font/bold </item>
-        <item name="android:textSize"> 17sp </item>
+        <item name="android:textSize"> 16sp </item>
         <item name="android:background"> @drawable/btn_design2 </item>
     </style>
 
@@ -142,7 +144,7 @@
     <style name="BtnType3">
         <item name="android:textColor"> @color/textColorPrimary </item>
         <item name="fontFamily"> @font/bold </item>
-        <item name="android:textSize"> 17sp </item>
+        <item name="android:textSize"> 16sp </item>
         <item name="android:background"> @drawable/btn_design3 </item>
     </style>
 
@@ -166,6 +168,14 @@
         <item name="android:letterSpacing"> -0.02 </item>
     </style>
 
+
+    <style name="tutorialText" >
+        <item name="android:textColor"> @color/textGray </item>
+        <item name="fontFamily"> @font/bold </item>
+        <item name="android:letterSpacing"> -0.02 </item>
+        <item name="android:gravity"> center </item>
+        <item name="android:textSize"> 19sp </item>
+    </style>
 
     <style name="MyTimePickerTheme" parent="android:Widget.Material.Light.TimePicker">
         <item name="android:timePickerMode">spinner</item>

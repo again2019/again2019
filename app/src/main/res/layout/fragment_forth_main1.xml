@@ -4,8 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".UI.Main.Forth.ForthMainFragment1"
->
+    tools:context=".UI.Main.Forth.ForthMainFragment1">
 
    <com.google.android.material.progressindicator.CircularProgressIndicator
        android:id="@+id/progress_circular"
@@ -19,15 +18,22 @@
 
    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
        android:id="@+id/forth1_refreshLayout"
-       android:layout_width="match_parent"
-       android:layout_height="match_parent"
+       android:layout_width="0dp"
+       android:layout_height="0dp"
+       android:layout_marginStart="10dp"
+       android:layout_marginEnd="10dp"
+       android:layout_marginBottom="10dp"
        android:orientation="vertical"
+       app:layout_constraintBottom_toBottomOf="parent"
+       app:layout_constraintEnd_toEndOf="parent"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintTop_toTopOf="parent"
        tools:context=".MainActivity">
 
-   <androidx.recyclerview.widget.RecyclerView
-       android:id="@+id/forth1_recyclerview"
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"/>
+      <androidx.recyclerview.widget.RecyclerView
+          android:id="@+id/forth1_recyclerview"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content" />
 
    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 

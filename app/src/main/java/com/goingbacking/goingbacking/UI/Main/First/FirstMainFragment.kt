@@ -15,7 +15,6 @@ import com.goingbacking.goingbacking.Adapter.TodayRecyclerViewAdapter
 import com.goingbacking.goingbacking.R
 import com.goingbacking.goingbacking.UI.Base.BaseFragment
 import com.goingbacking.goingbacking.UI.Main.Third.ScheduleInputActivity
-import com.goingbacking.goingbacking.bottomsheet.CheerBottomSheet
 import com.goingbacking.goingbacking.databinding.FragmentFirstMainBinding
 import com.goingbacking.goingbacking.util.*
 
@@ -51,16 +50,18 @@ class FirstMainFragment : BaseFragment<FragmentFirstMainBinding>() {
         val todayWhatToDo = PrefUtil.getTodayWhatToDo(requireActivity()).toString()
         val todayWhatToDoTime = PrefUtil.getTodayWhatToDoTime(requireActivity()).toString()
 
-       if(!(todayWhatToDo.equals("") || todayWhatToDoTime.equals(""))) {
+       if((todayWhatToDo.length <= 2 || todayWhatToDoTime.length <= 2)) {
+
+           binding.todayRecyclerView.makeGONE()
+           binding.noPlanTextView.makeVisible()
+
+        } else {
            binding.noPlanTextView.makeGONE()
            val todayWhatToDo2 = todayWhatToDo.removeSurrounding("[", "]").split(", ")
-            val todayWhatToDoTime2 = todayWhatToDoTime.removeSurrounding("[", "]").split(", ")
-            val adapter = TodayRecyclerViewAdapter(requireActivity(), todayWhatToDo2, todayWhatToDoTime2)
-            binding.todayRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-            binding.todayRecyclerView.adapter = adapter
-        } else {
-            binding.todayScrollView.makeGONE()
-            binding.noPlanTextView.makeVisible()
+           val todayWhatToDoTime2 = todayWhatToDoTime.removeSurrounding("[", "]").split(", ")
+           val adapter = TodayRecyclerViewAdapter(requireActivity(), todayWhatToDo2, todayWhatToDoTime2)
+           binding.todayRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+           binding.todayRecyclerView.adapter = adapter
        }
 
         onClick()
@@ -71,13 +72,7 @@ class FirstMainFragment : BaseFragment<FragmentFirstMainBinding>() {
 
     private fun onClick() = with(binding) {
 
-        myMessage.setOnClickListener {
-            val bottom = CheerBottomSheet()
-            val bundle = Bundle()
-            bundle.putString("destinationUid", PrefUtil.getCurrentUid(requireContext()))
-            bottom.arguments = bundle
-            bottom.show(childFragmentManager, bottom.tag)
-        }
+
 
         tmpTimeButton.setOnClickListener {
             moveTmpTimePage()
@@ -85,8 +80,12 @@ class FirstMainFragment : BaseFragment<FragmentFirstMainBinding>() {
 
         todayTextHide.makeVisible()
         todayTextHide.setOnClickListener {
-            todayTextHide.makeGONE()
-            todayText.makeVisible()
+            if (!NetworkManager.checkNetworkState(requireContext())) {
+                toast(requireContext(), getString(R.string.network_fail))
+            } else {
+                todayTextHide.makeGONE()
+                todayText.makeVisible()
+            }
         }
 
         addPlanButton.setOnClickListener {
@@ -137,7 +136,7 @@ class FirstMainFragment : BaseFragment<FragmentFirstMainBinding>() {
             .setWidth(BalloonSizeSpec.WRAP)
             .setText(string)
             .setTextColorResource(R.color.white)
-            .setTextSize(15f)
+            .setTextSize(13f)
             .setArrowSize(10)
             .setPadding(12)
             .setArrowPosition(0.5f)
@@ -145,6 +144,7 @@ class FirstMainFragment : BaseFragment<FragmentFirstMainBinding>() {
             .setBackgroundColorResource(R.color.colorPrimaryDark)
             .setArrowPositionRules(ArrowPositionRules.ALIGN_ANCHOR)
             .setIconDrawableResource(R.drawable.dot2)
+            .setIconSize(18)
             .build()
         return balloon
     }

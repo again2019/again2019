@@ -47,17 +47,17 @@ class TutorialActivity : BaseActivity<ActivityTutorialBinding>({
     }
 
     private fun initAdapter() {
-        val fragmentList = listOf(Tutorial1Fragment(), Tutorial2Fragment())
+        val fragmentList = listOf(Tutorial1Fragment(), Tutorial2Fragment(), Tutorial3Fragment())
         tutorialViewPagerAdapter = TutorialViewPagerAdapter(this)
         tutorialViewPagerAdapter.fragments.addAll(fragmentList)
 
         binding.TutorialViewPager.adapter = tutorialViewPagerAdapter
-
+        binding.dotsIndicator.setViewPager2(binding.TutorialViewPager)
     }
 
     @RequiresApi(Build.VERSION_CODES.S)
     private fun notification() {
-        val calendar = calendar(17,48,0,0)
+        val calendar = calendar(0,0,0,0)
         // 매일 12시마다 초기화가 되면 CountReceiver의 작업을 수행함.
         val alarmIntent = Intent(this, CountReceiver::class.java)
         alarmIntent.putExtra(Constants.ID, Constants.VALUE)

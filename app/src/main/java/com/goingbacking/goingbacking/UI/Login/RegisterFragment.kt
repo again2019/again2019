@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.goingbacking.goingbacking.R
 import com.goingbacking.goingbacking.UI.Base.BaseFragment
 import com.goingbacking.goingbacking.databinding.FragmentRegisterBinding
+import com.goingbacking.goingbacking.util.NetworkManager
 import com.goingbacking.goingbacking.util.UiState
 import com.goingbacking.goingbacking.util.isValidEmail
 import com.goingbacking.goingbacking.util.toast
@@ -31,26 +32,10 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
 
         (activity as AppCompatActivity).setSupportActionBar(binding.toolbar)
         (activity as AppCompatActivity).supportActionBar?.setDisplayShowTitleEnabled(false)
-        (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        val menuHost: MenuHost = requireActivity()
-        menuHost.addMenuProvider(object : MenuProvider {
-            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-            }
 
-            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-                when(menuItem.itemId) {
-                    android.R.id.home -> {
-                        findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
-
-                        return true
-                    }
-                }
-
-
-
-                return true
-            }
-        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
+        binding.backbtn.setOnClickListener {
+            findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
+        }
 
         onClick()
     }
@@ -77,9 +62,16 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
     private fun onClick() = with(binding) {
 
             registerButton.setOnClickListener {
-                if (validation()) {
-                    viewModel.emailRegister(registerEmailEdittext.text.toString(), registerPasswordEdittext1.text.toString())
-                    observer()
+                if (!NetworkManager.checkNetworkState(requireContext())) {
+                    toast(requireContext(), getString(R.string.network_fail))
+                } else {
+                    if (validation()) {
+                        viewModel.emailRegister(
+                            registerEmailEdittext.text.toString(),
+                            registerPasswordEdittext1.text.toString()
+                        )
+                        observer()
+                    }
                 }
             }
 

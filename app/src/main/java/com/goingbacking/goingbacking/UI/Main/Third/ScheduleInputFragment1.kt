@@ -32,26 +32,14 @@ class ScheduleInputFragment1 : BaseFragment<FragmentScheduleInput1Binding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val menuHost: MenuHost = requireActivity()
-
         (activity as AppCompatActivity).setSupportActionBar(binding.toolbar)
         (activity as AppCompatActivity).supportActionBar?.setDisplayShowTitleEnabled(false)
-        (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        menuHost.addMenuProvider(object : MenuProvider {
-            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-            }
+        toast(requireContext(), "같은 달의 스케줄 입력만 가능합니다.")
 
-            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-                when(menuItem.itemId) {
-                    android.R.id.home -> {
-                        activity!!.finish()
-                        return true
-                    }
-                }
-                return true
-            }
-        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
+        binding.backbtn.setOnClickListener {
+            requireActivity().finish()
+        }
 
         binding.durationCalendarView.selectionManager = RangeSelectionManager(OnDaySelectedListener {
             if(binding.durationCalendarView.selectedDates.size <= 0) return@OnDaySelectedListener

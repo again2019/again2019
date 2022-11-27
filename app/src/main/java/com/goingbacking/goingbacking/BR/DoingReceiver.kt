@@ -121,6 +121,7 @@ class DoingReceiver : BroadcastReceiver() {
             "MOVE" -> {
                 val intent4 = Intent(context, AlarmService::class.java)
                 intent4.action = "MOVE"
+                Log.d("experiment", "In Doing Receiver")
                 context.startService(intent4)
             }
             ACTION_THIS_NO_START -> {

@@ -8,9 +8,10 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout12"
-        android:layout_width="380dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar">
@@ -23,13 +24,22 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="70dp"
         android:theme="@style/ToolbarTheme"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="30dp">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/backbtn"
+            android:layout_width="15dp"
+            android:layout_height="42dp"
+            android:layout_marginStart="20dp"
+            android:src="@drawable/arrow" />
 
         <TextView
             android:id="@+id/toolbar_title"
@@ -37,7 +47,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="전체 일정"
-            android:textSize="20sp" />
+            android:textSize="17sp" />
     </androidx.appcompat.widget.Toolbar>
 
     <com.google.android.material.progressindicator.CircularProgressIndicator
@@ -52,13 +62,15 @@
 
     <com.kizitonwose.calendarview.CalendarView
         android:id="@+id/totalthreeCalendar"
-        android:layout_width="380dp"
+        android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         app:cv_dayViewResource="@layout/item_calendar_day"
         app:cv_monthHeaderResource="@layout/item_calendar_header"
         app:cv_orientation="vertical"
         app:cv_scrollMode="continuous"
-        android:layout_marginBottom="30dp"
+        android:layout_marginBottom="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

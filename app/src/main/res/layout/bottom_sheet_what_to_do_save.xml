@@ -8,10 +8,10 @@
 
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="330dp"
+        android:layout_width="0dp"
         android:layout_height="30dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="30dp"
         android:fontFamily="@font/bold"
         android:letterSpacing="-0.02"
         android:gravity="left"
@@ -26,7 +26,7 @@
         android:id="@+id/xBtn"
         android:layout_width="20dp"
         android:layout_height="30dp"
-        android:layout_marginEnd="30dp"
+        android:layout_marginEnd="15dp"
         android:scaleType="centerInside"
         android:src="@drawable/x"
         android:visibility="visible"
@@ -36,7 +36,7 @@
 
     <View
         android:id="@+id/view"
-        android:layout_width="350dp"
+        android:layout_width="0dp"
         android:layout_height="1dp"
         android:layout_marginTop="30dp"
         android:background="@color/colorHorizontal"
@@ -179,44 +179,68 @@
 
     <TextView
         android:id="@+id/noTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:fontFamily="@font/bold"
         android:text="@string/whattodobottomsheet_ment9"
         android:textColor="@color/titleMain"
         android:textSize="20sp"
-        android:layout_marginTop="20dp"
+        android:visibility="gone"
+        android:gravity="center_vertical"
+        app:layout_constraintBottom_toBottomOf="@+id/chipGroup"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/text3"
-        app:layout_constraintTop_toBottomOf="@+id/text3"
-        android:visibility="gone"/>
-    <Button
-        android:id="@+id/whatToDoSaveButton"
-        style="@style/BtnType1"
-        android:layout_width="170dp"
-        android:layout_height="wrap_content"
-        android:padding="19dp"
-        android:layout_marginBottom="60dp"
-        android:text="@string/whattodobottomsheet_ment10"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/view"
-        app:layout_constraintTop_toTopOf="@+id/exitButton" />
+        app:layout_constraintTop_toTopOf="@+id/chipGroup" />
 
-    <Button
-        android:id="@+id/exitButton"
-        style="@style/BtnType3"
-        android:layout_width="170dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
-        android:layout_marginEnd="10dp"
         android:layout_marginBottom="60dp"
-        android:padding="19dp"
-        android:text="@string/whattodobottomsheet_ment11"
+        android:layout_marginTop="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/whatToDoSaveButton"
+        app:layout_constraintEnd_toEndOf="@+id/xBtn"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/textView2"
-        app:layout_constraintTop_toBottomOf="@+id/chipGroup"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/chipGroup">
+
+        <Button
+            android:id="@+id/exitButton"
+            style="@style/BtnType3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:padding="19dp"
+            android:text="아니에요"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/constraintLayout19"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout19"
+            android:layout_width="10dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <Button
+            android:id="@+id/whatToDoSaveButton"
+            style="@style/BtnType1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:padding="19dp"
+            android:text="네 맞아요!"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/constraintLayout19"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
     <com.google.android.material.progressindicator.CircularProgressIndicator
         android:id="@+id/progress_circular"

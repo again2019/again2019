@@ -146,7 +146,7 @@ class CountReceiver : BroadcastReceiver() {
                 second = 0,
                 millisecond = 0
             )
-
+            Log.d("experiment", "first")
 
         } else if (beforeInfoDTO.equals(nowInfoDTO)) {
             todayTotalTime = todayTotalTime + beforeInfoDTO.end_t!!.toInt()
@@ -164,6 +164,9 @@ class CountReceiver : BroadcastReceiver() {
                 second = 0,
                 millisecond = 0
             )
+
+            Log.d("experiment", "second")
+
         }
 
         else {
@@ -182,6 +185,9 @@ class CountReceiver : BroadcastReceiver() {
                 second = 0,
                 millisecond = 0
             )
+
+            Log.d("experiment", "third")
+
         }
 
         nextIntent.putExtra(ID, id)
@@ -199,7 +205,7 @@ class CountReceiver : BroadcastReceiver() {
         val type = intent.getStringExtra(TYPE)
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val notificationChannel = NotificationChannel("notificationChannel_$id", "$type", NotificationManager.IMPORTANCE_HIGH)
+            val notificationChannel = NotificationChannel("notificationChannel_$id", "$type", NotificationManager.IMPORTANCE_LOW)
             notificationChannel.run{
                 enableVibration(true)
                 description = "notification"
@@ -217,12 +223,12 @@ class CountReceiver : BroadcastReceiver() {
         val contentPendingIntent = PendingIntent.getActivity(context, id, contentIntent, FLAG_MUTABLE)
         val builder = NotificationCompat.Builder(context, "notificationChannel_$id")
             .setSmallIcon(R.mipmap.com_back_new)
-            .setContentTitle("매일마다 울리는 알림입니다")
-            .setContentText("매일마다 울리는 알림입니다")
+            .setContentTitle("일정 업데이트")
+            .setContentText("새로운 하루의 일정을 업데이트 합니다!")
             .setContentIntent(contentPendingIntent)
-            .setPriority(NotificationCompat.PRIORITY_HIGH)
+            .setPriority(NotificationCompat.PRIORITY_LOW)
             .setAutoCancel(true)
-            .setStyle(NotificationCompat.BigTextStyle().bigText("매일마다 울리는 알림입니다"))
+            .setStyle(NotificationCompat.BigTextStyle().bigText("새로운 하루의 일정을 업데이트 합니다!"))
             .setDefaults(NotificationCompat.DEFAULT_ALL)
 
         notificationManager.notify(id, builder.build())

@@ -13,7 +13,7 @@
         android:layout_weight="1"
         android:gravity="center"
         android:text="일"
-        android:textColor="#666666"
+        android:textColor="@color/black"
         android:textSize="14sp"
         android:fontFamily="@font/medium"/>
 
@@ -24,7 +24,7 @@
         android:layout_weight="1"
         android:gravity="center"
         android:text="월"
-        android:textColor="#666666"
+        android:textColor="@color/black"
         android:textSize="14sp"
         android:fontFamily="@font/medium"/>
 
@@ -35,7 +35,7 @@
         android:layout_weight="1"
         android:gravity="center"
         android:text="화"
-        android:textColor="#666666"
+        android:textColor="@color/black"
         android:textSize="14sp"
         android:fontFamily="@font/medium"/>
 
@@ -46,7 +46,7 @@
         android:layout_weight="1"
         android:gravity="center"
         android:text="수"
-        android:textColor="#666666"
+        android:textColor="@color/black"
         android:textSize="14sp"
         android:fontFamily="@font/medium"/>
 
@@ -57,7 +57,7 @@
         android:layout_weight="1"
         android:gravity="center"
         android:text="목"
-        android:textColor="#666666"
+        android:textColor="@color/black"
         android:textSize="14sp"
         android:fontFamily="@font/medium"/>
 
@@ -68,7 +68,7 @@
         android:layout_weight="1"
         android:gravity="center"
         android:text="금"
-        android:textColor="#666666"
+        android:textColor="@color/black"
         android:textSize="14sp"
         android:fontFamily="@font/medium"/>
 
@@ -79,7 +79,7 @@
         android:layout_weight="1"
         android:gravity="center"
         android:text="토"
-        android:textColor="#666666"
+        android:textColor="@color/black"
         android:textSize="14sp"
         android:fontFamily="@font/medium"/>
 

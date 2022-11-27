@@ -19,18 +19,26 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="70dp"
         android:theme="@style/ToolbarTheme"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/backbtn"
+            android:layout_width="15dp"
+            android:layout_height="42dp"
+            android:src="@drawable/arrow"
+            android:layout_marginStart="20dp"/>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/input_ment17"
             android:layout_gravity="center"
             android:id="@+id/toolbar_title"
-            android:textSize="20sp"
+            android:textSize="17sp"
             />
     </androidx.appcompat.widget.Toolbar>
 
@@ -38,8 +46,7 @@
         android:id="@+id/progress_bar"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:layout_marginTop="40dp"
-
+        android:layout_marginTop="10dp"
         android:scaleType="fitXY"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -48,183 +55,163 @@
         app:lottie_autoPlay="false"
         app:lottie_fileName="progress_bar.json" />
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="116dp"
-        android:fontFamily="@font/light"
-        android:text="@string/input_ment18"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="@+id/chipGroupScroll"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
-
 
     <TextView
         android:id="@+id/nickname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
         android:fontFamily="@font/bold"
         android:letterSpacing="-0.02"
         android:text="@string/input_ment19"
         android:textColor="@color/titleMain"
         android:textSize="22sp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/thirdInputButton"
         app:layout_constraintTop_toBottomOf="@+id/progress_bar" />
 
     <ScrollView
         android:id="@+id/chipGroupScroll"
-        android:layout_width="360dp"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginBottom="60dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
         app:layout_constraintBottom_toTopOf="@+id/thirdInputButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/thirdInputButton"
+        app:layout_constraintStart_toStartOf="@+id/thirdInputButton"
         app:layout_constraintTop_toBottomOf="@+id/nickname">
 
-    <com.google.android.material.chip.ChipGroup
-        android:id="@+id/chipGroup"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal">
 
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chip1"
-            style="@style/Colors_Widget.MaterialComponents.Chip.Choice"
-            android:layout_width="150dp"
-            android:layout_height="70dp"
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chipGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:chipSpacingHorizontal="0dp">
 
-            android:text="@string/self_dev1"
-            android:textAppearance="@style/AppTheme.GenderChip"
-            android:theme="@style/Theme.MaterialComponents.Light"
-            app:closeIconStartPadding="0dp"
-            app:iconEndPadding="0dp"
-            app:iconStartPadding="15dp" />
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip1"
+                    style="@style/Colors_Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="150dp"
+                    android:layout_height="70dp"
+                    android:text="@string/self_dev1"
+                    android:textAppearance="@style/AppTheme.GenderChip"
+                    android:theme="@style/Theme.MaterialComponents.Light"
+                    app:closeIconStartPadding="0dp"
+                    app:iconEndPadding="0dp"
+                    app:iconStartPadding="15dp" />
 
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chip2"
-            style="@style/Colors_Widget.MaterialComponents.Chip.Choice"
-            android:layout_width="150dp"
-            android:layout_height="70dp"
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip2"
+                    style="@style/Colors_Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="150dp"
+                    android:layout_height="70dp"
+                    android:text="@string/self_dev2"
+                    android:theme="@style/Theme.MaterialComponents.Light" />
 
-            android:text="@string/self_dev2"
-            android:theme="@style/Theme.MaterialComponents.Light" />
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip3"
+                    style="@style/Colors_Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="150dp"
+                    android:layout_height="70dp"
 
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chip3"
-            style="@style/Colors_Widget.MaterialComponents.Chip.Choice"
-            android:layout_width="150dp"
-            android:layout_height="70dp"
+                    android:text="@string/self_dev3"
+                    android:textAlignment="center"
+                    android:theme="@style/Theme.MaterialComponents.Light" />
 
-            android:text="@string/self_dev3"
-            android:textAlignment="center"
-            android:theme="@style/Theme.MaterialComponents.Light" />
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip4"
+                    style="@style/Colors_Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="150dp"
+                    android:layout_height="70dp"
 
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chip4"
-            style="@style/Colors_Widget.MaterialComponents.Chip.Choice"
-            android:layout_width="150dp"
-            android:layout_height="70dp"
+                    android:text="@string/self_dev4"
 
-            android:text="@string/self_dev4"
+                    android:theme="@style/Theme.MaterialComponents.Light" />
 
-            android:theme="@style/Theme.MaterialComponents.Light" />
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip5"
+                    style="@style/Colors_Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="150dp"
+                    android:layout_height="70dp"
+                    android:text="@string/self_dev5"
+                    android:theme="@style/Theme.MaterialComponents.Light" />
 
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chip5"
-            style="@style/Colors_Widget.MaterialComponents.Chip.Choice"
-            android:layout_width="150dp"
-            android:layout_height="70dp"
-            android:text="@string/self_dev5"
-            android:theme="@style/Theme.MaterialComponents.Light" />
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip6"
+                    style="@style/Colors_Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="150dp"
+                    android:layout_height="70dp"
+                    android:text="@string/self_dev6"
+                    android:theme="@style/Theme.MaterialComponents.Light" />
 
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chip6"
-            style="@style/Colors_Widget.MaterialComponents.Chip.Choice"
-            android:layout_width="150dp"
-            android:layout_height="70dp"
-            android:text="@string/self_dev5"
-            android:theme="@style/Theme.MaterialComponents.Light" />
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip7"
+                    style="@style/Colors_Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="150dp"
+                    android:layout_height="70dp"
+                    android:text="@string/self_dev7"
+                    android:theme="@style/Theme.MaterialComponents.Light" />
 
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chip7"
-            style="@style/Colors_Widget.MaterialComponents.Chip.Choice"
-            android:layout_width="150dp"
-            android:layout_height="70dp"
-            android:text="@string/self_dev5"
-            android:theme="@style/Theme.MaterialComponents.Light" />
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip8"
+                    style="@style/Colors_Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="150dp"
+                    android:layout_height="70dp"
+                    android:text="@string/self_dev8"
+                    android:theme="@style/Theme.MaterialComponents.Light" />
 
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chip8"
-            style="@style/Colors_Widget.MaterialComponents.Chip.Choice"
-            android:layout_width="150dp"
-            android:layout_height="70dp"
-            android:text="@string/self_dev5"
-            android:theme="@style/Theme.MaterialComponents.Light" />
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip9"
+                    style="@style/Colors_Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="150dp"
+                    android:layout_height="70dp"
+                    android:text="@string/self_dev9"
+                    android:theme="@style/Theme.MaterialComponents.Light" />
 
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chip9"
-            style="@style/Colors_Widget.MaterialComponents.Chip.Choice"
-            android:layout_width="150dp"
-            android:layout_height="70dp"
-            android:text="@string/self_dev5"
-            android:theme="@style/Theme.MaterialComponents.Light" />
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip10"
+                    style="@style/Colors_Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="150dp"
+                    android:layout_height="70dp"
+                    android:text="@string/self_dev10"
+                    android:theme="@style/Theme.MaterialComponents.Light" />
 
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chip10"
-            style="@style/Colors_Widget.MaterialComponents.Chip.Choice"
-            android:layout_width="150dp"
-            android:layout_height="70dp"
-            android:text="@string/self_dev5"
-            android:theme="@style/Theme.MaterialComponents.Light" />
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip11"
+                    style="@style/Colors_Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="150dp"
+                    android:layout_height="70dp"
+                    android:text="@string/self_dev11"
+                    android:theme="@style/Theme.MaterialComponents.Light" />
 
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chip11"
-            style="@style/Colors_Widget.MaterialComponents.Chip.Choice"
-            android:layout_width="150dp"
-            android:layout_height="70dp"
-            android:text="@string/self_dev5"
-            android:theme="@style/Theme.MaterialComponents.Light" />
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip12"
+                    style="@style/Colors_Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="150dp"
+                    android:layout_height="70dp"
+                    android:text="@string/self_dev12"
+                    android:theme="@style/Theme.MaterialComponents.Light" />
 
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chip12"
-            style="@style/Colors_Widget.MaterialComponents.Chip.Choice"
-            android:layout_width="150dp"
-            android:layout_height="70dp"
-            android:text="@string/self_dev5"
-            android:theme="@style/Theme.MaterialComponents.Light" />
+            </com.google.android.material.chip.ChipGroup>
 
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chip13"
-            style="@style/Colors_Widget.MaterialComponents.Chip.Choice"
-            android:layout_width="150dp"
-            android:layout_height="70dp"
-            android:text="@string/self_dev5"
-            android:theme="@style/Theme.MaterialComponents.Light" />
+        </LinearLayout>
 
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chip14"
-            style="@style/Colors_Widget.MaterialComponents.Chip.Choice"
-            android:layout_width="150dp"
-            android:layout_height="70dp"
-            android:text="@string/self_dev5"
-            android:theme="@style/Theme.MaterialComponents.Light" />
-
-
-    </com.google.android.material.chip.ChipGroup>
     </ScrollView>
 
     <Button
         android:id="@+id/thirdInputButton"
         style="@style/BtnType1"
-        android:layout_width="360dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         android:layout_marginBottom="60dp"
         android:padding="19dp"
         android:text="@string/input_ment20"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/chipGroupScroll"
-        app:layout_constraintStart_toStartOf="@+id/chipGroupScroll" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

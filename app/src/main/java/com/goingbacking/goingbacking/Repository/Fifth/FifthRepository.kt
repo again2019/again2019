@@ -63,6 +63,8 @@ class FifthRepository(
     override fun signout(result: (UiState<String>) -> Unit) {
         firebaseAuth.currentUser!!.delete().addOnCompleteListener {
             if (it.isSuccessful) {
+                firebaseAuth.signOut()
+
                 result.invoke(UiState.Success(SUCCESS))
 
             }

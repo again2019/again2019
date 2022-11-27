@@ -11,6 +11,7 @@
         android:gravity="center"
         android:text="month"
         android:textColor="@color/black"
-        android:textSize="14sp" />
+        android:fontFamily="@font/medium"
+        android:textSize="17sp" />
 
 </LinearLayout>

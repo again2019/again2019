@@ -16,6 +16,7 @@ import com.goingbacking.goingbacking.Model.Event
 import com.goingbacking.goingbacking.R
 import com.goingbacking.goingbacking.UI.Base.BaseFragment
 import com.goingbacking.goingbacking.databinding.FragmentScheduleInput2Binding
+import com.goingbacking.goingbacking.util.NetworkManager
 import com.goingbacking.goingbacking.util.convertDateToTimeStamp
 import com.goingbacking.goingbacking.util.toast
 import dagger.hilt.android.AndroidEntryPoint
@@ -43,27 +44,12 @@ class ScheduleInputFragment2 : BaseFragment<FragmentScheduleInput2Binding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val menuHost: MenuHost = requireActivity()
-
         (activity as AppCompatActivity).setSupportActionBar(binding.toolbar)
         (activity as AppCompatActivity).supportActionBar?.setDisplayShowTitleEnabled(false)
-        (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        menuHost.addMenuProvider(object : MenuProvider {
-            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-            }
-
-            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-                when(menuItem.itemId) {
-                    android.R.id.home -> {
-                        findNavController().navigate(R.id.action_scheduleInputFragment2_to_scheduleInputFragment1)
-                        return true
-                    }
-                }
-                return true
-            }
-        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
-
+        binding.backbtn.setOnClickListener {
+            findNavController().navigate(R.id.action_scheduleInputFragment2_to_scheduleInputFragment1)
+        }
 
         val args : ScheduleInputFragment2Args by navArgs()
         date = args.dateList
@@ -165,38 +151,46 @@ class ScheduleInputFragment2 : BaseFragment<FragmentScheduleInput2Binding>() {
             }
 
             finishBtn.setOnClickListener {
-                if (destinationPlaceEditText.text.isNullOrEmpty()) {
-                    toast(requireActivity(), getString(R.string.destination_input_fail))
-                } else if (home1time == null) {
-                        toast(requireActivity(), getString(R.string.first_start_time_fail))
-                } else if (home2time == null) {
-                        toast(requireActivity(), getString(R.string.first_end_time_fail))
-                } else if (dest1time == null) {
-                        toast(requireActivity(), getString(R.string.second_start_time_fail))
-                } else if (dest2time == null) {
-                        toast(requireActivity(), getString(R.string.second_end_time_fail))
+                if (!NetworkManager.checkNetworkState(requireContext())) {
+                    toast(requireContext(), getString(R.string.network_fail))
                 } else {
-                    for (day in date) {
-                        val event = Event(
-                            dest = binding.destinationPlaceEditText.text.toString(),
-                            date = day,
-                            start = home2time,
-                            end = dest1time,
-                            start_t = home2time!! - home1time!!,
-                            end_t = dest2time!! - dest1time!!
-                        )
+                    if (destinationPlaceEditText.text.isNullOrEmpty()) {
+                        toast(requireActivity(), getString(R.string.destination_input_fail))
+                    } else if (home1time == null) {
+                        toast(requireActivity(), getString(R.string.first_start_time_fail))
+                    } else if (home2time == null) {
+                        toast(requireActivity(), getString(R.string.first_end_time_fail))
+                    } else if (dest1time == null) {
+                        toast(requireActivity(), getString(R.string.second_start_time_fail))
+                    } else if (dest2time == null) {
+                        toast(requireActivity(), getString(R.string.second_end_time_fail))
+                    } else {
+                        for (day in date) {
+                            val event = Event(
+                                dest = binding.destinationPlaceEditText.text.toString(),
+                                date = day,
+                                start = home2time,
+                                end = dest1time,
+                                start_t = home2time!! - home1time!!,
+                                end_t = dest2time!! - dest1time!!
+                            )
 
-                        val path2 =
-                            convertDateToTimeStamp(day + "-" + home2ButtonText).toString()
+                            val path2 =
+                                convertDateToTimeStamp(day + "-" + home2ButtonText).toString()
 
-                        val dateDTO = DateDTO(
-                            dateList = date.toList()
-                        )
-                        viewModel.addDateInfo(yearMonth, dateDTO)
-                        viewModel.addScheduleEventInfo(yearMonth, path2, event)
-                        requireActivity().finish()
+                            val dateDTO = DateDTO(
+                                dateList = date.toList()
+                            )
+                            viewModel.addDateInfo(yearMonth, dateDTO)
+                            viewModel.addScheduleEventInfo(yearMonth, path2, event)
+
+                            toast(requireContext(), "등록 완료했습니다. 다음 날부터 사용 가능합니다.")
+                            requireActivity().finish()
+                        }
                     }
                 }
+
+
             }
         }
 }
