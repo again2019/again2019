@@ -120,22 +120,6 @@ class FifthMainFragment : BaseFragment<FragmentFifthMainBinding>() {
                 }
                 .setNegativeButton("나가기", null)
                 .show()
-
-
-//            viewModel.logout()
-//            viewModel.logout.observe(viewLifecycleOwner) { state ->
-//                when (state) {
-//                    is UiState.Success -> {
-//                        toast(requireContext(), getString(R.string.logout_success))
-//                        PrefUtil.setCurrentUid(null, requireContext())
-//                        initPref()
-//                        val intent = Intent(requireContext(), LoginActivity::class.java)
-//                        startActivity(intent)
-//                        finishAffinity(requireActivity())
-//                    }
-//
-//                }
-//            }
         }
     }
 
