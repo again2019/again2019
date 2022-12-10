@@ -75,7 +75,7 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
             .setNegativeButton("나가기", null)
             .show()
     }
-    
+
     private var selectedDate: LocalDate? = null
     private val today = LocalDate.now()
     private val selectionFormatter = DateTimeFormatter.ofPattern("MM/dd(E)")
@@ -385,7 +385,3 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
 
 
 }
-
-
-
-

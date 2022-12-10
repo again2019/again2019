@@ -69,7 +69,7 @@ class ThirdRepository(
         CoroutineScope(Dispatchers.IO).launch {
             val tmp = firebaseFirestore.collection(DATE).document(uid)
                 .collection(year_month).document(year_month)
-                .get().await().toObject(DateDTO::class.java)
+                .get(cache).await().toObject(DateDTO::class.java)
 
 
             Log.d("experiment", "tmp: " + tmp.toString())
@@ -98,7 +98,7 @@ class ThirdRepository(
                 val tmp_year_month = YearMonth.now().plusMonths(i.toLong()).toString()
                 val tmp = firebaseFirestore.collection(DATE).document(uid)
                     .collection(tmp_year_month).document(tmp_year_month)
-                    .get().await().toObject(DateDTO::class.java)
+                    .get(cache).await().toObject(DateDTO::class.java)
                 if (tmp == null) {
                     continue
                 } else {
@@ -306,7 +306,7 @@ class ThirdRepository(
             events.clear()
 
             val yearList = firebaseFirestore.collection("Date").document(uid)
-                .collection(currentday("yyyy-MM")).document(currentday("yyyy-MM")).get().await()
+                .collection(currentday("yyyy-MM")).document(currentday("yyyy-MM")).get(cache).await()
                 .toObject(DateDTO::class.java)!!.dateList
 
 
@@ -668,7 +668,7 @@ class ThirdRepository(
                 )
             }
 
-        }
+    }
 
 
 
