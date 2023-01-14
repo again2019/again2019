@@ -25,7 +25,10 @@ class ForgetFragment : BaseFragment<FragmentForgetBinding>() {
         inflater: LayoutInflater,
         container: ViewGroup?
     ): FragmentForgetBinding {
-        return FragmentForgetBinding.inflate(inflater, container, false)
+        return FragmentForgetBinding.inflate(inflater)
+
+        // inflate: layout id를 알고 있는 경우
+        // databinding: layout id를 모르고 있는 경우우
     }
 
     val viewModel : LoginViewModel by viewModels()
