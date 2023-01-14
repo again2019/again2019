@@ -125,8 +125,6 @@ class ThirdMainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-        observer1()
->>>>>>> Stashed changes:app/src/main/java/com/goingbacking/goingbacking/UI/Main/ThirdMainFragment.kt
         binding.exThreeRv.apply {
             layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
             adapter = eventsAdapter
