@@ -1,6 +1,7 @@
 package com.goingbacking.goingbacking.Repository.Forth
 
 import com.goingbacking.goingbacking.FCM.FirebaseTokenManager
+import com.goingbacking.goingbacking.FCM.NotificationAPI
 import com.goingbacking.goingbacking.FCM.NotificationData
 import com.goingbacking.goingbacking.FCM.PushNotification
 import com.goingbacking.goingbacking.Model.*
@@ -18,7 +19,8 @@ import kotlinx.coroutines.tasks.await
 
 class RankRepository  (
     val user: FirebaseUser?,
-    val firebaseFirestore: FirebaseFirestore
+    val firebaseFirestore: FirebaseFirestore,
+    val notificationAPI: NotificationAPI
 ): RankRepositoryIF {
     val uid = user?.uid!!
 
@@ -161,7 +163,9 @@ class RankRepository  (
                         NotificationData("좋아요", it.toObject(UserInfoDTO::class.java)!!.userNickName!! + "님의 좋아요 수가 늘었습니다! 확인해보세요!"),
                         it.toObject(UserInfoDTO::class.java)!!.token!!
                     ).also {
-                        FirebaseTokenManager.sendNotification(it)
+                        CoroutineScope(Dispatchers.IO).launch {
+                            notificationAPI.postNotification(it)
+                        }
                     }
 
                     result.invoke(

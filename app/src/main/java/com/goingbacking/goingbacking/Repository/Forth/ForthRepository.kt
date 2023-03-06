@@ -1,6 +1,7 @@
 package com.goingbacking.goingbacking.Repository.Forth
 
 import com.goingbacking.goingbacking.FCM.FirebaseTokenManager
+import com.goingbacking.goingbacking.FCM.NotificationAPI
 import com.goingbacking.goingbacking.FCM.NotificationData
 import com.goingbacking.goingbacking.FCM.PushNotification
 import com.goingbacking.goingbacking.Model.*
@@ -25,7 +26,8 @@ import kotlinx.coroutines.tasks.await
 
 class ForthRepository (
     val user : FirebaseUser?,
-    val firebaseFirestore: FirebaseFirestore
+    val firebaseFirestore: FirebaseFirestore,
+    val notificationAPI: NotificationAPI
         ) : ForthRepositoryIF {
 
     val myUid = user?.uid!!

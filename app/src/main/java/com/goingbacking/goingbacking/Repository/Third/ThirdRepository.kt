@@ -1,6 +1,7 @@
 package com.goingbacking.goingbacking.Repository.Third
 
 import android.util.Log
+import com.goingbacking.goingbacking.FCM.NotificationAPI
 import com.goingbacking.goingbacking.Model.DateDTO
 import com.goingbacking.goingbacking.Model.Event
 import com.goingbacking.goingbacking.Model.UserInfoDTO
@@ -69,7 +70,7 @@ class ThirdRepository(
         CoroutineScope(Dispatchers.IO).launch {
             val tmp = firebaseFirestore.collection(DATE).document(uid)
                 .collection(year_month).document(year_month)
-                .get(cache).await().toObject(DateDTO::class.java)
+                .get().await().toObject(DateDTO::class.java)
 
 
             Log.d("experiment", "tmp: " + tmp.toString())
@@ -98,7 +99,7 @@ class ThirdRepository(
                 val tmp_year_month = YearMonth.now().plusMonths(i.toLong()).toString()
                 val tmp = firebaseFirestore.collection(DATE).document(uid)
                     .collection(tmp_year_month).document(tmp_year_month)
-                    .get(cache).await().toObject(DateDTO::class.java)
+                    .get().await().toObject(DateDTO::class.java)
                 if (tmp == null) {
                     continue
                 } else {
@@ -306,7 +307,7 @@ class ThirdRepository(
             events.clear()
 
             val yearList = firebaseFirestore.collection("Date").document(uid)
-                .collection(currentday("yyyy-MM")).document(currentday("yyyy-MM")).get(cache).await()
+                .collection(currentday("yyyy-MM")).document(currentday("yyyy-MM")).get().await()
                 .toObject(DateDTO::class.java)!!.dateList
 
 
