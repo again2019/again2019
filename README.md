@@ -32,7 +32,7 @@
 ## 버전 및 사용 스택
 - Android (Kotlin)
 - Android targetVersion: 31
-- Firestoree: 24.3.0
+- Firestore: 24.3.0
 - Firebase messaging: 23.0.8
 - play-services-map: 19.0.0
 - hilt: 2.40.5
