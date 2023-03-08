@@ -96,12 +96,14 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui-ktx:2.5.2'
     implementation 'androidx.databinding:databinding-runtime:7.3.1'
 
+    // Paging
+    implementation 'androidx.paging:paging-runtime-ktx:3.1.1'
 
     // network (retrofit & http)
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.7.2'
     implementation 'com.squareup.retrofit2:converter-scalars:2.1.0'
-    implementation("com.squareup.okhttp3:logging-interceptor:4.9.3")
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.9.3'
 
     implementation 'com.google.code.gson:gson:2.8.6'
 

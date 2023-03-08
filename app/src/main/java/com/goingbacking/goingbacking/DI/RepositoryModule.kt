@@ -19,9 +19,14 @@ import com.goingbacking.goingbacking.Repository.Second.SecondRepository
 import com.goingbacking.goingbacking.Repository.Second.SecondRepositoryIF
 import com.goingbacking.goingbacking.Repository.Third.ThirdRepository
 import com.goingbacking.goingbacking.Repository.Third.ThirdRepositoryIF
+import com.goingbacking.goingbacking.util.Constants
+import com.goingbacking.goingbacking.util.Constants.Companion.PAGE_SIZE
+import com.goingbacking.goingbacking.util.FBConstants
+import com.goingbacking.goingbacking.util.currentday
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import com.google.firebase.messaging.FirebaseMessaging
 import dagger.Module
 import dagger.Provides
@@ -95,6 +100,17 @@ object RepositoryModule {
     ) : ForthRepositoryIF {
         return ForthRepository(user, firebaseFirestore, notificationAPI)
     }
+
+    @Provides
+    @Singleton
+    fun provideQueryRankingInfo(
+        firebaseFirestore: FirebaseFirestore
+    ) : Query {
+        return firebaseFirestore.collection(FBConstants.RANKYEARINFO).document(currentday("yyyy"))
+            .collection(currentday("yyyy")).orderBy(Constants.COUNT, Query.Direction.DESCENDING)
+            .limit(PAGE_SIZE)
+    }
+
 
     @Provides
     @Singleton

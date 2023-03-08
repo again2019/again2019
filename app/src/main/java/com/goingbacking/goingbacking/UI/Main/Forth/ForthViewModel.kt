@@ -4,10 +4,16 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.cachedIn
 import com.goingbacking.goingbacking.Model.NewSaveTimeMonthDTO
 import com.goingbacking.goingbacking.Model.NewSaveTimeYearDTO
 import com.goingbacking.goingbacking.Repository.Forth.ForthRepositoryIF
+import com.goingbacking.goingbacking.Repository.Forth.RankPagingSource
+import com.goingbacking.goingbacking.util.Constants.Companion.PAGE_SIZE
 import com.goingbacking.goingbacking.util.UiState
+import com.google.firebase.firestore.Query
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -15,8 +21,22 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ForthViewModel @Inject constructor(
-    val forthRepository: ForthRepositoryIF
+    private val queryRankingInfo : Query,
+    private val forthRepository: ForthRepositoryIF
 ) : ViewModel() {
+
+    //
+        val flow = Pager(
+            PagingConfig(
+                pageSize = PAGE_SIZE.toInt()
+                )
+            ) {
+                RankPagingSource(queryRankingInfo)
+            }.flow.cachedIn(viewModelScope)
+
+
+    //
+
 
     /*
     ForthMainFragment1

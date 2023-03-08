@@ -67,6 +67,8 @@ class Constants {
         const val CURRENTTIME = "currentTime"
         const val DURATION2 = "duration"
 
+        const val PAGE_SIZE : Long = 10
+
         val colorArray = arrayOf<Any>(
             "#76CEC2",
             "#6D7BF5",
