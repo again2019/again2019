@@ -14,6 +14,7 @@ import com.goingbacking.goingbacking.util.Constants.Companion.WHATTODOLIST
 import com.goingbacking.goingbacking.util.Constants.Companion.YEAR
 import com.goingbacking.goingbacking.util.UiState
 import com.goingbacking.goingbacking.util.currentday
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Source
@@ -25,11 +26,14 @@ import kotlinx.coroutines.tasks.await
 
 
 class InputRepository(
-    val user: FirebaseUser?,
-    val firebaseFirestore: FirebaseFirestore,
-    val firebaseMessage : FirebaseMessaging
+//    val user: FirebaseUser?,
+//    val firebaseFirestore: FirebaseFirestore,
+//    val firebaseMessage : FirebaseMessaging
 ) : InputRepositoryIF {
-
+    private val firebaseFirestore = FirebaseFirestore.getInstance()
+    private val firebaseAuth = FirebaseAuth.getInstance()
+    private val user  = firebaseAuth.currentUser
+    private val firebaseMessage = FirebaseMessaging.getInstance()
     val myUid = user?.uid!!
     val cache = Source.CACHE
 

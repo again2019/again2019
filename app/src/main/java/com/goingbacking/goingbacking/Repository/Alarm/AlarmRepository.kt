@@ -29,6 +29,7 @@ class AlarmRepository : AlarmRepositoryIF {
     private val myUid = FirebaseAuth.getInstance().currentUser?.uid!!
     private val cache = Source.CACHE
     // 맨 처음 로그인 시 month 초기화
+
     override fun addFirstInitSaveTimeMonthInfo() {
 
         val saveTimeMonthDTO = SaveTimeMonthDTO(

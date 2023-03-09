@@ -14,6 +14,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Source
+import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -23,9 +24,13 @@ import java.time.YearMonth
 import java.time.format.DateTimeFormatter
 
 class ThirdRepository(
-    val firebaseFirestore: FirebaseFirestore,
-    val firebaseAuth: FirebaseAuth
+//    val firebaseFirestore: FirebaseFirestore,
+//    val firebaseAuth: FirebaseAuth
 ) : ThirdRepositoryIF {
+    private val firebaseFirestore = FirebaseFirestore.getInstance()
+    private val firebaseAuth = FirebaseAuth.getInstance()
+    private val user  = firebaseAuth.currentUser
+    private val firebaseMessage = FirebaseMessaging.getInstance()
     val uid = firebaseAuth.currentUser?.uid!!
     val cache = Source.CACHE
 
