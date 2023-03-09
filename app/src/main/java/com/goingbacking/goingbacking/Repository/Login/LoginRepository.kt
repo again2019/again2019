@@ -8,12 +8,16 @@ import com.goingbacking.goingbacking.util.UiState
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.*
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.messaging.FirebaseMessaging
 
 class LoginRepository (
-    val firebaseAuth: FirebaseAuth,
-    val firebaseFirestore: FirebaseFirestore
+//    val firebaseAuth: FirebaseAuth,
+//    val firebaseFirestore: FirebaseFirestore
 ) : LoginRepositoryIF {
-
+    private val firebaseFirestore = FirebaseFirestore.getInstance()
+    private val firebaseAuth = FirebaseAuth.getInstance()
+    private val user  = firebaseAuth.currentUser
+    private val firebaseMessage = FirebaseMessaging.getInstance()
     override fun getGSO(result: (UiState<GoogleSignInOptions>) -> Unit) {
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(serverClientId)

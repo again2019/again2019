@@ -13,6 +13,7 @@ import com.goingbacking.goingbacking.util.FBConstants.Companion.RANKMONTHINFO
 import com.goingbacking.goingbacking.util.FBConstants.Companion.RANKYEARINFO
 import com.goingbacking.goingbacking.util.UiState
 import com.goingbacking.goingbacking.util.currentday
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
@@ -25,11 +26,13 @@ import kotlinx.coroutines.tasks.await
 
 
 class ForthRepository (
-    val user : FirebaseUser?,
-    val firebaseFirestore: FirebaseFirestore,
+//    val user : FirebaseUser?,
+//    val firebaseFirestore: FirebaseFirestore,
     val notificationAPI: NotificationAPI
         ) : ForthRepositoryIF {
-
+    private val firebaseFirestore = FirebaseFirestore.getInstance()
+    private val firebaseAuth = FirebaseAuth.getInstance()
+    private val user  = firebaseAuth.currentUser
     val myUid = user?.uid!!
     val cache = Source.CACHE
 

@@ -11,15 +11,17 @@ import com.goingbacking.goingbacking.util.FBConstants.Companion.RANKYEARINFO
 import com.goingbacking.goingbacking.util.FBConstants.Companion.SAVETIMEINFO
 import com.goingbacking.goingbacking.util.FBConstants.Companion.WHATTODOINFO
 import com.goingbacking.goingbacking.util.UiState
-import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Source
 
 class FirstRepository(
-    val user: FirebaseUser?,
-    val firebaseFirestore: FirebaseFirestore
+
 ) : FirstRepositoryIF {
+    private val firebaseFirestore = FirebaseFirestore.getInstance()
+    private val firebaseAuth = FirebaseAuth.getInstance()
+    private val user  = firebaseAuth.currentUser
     val myUid = user?.uid!!
     val cache = Source.CACHE
 

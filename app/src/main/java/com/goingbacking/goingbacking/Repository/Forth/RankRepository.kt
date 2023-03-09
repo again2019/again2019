@@ -9,6 +9,7 @@ import com.goingbacking.goingbacking.util.Constants
 import com.goingbacking.goingbacking.util.FBConstants
 import com.goingbacking.goingbacking.util.UiState
 import com.goingbacking.goingbacking.util.currentday
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
@@ -18,10 +19,13 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 
 class RankRepository  (
-    val user: FirebaseUser?,
-    val firebaseFirestore: FirebaseFirestore,
+//    val user: FirebaseUser?,
+//    val firebaseFirestore: FirebaseFirestore,
     val notificationAPI: NotificationAPI
 ): RankRepositoryIF {
+    private val firebaseFirestore = FirebaseFirestore.getInstance()
+    private val firebaseAuth = FirebaseAuth.getInstance()
+    private val user  = firebaseAuth.currentUser
     val uid = user?.uid!!
 
     /*

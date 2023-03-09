@@ -8,15 +8,21 @@ import com.goingbacking.goingbacking.util.FBConstants.Companion.WHATTODOINFO
 import com.goingbacking.goingbacking.util.FBConstants.Companion.YEAR
 import com.goingbacking.goingbacking.util.UiState
 import com.goingbacking.goingbacking.util.currentday
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Source
+import com.google.firebase.messaging.FirebaseMessaging
 
 class SecondRepository (
-    val user: FirebaseUser?,
-    val firebaseFirestore: FirebaseFirestore
+//    val user: FirebaseUser?,
+//    val firebaseFirestore: FirebaseFirestore
         ): SecondRepositoryIF {
 
+    private val firebaseFirestore = FirebaseFirestore.getInstance()
+    private val firebaseAuth = FirebaseAuth.getInstance()
+    private val user  = firebaseAuth.currentUser
+    private val firebaseMessage = FirebaseMessaging.getInstance()
     val uid = user?.uid!!
     val cache = Source.CACHE
     /*

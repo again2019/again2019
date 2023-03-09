@@ -20,12 +20,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 
-class FifthRepository(
-    val user : FirebaseUser?,
-    val firebaseFirestore: FirebaseFirestore,
-    val firebaseAuth: FirebaseAuth,
-) : FifthRepositoryIF {
-
+class FifthRepository() : FifthRepositoryIF {
+    private val firebaseFirestore = FirebaseFirestore.getInstance()
+    private val firebaseAuth = FirebaseAuth.getInstance()
+    private val user  = firebaseAuth.currentUser
     val myUid = user?.uid!!
     val cache = Source.CACHE
 

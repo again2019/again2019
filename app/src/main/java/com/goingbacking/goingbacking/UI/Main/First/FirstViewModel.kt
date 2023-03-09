@@ -4,6 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.domain.model.TmpTimeModel
+import com.example.domain.usecase.GetTmpTimeUseCase
 import com.goingbacking.goingbacking.Model.TmpTimeDTO
 import com.goingbacking.goingbacking.Model.UserInfoDTO
 import com.goingbacking.goingbacking.Repository.First.FirstRepositoryIF
@@ -15,13 +17,21 @@ import javax.inject.Inject
 
 @HiltViewModel
 class FirstViewModel @Inject constructor(
+    private val getTmpTimeUseCase: GetTmpTimeUseCase,
     val firstRepository: FirstRepositoryIF
 ) : ViewModel(){
 
     /*
     TmpTimeActivity
      */
+    private val _tmpTimeRepository = MutableLiveData<ArrayList<TmpTimeModel>>()
+    val tmpTimeRepository: LiveData<ArrayList<TmpTimeModel>> = _tmpTimeRepository
 
+    fun getTmpTimeInfo2() {
+        getTmpTimeUseCase(viewModelScope) {
+            _tmpTimeRepository.value = it
+        }
+    }
     // 임시 저장된 정보를 가져오는 코드
     private val _tmpTimeDTOs = MutableLiveData<UiState<ArrayList<TmpTimeDTO>>>()
     val tmpTimeDTOs : LiveData<UiState<ArrayList<TmpTimeDTO>>>
