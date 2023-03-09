@@ -16,15 +16,11 @@ class TmpTimeDataSourceImpl(
 ) : TmpTimeDataSource {
 
     val firebaseFirestore = firebaseFirestore
-    val myUid = FirebaseAuth.getInstance().currentUser!!.uid
+    val myUid = firebaseUser.uid
     val cache = Source.CACHE
 
+
     override suspend fun getTmpTimDTO(): ArrayList<TmpTimeEntity> {
-
-        Log.d("experiemtnt", myUid)
-        Log.d("experiemtnt", firebaseFirestore.collection("TmpTimeInfo").document(myUid)
-            .collection(myUid).get().await().toObjects<TmpTimeModel>().toCollection(ArrayList()).toString())
-
         return firebaseFirestore.collection("TmpTimeInfo").document(myUid)
             .collection(myUid).get().await().toObjects<TmpTimeEntity>().toCollection(ArrayList())
     }

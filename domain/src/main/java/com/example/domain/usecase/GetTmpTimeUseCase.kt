@@ -7,7 +7,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
-class GetTmpTimeUseCase(private val firstRepository: FirstRepository) {
+class GetTmpTimeUseCase(
+    private val firstRepository: FirstRepository,
+) {
     operator fun invoke (
         scope: CoroutineScope,
         onResult: (ArrayList<TmpTimeModel>) -> Unit = {}

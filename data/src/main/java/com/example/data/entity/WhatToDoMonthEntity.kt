@@ -1,4 +1,4 @@
-package com.example.data
+package com.example.data.entity
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

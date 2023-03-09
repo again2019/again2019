@@ -2,6 +2,8 @@ package com.example.data.di
 
 import com.example.data.dataSource.TmpTimeDataSource
 import com.example.data.dataSource.TmpTimeDataSourceImpl
+import com.example.data.dataSource.UserInfoDataSource
+import com.example.data.dataSource.UserInfoDataSourceImpl
 import com.goingbacking.goingbacking.Repository.First.FirstRepositoryImpl
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
@@ -25,6 +27,16 @@ object DataSourceModule {
     ) : TmpTimeDataSource {
         return TmpTimeDataSourceImpl(firebaseFirestore, firebaseUser!!)
     }
+
+    @Provides
+    @Singleton
+    fun provideUserInfoDataSource(
+        firebaseFirestore: FirebaseFirestore,
+        firebaseUser: FirebaseUser?,
+    ) : UserInfoDataSource {
+        return UserInfoDataSourceImpl(firebaseFirestore, firebaseUser!!)
+    }
+
 
 //    @Provides
 //    @Singleton
