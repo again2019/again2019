@@ -3,6 +3,11 @@ package com.goingbacking.goingbacking.ui.main.second
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.domain.model.WhatToDoMonthModel
+import com.example.domain.model.WhatToDoYearModel
+import com.example.domain.usecase.whatToDo.GetMyWhatToDoMonthUseCase
+import com.example.domain.usecase.whatToDo.GetMyWhatToDoYearUseCase
 import com.example.domain.util.UiState
 import com.goingbacking.goingbacking.model.*
 import com.goingbacking.goingbacking.repository.second.SecondRepositoryIF
@@ -11,6 +16,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SecondViewModel @Inject constructor (
+    private val getMyWhatToDoMonthUseCase: GetMyWhatToDoMonthUseCase,
+    private val getMyWhatToDoYearUseCase: GetMyWhatToDoYearUseCase,
     val secondRepository: SecondRepositoryIF
 ) : ViewModel() {
 
@@ -54,22 +61,24 @@ class SecondViewModel @Inject constructor (
      */
 
     // 어떤 자기계발을 했는지 달 통계를 보여주는 코드
-    private val _secondwhatToDoMonthDTOs = MutableLiveData<UiState<ArrayList<WhatToDoMonthDTO>>>()
-    val secondwhatToDoMonthDTOs : LiveData<UiState<ArrayList<WhatToDoMonthDTO>>>
+    private val _secondwhatToDoMonthDTOs = MutableLiveData<UiState<ArrayList<WhatToDoMonthModel>>>()
+    val secondwhatToDoMonthDTOs : LiveData<UiState<ArrayList<WhatToDoMonthModel>>>
         get() = _secondwhatToDoMonthDTOs
 
     fun getSecondWhatToDoMonthInfo() {
-        _secondwhatToDoMonthDTOs.value = UiState.Loading
-        secondRepository.getSecondWhatToDoMonthInfo() { _secondwhatToDoMonthDTOs.value = it }
+        getMyWhatToDoMonthUseCase(viewModelScope) {
+            _secondwhatToDoMonthDTOs.value = it
+        }
     }
 
     // 어떤 자기계발을 했는지 연도 통계를 보여주는 코드
-    private val _secondwhatToDoYearDTOs = MutableLiveData<UiState<ArrayList<WhatToDoYearDTO>>>()
-    val secondwhatToDoYearDTOs : LiveData<UiState<ArrayList<WhatToDoYearDTO>>>
+    private val _secondwhatToDoYearDTOs = MutableLiveData<UiState<ArrayList<WhatToDoYearModel>>>()
+    val secondwhatToDoYearDTOs : LiveData<UiState<ArrayList<WhatToDoYearModel>>>
         get() = _secondwhatToDoYearDTOs
 
     fun getSecondWhatToDoYearInfo() {
-        _secondwhatToDoYearDTOs.value = UiState.Loading
-        secondRepository.getSecondWhatToDoYearInfo() { _secondwhatToDoYearDTOs.value = it }
+        getMyWhatToDoYearUseCase(viewModelScope) {
+            _secondwhatToDoYearDTOs.value = it
+        }
     }
 }

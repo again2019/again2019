@@ -150,10 +150,10 @@ class FirstRepository(
         count: FieldValue,
         result: (UiState<String>) -> Unit
     ) {
-        firebaseFirestore.collection(WHATTODOINFO).document(myUid)
-            .collection("month").document(yyyyMM)
-            .collection(yyyyMM).document(myUid + whatToDo)
-            .update("count", count)
+//        firebaseFirestore.collection(WHATTODOINFO).document(myUid)
+//            .collection("month").document(yyyyMM)
+//            .collection(yyyyMM).document(myUid + whatToDo)
+//            .update("count", count)
     }
 
     //임시 저장된 정보 -> 최종 정보로 어떤 자기계발을 할 것인지로 바꾸는 코드 (Year)
@@ -163,10 +163,10 @@ class FirstRepository(
         count: FieldValue,
         result: (UiState<String>) -> Unit
     ) {
-        firebaseFirestore.collection(WHATTODOINFO).document(myUid)
-            .collection("year").document(yyyy)
-            .collection(yyyy).document(myUid + whatToDo)
-            .update("count", count)
+//        firebaseFirestore.collection(WHATTODOINFO).document(myUid)
+//            .collection("year").document(yyyy)
+//            .collection(yyyy).document(myUid + whatToDo)
+//            .update("count", count)
     }
 
     // 원하는 자기계발을 불러오느 코드

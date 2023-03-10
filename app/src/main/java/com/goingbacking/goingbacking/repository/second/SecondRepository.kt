@@ -101,50 +101,50 @@ class SecondRepository (
 
     // 어떤 자기계발을 했는지 달 통계를 보여주는 코드
     override fun getSecondWhatToDoMonthInfo(result: (UiState<ArrayList<WhatToDoMonthDTO>>) -> Unit) {
-        firebaseFirestore.collection(WHATTODOINFO).document(uid)
-            .collection(MONTH).document(currentday("yyyy-MM"))
-            .collection(currentday("yyyy-MM")).get(cache)
-            .addOnSuccessListener {
-                val whatToDoMonthDTOList = arrayListOf<WhatToDoMonthDTO>()
-                for (document in it) {
-                    whatToDoMonthDTOList.add(document.toObject(WhatToDoMonthDTO::class.java))
-                }
-
-                result.invoke(
-                    UiState.Success(whatToDoMonthDTOList)
-                )
-            }
-            .addOnFailureListener {
-                result.invoke(
-                    UiState.Failure(
-                        it.localizedMessage
-                    )
-                )
-            }
+//        firebaseFirestore.collection(WHATTODOINFO).document(uid)
+//            .collection(MONTH).document(currentday("yyyy-MM"))
+//            .collection(currentday("yyyy-MM")).get(cache)
+//            .addOnSuccessListener {
+//                val whatToDoMonthDTOList = arrayListOf<WhatToDoMonthDTO>()
+//                for (document in it) {
+//                    whatToDoMonthDTOList.add(document.toObject(WhatToDoMonthDTO::class.java))
+//                }
+//
+//                result.invoke(
+//                    UiState.Success(whatToDoMonthDTOList)
+//                )
+//            }
+//            .addOnFailureListener {
+//                result.invoke(
+//                    UiState.Failure(
+//                        it.localizedMessage
+//                    )
+//                )
+//            }
     }
 
     // 어떤 자기계발을 했는지 연도 통계를 보여주는 코드
     override fun getSecondWhatToDoYearInfo(result: (UiState<ArrayList<WhatToDoYearDTO>>) -> Unit)  {
-        firebaseFirestore.collection(WHATTODOINFO).document(uid)
-            .collection("year").document(currentday("yyyy"))
-            .collection(currentday("yyyy")).get(cache)
-            .addOnSuccessListener {
-                val whatToDoYearDTOList = arrayListOf<WhatToDoYearDTO>()
-                for (document in it) {
-                    whatToDoYearDTOList.add(document.toObject(WhatToDoYearDTO::class.java))
-                }
-
-                result.invoke(
-                    UiState.Success(whatToDoYearDTOList)
-                )
-            }
-            .addOnFailureListener {
-                result.invoke(
-                    UiState.Failure(
-                        it.localizedMessage
-                    )
-                )
-            }
+//        firebaseFirestore.collection(WHATTODOINFO).document(uid)
+//            .collection("year").document(currentday("yyyy"))
+//            .collection(currentday("yyyy")).get(cache)
+//            .addOnSuccessListener {
+//                val whatToDoYearDTOList = arrayListOf<WhatToDoYearDTO>()
+//                for (document in it) {
+//                    whatToDoYearDTOList.add(document.toObject(WhatToDoYearDTO::class.java))
+//                }
+//
+//                result.invoke(
+//                    UiState.Success(whatToDoYearDTOList)
+//                )
+//            }
+//            .addOnFailureListener {
+//                result.invoke(
+//                    UiState.Failure(
+//                        it.localizedMessage
+//                    )
+//                )
+//            }
     }
 }
 

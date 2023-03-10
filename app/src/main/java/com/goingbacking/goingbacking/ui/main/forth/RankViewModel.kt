@@ -5,6 +5,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.domain.model.WhatToDoMonthModel
+import com.example.domain.model.WhatToDoYearModel
+import com.example.domain.usecase.whatToDo.GetOtherWhatToDoMonthUseCase
+import com.example.domain.usecase.whatToDo.GetOtherWhatToDoYearUseCase
 import com.example.domain.util.UiState
 import com.goingbacking.goingbacking.model.*
 import com.goingbacking.goingbacking.repository.forth.RankRepositoryIF
@@ -15,6 +19,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class RankViewModel @Inject constructor(
+    private val getOtherWhatToDoMonthUseCase: GetOtherWhatToDoMonthUseCase,
+    private val getOtherWhatToDoYearUseCase: GetOtherWhatToDoYearUseCase,
     val rankRepository : RankRepositoryIF
 ):ViewModel() {
 
@@ -33,13 +39,14 @@ class RankViewModel @Inject constructor(
     }
 
     // 달별 자기계발 통계 받아오는 코드
-    private val _secondwhatToDoMonthDTOs = MutableLiveData<UiState<ArrayList<WhatToDoMonthDTO>>>()
-    val secondwhatToDoMonthDTOs : LiveData<UiState<ArrayList<WhatToDoMonthDTO>>>
+    private val _secondwhatToDoMonthDTOs = MutableLiveData<UiState<ArrayList<WhatToDoMonthModel>>>()
+    val secondwhatToDoMonthDTOs : LiveData<UiState<ArrayList<WhatToDoMonthModel>>>
         get() = _secondwhatToDoMonthDTOs
 
     fun getSecondWhatToDoMonthInfo(destinationUid :String) {
-        _secondwhatToDoMonthDTOs.value = UiState.Loading
-        rankRepository.getSecondWhatToDoMonthInfo(destinationUid) { _secondwhatToDoMonthDTOs.value = it }
+        getOtherWhatToDoMonthUseCase(viewModelScope, destinationUid) {
+            _secondwhatToDoMonthDTOs.value = it
+        }
     }
 
 
@@ -58,13 +65,14 @@ class RankViewModel @Inject constructor(
     }
 
     // 연도별 자기계발 통계 받아오는 코드
-    private val _secondwhatToDoYearDTOs = MutableLiveData<UiState<ArrayList<WhatToDoYearDTO>>>()
-    val secondwhatToDoYearDTOs : LiveData<UiState<ArrayList<WhatToDoYearDTO>>>
+    private val _secondwhatToDoYearDTOs = MutableLiveData<UiState<ArrayList<WhatToDoYearModel>>>()
+    val secondwhatToDoYearDTOs : LiveData<UiState<ArrayList<WhatToDoYearModel>>>
         get() = _secondwhatToDoYearDTOs
 
     fun getSecondWhatToDoYearInfo(destinationUid :String) {
-        _secondwhatToDoYearDTOs.value = UiState.Loading
-        rankRepository.getSecondWhatToDoYearInfo(destinationUid) { _secondwhatToDoYearDTOs.value = it }
+        getOtherWhatToDoYearUseCase (viewModelScope, destinationUid) {
+            _secondwhatToDoYearDTOs.value = it
+        }
     }
 
     /*

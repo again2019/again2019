@@ -20,13 +20,13 @@ class GetUserInfoUseCase @Inject constructor (
         scope.launch(Dispatchers.Main) {
             try {
                 onResult(UiState.Loading)
-                val userInfo = async(Dispatchers.IO) {
+                val userInfoModel = async(Dispatchers.IO) {
                     userInfoRepository.getUserInfoModel()
                 }.await()
 
-                when (userInfo != UserInfoModel()) {
+                when (userInfoModel != UserInfoModel()) {
                     true -> {
-                        onResult(UiState.Success(userInfo))
+                        onResult(UiState.Success(userInfoModel))
                     }
                     else -> {
                         onResult(UiState.Failure("Failure"))

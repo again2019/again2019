@@ -103,31 +103,48 @@ class InputRepository(
         result: (UiState<String>) -> Unit
     ) {
 
-        firebaseFirestore.collection(WHATTODOINFO).document(myUid)
-            .collection(MONTH).document(currentday("yyyy-MM"))
-            .collection(currentday("yyyy-MM")).document(myUid+whatToDoMonthDTO.whatToDo)
-            .set(whatToDoMonthDTO)
-            .addOnSuccessListener {
-                result.invoke(UiState.Success(SUCCESS))
-            }
-            .addOnFailureListener {
-                result.invoke(
-                    UiState.Failure(FAIL)
-                )
-            }
+//        firebaseFirestore.collection(WHATTODOINFO).document(myUid)
+//            .collection(MONTH).document(currentday("yyyy-MM"))
+//            .collection(currentday("yyyy-MM")).document(myUid+whatToDoMonthDTO.whatToDo)
+//            .set(whatToDoMonthDTO)
+//            .addOnSuccessListener {
+//                result.invoke(UiState.Success(SUCCESS))
+//            }
+//            .addOnFailureListener {
+//                result.invoke(
+//                    UiState.Failure(FAIL)
+//                )
+//            }
     }
 
+    override fun addInitWhatToDoYearTime(
+        whatToDoYearDTO: WhatToDoYearDTO,
+        result: (UiState<String>) -> Unit
+    ) {
+//        firebaseFirestore.collection(WHATTODOINFO).document(myUid)
+//            .collection(YEAR).document(currentday("yyyy"))
+//            .collection(currentday("yyyy")).document(myUid+whatToDoYearDTO.whatToDo)
+//            .set(whatToDoYearDTO)
+//            .addOnSuccessListener {
+//                result.invoke(UiState.Success(SUCCESS))
+//            }
+//            .addOnFailureListener {
+//                result.invoke(
+//                    UiState.Failure(FAIL)
+//                )
+//            }
 
+    }
 
     override fun addInitRankMonthTime(
         rankMonthDTO: NewSaveTimeMonthDTO,
         result: (UiState<String>) -> Unit
     ) {
-        CoroutineScope(Dispatchers.IO).launch {
-            firebaseFirestore.collection(AppConstants.RANKMONTHINFO).document(currentday("yyyy-MM"))
-                .collection(currentday("yyyy-MM")).document(myUid)
-                .set(rankMonthDTO).await()
-        }
+//        CoroutineScope(Dispatchers.IO).launch {
+//            firebaseFirestore.collection(AppConstants.RANKMONTHINFO).document(currentday("yyyy-MM"))
+//                .collection(currentday("yyyy-MM")).document(myUid)
+//                .set(rankMonthDTO).await()
+//        }
     }
 
     override fun addInitRankYearTime(

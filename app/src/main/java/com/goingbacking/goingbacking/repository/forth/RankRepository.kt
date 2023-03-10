@@ -57,26 +57,26 @@ class RankRepository  (
 
     // 달별 자기계발 통계 받아오는 코드
     override fun getSecondWhatToDoMonthInfo(destinationUid : String, result: (UiState<ArrayList<WhatToDoMonthDTO>>) -> Unit) {
-        firebaseFirestore.collection(FBConstants.WHATTODOINFO).document(destinationUid)
-            .collection(FBConstants.MONTH).document(currentday("yyyy-MM"))
-            .collection(currentday("yyyy-MM")).get()
-            .addOnSuccessListener {
-                val whatToDoMonthDTOList = arrayListOf<WhatToDoMonthDTO>()
-                for (document in it) {
-                    whatToDoMonthDTOList.add(document.toObject(WhatToDoMonthDTO::class.java))
-                }
-
-                result.invoke(
-                    UiState.Success(whatToDoMonthDTOList)
-                )
-            }
-            .addOnFailureListener {
-                result.invoke(
-                    UiState.Failure(
-                        it.localizedMessage
-                    )
-                )
-            }
+//        firebaseFirestore.collection(FBConstants.WHATTODOINFO).document(destinationUid)
+//            .collection(FBConstants.MONTH).document(currentday("yyyy-MM"))
+//            .collection(currentday("yyyy-MM")).get()
+//            .addOnSuccessListener {
+//                val whatToDoMonthDTOList = arrayListOf<WhatToDoMonthDTO>()
+//                for (document in it) {
+//                    whatToDoMonthDTOList.add(document.toObject(WhatToDoMonthDTO::class.java))
+//                }
+//
+//                result.invoke(
+//                    UiState.Success(whatToDoMonthDTOList)
+//                )
+//            }
+//            .addOnFailureListener {
+//                result.invoke(
+//                    UiState.Failure(
+//                        it.localizedMessage
+//                    )
+//                )
+//            }
     }
 
     /*
@@ -102,26 +102,26 @@ class RankRepository  (
 
     // 연도별 자기계발 통계 받아오는 코드
     override fun getSecondWhatToDoYearInfo(destinationUid : String, result: (UiState<ArrayList<WhatToDoYearDTO>>) -> Unit)  {
-        firebaseFirestore.collection(FBConstants.WHATTODOINFO).document(destinationUid)
-            .collection("year").document(currentday("yyyy"))
-            .collection(currentday("yyyy")).get()
-            .addOnSuccessListener {
-                val whatToDoYearDTOList = arrayListOf<WhatToDoYearDTO>()
-                for (document in it) {
-                    whatToDoYearDTOList.add(document.toObject(WhatToDoYearDTO::class.java))
-                }
-
-                result.invoke(
-                    UiState.Success(whatToDoYearDTOList)
-                )
-            }
-            .addOnFailureListener {
-                result.invoke(
-                    UiState.Failure(
-                        it.localizedMessage
-                    )
-                )
-            }
+//        firebaseFirestore.collection(FBConstants.WHATTODOINFO).document(destinationUid)
+//            .collection("year").document(currentday("yyyy"))
+//            .collection(currentday("yyyy")).get()
+//            .addOnSuccessListener {
+//                val whatToDoYearDTOList = arrayListOf<WhatToDoYearDTO>()
+//                for (document in it) {
+//                    whatToDoYearDTOList.add(document.toObject(WhatToDoYearDTO::class.java))
+//                }
+//
+//                result.invoke(
+//                    UiState.Success(whatToDoYearDTOList)
+//                )
+//            }
+//            .addOnFailureListener {
+//                result.invoke(
+//                    UiState.Failure(
+//                        it.localizedMessage
+//                    )
+//                )
+//            }
     }
 
 

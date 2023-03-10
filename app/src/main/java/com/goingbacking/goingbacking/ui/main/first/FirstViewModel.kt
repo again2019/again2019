@@ -6,6 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.model.TmpTimeModel
 import com.example.domain.usecase.GetTmpTimeUseCase
+import com.example.domain.usecase.whatToDo.UpdateWhatToDoMonthUseCase
+import com.example.domain.usecase.whatToDo.UpdateWhatToDoYearUseCase
 import com.example.domain.util.UiState
 import com.goingbacking.goingbacking.model.TmpTimeDTO
 import com.goingbacking.goingbacking.model.UserInfoDTO
@@ -17,6 +19,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class FirstViewModel @Inject constructor(
+    private val updateWhatToDoMonthUseCase: UpdateWhatToDoMonthUseCase,
+    private val updateWhatToDoYearUseCase: UpdateWhatToDoYearUseCase,
     private val getTmpTimeUseCase: GetTmpTimeUseCase,
     val firstRepository: FirstRepositoryIF
 ) : ViewModel(){
@@ -120,17 +124,19 @@ class FirstViewModel @Inject constructor(
     //임시 저장된 정보 -> 최종 정보로 어떤 자기계발을 할 것인지로 바꾸는 코드 (Month)
     private val _whatToDoMonthDTOs = MutableLiveData<UiState<String>>()
 
-    fun updateWhatToDoMonthInfo(yyyyMM : String, whatToDo: String, count: FieldValue) {
-        _whatToDoMonthDTOs.value = UiState.Loading
-        firstRepository.updateWhatToDoMonthInfo(yyyyMM, whatToDo, count) { _whatToDoMonthDTOs.value = it }
+    fun updateWhatToDoMonthInfo(yyyyMM : String, whatToDo: String, count: Double) {
+        updateWhatToDoMonthUseCase(viewModelScope, yyyyMM, whatToDo, count) {
+            _whatToDoMonthDTOs.value = it
+        }
     }
 
     //임시 저장된 정보 -> 최종 정보로 어떤 자기계발을 할 것인지로 바꾸는 코드 (Year)
     private val _whatToDoYearDTOs = MutableLiveData<UiState<String>>()
 
-    fun updateWhatToDoYearInfo(yyyy : String, whatToDo: String, count: FieldValue) {
-        _whatToDoYearDTOs.value = UiState.Loading
-        firstRepository.updateWhatToDoYearInfo(yyyy, whatToDo, count) { _whatToDoYearDTOs.value = it }
+    fun updateWhatToDoYearInfo(yyyy : String, whatToDo: String, count: Double) {
+        updateWhatToDoYearUseCase(viewModelScope, yyyy, whatToDo, count) {
+            _whatToDoYearDTOs.value = it
+        }
     }
 
     // 원하는 자기계발을 불러오느 코드
