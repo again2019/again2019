@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class WhatToDoMonthDTO(
+data class WhatToDoMonthEntity (
     var count: Int? = null,
     var month: Int? = null,
     var whatToDo :String? = null

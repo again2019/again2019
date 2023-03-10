@@ -6,13 +6,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
-import com.goingbacking.goingbacking.Model.NewSaveTimeMonthDTO
-import com.goingbacking.goingbacking.Model.NewSaveTimeYearDTO
-import com.goingbacking.goingbacking.Model.WhatToDoMonthDTO
-import com.goingbacking.goingbacking.Model.WhatToDoYearDTO
+import com.example.domain.model.WhatToDoMonthModel
+import com.example.domain.model.WhatToDoYearModel
+import com.example.domain.util.UiState
+import com.goingbacking.goingbacking.model.NewSaveTimeMonthDTO
+import com.goingbacking.goingbacking.model.NewSaveTimeYearDTO
+import com.goingbacking.goingbacking.model.WhatToDoMonthDTO
+import com.goingbacking.goingbacking.model.WhatToDoYearDTO
 import com.goingbacking.goingbacking.R
-import com.goingbacking.goingbacking.UI.Tutorial.TutorialActivity
-import com.goingbacking.goingbacking.UI.Input.InputViewModel
+import com.goingbacking.goingbacking.ui.tutorial.TutorialActivity
+import com.goingbacking.goingbacking.ui.input.InputViewModel
 import com.goingbacking.goingbacking.databinding.BottomSheetInputBinding
 import com.goingbacking.goingbacking.util.*
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -25,8 +28,8 @@ class InputBottomSheet : BottomSheetDialogFragment() {
     private lateinit var binding : BottomSheetInputBinding
     private val viewModel : InputViewModel by activityViewModels()
 
-    private var InitWhatToDoMonthList = ArrayList<WhatToDoMonthDTO>()
-    private var InitWhatToDoYearList = ArrayList<WhatToDoYearDTO>()
+    private var InitWhatToDoMonthList = ArrayList<WhatToDoMonthModel>()
+    private var InitWhatToDoYearList = ArrayList<WhatToDoYearModel>()
     private var whattodoList = mutableSetOf<String>()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,18 +57,18 @@ class InputBottomSheet : BottomSheetDialogFragment() {
                         whattodoList.add(whattodo)
 
                         // chart 표시를 위해 초기화 하기 위해 arrayList에 넣는 코드
-                        val whatToDoMonthDTO = WhatToDoMonthDTO(
+                        val whatToDoMonthModel = WhatToDoMonthModel(
                             count = 0,
                             month = currentday("MM").toInt(),
                             whatToDo = whattodo
                         )
-                        InitWhatToDoMonthList.add(whatToDoMonthDTO)
-                        val whatToDoYearDTO = WhatToDoYearDTO(
+                        InitWhatToDoMonthList.add(whatToDoMonthModel)
+                        val whatToDoYearModel = WhatToDoYearModel(
                             count = 0,
                             year = currentday("yyyy").toInt(),
                             whatToDo = whattodo
                         )
-                        InitWhatToDoYearList.add(whatToDoYearDTO)
+                        InitWhatToDoYearList.add(whatToDoYearModel)
                         count += 1
                     }
                 }

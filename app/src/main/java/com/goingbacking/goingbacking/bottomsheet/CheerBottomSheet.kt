@@ -8,9 +8,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.goingbacking.goingbacking.Adapter.CheerRecyclerViewAdapter
+import com.example.domain.util.UiState
+import com.goingbacking.goingbacking.adapter.CheerRecyclerViewAdapter
 import com.goingbacking.goingbacking.R
-import com.goingbacking.goingbacking.UI.Main.Forth.ForthViewModel
+import com.goingbacking.goingbacking.ui.main.forth.ForthViewModel
 import com.goingbacking.goingbacking.databinding.BottomSheetCheerBinding
 import com.goingbacking.goingbacking.util.*
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment

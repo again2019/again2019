@@ -12,13 +12,11 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import com.goingbacking.goingbacking.AppConstants
-import com.goingbacking.goingbacking.BR.DoingReceiver
-import com.goingbacking.goingbacking.UI.Main.MainActivity
+import com.goingbacking.goingbacking.br.DoingReceiver
+import com.goingbacking.goingbacking.ui.main.MainActivity
 import com.goingbacking.goingbacking.R
-import com.goingbacking.goingbacking.UI.Main.First.TmpTimeActivity
-import java.text.SimpleDateFormat
+import com.goingbacking.goingbacking.ui.main.first.TmpTimeActivity
 import java.util.*
-import java.util.concurrent.TimeUnit
 
 class NotificationUtil {
     companion object {

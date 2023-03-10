@@ -1,4 +1,4 @@
-package com.goingbacking.goingbacking.util
+package com.example.domain.util
 
 sealed class UiState<out T> {
     object Loading:UiState<Nothing>()

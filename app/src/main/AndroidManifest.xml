@@ -19,17 +19,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".UI.Main.Forth.RankActivity2"
+            android:name=".ui.main.forth.RankActivity2"
             android:exported="true" />
         <activity
-            android:name=".UI.Main.Forth.RankActivity1"
+            android:name=".ui.main.forth.RankActivity1"
             android:exported="true" />
         <activity
-            android:name=".UI.Main.Fifth.QuestionActivity"
+            android:name=".ui.main.fifth.QuestionActivity"
             android:exported="true" />
 
         <service
-            android:name=".FCM.FirebaseService"
+            android:name=".fcm.FirebaseService"
             android:exported="false"
             android:permission="com.google.android.c2dm.permission.SEND" >
             <intent-filter>
@@ -39,37 +39,37 @@
         </service>
 
         <activity
-            android:name=".UI.Main.Third.TotalCalendarActivity"
+            android:name=".ui.main.third.TotalCalendarActivity"
             android:exported="true" />
         <activity
-            android:name=".UI.Main.Third.ScheduleInputActivity"
+            android:name=".ui.main.third.ScheduleInputActivity"
             android:exported="true" />
         <activity
-            android:name=".UI.Input.InputActivity"
+            android:name=".ui.input.InputActivity"
             android:exported="true" />
 
         <service
-            android:name=".Service.AlarmService"
+            android:name=".service.AlarmService"
             android:enabled="true"
             android:exported="true" />
 
         <activity
-            android:name=".UI.Main.First.TmpTimeActivity"
+            android:name=".ui.main.first.TmpTimeActivity"
             android:enabled="true" />
         <activity
-            android:name=".UI.Main.Fifth.ChangeInfoActivity"
+            android:name=".ui.main.fifth.ChangeInfoActivity"
             android:exported="true" />
         <activity
-            android:name=".UI.Tutorial.TutorialActivity"
+            android:name=".ui.tutorial.TutorialActivity"
             android:exported="true" />
         <activity
-            android:name=".UI.Login.LoginActivity"
+            android:name=".ui.login.LoginActivity"
             android:exported="true" />
         <activity
-            android:name=".UI.Main.MainActivity"
+            android:name=".ui.main.MainActivity"
             android:exported="true" />
         <activity
-            android:name=".UI.Splash.SplashActivity"
+            android:name=".ui.splash.SplashActivity"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -79,11 +79,11 @@
         </activity>
 
         <receiver
-            android:name=".BR.CountReceiver"
+            android:name=".br.CountReceiver"
             android:enabled="true"
             android:exported="true" />
         <receiver
-            android:name=".BR.DeviceBootReceiver"
+            android:name=".br.DeviceBootReceiver"
             android:enabled="true"
             android:exported="true" >
             <intent-filter>
@@ -91,7 +91,7 @@
             </intent-filter>
         </receiver>
         <receiver
-            android:name=".BR.DoingReceiver"
+            android:name=".br.DoingReceiver"
             android:enabled="true"
             android:exported="true" />
     </application>

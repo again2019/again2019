@@ -8,10 +8,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 
 import androidx.fragment.app.activityViewModels
+import com.example.domain.util.UiState
 import com.goingbacking.goingbacking.R
-import com.goingbacking.goingbacking.UI.Main.First.FirstViewModel
+import com.goingbacking.goingbacking.ui.main.first.FirstViewModel
 import com.goingbacking.goingbacking.databinding.BottomSheetWhatToDoSaveBinding
-import com.goingbacking.goingbacking.util.UiState
 import com.goingbacking.goingbacking.util.makeGONE
 import com.goingbacking.goingbacking.util.makeVisible
 import com.goingbacking.goingbacking.util.toast

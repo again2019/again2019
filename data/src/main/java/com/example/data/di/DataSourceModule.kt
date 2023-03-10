@@ -1,13 +1,13 @@
 package com.example.data.di
 
-import com.example.data.dataSource.TmpTimeDataSource
-import com.example.data.dataSource.TmpTimeDataSourceImpl
-import com.example.data.dataSource.UserInfoDataSource
-import com.example.data.dataSource.UserInfoDataSourceImpl
-import com.goingbacking.goingbacking.Repository.First.FirstRepositoryImpl
+import com.example.data.dataSource.tmpTimeDataSource.TmpTimeDataSource
+import com.example.data.dataSource.tmpTimeDataSource.TmpTimeDataSourceImpl
+import com.example.data.dataSource.userInfoDataSource.UserInfoDataSource
+import com.example.data.dataSource.userInfoDataSource.UserInfoDataSourceImpl
+import com.example.data.dataSource.whatToDoDataSource.WhatToDoDataSource
+import com.example.data.dataSource.whatToDoDataSource.WhatToDoDataSourceImpl
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
-import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -37,6 +37,14 @@ object DataSourceModule {
         return UserInfoDataSourceImpl(firebaseFirestore, firebaseUser!!)
     }
 
+    @Provides
+    @Singleton
+    fun provideWhatToDoDataSource(
+        firebaseFirestore: FirebaseFirestore,
+        firebaseUser: FirebaseUser?,
+    ) : WhatToDoDataSource {
+        return WhatToDoDataSourceImpl(firebaseFirestore, firebaseUser!!)
+    }
 
 //    @Provides
 //    @Singleton

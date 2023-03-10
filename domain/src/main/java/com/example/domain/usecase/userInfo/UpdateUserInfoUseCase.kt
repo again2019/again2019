@@ -1,15 +1,13 @@
 package com.example.domain.usecase.userInfo
 
-import com.example.domain.model.TmpTimeModel
-import com.example.domain.model.UserInfoModel
 import com.example.domain.repository.UserInfoRepository
-import com.goingbacking.goingbacking.util.UiState
+import com.example.domain.util.UiState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class UpdateUserInfoUseCase(
+class UpdateUserInfoUseCase @Inject constructor(
     private val userInfoRepository: UserInfoRepository
 ) {
     operator fun invoke (
