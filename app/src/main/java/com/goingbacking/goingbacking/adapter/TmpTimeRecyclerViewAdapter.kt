@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.domain.model.TmpTimeModel
 import com.goingbacking.goingbacking.model.TmpTimeDTO
 import com.goingbacking.goingbacking.R
 import com.goingbacking.goingbacking.bottomsheet.WhatToDoSaveBottomSheet
@@ -16,10 +17,10 @@ import com.goingbacking.goingbacking.util.toast
 import java.text.SimpleDateFormat
 import java.util.*
 
-class TmpTimeRecyclerViewAdapter: ListAdapter<TmpTimeDTO, TmpTimeRecyclerViewAdapter.MyViewHolder>(diffUtil) {
+class TmpTimeRecyclerViewAdapter: ListAdapter<TmpTimeModel, TmpTimeRecyclerViewAdapter.MyViewHolder>(diffUtil) {
 
     inner class MyViewHolder(private val binding: ItemTmpBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: TmpTimeDTO) {
+        fun bind(item: TmpTimeModel) {
 
             val fm : FragmentManager = (binding.root.context as AppCompatActivity).supportFragmentManager
 
@@ -96,12 +97,12 @@ class TmpTimeRecyclerViewAdapter: ListAdapter<TmpTimeDTO, TmpTimeRecyclerViewAda
 
 
     companion object{
-        val diffUtil=object: DiffUtil.ItemCallback<TmpTimeDTO>(){
-            override fun areItemsTheSame(oldItem: TmpTimeDTO, newItem: TmpTimeDTO) :Boolean {
+        val diffUtil=object: DiffUtil.ItemCallback<TmpTimeModel>(){
+            override fun areItemsTheSame(oldItem: TmpTimeModel, newItem: TmpTimeModel) :Boolean {
                 return oldItem==newItem
             }
 
-            override fun areContentsTheSame(oldItem: TmpTimeDTO, newItem: TmpTimeDTO) :Boolean {
+            override fun areContentsTheSame(oldItem: TmpTimeModel, newItem: TmpTimeModel) :Boolean {
                 return oldItem==newItem
             }
         }

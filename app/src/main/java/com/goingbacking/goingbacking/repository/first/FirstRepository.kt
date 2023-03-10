@@ -31,25 +31,25 @@ class FirstRepository(
 
     // 임시 저장된 정보를 가져오는 코드
     override fun getTmpTimeInfo(result: (UiState<ArrayList<TmpTimeDTO>>) -> Unit) {
-        firebaseFirestore.collection(FBConstants.TMPTIMEINFO).document(myUid)
-            .collection(myUid).get(cache)
-            .addOnSuccessListener {
-                val tmpTimeDTOList : ArrayList<TmpTimeDTO> = arrayListOf()
-                for(document in it){
-                    tmpTimeDTOList.add(document.toObject(TmpTimeDTO::class.java))
-                }
-
-                result.invoke(
-                    UiState.Success(tmpTimeDTOList)
-                )
-            }
-            .addOnFailureListener {
-                result.invoke(
-                    UiState.Failure(
-                        it.localizedMessage
-                    )
-                )
-            }
+//        firebaseFirestore.collection(FBConstants.TMPTIMEINFO).document(myUid)
+//            .collection(myUid).get(cache)
+//            .addOnSuccessListener {
+//                val tmpTimeDTOList : ArrayList<TmpTimeDTO> = arrayListOf()
+//                for(document in it){
+//                    tmpTimeDTOList.add(document.toObject(TmpTimeDTO::class.java))
+//                }
+//
+//                result.invoke(
+//                    UiState.Success(tmpTimeDTOList)
+//                )
+//            }
+//            .addOnFailureListener {
+//                result.invoke(
+//                    UiState.Failure(
+//                        it.localizedMessage
+//                    )
+//                )
+//            }
 
     }
 
@@ -79,8 +79,8 @@ class FirstRepository(
 
     // 임시 저장된 정보 -> 최종 정보로 바꾸고 삭제하는 코드
     override fun deleteTmpTimeInfo(startTime: String, result: (UiState<String>) -> Unit) {
-        firebaseFirestore.collection(FBConstants.TMPTIMEINFO).document(myUid)
-            .collection(myUid).document(myUid + startTime).delete()
+//        firebaseFirestore.collection(FBConstants.TMPTIMEINFO).document(myUid)
+//            .collection(myUid).document(myUid + startTime).delete()
     }
 
     // 임시 저장된 정보 -> 최종 정보로 바꾸는 코드 (Day)
@@ -91,10 +91,10 @@ class FirstRepository(
         result: (UiState<String>) -> Unit
     ) {
 
-        firebaseFirestore.collection(SAVETIMEINFO).document(myUid)
-            .collection(DAY).document(wakeUpTime1)
-            .collection(wakeUpTime1).document(myUid + wakeUpTime2)
-            .update("count", count)
+//        firebaseFirestore.collection(SAVETIMEINFO).document(myUid)
+//            .collection(DAY).document(wakeUpTime1)
+//            .collection(wakeUpTime1).document(myUid + wakeUpTime2)
+//            .update("count", count)
     }
 
     // 임시 저장된 정보 -> 최종 정보로 바꾸는 코드 (Month)
@@ -104,10 +104,10 @@ class FirstRepository(
         count: FieldValue,
         result: (UiState<String>) -> Unit
     ) {
-        firebaseFirestore.collection(SAVETIMEINFO).document(myUid)
-                    .collection(MONTH).document(wakeUpTime1)
-                    .collection(wakeUpTime1).document(myUid + wakeUpTime2)
-                    .update("count", count)
+//        firebaseFirestore.collection(SAVETIMEINFO).document(myUid)
+//                    .collection(MONTH).document(wakeUpTime1)
+//                    .collection(wakeUpTime1).document(myUid + wakeUpTime2)
+//                    .update("count", count)
     }
 
     // 임시 저장된 정보 -> 최종 정보로 바꾸는 코드 (Year)
@@ -116,9 +116,9 @@ class FirstRepository(
         count: FieldValue,
         result: (UiState<String>) -> Unit
     ) {
-        firebaseFirestore.collection(SAVETIMEINFO).document(myUid)
-                    .collection("year").document(wakeUpTime)
-                    .update("count", count)
+//        firebaseFirestore.collection(SAVETIMEINFO).document(myUid)
+//                    .collection("year").document(wakeUpTime)
+//                    .update("count", count)
     }
 
     // 임시 저장된 정보 -> 최종 랭크 정보로 바꾸는 코드 (Month)

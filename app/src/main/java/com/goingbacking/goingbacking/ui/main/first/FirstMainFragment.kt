@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.domain.util.UiState
 
 import com.goingbacking.goingbacking.adapter.TodayRecyclerViewAdapter
 import com.goingbacking.goingbacking.R
@@ -96,12 +97,12 @@ class FirstMainFragment : BaseFragment<FragmentFirstMainBinding>() {
     }
 
     private fun observer() {
-        viewModel.getTmpTimeInfo2()
-        viewModel.tmpTimeRepository.observe(viewLifecycleOwner) { list ->
-            toast(requireContext(), list.toString())
-            Log.d("experiment", list.toString())
-            binding.progressCircular.hide()
-                    val tmpTimeCount = list.size
+        viewModel.getTmpTimeInfo()
+        viewModel.tmpTimeDTOs.observe(viewLifecycleOwner) { state ->
+            when(state) {
+                is UiState.Success -> {
+                    binding.progressCircular.hide()
+                    val tmpTimeCount = state.data.size
                     if (tmpTimeCount == 0) {
                         binding.tmpTimeButton.setMinAndMaxProgress(1f, 1f)
                         binding.tmpTimeDot.makeGONE()
@@ -117,34 +118,15 @@ class FirstMainFragment : BaseFragment<FragmentFirstMainBinding>() {
                     balloon.showAlignBottom(binding.tmpTimeButton)
                     balloon.dismissWithDelay(2000)
                     binding.tmpTimeButton.playAnimation()
-//            when(state) {
-//                is UiState.Success -> {
-//                    binding.progressCircular.hide()
-//                    val tmpTimeCount = state.data.size
-//                    if (tmpTimeCount == 0) {
-//                        binding.tmpTimeButton.setMinAndMaxProgress(1f, 1f)
-//                        binding.tmpTimeDot.makeGONE()
-//                        balloon = balloonBuild(getString(R.string.first_no_store))
-//                    } else {
-//                        binding.tmpTimeButton.setMinAndMaxProgress(0f, 1f)
-//                        binding.tmpTimeButton.repeatCount = 50
-//                        binding.tmpTimeDot.makeVisible()
-//                        balloon = balloonBuild(getString(R.string.first_yes_store1) + " " + tmpTimeCount.toString() + getString(R.string.first_yes_store2))
-//
-//
-//                    }
-//                    balloon.showAlignBottom(binding.tmpTimeButton)
-//                    balloon.dismissWithDelay(2000)
-//                    binding.tmpTimeButton.playAnimation()
-//                }
-//                is UiState.Failure -> {
-//                    binding.progressCircular.hide()
-//                    toast(requireContext(), getString(R.string.first_tmp_fail))
-//                }
-//                is UiState.Loading -> {
-//                    binding.progressCircular.show()
-//                }
-//            }
+                }
+                is UiState.Failure -> {
+                    binding.progressCircular.hide()
+                    toast(requireContext(), getString(R.string.first_tmp_fail))
+                }
+                is UiState.Loading -> {
+                    binding.progressCircular.show()
+                }
+            }
 
         }
     }

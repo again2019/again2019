@@ -5,11 +5,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.model.TmpTimeModel
-import com.example.domain.usecase.GetTmpTimeUseCase
+import com.example.domain.usecase.tmpTime.*
 import com.example.domain.usecase.whatToDo.UpdateWhatToDoMonthUseCase
 import com.example.domain.usecase.whatToDo.UpdateWhatToDoYearUseCase
 import com.example.domain.util.UiState
-import com.goingbacking.goingbacking.model.TmpTimeDTO
 import com.goingbacking.goingbacking.model.UserInfoDTO
 import com.goingbacking.goingbacking.repository.first.FirstRepositoryIF
 import com.google.firebase.firestore.FieldValue
@@ -22,28 +21,26 @@ class FirstViewModel @Inject constructor(
     private val updateWhatToDoMonthUseCase: UpdateWhatToDoMonthUseCase,
     private val updateWhatToDoYearUseCase: UpdateWhatToDoYearUseCase,
     private val getTmpTimeUseCase: GetTmpTimeUseCase,
+    private val deleteTmpTimeUseCase: DeleteTmpTimeUseCase,
+    private val updateTmpTimeDayUseCase: UpdateTmpTimeDayUseCase,
+    private val updateTmpTimeMonthUseCase: UpdateTmpTimeMonthUseCase,
+    private val updateTmpTimeYearUseCase: UpdateTmpTimeYearUseCase,
     val firstRepository: FirstRepositoryIF
 ) : ViewModel(){
 
     /*
     TmpTimeActivity
      */
-    private val _tmpTimeRepository = MutableLiveData<ArrayList<TmpTimeModel>>()
-    val tmpTimeRepository: LiveData<ArrayList<TmpTimeModel>> = _tmpTimeRepository
 
-    fun getTmpTimeInfo2() {
-        getTmpTimeUseCase(viewModelScope) {
-            _tmpTimeRepository.value = it
-        }
-    }
     // 임시 저장된 정보를 가져오는 코드
-    private val _tmpTimeDTOs = MutableLiveData<UiState<ArrayList<TmpTimeDTO>>>()
-    val tmpTimeDTOs : LiveData<UiState<ArrayList<TmpTimeDTO>>>
+    private val _tmpTimeDTOs = MutableLiveData<UiState<ArrayList<TmpTimeModel>>>()
+    val tmpTimeDTOs: LiveData<UiState<ArrayList<TmpTimeModel>>>
         get() = _tmpTimeDTOs
 
     fun getTmpTimeInfo() {
-        _tmpTimeDTOs.value = UiState.Loading
-        firstRepository.getTmpTimeInfo { _tmpTimeDTOs.value = it }
+        getTmpTimeUseCase(viewModelScope) {
+            _tmpTimeDTOs.value = it
+        }
     }
 
     // 개인 정보(닉네임, 타입, 할 것)을 불러오는 부분
@@ -64,8 +61,9 @@ class FirstViewModel @Inject constructor(
     private val _deletetmpTimeDTOs = MutableLiveData<UiState<String>>()
 
     fun deleteTmpTimeInfo(startTime: String) {
-        _deletetmpTimeDTOs.value = UiState.Loading
-        firstRepository.deleteTmpTimeInfo(startTime) { _deletetmpTimeDTOs.value = it }
+        deleteTmpTimeUseCase(viewModelScope, startTime) {
+            _deletetmpTimeDTOs.value = it
+        }
     }
 
     // 임시 저장된 정보 -> 최종 정보로 바꾸는 코드 (Day)
@@ -73,10 +71,11 @@ class FirstViewModel @Inject constructor(
 
     fun updateTmpTimeDayInfo(wakeUpTime1: String,
                              wakeUpTime2: String,
-                             count: FieldValue
+                             count: Double
     ) {
-        _tmpTimeDayDTOs.value = UiState.Loading
-        firstRepository.updateTmpTimeDayInfo(wakeUpTime1, wakeUpTime2, count) { _tmpTimeDayDTOs.value = it }
+        updateTmpTimeDayUseCase(viewModelScope, wakeUpTime1, wakeUpTime2, count) {
+            _tmpTimeDayDTOs.value = it
+        }
     }
 
     // 임시 저장된 정보 -> 최종 정보로 바꾸는 코드 (Month)
@@ -84,20 +83,22 @@ class FirstViewModel @Inject constructor(
 
     fun updateTmpTimeMonthInfo(wakeUpTime1: String,
                                wakeUpTime2: String,
-                               count: FieldValue
+                               count: Double
     ) {
-        _tmpTimeDayDTOs.value = UiState.Loading
-        firstRepository.updateTmpTimeMonthInfo(wakeUpTime1, wakeUpTime2, count) { _tmpTimeMonthDTOs.value = it }
+        updateTmpTimeMonthUseCase(viewModelScope, wakeUpTime1, wakeUpTime2, count) {
+            _tmpTimeMonthDTOs.value = it
+        }
     }
 
     // 임시 저장된 정보 -> 최종 정보로 바꾸는 코드 (Year)
     private val _tmpTimeYearDTOs = MutableLiveData<UiState<String>>()
 
     fun updateTmpTimeYearInfo(wakeUpTime: String,
-                              count: FieldValue
+                              count: Double
     ) {
-        _tmpTimeDayDTOs.value = UiState.Loading
-        firstRepository.updateTmpTimeYearInfo(wakeUpTime, count) { _tmpTimeYearDTOs.value = it }
+        updateTmpTimeYearUseCase(viewModelScope, wakeUpTime, count) {
+            _tmpTimeYearDTOs.value = it
+        }
     }
 
     // 임시 저장된 정보 -> 최종 랭크 정보로 바꾸는 코드 (Month)

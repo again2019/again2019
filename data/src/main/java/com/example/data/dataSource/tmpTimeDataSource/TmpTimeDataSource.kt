@@ -4,5 +4,15 @@ import com.example.data.entity.TmpTimeEntity
 
 interface TmpTimeDataSource {
 
-     suspend fun getTmpTimDTO() : ArrayList<TmpTimeEntity>
+     // TmpTime
+     suspend fun getTmpTimeEntity() : ArrayList<TmpTimeEntity>
+
+     suspend fun deleteTmpTimeEntity(startTime: String)
+
+     suspend fun updateTmpTimeDayEntity(wakeUpTime1: String, wakeupTime2: String, count: Double)
+
+     suspend fun updateTmpTimeMonthEntity(wakeUpTime1: String, wakeUpTime2: String, count: Double)
+
+     suspend fun updateTmpTimeYearEntity(wakeUpTime: String, count: Double)
+
 }

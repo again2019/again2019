@@ -120,7 +120,7 @@ class WhatToDoSaveBottomSheet : BottomSheetDialogFragment() {
                 toast(requireContext(), getString(R.string.whattodobottomsheet_ment1))
             } else {
                 val count = FieldValue.increment(count_double)
-                tmpTimeObserver(count)
+                tmpTimeObserver(count_double)
                 viewModel.updateWhatToDoMonthInfo(wakeUpTime1, selected.get(0), count_double)
                 viewModel.updateWhatToDoYearInfo(wakeUpTime3, selected.get(0), count_double)
                 viewModel.updateRankMonthInfo(wakeUpTime1, count)
@@ -142,7 +142,7 @@ class WhatToDoSaveBottomSheet : BottomSheetDialogFragment() {
     }
 
 
-    private fun tmpTimeObserver(count : FieldValue) {
+    private fun tmpTimeObserver(count : Double) {
 
         viewModel.updateTmpTimeDayInfo(wakeUpTime1, wakeUpTime2, count)
         viewModel.updateTmpTimeMonthInfo(wakeUpTime3, wakeUpTime4, count)
