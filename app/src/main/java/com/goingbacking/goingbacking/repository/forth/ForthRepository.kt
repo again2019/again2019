@@ -39,36 +39,36 @@ class ForthRepository (
      */
 
     override fun getSaveTimeMonthInfo(result: (UiState<ArrayList<NewSaveTimeMonthDTO>>)-> Unit) {
-        val arrayList = ArrayList<NewSaveTimeMonthDTO>()
-
-        firebaseFirestore.collection(RANKMONTHINFO).document(currentday("yyyy-MM"))
-            .collection(currentday("yyyy-MM")).orderBy(COUNT, Query.Direction.DESCENDING).get().addOnSuccessListener { documents ->
-                for (document in documents) {
-                    arrayList.add(document.toObject(NewSaveTimeMonthDTO::class.java))
-                }
-
-                result.invoke(UiState.Success(arrayList))
-            }.addOnFailureListener {
-                result.invoke(UiState.Failure(FAIL))
-            }
+//        val arrayList = ArrayList<NewSaveTimeMonthDTO>()
+//
+//        firebaseFirestore.collection(RANKMONTHINFO).document(currentday("yyyy-MM"))
+//            .collection(currentday("yyyy-MM")).orderBy(COUNT, Query.Direction.DESCENDING).get().addOnSuccessListener { documents ->
+//                for (document in documents) {
+//                    arrayList.add(document.toObject(NewSaveTimeMonthDTO::class.java))
+//                }
+//
+//                result.invoke(UiState.Success(arrayList))
+//            }.addOnFailureListener {
+//                result.invoke(UiState.Failure(FAIL))
+//            }
     }
 
     /*
     ForthMainFragment2
     */
     override fun getSaveTimeYearInfo(result: (UiState<ArrayList<NewSaveTimeYearDTO>>)-> Unit) {
-        val arrayList = ArrayList<NewSaveTimeYearDTO>()
-
-        firebaseFirestore.collection(RANKYEARINFO).document(currentday("yyyy"))
-            .collection(currentday("yyyy")).orderBy(COUNT, Query.Direction.DESCENDING).get().addOnSuccessListener { documents ->
-                for (document in documents) {
-                    arrayList.add(document.toObject(NewSaveTimeYearDTO::class.java))
-                }
-
-                result.invoke(UiState.Success(arrayList))
-            }.addOnFailureListener {
-                result.invoke(UiState.Failure(FAIL))
-            }
+//        val arrayList = ArrayList<NewSaveTimeYearDTO>()
+//
+//        firebaseFirestore.collection(RANKYEARINFO).document(currentday("yyyy"))
+//            .collection(currentday("yyyy")).orderBy(COUNT, Query.Direction.DESCENDING).get().addOnSuccessListener { documents ->
+//                for (document in documents) {
+//                    arrayList.add(document.toObject(NewSaveTimeYearDTO::class.java))
+//                }
+//
+//                result.invoke(UiState.Success(arrayList))
+//            }.addOnFailureListener {
+//                result.invoke(UiState.Failure(FAIL))
+//            }
     }
 
 

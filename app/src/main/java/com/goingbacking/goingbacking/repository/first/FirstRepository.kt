@@ -55,22 +55,22 @@ class FirstRepository(
 
     // 개인 정보(닉네임, 타입, 할 것)을 불러오는 부분
     override fun getFifthUserInfo(result: (UiState<UserInfoDTO>) -> Unit) {
-        firebaseFirestore.collection(Constants.USERINFO).document(myUid)
-            .get(cache)
-            .addOnSuccessListener { document ->
-                val data : UserInfoDTO? = document.toObject(UserInfoDTO::class.java)
-                result.invoke(
-                    UiState.Success(data!!)
-                )
-            }
-
-            .addOnFailureListener {
-                result.invoke(
-                    UiState.Failure(
-                        it.localizedMessage
-                    )
-                )
-            }
+//        firebaseFirestore.collection(Constants.USERINFO).document(myUid)
+//            .get(cache)
+//            .addOnSuccessListener { document ->
+//                val data : UserInfoDTO? = document.toObject(UserInfoDTO::class.java)
+//                result.invoke(
+//                    UiState.Success(data!!)
+//                )
+//            }
+//
+//            .addOnFailureListener {
+//                result.invoke(
+//                    UiState.Failure(
+//                        it.localizedMessage
+//                    )
+//                )
+//            }
     }
 
     /*
@@ -127,9 +127,9 @@ class FirstRepository(
         count: FieldValue,
         result: (UiState<String>) -> Unit
     ) {
-        firebaseFirestore.collection(RANKMONTHINFO).document(yyyyMM)
-            .collection(yyyyMM).document(myUid)
-            .update("count",count)
+//        firebaseFirestore.collection(RANKMONTHINFO).document(yyyyMM)
+//            .collection(yyyyMM).document(myUid)
+//            .update("count",count)
     }
 
     //임시 저장된 정보 -> 최종 랭크 정보로 바꾸는 코드 (Year)
@@ -138,9 +138,9 @@ class FirstRepository(
         count: FieldValue,
         result: (UiState<String>) -> Unit
     ) {
-        firebaseFirestore.collection(RANKYEARINFO).document(yyyy)
-            .collection(yyyy).document(myUid)
-            .update("count",count)
+//        firebaseFirestore.collection(RANKYEARINFO).document(yyyy)
+//            .collection(yyyy).document(myUid)
+//            .update("count",count)
     }
 
     //임시 저장된 정보 -> 최종 정보로 어떤 자기계발을 할 것인지로 바꾸는 코드 (Month)
@@ -169,25 +169,7 @@ class FirstRepository(
 //            .update("count", count)
     }
 
-    // 원하는 자기계발을 불러오느 코드
-    override fun getWhatToDoInfo(result: (UiState<List<String>>) -> Unit) {
-        firebaseFirestore.collection(FBConstants.USERINFO).document(myUid)
-            .get()
-            .addOnSuccessListener { document ->
-                val data :UserInfoDTO? = document.toObject(UserInfoDTO::class.java)
-                result.invoke(
-                    UiState.Success(data?.whatToDoList!!)
-                )
-            }
 
-            .addOnFailureListener {
-                result.invoke(
-                    UiState.Failure(
-                        it.localizedMessage
-                    )
-                )
-            }
-    }
 
 
 }

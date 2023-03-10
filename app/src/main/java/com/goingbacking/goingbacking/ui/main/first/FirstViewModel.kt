@@ -5,7 +5,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.model.TmpTimeModel
+import com.example.domain.model.UserInfoModel
+import com.example.domain.usecase.savedTime.GetSavedTimeAboutMonthRankUseCase
+import com.example.domain.usecase.savedTime.GetSavedTimeAboutYearRankUseCase
+import com.example.domain.usecase.savedTime.UpdateSavedTimeAboutMonthRankUseCase
+import com.example.domain.usecase.savedTime.UpdateSavedTimeAboutYearRankUseCase
 import com.example.domain.usecase.tmpTime.*
+import com.example.domain.usecase.userInfo.GetUserInfoUseCase
 import com.example.domain.usecase.whatToDo.UpdateWhatToDoMonthUseCase
 import com.example.domain.usecase.whatToDo.UpdateWhatToDoYearUseCase
 import com.example.domain.util.UiState
@@ -18,6 +24,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class FirstViewModel @Inject constructor(
+    private val getUserInfoUseCase: GetUserInfoUseCase,
     private val updateWhatToDoMonthUseCase: UpdateWhatToDoMonthUseCase,
     private val updateWhatToDoYearUseCase: UpdateWhatToDoYearUseCase,
     private val getTmpTimeUseCase: GetTmpTimeUseCase,
@@ -25,7 +32,8 @@ class FirstViewModel @Inject constructor(
     private val updateTmpTimeDayUseCase: UpdateTmpTimeDayUseCase,
     private val updateTmpTimeMonthUseCase: UpdateTmpTimeMonthUseCase,
     private val updateTmpTimeYearUseCase: UpdateTmpTimeYearUseCase,
-    val firstRepository: FirstRepositoryIF
+    private val updateSavedTimeAboutMonthRankUseCase: UpdateSavedTimeAboutMonthRankUseCase,
+    private val updateSavedTimeAboutYearRankUseCase: UpdateSavedTimeAboutYearRankUseCase,
 ) : ViewModel(){
 
     /*
@@ -44,13 +52,15 @@ class FirstViewModel @Inject constructor(
     }
 
     // 개인 정보(닉네임, 타입, 할 것)을 불러오는 부분
-    private val _userInfoDTOs = MutableLiveData<UiState<UserInfoDTO>>()
-    val userInfoDTO : LiveData<UiState<UserInfoDTO>>
+    private val _userInfoDTOs = MutableLiveData<UiState<UserInfoModel>>()
+    val userInfoDTO : LiveData<UiState<UserInfoModel>>
         get() = _userInfoDTOs
 
-    fun getFifthUserInfo() = viewModelScope.launch {
-        _userInfoDTOs.value = UiState.Loading
-        firstRepository.getFifthUserInfo  { _userInfoDTOs.value = it }
+    fun getFifthUserInfo() {
+        getUserInfoUseCase(viewModelScope) {
+            _userInfoDTOs.value= it
+        }
+
     }
 
     /*
@@ -105,22 +115,23 @@ class FirstViewModel @Inject constructor(
     private val _rankMonthDTOs = MutableLiveData<UiState<String>>()
 
     fun updateRankMonthInfo(yyyyMM: String,
-                            count: FieldValue,
+                            count: Double,
     ) {
-        _rankMonthDTOs.value = UiState.Loading
-        firstRepository.updateRankMonthInfo(yyyyMM, count) { _rankMonthDTOs.value = it }
+        updateSavedTimeAboutMonthRankUseCase(viewModelScope, yyyyMM, count) {
+            _rankMonthDTOs.value = it
+        }
     }
 
     //임시 저장된 정보 -> 최종 랭크 정보로 바꾸는 코드 (Year)
     private val _rankYearDTOs = MutableLiveData<UiState<String>>()
 
     fun updateRankYearInfo(yyyy: String,
-                           count: FieldValue
+                           count: Double
     ) {
-        _rankYearDTOs.value = UiState.Loading
-        firstRepository.updateRankYearInfo(yyyy, count) { _rankYearDTOs.value = it }
+        updateSavedTimeAboutYearRankUseCase(viewModelScope, yyyy, count) {
+            _rankYearDTOs.value = it
+        }
     }
-
 
     //임시 저장된 정보 -> 최종 정보로 어떤 자기계발을 할 것인지로 바꾸는 코드 (Month)
     private val _whatToDoMonthDTOs = MutableLiveData<UiState<String>>()
@@ -139,21 +150,4 @@ class FirstViewModel @Inject constructor(
             _whatToDoYearDTOs.value = it
         }
     }
-
-    // 원하는 자기계발을 불러오느 코드
-    private val _whatToDoListDTOs = MutableLiveData<UiState<List<String>>>()
-    val whatToDoListDTOs : LiveData<UiState<List<String>>>
-        get() = _whatToDoListDTOs
-
-    fun getWhatToDoInfo() {
-        _whatToDoListDTOs.value = UiState.Loading
-        firstRepository.getWhatToDoInfo { _whatToDoListDTOs.value = it }
-
-    }
-
-
-
-
-
-
 }

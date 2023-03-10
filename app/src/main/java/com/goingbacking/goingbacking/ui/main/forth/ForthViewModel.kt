@@ -7,6 +7,9 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
+import com.example.domain.model.SavedTimeAboutRankModel
+import com.example.domain.usecase.savedTime.GetSavedTimeAboutMonthRankUseCase
+import com.example.domain.usecase.savedTime.GetSavedTimeAboutYearRankUseCase
 import com.example.domain.util.UiState
 import com.goingbacking.goingbacking.model.NewSaveTimeMonthDTO
 import com.goingbacking.goingbacking.model.NewSaveTimeYearDTO
@@ -21,6 +24,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ForthViewModel @Inject constructor(
+    private val getSavedTimeAboutMonthRankUseCase: GetSavedTimeAboutMonthRankUseCase,
+    private val getSavedTimeAboutYearRankUseCase: GetSavedTimeAboutYearRankUseCase,
     private val queryRankingInfo : Query,
     private val forthRepository: ForthRepositoryIF
 ) : ViewModel() {
@@ -43,13 +48,14 @@ class ForthViewModel @Inject constructor(
      */
 
     // month 기준으로 랭킹화
-    private val _newSaveTimeMonth = MutableLiveData<UiState<ArrayList<NewSaveTimeMonthDTO>>>()
-    val newSaveTimeMonth : LiveData<UiState<ArrayList<NewSaveTimeMonthDTO>>>
+    private val _newSaveTimeMonth = MutableLiveData<UiState<ArrayList<SavedTimeAboutRankModel>>>()
+    val newSaveTimeMonth : LiveData<UiState<ArrayList<SavedTimeAboutRankModel>>>
         get() = _newSaveTimeMonth
 
-    fun getSaveTimeMonthInfo() = viewModelScope.launch {
-        _newSaveTimeMonth.value = UiState.Loading
-        forthRepository.getSaveTimeMonthInfo { _newSaveTimeMonth.value = it }
+    fun getSaveTimeMonthInfo()  {
+        getSavedTimeAboutMonthRankUseCase(viewModelScope) {
+            _newSaveTimeMonth.value = it
+        }
     }
 
     /*
@@ -57,15 +63,15 @@ class ForthViewModel @Inject constructor(
      */
 
     // year 기준으로 랭킹화
-    private val _newSaveTimeYear = MutableLiveData<UiState<ArrayList<NewSaveTimeYearDTO>>>()
-    val newSaveTimeYear : LiveData<UiState<ArrayList<NewSaveTimeYearDTO>>>
+    private val _newSaveTimeYear = MutableLiveData<UiState<ArrayList<SavedTimeAboutRankModel>>>()
+    val newSaveTimeYear : LiveData<UiState<ArrayList<SavedTimeAboutRankModel>>>
         get() = _newSaveTimeYear
 
-    fun getSaveTimeYearInfo() = viewModelScope.launch {
-        _newSaveTimeYear.value = UiState.Loading
-        forthRepository.getSaveTimeYearInfo { _newSaveTimeYear.value = it }
+    fun getSaveTimeYearInfo() {
+        getSavedTimeAboutYearRankUseCase(viewModelScope) {
+            _newSaveTimeYear.value = it
+        }
     }
-
 
     /*
     CheerBottomSheet

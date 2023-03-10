@@ -1,15 +1,27 @@
 package com.example.data.mapper
 
-import com.example.data.entity.SavedTimeDayEntity
-import com.example.data.entity.SavedTimeMonthEntity
-import com.example.data.entity.SavedTimeYearEntity
-import com.example.data.entity.UserInfoEntity
-import com.example.domain.model.SavedTimeDayModel
-import com.example.domain.model.SavedTimeMonthModel
-import com.example.domain.model.SavedTimeYearModel
-import com.example.domain.model.UserInfoModel
+import com.example.data.entity.*
+import com.example.domain.model.*
 
 object SavedTimeMapper {
+
+    // SavedTimeAboutRank
+
+    fun mapperToSavedTimeAboutRankModel(savedTimeAboutRank: SavedTimeAboutRankEntity) : SavedTimeAboutRankModel {
+        return SavedTimeAboutRankModel(
+            uid = savedTimeAboutRank.uid,
+            count = savedTimeAboutRank.count,
+            nickname =  savedTimeAboutRank.nickname
+        )
+    }
+
+    fun mapperToSavedTimeAboutRankEntity(savedTimeAboutRank: SavedTimeAboutRankModel) : SavedTimeAboutRankEntity {
+        return SavedTimeAboutRankEntity(
+            uid = savedTimeAboutRank.uid,
+            count = savedTimeAboutRank.count,
+            nickname =  savedTimeAboutRank.nickname
+        )
+    }
 
     // SavedTimeDay
 
@@ -64,5 +76,6 @@ object SavedTimeMapper {
             year = savedTimeYear.year,
         )
     }
+
 
 }

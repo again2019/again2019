@@ -7,6 +7,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.model.WhatToDoMonthModel
 import com.example.domain.model.WhatToDoYearModel
+import com.example.domain.usecase.savedTime.GetSavedTimeAboutMonthRankUseCase
+import com.example.domain.usecase.savedTime.GetSavedTimeAboutYearRankUseCase
 import com.example.domain.usecase.whatToDo.GetOtherWhatToDoMonthUseCase
 import com.example.domain.usecase.whatToDo.GetOtherWhatToDoYearUseCase
 import com.example.domain.util.UiState

@@ -5,7 +5,7 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class TmpTimeEntity (
-    var nowSeconds: Long? = null,
-    var startTime : Long? = null,
-    var wakeUpTime : Long? = null
+    var nowSeconds: Long = 0L,
+    var startTime : Long = 0L,
+    var wakeUpTime : Long = 0L
 ) : Parcelable

@@ -5,17 +5,18 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.domain.model.SavedTimeAboutRankModel
 import com.goingbacking.goingbacking.model.NewSaveTimeMonthDTO
 import com.goingbacking.goingbacking.databinding.ItemRankingBinding
 
 
 class RankRecyclerViewAdapter1 (
     val onItemClicked : (String) -> Unit
-        ): ListAdapter<NewSaveTimeMonthDTO, RankRecyclerViewAdapter1.MyViewHolder>(diffUtil) {
+        ): ListAdapter<SavedTimeAboutRankModel, RankRecyclerViewAdapter1.MyViewHolder>(diffUtil) {
 
 
     inner class MyViewHolder(val binding: ItemRankingBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: NewSaveTimeMonthDTO, position: Int) = with(binding) {
+        fun bind(item: SavedTimeAboutRankModel, position: Int) = with(binding) {
 
             rankNum.text = (position+1).toString()
 
@@ -69,12 +70,12 @@ class RankRecyclerViewAdapter1 (
         }
     }
     companion object{
-        val diffUtil=object: DiffUtil.ItemCallback<NewSaveTimeMonthDTO>(){
-            override fun areItemsTheSame(oldItem: NewSaveTimeMonthDTO, newItem: NewSaveTimeMonthDTO) :Boolean {
+        val diffUtil=object: DiffUtil.ItemCallback<SavedTimeAboutRankModel>(){
+            override fun areItemsTheSame(oldItem: SavedTimeAboutRankModel, newItem: SavedTimeAboutRankModel) :Boolean {
                 return oldItem==newItem
             }
 
-            override fun areContentsTheSame(oldItem: NewSaveTimeMonthDTO, newItem: NewSaveTimeMonthDTO) :Boolean {
+            override fun areContentsTheSame(oldItem: SavedTimeAboutRankModel, newItem: SavedTimeAboutRankModel) :Boolean {
                 return oldItem==newItem
             }
         }

@@ -42,5 +42,4 @@ interface FirstRepositoryIF {
     fun updateWhatToDoYearInfo(yyyy: String, whatToDo: String, count: FieldValue, result: (UiState<String>) -> Unit)
 
     // 원하는 자기계발을 불러오느 코드
-    fun getWhatToDoInfo(result: (UiState<List<String>>) -> Unit)
 }

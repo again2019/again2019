@@ -13,7 +13,7 @@ class TmpTimeRepositoryImpl @Inject constructor (
 
 
     /*
-    TmpTimeActivity
+        TmpTimeActivity
      */
 
     // 임시 저장된 정보를 가져오는 코드
