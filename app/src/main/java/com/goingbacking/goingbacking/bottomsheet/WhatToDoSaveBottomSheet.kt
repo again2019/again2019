@@ -8,10 +8,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 
 import androidx.fragment.app.activityViewModels
+import com.example.domain.util.UiState
 import com.goingbacking.goingbacking.R
-import com.goingbacking.goingbacking.UI.Main.First.FirstViewModel
+import com.goingbacking.goingbacking.ui.main.first.FirstViewModel
 import com.goingbacking.goingbacking.databinding.BottomSheetWhatToDoSaveBinding
-import com.goingbacking.goingbacking.util.UiState
 import com.goingbacking.goingbacking.util.makeGONE
 import com.goingbacking.goingbacking.util.makeVisible
 import com.goingbacking.goingbacking.util.toast
@@ -69,8 +69,8 @@ class WhatToDoSaveBottomSheet : BottomSheetDialogFragment() {
 
 
     private fun whatToDoObserver() {
-        viewModel.getWhatToDoInfo()
-        viewModel.whatToDoListDTOs.observe(this) { state ->
+        viewModel.getFifthUserInfo()
+        viewModel.userInfoDTO.observe(this) { state ->
             when(state) {
                 is UiState.Success -> {
                     binding.progressCircular.hide()
@@ -81,7 +81,7 @@ class WhatToDoSaveBottomSheet : BottomSheetDialogFragment() {
                     } else {
                         binding.noTextView.makeGONE()
                         binding.chipGroup.makeVisible()
-                        val whatToDoList = state.data
+                        val whatToDoList = state.data.whatToDoList
                         if (whatToDoList.size == 1) {
                             binding.chip1.text = whatToDoList.get(0)
                         } else if (whatToDoList.size == 2) {
@@ -119,12 +119,11 @@ class WhatToDoSaveBottomSheet : BottomSheetDialogFragment() {
             if (selected.size == 0) {
                 toast(requireContext(), getString(R.string.whattodobottomsheet_ment1))
             } else {
-                val count = FieldValue.increment(count_double)
-                tmpTimeObserver(count)
-                viewModel.updateWhatToDoMonthInfo(wakeUpTime1, selected.get(0), count)
-                viewModel.updateWhatToDoYearInfo(wakeUpTime3, selected.get(0), count)
-                viewModel.updateRankMonthInfo(wakeUpTime1, count)
-                viewModel.updateRankYearInfo(wakeUpTime3, count)
+                tmpTimeObserver(count_double)
+                viewModel.updateWhatToDoMonthInfo(wakeUpTime1, selected.get(0), count_double)
+                viewModel.updateWhatToDoYearInfo(wakeUpTime3, selected.get(0), count_double)
+                viewModel.updateRankMonthInfo(wakeUpTime1, count_double)
+                viewModel.updateRankYearInfo(wakeUpTime3, count_double)
                 viewModel.deleteTmpTimeInfo(wakeUpTime)
 
                 dialog!!.cancel()
@@ -142,7 +141,7 @@ class WhatToDoSaveBottomSheet : BottomSheetDialogFragment() {
     }
 
 
-    private fun tmpTimeObserver(count : FieldValue) {
+    private fun tmpTimeObserver(count : Double) {
 
         viewModel.updateTmpTimeDayInfo(wakeUpTime1, wakeUpTime2, count)
         viewModel.updateTmpTimeMonthInfo(wakeUpTime3, wakeUpTime4, count)

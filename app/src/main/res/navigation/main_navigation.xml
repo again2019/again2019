@@ -8,7 +8,7 @@
     <!-- first -->
     <fragment
         android:id="@+id/firstMainFragment"
-        android:name="com.goingbacking.goingbacking.UI.Main.First.FirstMainFragment"
+        android:name="com.goingbacking.goingbacking.ui.main.first.FirstMainFragment"
         android:label="FirstMainFragment"
         tools:layout="@layout/fragment_first_main">
     </fragment>
@@ -16,7 +16,7 @@
     <!-- second -->
     <fragment
         android:id="@+id/secondMainFragment"
-        android:name="com.goingbacking.goingbacking.UI.Main.Second.SecondMainFragment"
+        android:name="com.goingbacking.goingbacking.ui.main.second.SecondMainFragment"
         android:label="SecondMainFragment"
         tools:layout="@layout/fragment_second_main">
     </fragment>
@@ -25,7 +25,7 @@
     <!-- third -->
     <fragment
         android:id="@+id/thirdMainFragment"
-        android:name="com.goingbacking.goingbacking.UI.Main.Third.ThirdMainFragment"
+        android:name="com.goingbacking.goingbacking.ui.main.third.ThirdMainFragment"
         android:label="ThirdMainFragment"
         tools:layout="@layout/fragment_third_main">
 
@@ -35,7 +35,7 @@
     <!-- forth -->
     <fragment
         android:id="@+id/forthMainFragment"
-        android:name="com.goingbacking.goingbacking.UI.Main.Forth.ForthMainFragment"
+        android:name="com.goingbacking.goingbacking.ui.main.forth.ForthMainFragment"
         android:label="ForthMainFragment"
         tools:layout="@layout/fragment_forth_main">
     </fragment>
@@ -44,7 +44,7 @@
     <!-- fifth -->
     <fragment
         android:id="@+id/fifthMainFragment"
-        android:name="com.goingbacking.goingbacking.UI.Main.Fifth.FifthMainFragment"
+        android:name="com.goingbacking.goingbacking.ui.main.fifth.FifthMainFragment"
         android:label="FifthMainFragment"
         tools:layout="@layout/fragment_fifth_main">
     </fragment>

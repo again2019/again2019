@@ -5,9 +5,9 @@ import android.content.Intent
 import android.os.CountDownTimer
 import android.util.Log
 import com.goingbacking.goingbacking.AppConstants
-import com.goingbacking.goingbacking.Model.TmpTimeDTO
-import com.goingbacking.goingbacking.Repository.Alarm.AlarmRepository
-import com.goingbacking.goingbacking.Service.AlarmService
+import com.goingbacking.goingbacking.model.TmpTimeDTO
+import com.goingbacking.goingbacking.repository.alarm.AlarmRepository
+import com.goingbacking.goingbacking.service.AlarmService
 import java.text.SimpleDateFormat
 import java.util.*
 

@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/firstInputFragment"
-        android:name="com.goingbacking.goingbacking.UI.Input.FirstInputFragment"
+        android:name="com.goingbacking.goingbacking.ui.input.FirstInputFragment"
         android:label="FirstInputFragment">
 
         <action
@@ -27,7 +27,7 @@
 
     <fragment
         android:id="@+id/secondInputFragment"
-        android:name="com.goingbacking.goingbacking.UI.Input.SecondInputFragment"
+        android:name="com.goingbacking.goingbacking.ui.input.SecondInputFragment"
         android:label="SecondInputFragment">
 
         <action
@@ -54,7 +54,7 @@
 
     <fragment
         android:id="@+id/thirdInputFragment"
-        android:name="com.goingbacking.goingbacking.UI.Input.ThirdInputFragment"
+        android:name="com.goingbacking.goingbacking.ui.input.ThirdInputFragment"
         android:label="SecondInputFragment">
 
         <action
@@ -82,7 +82,7 @@
 
     <activity
         android:id="@+id/tutorialActivity"
-        android:name="com.goingbacking.goingbacking.UI.Tutorial.TutorialActivity"
+        android:name="com.goingbacking.goingbacking.ui.tutorial.TutorialActivity"
         android:label="tutorialActivity"
         tools:layout="@layout/activity_tutorial"
         >

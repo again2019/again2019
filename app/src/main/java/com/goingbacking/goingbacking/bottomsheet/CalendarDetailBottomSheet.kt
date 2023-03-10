@@ -7,11 +7,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.goingbacking.goingbacking.Adapter.CalendarEventAdapter2
-import com.goingbacking.goingbacking.Model.Event
-import com.goingbacking.goingbacking.UI.Main.Third.ThirdViewModel
+import com.example.domain.util.UiState
+import com.goingbacking.goingbacking.adapter.CalendarEventAdapter2
+import com.goingbacking.goingbacking.model.Event
+import com.goingbacking.goingbacking.ui.main.third.ThirdViewModel
 import com.goingbacking.goingbacking.databinding.BottomSheetCalendarDetailBinding
-import com.goingbacking.goingbacking.util.UiState
 import com.goingbacking.goingbacking.util.makeGONE
 import com.goingbacking.goingbacking.util.makeVisible
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
