@@ -1,5 +1,7 @@
 package com.example.data.di
 
+import com.example.data.dataSource.savedTimeDataSource.SavedTimeDataSource
+import com.example.data.dataSource.savedTimeDataSource.SavedTimeDataSourceImpl
 import com.example.data.dataSource.tmpTimeDataSource.TmpTimeDataSource
 import com.example.data.dataSource.tmpTimeDataSource.TmpTimeDataSourceImpl
 import com.example.data.dataSource.userInfoDataSource.UserInfoDataSource
@@ -18,6 +20,15 @@ import javax.inject.Singleton
 @Module
 object DataSourceModule {
 
+
+    @Provides
+    @Singleton
+    fun provideSavedTimeDataSource(
+        firebaseFirestore: FirebaseFirestore,
+        firebaseUser: FirebaseUser?,
+    ) : SavedTimeDataSource {
+        return SavedTimeDataSourceImpl(firebaseFirestore, firebaseUser!!)
+    }
 
     @Provides
     @Singleton

@@ -1,4 +1,4 @@
-package com.example.data.repositoryImpl.whatToDoRepository
+package com.example.data.repositoryImpl
 
 import com.example.data.dataSource.whatToDoDataSource.WhatToDoDataSource
 import com.example.data.mapper.WhatToDoMapper

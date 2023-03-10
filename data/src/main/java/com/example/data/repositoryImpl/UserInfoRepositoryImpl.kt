@@ -1,4 +1,4 @@
-package com.example.data.repositoryImpl.userInfoRepository
+package com.example.data.repositoryImpl
 
 import com.example.data.dataSource.userInfoDataSource.UserInfoDataSource
 import com.example.data.mapper.UserInfoMapper

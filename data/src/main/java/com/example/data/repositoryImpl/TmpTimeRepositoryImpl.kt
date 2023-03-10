@@ -1,10 +1,9 @@
-package com.example.data.repositoryImpl.tmpTimeRepository
+package com.example.data.repositoryImpl
 
 import com.example.data.dataSource.tmpTimeDataSource.TmpTimeDataSource
 import com.example.data.mapper.TmpTimeMapper
 import com.example.domain.model.TmpTimeModel
 import com.example.domain.repository.TmpTimeRepository
-import com.goingbacking.goingbacking.util.FBConstants
 import javax.inject.Inject
 
 
@@ -20,7 +19,7 @@ class TmpTimeRepositoryImpl @Inject constructor (
     // 임시 저장된 정보를 가져오는 코드
     override suspend fun getTmpTimeModel(): ArrayList<TmpTimeModel> {
         return tmpTimeDataSource.getTmpTimeEntity().map {
-            TmpTimeMapper.mapperToTmpTimeDTO(it)
+            TmpTimeMapper.mapperToTmpTimeModel(it)
         }.toCollection(ArrayList())
     }
 

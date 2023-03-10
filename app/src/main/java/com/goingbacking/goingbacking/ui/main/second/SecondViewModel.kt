@@ -4,8 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.domain.model.WhatToDoMonthModel
-import com.example.domain.model.WhatToDoYearModel
+import com.example.domain.model.*
+import com.example.domain.usecase.savedTime.GetSavedTimeDayUseCase
+import com.example.domain.usecase.savedTime.GetSavedTimeMonthUseCase
+import com.example.domain.usecase.savedTime.GetSavedTimeYearUseCase
 import com.example.domain.usecase.whatToDo.GetMyWhatToDoMonthUseCase
 import com.example.domain.usecase.whatToDo.GetMyWhatToDoYearUseCase
 import com.example.domain.util.UiState
@@ -18,6 +20,9 @@ import javax.inject.Inject
 class SecondViewModel @Inject constructor (
     private val getMyWhatToDoMonthUseCase: GetMyWhatToDoMonthUseCase,
     private val getMyWhatToDoYearUseCase: GetMyWhatToDoYearUseCase,
+    private val getSavedTimeDayUseCase: GetSavedTimeDayUseCase,
+    private val getSavedTimeMonthUseCase: GetSavedTimeMonthUseCase,
+    private val getSavedTimeYearUseCase: GetSavedTimeYearUseCase,
     val secondRepository: SecondRepositoryIF
 ) : ViewModel() {
 
@@ -27,33 +32,36 @@ class SecondViewModel @Inject constructor (
      */
 
     // 매일 통계를 보여주는 코드
-    private val _secondSaveDayDTOs = MutableLiveData<UiState<ArrayList<SaveTimeDayDTO>>>()
-    val secondSaveDayDTOs : LiveData<UiState<ArrayList<SaveTimeDayDTO>>>
+    private val _secondSaveDayDTOs = MutableLiveData<UiState<ArrayList<SavedTimeDayModel>>>()
+    val secondSaveDayDTOs : LiveData<UiState<ArrayList<SavedTimeDayModel>>>
         get() = _secondSaveDayDTOs
 
     fun getSecondSaveDayInfo() {
-        _secondSaveDayDTOs.value = UiState.Loading
-        secondRepository.getSecondSaveDayInfo() { _secondSaveDayDTOs.value = it }
+        getSavedTimeDayUseCase(viewModelScope) {
+            _secondSaveDayDTOs.value = it
+        }
     }
 
     // 달 통계를 보여주는 코드
-    private val _secondSaveMonthDTOs = MutableLiveData<UiState<ArrayList<SaveTimeMonthDTO>>>()
-    val secondSaveMonthDTOs : LiveData<UiState<ArrayList<SaveTimeMonthDTO>>>
+    private val _secondSaveMonthDTOs = MutableLiveData<UiState<ArrayList<SavedTimeMonthModel>>>()
+    val secondSaveMonthDTOs : LiveData<UiState<ArrayList<SavedTimeMonthModel>>>
         get() = _secondSaveMonthDTOs
 
     fun getSecondSaveMonthInfo() {
-        _secondSaveYearDTOs.value = UiState.Loading
-        secondRepository.getSecondSaveMonthInfo() { _secondSaveMonthDTOs.value = it }
+        getSavedTimeMonthUseCase(viewModelScope) {
+            _secondSaveMonthDTOs.value = it
+        }
     }
 
     // 연도 통계를 보여주는 코드
-    private val _secondSaveYearDTOs = MutableLiveData<UiState<ArrayList<SaveTimeYearDTO>>>()
-    val secondSaveYearDTOs : LiveData<UiState<ArrayList<SaveTimeYearDTO>>>
+    private val _secondSaveYearDTOs = MutableLiveData<UiState<ArrayList<SavedTimeYearModel>>>()
+    val secondSaveYearDTOs : LiveData<UiState<ArrayList<SavedTimeYearModel>>>
         get() = _secondSaveYearDTOs
 
     fun getSecondSaveYearInfo() {
-        _secondSaveYearDTOs.value = UiState.Loading
-        secondRepository.getSecondSaveYearInfo() { _secondSaveYearDTOs.value = it }
+        getSavedTimeYearUseCase(viewModelScope) {
+            _secondSaveYearDTOs.value = it
+        }
     }
 
     /*

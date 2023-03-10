@@ -5,7 +5,7 @@ import com.example.domain.model.TmpTimeModel
 
 object TmpTimeMapper {
 
-    fun mapperToTmpTimeDTO(tmpTime: TmpTimeEntity) : TmpTimeModel {
+    fun mapperToTmpTimeModel(tmpTime: TmpTimeEntity) : TmpTimeModel {
         return TmpTimeModel(
             nowSeconds = tmpTime.nowSeconds,
             wakeUpTime = tmpTime.wakeUpTime,
