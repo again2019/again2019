@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.domain.model.DateModel
 import com.example.domain.model.ScheduleModel
 import com.example.domain.usecase.scheduleAndDate.*
-import com.example.domain.usecase.userInfo.GetMyNickNameUseCase
+import com.example.domain.usecase.userInfo.my.GetMyNickNameUseCase
 import com.example.domain.util.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.time.LocalDate

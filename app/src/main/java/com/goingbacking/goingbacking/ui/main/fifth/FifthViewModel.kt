@@ -8,10 +8,10 @@ import com.example.domain.model.UserInfoModel
 import com.example.domain.model.WhatToDoMonthModel
 import com.example.domain.model.WhatToDoYearModel
 import com.example.domain.usecase.myAccount.LogOutUseCase
-import com.example.domain.usecase.userInfo.GetMyUserInfoUseCase
-import com.example.domain.usecase.userInfo.UpdateUserInfoUseCase
-import com.example.domain.usecase.whatToDo.AddWhatToDoMonthUseCase
-import com.example.domain.usecase.whatToDo.AddWhatToDoYearUseCase
+import com.example.domain.usecase.userInfo.my.GetMyUserInfoUseCase
+import com.example.domain.usecase.userInfo.my.UpdateUserInfoUseCase
+import com.example.domain.usecase.whatToDo.my.AddWhatToDoMonthUseCase
+import com.example.domain.usecase.whatToDo.my.AddWhatToDoYearUseCase
 import com.example.domain.util.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject

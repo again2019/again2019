@@ -8,20 +8,17 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
 import com.example.domain.model.SavedTimeAboutRankModel
-import com.example.domain.usecase.savedTime.GetSavedTimeAboutMonthRankUseCase
-import com.example.domain.usecase.savedTime.GetSavedTimeAboutYearRankUseCase
-import com.example.domain.usecase.userInfo.AddCheerUseCase
-import com.example.domain.usecase.userInfo.DeleteCheerUseCase
-import com.example.domain.usecase.userInfo.GetCheerListUseCase
+import com.example.domain.usecase.savedTime.common.GetSavedTimeAboutMonthRankUseCase
+import com.example.domain.usecase.savedTime.common.GetSavedTimeAboutYearRankUseCase
+import com.example.domain.usecase.userInfo.other.AddCheerUseCase
+import com.example.domain.usecase.userInfo.other.DeleteCheerUseCase
+import com.example.domain.usecase.userInfo.other.GetCheerListUseCase
 import com.example.domain.util.UiState
-import com.goingbacking.goingbacking.model.NewSaveTimeMonthDTO
-import com.goingbacking.goingbacking.model.NewSaveTimeYearDTO
 import com.goingbacking.goingbacking.repository.forth.ForthRepositoryIF
 import com.goingbacking.goingbacking.repository.forth.RankPagingSource
 import com.goingbacking.goingbacking.util.Constants.Companion.PAGE_SIZE
 import com.google.firebase.firestore.Query
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 

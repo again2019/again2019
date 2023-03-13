@@ -36,43 +36,43 @@ class InputRepository(
 
     // --- FirstInputFragment ---
     override fun addFirstInput(userNickName: String, result: (UiState<String>) -> Unit) {
-
-        var token = ""
-        CoroutineScope(Dispatchers.IO).launch {
-            token = firebaseMessage.token.await()
-            val userInfoDTO = UserInfoDTO(
-                uid = myUid,
-                userNickName = userNickName,
-                token = token
-            )
-            firebaseFirestore.collection(USERINFO).document(myUid).set(userInfoDTO).await()
-        }
+//
+//        var token = ""
+//        CoroutineScope(Dispatchers.IO).launch {
+//            token = firebaseMessage.token.await()
+//            val userInfoDTO = UserInfoDTO(
+//                uid = myUid,
+//                userNickName = userNickName,
+//                token = token
+//            )
+//            firebaseFirestore.collection(USERINFO).document(myUid).set(userInfoDTO).await()
+//        }
     }
 
     // --- SecondInputFragment ---
     override fun updateSecondInput(userType: String, result: (UiState<String>) -> Unit) {
-        CoroutineScope(Dispatchers.IO).launch {
-            firebaseFirestore.collection(USERINFO).document(myUid)
-                .update(USERTYPE, userType).await()
-        }
+//        CoroutineScope(Dispatchers.IO).launch {
+//            firebaseFirestore.collection(USERINFO).document(myUid)
+//                .update(USERTYPE, userType).await()
+//        }
     }
 
     // --- ThirdInputFragment ---
     override fun updateThirdInput(selected : List<String>, result: (UiState<String>) -> Unit) {
-        CoroutineScope(Dispatchers.IO).launch {
-            firebaseFirestore.collection(USERINFO).document(myUid)
-                .update(WHATTODOLIST, selected)
-                .addOnSuccessListener {
-                    result.invoke(UiState.Success(SUCCESS))
-                }
-                .addOnFailureListener {
-                    result.invoke(
-                        UiState.Failure(
-                            it.localizedMessage
-                        )
-                    )
-                }.await()
-        }
+//        CoroutineScope(Dispatchers.IO).launch {
+//            firebaseFirestore.collection(USERINFO).document(myUid)
+//                .update(WHATTODOLIST, selected)
+//                .addOnSuccessListener {
+//                    result.invoke(UiState.Success(SUCCESS))
+//                }
+//                .addOnFailureListener {
+//                    result.invoke(
+//                        UiState.Failure(
+//                            it.localizedMessage
+//                        )
+//                    )
+//                }.await()
+//        }
     }
 
     // --- InputBottomSheet ---

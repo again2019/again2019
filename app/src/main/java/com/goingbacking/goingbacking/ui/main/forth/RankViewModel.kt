@@ -6,16 +6,15 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.model.*
-import com.example.domain.usecase.savedTime.*
-import com.example.domain.usecase.userInfo.GetOtherUserInfoUseCase
-import com.example.domain.usecase.userInfo.UpdateLikeButtonUseCase
-import com.example.domain.usecase.whatToDo.GetOtherWhatToDoMonthUseCase
-import com.example.domain.usecase.whatToDo.GetOtherWhatToDoYearUseCase
+import com.example.domain.usecase.savedTime.other.GetOtherSavedTimeDayUseCase
+import com.example.domain.usecase.savedTime.other.GetOtherSavedTimeMonthUseCase
+import com.example.domain.usecase.userInfo.other.GetOtherUserInfoUseCase
+import com.example.domain.usecase.userInfo.other.UpdateLikeButtonUseCase
+import com.example.domain.usecase.whatToDo.other.GetOtherWhatToDoMonthUseCase
+import com.example.domain.usecase.whatToDo.other.GetOtherWhatToDoYearUseCase
 import com.example.domain.util.UiState
-import com.goingbacking.goingbacking.model.*
 import com.goingbacking.goingbacking.repository.forth.RankRepositoryIF
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 

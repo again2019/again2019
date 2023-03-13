@@ -5,11 +5,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.model.*
-import com.example.domain.usecase.savedTime.GetMySavedTimeDayUseCase
-import com.example.domain.usecase.savedTime.GetMySavedTimeMonthUseCase
-import com.example.domain.usecase.savedTime.GetMySavedTimeYearUseCase
-import com.example.domain.usecase.whatToDo.GetMyWhatToDoMonthUseCase
-import com.example.domain.usecase.whatToDo.GetMyWhatToDoYearUseCase
+import com.example.domain.usecase.savedTime.my.GetMySavedTimeDayUseCase
+import com.example.domain.usecase.savedTime.my.GetMySavedTimeMonthUseCase
+import com.example.domain.usecase.savedTime.my.GetMySavedTimeYearUseCase
+import com.example.domain.usecase.whatToDo.my.GetMyWhatToDoMonthUseCase
+import com.example.domain.usecase.whatToDo.my.GetMyWhatToDoYearUseCase
 import com.example.domain.util.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
