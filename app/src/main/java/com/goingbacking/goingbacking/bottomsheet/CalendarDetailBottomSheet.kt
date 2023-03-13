@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.domain.model.ScheduleModel
 import com.example.domain.util.UiState
 import com.goingbacking.goingbacking.adapter.CalendarEventAdapter2
 import com.goingbacking.goingbacking.model.Event
@@ -22,9 +23,9 @@ import java.time.LocalDate
 class CalendarDetailBottomSheet : BottomSheetDialogFragment() {
   private lateinit var binding : BottomSheetCalendarDetailBinding
   private val viewModel : ThirdViewModel by activityViewModels()
-    private var events = mutableMapOf<LocalDate, List<Event>>()
+    private var schedules = mutableMapOf<LocalDate, List<ScheduleModel>>()
     private val eventsAdapter = CalendarEventAdapter2()
-    private var eventsList = mutableListOf<Event>()
+    private var schedulesList = mutableListOf<ScheduleModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,18 +49,18 @@ class CalendarDetailBottomSheet : BottomSheetDialogFragment() {
         return binding.root
     }
 
-    private fun observer(year_month : String, date : String) {
-        viewModel.getSelectedDateInfo(year_month, date)
+    private fun observer(yearMonth : String, date : String) {
+        viewModel.getSelectedDateInfo(yearMonth, date)
         viewModel.thirdSelectedDateDTOs.observe(viewLifecycleOwner) { state ->
             when(state) {
                 is UiState.Success -> {
                     binding.progressCircular.hide()
-                    eventsList = state.data
-                    if (eventsList.size == 0) {
+                    schedulesList = state.data.toMutableList()
+                    if (schedulesList.size == 0) {
                         binding.recyclerView.makeGONE()
                         binding.noScheduleTextView.makeVisible()
                     } else {
-                        eventsAdapter.submitList(eventsList)
+                        eventsAdapter.submitList(schedulesList)
                         binding.recyclerView.makeVisible()
                         binding.noScheduleTextView.makeGONE()
                     }

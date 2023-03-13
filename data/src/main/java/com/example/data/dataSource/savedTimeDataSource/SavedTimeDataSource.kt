@@ -7,6 +7,11 @@ interface SavedTimeDataSource {
 
     // savedTimeAboutRank
 
+    suspend fun addMySavedTimeMonthEntity(savedTimeMonthEntity: SavedTimeMonthEntity)
+
+    suspend fun addMySavedTimeYearEntity(savedTimeYearEntity: SavedTimeYearEntity)
+
+
     suspend fun getSavedTimeAboutMonthRankEntity() : ArrayList<SavedTimeAboutRankEntity>
 
     suspend fun getSavedTimeAboutYearRankEntity() : ArrayList<SavedTimeAboutRankEntity>
@@ -15,11 +20,26 @@ interface SavedTimeDataSource {
 
     suspend fun updateSavedTimeAboutYearRankEntity(yyyy: String, count: Double)
 
-    // savedTime
+    // mySavedTime
 
-    suspend fun getSavedTimeDayEntity() : ArrayList<SavedTimeDayEntity>
+    suspend fun addSavedTimeDayEntity(savedTimeDayEntity: SavedTimeDayEntity)
 
-    suspend fun getSavedTimeMonthEntity() : ArrayList<SavedTimeMonthEntity>
+    suspend fun addSavedTimeMonthEntity(savedTimeMonthEntity: SavedTimeMonthEntity)
 
-    suspend fun getSavedTimeYearEntity() : ArrayList<SavedTimeYearEntity>
+    suspend fun addSavedTimeYearEntity(savedTimeYearEntity: SavedTimeYearEntity)
+
+    suspend fun getMySavedTimeDayEntity() : ArrayList<SavedTimeDayEntity>
+
+    suspend fun getMySavedTimeMonthEntity() : ArrayList<SavedTimeMonthEntity>
+
+    suspend fun getMySavedTimeYearEntity() : ArrayList<SavedTimeYearEntity>
+
+    // otherSavedTime
+
+    suspend fun getOtherSavedTimeDayEntity(destinationUid: String) : ArrayList<SavedTimeDayEntity>
+
+    suspend fun getOtherSavedTimeMonthEntity(destinationUid: String) : ArrayList<SavedTimeMonthEntity>
+
+    suspend fun getOtherSavedTimeYearEntity(destinationUid: String) : ArrayList<SavedTimeYearEntity>
+
 }

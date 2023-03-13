@@ -6,25 +6,19 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.model.TmpTimeModel
 import com.example.domain.model.UserInfoModel
-import com.example.domain.usecase.savedTime.GetSavedTimeAboutMonthRankUseCase
-import com.example.domain.usecase.savedTime.GetSavedTimeAboutYearRankUseCase
-import com.example.domain.usecase.savedTime.UpdateSavedTimeAboutMonthRankUseCase
-import com.example.domain.usecase.savedTime.UpdateSavedTimeAboutYearRankUseCase
-import com.example.domain.usecase.tmpTime.*
-import com.example.domain.usecase.userInfo.GetUserInfoUseCase
-import com.example.domain.usecase.whatToDo.UpdateWhatToDoMonthUseCase
-import com.example.domain.usecase.whatToDo.UpdateWhatToDoYearUseCase
+import com.example.domain.usecase.savedTime.common.UpdateSavedTimeAboutMonthRankUseCase
+import com.example.domain.usecase.savedTime.common.UpdateSavedTimeAboutYearRankUseCase
+import com.example.domain.usecase.myTmpTime.*
+import com.example.domain.usecase.userInfo.my.GetMyUserInfoUseCase
+import com.example.domain.usecase.whatToDo.my.UpdateWhatToDoMonthUseCase
+import com.example.domain.usecase.whatToDo.my.UpdateWhatToDoYearUseCase
 import com.example.domain.util.UiState
-import com.goingbacking.goingbacking.model.UserInfoDTO
-import com.goingbacking.goingbacking.repository.first.FirstRepositoryIF
-import com.google.firebase.firestore.FieldValue
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class FirstViewModel @Inject constructor(
-    private val getUserInfoUseCase: GetUserInfoUseCase,
+    private val getMyUserInfoUseCase: GetMyUserInfoUseCase,
     private val updateWhatToDoMonthUseCase: UpdateWhatToDoMonthUseCase,
     private val updateWhatToDoYearUseCase: UpdateWhatToDoYearUseCase,
     private val getTmpTimeUseCase: GetTmpTimeUseCase,
@@ -57,7 +51,7 @@ class FirstViewModel @Inject constructor(
         get() = _userInfoDTOs
 
     fun getFifthUserInfo() {
-        getUserInfoUseCase(viewModelScope) {
+        getMyUserInfoUseCase(viewModelScope) {
             _userInfoDTOs.value= it
         }
 

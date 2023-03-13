@@ -8,17 +8,17 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
 import com.example.domain.model.SavedTimeAboutRankModel
-import com.example.domain.usecase.savedTime.GetSavedTimeAboutMonthRankUseCase
-import com.example.domain.usecase.savedTime.GetSavedTimeAboutYearRankUseCase
+import com.example.domain.usecase.savedTime.common.GetSavedTimeAboutMonthRankUseCase
+import com.example.domain.usecase.savedTime.common.GetSavedTimeAboutYearRankUseCase
+import com.example.domain.usecase.userInfo.other.AddCheerUseCase
+import com.example.domain.usecase.userInfo.other.DeleteCheerUseCase
+import com.example.domain.usecase.userInfo.other.GetCheerListUseCase
 import com.example.domain.util.UiState
-import com.goingbacking.goingbacking.model.NewSaveTimeMonthDTO
-import com.goingbacking.goingbacking.model.NewSaveTimeYearDTO
 import com.goingbacking.goingbacking.repository.forth.ForthRepositoryIF
 import com.goingbacking.goingbacking.repository.forth.RankPagingSource
 import com.goingbacking.goingbacking.util.Constants.Companion.PAGE_SIZE
 import com.google.firebase.firestore.Query
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
@@ -26,6 +26,9 @@ import javax.inject.Inject
 class ForthViewModel @Inject constructor(
     private val getSavedTimeAboutMonthRankUseCase: GetSavedTimeAboutMonthRankUseCase,
     private val getSavedTimeAboutYearRankUseCase: GetSavedTimeAboutYearRankUseCase,
+    private val getCheerListUseCase: GetCheerListUseCase,
+    private val addCheerUseCase: AddCheerUseCase,
+    private val deleteCheerUseCase: DeleteCheerUseCase,
     private val queryRankingInfo : Query,
     private val forthRepository: ForthRepositoryIF
 ) : ViewModel() {
@@ -84,8 +87,9 @@ class ForthViewModel @Inject constructor(
         get() = _cheerInfo
 
     fun getCheerInfo(destinationUid : String)  {
-        _cheerInfo.value = UiState.Loading
-        forthRepository.getCheerInfo(destinationUid) { _cheerInfo.value = it }
+        getCheerListUseCase(viewModelScope, destinationUid) {
+            _cheerInfo.postValue(it)
+        }
     }
 
     // 응원 메시지 입력
@@ -93,17 +97,20 @@ class ForthViewModel @Inject constructor(
     val addCheerInfo : LiveData<UiState<List<String>>>
         get() = _addCheerInfo
 
-    fun addCheerInfo(destinationUid: String, text: String) = viewModelScope.launch {
-        _addCheerInfo.value = UiState.Loading
-        forthRepository.addCheerInfo(destinationUid, text) { _addCheerInfo.postValue(it) }
+    fun addCheerInfo(destinationUid: String, text: String)  {
+        addCheerUseCase(viewModelScope, destinationUid, text) {
+            _addCheerInfo.postValue(it)
+        }
+
     }
 
     // 응원 메시지 삭제
     private val _deleteCheerInfo = MutableLiveData<UiState<String>>()
 
-    fun deleteCheerInfo(destinationUid: String, text: String,) = viewModelScope.launch {
-        _deleteCheerInfo.value = UiState.Loading
-        forthRepository.deleteCheerInfo(destinationUid, text) { _deleteCheerInfo.postValue(it) }
+    fun deleteCheerInfo(destinationUid: String, text: String,){
+        deleteCheerUseCase(viewModelScope, destinationUid, text) {
+            _deleteCheerInfo.postValue(it)
+        }
     }
 
 

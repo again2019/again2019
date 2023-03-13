@@ -1,10 +1,15 @@
 package com.goingbacking.goingbacking.ui.input
 
 import androidx.lifecycle.*
+import com.example.domain.model.UserInfoModel
 import com.example.domain.model.WhatToDoMonthModel
 import com.example.domain.model.WhatToDoYearModel
-import com.example.domain.usecase.whatToDo.AddWhatToDoMonthUseCase
-import com.example.domain.usecase.whatToDo.AddWhatToDoYearUseCase
+import com.example.domain.usecase.userInfo.my.AddMyUserInfoUseCase
+import com.example.domain.usecase.userInfo.my.GetMyUserInfoUseCase
+import com.example.domain.usecase.userInfo.my.UpdateMyUserSelectedListUseCase
+import com.example.domain.usecase.userInfo.my.UpdateMyUserTypeUseCase
+import com.example.domain.usecase.whatToDo.my.AddWhatToDoMonthUseCase
+import com.example.domain.usecase.whatToDo.my.AddWhatToDoYearUseCase
 import com.example.domain.util.UiState
 import com.goingbacking.goingbacking.model.*
 import com.goingbacking.goingbacking.repository.input.InputRepositoryIF
@@ -14,17 +19,21 @@ import javax.inject.Inject
 
 @HiltViewModel
 class InputViewModel @Inject constructor (
+    private val addMyUserInfoUseCase: AddMyUserInfoUseCase,
+    private val updateMyUserTypeUseCase: UpdateMyUserTypeUseCase,
+    private val updateMyUserSelectedListUseCase: UpdateMyUserSelectedListUseCase,
     private val whatToDoMonthUseCase: AddWhatToDoMonthUseCase,
     private val whatToDoYearUseCase: AddWhatToDoYearUseCase,
+    private val getMyUserInfoUseCase: GetMyUserInfoUseCase,
+
     val inputRepository: InputRepositoryIF
     ) : ViewModel() {
 
     // --- FirstInputFragment ---
     private val _addFirstInput = MutableLiveData<UiState<String>>()
 
-    fun addFirstInput(userNickName: String) = viewModelScope.launch {
-        _addFirstInput.value = UiState.Loading
-        inputRepository.addFirstInput(userNickName) {
+    fun addFirstInput(userNickName: String) {
+        addMyUserInfoUseCase(viewModelScope, userNickName) {
             _addFirstInput.postValue(it)
         }
     }
@@ -32,11 +41,10 @@ class InputViewModel @Inject constructor (
     // --- SecondInputFragment ---
     private val _updateSecondInput = MutableLiveData<UiState<String>>()
 
-    fun updateSecondInput(userType: String) = viewModelScope.launch {
-        _updateSecondInput.value = UiState.Loading
-        inputRepository.updateSecondInput(userType) {
-            _updateSecondInput.postValue(it)
-        }
+    fun updateSecondInput(userType: String)  {
+       updateMyUserTypeUseCase(viewModelScope, userType) {
+           _updateSecondInput.postValue(it)
+       }
     }
 
     // --- ThirdInputFragment ---
@@ -44,21 +52,19 @@ class InputViewModel @Inject constructor (
     val updateThirdInput: LiveData<UiState<String>>
         get() = _updateThirdInput
 
-    fun updateThirdInput(selected :List<String>) = viewModelScope.launch {
-        _updateThirdInput.value = UiState.Loading
-        inputRepository.updateThirdInput(selected) {
+    fun updateThirdInput(selected: List<String>) {
+        updateMyUserSelectedListUseCase(viewModelScope, selected) {
             _updateThirdInput.postValue(it)
         }
     }
 
     // --- InputBottomSheet ---
-    private val _checkUserInfo = MutableLiveData<UiState<UserInfoDTO>>()
-    val checkUserInfo: LiveData<UiState<UserInfoDTO>>
+    private val _checkUserInfo = MutableLiveData<UiState<UserInfoModel>>()
+    val checkUserInfo: LiveData<UiState<UserInfoModel>>
         get() = _checkUserInfo
 
-    fun checkInput() = viewModelScope.launch {
-        _checkUserInfo.value = UiState.Loading
-        inputRepository.checkInput {
+    fun checkInput()  {
+        getMyUserInfoUseCase(viewModelScope) {
             _checkUserInfo.postValue(it)
         }
     }

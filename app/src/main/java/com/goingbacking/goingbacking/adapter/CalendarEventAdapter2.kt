@@ -5,15 +5,16 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.domain.model.ScheduleModel
 import com.goingbacking.goingbacking.model.Event
 import com.goingbacking.goingbacking.databinding.ItemEventBinding
 import com.goingbacking.goingbacking.util.makeGONE
 
 class CalendarEventAdapter2
-    : ListAdapter<Event, CalendarEventAdapter2.MyViewHolder>(diffUtil) {
+    : ListAdapter<ScheduleModel, CalendarEventAdapter2.MyViewHolder>(diffUtil) {
     inner class MyViewHolder(private val binding: ItemEventBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(event:Event) {
+        fun bind(event:ScheduleModel) {
             val start_hour = event.start!!.toInt() / 60
             val start_minute = event.start!!.toInt() % 60
             val end_hour = event.end!!.toInt() / 60
@@ -46,12 +47,12 @@ class CalendarEventAdapter2
 
 
     companion object{
-        val diffUtil=object: DiffUtil.ItemCallback<Event>(){
-            override fun areItemsTheSame(oldItem: Event, newItem: Event) :Boolean {
+        val diffUtil=object: DiffUtil.ItemCallback<ScheduleModel>(){
+            override fun areItemsTheSame(oldItem: ScheduleModel, newItem: ScheduleModel) :Boolean {
                 return oldItem==newItem
             }
 
-            override fun areContentsTheSame(oldItem: Event, newItem: Event) :Boolean {
+            override fun areContentsTheSame(oldItem: ScheduleModel, newItem: ScheduleModel) :Boolean {
                 return oldItem==newItem
             }
         }

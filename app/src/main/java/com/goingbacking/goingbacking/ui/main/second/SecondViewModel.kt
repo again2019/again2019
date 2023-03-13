@@ -5,14 +5,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.model.*
-import com.example.domain.usecase.savedTime.GetSavedTimeDayUseCase
-import com.example.domain.usecase.savedTime.GetSavedTimeMonthUseCase
-import com.example.domain.usecase.savedTime.GetSavedTimeYearUseCase
-import com.example.domain.usecase.whatToDo.GetMyWhatToDoMonthUseCase
-import com.example.domain.usecase.whatToDo.GetMyWhatToDoYearUseCase
+import com.example.domain.usecase.savedTime.my.GetMySavedTimeDayUseCase
+import com.example.domain.usecase.savedTime.my.GetMySavedTimeMonthUseCase
+import com.example.domain.usecase.savedTime.my.GetMySavedTimeYearUseCase
+import com.example.domain.usecase.whatToDo.my.GetMyWhatToDoMonthUseCase
+import com.example.domain.usecase.whatToDo.my.GetMyWhatToDoYearUseCase
 import com.example.domain.util.UiState
-import com.goingbacking.goingbacking.model.*
-import com.goingbacking.goingbacking.repository.second.SecondRepositoryIF
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -20,10 +18,9 @@ import javax.inject.Inject
 class SecondViewModel @Inject constructor (
     private val getMyWhatToDoMonthUseCase: GetMyWhatToDoMonthUseCase,
     private val getMyWhatToDoYearUseCase: GetMyWhatToDoYearUseCase,
-    private val getSavedTimeDayUseCase: GetSavedTimeDayUseCase,
-    private val getSavedTimeMonthUseCase: GetSavedTimeMonthUseCase,
-    private val getSavedTimeYearUseCase: GetSavedTimeYearUseCase,
-    val secondRepository: SecondRepositoryIF
+    private val getMySavedTimeDayUseCase: GetMySavedTimeDayUseCase,
+    private val getMySavedTimeMonthUseCase: GetMySavedTimeMonthUseCase,
+    private val getMySavedTimeYearUseCase: GetMySavedTimeYearUseCase,
 ) : ViewModel() {
 
 
@@ -37,7 +34,7 @@ class SecondViewModel @Inject constructor (
         get() = _secondSaveDayDTOs
 
     fun getSecondSaveDayInfo() {
-        getSavedTimeDayUseCase(viewModelScope) {
+        getMySavedTimeDayUseCase(viewModelScope) {
             _secondSaveDayDTOs.value = it
         }
     }
@@ -48,7 +45,7 @@ class SecondViewModel @Inject constructor (
         get() = _secondSaveMonthDTOs
 
     fun getSecondSaveMonthInfo() {
-        getSavedTimeMonthUseCase(viewModelScope) {
+        getMySavedTimeMonthUseCase(viewModelScope) {
             _secondSaveMonthDTOs.value = it
         }
     }
@@ -59,7 +56,7 @@ class SecondViewModel @Inject constructor (
         get() = _secondSaveYearDTOs
 
     fun getSecondSaveYearInfo() {
-        getSavedTimeYearUseCase(viewModelScope) {
+        getMySavedTimeYearUseCase(viewModelScope) {
             _secondSaveYearDTOs.value = it
         }
     }

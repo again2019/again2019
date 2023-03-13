@@ -1,17 +1,21 @@
 package com.goingbacking.goingbacking.ui.login
 
 import androidx.lifecycle.*
+import com.example.domain.usecase.myAccount.*
 import com.example.domain.util.UiState
-import com.goingbacking.goingbacking.repository.login.LoginRepositoryIF
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-    val loginRepository: LoginRepositoryIF
+    private val getGsoUseCase: GetGsoUseCase,
+    private val signInWithCredentialUseCase: SignInWithCredentialUseCase,
+    private val loginEmailUseCase: LoginEmailUseCase,
+    private val registerEmailUseCase: RegisterEmailUseCase,
+    private val findEmailPasswordUseCase: findEmailPasswordUseCase,
+    private val getCurrentSession: GetCurrentSession,
 ) : ViewModel() {
 
     // GSO를 받아오는 코드
@@ -19,10 +23,9 @@ class LoginViewModel @Inject constructor(
     val gso: LiveData<UiState<GoogleSignInOptions>>
         get() = _gso
 
-    fun getGSO() = viewModelScope.launch {
-        _gso.value = UiState.Loading
-        loginRepository.getGSO {
-            _gso.value = it
+    fun getGSO() {
+        getGsoUseCase(viewModelScope) {
+            _gso.postValue(it)
         }
     }
 
@@ -31,10 +34,9 @@ class LoginViewModel @Inject constructor(
     val register: LiveData<UiState<String>>
         get() = _register
 
-    fun emailRegister(email: String, password:String) = viewModelScope.launch {
-        _register.value = UiState.Loading
-        loginRepository.emailRegister(email, password) {
-            _register.value = it
+    fun emailRegister(email: String, password:String) {
+        registerEmailUseCase(viewModelScope, email, password) {
+            _register.postValue(it)
         }
     }
 
@@ -42,10 +44,9 @@ class LoginViewModel @Inject constructor(
     val emailLogin: LiveData<UiState<String>>
         get() = _emailLogin
 
-    fun emailLogin(email: String, password: String) = viewModelScope.launch {
-        _emailLogin.value = UiState.Loading
-        loginRepository.emailLogin(email, password) {
-            _emailLogin.value = it
+    fun emailLogin(email: String, password: String) {
+        loginEmailUseCase(viewModelScope, email, password) {
+            _emailLogin.postValue(it)
         }
     }
 
@@ -54,10 +55,9 @@ class LoginViewModel @Inject constructor(
     val forgotPassword: LiveData<UiState<String>>
         get() = _forgotPassword
 
-    fun emailForgetPassword(email: String) = viewModelScope.launch {
-        _forgotPassword.value = UiState.Loading
-        loginRepository.emailForgetPassword(email) {
-            _forgotPassword.value = it
+    fun emailForgetPassword(email: String) {
+        findEmailPasswordUseCase(viewModelScope, email) {
+            _forgotPassword.postValue(it)
         }
     }
 
@@ -65,10 +65,9 @@ class LoginViewModel @Inject constructor(
     val loginCredential: LiveData<UiState<String>>
         get() = _loginCredential
 
-    fun signInWithCredential(token :String) = viewModelScope.launch {
-        _loginCredential.value = UiState.Loading
-        loginRepository.signInWithCredential(token) {
-            _loginCredential.value = it
+    fun signInWithCredential(token :String) {
+        signInWithCredentialUseCase(viewModelScope, token) {
+            _loginCredential.postValue(it)
         }
     }
 
@@ -77,10 +76,9 @@ class LoginViewModel @Inject constructor(
     val currentSession: LiveData<UiState<String>>
         get() = _currentSession
 
-    fun getCurrentSession() = viewModelScope.launch {
-        _currentSession.value = UiState.Loading
-        loginRepository.getCurrentSession() {
-            _currentSession.value = it
+    fun getCurrentSession() {
+        getCurrentSession(viewModelScope) {
+            _currentSession.postValue(it)
         }
     }
 

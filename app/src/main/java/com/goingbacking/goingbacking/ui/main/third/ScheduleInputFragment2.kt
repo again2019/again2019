@@ -8,6 +8,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.example.domain.model.DateModel
+import com.example.domain.model.ScheduleModel
 import com.goingbacking.goingbacking.model.DateDTO
 import com.goingbacking.goingbacking.model.Event
 import com.goingbacking.goingbacking.R
@@ -164,11 +166,11 @@ class ScheduleInputFragment2 : BaseFragment<FragmentScheduleInput2Binding>() {
                         toast(requireActivity(), getString(R.string.second_end_time_fail))
                     } else {
                         for (day in date) {
-                            val event = Event(
+                            val event = ScheduleModel(
                                 dest = binding.destinationPlaceEditText.text.toString(),
                                 date = day,
-                                start = home2time,
-                                end = dest1time,
+                                start = home2time!!,
+                                end = dest1time!!,
                                 start_t = home2time!! - home1time!!,
                                 end_t = dest2time!! - dest1time!!
                             )
@@ -176,7 +178,7 @@ class ScheduleInputFragment2 : BaseFragment<FragmentScheduleInput2Binding>() {
                             val path2 =
                                 convertDateToTimeStamp(day + "-" + home2ButtonText).toString()
 
-                            val dateDTO = DateDTO(
+                            val dateDTO = DateModel(
                                 dateList = date.toList()
                             )
                             viewModel.addDateInfo(yearMonth, dateDTO)

@@ -8,6 +8,7 @@ import com.example.data.entity.SavedTimeMonthEntity
 import com.example.data.entity.SavedTimeYearEntity
 import com.goingbacking.goingbacking.util.Constants
 import com.goingbacking.goingbacking.util.FBConstants
+import com.goingbacking.goingbacking.util.beforeday
 import com.goingbacking.goingbacking.util.currentday
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FieldValue
@@ -24,6 +25,20 @@ class SavedTimeDataSourceImpl(
 
     val myUid = firebaseUser.uid
     val cache = Source.CACHE
+    @RequiresApi(Build.VERSION_CODES.O)
+    override suspend fun addMySavedTimeMonthEntity(savedTimeMonthEntity: SavedTimeMonthEntity) {
+//        firebaseFirestore.collection(Constants.SAVETIMEINFO).document(myUid)
+//            .collection(Constants.MONTH).document(currentday("yyyy"))
+//            .collection(currentday("yyyy")).document(myUid + currentday("MM"))
+//            .set(savedTimeMonthEntity)
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    override suspend fun addMySavedTimeYearEntity(savedTimeYearEntity: SavedTimeYearEntity) {
+//        firebaseFirestore.collection(Constants.SAVETIMEINFO).document(myUid)
+//            .collection(Constants.YEAR).document(currentday("yyyy"))
+//            .set(savedTimeYearEntity)
+    }
 
     // savedTimeAboutRank
 
@@ -54,10 +69,39 @@ class SavedTimeDataSourceImpl(
             .update("count", FieldValue.increment(count))
     }
 
-    // savedTime
+    @RequiresApi(Build.VERSION_CODES.O)
+    override suspend fun addSavedTimeDayEntity(savedTimeDayEntity: SavedTimeDayEntity) {
+//        firebaseFirestore.collection(Constants.SAVETIMEINFO).document(myUid)
+//            .collection(Constants.DAY).document(currentday("yyyy-MM"))
+//            .collection(currentday("yyyy-MM")).document(myUid + currentday("dd"))
+//            .set(savedTimeDayEntity)
+    }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    override suspend fun getSavedTimeDayEntity(): ArrayList<SavedTimeDayEntity> {
+    override suspend fun addSavedTimeMonthEntity(savedTimeMonthEntity: SavedTimeMonthEntity) {
+        if (beforeday("MM") != currentday("MM")) {
+
+//            firebaseFirestore.collection(Constants.SAVETIMEINFO).document(myUid)
+//                .collection(Constants.MONTH).document(currentday("yyyy"))
+//                .collection(currentday("yyyy")).document(myUid + currentday("MM"))
+//                .set(savedTimeMonthEntity)
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    override suspend fun addSavedTimeYearEntity(savedTimeYearEntity: SavedTimeYearEntity) {
+        if (beforeday("yyyy") != currentday("yyyy")) {
+
+//            firebaseFirestore.collection(Constants.SAVETIMEINFO).document(myUid)
+//                .collection(Constants.YEAR).document(currentday("yyyy"))
+//                .set(savedTimeYearEntity)
+        }
+    }
+
+    // mySavedTime
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    override suspend fun getMySavedTimeDayEntity(): ArrayList<SavedTimeDayEntity> {
         return firebaseFirestore.collection(FBConstants.SAVETIMEINFO).document(myUid)
             .collection(FBConstants.DAY).document(currentday("yyyy"))
             .collection(currentday("yyyy")).get(cache).await()
@@ -65,16 +109,40 @@ class SavedTimeDataSourceImpl(
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    override suspend fun getSavedTimeMonthEntity(): ArrayList<SavedTimeMonthEntity> {
+    override suspend fun getMySavedTimeMonthEntity(): ArrayList<SavedTimeMonthEntity> {
         return firebaseFirestore.collection(FBConstants.SAVETIMEINFO).document(myUid)
             .collection(FBConstants.MONTH).document(currentday("yyyy"))
             .collection(currentday("yyyy")).get(cache).await()
             .toObjects<SavedTimeMonthEntity>().toCollection(ArrayList())
     }
 
-    override suspend fun getSavedTimeYearEntity(): ArrayList<SavedTimeYearEntity> {
+    // otherSavedTime
+
+    override suspend fun getMySavedTimeYearEntity(): ArrayList<SavedTimeYearEntity> {
         return firebaseFirestore.collection(FBConstants.SAVETIMEINFO).document(myUid)
             .collection("year").get(cache).await()
+            .toObjects<SavedTimeYearEntity>().toCollection(ArrayList())
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    override suspend fun getOtherSavedTimeDayEntity(destinationUid: String): ArrayList<SavedTimeDayEntity> {
+        return firebaseFirestore.collection(FBConstants.SAVETIMEINFO).document(destinationUid)
+            .collection(FBConstants.DAY).document(currentday("yyyy"))
+            .collection(currentday("yyyy")).get().await()
+            .toObjects<SavedTimeDayEntity>().toCollection(ArrayList())
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    override suspend fun getOtherSavedTimeMonthEntity(destinationUid: String): ArrayList<SavedTimeMonthEntity> {
+        return firebaseFirestore.collection(FBConstants.SAVETIMEINFO).document(destinationUid)
+            .collection(FBConstants.MONTH).document(currentday("yyyy"))
+            .collection(currentday("yyyy")).get().await()
+            .toObjects<SavedTimeMonthEntity>().toCollection(ArrayList())
+    }
+
+    override suspend fun getOtherSavedTimeYearEntity(destinationUid: String): ArrayList<SavedTimeYearEntity> {
+        return firebaseFirestore.collection(FBConstants.SAVETIMEINFO).document(destinationUid)
+            .collection("year").get().await()
             .toObjects<SavedTimeYearEntity>().toCollection(ArrayList())
     }
 }

@@ -17,11 +17,20 @@ interface SavedTimeRepository {
 
     suspend fun updateSavedTimeAboutYearRankModel(yyyy: String, count: Double)
 
-    // savedTime
+    // mySavedTime
 
-    suspend fun getSavedTimeDayModel() : ArrayList<SavedTimeDayModel>
-    suspend fun getSavedTimeMonthModel() : ArrayList<SavedTimeMonthModel>
+    suspend fun getMySavedTimeDayModel() : ArrayList<SavedTimeDayModel>
+    suspend fun getMySavedTimeMonthModel() : ArrayList<SavedTimeMonthModel>
 
-    suspend fun getSavedTimeYearModel() : ArrayList<SavedTimeYearModel>
+    suspend fun getMySavedTimeYearModel() : ArrayList<SavedTimeYearModel>
+
+    // otherSavedTime
+
+    suspend fun getOtherSavedTimeDayModel(destinationUid: String) : ArrayList<SavedTimeDayModel>
+
+    suspend fun getOtherSavedTimeMonthModel(destinationUid: String) : ArrayList<SavedTimeMonthModel>
+
+    suspend fun getOtherSavedTimeYearModel(destinationUid: String) : ArrayList<SavedTimeYearModel>
+
 
 }

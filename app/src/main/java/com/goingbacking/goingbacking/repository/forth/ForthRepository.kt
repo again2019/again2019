@@ -78,17 +78,17 @@ class ForthRepository (
 
     // 응원 댓글 받아오는 코드
     override fun getCheerInfo(destinationUid: String, result: (UiState<List<String>>) -> Unit) {
-        firebaseFirestore.collection(USERINFO).document(destinationUid)
-            .get().addOnSuccessListener { document ->
-                result.invoke(
-                    UiState.Success(
-                        document.toObject(UserInfoDTO::class.java)!!.cheers
-                    )
-                )
-            }
-            .addOnFailureListener {
-                result.invoke(UiState.Failure(FAIL))
-            }
+//        firebaseFirestore.collection(USERINFO).document(destinationUid)
+//            .get().addOnSuccessListener { document ->
+//                result.invoke(
+//                    UiState.Success(
+//                        document.toObject(UserInfoDTO::class.java)!!.cheers
+//                    )
+//                )
+//            }
+//            .addOnFailureListener {
+//                result.invoke(UiState.Failure(FAIL))
+//            }
     }
 
     // 응원 댓글 입력
@@ -120,10 +120,10 @@ class ForthRepository (
         text: String,
         result: (UiState<String>) -> Unit
     ) {
-        val tsDoc = firebaseFirestore.collection(USERINFO).document(destinationUid)
-        CoroutineScope(Dispatchers.IO).launch {
-            tsDoc.update(CHEERS, FieldValue.arrayRemove(text)).await()
-        }
+//        val tsDoc = firebaseFirestore.collection(USERINFO).document(destinationUid)
+//        CoroutineScope(Dispatchers.IO).launch {
+//            tsDoc.update(CHEERS, FieldValue.arrayRemove(text)).await()
+//        }
     }
 
 
