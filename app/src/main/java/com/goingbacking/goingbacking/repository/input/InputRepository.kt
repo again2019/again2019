@@ -77,24 +77,24 @@ class InputRepository(
 
     // --- InputBottomSheet ---
     override fun checkInput(result: (UiState<UserInfoDTO>) -> Unit) {
-        CoroutineScope(Dispatchers.IO).launch {
-            firebaseFirestore.collection(USERINFO).document(myUid)
-                .get(cache)
-                .addOnSuccessListener { document ->
-                    val userInfo = document.toObject(UserInfoDTO::class.java)
-
-                    result.invoke(
-                        UiState.Success(userInfo!!)
-                    )
-                }
-                .addOnFailureListener {
-                    result.invoke(
-                        UiState.Failure(
-                            it.localizedMessage
-                        )
-                    )
-                }
-        }
+//        CoroutineScope(Dispatchers.IO).launch {
+//            firebaseFirestore.collection(USERINFO).document(myUid)
+//                .get(cache)
+//                .addOnSuccessListener { document ->
+//                    val userInfo = document.toObject(UserInfoDTO::class.java)
+//
+//                    result.invoke(
+//                        UiState.Success(userInfo!!)
+//                    )
+//                }
+//                .addOnFailureListener {
+//                    result.invoke(
+//                        UiState.Failure(
+//                            it.localizedMessage
+//                        )
+//                    )
+//                }
+//        }
 
     }
 
@@ -140,11 +140,11 @@ class InputRepository(
         rankMonthDTO: NewSaveTimeMonthDTO,
         result: (UiState<String>) -> Unit
     ) {
-//        CoroutineScope(Dispatchers.IO).launch {
-//            firebaseFirestore.collection(AppConstants.RANKMONTHINFO).document(currentday("yyyy-MM"))
-//                .collection(currentday("yyyy-MM")).document(myUid)
-//                .set(rankMonthDTO).await()
-//        }
+        CoroutineScope(Dispatchers.IO).launch {
+            firebaseFirestore.collection(AppConstants.RANKMONTHINFO).document(currentday("yyyy-MM"))
+                .collection(currentday("yyyy-MM")).document(myUid)
+                .set(rankMonthDTO).await()
+        }
     }
 
     override fun addInitRankYearTime(

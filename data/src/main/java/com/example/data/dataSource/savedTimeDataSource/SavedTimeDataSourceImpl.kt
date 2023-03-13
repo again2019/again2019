@@ -54,10 +54,10 @@ class SavedTimeDataSourceImpl(
             .update("count", FieldValue.increment(count))
     }
 
-    // savedTime
+    // mySavedTime
 
     @RequiresApi(Build.VERSION_CODES.O)
-    override suspend fun getSavedTimeDayEntity(): ArrayList<SavedTimeDayEntity> {
+    override suspend fun getMySavedTimeDayEntity(): ArrayList<SavedTimeDayEntity> {
         return firebaseFirestore.collection(FBConstants.SAVETIMEINFO).document(myUid)
             .collection(FBConstants.DAY).document(currentday("yyyy"))
             .collection(currentday("yyyy")).get(cache).await()
@@ -65,16 +65,40 @@ class SavedTimeDataSourceImpl(
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    override suspend fun getSavedTimeMonthEntity(): ArrayList<SavedTimeMonthEntity> {
+    override suspend fun getMySavedTimeMonthEntity(): ArrayList<SavedTimeMonthEntity> {
         return firebaseFirestore.collection(FBConstants.SAVETIMEINFO).document(myUid)
             .collection(FBConstants.MONTH).document(currentday("yyyy"))
             .collection(currentday("yyyy")).get(cache).await()
             .toObjects<SavedTimeMonthEntity>().toCollection(ArrayList())
     }
 
-    override suspend fun getSavedTimeYearEntity(): ArrayList<SavedTimeYearEntity> {
+    // otherSavedTime
+
+    override suspend fun getMySavedTimeYearEntity(): ArrayList<SavedTimeYearEntity> {
         return firebaseFirestore.collection(FBConstants.SAVETIMEINFO).document(myUid)
             .collection("year").get(cache).await()
+            .toObjects<SavedTimeYearEntity>().toCollection(ArrayList())
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    override suspend fun getOtherSavedTimeDayEntity(destinationUid: String): ArrayList<SavedTimeDayEntity> {
+        return firebaseFirestore.collection(FBConstants.SAVETIMEINFO).document(destinationUid)
+            .collection(FBConstants.DAY).document(currentday("yyyy"))
+            .collection(currentday("yyyy")).get().await()
+            .toObjects<SavedTimeDayEntity>().toCollection(ArrayList())
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    override suspend fun getOtherSavedTimeMonthEntity(destinationUid: String): ArrayList<SavedTimeMonthEntity> {
+        return firebaseFirestore.collection(FBConstants.SAVETIMEINFO).document(destinationUid)
+            .collection(FBConstants.MONTH).document(currentday("yyyy"))
+            .collection(currentday("yyyy")).get().await()
+            .toObjects<SavedTimeMonthEntity>().toCollection(ArrayList())
+    }
+
+    override suspend fun getOtherSavedTimeYearEntity(destinationUid: String): ArrayList<SavedTimeYearEntity> {
+        return firebaseFirestore.collection(FBConstants.SAVETIMEINFO).document(destinationUid)
+            .collection("year").get().await()
             .toObjects<SavedTimeYearEntity>().toCollection(ArrayList())
     }
 }

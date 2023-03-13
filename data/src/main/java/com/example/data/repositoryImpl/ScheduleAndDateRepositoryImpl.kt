@@ -8,7 +8,7 @@ import com.example.domain.repository.ScheduleAndDateRepository
 import java.time.LocalDate
 import javax.inject.Inject
 
-class SchedueAndDateRepositoryImpl @Inject constructor(
+class ScheduleAndDateRepositoryImpl @Inject constructor(
     private val scheduleAndDateDataSource: ScheduleAndDateDataSource
 ) : ScheduleAndDateRepository {
     override suspend fun addDateModel(yearMonth: String, date: DateModel) {
@@ -19,7 +19,7 @@ class SchedueAndDateRepositoryImpl @Inject constructor(
         scheduleAndDateDataSource.addScheduleEntity(path1, path2, ScheduleAndDateMapper.mapperToScheduleEntity(schedule))
     }
 
-    override suspend fun getDateModel(yearMonth: String): DateModel? {
+    override suspend fun getDateModel(yearMonth: String): DateModel {
         return ScheduleAndDateMapper.mapperToDateModel(scheduleAndDateDataSource.getDateEntity(yearMonth))
     }
 

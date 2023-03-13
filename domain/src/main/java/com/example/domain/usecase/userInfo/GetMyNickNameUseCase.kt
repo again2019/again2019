@@ -1,6 +1,5 @@
 package com.example.domain.usecase.userInfo
 
-import com.example.domain.model.UserInfoModel
 import com.example.domain.repository.UserInfoRepository
 import com.example.domain.util.UiState
 import kotlinx.coroutines.CoroutineScope
@@ -9,24 +8,24 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class GetUserInfoUseCase @Inject constructor (
+class GetMyNickNameUseCase @Inject constructor (
     private val userInfoRepository: UserInfoRepository
 ) {
     operator fun invoke (
         scope : CoroutineScope,
-        onResult : (UiState<UserInfoModel>) -> Unit,
+        onResult : (UiState<String>) -> Unit,
     ) {
 
         scope.launch(Dispatchers.Main) {
             try {
                 onResult(UiState.Loading)
-                val userInfoModel = async(Dispatchers.IO) {
-                    userInfoRepository.getUserInfoModel()
+                val userNickName = async(Dispatchers.IO) {
+                    userInfoRepository.getMyUserInfoModel().userNickName
                 }.await()
 
-                when (userInfoModel != UserInfoModel()) {
+                when (userNickName != null) {
                     true -> {
-                        onResult(UiState.Success(userInfoModel))
+                        onResult(UiState.Success(userNickName))
                     }
                     else -> {
                         onResult(UiState.Failure("Failure"))

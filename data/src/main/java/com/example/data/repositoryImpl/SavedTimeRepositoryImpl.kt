@@ -35,23 +35,46 @@ class SavedTimeRepositoryImpl @Inject constructor(
         savedTimeDataSource.getSavedTimeAboutYearRankEntity()
     }
 
-    // savedTime
+    // mySavedTime
 
-    override suspend fun getSavedTimeDayModel(): ArrayList<SavedTimeDayModel> {
-        return savedTimeDataSource.getSavedTimeDayEntity().map {
+    override suspend fun getMySavedTimeDayModel(): ArrayList<SavedTimeDayModel> {
+        return savedTimeDataSource.getMySavedTimeDayEntity().map {
             SavedTimeMapper.mapperToSavedTimeDayModel(it)
         }.toCollection(ArrayList())
     }
 
-    override suspend fun getSavedTimeMonthModel(): ArrayList<SavedTimeMonthModel> {
-        return savedTimeDataSource.getSavedTimeMonthEntity().map {
+    override suspend fun getMySavedTimeMonthModel(): ArrayList<SavedTimeMonthModel> {
+        return savedTimeDataSource.getMySavedTimeMonthEntity().map {
             SavedTimeMapper.mapperToSavedTimeMonthModel(it)
         }.toCollection(ArrayList())
     }
 
-    override suspend fun getSavedTimeYearModel(): ArrayList<SavedTimeYearModel> {
-        return savedTimeDataSource.getSavedTimeYearEntity().map {
+    override suspend fun getMySavedTimeYearModel(): ArrayList<SavedTimeYearModel> {
+        return savedTimeDataSource.getMySavedTimeYearEntity().map {
             SavedTimeMapper.mapperToSavedTimeYearModel(it)
         }.toCollection(ArrayList())
     }
+
+    // otherSavedTime
+
+    override suspend fun getOtherSavedTimeDayModel(destinationUid: String): ArrayList<SavedTimeDayModel> {
+        return savedTimeDataSource.getOtherSavedTimeDayEntity(destinationUid).map {
+            SavedTimeMapper.mapperToSavedTimeDayModel(it)
+        }.toCollection(ArrayList())
+    }
+
+    override suspend fun getOtherSavedTimeMonthModel(destinationUid: String): ArrayList<SavedTimeMonthModel> {
+        return savedTimeDataSource.getOtherSavedTimeMonthEntity(destinationUid).map {
+            SavedTimeMapper.mapperToSavedTimeMonthModel(it)
+        }.toCollection(ArrayList())
+    }
+
+    override suspend fun getOtherSavedTimeYearModel(destinationUid: String): ArrayList<SavedTimeYearModel> {
+        return savedTimeDataSource.getOtherSavedTimeYearEntity(destinationUid).map {
+            SavedTimeMapper.mapperToSavedTimeYearModel(it)
+        }.toCollection(ArrayList())
+    }
+
+
+
 }

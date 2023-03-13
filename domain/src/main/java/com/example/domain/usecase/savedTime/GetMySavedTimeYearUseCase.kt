@@ -1,8 +1,6 @@
 package com.example.domain.usecase.savedTime
 
-import com.example.domain.model.SavedTimeDayModel
-import com.example.domain.model.SavedTimeMonthModel
-import com.example.domain.model.TmpTimeModel
+import com.example.domain.model.SavedTimeYearModel
 import com.example.domain.repository.SavedTimeRepository
 import com.example.domain.util.UiState
 import kotlinx.coroutines.CoroutineScope
@@ -11,12 +9,12 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class GetSavedTimeMonthUseCase @Inject constructor(
+class GetMySavedTimeYearUseCase @Inject constructor(
     private val savedTimeRepository: SavedTimeRepository
 ){
     operator fun invoke (
         scope: CoroutineScope,
-        onResult: (UiState<ArrayList<SavedTimeMonthModel>>) -> Unit
+        onResult: (UiState<ArrayList<SavedTimeYearModel>>) -> Unit
     ) {
         scope.launch(Dispatchers.Main) {
             try {
@@ -24,7 +22,7 @@ class GetSavedTimeMonthUseCase @Inject constructor(
 
                 // withContext로 대체 가능하긴 함
                 val savedTime = async (Dispatchers.IO) {
-                    savedTimeRepository.getSavedTimeMonthModel()
+                    savedTimeRepository.getMySavedTimeYearModel()
                 }.await()
 
                 onResult(UiState.Success(savedTime))

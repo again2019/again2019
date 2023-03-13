@@ -4,19 +4,26 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.domain.model.DateModel
+import com.example.domain.model.ScheduleModel
+import com.example.domain.usecase.scheduleAndDate.*
+import com.example.domain.usecase.userInfo.GetMyNickNameUseCase
 import com.example.domain.util.UiState
-import com.goingbacking.goingbacking.model.DateDTO
-import com.goingbacking.goingbacking.model.Event
-import com.goingbacking.goingbacking.repository.third.ThirdRepositoryIF
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
 import java.time.LocalDate
 import javax.inject.Inject
 
 
 @HiltViewModel
 class ThirdViewModel @Inject constructor(
-    val thirdRepository: ThirdRepositoryIF
+    private val getMyNickNameUseCase: GetMyNickNameUseCase,
+    private val addDateUseCase: AddDateUseCase,
+    private val addScheduleUseCase: AddScheduleUseCase,
+    private val deleteSchedulesUseCase: DeleteSchedulesUseCase,
+    private val getAllSchedulesUseCase: GetAllSchedulesUseCase,
+    private val getDateUseCase: GetDateUseCase,
+    private val getDateListUseCase: GetDateListUseCase,
+    private val getSelectedSchedulesUseCase: GetSelectedSchedulesUseCase,
 ) : ViewModel() {
 
     /*
@@ -26,17 +33,19 @@ class ThirdViewModel @Inject constructor(
     // 날짜만 데이터 베이스에 저장
     private val _dateDTOs = MutableLiveData<UiState<String>>()
 
-    fun addDateInfo(yearMonth: String, date: DateDTO) {
-        _dateDTOs.value = UiState.Loading
-        thirdRepository.addDateInfo(yearMonth, date) { _dateDTOs.value = it}
+    fun addDateInfo(yearMonth: String, date: DateModel) {
+        addDateUseCase(viewModelScope, yearMonth, date) {
+            _dateDTOs.value = it
+        }
     }
 
     // 스케줄을 데이터 베이스에 저장
     private val _eventDTOs = MutableLiveData<UiState<String>>()
 
-    fun addScheduleEventInfo(path1 :String, path2: String, event: Event) {
-        _eventDTOs.value = UiState.Loading
-        thirdRepository.addEventInfo(path1, path2, event) { _eventDTOs.value = it}
+    fun addScheduleEventInfo(path1 :String, path2: String, schedule: ScheduleModel) {
+        addScheduleUseCase(viewModelScope, path1, path2, schedule) {
+            _eventDTOs.value = it
+        }
     }
 
     /*
@@ -44,13 +53,14 @@ class ThirdViewModel @Inject constructor(
      */
 
     // 날짜의 스케줄 유무를 가져오는 코드
-    private val _thirdDateDTOs1 = MutableLiveData<UiState<DateDTO>>()
-    val thirdDateDTOs1 : LiveData<UiState<DateDTO>>
+    private val _thirdDateDTOs1 = MutableLiveData<UiState<DateModel>>()
+    val thirdDateDTOs1 : LiveData<UiState<DateModel>>
         get() = _thirdDateDTOs1
 
-    fun getThirdDateInfo1(year_month:String) = viewModelScope.launch {
-        _thirdDateDTOs1.value = UiState.Loading
-        thirdRepository.getThirdDateInfo1(year_month) { _thirdDateDTOs1.postValue(it) }
+    fun getThirdDateInfo1(yearMonth: String) {
+        getDateUseCase(viewModelScope, yearMonth) {
+            _thirdDateDTOs1.postValue(it)
+        }
     }
 
     // 날짜의 스케줄 유무를 가져오는 코드
@@ -58,19 +68,23 @@ class ThirdViewModel @Inject constructor(
     val thirdDateDTOs2 : LiveData<UiState<List<String>>>
         get() = _thirdDateDTOs2
 
-    fun getThirdDateInfo2(year_month:String) = viewModelScope.launch {
-        _thirdDateDTOs2.value = UiState.Loading
-        thirdRepository.getThirdDateInfo2(year_month) { _thirdDateDTOs2.postValue(it) }
+    fun getThirdDateInfo2(yearMonth: String) {
+        getDateListUseCase(viewModelScope, yearMonth) {
+            _thirdDateDTOs2.postValue(it)
+        }
     }
 
     // 날짜의 스케줄 삭제하는 코드
-    private val _deleteThirdCalendarDTOs = MutableLiveData<UiState<MutableMap<LocalDate, List<Event>>>>()
-    val deleteThirdCalendarDTOs : LiveData<UiState<MutableMap<LocalDate, List<Event>>>>
+    private val _deleteThirdCalendarDTOs = MutableLiveData<UiState<MutableMap<LocalDate, List<ScheduleModel>>>>()
+    val deleteThirdCalendarDTOs : LiveData<UiState<MutableMap<LocalDate, List<ScheduleModel>>>>
         get() = _deleteThirdCalendarDTOs
 
-    fun deleteThirdCalendarInfo(eventDate: String, timeStamp: String) {
-        _deleteThirdCalendarDTOs.value = UiState.Loading
-        thirdRepository.deleteThirdCalendarInfo(eventDate, timeStamp) { _deleteThirdCalendarDTOs.value = it }
+
+
+    fun deleteThirdCalendarInfo(scheduleDate: String, timeStamp: String) {
+        deleteSchedulesUseCase(viewModelScope, scheduleDate, timeStamp) {
+            _deleteThirdCalendarDTOs.postValue(it)
+        }
     }
 
 
@@ -79,9 +93,11 @@ class ThirdViewModel @Inject constructor(
     val nickNameInfoDTOs : LiveData<UiState<String>>
         get() = _nickNameInfoDTOs
 
-    fun getNickNameInfo() = viewModelScope.launch {
-        _nickNameInfoDTOs.value = UiState.Loading
-        thirdRepository.getNickNameInfo  { _nickNameInfoDTOs.value = it }
+    fun getNickNameInfo()  {
+        getMyNickNameUseCase(viewModelScope) {
+            _nickNameInfoDTOs.postValue(it)
+        }
+
     }
 
     /*
@@ -90,22 +106,24 @@ class ThirdViewModel @Inject constructor(
      */
 
     // 날짜의 선택된 스케줄을 가져오는 코드
-    private val _thirdSelectedDateDTOs = MutableLiveData<UiState<MutableList<Event>>>()
-    val thirdSelectedDateDTOs : LiveData<UiState<MutableList<Event>>>
+    private val _thirdSelectedDateDTOs = MutableLiveData<UiState<List<ScheduleModel>>>()
+    val thirdSelectedDateDTOs : LiveData<UiState<List<ScheduleModel>>>
         get() = _thirdSelectedDateDTOs
 
-    fun getSelectedDateInfo(year_month: String, date: String) {
-        _thirdSelectedDateDTOs.value = UiState.Loading
-        thirdRepository.getSelectedDateInfo(year_month, date) { _thirdSelectedDateDTOs.value = it }
+    fun getSelectedDateInfo(yearMonth: String, date: String) {
+        getSelectedSchedulesUseCase(viewModelScope, yearMonth, date) {
+            _thirdSelectedDateDTOs.postValue(it)
+        }
     }
 
-    private val _thirdAllCalendarDTOs = MutableLiveData<UiState<MutableMap<LocalDate, List<Event>>>>()
-    val thirdAllCalendarDTOs : LiveData<UiState<MutableMap<LocalDate, List<Event>>>>
+    private val _thirdAllCalendarDTOs = MutableLiveData<UiState<MutableMap<LocalDate, List<ScheduleModel>>>>()
+    val thirdAllCalendarDTOs : LiveData<UiState<MutableMap<LocalDate, List<ScheduleModel>>>>
         get() = _thirdAllCalendarDTOs
 
     fun getAllCalendarInfo() {
-        _thirdAllCalendarDTOs.value = UiState.Loading
-        thirdRepository.getAllCalendarInfo() { _thirdAllCalendarDTOs.value = it }
+        getAllSchedulesUseCase(viewModelScope) {
+            _thirdAllCalendarDTOs.postValue(it)
+        }
     }
 
 }

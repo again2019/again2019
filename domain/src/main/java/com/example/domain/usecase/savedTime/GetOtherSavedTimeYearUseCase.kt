@@ -11,11 +11,12 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class GetSavedTimeYearUseCase @Inject constructor(
+class GetOtherSavedTimeYearUseCase @Inject constructor(
     private val savedTimeRepository: SavedTimeRepository
 ){
     operator fun invoke (
         scope: CoroutineScope,
+        destinationUid: String,
         onResult: (UiState<ArrayList<SavedTimeYearModel>>) -> Unit
     ) {
         scope.launch(Dispatchers.Main) {
@@ -24,7 +25,7 @@ class GetSavedTimeYearUseCase @Inject constructor(
 
                 // withContext로 대체 가능하긴 함
                 val savedTime = async (Dispatchers.IO) {
-                    savedTimeRepository.getSavedTimeYearModel()
+                    savedTimeRepository.getOtherSavedTimeYearModel(destinationUid)
                 }.await()
 
                 onResult(UiState.Success(savedTime))

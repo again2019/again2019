@@ -1,15 +1,23 @@
 package com.example.data.di
 
+
+import com.example.data.dataSource.accountDataSource.AccountDataSource
+import com.example.data.dataSource.accountDataSource.AccountDataSourceImpl
 import com.example.data.dataSource.savedTimeDataSource.SavedTimeDataSource
 import com.example.data.dataSource.savedTimeDataSource.SavedTimeDataSourceImpl
+import com.example.data.dataSource.scheduleAndDateDataSource.ScheduleAndDateDataSource
+import com.example.data.dataSource.scheduleAndDateDataSource.ScheduleAndDateDataSourceImpl
 import com.example.data.dataSource.tmpTimeDataSource.TmpTimeDataSource
 import com.example.data.dataSource.tmpTimeDataSource.TmpTimeDataSourceImpl
 import com.example.data.dataSource.userInfoDataSource.UserInfoDataSource
 import com.example.data.dataSource.userInfoDataSource.UserInfoDataSourceImpl
 import com.example.data.dataSource.whatToDoDataSource.WhatToDoDataSource
 import com.example.data.dataSource.whatToDoDataSource.WhatToDoDataSourceImpl
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.messaging.FirebaseMessaging
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -20,6 +28,14 @@ import javax.inject.Singleton
 @Module
 object DataSourceModule {
 
+    @Provides
+    @Singleton
+    fun provideAccountDataSource(
+        firebaseUser: FirebaseUser?,
+        firebaseAuth: FirebaseAuth,
+    ) : AccountDataSource {
+        return AccountDataSourceImpl(firebaseUser, firebaseAuth)
+    }
 
     @Provides
     @Singleton
@@ -44,8 +60,9 @@ object DataSourceModule {
     fun provideUserInfoDataSource(
         firebaseFirestore: FirebaseFirestore,
         firebaseUser: FirebaseUser?,
+        firebaseMessaging: FirebaseMessaging,
     ) : UserInfoDataSource {
-        return UserInfoDataSourceImpl(firebaseFirestore, firebaseUser!!)
+        return UserInfoDataSourceImpl(firebaseFirestore, firebaseUser!!, firebaseMessaging)
     }
 
     @Provides
@@ -57,12 +74,15 @@ object DataSourceModule {
         return WhatToDoDataSourceImpl(firebaseFirestore, firebaseUser!!)
     }
 
-//    @Provides
-//    @Singleton
-//    fun provideFirstRepository(
-//        tmpTmpTimeDataSource: TmpTimeDataSource
-//    ) : FirstRepositoryImpl {
-//        return FirstRepositoryImpl(tmpTmpTimeDataSource)
-//    }
+    @Provides
+    @Singleton
+    fun provideScheduleAndDateDataSource(
+        firebaseFirestore: FirebaseFirestore,
+        firebaseUser: FirebaseUser?,
+    ) : ScheduleAndDateDataSource {
+        return ScheduleAndDateDataSourceImpl(firebaseFirestore, firebaseUser!!)
+    }
+
+
 
 }

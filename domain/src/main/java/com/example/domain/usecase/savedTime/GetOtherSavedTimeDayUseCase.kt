@@ -10,11 +10,12 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class GetSavedTimeDayUseCase @Inject constructor(
+class GetOtherSavedTimeDayUseCase @Inject constructor(
     private val savedTimeRepository: SavedTimeRepository
 ){
     operator fun invoke (
         scope: CoroutineScope,
+        destinationUid: String,
         onResult: (UiState<ArrayList<SavedTimeDayModel>>) -> Unit
     ) {
         scope.launch(Dispatchers.Main) {
@@ -23,7 +24,7 @@ class GetSavedTimeDayUseCase @Inject constructor(
 
                 // withContext로 대체 가능하긴 함
                 val savedTime = async (Dispatchers.IO) {
-                    savedTimeRepository.getSavedTimeDayModel()
+                    savedTimeRepository.getOtherSavedTimeDayModel(destinationUid)
                 }.await()
 
                 onResult(UiState.Success(savedTime))

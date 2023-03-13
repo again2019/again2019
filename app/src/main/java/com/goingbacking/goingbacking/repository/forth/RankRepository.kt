@@ -32,27 +32,27 @@ class RankRepository  (
 
     // 일별 통계 받아오는 코드
     override fun getSecondSaveDayInfo(destinationUid : String, result: (UiState<ArrayList<SaveTimeDayDTO>>) -> Unit) {
-        firebaseFirestore.collection(FBConstants.SAVETIMEINFO).document(destinationUid)
-            .collection(FBConstants.DAY).document(currentday("yyyy-MM"))
-            .collection(currentday("yyyy-MM")).get()
-            .addOnSuccessListener {
-                val saveTimeDayDTOList = arrayListOf<SaveTimeDayDTO>()
-
-                for (document in it) {
-                    saveTimeDayDTOList.add(document.toObject(SaveTimeDayDTO::class.java))
-                }
-
-                result.invoke(
-                    UiState.Success(saveTimeDayDTOList)
-                )
-            }
-            .addOnFailureListener {
-                result.invoke(
-                    UiState.Failure(
-                        it.localizedMessage
-                    )
-                )
-            }
+//        firebaseFirestore.collection(FBConstants.SAVETIMEINFO).document(destinationUid)
+//            .collection(FBConstants.DAY).document(currentday("yyyy-MM"))
+//            .collection(currentday("yyyy-MM")).get()
+//            .addOnSuccessListener {
+//                val saveTimeDayDTOList = arrayListOf<SaveTimeDayDTO>()
+//
+//                for (document in it) {
+//                    saveTimeDayDTOList.add(document.toObject(SaveTimeDayDTO::class.java))
+//                }
+//
+//                result.invoke(
+//                    UiState.Success(saveTimeDayDTOList)
+//                )
+//            }
+//            .addOnFailureListener {
+//                result.invoke(
+//                    UiState.Failure(
+//                        it.localizedMessage
+//                    )
+//                )
+//            }
     }
 
     // 달별 자기계발 통계 받아오는 코드
@@ -85,19 +85,19 @@ class RankRepository  (
 
     // 달별 통계 받아오는 코드
     override fun getSecondSaveMonthInfo(destinationUid : String, result: (UiState<ArrayList<SaveTimeMonthDTO>>) -> Unit) {
-        firebaseFirestore.collection(FBConstants.SAVETIMEINFO).document(destinationUid)
-            .collection(FBConstants.MONTH).document(currentday("yyyy"))
-            .collection(currentday("yyyy")).get()
-            .addOnSuccessListener {
-                val saveTimeMonthDTOList = arrayListOf<SaveTimeMonthDTO>()
-
-                for (document in it) {
-                    saveTimeMonthDTOList.add(document.toObject(SaveTimeMonthDTO::class.java))
-                }
-                result.invoke(
-                    UiState.Success(saveTimeMonthDTOList)
-                )
-            }
+//        firebaseFirestore.collection(FBConstants.SAVETIMEINFO).document(destinationUid)
+//            .collection(FBConstants.MONTH).document(currentday("yyyy"))
+//            .collection(currentday("yyyy")).get()
+//            .addOnSuccessListener {
+//                val saveTimeMonthDTOList = arrayListOf<SaveTimeMonthDTO>()
+//
+//                for (document in it) {
+//                    saveTimeMonthDTOList.add(document.toObject(SaveTimeMonthDTO::class.java))
+//                }
+//                result.invoke(
+//                    UiState.Success(saveTimeMonthDTOList)
+//                )
+//            }
     }
 
     // 연도별 자기계발 통계 받아오는 코드
@@ -133,22 +133,22 @@ class RankRepository  (
 
     // 개인정보 받아오는 코드
     override fun getFifthUserInfo(destinationUid: String, result: (UiState<UserInfoDTO>) -> Unit) {
-        firebaseFirestore.collection(Constants.USERINFO).document(destinationUid)
-            .get()
-            .addOnSuccessListener { document ->
-                val data : UserInfoDTO? = document.toObject(UserInfoDTO::class.java)
-                result.invoke(
-                    UiState.Success(data!!)
-                )
-            }
-
-            .addOnFailureListener {
-                result.invoke(
-                    UiState.Failure(
-                        it.localizedMessage
-                    )
-                )
-            }
+//        firebaseFirestore.collection(Constants.USERINFO).document(destinationUid)
+//            .get()
+//            .addOnSuccessListener { document ->
+//                val data : UserInfoDTO? = document.toObject(UserInfoDTO::class.java)
+//                result.invoke(
+//                    UiState.Success(data!!)
+//                )
+//            }
+//
+//            .addOnFailureListener {
+//                result.invoke(
+//                    UiState.Failure(
+//                        it.localizedMessage
+//                    )
+//                )
+//            }
     }
 
     // 좋아요 버튼 기능 month, year

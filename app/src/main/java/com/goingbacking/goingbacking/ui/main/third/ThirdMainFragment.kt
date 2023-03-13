@@ -13,6 +13,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.domain.model.ScheduleModel
 import com.example.domain.util.UiState
 import com.goingbacking.goingbacking.adapter.CalendarEventAdapter1
 import com.goingbacking.goingbacking.model.Event
@@ -79,10 +80,10 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
     private var selectedDate: LocalDate? = null
     private val today = LocalDate.now()
     private val selectionFormatter = DateTimeFormatter.ofPattern("MM/dd(E)")
-    private var events = mutableMapOf<LocalDate, List<Event>>()
+    private var events = mutableMapOf<LocalDate, List<ScheduleModel>>()
     private var selectedDateList = mutableListOf<String>()
 
-    private var eventsList = mutableListOf<Event>()
+    private var eventsList = mutableListOf<ScheduleModel>()
     val viewModel : ThirdViewModel by viewModels()
     private var lifecycleState = true
     override fun getFragmentBinding(
@@ -308,7 +309,7 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
                 is UiState.Success -> {
                     binding.progressCircular.hide()
 
-                    eventsList = state.data
+                    eventsList = state.data.toMutableList()
                     if (eventsList.size == 0) {
                         binding.threeRecyclerView.makeGONE()
                     } else {

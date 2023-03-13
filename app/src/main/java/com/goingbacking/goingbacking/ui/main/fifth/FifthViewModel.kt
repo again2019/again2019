@@ -7,23 +7,22 @@ import androidx.lifecycle.viewModelScope
 import com.example.domain.model.UserInfoModel
 import com.example.domain.model.WhatToDoMonthModel
 import com.example.domain.model.WhatToDoYearModel
-import com.example.domain.usecase.userInfo.GetUserInfoUseCase
+import com.example.domain.usecase.myAccount.LogOutUseCase
+import com.example.domain.usecase.userInfo.GetMyUserInfoUseCase
 import com.example.domain.usecase.userInfo.UpdateUserInfoUseCase
 import com.example.domain.usecase.whatToDo.AddWhatToDoMonthUseCase
 import com.example.domain.usecase.whatToDo.AddWhatToDoYearUseCase
 import com.example.domain.util.UiState
-import com.goingbacking.goingbacking.repository.fifth.FifthRepositoryIF
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class FifthViewModel @Inject constructor(
-    private val getUserInfoUseCase: GetUserInfoUseCase,
+    private val getMyUserInfoUseCase: GetMyUserInfoUseCase,
     private val updateUserInfoUseCase: UpdateUserInfoUseCase,
     private val whatToDoMonthUseCase: AddWhatToDoMonthUseCase,
     private val whatToDoYearUseCase: AddWhatToDoYearUseCase,
-    val fifthRepository: FifthRepositoryIF
+    private val logOutUseCase: LogOutUseCase,
 ) : ViewModel() {
 
     /*
@@ -36,7 +35,7 @@ class FifthViewModel @Inject constructor(
         get() = _userInfoDTO
 
     fun getFifthUserInfo() {
-        getUserInfoUseCase(viewModelScope) {
+        getMyUserInfoUseCase(viewModelScope) {
             _userInfoDTO.value = it
         }
     }
@@ -81,10 +80,9 @@ class FifthViewModel @Inject constructor(
     val signout: LiveData<UiState<String>>
         get() = _signout
 
-    fun signout() = viewModelScope.launch {
-        _signout.value = UiState.Loading
-        fifthRepository.signout() {
-            _signout.value = it
+    fun signout() {
+        logOutUseCase(viewModelScope) {
+            _signout.postValue(it)
         }
     }
 
@@ -93,18 +91,18 @@ class FifthViewModel @Inject constructor(
     // month whattodo chart를 위해 초기화하는 코드
     private val _whatToDoInitMonthDTOs = MutableLiveData<UiState<String>>()
 
-    fun addInitWhatToDoMonthTime(whatToDoMonthModel: WhatToDoMonthModel) = viewModelScope.launch {
+    fun addInitWhatToDoMonthTime(whatToDoMonthModel: WhatToDoMonthModel) {
         whatToDoMonthUseCase(viewModelScope, whatToDoMonthModel) {
-            _whatToDoInitMonthDTOs.value = it
+            _whatToDoInitMonthDTOs.postValue(it)
         }
     }
 
     // year whattodo chart를 위해 초기화하는 코드
     private val _whatToDoInitYearDTOs = MutableLiveData<UiState<String>>()
 
-    fun addInitWhatToDoYearTime(whatToDoYearModel: WhatToDoYearModel) = viewModelScope.launch {
+    fun addInitWhatToDoYearTime(whatToDoYearModel: WhatToDoYearModel) {
         whatToDoYearUseCase(viewModelScope, whatToDoYearModel) {
-            _whatToDoInitYearDTOs.value = it
+            _whatToDoInitYearDTOs.postValue(it)
         }
     }
 

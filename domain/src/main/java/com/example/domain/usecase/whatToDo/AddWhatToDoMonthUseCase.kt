@@ -21,9 +21,9 @@ class AddWhatToDoMonthUseCase @Inject constructor(
             kotlin.runCatching {
                 whatToDoRepository.addWhatToDoMonthModel(whatToDoMonthModel)
             }.onSuccess {
-                UiState.Success("Success")
+                onResult(UiState.Success("Success"))
             }.onFailure {
-                UiState.Failure("Failure")
+                onResult(UiState.Failure("Failure"))
             }
         }
     }

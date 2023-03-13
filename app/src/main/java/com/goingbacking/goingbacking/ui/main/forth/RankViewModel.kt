@@ -5,10 +5,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.domain.model.WhatToDoMonthModel
-import com.example.domain.model.WhatToDoYearModel
-import com.example.domain.usecase.savedTime.GetSavedTimeAboutMonthRankUseCase
-import com.example.domain.usecase.savedTime.GetSavedTimeAboutYearRankUseCase
+import com.example.domain.model.*
+import com.example.domain.usecase.savedTime.*
+import com.example.domain.usecase.userInfo.GetOtherUserInfoUseCase
+import com.example.domain.usecase.userInfo.UpdateLikeButtonUseCase
 import com.example.domain.usecase.whatToDo.GetOtherWhatToDoMonthUseCase
 import com.example.domain.usecase.whatToDo.GetOtherWhatToDoYearUseCase
 import com.example.domain.util.UiState
@@ -21,8 +21,12 @@ import javax.inject.Inject
 
 @HiltViewModel
 class RankViewModel @Inject constructor(
+    private val getOtherUserInfoUseCase: GetOtherUserInfoUseCase,
+    private val getOtherSavedTimeDayUseCase: GetOtherSavedTimeDayUseCase,
+    private val getOtherSavedTimeMonthUseCase: GetOtherSavedTimeMonthUseCase,
     private val getOtherWhatToDoMonthUseCase: GetOtherWhatToDoMonthUseCase,
     private val getOtherWhatToDoYearUseCase: GetOtherWhatToDoYearUseCase,
+    private val updateLikeButtonUseCase: UpdateLikeButtonUseCase,
     val rankRepository : RankRepositoryIF
 ):ViewModel() {
 
@@ -31,13 +35,14 @@ class RankViewModel @Inject constructor(
      */
 
     // 일별 통계 받아오는 코드
-    private val _secondSaveDayDTOs = MutableLiveData<UiState<ArrayList<SaveTimeDayDTO>>>()
-    val secondSaveDayDTOs : LiveData<UiState<ArrayList<SaveTimeDayDTO>>>
+    private val _secondSaveDayDTOs = MutableLiveData<UiState<ArrayList<SavedTimeDayModel>>>()
+    val secondSaveDayDTOs : LiveData<UiState<ArrayList<SavedTimeDayModel>>>
         get() = _secondSaveDayDTOs
 
     fun getSecondSaveDayInfo(destinationUid :String) {
-        _secondSaveDayDTOs.value = UiState.Loading
-        rankRepository.getSecondSaveDayInfo(destinationUid) { _secondSaveDayDTOs.value = it }
+        getOtherSavedTimeDayUseCase(viewModelScope, destinationUid) {
+            _secondSaveDayDTOs.postValue(it)
+        }
     }
 
     // 달별 자기계발 통계 받아오는 코드
@@ -57,13 +62,14 @@ class RankViewModel @Inject constructor(
      */
 
     // 달별 통계 받아오는 코드
-    private val _secondSaveMonthDTOs = MutableLiveData<UiState<ArrayList<SaveTimeMonthDTO>>>()
-    val secondSaveMonthDTOs : LiveData<UiState<ArrayList<SaveTimeMonthDTO>>>
+    private val _secondSaveMonthDTOs = MutableLiveData<UiState<ArrayList<SavedTimeMonthModel>>>()
+    val secondSaveMonthDTOs : LiveData<UiState<ArrayList<SavedTimeMonthModel>>>
         get() = _secondSaveMonthDTOs
 
     fun getSecondSaveMonthInfo(destinationUid :String) {
-        _secondSaveMonthDTOs.value = UiState.Loading
-        rankRepository.getSecondSaveMonthInfo(destinationUid) { _secondSaveMonthDTOs.value = it }
+        getOtherSavedTimeMonthUseCase(viewModelScope, destinationUid) {
+            _secondSaveMonthDTOs.postValue(it)
+        }
     }
 
     // 연도별 자기계발 통계 받아오는 코드
@@ -84,13 +90,14 @@ class RankViewModel @Inject constructor(
 
 
     // 개인정보 받아오는 코드
-    private val _userInfoDTOs = MutableLiveData<UiState<UserInfoDTO>>()
-    val userInfoDTO : LiveData<UiState<UserInfoDTO>>
+    private val _userInfoDTOs = MutableLiveData<UiState<UserInfoModel>>()
+    val userInfoDTO : LiveData<UiState<UserInfoModel>>
         get() = _userInfoDTOs
 
-    fun getFifthUserInfo(destinationUid: String) = viewModelScope.launch {
-        _userInfoDTOs.value = UiState.Loading
-        rankRepository.getFifthUserInfo(destinationUid)  { _userInfoDTOs.value = it }
+    fun getFifthUserInfo(destinationUid: String) {
+        getOtherUserInfoUseCase(viewModelScope, destinationUid) {
+            _userInfoDTOs.postValue(it)
+        }
     }
 
     // 좋아요 버튼 클릭/해제시 나타내는 코드
@@ -98,9 +105,11 @@ class RankViewModel @Inject constructor(
     val likeButtonInfo : LiveData<UiState<String>>
         get() = _likeButtonInfo
 
-    fun likeButtonInfo(destinationUid :String, state :String) = viewModelScope.launch {
-        _likeButtonInfo.value = UiState.Loading
-        rankRepository.likeButtonInfo(destinationUid, state) { _likeButtonInfo.postValue(it) }
+    fun likeButtonInfo(destinationUid :String, state :String) {
+        updateLikeButtonUseCase(viewModelScope, destinationUid, state) {
+            _likeButtonInfo.postValue(it)
+        }
+
     }
 
 
