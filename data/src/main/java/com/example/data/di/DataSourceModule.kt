@@ -1,8 +1,11 @@
 package com.example.data.di
 
 
+import com.example.data.api.NotificationAPI
 import com.example.data.dataSource.accountDataSource.AccountDataSource
 import com.example.data.dataSource.accountDataSource.AccountDataSourceImpl
+import com.example.data.dataSource.notificationDataSource.NotificationDataSource
+import com.example.data.dataSource.notificationDataSource.NotificationDataSourceImpl
 import com.example.data.dataSource.savedTimeDataSource.SavedTimeDataSource
 import com.example.data.dataSource.savedTimeDataSource.SavedTimeDataSourceImpl
 import com.example.data.dataSource.scheduleAndDateDataSource.ScheduleAndDateDataSource
@@ -83,6 +86,13 @@ object DataSourceModule {
         return ScheduleAndDateDataSourceImpl(firebaseFirestore, firebaseUser!!)
     }
 
+    @Provides
+    @Singleton
+    fun provideNotificationDataSource(
+        api : NotificationAPI
+    ) : NotificationDataSource {
+        return NotificationDataSourceImpl(api)
+    }
 
 
 }

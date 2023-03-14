@@ -1,21 +1,12 @@
 package com.goingbacking.goingbacking.repository.forth
 
 import com.example.domain.util.UiState
-import com.goingbacking.goingbacking.fcm.NotificationAPI
-import com.goingbacking.goingbacking.fcm.NotificationData
-import com.goingbacking.goingbacking.fcm.PushNotification
 import com.goingbacking.goingbacking.model.*
 import com.goingbacking.goingbacking.util.Constants.Companion.CHEERS
-import com.goingbacking.goingbacking.util.Constants.Companion.COUNT
-import com.goingbacking.goingbacking.util.Constants.Companion.FAIL
 import com.goingbacking.goingbacking.util.Constants.Companion.USERINFO
-import com.goingbacking.goingbacking.util.FBConstants.Companion.RANKMONTHINFO
-import com.goingbacking.goingbacking.util.FBConstants.Companion.RANKYEARINFO
-import com.goingbacking.goingbacking.util.currentday
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.Source
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -26,7 +17,7 @@ import kotlinx.coroutines.tasks.await
 class ForthRepository (
 //    val user : FirebaseUser?,
 //    val firebaseFirestore: FirebaseFirestore,
-    val notificationAPI: NotificationAPI
+//    val notificationAPI: NotificationAPI
         ) : ForthRepositoryIF {
     private val firebaseFirestore = FirebaseFirestore.getInstance()
     private val firebaseAuth = FirebaseAuth.getInstance()
@@ -105,12 +96,15 @@ class ForthRepository (
                     destinationInfo!!.cheers
                 )
             )
-            PushNotification(
-                NotificationData("응원 메시지",  "응원 메시지를 확인해보세요!\n" + userInfo.userNickName + ": " + text),
-                destinationInfo.token!!
-            ).also {
-                notificationAPI.postNotification(it)
-            }
+//            PushNotification(
+//                PushNotification.NotificationData(
+//                    "응원 메시지",
+//                    "응원 메시지를 확인해보세요!\n" + userInfo.userNickName + ": " + text
+//                ),
+//                destinationInfo.token!!
+//            ).also {
+//                notificationAPI.postNotification(it)
+//            }
         }
     }
 

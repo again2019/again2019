@@ -1,13 +1,8 @@
 package com.goingbacking.goingbacking.repository.forth
 
 import com.example.domain.util.UiState
-import com.goingbacking.goingbacking.fcm.NotificationAPI
-import com.goingbacking.goingbacking.fcm.NotificationData
-import com.goingbacking.goingbacking.fcm.PushNotification
 import com.goingbacking.goingbacking.model.*
 import com.goingbacking.goingbacking.util.Constants
-import com.goingbacking.goingbacking.util.FBConstants
-import com.goingbacking.goingbacking.util.currentday
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
@@ -19,7 +14,7 @@ import kotlinx.coroutines.tasks.await
 class RankRepository  (
 //    val user: FirebaseUser?,
 //    val firebaseFirestore: FirebaseFirestore,
-    val notificationAPI: NotificationAPI
+//    val notificationAPI: NotificationAPI
 ): RankRepositoryIF {
     private val firebaseFirestore = FirebaseFirestore.getInstance()
     private val firebaseAuth = FirebaseAuth.getInstance()
@@ -160,15 +155,18 @@ class RankRepository  (
                 tsDoc1.get().addOnSuccessListener {
                     val likeCount = it.toObject(UserInfoDTO::class.java)!!.likes.size
 
-
-                    PushNotification(
-                        NotificationData("좋아요", it.toObject(UserInfoDTO::class.java)!!.userNickName!! + "님의 좋아요 수가 늘었습니다! 확인해보세요!"),
-                        it.toObject(UserInfoDTO::class.java)!!.token!!
-                    ).also {
-                        CoroutineScope(Dispatchers.IO).launch {
-                            notificationAPI.postNotification(it)
-                        }
-                    }
+//
+//                    PushNotification(
+//                        PushNotification.NotificationData(
+//                            "좋아요",
+//                            it.toObject(UserInfoDTO::class.java)!!.userNickName!! + "님의 좋아요 수가 늘었습니다! 확인해보세요!"
+//                        ),
+//                        it.toObject(UserInfoDTO::class.java)!!.token!!
+//                    ).also {
+//                        CoroutineScope(Dispatchers.IO).launch {
+//                            notificationAPI.postNotification(it)
+//                        }
+//                    }
 
                     result.invoke(
                         UiState.Success(

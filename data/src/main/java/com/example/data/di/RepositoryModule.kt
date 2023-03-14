@@ -1,11 +1,15 @@
 package com.example.data.di
 
 
+import com.example.data.api.NotificationAPI
+import com.example.data.dataSource.notificationDataSource.NotificationDataSource
+import com.example.data.dataSource.notificationDataSource.NotificationDataSourceImpl
 import com.example.data.dataSource.scheduleAndDateDataSource.ScheduleAndDateDataSourceImpl
 import com.example.data.repositoryImpl.*
 import com.example.domain.repository.*
 import dagger.Binds
 import dagger.Module
+import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
@@ -50,5 +54,11 @@ abstract class RepositoryModule {
     abstract fun bindsAccountRepository(
         repository: AccountRepositoryImpl
     ) : AccountRepository
+
+    @Singleton
+    @Binds
+    abstract fun bindsNotificationRepository(
+        repository: NotificationRepositoryImpl
+    ) : NotificationRepository
 
 }
