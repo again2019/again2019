@@ -5,12 +5,17 @@ import com.google.firebase.firestore.FieldValue
 
 interface SavedTimeDataSource {
 
+
+    // 가장 처음에 추가되는 Entity
+    suspend fun addMyInitSavedTimeMonthEntity(savedTimeMonthEntity: SavedTimeMonthEntity)
+
+    suspend fun addMyInitSavedTimeYearEntity(savedTimeYearEntity: SavedTimeYearEntity)
+
     // savedTimeAboutRank
 
-    suspend fun addMySavedTimeMonthEntity(savedTimeMonthEntity: SavedTimeMonthEntity)
+    suspend fun addMySavedTimeAboutMonthRankEntity(savedTimeAboutMonthRankEntity: SavedTimeAboutRankEntity)
 
-    suspend fun addMySavedTimeYearEntity(savedTimeYearEntity: SavedTimeYearEntity)
-
+    suspend fun addMySavedTimeAboutYearRankEntity(savedTimeAboutMonthRankEntity: SavedTimeAboutRankEntity)
 
     suspend fun getSavedTimeAboutMonthRankEntity() : ArrayList<SavedTimeAboutRankEntity>
 
@@ -22,11 +27,11 @@ interface SavedTimeDataSource {
 
     // mySavedTime
 
-    suspend fun addSavedTimeDayEntity(savedTimeDayEntity: SavedTimeDayEntity)
+    suspend fun addMySavedTimeDayEntity(savedTimeDayEntity: SavedTimeDayEntity)
 
-    suspend fun addSavedTimeMonthEntity(savedTimeMonthEntity: SavedTimeMonthEntity)
+    suspend fun addMySavedTimeMonthEntity(savedTimeMonthEntity: SavedTimeMonthEntity)
 
-    suspend fun addSavedTimeYearEntity(savedTimeYearEntity: SavedTimeYearEntity)
+    suspend fun addMySavedTimeYearEntity(savedTimeYearEntity: SavedTimeYearEntity)
 
     suspend fun getMySavedTimeDayEntity() : ArrayList<SavedTimeDayEntity>
 

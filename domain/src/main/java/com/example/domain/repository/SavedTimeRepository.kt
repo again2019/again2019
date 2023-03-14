@@ -7,7 +7,16 @@ import com.example.domain.model.SavedTimeYearModel
 
 interface SavedTimeRepository {
 
+    // 가장 처음에 추가되는 Entity
+    suspend fun addMyInitSavedTimeMonthModel(savedTimeMonthModel: SavedTimeMonthModel)
+    suspend fun addMyInitSavedTimeYearModel(savedTimeYearModel: SavedTimeYearModel)
+
+
     // savedTimeAboutRank
+
+    suspend fun addMySavedTimeAboutMonthRankModel(savedTimeAboutMonthRankModel: SavedTimeAboutRankModel)
+
+    suspend fun addMySavedTimeAboutYearRankModel(savedTimeAboutYearRankModel: SavedTimeAboutRankModel)
 
     suspend fun getSavedTimeAboutMonthRankModel() : ArrayList<SavedTimeAboutRankModel>
 
@@ -25,6 +34,11 @@ interface SavedTimeRepository {
     suspend fun getMySavedTimeYearModel() : ArrayList<SavedTimeYearModel>
 
     // otherSavedTime
+
+    suspend fun addMySavedTimeDayModel(savedTimeDayModel: SavedTimeDayModel)
+    suspend fun addMySavedTimeMonthModel(savedTimeMonthModel: SavedTimeMonthModel)
+
+    suspend fun addMySavedTimeYearModel(savedTimeYearModel: SavedTimeYearModel)
 
     suspend fun getOtherSavedTimeDayModel(destinationUid: String) : ArrayList<SavedTimeDayModel>
 

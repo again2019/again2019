@@ -1,9 +1,9 @@
 package com.goingbacking.goingbacking.ui.input
 
 import androidx.lifecycle.*
-import com.example.domain.model.UserInfoModel
-import com.example.domain.model.WhatToDoMonthModel
-import com.example.domain.model.WhatToDoYearModel
+import com.example.domain.model.*
+import com.example.domain.usecase.savedTime.my.AddMySavedTimeAboutMonthRankUseCase
+import com.example.domain.usecase.savedTime.my.AddMySavedTimeAboutYearRankUseCase
 import com.example.domain.usecase.userInfo.my.AddMyUserInfoUseCase
 import com.example.domain.usecase.userInfo.my.GetMyUserInfoUseCase
 import com.example.domain.usecase.userInfo.my.UpdateMyUserSelectedListUseCase
@@ -25,9 +25,9 @@ class InputViewModel @Inject constructor (
     private val whatToDoMonthUseCase: AddWhatToDoMonthUseCase,
     private val whatToDoYearUseCase: AddWhatToDoYearUseCase,
     private val getMyUserInfoUseCase: GetMyUserInfoUseCase,
-
-    val inputRepository: InputRepositoryIF
-    ) : ViewModel() {
+    private val addMySavedTimeAboutMonthRankUseCase: AddMySavedTimeAboutMonthRankUseCase,
+    private val addMySavedTimeAboutYearRankUseCase: AddMySavedTimeAboutYearRankUseCase,
+) : ViewModel() {
 
     // --- FirstInputFragment ---
     private val _addFirstInput = MutableLiveData<UiState<String>>()
@@ -91,18 +91,16 @@ class InputViewModel @Inject constructor (
 
     private val _InitRankMonthDTOs = MutableLiveData<UiState<String>>()
 
-    fun addInitRankMonthTime(rankMonthDTO: NewSaveTimeMonthDTO) = viewModelScope.launch {
-        _InitRankMonthDTOs.value = UiState.Loading
-        inputRepository.addInitRankMonthTime(rankMonthDTO) {
+    fun addInitRankMonthTime(savedTimeAboutMonthRankModel: SavedTimeAboutRankModel) {
+        addMySavedTimeAboutMonthRankUseCase(viewModelScope, savedTimeAboutMonthRankModel) {
             _InitRankMonthDTOs.postValue(it)
         }
     }
 
     private val _InitRankYearDTOs = MutableLiveData<UiState<String>>()
 
-    fun addInitRankYearTime(rankYearDTO: NewSaveTimeYearDTO) = viewModelScope.launch {
-        _InitRankYearDTOs.value = UiState.Loading
-        inputRepository.addInitRankYearTime(rankYearDTO) {
+    fun addInitRankYearTime(savedTimeAboutYearRankModel: SavedTimeAboutRankModel) {
+        addMySavedTimeAboutYearRankUseCase(viewModelScope, savedTimeAboutYearRankModel) {
             _InitRankYearDTOs.postValue(it)
         }
     }

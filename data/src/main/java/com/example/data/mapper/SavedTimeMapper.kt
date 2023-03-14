@@ -53,7 +53,7 @@ object SavedTimeMapper {
         )
     }
 
-    fun mapperToSavedTimeDayEntity(savedTimeMonth: SavedTimeMonthModel) : SavedTimeMonthEntity {
+    fun mapperToSavedTimeMonthEntity(savedTimeMonth: SavedTimeMonthModel) : SavedTimeMonthEntity {
         return SavedTimeMonthEntity(
             count = savedTimeMonth.count,
             month = savedTimeMonth.month,

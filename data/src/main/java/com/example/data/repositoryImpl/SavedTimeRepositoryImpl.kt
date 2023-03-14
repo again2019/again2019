@@ -13,6 +13,31 @@ class SavedTimeRepositoryImpl @Inject constructor(
     private val savedTimeDataSource: SavedTimeDataSource
 ): SavedTimeRepository {
 
+    // 가장 처음에 추가되는 Entity
+    override suspend fun addMyInitSavedTimeMonthModel(savedTimeMonthModel: SavedTimeMonthModel) {
+        return savedTimeDataSource.addMySavedTimeMonthEntity(
+            SavedTimeMapper.mapperToSavedTimeMonthEntity(savedTimeMonthModel)
+        )
+    }
+
+    override suspend fun addMyInitSavedTimeYearModel(savedTimeYearModel: SavedTimeYearModel) {
+        return savedTimeDataSource.addMySavedTimeYearEntity(
+            SavedTimeMapper.mapperToSavedTimeYearEntity(savedTimeYearModel)
+        )
+    }
+
+    override suspend fun addMySavedTimeAboutMonthRankModel(savedTimeAboutMonthRankModel: SavedTimeAboutRankModel) {
+        savedTimeDataSource.addMySavedTimeAboutMonthRankEntity(
+            SavedTimeMapper.mapperToSavedTimeAboutRankEntity(savedTimeAboutMonthRankModel)
+        )
+    }
+
+    override suspend fun addMySavedTimeAboutYearRankModel(savedTimeAboutYearRankModel: SavedTimeAboutRankModel) {
+        savedTimeDataSource.addMySavedTimeAboutYearRankEntity(
+            SavedTimeMapper.mapperToSavedTimeAboutRankEntity(savedTimeAboutYearRankModel)
+        )
+    }
+
     // savedTimeAboutRank
 
     override suspend fun getSavedTimeAboutMonthRankModel(): ArrayList<SavedTimeAboutRankModel> {
@@ -53,6 +78,24 @@ class SavedTimeRepositoryImpl @Inject constructor(
         return savedTimeDataSource.getMySavedTimeYearEntity().map {
             SavedTimeMapper.mapperToSavedTimeYearModel(it)
         }.toCollection(ArrayList())
+    }
+
+    override suspend fun addMySavedTimeDayModel(savedTimeDayModel: SavedTimeDayModel) {
+        return savedTimeDataSource.addMySavedTimeDayEntity(
+            SavedTimeMapper.mapperToSavedTimeDayEntity(savedTimeDayModel)
+        )
+    }
+
+    override suspend fun addMySavedTimeMonthModel(savedTimeMonthModel: SavedTimeMonthModel) {
+        return savedTimeDataSource.addMySavedTimeMonthEntity(
+            SavedTimeMapper.mapperToSavedTimeMonthEntity(savedTimeMonthModel)
+        )
+    }
+
+    override suspend fun addMySavedTimeYearModel(savedTimeYearModel: SavedTimeYearModel) {
+        return savedTimeDataSource.addMySavedTimeYearEntity(
+            SavedTimeMapper.mapperToSavedTimeYearEntity(savedTimeYearModel)
+        )
     }
 
     // otherSavedTime
