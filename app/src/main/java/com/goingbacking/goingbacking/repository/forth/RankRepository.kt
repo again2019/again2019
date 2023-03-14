@@ -148,13 +148,13 @@ class RankRepository  (
 
     // 좋아요 버튼 기능 month, year
     override fun likeButtonInfo(destinationUid :String, state :String, result: (UiState<String>) -> Unit) {
-        CoroutineScope(Dispatchers.IO).launch {
-            val tsDoc1 = firebaseFirestore.collection(Constants.USERINFO).document(destinationUid)
-            if (state.equals("plus")) {
-                tsDoc1.update(Constants.LIKES, FieldValue.arrayUnion(uid)).await()
-                tsDoc1.get().addOnSuccessListener {
-                    val likeCount = it.toObject(UserInfoDTO::class.java)!!.likes.size
-
+//        CoroutineScope(Dispatchers.IO).launch {
+//            val tsDoc1 = firebaseFirestore.collection(Constants.USERINFO).document(destinationUid)
+//            if (state.equals("plus")) {
+//                tsDoc1.update(Constants.LIKES, FieldValue.arrayUnion(uid)).await()
+//                tsDoc1.get().addOnSuccessListener {
+//                    val likeCount = it.toObject(UserInfoDTO::class.java)!!.likes.size
+//
 //
 //                    PushNotification(
 //                        PushNotification.NotificationData(
@@ -167,36 +167,36 @@ class RankRepository  (
 //                            notificationAPI.postNotification(it)
 //                        }
 //                    }
-
-                    result.invoke(
-                        UiState.Success(
-                            likeCount.toString()
-                        )
-                    )
-                }.addOnFailureListener {
-                    result.invoke(
-                        UiState.Failure(
-                            it.localizedMessage
-                        )
-                    )
-                }.await()
-            } else {
-                tsDoc1.update(Constants.LIKES, FieldValue.arrayRemove(uid)).await()
-                tsDoc1.get().addOnSuccessListener {
-                    val likeCount = it.toObject(UserInfoDTO::class.java)!!.likes.size
-                    result.invoke(
-                        UiState.Success(
-                            likeCount.toString()
-                        )
-                    )
-                }.addOnFailureListener {
-                    result.invoke(
-                        UiState.Failure(
-                            it.localizedMessage
-                        )
-                    )
-                }.await()
-            }
-        }
+//
+//                    result.invoke(
+//                        UiState.Success(
+//                            likeCount.toString()
+//                        )
+//                    )
+//                }.addOnFailureListener {
+//                    result.invoke(
+//                        UiState.Failure(
+//                            it.localizedMessage
+//                        )
+//                    )
+//                }.await()
+//            } else {
+//                tsDoc1.update(Constants.LIKES, FieldValue.arrayRemove(uid)).await()
+//                tsDoc1.get().addOnSuccessListener {
+//                    val likeCount = it.toObject(UserInfoDTO::class.java)!!.likes.size
+//                    result.invoke(
+//                        UiState.Success(
+//                            likeCount.toString()
+//                        )
+//                    )
+//                }.addOnFailureListener {
+//                    result.invoke(
+//                        UiState.Failure(
+//                            it.localizedMessage
+//                        )
+//                    )
+//                }.await()
+//            }
+//        }
     }
 }

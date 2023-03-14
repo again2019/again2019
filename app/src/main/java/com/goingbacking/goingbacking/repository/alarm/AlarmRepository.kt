@@ -24,6 +24,7 @@ import kotlin.collections.ArrayList
 
 
 class AlarmRepository : AlarmRepositoryIF {
+
     private val firebaseFirestore = FirebaseFirestore.getInstance()
     private val myUid = FirebaseAuth.getInstance().currentUser?.uid!!
     private val cache = Source.CACHE
@@ -31,28 +32,28 @@ class AlarmRepository : AlarmRepositoryIF {
 
     override fun addFirstInitSaveTimeMonthInfo() {
 
-        val saveTimeMonthDTO = SaveTimeMonthDTO(
-            month = currentday("MM").toInt(),
-            year = currentday("yyyy").toInt(),
-            count = 0
-        )
-        firebaseFirestore.collection(SAVETIMEINFO).document(myUid)
-            .collection(MONTH).document(currentday("yyyy"))
-            .collection(currentday("yyyy")).document(myUid + currentday("MM"))
-            .set(saveTimeMonthDTO)
+//        val saveTimeMonthDTO = SaveTimeMonthDTO(
+//            month = currentday("MM").toInt(),
+//            year = currentday("yyyy").toInt(),
+//            count = 0
+//        )
+//        firebaseFirestore.collection(SAVETIMEINFO).document(myUid)
+//            .collection(MONTH).document(currentday("yyyy"))
+//            .collection(currentday("yyyy")).document(myUid + currentday("MM"))
+//            .set(saveTimeMonthDTO)
 
     }
 
     // 맨 처음 로그인 시 year 초기화
     override fun addFirstInitSaveTimeYearInfo() {
-        val saveTimeYearDTO = SaveTimeYearDTO(
-            year = currentday("yyyy").toInt(),
-            count = 0
-        )
-
-        firebaseFirestore.collection(SAVETIMEINFO).document(myUid)
-            .collection(YEAR).document(currentday("yyyy"))
-            .set(saveTimeYearDTO)
+//        val saveTimeYearDTO = SaveTimeYearDTO(
+//            year = currentday("yyyy").toInt(),
+//            count = 0
+//        )
+//
+//        firebaseFirestore.collection(SAVETIMEINFO).document(myUid)
+//            .collection(YEAR).document(currentday("yyyy"))
+//            .set(saveTimeYearDTO)
 
     }
 
@@ -60,135 +61,130 @@ class AlarmRepository : AlarmRepositoryIF {
     // day마다 초기화
     override fun addInitSaveTimeDayInfo() {
 
-        val saveTimeDayDTO  = SaveTimeDayDTO(
-            day = currentday("dd").toInt() ,
-            month = currentday("MM").toInt(),
-            year = currentday("yyyy").toInt(),
-            count = 0
-        )
-
-
-        firebaseFirestore.collection(SAVETIMEINFO).document(myUid)
-            .collection(DAY).document(currentday("yyyy-MM"))
-            .collection(currentday("yyyy-MM")).document(myUid + currentday("dd"))
-            .set(saveTimeDayDTO)
+//        val saveTimeDayDTO  = SaveTimeDayDTO(
+//            day = currentday("dd").toInt() ,
+//            month = currentday("MM").toInt(),
+//            year = currentday("yyyy").toInt(),
+//            count = 0
+//        )
+//
+//
+//        firebaseFirestore.collection(SAVETIMEINFO).document(myUid)
+//            .collection(DAY).document(currentday("yyyy-MM"))
+//            .collection(currentday("yyyy-MM")).document(myUid + currentday("dd"))
+//            .set(saveTimeDayDTO)
 
     }
 
     // month마다 초기화
     override fun addInitSaveTimeMonthInfo() {
-        if (beforeday("MM") != currentday("MM")) {
-
-            val saveTimeMonthDTO = SaveTimeMonthDTO(
-                month = currentday("MM").toInt(),
-                year = currentday("yyyy").toInt(),
-                count = 0
-            )
-
-            Log.d("experiment", "today tomorrow initsavemonth")
-            firebaseFirestore.collection(SAVETIMEINFO).document(myUid)
-                .collection(MONTH).document(currentday("yyyy"))
-                .collection(currentday("yyyy")).document(myUid + currentday("MM"))
-                .set(saveTimeMonthDTO)
-
-        }
+//        if (beforeday("MM") != currentday("MM")) {
+//
+//            val saveTimeMonthDTO = SaveTimeMonthDTO(
+//                month = currentday("MM").toInt(),
+//                year = currentday("yyyy").toInt(),
+//                count = 0
+//            )
+//
+//            Log.d("experiment", "today tomorrow initsavemonth")
+//            firebaseFirestore.collection(SAVETIMEINFO).document(myUid)
+//                .collection(MONTH).document(currentday("yyyy"))
+//                .collection(currentday("yyyy")).document(myUid + currentday("MM"))
+//                .set(saveTimeMonthDTO)
+//
+//        }
     }
 
     // year마다 초기화
     override fun addInitSaveTimeYearInfo() {
-        if (beforeday("yyyy") != currentday("yyyy")) {
-            val saveTimeYearDTO = SaveTimeYearDTO(
-                year = currentday("yyyy").toInt(),
-                count = 0
-            )
-            Log.d("experiment", "today tomorrow initsaveyear")
-
-            firebaseFirestore.collection(SAVETIMEINFO).document(myUid)
-                .collection(YEAR).document(currentday("yyyy"))
-                .set(saveTimeYearDTO)
-        }
+//        if (beforeday("yyyy") != currentday("yyyy")) {
+//            val saveTimeYearDTO = SaveTimeYearDTO(
+//                year = currentday("yyyy").toInt(),
+//                count = 0
+//            )
+//            Log.d("experiment", "today tomorrow initsaveyear")
+//
+//            firebaseFirestore.collection(SAVETIMEINFO).document(myUid)
+//                .collection(YEAR).document(currentday("yyyy"))
+//                .set(saveTimeYearDTO)
+//        }
 
     }
 
     override fun getTodayInfo(result: (ArrayList<Event>) -> Unit) {
-
-        val TodayDTOList = arrayListOf<Event>()
-
-        Log.d("experiemnt", currentday("yyyy-MM"))
-        Log.d("experiemnt", currentday("yyyy-MM-dd"))
-
-        firebaseFirestore.collection(CALENDARINFO).document(myUid)
-            .collection(currentday("yyyy-MM")).whereEqualTo(DATE2, currentday("yyyy-MM-dd")).get()
-            .addOnSuccessListener {
-
-                for (document in it) {
-
-                    TodayDTOList.add(document.toObject(Event::class.java))
-                }
-
-                Log.d("experiemnt", TodayDTOList.toString())
-
-                result.invoke(
-                    TodayDTOList
-                )
-            }
-            .addOnFailureListener {
-                result.invoke(
-                    TodayDTOList
-                )
-            }
+//
+//        val TodayDTOList = arrayListOf<Event>()
+//
+//        firebaseFirestore.collection(CALENDARINFO).document(myUid)
+//            .collection(currentday("yyyy-MM")).whereEqualTo(DATE2, currentday("yyyy-MM-dd")).get()
+//            .addOnSuccessListener {
+//
+//                for (document in it) {
+//
+//                    TodayDTOList.add(document.toObject(Event::class.java))
+//                }
+//
+//                result.invoke(
+//                    TodayDTOList
+//                )
+//            }
+//            .addOnFailureListener {
+//                result.invoke(
+//                    TodayDTOList
+//                )
+//            }
     }
 
     override fun addTmpTimeInfo(
         currentTime: String,
         tmpTimeDTO: TmpTimeDTO
     ) {
-        if(tmpTimeDTO.nowSeconds!!.toInt() != 0) {
-            firebaseFirestore.collection(TMPTIMEINFO).document(myUid)
-                .collection(myUid).document(myUid + currentTime).set(tmpTimeDTO)
-
-        }
+//        if(tmpTimeDTO.nowSeconds!!.toInt() != 0) {
+//            firebaseFirestore.collection(TMPTIMEINFO).document(myUid)
+//                .collection(myUid).document(myUid + currentTime).set(tmpTimeDTO)
+//
+//        }
     }
 
 
     override fun addInitWhatToDoMonthInfo(whatToDOList : MutableSet<String>) {
-        if (beforeday("MM") != currentday("MM")) {
-            Log.d("experiment", "today tomorrow initwhattodomonth")
-
-            for (whattodo in whatToDOList) {
-                val whatToDoMonthDTO = WhatToDoMonthDTO(
-                    whatToDo = whattodo,
-                    month = currentday("MM").toInt(),
-                    count = 0
-                )
-
-                firebaseFirestore.collection(FBConstants.WHATTODOINFO).document(myUid)
-                    .collection(MONTH).document(currentday("yyyy-MM"))
-                    .collection(currentday("yyyy-MM")).document(myUid + whattodo)
-                    .set(whatToDoMonthDTO)
-            }
-        }
+//        if (beforeday("MM") != currentday("MM")) {
+//            Log.d("experiment", "today tomorrow initwhattodomonth")
+//
+//            for (whattodo in whatToDOList) {
+//                val whatToDoMonthDTO = WhatToDoMonthDTO(
+//                    whatToDo = whattodo,
+//                    month = currentday("MM").toInt(),
+//                    count = 0
+//                )
+//
+//                firebaseFirestore.collection(FBConstants.WHATTODOINFO).document(myUid)
+//                    .collection(MONTH).document(currentday("yyyy-MM"))
+//                    .collection(currentday("yyyy-MM")).document(myUid + whattodo)
+//                    .set(whatToDoMonthDTO)
+//            }
+//        }
     }
 
     override fun addInitWhatToDoYearInfo(whatToDOList : MutableSet<String>) {
-        if (beforeday("yyyy") != currentday("yyyy")) {
-            Log.d("experiment", "today tomorrow initwhattodoyear")
-
-            for (whattodo in whatToDOList) {
-                val whatToDoYearDTO = WhatToDoYearDTO(
-                    whatToDo = whattodo,
-                    year = currentday("yyyy").toInt(),
-                    count = 0
-
-                )
-
-                firebaseFirestore.collection(FBConstants.WHATTODOINFO).document(myUid)
-                    .collection(YEAR).document(currentday("yyyy"))
-                    .collection(currentday("yyyy")).document(myUid + whattodo)
-                    .set(whatToDoYearDTO)
-
-            }
-        }
+//        if (beforeday("yyyy") != currentday("yyyy")) {
+//            Log.d("experiment", "today tomorrow initwhattodoyear")
+//
+//            for (whattodo in whatToDOList) {
+//                val whatToDoYearDTO = WhatToDoYearDTO(
+//                    whatToDo = whattodo,
+//                    year = currentday("yyyy").toInt(),
+//                    count = 0
+//
+//                )
+//
+//                firebaseFirestore.collection(FBConstants.WHATTODOINFO).document(myUid)
+//                    .collection(YEAR).document(currentday("yyyy"))
+//                    .collection(currentday("yyyy")).document(myUid + whattodo)
+//                    .set(whatToDoYearDTO)
+//
+//            }
+//        }
 
     }
 

@@ -6,22 +6,27 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
+import com.example.domain.model.SavedTimeDayModel
+import com.example.domain.model.SavedTimeMonthModel
+import com.example.domain.model.SavedTimeYearModel
 import com.goingbacking.goingbacking.adapter.TutorialViewPagerAdapter
 import com.goingbacking.goingbacking.br.CountReceiver
-import com.goingbacking.goingbacking.repository.alarm.AlarmRepository
 import com.goingbacking.goingbacking.ui.main.MainActivity
 import com.goingbacking.goingbacking.ui.base.BaseActivity
 import com.goingbacking.goingbacking.databinding.ActivityTutorialBinding
 import com.goingbacking.goingbacking.util.Constants
 import com.goingbacking.goingbacking.util.calendar
+import com.goingbacking.goingbacking.util.currentday
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class TutorialActivity : BaseActivity<ActivityTutorialBinding>({
     ActivityTutorialBinding.inflate(it)
 }) {
-    private val alarmRepository = AlarmRepository()
+    val viewModel: TutorialViewModel by viewModels()
+
     private lateinit var tutorialViewPagerAdapter : TutorialViewPagerAdapter
     @RequiresApi(Build.VERSION_CODES.S)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,9 +40,28 @@ class TutorialActivity : BaseActivity<ActivityTutorialBinding>({
     }
 
     private fun moveMainPage() {
-        alarmRepository.addInitSaveTimeDayInfo()
-        alarmRepository.addFirstInitSaveTimeMonthInfo()
-        alarmRepository.addFirstInitSaveTimeYearInfo()
+        val savedTimeDayModel  = SavedTimeDayModel(
+            day = currentday("dd").toInt() ,
+            month = currentday("MM").toInt(),
+            year = currentday("yyyy").toInt(),
+            count = 0
+        )
+
+        val savedTimeMonthModel = SavedTimeMonthModel(
+            month = currentday("MM").toInt(),
+            year = currentday("yyyy").toInt(),
+            count = 0
+        )
+
+        val savedTimeYearModel = SavedTimeYearModel(
+            year = currentday("yyyy").toInt(),
+            count = 0
+        )
+
+        viewModel.addMySavedTimeDay(savedTimeDayModel)
+        viewModel.addMySavedTimeMonth(savedTimeMonthModel)
+        viewModel.addMySavedTimeYear(savedTimeYearModel)
+
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
         finishAffinity()

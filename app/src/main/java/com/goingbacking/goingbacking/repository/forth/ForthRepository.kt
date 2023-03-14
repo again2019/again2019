@@ -84,18 +84,18 @@ class ForthRepository (
 
     // 응원 댓글 입력
     override fun addCheerInfo(destinationUid: String, text: String, result: (UiState<List<String>>) -> Unit) {
-        CoroutineScope(Dispatchers.IO).launch {
-
-            val tsDoc = firebaseFirestore.collection(USERINFO).document(destinationUid)
-            val userInfo = firebaseFirestore.collection(USERINFO).document(myUid).get(cache).await().toObject(UserInfoDTO::class.java)
-            val cheer = myUid + ":" + userInfo!!.userNickName + ":" + text
-            tsDoc.update(CHEERS, FieldValue.arrayUnion(cheer)).await()
-            val destinationInfo = tsDoc.get().await().toObject(UserInfoDTO::class.java)
-            result.invoke(
-                UiState.Success(
-                    destinationInfo!!.cheers
-                )
-            )
+//        CoroutineScope(Dispatchers.IO).launch {
+//
+//            val tsDoc = firebaseFirestore.collection(USERINFO).document(destinationUid)
+//            val userInfo = firebaseFirestore.collection(USERINFO).document(myUid).get(cache).await().toObject(UserInfoDTO::class.java)
+//            val cheer = myUid + ":" + userInfo!!.userNickName + ":" + text
+//            tsDoc.update(CHEERS, FieldValue.arrayUnion(cheer)).await()
+//            val destinationInfo = tsDoc.get().await().toObject(UserInfoDTO::class.java)
+//            result.invoke(
+//                UiState.Success(
+//                    destinationInfo!!.cheers
+//                )
+//            )
 //            PushNotification(
 //                PushNotification.NotificationData(
 //                    "응원 메시지",
@@ -105,7 +105,7 @@ class ForthRepository (
 //            ).also {
 //                notificationAPI.postNotification(it)
 //            }
-        }
+//        }
     }
 
     // 응원 댓글 삭제

@@ -140,22 +140,22 @@ class InputRepository(
         rankMonthDTO: NewSaveTimeMonthDTO,
         result: (UiState<String>) -> Unit
     ) {
-        CoroutineScope(Dispatchers.IO).launch {
-            firebaseFirestore.collection(AppConstants.RANKMONTHINFO).document(currentday("yyyy-MM"))
-                .collection(currentday("yyyy-MM")).document(myUid)
-                .set(rankMonthDTO).await()
-        }
+//        CoroutineScope(Dispatchers.IO).launch {
+//            firebaseFirestore.collection(AppConstants.RANKMONTHINFO).document(currentday("yyyy-MM"))
+//                .collection(currentday("yyyy-MM")).document(myUid)
+//                .set(rankMonthDTO).await()
+//        }
     }
 
     override fun addInitRankYearTime(
         rankYearDTO: NewSaveTimeYearDTO,
         result: (UiState<String>) -> Unit
     ) {
-        CoroutineScope(Dispatchers.IO).launch {
-            firebaseFirestore.collection(AppConstants.RANKYEARINFO).document(currentday("yyyy"))
-                .collection(currentday("yyyy")).document(myUid)
-                .set(rankYearDTO).await()
-        }
+//        CoroutineScope(Dispatchers.IO).launch {
+//            firebaseFirestore.collection(AppConstants.RANKYEARINFO).document(currentday("yyyy"))
+//                .collection(currentday("yyyy")).document(myUid)
+//                .set(rankYearDTO).await()
+//        }
     }
 }
 

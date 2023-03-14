@@ -14,6 +14,7 @@ interface SavedTimeRepository {
 
     // savedTimeAboutRank
 
+    suspend fun initSavedTimeAboutRankModel(savedTimeAboutRankModel: SavedTimeAboutRankModel)
     suspend fun addMySavedTimeAboutMonthRankModel(savedTimeAboutMonthRankModel: SavedTimeAboutRankModel)
 
     suspend fun addMySavedTimeAboutYearRankModel(savedTimeAboutYearRankModel: SavedTimeAboutRankModel)

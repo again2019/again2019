@@ -42,6 +42,19 @@ class SavedTimeDataSourceImpl(
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
+    override suspend fun initSavedTimeAboutRankEntity(savedTimeAboutRankEntity: SavedTimeAboutRankEntity) {
+        if (beforeday("MM") != currentday("MM")) {
+            firebaseFirestore.collection(Constants.RANKMONTHINFO).document(currentday("yyyy-MM"))
+                .collection(currentday("yyyy-MM")).document(myUid).set(savedTimeAboutRankEntity)
+        }
+
+        if (beforeday("yyyy") != currentday("yyyy")) {
+            firebaseFirestore.collection(Constants.RANKYEARINFO).document(currentday("yyyy"))
+                .collection(currentday("yyyy")).document(myUid).set(savedTimeAboutRankEntity)
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
     override suspend fun addMySavedTimeAboutMonthRankEntity(savedTimeAboutMonthRankEntity: SavedTimeAboutRankEntity) {
         firebaseFirestore.collection(AppConstants.RANKMONTHINFO).document(currentday("yyyy-MM"))
             .collection(currentday("yyyy-MM")).document(myUid)

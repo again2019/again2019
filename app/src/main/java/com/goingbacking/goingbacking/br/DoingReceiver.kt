@@ -5,10 +5,11 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.util.Log
+import com.example.domain.model.TmpTimeModel
+import com.example.domain.usecase.myTmpTime.AddTmpTimeUseCase
 import com.goingbacking.goingbacking.service.AlarmService
 import com.goingbacking.goingbacking.AppConstants
 import com.goingbacking.goingbacking.AppConstants.Companion.ACTION_THIS_NO_START
-import com.goingbacking.goingbacking.model.TmpTimeDTO
 import com.goingbacking.goingbacking.util.PrefUtil
 import com.goingbacking.goingbacking.repository.alarm.AlarmRepository
 import com.goingbacking.goingbacking.util.Constants.Companion.CHANNEL
@@ -22,11 +23,15 @@ import com.goingbacking.goingbacking.util.Constants.Companion.START_FOREGROUND
 import com.goingbacking.goingbacking.util.Constants.Companion.WAKEUPTIME
 import com.goingbacking.goingbacking.util.TimerUtils
 import com.goingbacking.goingbacking.util.calendarAlarm
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import java.text.SimpleDateFormat
 import java.util.*
+import javax.inject.Inject
 
-class DoingReceiver : BroadcastReceiver() {
-    val alarmRepository = AlarmRepository()
+class DoingReceiver @Inject constructor(
+    private val addTmpTimeUseCase: AddTmpTimeUseCase,
+) : BroadcastReceiver() {
     var end_time = 0
     var id = 0
     var type = ""
@@ -96,7 +101,7 @@ class DoingReceiver : BroadcastReceiver() {
                 Log.d("experiment",  start_currentTime.toString())
 
                 val current = System.currentTimeMillis()
-                val tmpTimeDTO = TmpTimeDTO(
+                val tmpTimeDTO = TmpTimeModel(
                     nowSeconds =  (current- start_currentTime) / 60000,
                     startTime = start_currentTime,
                     wakeUpTime = current
@@ -116,7 +121,7 @@ class DoingReceiver : BroadcastReceiver() {
                 Log.d("experiment", "wakeupTime: " + wakeUpTime.toString())
                 Log.d("experiment", "currentTime: " + currentTime.toString())
 
-                alarmRepository.addTmpTimeInfo(current.toString(), tmpTimeDTO)
+                addTmpTimeUseCase(CoroutineScope(Dispatchers.Main), current.toString(), tmpTimeDTO) {}
             }
             "MOVE" -> {
                 val intent4 = Intent(context, AlarmService::class.java)

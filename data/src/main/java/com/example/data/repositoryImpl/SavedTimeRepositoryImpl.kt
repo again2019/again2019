@@ -26,6 +26,12 @@ class SavedTimeRepositoryImpl @Inject constructor(
         )
     }
 
+    override suspend fun initSavedTimeAboutRankModel(savedTimeAboutRankModel: SavedTimeAboutRankModel) {
+        return savedTimeDataSource.initSavedTimeAboutRankEntity(
+            SavedTimeMapper.mapperToSavedTimeAboutRankEntity(savedTimeAboutRankModel)
+        )
+    }
+
     override suspend fun addMySavedTimeAboutMonthRankModel(savedTimeAboutMonthRankModel: SavedTimeAboutRankModel) {
         savedTimeDataSource.addMySavedTimeAboutMonthRankEntity(
             SavedTimeMapper.mapperToSavedTimeAboutRankEntity(savedTimeAboutMonthRankModel)

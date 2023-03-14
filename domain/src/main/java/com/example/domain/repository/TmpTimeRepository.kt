@@ -5,6 +5,8 @@ import com.example.domain.model.TmpTimeModel
 interface TmpTimeRepository {
 
     // TmpTime
+    suspend fun addTmpTimeModel(currentTime: String, tmpTimeEntity: TmpTimeModel)
+
     suspend fun getTmpTimeModel() : ArrayList<TmpTimeModel>
 
     suspend fun deleteTmpTimeModel(startTime: String)

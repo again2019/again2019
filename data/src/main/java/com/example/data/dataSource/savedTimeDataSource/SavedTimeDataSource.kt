@@ -13,6 +13,8 @@ interface SavedTimeDataSource {
 
     // savedTimeAboutRank
 
+    suspend fun initSavedTimeAboutRankEntity(savedTimeAboutRankEntity: SavedTimeAboutRankEntity)
+
     suspend fun addMySavedTimeAboutMonthRankEntity(savedTimeAboutMonthRankEntity: SavedTimeAboutRankEntity)
 
     suspend fun addMySavedTimeAboutYearRankEntity(savedTimeAboutMonthRankEntity: SavedTimeAboutRankEntity)

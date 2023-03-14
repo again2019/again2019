@@ -5,6 +5,8 @@ import com.example.data.entity.TmpTimeEntity
 interface TmpTimeDataSource {
 
      // TmpTime
+
+     suspend fun addTmpTimeEntity(currentTime: String, tmpTimeEntity: TmpTimeEntity)
      suspend fun getTmpTimeEntity() : ArrayList<TmpTimeEntity>
 
      suspend fun deleteTmpTimeEntity(startTime: String)
