@@ -17,16 +17,16 @@ import com.goingbacking.goingbacking.R
 import com.goingbacking.goingbacking.ui.main.MainActivity
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
+import dagger.hilt.android.AndroidEntryPoint
 
 private const val CHANNEL_ID = "fcm_channel"
 
-
+@AndroidEntryPoint
 class FirebaseService : FirebaseMessagingService() {
 
     // 새로운 토큰으로 변경될 때
     // 앱을 삭제하거나 다른 기기에서 실행시킬 때
     override fun onNewToken(token: String) {
-        Log.d("experiment","new token1 ${token}")
 
         FirebaseTokenManager.sendRegistrationToServer(applicationContext, token)
 
@@ -36,7 +36,6 @@ class FirebaseService : FirebaseMessagingService() {
     override fun onMessageReceived(message: RemoteMessage) {
         super.onMessageReceived(message)
 
-        Log.d("experiment", message.data.toString())
         val intent = Intent(this, MainActivity::class.java)
         val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         val notificationID = 223

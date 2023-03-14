@@ -6,9 +6,11 @@ import android.os.Build
 import android.os.IBinder
 import androidx.annotation.RequiresApi
 import com.goingbacking.goingbacking.util.NotificationUtil
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
 
-class AlarmService () : Service() {
+@AndroidEntryPoint
+class AlarmService : Service() {
     companion object {
         private const val START_FOREGROUND = 19
         private const val FINISH_FOREGROUND = 20
