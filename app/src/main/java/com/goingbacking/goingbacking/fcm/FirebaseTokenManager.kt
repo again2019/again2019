@@ -9,8 +9,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-private const val TAG = "experiment"
-
 object FirebaseTokenManager {
 
 
@@ -32,14 +30,14 @@ object FirebaseTokenManager {
 
 
     fun sendNotification(notification: PushNotification) = CoroutineScope(Dispatchers.IO).launch {
-        try {
-            val response = RetrofitInstance.api.postNotification(notification)
-            if(!response.isSuccessful) {
-                Log.e(TAG, response.errorBody().toString())
-            }
-        } catch(e: Exception) {
-            Log.e(TAG, e.toString())
-        }
+//        try {
+//            val response = RetrofitInstance.api.postNotification(notification)
+//            if(!response.isSuccessful) {
+//                Log.e(TAG, response.errorBody().toString())
+//            }
+//        } catch(e: Exception) {
+//            Log.e(TAG, e.toString())
+//        }
     }
 
 

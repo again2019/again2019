@@ -14,7 +14,7 @@ class LoginViewModel @Inject constructor(
     private val signInWithCredentialUseCase: SignInWithCredentialUseCase,
     private val loginEmailUseCase: LoginEmailUseCase,
     private val registerEmailUseCase: RegisterEmailUseCase,
-    private val findEmailPasswordUseCase: findEmailPasswordUseCase,
+    private val findEmailPasswordUseCase: FindEmailPasswordUseCase,
     private val getCurrentSession: GetCurrentSession,
 ) : ViewModel() {
 

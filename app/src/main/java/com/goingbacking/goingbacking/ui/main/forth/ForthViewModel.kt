@@ -30,7 +30,6 @@ class ForthViewModel @Inject constructor(
     private val addCheerUseCase: AddCheerUseCase,
     private val deleteCheerUseCase: DeleteCheerUseCase,
     private val queryRankingInfo : Query,
-    private val forthRepository: ForthRepositoryIF
 ) : ViewModel() {
 
     //

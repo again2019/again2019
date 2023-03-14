@@ -5,6 +5,7 @@ import com.example.data.mapper.ScheduleAndDateMapper
 import com.example.domain.model.DateModel
 import com.example.domain.model.ScheduleModel
 import com.example.domain.repository.ScheduleAndDateRepository
+import com.google.firebase.firestore.local.Scheduler
 import java.time.LocalDate
 import javax.inject.Inject
 
@@ -32,7 +33,11 @@ class ScheduleAndDateRepositoryImpl @Inject constructor(
         scheduleDate: String,
         timeStamp: String
     ): MutableMap<LocalDate, List<ScheduleModel>> {
-        TODO("Not yet implemented")
+        return scheduleAndDateDataSource.deleteScheduleEntites(scheduleDate, timeStamp).mapValues { entry ->
+            entry.value.map {
+                ScheduleAndDateMapper.mapperToScheduleModel(it)
+            }
+        }.toMutableMap()
     }
 
     override suspend fun getSelectedScheduleModels(
@@ -45,9 +50,10 @@ class ScheduleAndDateRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getAllScheduleModels(): MutableMap<LocalDate, List<ScheduleModel>> {
-        TODO("Not yet implemented")
+        return scheduleAndDateDataSource.getAllScheduleEntities().mapValues { entry ->
+            entry.value.map {
+                ScheduleAndDateMapper.mapperToScheduleModel(it)
+            }
+        }.toMutableMap()
     }
-
-
-
 }

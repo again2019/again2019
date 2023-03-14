@@ -10,6 +10,12 @@ import javax.inject.Inject
 class TmpTimeRepositoryImpl @Inject constructor (
     private val tmpTimeDataSource: TmpTimeDataSource
 ) : TmpTimeRepository {
+    override suspend fun addTmpTimeModel(currentTime: String, tmpTimeModel: TmpTimeModel) {
+        tmpTimeDataSource.addTmpTimeEntity(
+            currentTime,
+            TmpTimeMapper.mapperToTmpTimeEntity(tmpTimeModel),
+        )
+    }
 
 
     /*

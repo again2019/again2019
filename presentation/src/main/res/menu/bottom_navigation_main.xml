@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id ="@+id/firstMainFragment"
+        android:icon ="@drawable/home"
+        android:enabled="true"
+        android:title="@string/home"/>
+
+    <item
+        android:id="@+id/secondMainFragment"
+        android:icon="@drawable/chart"
+        android:enabled="true"
+        android:title="@string/stat"/>
+    <item
+        android:id="@+id/thirdMainFragment"
+        android:icon="@drawable/calendar"
+        android:enabled="true"
+        android:title="@string/calendar"/>
+    <item
+        android:id="@+id/forthMainFragment"
+        android:icon="@drawable/rank"
+        android:enabled="true"
+        android:title="@string/rank"/>
+    <item
+        android:id="@+id/fifthMainFragment"
+        android:icon="@drawable/user"
+        android:enabled="true"
+        android:title="@string/my"/>
+
+
+</menu>

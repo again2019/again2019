@@ -1,6 +1,5 @@
 package com.goingbacking.goingbacking.di
 
-import com.goingbacking.goingbacking.fcm.NotificationAPI
 import com.goingbacking.goingbacking.repository.alarm.AlarmRepository
 import com.goingbacking.goingbacking.repository.alarm.AlarmRepositoryIF
 import com.goingbacking.goingbacking.repository.fifth.FifthRepository
@@ -98,10 +97,9 @@ object RepositoryModule {
     fun provideForthRepository (
 //        firebaseFirestore: FirebaseFirestore,
 //        user: FirebaseUser?,
-        notificationAPI: NotificationAPI
     ) : ForthRepositoryIF {
 //        return ForthRepository(user, firebaseFirestore, notificationAPI)
-        return ForthRepository(notificationAPI)
+        return ForthRepository()
     }
 
     @Provides
@@ -120,10 +118,9 @@ object RepositoryModule {
     fun provideRankRepository (
 //        firebaseFirestore: FirebaseFirestore,
 //        user: FirebaseUser?,
-        notificationAPI: NotificationAPI
     ) : RankRepositoryIF {
 //        return RankRepository(user, firebaseFirestore, notificationAPI)
-        return RankRepository(notificationAPI)
+        return RankRepository()
     }
 
     @Provides

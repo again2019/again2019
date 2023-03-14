@@ -1,6 +1,7 @@
 package com.example.data.dataSource.tmpTimeDataSource
 
 import com.example.data.entity.TmpTimeEntity
+import com.goingbacking.goingbacking.util.Constants
 import com.goingbacking.goingbacking.util.FBConstants
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FieldValue
@@ -16,6 +17,13 @@ class TmpTimeDataSourceImpl(
 
     val myUid = firebaseUser.uid
     val cache = Source.CACHE
+    override suspend fun addTmpTimeEntity(currentTime: String, tmpTimeEntity: TmpTimeEntity) {
+        if(tmpTimeEntity.nowSeconds.toInt() != 0) {
+            firebaseFirestore.collection(Constants.TMPTIMEINFO).document(myUid)
+                .collection(myUid).document(myUid + currentTime)
+                .set(tmpTimeEntity)
+        }
+    }
 
     override suspend fun getTmpTimeEntity(): ArrayList<TmpTimeEntity> {
         return firebaseFirestore.collection("TmpTimeInfo").document(myUid)

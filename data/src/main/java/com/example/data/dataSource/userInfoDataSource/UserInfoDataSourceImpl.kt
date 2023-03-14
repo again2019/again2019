@@ -24,6 +24,7 @@ class UserInfoDataSourceImpl (
 
     private val myUid = firebaseUser.uid
     private val cache = Source.CACHE
+
     override suspend fun addUserInfoEntity(userNickName: String) {
         val userInfoDTO = UserInfoEntity(
             uid = myUid,

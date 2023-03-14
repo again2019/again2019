@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import com.example.domain.model.SavedTimeAboutRankModel
+import com.example.domain.model.SavedTimeMonthModel
 import com.example.domain.model.WhatToDoMonthModel
 import com.example.domain.model.WhatToDoYearModel
 import com.example.domain.util.UiState
@@ -99,14 +101,14 @@ class InputBottomSheet : BottomSheetDialogFragment() {
 
             PrefUtil.setCurrentUid(PrefUtil.firebaseUid(), requireContext())
 
-            val rankMonthDTO =  NewSaveTimeMonthDTO(
-                uid = PrefUtil.getCurrentUid(requireContext()),
+            val rankMonthDTO =  SavedTimeAboutRankModel(
+                uid = PrefUtil.getCurrentUid(requireContext())!!,
                 count = 0,
                 nickname = nickName.text.toString()
             )
             viewModel.addInitRankMonthTime(rankMonthDTO)
-            val rankYearDTO =  NewSaveTimeYearDTO(
-                uid = PrefUtil.getCurrentUid(requireContext()),
+            val rankYearDTO =  SavedTimeAboutRankModel(
+                uid = PrefUtil.getCurrentUid(requireContext())!!,
                 count = 0,
                 nickname = nickName.text.toString()
             )

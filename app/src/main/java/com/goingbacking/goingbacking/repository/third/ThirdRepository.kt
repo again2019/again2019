@@ -493,22 +493,22 @@ class ThirdRepository(
 
     // 닉네임을 가져오는 코드
     override fun getNickNameInfo(result: (UiState<String>) -> Unit) {
-        firebaseFirestore.collection(Constants.USERINFO).document(uid)
-            .get(cache)
-            .addOnSuccessListener { document ->
-                val data: UserInfoDTO? = document.toObject(UserInfoDTO::class.java)
-                result.invoke(
-                    UiState.Success(data!!.userNickName!!)
-                )
-            }
-
-            .addOnFailureListener {
-                result.invoke(
-                    UiState.Failure(
-                        it.localizedMessage
-                    )
-                )
-            }
+//        firebaseFirestore.collection(Constants.USERINFO).document(uid)
+//            .get(cache)
+//            .addOnSuccessListener { document ->
+//                val data: UserInfoDTO? = document.toObject(UserInfoDTO::class.java)
+//                result.invoke(
+//                    UiState.Success(data!!.userNickName!!)
+//                )
+//            }
+//
+//            .addOnFailureListener {
+//                result.invoke(
+//                    UiState.Failure(
+//                        it.localizedMessage
+//                    )
+//                )
+//            }
     }
 
 

@@ -1,8 +1,12 @@
 package com.example.data.dataSource.userInfoDataSource
 
 import com.example.data.entity.UserInfoEntity
+import android.provider.Settings
 
 interface UserInfoDataSource {
+
+    // token
+
 
     // input
 

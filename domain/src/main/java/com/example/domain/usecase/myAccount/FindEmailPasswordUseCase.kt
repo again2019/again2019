@@ -7,7 +7,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class findEmailPasswordUseCase @Inject constructor(
+class FindEmailPasswordUseCase @Inject constructor(
     private val accountRepository: AccountRepository
 ) {
     operator fun invoke (
