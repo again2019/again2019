@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackGround">
+
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/progress_circular"
+        style="@style/ProgressCircular"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        style="@style/MainTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="140dp"
+        android:text="@string/login_ment1"
+        android:textSize="22sp"
+        android:letterSpacing="-0.02"
+        android:id="@+id/ment1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        style="@style/SubTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/login_ment2"
+        android:textSize="14sp"
+        android:id="@+id/ment2"
+        android:letterSpacing="-0.02"
+        app:layout_constraintStart_toStartOf="@+id/ment1"
+        app:layout_constraintTop_toBottomOf="@+id/ment1" />
+
+
+    <Button
+        android:id="@+id/googleloginbtn"
+        style="@style/BtnType2"
+        android:layout_width="0dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:drawableStart="@drawable/googlelogo"
+        android:fontFamily="@font/bold"
+        android:padding="19dp"
+        android:text="@string/login_ment6"
+        app:layout_constraintBottom_toTopOf="@id/emailLoginButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+    <Button
+        android:id="@+id/emailLoginButton"
+        style="@style/BtnType2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="17dp"
+        android:padding="19dp"
+        android:text="@string/login_ment3"
+        app:layout_constraintBottom_toTopOf="@+id/ment3"
+        app:layout_constraintEnd_toEndOf="@+id/googleloginbtn"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/googleloginbtn" />
+
+    <TextView
+        style="@style/mainText"
+        android:id="@+id/ment3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/login_ment4"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@+id/registerButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:letterSpacing="-0.02"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        style="@style/mainText"
+        android:id="@+id/registerButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
+        android:text="@string/login_ment5"
+        android:textAlignment="center"
+        android:textSize="14sp"
+        android:letterSpacing="-0.02"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+

@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackGround"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/progress_circular"
+        style="@style/ProgressCircular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:theme="@style/ToolbarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/backbtn"
+            android:layout_width="15dp"
+            android:layout_height="42dp"
+            android:src="@drawable/arrow"
+            android:layout_marginStart="20dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/login_ment20"
+        android:layout_gravity="center"
+        android:id="@+id/toolbar_title"
+        android:textSize="17sp"
+        />
+    </androidx.appcompat.widget.Toolbar>
+
+
+    <TextView
+        android:id="@+id/nickname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:fontFamily="@font/medium"
+        android:letterSpacing="-0.02"
+        android:text="@string/login_ment21"
+        android:textColor="@color/titleMain"
+        android:textSize="22sp"
+        app:layout_constraintStart_toStartOf="@+id/register_email_edittext"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+    <TextView
+        android:id="@+id/text2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="3dp"
+        android:fontFamily="@font/bold"
+        android:letterSpacing="-0.02"
+        android:text="@string/login_ment8"
+        android:textColor="@color/titleMain"
+        android:textSize="22sp"
+        app:layout_constraintLeft_toRightOf="@+id/nickname"
+        app:layout_constraintTop_toTopOf="@+id/nickname" />
+
+    <TextView
+        android:id="@+id/text3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/medium"
+        android:letterSpacing="-0.02"
+        android:text="@string/login_ment9"
+        android:textColor="@color/titleMain"
+        android:textSize="22sp"
+        app:layout_constraintLeft_toRightOf="@+id/text2"
+        app:layout_constraintTop_toTopOf="@+id/nickname" />
+
+    <TextView
+        android:id="@+id/text4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="3dp"
+        android:fontFamily="@font/bold"
+        android:letterSpacing="-0.02"
+        android:text="@string/login_ment10"
+        android:textColor="@color/titleMain"
+        android:textSize="22sp"
+        app:layout_constraintLeft_toRightOf="@+id/text3"
+        app:layout_constraintTop_toTopOf="@+id/nickname" />
+
+    <TextView
+        android:id="@+id/text6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/medium"
+        android:letterSpacing="-0.02"
+        android:text="@string/login_ment11"
+        android:textColor="@color/titleMain"
+        android:textSize="22sp"
+        app:layout_constraintLeft_toRightOf="@+id/text4"
+        app:layout_constraintTop_toTopOf="@+id/nickname" />
+
+    <TextView
+        android:id="@+id/text5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/login_ment12"
+        android:textSize="22sp"
+        android:textColor="@color/titleMain"
+        android:fontFamily="@font/medium"
+        android:layout_marginTop="4dp"
+        android:letterSpacing="-0.02"
+        app:layout_constraintTop_toBottomOf="@+id/nickname"
+        app:layout_constraintStart_toStartOf="@+id/nickname" />
+
+
+    <EditText
+        android:id="@+id/register_email_edittext"
+        style="@style/EditTextType1"
+        android:layout_width="0dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:hint="@string/login_ment13"
+        android:imeOptions="actionNext"
+        android:inputType="textEmailAddress"
+        android:paddingBottom="17dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text5" />
+
+    <EditText
+        android:id="@+id/register_password_edittext1"
+        style="@style/EditTextType1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:hint="@string/login_ment14"
+        android:inputType="textPassword"
+        android:paddingBottom="17dp"
+        app:layout_constraintEnd_toEndOf="@+id/register_email_edittext"
+        app:layout_constraintStart_toStartOf="@+id/register_email_edittext"
+        app:layout_constraintTop_toBottomOf="@+id/register_email_edittext" />
+
+    <EditText
+        android:id="@+id/register_password_edittext2"
+        style="@style/EditTextType1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:hint="@string/login_ment23"
+        android:inputType="textPassword"
+        android:paddingBottom="17dp"
+        app:layout_constraintEnd_toEndOf="@+id/register_email_edittext"
+        app:layout_constraintStart_toStartOf="@+id/register_email_edittext"
+        app:layout_constraintTop_toBottomOf="@+id/register_password_edittext1" />
+
+    <Button
+        android:id="@+id/register_button"
+        style="@style/BtnType1"
+        android:layout_width="0dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="60dp"
+        android:padding="19dp"
+        android:text="@string/login_ment24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
