@@ -1,9 +1,13 @@
 package com.goingbacking.goingbacking.di
 
 
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
 import com.example.data.api.NotificationAPI
 import com.example.data.dataSource.accountDataSource.AccountDataSource
 import com.example.data.dataSource.accountDataSource.AccountDataSourceImpl
+import com.example.data.dataSource.dataStoreDataSource.DataStoreDataSource
+import com.example.data.dataSource.dataStoreDataSource.DataStoreDataSourceImpl
 import com.example.data.dataSource.notificationDataSource.NotificationDataSource
 import com.example.data.dataSource.notificationDataSource.NotificationDataSourceImpl
 import com.example.data.dataSource.savedTimeDataSource.SavedTimeDataSource
@@ -16,6 +20,7 @@ import com.example.data.dataSource.userInfoDataSource.UserInfoDataSource
 import com.example.data.dataSource.userInfoDataSource.UserInfoDataSourceImpl
 import com.example.data.dataSource.whatToDoDataSource.WhatToDoDataSource
 import com.example.data.dataSource.whatToDoDataSource.WhatToDoDataSourceImpl
+import com.goingbacking.goingbacking.UserSettings
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
@@ -30,6 +35,16 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 @Module
 object DataSourceModule {
+
+    // DataStore DataSource
+    @Provides
+    @Singleton
+    fun provideDataStoreDataSource(
+        preferencesDataStore: DataStore<Preferences>,
+        protoDataStore: DataStore<UserSettings>,
+    ) : DataStoreDataSource {
+        return DataStoreDataSourceImpl(preferencesDataStore, protoDataStore)
+    }
 
     @Provides
     @Singleton
