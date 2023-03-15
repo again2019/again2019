@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/registerFragment"
-        android:name="com.goingbacking.goingbacking.ui.login.RegisterFragment"
+        android:name="com.example.presentation.ui.login.RegisterFragment"
         android:label="RegisterFragment">
 
         <action
@@ -26,7 +26,7 @@
 
     <fragment
         android:id="@+id/emailLoginFragment"
-        android:name="com.goingbacking.goingbacking.ui.login.EmailLoginFragment"
+        android:name="com.example.presentation.ui.login.EmailLoginFragment"
         android:label="emailLoginFragment"
         tools:layout="@layout/fragment_email_login">
 
@@ -52,7 +52,7 @@
 
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.goingbacking.goingbacking.ui.login.LoginFragment"
+        android:name="com.example.presentation.ui.login.LoginFragment"
         android:label="LoginFragment"
         tools:layout="@layout/fragment_login">
 
@@ -77,7 +77,7 @@
 
     <fragment
         android:id="@+id/forgotFragment"
-        android:name="com.goingbacking.goingbacking.ui.login.ForgetFragment"
+        android:name="com.example.presentation.ui.login.ForgetFragment"
         android:label="ForgotFragment"
         tools:layout="@layout/fragment_forget">
         <action

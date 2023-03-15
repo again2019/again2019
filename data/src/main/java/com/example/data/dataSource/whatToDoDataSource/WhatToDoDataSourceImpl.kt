@@ -4,9 +4,9 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import com.example.data.entity.WhatToDoMonthEntity
 import com.example.data.entity.WhatToDoYearEntity
-import com.goingbacking.goingbacking.util.Constants
-import com.goingbacking.goingbacking.util.FBConstants
-import com.goingbacking.goingbacking.util.currentday
+import com.example.domain.util.Constants
+import com.example.domain.util.FBConstants
+import com.example.domain.util.currentday
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore

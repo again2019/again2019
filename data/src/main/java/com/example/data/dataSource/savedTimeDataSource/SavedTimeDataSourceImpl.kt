@@ -6,11 +6,7 @@ import com.example.data.entity.SavedTimeAboutRankEntity
 import com.example.data.entity.SavedTimeDayEntity
 import com.example.data.entity.SavedTimeMonthEntity
 import com.example.data.entity.SavedTimeYearEntity
-import com.goingbacking.goingbacking.AppConstants
-import com.goingbacking.goingbacking.util.Constants
-import com.goingbacking.goingbacking.util.FBConstants
-import com.goingbacking.goingbacking.util.beforeday
-import com.goingbacking.goingbacking.util.currentday
+import com.example.domain.util.*
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore

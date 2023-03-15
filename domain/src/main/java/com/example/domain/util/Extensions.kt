@@ -1,4 +1,4 @@
-package com.goingbacking.goingbacking.util
+package com.example.domain.util
 
 import android.content.Context
 import android.os.Build

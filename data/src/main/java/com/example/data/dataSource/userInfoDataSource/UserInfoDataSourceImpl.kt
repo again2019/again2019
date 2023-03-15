@@ -3,17 +3,14 @@ package com.example.data.dataSource.userInfoDataSource
 import android.os.Build
 import androidx.annotation.RequiresApi
 import com.example.data.entity.UserInfoEntity
-import com.goingbacking.goingbacking.util.Constants
-import com.goingbacking.goingbacking.util.FBConstants.Companion.USERINFO
-import com.goingbacking.goingbacking.util.currentday
+import com.example.domain.util.AppConstants.Companion.USERINFO
+import com.example.domain.util.Constants
+import com.example.domain.util.currentday
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Source
 import com.google.firebase.messaging.FirebaseMessaging
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 
 class UserInfoDataSourceImpl (

@@ -11,10 +11,9 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Build
-import android.util.Log
 import androidx.annotation.RequiresApi
 import com.goingbacking.goingbacking.R
-import com.goingbacking.goingbacking.ui.main.MainActivity
+import com.example.presentation.ui.main.MainActivity
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import dagger.hilt.android.AndroidEntryPoint

@@ -14,6 +14,8 @@ android {
     compileSdk 31
 
     defaultConfig {
+        multiDexEnabled true
+
         minSdk 23
         targetSdk 31
 
@@ -28,11 +30,16 @@ android {
         }
     }
     compileOptions {
+        coreLibraryDesugaringEnabled true
+
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
     kotlinOptions {
         jvmTarget = '1.8'
+    }
+    buildFeatures{
+        viewBinding true
     }
 }
 
