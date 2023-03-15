@@ -338,7 +338,7 @@ class ThirdMainFragment : BaseFragment<FragmentThirdMainBinding>() {
     }
 
     inner class MonthViewContainer(view: View) : ViewContainer(view) {
-        val legendLayout = ItemCalendarHeaderMainBinding.bind(view).legendLayout.root
+        val legendLayout = ItemCalendarHeaderMainBinding.bind(view).legendLayout
     }
 
     private fun deleteEvent(eventDate: String, route : String) {

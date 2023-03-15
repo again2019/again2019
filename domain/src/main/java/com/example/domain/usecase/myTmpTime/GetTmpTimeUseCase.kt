@@ -7,9 +7,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-class GetTmpTimeUseCase @Inject constructor (
+class GetTmpTimeUseCase  (
     private val tmpTimeRepository: TmpTimeRepository,
 ) {
     operator fun invoke (

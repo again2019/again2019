@@ -46,6 +46,7 @@ class TotalCalendarActivity : BaseActivity<ActivityTotalCalendarBinding>({
     private var selectedDateList = listOf<String>()
 
     val viewModel: ThirdViewModel by viewModels()
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -83,8 +84,6 @@ class TotalCalendarActivity : BaseActivity<ActivityTotalCalendarBinding>({
                     override fun bind(container: MonthViewContainer, month: CalendarMonth) {
                         container.legendLayout.children.map { it as TextView }.forEach {
                             it.text = month.yearMonth.toString()
-//                            Log.d("experiment", "monthList " + month.yearMonth.toString())
-
                         }
                     }
 
@@ -135,7 +134,6 @@ class TotalCalendarActivity : BaseActivity<ActivityTotalCalendarBinding>({
                     monthList.add(it.yearMonth.toString())
                     val example2 = async{observer1(it.yearMonth.toString())}
                     selectedDateList = selectedDateList + example2.await()
-                    Log.d("experiment", "new " + selectedDateList)
                     binding.totalthreeCalendar.notifyMonthChanged(it.yearMonth)
 
                 }

@@ -20,10 +20,6 @@ class TimerUtils {
 
         private lateinit var timer: CountDownTimer // 순서대로 얼마나 타이머를 진행할지 나타냄, thread 사용할 필요 없음
 
-
-
-
-
         fun startTimer(context: Context, duration: Long) {
             secondsRemaining = duration
             Log.d("experiment", " -> lengthInMinutes" + secondsRemaining.toString())

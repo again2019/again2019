@@ -8,9 +8,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-class GetOtherWhatToDoYearUseCase @Inject constructor(
+class GetOtherWhatToDoYearUseCase (
     private val whatToDoRepository: WhatToDoRepository
 ) {
     operator fun invoke (

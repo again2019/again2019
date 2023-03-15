@@ -6,9 +6,8 @@ import com.example.domain.util.UiState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-class AddWhatToDoYearUseCase @Inject constructor(
+class AddWhatToDoYearUseCase (
     private val whatToDoRepository: WhatToDoRepository
 ){
     operator fun invoke (
@@ -21,9 +20,9 @@ class AddWhatToDoYearUseCase @Inject constructor(
             kotlin.runCatching {
                 whatToDoRepository.addWhatToDoYearModel(whatToDoYearModel)
             }.onSuccess {
-                UiState.Success("Success")
+                onResult(UiState.Success("Success"))
             }.onFailure {
-                UiState.Failure("Failure")
+                onResult(UiState.Failure("Failure"))
             }
         }
     }

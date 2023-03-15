@@ -6,9 +6,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-class GetGsoUseCase @Inject constructor(
+class GetGsoUseCase (
     private val accountRepository: AccountRepository
 ) {
     operator fun invoke (

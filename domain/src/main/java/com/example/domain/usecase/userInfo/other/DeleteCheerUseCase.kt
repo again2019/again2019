@@ -5,9 +5,8 @@ import com.example.domain.util.UiState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-class DeleteCheerUseCase @Inject constructor(
+class DeleteCheerUseCase (
     private val userInfoRepository: UserInfoRepository
 ){
     operator fun invoke (

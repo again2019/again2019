@@ -7,9 +7,8 @@ import com.example.domain.util.UiState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-class AddDateUseCase @Inject constructor(
+class AddDateUseCase (
     private val scheduleAndDateRepository: ScheduleAndDateRepository
 ) {
     operator fun invoke (

@@ -15,7 +15,7 @@ class LoginViewModel @Inject constructor(
     private val loginEmailUseCase: LoginEmailUseCase,
     private val registerEmailUseCase: RegisterEmailUseCase,
     private val findEmailPasswordUseCase: FindEmailPasswordUseCase,
-    private val getCurrentSession: GetCurrentSession,
+    private val getCurrentSession: GetCurrentSessionUseCase,
 ) : ViewModel() {
 
     // GSO를 받아오는 코드

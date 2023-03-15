@@ -12,7 +12,7 @@ import androidx.annotation.RequiresApi
 
 import androidx.core.app.*
 import com.example.domain.model.*
-import com.example.domain.usecase.savedTime.common.InitSavedTimeAboutRankUseCase
+import com.example.domain.usecase.savedTime.my.InitSavedTimeAboutRankUseCase
 import com.example.domain.usecase.savedTime.my.*
 import com.example.domain.usecase.scheduleAndDate.GetSelectedSchedulesUseCase
 import com.example.domain.usecase.whatToDo.my.AddWhatToDoMonthUseCase

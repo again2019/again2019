@@ -1,9 +1,9 @@
 package com.example.data.api
 
 
-import com.example.data.FCMConstants.Companion.CONTENT_TYPE
-import com.example.data.FCMConstants.Companion.SERVER_KEY
 import com.example.data.entity.NotificationEntity
+import com.example.domain.util.FCMConstants.Companion.CONTENT_TYPE
+import com.example.domain.util.FCMConstants.Companion.SERVER_KEY
 import okhttp3.ResponseBody
 import retrofit2.Response
 import retrofit2.http.Body

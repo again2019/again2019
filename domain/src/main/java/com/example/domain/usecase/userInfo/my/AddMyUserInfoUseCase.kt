@@ -5,9 +5,8 @@ import com.example.domain.util.UiState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-class AddMyUserInfoUseCase @Inject constructor(
+class AddMyUserInfoUseCase (
     private val userInfoRepository: UserInfoRepository
 ) {
     operator fun invoke (
@@ -20,9 +19,9 @@ class AddMyUserInfoUseCase @Inject constructor(
             kotlin.runCatching {
                 userInfoRepository.addUserInfoModel(nickname)
             }.onSuccess {
-                UiState.Success("Success")
+                onResult(UiState.Success("Success"))
             }.onFailure {
-                UiState.Failure("Failure")
+                onResult(UiState.Failure("Failure"))
             }
         }
     }

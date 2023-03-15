@@ -6,9 +6,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-class GetMyNickNameUseCase @Inject constructor (
+class GetMyNickNameUseCase (
     private val userInfoRepository: UserInfoRepository
 ) {
     operator fun invoke (

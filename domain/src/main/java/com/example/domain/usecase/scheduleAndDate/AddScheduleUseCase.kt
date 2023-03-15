@@ -7,9 +7,8 @@ import com.example.domain.util.UiState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-class AddScheduleUseCase @Inject constructor(
+class AddScheduleUseCase (
     private val scheduleAndDateRepository: ScheduleAndDateRepository
 ) {
     operator fun invoke (
@@ -24,9 +23,9 @@ class AddScheduleUseCase @Inject constructor(
             kotlin.runCatching {
                 scheduleAndDateRepository.addScheduleModel(path1, path2, scheduleModel)
             }.onSuccess {
-                UiState.Success("Success")
+                onResult(UiState.Success("Success"))
             }.onFailure {
-                UiState.Failure("Failure")
+                onResult(UiState.Failure("Failure"))
             }
         }
     }

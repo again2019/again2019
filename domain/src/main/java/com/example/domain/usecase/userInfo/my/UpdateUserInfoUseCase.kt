@@ -5,9 +5,8 @@ import com.example.domain.util.UiState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-class UpdateUserInfoUseCase @Inject constructor(
+class UpdateUserInfoUseCase (
     private val userInfoRepository: UserInfoRepository
 ) {
     operator fun invoke (
@@ -22,9 +21,9 @@ class UpdateUserInfoUseCase @Inject constructor(
             kotlin.runCatching {
                 userInfoRepository.updateUserInfoModel(nickname, type, selected)
             }.onSuccess {
-                UiState.Success("Success")
+                onResult(UiState.Success("Success"))
             }.onFailure {
-                UiState.Failure("Failure")
+                onResult(UiState.Failure("Failure"))
             }
         }
 

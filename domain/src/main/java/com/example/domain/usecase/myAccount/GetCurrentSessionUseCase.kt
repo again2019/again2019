@@ -6,7 +6,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class SignOutUseCase (
+class GetCurrentSessionUseCase (
     private val accountRepository: AccountRepository
 ) {
     operator fun invoke (
@@ -16,11 +16,16 @@ class SignOutUseCase (
         scope.launch(Dispatchers.Main) {
             try {
                 onResult(UiState.Loading)
-                accountRepository.signOut()
-                onResult(UiState.Success("Success"))
+                val currentSessiong = accountRepository.getCurrentSession()
+                if (currentSessiong != null) {
+                    onResult(UiState.Success(currentSessiong))
+                } else {
+                    onResult(UiState.Failure("Failure"))
+                }
             } catch (e : Exception) {
                 onResult(UiState.Failure("Failure"))
             }
         }
     }
+
 }
