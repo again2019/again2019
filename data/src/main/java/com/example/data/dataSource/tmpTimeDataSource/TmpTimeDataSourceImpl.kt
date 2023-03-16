@@ -1,8 +1,8 @@
 package com.example.data.dataSource.tmpTimeDataSource
 
 import com.example.data.entity.TmpTimeEntity
-import com.goingbacking.goingbacking.util.Constants
-import com.goingbacking.goingbacking.util.FBConstants
+import com.example.domain.util.Constants
+import com.example.domain.util.FBConstants
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore

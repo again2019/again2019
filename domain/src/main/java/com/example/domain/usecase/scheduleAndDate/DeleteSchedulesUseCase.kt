@@ -9,9 +9,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import java.time.LocalDate
-import javax.inject.Inject
 
-class DeleteSchedulesUseCase @Inject constructor(
+class DeleteSchedulesUseCase (
     private val scheduleAndDateRepository: ScheduleAndDateRepository
 ) {
     operator fun invoke (

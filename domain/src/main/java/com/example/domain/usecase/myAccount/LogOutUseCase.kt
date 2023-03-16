@@ -5,9 +5,8 @@ import com.example.domain.util.UiState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-class LogOutUseCase @Inject constructor(
+class LogOutUseCase (
     private val accountRepository: AccountRepository
 ) {
     operator fun invoke (

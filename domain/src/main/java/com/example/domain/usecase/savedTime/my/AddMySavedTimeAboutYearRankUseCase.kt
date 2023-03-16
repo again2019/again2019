@@ -8,9 +8,8 @@ import com.example.domain.util.UiState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-class AddMySavedTimeAboutYearRankUseCase @Inject constructor(
+class AddMySavedTimeAboutYearRankUseCase (
     private val savedTimeRepository: SavedTimeRepository
 ){
     operator fun invoke(

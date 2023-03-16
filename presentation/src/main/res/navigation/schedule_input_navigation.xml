@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/scheduleInputFragment1"
-        android:name="com.goingbacking.goingbacking.ui.main.third.ScheduleInputFragment1"
+        android:name="com.example.presentation.ui.main.third.ScheduleInputFragment1"
         android:label="ScheduleInputFragment">
 
         <action
@@ -29,7 +29,7 @@
 
     <fragment
         android:id="@+id/scheduleInputFragment2"
-        android:name="com.goingbacking.goingbacking.ui.main.third.ScheduleInputFragment2"
+        android:name="com.example.presentation.ui.main.third.ScheduleInputFragment2"
         android:label="ScheduleInputFragment">
 
         <action

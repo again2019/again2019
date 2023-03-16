@@ -6,7 +6,7 @@ import okhttp3.ResponseBody
 import retrofit2.Response
 import javax.inject.Inject
 
-class NotificationDataSourceImpl @Inject constructor (
+class NotificationDataSourceImpl (
     private val api: NotificationAPI,
 ) : NotificationDataSource {
     override suspend fun postNotificationEntity(notificationEntity: NotificationEntity): Response<ResponseBody> {

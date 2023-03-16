@@ -5,9 +5,8 @@ import com.example.domain.util.UiState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-class SignInWithCredentialUseCase @Inject constructor(
+class SignInWithCredentialUseCase (
     private val accountRepository: AccountRepository
 ) {
     operator fun invoke (

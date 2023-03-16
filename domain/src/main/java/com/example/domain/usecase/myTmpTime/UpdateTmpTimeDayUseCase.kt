@@ -5,9 +5,8 @@ import com.example.domain.util.UiState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-class UpdateTmpTimeDayUseCase @Inject constructor (
+class UpdateTmpTimeDayUseCase  (
     private val tmpTimeRepository: TmpTimeRepository,
 ) {
     operator fun invoke (
@@ -22,9 +21,9 @@ class UpdateTmpTimeDayUseCase @Inject constructor (
             kotlin.runCatching {
                 tmpTimeRepository.updateTmpTimeDayModel(wakeUpTime1, wakeUpTime2, count)
             }.onSuccess {
-                UiState.Success("Success")
+                onResult(UiState.Success("Success"))
             }.onFailure {
-                UiState.Failure("Failure")
+                onResult(UiState.Failure("Failure"))
             }
         }
     }

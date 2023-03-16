@@ -8,9 +8,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import java.time.LocalDate
-import javax.inject.Inject
 
-class GetAllSchedulesUseCase @Inject constructor (
+class GetAllSchedulesUseCase (
     private val scheduleAndDateRepository: ScheduleAndDateRepository
 ) {
     operator fun invoke (

@@ -7,9 +7,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-class GetMySavedTimeYearUseCase @Inject constructor(
+class GetMySavedTimeYearUseCase (
     private val savedTimeRepository: SavedTimeRepository
 ){
     operator fun invoke (

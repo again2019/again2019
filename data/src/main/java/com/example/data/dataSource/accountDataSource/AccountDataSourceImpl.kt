@@ -1,11 +1,8 @@
 package com.example.data.dataSource.accountDataSource
 
-import com.example.domain.util.UiState
-import com.goingbacking.goingbacking.util.Constants
-import com.goingbacking.goingbacking.util.Constants.Companion.serverClientId
+import com.example.domain.util.Constants.Companion.serverClientId
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.*
-import com.google.firebase.firestore.FirebaseFirestore
 
 class AccountDataSourceImpl(
     private val firebaseUser: FirebaseUser?,

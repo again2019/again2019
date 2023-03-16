@@ -7,9 +7,8 @@ import com.example.domain.util.UiState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-class PostNotificationUseCase @Inject constructor (
+class PostNotificationUseCase  (
     private val notificationRepository: NotificationRepository
 ) {
     operator fun invoke(

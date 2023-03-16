@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-
-    <string-array name="type">
-        <item>학생</item>
-        <item>직장인</item>
-    </string-array>
-
-</resources>
