@@ -1,0 +1,26 @@
+package com.example.domain.usecase.dataStore.todayTotalTime
+
+import android.util.Log
+import com.example.domain.repository.DataStoreRepository
+import com.example.domain.util.UiState
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
+
+class GetTodayTotalTimeFromProtoUseCase (
+    private val dataStoreRepository: DataStoreRepository
+) {
+    suspend operator fun invoke () = flow {
+        emit(UiState.Loading)
+        dataStoreRepository.getTodayTotalTimeFromProto().collect {
+            emit(UiState.Success(it))
+            Log.d("aaaaaaaaassssss", it.toString())
+
+        }
+    }.catch {
+        emit(UiState.Failure("Failure"))
+        Log.d("aaaaaaaaas", it.toString())
+
+    }
+}

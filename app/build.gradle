@@ -1,7 +1,6 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
-    id "com.google.protobuf" version "0.8.12"
     id 'com.google.gms.google-services'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
@@ -68,7 +67,6 @@ dependencies {
     implementation 'androidx.datastore:datastore-preferences:1.0.0' // Preference DataStore
     implementation "androidx.datastore:datastore:1.0.0" // Proto DataStore
     implementation  "androidx.datastore:datastore-core:1.0.0-alpha01"
-    implementation  "com.google.protobuf:protobuf-javalite:3.10.0"
 
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2'
 
@@ -89,18 +87,3 @@ dependencies {
 
 }
 
-protobuf {
-    protoc {
-        artifact = "com.google.protobuf:protoc:3.19.4"
-    }
-
-    generateProtoTasks {
-        all().each { task ->
-            task.builtins {
-                java {
-                    option 'lite'
-                }
-            }
-        }
-    }
-}

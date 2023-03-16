@@ -3,6 +3,8 @@ package com.goingbacking.goingbacking.di
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
+import com.example.data.RecentDateSettings
+import com.example.data.TodayTotalTimeSettings
 import com.example.data.api.NotificationAPI
 import com.example.data.dataSource.accountDataSource.AccountDataSource
 import com.example.data.dataSource.accountDataSource.AccountDataSourceImpl
@@ -20,11 +22,9 @@ import com.example.data.dataSource.userInfoDataSource.UserInfoDataSource
 import com.example.data.dataSource.userInfoDataSource.UserInfoDataSourceImpl
 import com.example.data.dataSource.whatToDoDataSource.WhatToDoDataSource
 import com.example.data.dataSource.whatToDoDataSource.WhatToDoDataSourceImpl
-import com.goingbacking.goingbacking.UserSettings
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.FirebaseMessaging
 import dagger.Module
 import dagger.Provides
@@ -41,9 +41,10 @@ object DataSourceModule {
     @Singleton
     fun provideDataStoreDataSource(
         preferencesDataStore: DataStore<Preferences>,
-        protoDataStore: DataStore<UserSettings>,
+        recentDateProtoDataStore: DataStore<RecentDateSettings>,
+        todayTotalTimeProtoDataStore: DataStore<TodayTotalTimeSettings>,
     ) : DataStoreDataSource {
-        return DataStoreDataSourceImpl(preferencesDataStore, protoDataStore)
+        return DataStoreDataSourceImpl(preferencesDataStore, recentDateProtoDataStore, todayTotalTimeProtoDataStore)
     }
 
     @Provides

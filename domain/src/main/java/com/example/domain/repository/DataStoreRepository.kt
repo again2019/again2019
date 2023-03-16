@@ -1,8 +1,10 @@
-package com.example.data.dataSource.dataStoreDataSource
+package com.example.domain.repository
 
 import kotlinx.coroutines.flow.Flow
 
-interface DataStoreDataSource {
+
+interface DataStoreRepository {
+
 
     // preferences data store
 
@@ -10,23 +12,19 @@ interface DataStoreDataSource {
 
     suspend fun addRecentDateFromPreferences(date: String?)
 
-    suspend fun getRecentDateFromPreferences() : Flow<String?>
-
-    // today total time
+    suspend fun getRecentDateFromPreferences(): Flow<String?>
 
     suspend fun addTodayTotalTimeFromPreferences(time: Int?)
 
     suspend fun getTodayTotalTimeFromPreferences() : Flow<Int?>
 
-    // proto data source
+    // proto data store
 
-    // recent date
+    // today total time
 
     suspend fun addRecentDateFromProto(date: String?)
 
-    suspend fun getRecentDateFromProto() : Flow<String?>
-
-    // today total time
+    suspend fun getRecentDateFromProto(): Flow<String?>
 
     suspend fun addTodayTotalTimeFromProto(time: Int?)
 

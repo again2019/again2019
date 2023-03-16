@@ -1,4 +1,4 @@
-package com.goingbacking.goingbacking
+package com.example.data
 
 import androidx.datastore.core.CorruptionException
 import androidx.datastore.core.Serializer
@@ -6,19 +6,19 @@ import com.google.protobuf.InvalidProtocolBufferException
 import java.io.InputStream
 import java.io.OutputStream
 
-object SettingsSerializer : Serializer<UserSettings> {
-    override val defaultValue: UserSettings
-        get() = UserSettings.getDefaultInstance()
+object RecentDateSettingsSerializer : Serializer<RecentDateSettings> {
+    override val defaultValue: RecentDateSettings
+        get() = RecentDateSettings.getDefaultInstance()
 
-    override suspend fun readFrom(input: InputStream): UserSettings {
+    override suspend fun readFrom(input: InputStream): RecentDateSettings {
         try {
-            return UserSettings.parseFrom(input)
+            return RecentDateSettings.parseFrom(input)
         } catch (exception : InvalidProtocolBufferException) {
             throw CorruptionException("Cannot read proto", exception)
         }
     }
 
-    override suspend fun writeTo(t: UserSettings, output: OutputStream) {
+    override suspend fun writeTo(t: RecentDateSettings, output: OutputStream) {
         return t.writeTo(output)
     }
 }

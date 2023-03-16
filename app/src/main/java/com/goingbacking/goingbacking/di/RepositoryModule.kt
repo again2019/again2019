@@ -58,6 +58,11 @@ abstract class RepositoryModule {
         repository: NotificationRepositoryImpl
     ) : NotificationRepository
 
+    @Singleton
+    @Binds
+    abstract fun bindsDataStoreRepository(
+        repository: DataStoreRepositoryImpl
+    ) : DataStoreRepository
 }
 
 

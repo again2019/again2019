@@ -1,0 +1,9 @@
+
+syntax = "proto3";
+
+option java_package = "com.example.data";
+option java_multiple_files = true;
+
+message TodayTotalTimeSettings {
+  int32 time = 1;
+}

@@ -60,19 +60,19 @@ class PrefUtil {
             editor.apply()
         }
 
-        private const val ALARM_SET_Total_Today_TIME_ID = "TodayTotalTime"
+        private const val ALARM_SET_Total_TODAY_TIME_ID = "TodayTotalTime"
 
 
         fun setTodayTotalTime(time: Int, context: Context){
             val editor = androidx.preference.PreferenceManager.getDefaultSharedPreferences(context).edit()
-            editor.putInt(firebaseUid() + ALARM_SET_Total_Today_TIME_ID, time)
+            editor.putInt(firebaseUid() + ALARM_SET_Total_TODAY_TIME_ID, time)
             editor.apply()
         }
 
         fun getTodayTotalTime(context: Context) : Int {
             val preferences =
                 androidx.preference.PreferenceManager.getDefaultSharedPreferences(context)
-            return  preferences.getInt(firebaseUid() + ALARM_SET_Total_Today_TIME_ID, 0)
+            return  preferences.getInt(firebaseUid() + ALARM_SET_Total_TODAY_TIME_ID, 0)
 
         }
 
