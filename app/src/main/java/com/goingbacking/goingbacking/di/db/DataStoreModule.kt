@@ -29,7 +29,7 @@ object DataStoreModule {
 
     @Provides
     @Singleton
-    fun provideRecentPreferencesDateDataStore(
+    fun providePreferencesDateDataStore(
         @ApplicationContext applicationContext : Context
     ) : DataStore<Preferences> {
         return applicationContext.userPreferencesDataStore
