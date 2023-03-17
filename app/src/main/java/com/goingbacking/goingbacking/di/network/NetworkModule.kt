@@ -1,4 +1,4 @@
-package com.goingbacking.goingbacking.di
+package com.goingbacking.goingbacking.di.network
 
 import com.example.data.api.NotificationAPI
 import com.example.domain.util.FCMConstants

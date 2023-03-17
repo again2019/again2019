@@ -1,4 +1,4 @@
-package com.goingbacking.goingbacking.di
+package com.goingbacking.goingbacking.di.db
 
 import android.os.Build
 import androidx.annotation.RequiresApi

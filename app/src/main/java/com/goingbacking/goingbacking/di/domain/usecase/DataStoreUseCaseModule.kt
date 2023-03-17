@@ -1,4 +1,4 @@
-package com.goingbacking.goingbacking.di
+package com.goingbacking.goingbacking.di.domain.usecase
 
 import com.example.domain.repository.AccountRepository
 import com.example.domain.repository.DataStoreRepository

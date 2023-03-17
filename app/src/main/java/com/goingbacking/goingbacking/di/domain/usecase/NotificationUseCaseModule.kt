@@ -1,4 +1,4 @@
-package com.goingbacking.goingbacking.di
+package com.goingbacking.goingbacking.di.domain.usecase
 
 import com.example.domain.repository.NotificationRepository
 import com.example.domain.usecase.notification.PostNotificationUseCase

@@ -39,7 +39,7 @@ class DataStoreViewModel @Inject constructor(
     val addRecentDateFromPreferences : StateFlow<UiState<String>> = _addRecentDateFromPreferences
 
     suspend fun addRecentDateFromPreferences(date: String?) = viewModelScope.launch {
-        addRecentDateFromPreferencesUseCase(date).collectLatest {
+        addRecentDateFromPreferencesUseCase(date).collect {
             _addRecentDateFromPreferences.value = it
         }
     }
@@ -48,7 +48,7 @@ class DataStoreViewModel @Inject constructor(
     val getRecentDateFromPreferences : StateFlow<UiState<String?>> = _getRecentDateFromPreferences
 
     suspend fun getRecentDateFromPreferences() = viewModelScope.launch {
-        getRecentDateFromPreferencesUseCase().collectLatest {
+        getRecentDateFromPreferencesUseCase().collect {
             _getRecentDateFromPreferences.value = it
         }
     }
@@ -59,7 +59,7 @@ class DataStoreViewModel @Inject constructor(
     val addRecentDateFromProto : StateFlow<UiState<String>> = _addRecentDateFromProto
 
     suspend fun addRecentDateFromProto(date: String?) = viewModelScope.launch {
-        addRecentDateFromProtoUseCase(date).collectLatest {
+        addRecentDateFromProtoUseCase(date).collect {
             _addRecentDateFromProto.value = it
         }
     }
@@ -68,7 +68,7 @@ class DataStoreViewModel @Inject constructor(
     val getRecentDateFromProto : StateFlow<UiState<String?>> = _getRecentDateFromProto
 
     suspend fun getRecentDateFromProto() = viewModelScope.launch {
-        getRecentDateFromProtoUseCase().collectLatest {
+        getRecentDateFromProtoUseCase().collect {
             _getRecentDateFromProto.value = it
         }
     }
@@ -81,7 +81,7 @@ class DataStoreViewModel @Inject constructor(
     val addTodayTotalTimeFromPreferences : StateFlow<UiState<String>> = _addTodayTotalTimeFromPreferences
 
     suspend fun addTodayTotalTimeFromPreferences(time: Int?) = viewModelScope.launch{
-        addTodayTotalTimeFromPreferencesUseCase(time).collectLatest {
+        addTodayTotalTimeFromPreferencesUseCase(time).collect {
             _addTodayTotalTimeFromPreferences.value = it
         }
     }
@@ -90,7 +90,7 @@ class DataStoreViewModel @Inject constructor(
     val getTodayTotalTimeFromPreferences : StateFlow<UiState<Int?>> = _getTodayTotalTimeFromPreferences
 
     suspend fun getTodayTotalTimeFromPreferences() = viewModelScope.launch {
-        getTodayTotalTimeFromPreferencesUseCase().collectLatest {
+        getTodayTotalTimeFromPreferencesUseCase().collect {
             _getTodayTotalTimeFromPreferences.value = it
         }
     }
@@ -101,7 +101,7 @@ class DataStoreViewModel @Inject constructor(
     val addTodayTotalTimeFromProto : StateFlow<UiState<String>> = _addTodayTotalTimeFromProto
 
     suspend fun addTodayTotalTimeFromProto(time: Int?) = viewModelScope.launch{
-        addTodayTotalTimeFromProtoUseCase(time).collectLatest {
+        addTodayTotalTimeFromProtoUseCase(time).collect {
             _addTodayTotalTimeFromProto.value = it
         }
     }
@@ -110,7 +110,7 @@ class DataStoreViewModel @Inject constructor(
     val getTodayTotalTimeFromProto : StateFlow<UiState<Int?>> = _getTodayTotalTimeFromProto
 
     suspend fun getTodayTotalTimeFromProto() = viewModelScope.launch{
-        getTodayTotalTimeFromProtoUseCase().collectLatest {
+        getTodayTotalTimeFromProtoUseCase().collect {
             _getTodayTotalTimeFromProto.value = it
         }
     }

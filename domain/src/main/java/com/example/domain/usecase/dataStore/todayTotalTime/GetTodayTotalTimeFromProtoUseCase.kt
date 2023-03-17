@@ -13,14 +13,12 @@ class GetTodayTotalTimeFromProtoUseCase (
 ) {
     suspend operator fun invoke () = flow {
         emit(UiState.Loading)
-        dataStoreRepository.getTodayTotalTimeFromProto().collect {
-            emit(UiState.Success(it))
-            Log.d("aaaaaaaaassssss", it.toString())
-
+        dataStoreRepository.getTodayTotalTimeFromProto()
+            .catch {
+            emit(UiState.Failure("Failure"))
         }
-    }.catch {
-        emit(UiState.Failure("Failure"))
-        Log.d("aaaaaaaaas", it.toString())
-
+            .collect {
+            emit(UiState.Success(it))
+        }
     }
 }

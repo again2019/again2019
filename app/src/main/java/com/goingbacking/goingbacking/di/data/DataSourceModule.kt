@@ -1,4 +1,4 @@
-package com.goingbacking.goingbacking.di
+package com.goingbacking.goingbacking.di.data
 
 
 import androidx.datastore.core.DataStore
