@@ -11,7 +11,7 @@ import com.example.domain.util.Constants
 import com.example.domain.util.makeInVisible
 import com.example.presentation.PrefUtil
 import com.example.presentation.R
-import com.example.presentation.bottomsheet.CheerBottomSheet
+import com.example.presentation.ui.bottomsheet.CheerBottomSheet
 import com.example.presentation.databinding.ActivityRank2Binding
 import com.example.presentation.ui.base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint

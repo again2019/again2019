@@ -4,17 +4,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.paging.Pager
-import androidx.paging.PagingConfig
-import androidx.paging.cachedIn
 import com.example.domain.model.SavedTimeAboutRankModel
 import com.example.domain.usecase.savedTime.common.GetSavedTimeAboutMonthRankUseCase
 import com.example.domain.usecase.savedTime.common.GetSavedTimeAboutYearRankUseCase
-import com.example.domain.usecase.userInfo.other.AddCheerUseCase
-import com.example.domain.usecase.userInfo.other.DeleteCheerUseCase
-import com.example.domain.usecase.userInfo.other.GetCheerListUseCase
+import com.example.domain.usecase.userInfo.other.AddMyCheerToOtherUseCase
+import com.example.domain.usecase.userInfo.other.DeleteMyCheerToOtherUseCase
+import com.example.domain.usecase.userInfo.other.GetOtherCheerListUseCase
 import com.example.domain.util.UiState
-import com.example.domain.util.Constants.Companion.PAGE_SIZE
 import com.google.firebase.firestore.Query
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -24,9 +20,9 @@ import javax.inject.Inject
 class ForthViewModel @Inject constructor(
     private val getSavedTimeAboutMonthRankUseCase: GetSavedTimeAboutMonthRankUseCase,
     private val getSavedTimeAboutYearRankUseCase: GetSavedTimeAboutYearRankUseCase,
-    private val getCheerListUseCase: GetCheerListUseCase,
-    private val addCheerUseCase: AddCheerUseCase,
-    private val deleteCheerUseCase: DeleteCheerUseCase,
+    private val getCheerListUseCase: GetOtherCheerListUseCase,
+    private val addCheerUseCase: AddMyCheerToOtherUseCase,
+    private val deleteCheerUseCase: DeleteMyCheerToOtherUseCase,
     private val queryRankingInfo : Query,
 ) : ViewModel() {
 

@@ -15,7 +15,7 @@ import com.example.domain.util.makeVisible
 import com.example.presentation.R
 
 import com.example.presentation.ui.base.BaseActivity
-import com.example.presentation.bottomsheet.CalendarDetailBottomSheet
+import com.example.presentation.ui.bottomsheet.CalendarDetailBottomSheet
 import com.example.presentation.databinding.ActivityTotalCalendarBinding
 import com.example.presentation.databinding.ItemCalendarDayBinding
 import com.example.presentation.databinding.ItemCalendarHeaderBinding

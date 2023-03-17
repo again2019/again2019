@@ -9,7 +9,7 @@ import com.example.domain.model.*
 import com.example.domain.usecase.savedTime.other.GetOtherSavedTimeDayUseCase
 import com.example.domain.usecase.savedTime.other.GetOtherSavedTimeMonthUseCase
 import com.example.domain.usecase.userInfo.other.GetOtherUserInfoUseCase
-import com.example.domain.usecase.userInfo.other.UpdateLikeButtonUseCase
+import com.example.domain.usecase.userInfo.other.UpdateOtherLikeButtonUseCase
 import com.example.domain.usecase.whatToDo.other.GetOtherWhatToDoMonthUseCase
 import com.example.domain.usecase.whatToDo.other.GetOtherWhatToDoYearUseCase
 import com.example.domain.util.UiState
@@ -24,7 +24,7 @@ class RankViewModel @Inject constructor(
     private val getOtherSavedTimeMonthUseCase: GetOtherSavedTimeMonthUseCase,
     private val getOtherWhatToDoMonthUseCase: GetOtherWhatToDoMonthUseCase,
     private val getOtherWhatToDoYearUseCase: GetOtherWhatToDoYearUseCase,
-    private val updateLikeButtonUseCase: UpdateLikeButtonUseCase,
+    private val updateLikeButtonUseCase: UpdateOtherLikeButtonUseCase,
 ):ViewModel() {
 
     /*

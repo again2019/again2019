@@ -1,31 +1,32 @@
-package com.example.domain.usecase.myTmpTime
+package com.example.domain.usecase.userInfo.my
 
-import com.example.domain.model.SavedTimeMonthModel
-import com.example.domain.model.TmpTimeModel
-import com.example.domain.repository.TmpTimeRepository
+import com.example.domain.repository.UserInfoRepository
 import com.example.domain.util.UiState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class AddTmpTimeUseCase  (
-    private val tmpTimeRepository: TmpTimeRepository,
+class UpdateMyUserInfoUseCase (
+    private val userInfoRepository: UserInfoRepository
 ) {
-    operator fun invoke(
+    operator fun invoke (
         scope: CoroutineScope,
-        currentTime: String,
-        tmpTimeModel: TmpTimeModel,
+        nickname : String,
+        type : String,
+        selected : List<String>,
         onResult: (UiState<String>) -> Unit,
     ) {
         scope.launch(Dispatchers.Main) {
             onResult(UiState.Loading)
             kotlin.runCatching {
-                tmpTimeRepository.addTmpTimeModel(currentTime, tmpTimeModel)
+                userInfoRepository.updateUserInfoModel(nickname, type, selected)
             }.onSuccess {
                 onResult(UiState.Success("Success"))
             }.onFailure {
                 onResult(UiState.Failure("Failure"))
             }
         }
+
     }
+
 }
