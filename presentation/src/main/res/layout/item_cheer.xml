@@ -6,7 +6,7 @@
     android:padding="10dp"
     android:background="?attr/selectableItemBackground"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".bottomsheet.CheerBottomSheet">
+    tools:context=".ui.bottomsheet.CheerBottomSheet">
 
     <TextView
         android:id="@+id/item_cheer_nickname"

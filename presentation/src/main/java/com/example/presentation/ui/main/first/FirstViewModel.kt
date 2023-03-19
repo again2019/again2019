@@ -14,6 +14,7 @@ import com.example.domain.usecase.whatToDo.my.UpdateWhatToDoMonthUseCase
 import com.example.domain.usecase.whatToDo.my.UpdateWhatToDoYearUseCase
 import com.example.domain.util.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -33,6 +34,17 @@ class FirstViewModel @Inject constructor(
     /*
     TmpTimeActivity
      */
+
+    // 수정 예정본
+    private val _tmpTimeModelList = MutableLiveData<UiState<ArrayList<TmpTimeModel>>>()
+    val tmpTimeModelList: LiveData<UiState<ArrayList<TmpTimeModel>>>
+        get() = _tmpTimeModelList
+    fun getTmpTimeModelList() = viewModelScope.launch {
+        getTmpTimeUseCase(viewModelScope) {
+            _tmpTimeModelList.postValue(it)
+        }
+    }
+
 
     // 임시 저장된 정보를 가져오는 코드
     private val _tmpTimeDTOs = MutableLiveData<UiState<ArrayList<TmpTimeModel>>>()

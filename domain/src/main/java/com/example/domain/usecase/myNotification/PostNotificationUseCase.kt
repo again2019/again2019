@@ -1,26 +1,24 @@
-package com.example.domain.usecase.myTmpTime
+package com.example.domain.usecase.myNotification
 
-import com.example.domain.model.SavedTimeMonthModel
-import com.example.domain.model.TmpTimeModel
-import com.example.domain.repository.TmpTimeRepository
+import com.example.domain.model.NotificationModel
+import com.example.domain.repository.NotificationRepository
 import com.example.domain.util.UiState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class AddTmpTimeUseCase  (
-    private val tmpTimeRepository: TmpTimeRepository,
+class PostNotificationUseCase  (
+    private val notificationRepository: NotificationRepository
 ) {
     operator fun invoke(
         scope: CoroutineScope,
-        currentTime: String,
-        tmpTimeModel: TmpTimeModel,
+        notificationModel: NotificationModel,
         onResult: (UiState<String>) -> Unit,
     ) {
         scope.launch(Dispatchers.Main) {
             onResult(UiState.Loading)
             kotlin.runCatching {
-                tmpTimeRepository.addTmpTimeModel(currentTime, tmpTimeModel)
+                notificationRepository.postNotificationModel(notificationModel)
             }.onSuccess {
                 onResult(UiState.Success("Success"))
             }.onFailure {
@@ -28,4 +26,6 @@ class AddTmpTimeUseCase  (
             }
         }
     }
+
+
 }

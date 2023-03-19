@@ -9,7 +9,7 @@ import com.example.domain.model.WhatToDoMonthModel
 import com.example.domain.model.WhatToDoYearModel
 import com.example.domain.usecase.myAccount.LogOutUseCase
 import com.example.domain.usecase.userInfo.my.GetMyUserInfoUseCase
-import com.example.domain.usecase.userInfo.my.UpdateUserInfoUseCase
+import com.example.domain.usecase.userInfo.my.UpdateMyUserInfoUseCase
 import com.example.domain.usecase.whatToDo.my.AddWhatToDoMonthUseCase
 import com.example.domain.usecase.whatToDo.my.AddWhatToDoYearUseCase
 import com.example.domain.util.UiState
@@ -19,7 +19,7 @@ import javax.inject.Inject
 @HiltViewModel
 class FifthViewModel @Inject constructor(
     private val getMyUserInfoUseCase: GetMyUserInfoUseCase,
-    private val updateUserInfoUseCase: UpdateUserInfoUseCase,
+    private val updateUserInfoUseCase: UpdateMyUserInfoUseCase,
     private val whatToDoMonthUseCase: AddWhatToDoMonthUseCase,
     private val whatToDoYearUseCase: AddWhatToDoYearUseCase,
     private val logOutUseCase: LogOutUseCase,

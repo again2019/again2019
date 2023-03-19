@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".bottomsheet.WhatToDoSaveBottomSheet">
+    tools:context=".ui.bottomsheet.WhatToDoSaveBottomSheet">
 
     <TextView
         android:id="@+id/textView2"

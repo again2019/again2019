@@ -12,7 +12,7 @@ import com.example.presentation.ui.base.BaseFragment
 import com.example.domain.util.toast
 import com.example.presentation.NetworkManager
 import com.example.presentation.R
-import com.example.presentation.bottomsheet.InputBottomSheet
+import com.example.presentation.ui.bottomsheet.InputBottomSheet
 import com.example.presentation.databinding.FragmentThirdInputBinding
 import com.google.android.material.chip.Chip
 import dagger.hilt.android.AndroidEntryPoint

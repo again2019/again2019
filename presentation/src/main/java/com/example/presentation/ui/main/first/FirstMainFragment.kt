@@ -8,11 +8,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.domain.util.UiState
 import com.example.domain.util.makeGONE
@@ -26,7 +23,7 @@ import com.example.presentation.databinding.FragmentFirstMainBinding
 
 
 import com.example.presentation.ui.base.BaseFragment
-import com.example.presentation.ui.dataStore.DataStoreViewModel
+import com.example.presentation.ui.datastore.DataStoreViewModel
 import com.example.presentation.ui.main.third.ScheduleInputActivity
 import com.skydoves.balloon.ArrowPositionRules
 import com.skydoves.balloon.Balloon
@@ -34,16 +31,20 @@ import com.skydoves.balloon.BalloonSizeSpec
 
 
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
 class FirstMainFragment : BaseFragment<FragmentFirstMainBinding>() {
 
     private val viewModel: FirstViewModel by viewModels()
+
+
+
+
+
+
+
     private val dataStoreViewModel : DataStoreViewModel by viewModels()
 
     private lateinit var balloon : Balloon
@@ -63,39 +64,43 @@ class FirstMainFragment : BaseFragment<FragmentFirstMainBinding>() {
         observer()
 
         lifecycleScope.launchWhenStarted {
-
-
-            dataStoreViewModel.getTodayTotalTimeFromProto()
-            dataStoreViewModel.getTodayTotalTimeFromProto.collectLatest { state ->
-                    Log.d("aaaaaaaaa", state.toString())
-
-                    when(state) {
-                        is UiState.Loading -> {
-                            binding.progressCircular.show()
-                        }
-                        is UiState.Success -> {
-                            val todayTime = state.data!!
-                            binding.todayHour.text = (todayTime / 60).toString()
-                            binding.todayMinute.text = (todayTime % 60).toString()
-                        }
-                    }
-                }
-
-//                dataStoreViewModel.getTodayTotalTimeFromPreferences()
-//                dataStoreViewModel.getTodayTotalTimeFromPreferences.collectLatest { state ->
-//                    Log.d("exeperimentassssssa", state.toString())
-//
+//            dataStoreViewModel.getTodayTotalTimeFromProto()
+//            dataStoreViewModel.getTodayTotalTimeFromProto.collect { state ->
 //                    when(state) {
 //                        is UiState.Loading -> {
 //                            binding.progressCircular.show()
 //                        }
 //                        is UiState.Success -> {
+//                            binding.progressCircular.hide()
 //                            val todayTime = state.data!!
 //                            binding.todayHour.text = (todayTime / 60).toString()
 //                            binding.todayMinute.text = (todayTime % 60).toString()
 //                        }
+//                        is UiState.Failure -> {
+//                            binding.progressCircular.hide()
+//                            toast(requireContext(), "failure")
+//                        }
 //                    }
 //                }
+
+                dataStoreViewModel.getTodayTotalTimeFromPreferences()
+                dataStoreViewModel.getTodayTotalTimeFromPreferences.collect { state ->
+                    when(state) {
+                        is UiState.Loading -> {
+                            binding.progressCircular.show()
+                        }
+                        is UiState.Success -> {
+                            binding.progressCircular.hide()
+                            val todayTime = state.data!!
+                            binding.todayHour.text = (todayTime / 60).toString()
+                            binding.todayMinute.text = (todayTime % 60).toString()
+                        }
+                        is UiState.Failure -> {
+                            binding.progressCircular.hide()
+                            toast(requireContext(), "failure")
+                        }
+                    }
+                }
 
 
         }

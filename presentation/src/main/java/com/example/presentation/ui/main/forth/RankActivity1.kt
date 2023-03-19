@@ -8,7 +8,7 @@ import com.example.domain.util.UiState
 import com.example.domain.util.makeInVisible
 import com.example.presentation.PrefUtil
 import com.example.presentation.R
-import com.example.presentation.bottomsheet.CheerBottomSheet
+import com.example.presentation.ui.bottomsheet.CheerBottomSheet
 import com.example.presentation.databinding.ActivityRank1Binding
 import com.github.aachartmodel.aainfographics.aachartcreator.*
 import com.example.presentation.ui.base.BaseActivity
