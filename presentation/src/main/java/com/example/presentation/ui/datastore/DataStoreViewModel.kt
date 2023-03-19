@@ -93,6 +93,12 @@ class DataStoreViewModel @Inject constructor(
         }
     }
 
+//    suspend fun getTodayTotalTimeFromPreferences() = viewModelScope.launch {
+//        getTodayTotalTimeFromPreferencesUseCase().collect {
+//            _getTodayTotalTimeFromPreferences.value = it
+//        }
+//    }
+
     // proto data store
 
     private val _addTodayTotalTimeFromProto = MutableStateFlow<UiState<String>>(UiState.Loading)

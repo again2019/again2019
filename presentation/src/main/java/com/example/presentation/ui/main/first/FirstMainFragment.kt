@@ -64,39 +64,43 @@ class FirstMainFragment : BaseFragment<FragmentFirstMainBinding>() {
         observer()
 
         lifecycleScope.launchWhenStarted {
-
-
-            dataStoreViewModel.getTodayTotalTimeFromProto()
-            dataStoreViewModel.getTodayTotalTimeFromProto.collectLatest { state ->
-                    Log.d("aaaaaaaaa", state.toString())
-
-                    when(state) {
-                        is UiState.Loading -> {
-                            binding.progressCircular.show()
-                        }
-                        is UiState.Success -> {
-                            val todayTime = state.data!!
-                            binding.todayHour.text = (todayTime / 60).toString()
-                            binding.todayMinute.text = (todayTime % 60).toString()
-                        }
-                    }
-                }
-
-//                dataStoreViewModel.getTodayTotalTimeFromPreferences()
-//                dataStoreViewModel.getTodayTotalTimeFromPreferences.collectLatest { state ->
-//                    Log.d("exeperimentassssssa", state.toString())
-//
+//            dataStoreViewModel.getTodayTotalTimeFromProto()
+//            dataStoreViewModel.getTodayTotalTimeFromProto.collect { state ->
 //                    when(state) {
 //                        is UiState.Loading -> {
 //                            binding.progressCircular.show()
 //                        }
 //                        is UiState.Success -> {
+//                            binding.progressCircular.hide()
 //                            val todayTime = state.data!!
 //                            binding.todayHour.text = (todayTime / 60).toString()
 //                            binding.todayMinute.text = (todayTime % 60).toString()
 //                        }
+//                        is UiState.Failure -> {
+//                            binding.progressCircular.hide()
+//                            toast(requireContext(), "failure")
+//                        }
 //                    }
 //                }
+
+                dataStoreViewModel.getTodayTotalTimeFromPreferences()
+                dataStoreViewModel.getTodayTotalTimeFromPreferences.collect { state ->
+                    when(state) {
+                        is UiState.Loading -> {
+                            binding.progressCircular.show()
+                        }
+                        is UiState.Success -> {
+                            binding.progressCircular.hide()
+                            val todayTime = state.data!!
+                            binding.todayHour.text = (todayTime / 60).toString()
+                            binding.todayMinute.text = (todayTime % 60).toString()
+                        }
+                        is UiState.Failure -> {
+                            binding.progressCircular.hide()
+                            toast(requireContext(), "failure")
+                        }
+                    }
+                }
 
 
         }
