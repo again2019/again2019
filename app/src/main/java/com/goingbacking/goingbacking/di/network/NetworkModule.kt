@@ -2,6 +2,7 @@ package com.goingbacking.goingbacking.di.network
 
 import com.example.data.api.NotificationAPI
 import com.example.domain.util.FCMConstants
+import com.skydoves.sandwich.adapters.ApiResponseCallAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -21,6 +22,7 @@ object NetworkModule {
         return Retrofit.Builder()
             .baseUrl(FCMConstants.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create()) // 통신이 완료된 후, 어떤 Converter를 이용하여데이터 파싱
+            .addCallAdapterFactory(ApiResponseCallAdapterFactory.create())
             .build()
     }
 

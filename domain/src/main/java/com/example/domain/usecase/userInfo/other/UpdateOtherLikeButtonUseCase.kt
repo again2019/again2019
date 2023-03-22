@@ -34,9 +34,7 @@ class UpdateOtherLikeButtonUseCase (
                 ),
                 myUserInfo.token!!
             ).also {
-                notificationRepository.postNotificationModel(it) {
-
-                }
+                notificationRepository.postNotificationModel(it)
             }
         }
     }

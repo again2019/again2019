@@ -17,10 +17,12 @@ import com.example.presentation.R
 import com.example.presentation.ui.main.MainActivity
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
+import dagger.hilt.android.AndroidEntryPoint
 
 private const val CHANNEL_ID = "fcm_channel"
 
 
+@AndroidEntryPoint
 class FirebaseService : FirebaseMessagingService() {
 
     // 새로운 토큰으로 변경될 때

@@ -14,6 +14,10 @@ import com.example.domain.usecase.whatToDo.other.GetOtherWhatToDoMonthUseCase
 import com.example.domain.usecase.whatToDo.other.GetOtherWhatToDoYearUseCase
 import com.example.domain.util.Response
 import com.example.domain.util.UiState
+import com.skydoves.sandwich.message
+import com.skydoves.sandwich.onError
+import com.skydoves.sandwich.onException
+import com.skydoves.sandwich.onSuccess
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -109,7 +113,15 @@ class RankViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             _likeButtonInfo.postValue(Response.Loading)
             updateLikeButtonUseCase(destinationUid, state) { response ->
+
                 _likeButtonInfo.postValue(response)
+//                response.onSuccess {
+//                    _likeButtonInfo.postValue(Response.Success("Success"))
+//                }.onError {
+//                    _likeButtonInfo.postValue(Response.Failure(this.message()))
+//                }.onException {
+//                    _likeButtonInfo.postValue(Response.Except(this.exception.cause!!))
+//                }
             }
         }
 
