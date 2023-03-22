@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.domain.util.Response
 import com.example.domain.model.TmpTimeModel
 import com.example.domain.model.UserInfoModel
 import com.example.domain.usecase.savedTime.common.UpdateSavedTimeAboutMonthRankUseCase
@@ -14,6 +15,7 @@ import com.example.domain.usecase.whatToDo.my.UpdateWhatToDoMonthUseCase
 import com.example.domain.usecase.whatToDo.my.UpdateWhatToDoYearUseCase
 import com.example.domain.util.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -35,25 +37,17 @@ class FirstViewModel @Inject constructor(
     TmpTimeActivity
      */
 
-    // 수정 예정본
-    private val _tmpTimeModelList = MutableLiveData<UiState<ArrayList<TmpTimeModel>>>()
-    val tmpTimeModelList: LiveData<UiState<ArrayList<TmpTimeModel>>>
-        get() = _tmpTimeModelList
-    fun getTmpTimeModelList() = viewModelScope.launch {
-        getTmpTimeUseCase(viewModelScope) {
-            _tmpTimeModelList.postValue(it)
-        }
-    }
-
 
     // 임시 저장된 정보를 가져오는 코드
-    private val _tmpTimeDTOs = MutableLiveData<UiState<ArrayList<TmpTimeModel>>>()
-    val tmpTimeDTOs: LiveData<UiState<ArrayList<TmpTimeModel>>>
-        get() = _tmpTimeDTOs
-
-    fun getTmpTimeInfo() {
-        getTmpTimeUseCase(viewModelScope) {
-            _tmpTimeDTOs.value = it
+    private val _tmpTimeModelList = MutableLiveData<Response<List<TmpTimeModel>>>()
+    val tmpTimeModelList: LiveData<Response<List<TmpTimeModel>>>
+        get() = _tmpTimeModelList
+    fun getTmpTimeModelList() {
+        viewModelScope.launch(Dispatchers.IO) {
+            _tmpTimeModelList.postValue(Response.Loading)
+            getTmpTimeUseCase() { response ->
+                _tmpTimeModelList.postValue(response)
+            }
         }
     }
 

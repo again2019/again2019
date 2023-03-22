@@ -1,10 +1,10 @@
 package com.example.presentation.ui.main.first
-
+import androidx.activity.viewModels
 import android.content.Intent
 import android.os.Bundle
 
-import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.domain.util.Response
 import com.example.domain.util.UiState
 
 import com.example.presentation.service.AlarmService
@@ -23,8 +23,7 @@ class TmpTimeActivity : BaseActivity<ActivityTmpTimeBinding>({
     val adapter by lazy {
         TmpTimeRecyclerViewAdapter ()
     }
-    val viewModel : FirstViewModel by viewModels()
-
+    private val viewModel: FirstViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -72,17 +71,17 @@ class TmpTimeActivity : BaseActivity<ActivityTmpTimeBinding>({
 
 
     private fun TmpTimeOberver(){
-        viewModel.getTmpTimeInfo()
-        viewModel.tmpTimeDTOs.observe(this) { state ->
+        viewModel.getTmpTimeModelList()
+        viewModel.tmpTimeModelList.observe(this) { state ->
             when(state){
-                is UiState.Success -> {
+                is Response.Success -> {
                     binding.progressCircular.hide()
                     adapter.submitList(state.data)
                 }
-                is UiState.Loading -> {
+                is Response.Loading -> {
                     binding.progressCircular.show()
                 }
-                is UiState.Failure -> {
+                is Response.Failure -> {
                     binding.progressCircular.hide()
                     toast(this, getString(R.string.load_tmpTime_fail))
                 }

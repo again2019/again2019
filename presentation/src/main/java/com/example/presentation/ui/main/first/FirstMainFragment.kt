@@ -11,10 +11,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.domain.util.UiState
-import com.example.domain.util.makeGONE
-import com.example.domain.util.makeVisible
-import com.example.domain.util.toast
+import com.example.domain.util.*
 import com.example.presentation.NetworkManager
 import com.example.presentation.PrefUtil
 import com.example.presentation.R
@@ -154,10 +151,10 @@ class FirstMainFragment : BaseFragment<FragmentFirstMainBinding>() {
     }
 
     private fun observer() {
-        viewModel.getTmpTimeInfo()
-        viewModel.tmpTimeDTOs.observe(viewLifecycleOwner) { state ->
+        viewModel.getTmpTimeModelList()
+        viewModel.tmpTimeModelList.observe(viewLifecycleOwner) { state ->
             when(state) {
-                is UiState.Success -> {
+                is Response.Success -> {
                     binding.progressCircular.hide()
                     val tmpTimeCount = state.data.size
                     if (tmpTimeCount == 0) {
@@ -176,11 +173,11 @@ class FirstMainFragment : BaseFragment<FragmentFirstMainBinding>() {
                     balloon.dismissWithDelay(2000)
                     binding.tmpTimeButton.playAnimation()
                 }
-                is UiState.Failure -> {
+                is Response.Failure -> {
                     binding.progressCircular.hide()
                     toast(requireContext(), getString(R.string.first_tmp_fail))
                 }
-                is UiState.Loading -> {
+                is Response.Loading -> {
                     binding.progressCircular.show()
                 }
             }

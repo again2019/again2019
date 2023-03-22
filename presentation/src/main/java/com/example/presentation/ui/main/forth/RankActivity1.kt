@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
 import com.example.domain.util.Constants
+import com.example.domain.util.Response
 import com.example.domain.util.UiState
 import com.example.domain.util.makeInVisible
 import com.example.presentation.PrefUtil
@@ -83,14 +84,14 @@ class RankActivity1 : BaseActivity<ActivityRank1Binding>({
 
                 viewModel.likeButtonInfo.observe(this@RankActivity1) { state ->
                     when(state) {
-                        is UiState.Success -> {
+                        is Response.Success -> {
                             progressCircular.hide()
                             likeCount.text = state.data
                         }
-                        is UiState.Failure -> {
+                        is Response.Failure -> {
                             progressCircular.hide()
                         }
-                        is UiState.Loading -> {
+                        is Response.Loading -> {
                             progressCircular.show()
                         }
                     }
@@ -104,14 +105,14 @@ class RankActivity1 : BaseActivity<ActivityRank1Binding>({
                 viewModel.likeButtonInfo(destinationUid, "minus")
                 viewModel.likeButtonInfo.observe(this@RankActivity1) { state ->
                     when(state) {
-                        is UiState.Success -> {
+                        is Response.Success -> {
                             progressCircular.hide()
                             likeCount.text = state.data
                         }
-                        is UiState.Failure -> {
+                        is Response.Failure -> {
                             progressCircular.hide()
                         }
-                        is UiState.Loading -> {
+                        is Response.Loading -> {
                             progressCircular.show()
                         }
                     }

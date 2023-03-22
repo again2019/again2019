@@ -23,7 +23,6 @@ class ForthViewModel @Inject constructor(
     private val getCheerListUseCase: GetOtherCheerListUseCase,
     private val addCheerUseCase: AddMyCheerToOtherUseCase,
     private val deleteCheerUseCase: DeleteMyCheerToOtherUseCase,
-    private val queryRankingInfo : Query,
 ) : ViewModel() {
 
     //

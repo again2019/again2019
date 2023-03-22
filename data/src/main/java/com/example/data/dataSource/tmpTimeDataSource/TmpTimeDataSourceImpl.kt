@@ -1,6 +1,7 @@
 package com.example.data.dataSource.tmpTimeDataSource
 
 import com.example.data.entity.TmpTimeEntity
+import com.example.domain.util.Response
 import com.example.domain.util.Constants
 import com.example.domain.util.FBConstants
 import com.google.firebase.auth.FirebaseUser
@@ -8,7 +9,6 @@ import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Source
 import com.google.firebase.firestore.ktx.toObjects
-import kotlinx.coroutines.tasks.await
 
 class TmpTimeDataSourceImpl(
     private val firebaseFirestore: FirebaseFirestore,
@@ -25,9 +25,19 @@ class TmpTimeDataSourceImpl(
         }
     }
 
-    override suspend fun getTmpTimeEntity(): ArrayList<TmpTimeEntity> {
-        return firebaseFirestore.collection("TmpTimeInfo").document(myUid)
-            .collection(myUid).get().await().toObjects<TmpTimeEntity>().toCollection(ArrayList())
+    override suspend fun getTmpTimeEntity(result: (Response<List<TmpTimeEntity>>) -> Unit) {
+        firebaseFirestore.collection("TmpTimeInfo").document(myUid)
+            .collection(myUid).get()
+            .addOnSuccessListener { documents ->
+                result(Response.Success(documents.toObjects()))
+            }
+            .addOnFailureListener { exception ->
+                if (exception.localizedMessage != null) {
+                    result(Response.Failure("unknown_exception"))
+                } else {
+                    result(Response.Failure(exception.localizedMessage!!))
+                }
+            }
     }
 
     override suspend fun deleteTmpTimeEntity(startTime: String) {

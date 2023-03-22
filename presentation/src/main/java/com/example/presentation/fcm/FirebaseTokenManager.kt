@@ -1,13 +1,9 @@
-package com.goingbacking.goingbacking.fcm
+package com.example.presentation.fcm
 
 import android.annotation.SuppressLint
 import android.content.Context
 import android.provider.Settings
-import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 object FirebaseTokenManager {
 

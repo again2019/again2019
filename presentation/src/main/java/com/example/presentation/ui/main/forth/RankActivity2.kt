@@ -7,6 +7,7 @@ import com.example.domain.util.UiState
 import com.github.aachartmodel.aainfographics.aachartcreator.*
 
 import com.example.domain.util.Constants
+import com.example.domain.util.Response
 
 import com.example.domain.util.makeInVisible
 import com.example.presentation.PrefUtil
@@ -85,14 +86,14 @@ class RankActivity2 : BaseActivity<ActivityRank2Binding>({
 
                 viewModel.likeButtonInfo.observe(this@RankActivity2) { state ->
                     when(state) {
-                        is UiState.Success -> {
+                        is Response.Success -> {
                             progressCircular.hide()
                             likeCount.text = state.data
                         }
-                        is UiState.Failure -> {
+                        is Response.Failure -> {
                             progressCircular.hide()
                         }
-                        is UiState.Loading -> {
+                        is Response.Loading -> {
                             progressCircular.show()
                         }
                     }
@@ -106,14 +107,14 @@ class RankActivity2 : BaseActivity<ActivityRank2Binding>({
                 viewModel.likeButtonInfo(destinationUid, "minus")
                 viewModel.likeButtonInfo.observe(this@RankActivity2) { state ->
                     when(state) {
-                        is UiState.Success -> {
+                        is Response.Success -> {
                             progressCircular.hide()
                             likeCount.text = state.data
                         }
-                        is UiState.Failure -> {
+                        is Response.Failure -> {
                             progressCircular.hide()
                         }
-                        is UiState.Loading -> {
+                        is Response.Loading -> {
                             progressCircular.show()
                         }
                     }

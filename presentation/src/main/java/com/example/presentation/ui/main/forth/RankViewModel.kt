@@ -12,8 +12,11 @@ import com.example.domain.usecase.userInfo.other.GetOtherUserInfoUseCase
 import com.example.domain.usecase.userInfo.other.UpdateOtherLikeButtonUseCase
 import com.example.domain.usecase.whatToDo.other.GetOtherWhatToDoMonthUseCase
 import com.example.domain.usecase.whatToDo.other.GetOtherWhatToDoYearUseCase
+import com.example.domain.util.Response
 import com.example.domain.util.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
@@ -98,14 +101,18 @@ class RankViewModel @Inject constructor(
     }
 
     // 좋아요 버튼 클릭/해제시 나타내는 코드
-    private val _likeButtonInfo = MutableLiveData<UiState<String>>()
-    val likeButtonInfo : LiveData<UiState<String>>
+    private val _likeButtonInfo = MutableLiveData<Response<String>>()
+    val likeButtonInfo : LiveData<Response<String>>
         get() = _likeButtonInfo
 
     fun likeButtonInfo(destinationUid :String, state :String) {
-        updateLikeButtonUseCase(viewModelScope, destinationUid, state) {
-            _likeButtonInfo.postValue(it)
+        viewModelScope.launch(Dispatchers.IO) {
+            _likeButtonInfo.postValue(Response.Loading)
+            updateLikeButtonUseCase(destinationUid, state) { response ->
+                _likeButtonInfo.postValue(response)
+            }
         }
+
 
     }
 

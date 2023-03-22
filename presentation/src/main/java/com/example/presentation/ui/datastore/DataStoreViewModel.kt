@@ -84,8 +84,9 @@ class DataStoreViewModel @Inject constructor(
         }
     }
 
-    private val _getTodayTotalTimeFromPreferences= MutableStateFlow<UiState<Int?>>(UiState.Loading)
-    val getTodayTotalTimeFromPreferences : StateFlow<UiState<Int?>> = _getTodayTotalTimeFromPreferences
+    private var _getTodayTotalTimeFromPreferences = MutableStateFlow<UiState<Int?>>(UiState.Loading)
+    val getTodayTotalTimeFromPreferences : StateFlow<UiState<Int?>>
+        get() = _getTodayTotalTimeFromPreferences
 
     suspend fun getTodayTotalTimeFromPreferences() = viewModelScope.launch {
         getTodayTotalTimeFromPreferencesUseCase().collect {
