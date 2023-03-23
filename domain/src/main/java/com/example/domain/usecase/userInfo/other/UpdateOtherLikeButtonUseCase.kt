@@ -8,6 +8,8 @@ import com.example.domain.util.Response
 import com.example.domain.util.UiState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -18,24 +20,35 @@ class UpdateOtherLikeButtonUseCase (
     suspend operator fun invoke (
         destinationUid: String,
         state: String,
-        onResult : (Response<String>) -> Unit,
-    ) {
+        onResult : (String) -> Unit,
+        onError : (String?) -> Unit,
+    ) : Flow<String> {
 
         val myUserInfo = withContext(Dispatchers.IO) {
             userInfoRepository.getMyUserInfoModel()
         }
-        onResult(Response.Success(userInfoRepository.updateLikeButton(destinationUid, state)))
+        onResult(userInfoRepository.updateLikeButton(destinationUid, state))
+
+        var notificationModel = NotificationModel(
+            NotificationModel.NotificationDataModel(
+                "", ""
+            ), ""
+        )
 
         if(state == "plus") {
-            NotificationModel(
+            notificationModel = NotificationModel(
                 NotificationModel.NotificationDataModel(
                     "좋아요",
                     myUserInfo.userNickName!! + "님의 좋아요 수가 늘었습니다! 확인해보세요!"
                 ),
                 myUserInfo.token!!
-            ).also {
-                notificationRepository.postNotificationModel(it)
-            }
+            )
         }
+
+
+        return notificationRepository.postNotificationModel(
+                notificationModel,
+            onError = { onError(it) }
+            )
     }
 }

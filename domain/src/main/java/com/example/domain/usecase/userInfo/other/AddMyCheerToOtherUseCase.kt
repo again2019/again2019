@@ -43,7 +43,9 @@ class AddMyCheerToOtherUseCase (
                 }
 
                 // 2. 응원 메시지 전달
-                notificationRepository.postNotificationModel(notificationModel)
+                notificationRepository.postNotificationModel(notificationModel) {
+
+                }
 
                 // 1. 2를 병렬 처리 -> 1, 2 리턴이 둘 다 success일 경우에 onResult(UiState.Success)) 실행
                 onResult(UiState.Success(destinationCheer))

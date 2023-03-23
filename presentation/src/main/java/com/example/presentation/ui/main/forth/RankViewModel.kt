@@ -112,9 +112,17 @@ class RankViewModel @Inject constructor(
     fun likeButtonInfo(destinationUid :String, state :String) {
         viewModelScope.launch(Dispatchers.IO) {
             _likeButtonInfo.postValue(Response.Loading)
-            updateLikeButtonUseCase(destinationUid, state) { response ->
-
-                _likeButtonInfo.postValue(response)
+            updateLikeButtonUseCase(
+                destinationUid,
+                state,
+                onResult = {
+                    _likeButtonInfo.postValue(Response.Success(it))
+                },
+                onError = {
+                    _likeButtonInfo.postValue(Response.Failure(it!!))
+                }).collect {
+                    
+                }
 //                response.onSuccess {
 //                    _likeButtonInfo.postValue(Response.Success("Success"))
 //                }.onError {
@@ -122,7 +130,7 @@ class RankViewModel @Inject constructor(
 //                }.onException {
 //                    _likeButtonInfo.postValue(Response.Except(this.exception.cause!!))
 //                }
-            }
+
         }
 
 
