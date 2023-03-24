@@ -7,7 +7,6 @@ import com.example.domain.util.UiState
 import com.github.aachartmodel.aainfographics.aachartcreator.*
 
 import com.example.domain.util.Constants
-import com.example.domain.util.Response
 
 import com.example.domain.util.makeInVisible
 import com.example.presentation.PrefUtil
@@ -86,14 +85,14 @@ class RankActivity2 : BaseActivity<ActivityRank2Binding>({
 
                 viewModel.likeButtonInfo.observe(this@RankActivity2) { state ->
                     when(state) {
-                        is Response.Success -> {
+                        is com.example.domain.util.Response.Result.Success -> {
                             progressCircular.hide()
                             likeCount.text = state.data
                         }
-                        is Response.Failure -> {
+                        is com.example.domain.util.Response.Result.Failure -> {
                             progressCircular.hide()
                         }
-                        is Response.Loading -> {
+                        is com.example.domain.util.Response.Result.Loading -> {
                             progressCircular.show()
                         }
                     }
@@ -107,14 +106,14 @@ class RankActivity2 : BaseActivity<ActivityRank2Binding>({
                 viewModel.likeButtonInfo(destinationUid, "minus")
                 viewModel.likeButtonInfo.observe(this@RankActivity2) { state ->
                     when(state) {
-                        is Response.Success -> {
+                        is com.example.domain.util.Response.Result.Success -> {
                             progressCircular.hide()
                             likeCount.text = state.data
                         }
-                        is Response.Failure -> {
+                        is com.example.domain.util.Response.Result.Failure -> {
                             progressCircular.hide()
                         }
-                        is Response.Loading -> {
+                        is com.example.domain.util.Response.Result.Loading -> {
                             progressCircular.show()
                         }
                     }

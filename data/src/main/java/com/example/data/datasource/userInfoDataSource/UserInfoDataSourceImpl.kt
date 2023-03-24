@@ -1,4 +1,4 @@
-package com.example.data.dataSource.userInfoDataSource
+package com.example.data.datasource.userInfoDataSource
 
 import android.os.Build
 import androidx.annotation.RequiresApi

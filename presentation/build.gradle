@@ -47,6 +47,8 @@ dependencies {
 
     implementation project(":domain")
 
+    implementation 'com.jakewharton.timber:timber:5.0.1'
+
     implementation "com.github.skydoves:sandwich:1.2.4"
 
     // firebase

@@ -1,11 +1,10 @@
-package com.example.data.dataSource.whatToDoDataSource
+package com.example.data.datasource.whatToDoDataSource
 
 import android.os.Build
 import androidx.annotation.RequiresApi
 import com.example.data.entity.WhatToDoMonthEntity
 import com.example.data.entity.WhatToDoYearEntity
 import com.example.domain.util.Constants
-import com.example.domain.util.FBConstants
 import com.example.domain.util.currentday
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FieldValue

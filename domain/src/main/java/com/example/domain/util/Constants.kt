@@ -6,6 +6,8 @@ class Constants {
         // 문자열이나 기본 타입으로 할당
         // 변수를 최상위 레벨로 선언하거나 object로 선언한 클래스에서만 사용 가능
 
+        const val TAG = "TAG"
+
         // splash
         const val DURATION : Long = 1000
 
@@ -13,15 +15,15 @@ class Constants {
         const val serverClientId = "1036649010261-p08hat5d9stl7qvdun1mg4fv94kj8nt6.apps.googleusercontent.com"
         // firebase 경로 관련 constant
         const val USERINFO = "UserInfo"
-        const val CALENDARINFO = "CalendarInfo"
+        const val CALENDAR_INFO = "CalendarInfo"
         const val DATE = "Date"
         const val DATE2 = "date"
 
-        const val TMPTIMEINFO = "TmpTimeInfo"
-        const val SAVETIMEINFO = "SaveTimeInfo"
-        const val WHATTODOINFO = "WhatToDoInfo"
-        const val RANKMONTHINFO = "RankMonthInfo"
-        const val RANKYEARINFO = "RankYearInfo"
+        const val TMP_TIME_INFO = "TmpTimeInfo"
+        const val SAVE_TIME_INFO = "SaveTimeInfo"
+        const val WHAT_TO_DO_INFO = "WhatToDoInfo"
+        const val RANK_MONTH_INFO = "RankMonthInfo"
+        const val RANK_YEAR_INFO = "RankYearInfo"
 
         const val DAY = "day"
         const val MONTH = "month"
@@ -40,10 +42,17 @@ class Constants {
         const val ACTION_STOP = "stop"
         const val ACTION_START = "start"
         const val ACTION_READY = "ready"
+        const val ACTION_MOVE = "move"
+        const val ACTION_THIS_NO_START = "this_no_start"
 
         enum class TimerState {
             Stopped, Running
         }
+
+        // 알림 관련 constant
+        const val BASE_URL = "https://fcm.googleapis.com"
+        const val SERVER_KEY = "AAAA8V0YlFU:APA91bF1z_NtZwY-yw0hgGxHIqwZfpo9ltfxCaeEER0GRxycqZh6qsgkGSt-r-D1UQbG6Q8PEYxGz_mllbLHzGhcPCZSbq6qTJweEJsN5OP6kIhsKYs6YJvNHZC_0vp5g3X2a8HimZDf"
+        const val CONTENT_TYPE = "application/json"
 
         // forthMainFragment
         const val COUNT = "count"

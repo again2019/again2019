@@ -7,9 +7,11 @@ import android.content.Intent
 import android.util.Log
 import com.example.domain.model.TmpTimeModel
 import com.example.domain.usecase.myTmpTime.AddTmpTimeUseCase
+import com.example.domain.util.Constants.Companion.ACTION_READY
+import com.example.domain.util.Constants.Companion.ACTION_START
+import com.example.domain.util.Constants.Companion.ACTION_STOP
+import com.example.domain.util.Constants.Companion.ACTION_THIS_NO_START
 import com.example.presentation.service.AlarmService
-import com.example.domain.util.AppConstants
-import com.example.domain.util.AppConstants.Companion.ACTION_THIS_NO_START
 import com.example.domain.util.Constants.Companion.CHANNEL
 import com.example.domain.util.Constants.Companion.CURRENTTIME
 import com.example.domain.util.Constants.Companion.DURATION2
@@ -17,13 +19,19 @@ import com.example.domain.util.Constants.Companion.END_TIME
 import com.example.domain.util.Constants.Companion.FINISH_FOREGROUND
 import com.example.domain.util.Constants.Companion.FIRST_START_FOREGROUND
 import com.example.domain.util.Constants.Companion.ID
+import com.example.domain.util.Constants.Companion.SUCCESS
 import com.example.domain.util.Constants.Companion.START_FOREGROUND
+import com.example.domain.util.Constants.Companion.TAG
 import com.example.domain.util.Constants.Companion.WAKEUPTIME
+import com.example.domain.util.DatabaseResult
 import com.example.domain.util.calendarAlarm
+import com.example.domain.util.toast
 import com.example.presentation.PrefUtil
 import com.example.presentation.TimerUtils
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import timber.log.Timber
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
@@ -47,7 +55,7 @@ class DoingReceiver @Inject constructor(
         nm.cancelAll()
         when (intent.action){
 
-            AppConstants.ACTION_READY -> {
+            ACTION_READY -> {
                 end_time = intent.getIntExtra(END_TIME, 0)
                 Log.d("experiment", "end_time ${end_time} ")
                 PrefUtil.setEndTime(end_time, context)
@@ -55,7 +63,7 @@ class DoingReceiver @Inject constructor(
                 intent1.action = FIRST_START_FOREGROUND
                 context.startService(intent1)
             }
-            AppConstants.ACTION_START -> {
+            ACTION_START -> {
                 end_time = PrefUtil.getEndTime(context)
 
                 Log.d("experiment", "end_time ${end_time} id ${id} channel ${type}")
@@ -88,7 +96,7 @@ class DoingReceiver @Inject constructor(
 
                 TimerUtils.startTimer(context, duration)
             }
-            AppConstants.ACTION_STOP -> {
+            ACTION_STOP -> {
                 TimerUtils.pauseTimer()
                 val start_currentTime = PrefUtil.getStartTime(context)
 
@@ -120,7 +128,19 @@ class DoingReceiver @Inject constructor(
                 Log.d("experiment", "wakeupTime: " + wakeUpTime.toString())
                 Log.d("experiment", "currentTime: " + currentTime.toString())
 
-                addTmpTimeUseCase(CoroutineScope(Dispatchers.Main), current.toString(), tmpTimeDTO) {}
+                CoroutineScope(Dispatchers.IO).launch {
+                    addTmpTimeUseCase(current.toString(), tmpTimeDTO) { result ->
+                        when (result) {
+                            is DatabaseResult.Success -> {
+                                Timber.d("addTmpTimeUseCase: $result.data")
+                            }
+                            is DatabaseResult.Failure -> {
+                                toast(context, "Unknown Failure")
+                            }
+                        }
+                    }
+                }
+
             }
             "MOVE" -> {
                 val intent4 = Intent(context, AlarmService::class.java)

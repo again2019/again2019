@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.CountDownTimer
 import android.util.Log
 import com.example.domain.model.TmpTimeModel
-import com.example.domain.util.AppConstants
 import com.example.presentation.service.AlarmService
 import java.text.SimpleDateFormat
 import java.util.*

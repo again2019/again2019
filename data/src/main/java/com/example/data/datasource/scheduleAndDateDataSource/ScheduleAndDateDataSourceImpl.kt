@@ -1,10 +1,9 @@
-package com.example.data.dataSource.scheduleAndDateDataSource
+package com.example.data.datasource.scheduleAndDateDataSource
 
 import android.os.Build
 import androidx.annotation.RequiresApi
 import com.example.data.entity.DateEntity
 import com.example.data.entity.ScheduleEntity
-import com.example.domain.util.FBConstants
 import com.example.domain.util.currentday
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FieldValue

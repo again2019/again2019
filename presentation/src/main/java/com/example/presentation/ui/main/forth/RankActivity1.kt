@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
 import com.example.domain.util.Constants
-import com.example.domain.util.Response
 import com.example.domain.util.UiState
 import com.example.domain.util.makeInVisible
 import com.example.presentation.PrefUtil
@@ -84,14 +83,14 @@ class RankActivity1 : BaseActivity<ActivityRank1Binding>({
 
                 viewModel.likeButtonInfo.observe(this@RankActivity1) { state ->
                     when(state) {
-                        is Response.Success -> {
+                        is com.example.domain.util.Response.Result.Success -> {
                             progressCircular.hide()
                             likeCount.text = state.data
                         }
-                        is Response.Failure -> {
+                        is com.example.domain.util.Response.Result.Failure -> {
                             progressCircular.hide()
                         }
-                        is Response.Loading -> {
+                        is com.example.domain.util.Response.Result.Loading -> {
                             progressCircular.show()
                         }
                     }
@@ -105,14 +104,14 @@ class RankActivity1 : BaseActivity<ActivityRank1Binding>({
                 viewModel.likeButtonInfo(destinationUid, "minus")
                 viewModel.likeButtonInfo.observe(this@RankActivity1) { state ->
                     when(state) {
-                        is Response.Success -> {
+                        is com.example.domain.util.Response.Result.Success -> {
                             progressCircular.hide()
                             likeCount.text = state.data
                         }
-                        is Response.Failure -> {
+                        is com.example.domain.util.Response.Result.Failure -> {
                             progressCircular.hide()
                         }
-                        is Response.Loading -> {
+                        is com.example.domain.util.Response.Result.Loading -> {
                             progressCircular.show()
                         }
                     }

@@ -1,6 +1,6 @@
 package com.example.data.repositoryImpl
 
-import com.example.data.dataSource.savedTimeDataSource.SavedTimeDataSource
+import com.example.data.datasource.savedTimeDataSource.SavedTimeDataSource
 import com.example.data.mapper.SavedTimeMapper
 import com.example.domain.model.SavedTimeAboutRankModel
 import com.example.domain.model.SavedTimeDayModel

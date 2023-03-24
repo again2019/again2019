@@ -3,7 +3,6 @@ package com.example.presentation.ui.main.first
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 
 import android.view.LayoutInflater
 import android.view.View
@@ -28,7 +27,6 @@ import com.skydoves.balloon.BalloonSizeSpec
 
 
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collectLatest
 
 
 @AndroidEntryPoint
@@ -154,7 +152,7 @@ class FirstMainFragment : BaseFragment<FragmentFirstMainBinding>() {
         viewModel.getTmpTimeModelList()
         viewModel.tmpTimeModelList.observe(viewLifecycleOwner) { state ->
             when(state) {
-                is Response.Success -> {
+                is com.example.domain.util.Response.Result.Success -> {
                     binding.progressCircular.hide()
                     val tmpTimeCount = state.data.size
                     if (tmpTimeCount == 0) {
@@ -173,11 +171,11 @@ class FirstMainFragment : BaseFragment<FragmentFirstMainBinding>() {
                     balloon.dismissWithDelay(2000)
                     binding.tmpTimeButton.playAnimation()
                 }
-                is Response.Failure -> {
+                is com.example.domain.util.Response.Result.Failure -> {
                     binding.progressCircular.hide()
                     toast(requireContext(), getString(R.string.first_tmp_fail))
                 }
-                is Response.Loading -> {
+                is com.example.domain.util.Response.Result.Loading -> {
                     binding.progressCircular.show()
                 }
             }

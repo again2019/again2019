@@ -1,7 +1,6 @@
-package com.example.data.dataSource.userInfoDataSource
+package com.example.data.datasource.userInfoDataSource
 
 import com.example.data.entity.UserInfoEntity
-import android.provider.Settings
 
 interface UserInfoDataSource {
 

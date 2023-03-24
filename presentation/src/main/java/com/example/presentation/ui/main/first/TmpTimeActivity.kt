@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.domain.util.Response
 import com.example.domain.util.UiState
 
 import com.example.presentation.service.AlarmService
@@ -74,14 +73,14 @@ class TmpTimeActivity : BaseActivity<ActivityTmpTimeBinding>({
         viewModel.getTmpTimeModelList()
         viewModel.tmpTimeModelList.observe(this) { state ->
             when(state){
-                is Response.Success -> {
+                is com.example.domain.util.Response.Result.Success -> {
                     binding.progressCircular.hide()
                     adapter.submitList(state.data)
                 }
-                is Response.Loading -> {
+                is com.example.domain.util.Response.Result.Loading -> {
                     binding.progressCircular.show()
                 }
-                is Response.Failure -> {
+                is com.example.domain.util.Response.Result.Failure -> {
                     binding.progressCircular.hide()
                     toast(this, getString(R.string.load_tmpTime_fail))
                 }

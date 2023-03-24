@@ -1,7 +1,6 @@
 package com.goingbacking.goingbacking.di.network
 
 import com.example.data.api.NotificationAPI
-import com.example.domain.util.FCMConstants
 import com.skydoves.sandwich.adapters.ApiResponseCallAdapterFactory
 import dagger.Module
 import dagger.Provides

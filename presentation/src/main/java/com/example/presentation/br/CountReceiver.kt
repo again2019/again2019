@@ -18,7 +18,6 @@ import com.example.domain.usecase.scheduleAndDate.GetSelectedSchedulesUseCase
 import com.example.domain.usecase.whatToDo.my.AddWhatToDoMonthUseCase
 import com.example.domain.usecase.whatToDo.my.AddWhatToDoYearUseCase
 import com.example.domain.util.*
-import com.example.domain.util.AppConstants
 import com.example.presentation.ui.main.MainActivity
 
 

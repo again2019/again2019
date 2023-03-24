@@ -1,6 +1,6 @@
 package com.example.data.repositoryImpl
 
-import com.example.data.dataSource.userInfoDataSource.UserInfoDataSource
+import com.example.data.datasource.userInfoDataSource.UserInfoDataSource
 import com.example.data.mapper.UserInfoMapper
 import com.example.domain.model.UserInfoModel
 import com.example.domain.repository.UserInfoRepository

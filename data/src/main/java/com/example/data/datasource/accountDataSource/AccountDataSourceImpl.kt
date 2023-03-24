@@ -1,4 +1,4 @@
-package com.example.data.dataSource.accountDataSource
+package com.example.data.datasource.accountDataSource
 
 import com.example.domain.util.Constants.Companion.serverClientId
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions

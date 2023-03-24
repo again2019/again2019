@@ -4,7 +4,6 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import com.example.domain.util.Constants
 import com.example.domain.util.Constants.Companion.PAGE_SIZE
-import com.example.domain.util.FBConstants
 import com.example.domain.util.currentday
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser

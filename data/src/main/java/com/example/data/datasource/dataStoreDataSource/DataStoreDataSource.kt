@@ -1,4 +1,4 @@
-package com.example.data.dataSource.dataStoreDataSource
+package com.example.data.datasource.dataStoreDataSource
 
 import kotlinx.coroutines.flow.Flow
 

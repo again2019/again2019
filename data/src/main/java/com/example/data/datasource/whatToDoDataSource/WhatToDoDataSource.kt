@@ -1,8 +1,7 @@
-package com.example.data.dataSource.whatToDoDataSource
+package com.example.data.datasource.whatToDoDataSource
 
 import com.example.data.entity.WhatToDoMonthEntity
 import com.example.data.entity.WhatToDoYearEntity
-import com.google.firebase.firestore.FieldValue
 
 interface WhatToDoDataSource {
 

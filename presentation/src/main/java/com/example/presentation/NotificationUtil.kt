@@ -11,7 +11,6 @@ import android.net.Uri
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
-import com.example.domain.util.AppConstants
 import com.example.presentation.br.DoingReceiver
 import com.example.presentation.ui.main.MainActivity
 import com.example.presentation.ui.main.first.TmpTimeActivity

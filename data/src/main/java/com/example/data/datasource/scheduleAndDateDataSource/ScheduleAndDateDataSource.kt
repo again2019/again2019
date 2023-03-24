@@ -1,4 +1,4 @@
-package com.example.data.dataSource.scheduleAndDateDataSource
+package com.example.data.datasource.scheduleAndDateDataSource
 
 import com.example.data.entity.DateEntity
 import com.example.data.entity.ScheduleEntity

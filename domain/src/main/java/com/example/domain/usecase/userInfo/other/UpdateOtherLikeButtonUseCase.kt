@@ -1,16 +1,10 @@
 package com.example.domain.usecase.userInfo.other
 
-import android.util.Log
 import com.example.domain.model.NotificationModel
 import com.example.domain.repository.NotificationRepository
 import com.example.domain.repository.UserInfoRepository
-import com.example.domain.util.Response
-import com.example.domain.util.UiState
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class UpdateOtherLikeButtonUseCase (
