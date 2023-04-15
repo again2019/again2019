@@ -41,9 +41,7 @@ internal object LastActivityUtils: BaseUtils() {
         }
 
         override fun onActivityStarted(activity: Activity) {
-            Log.d("experiment", activity.localClassName + _lastActivity.toString())
-
-            if (!activity.isOwnedActivity) return
+//            if (!activity.isOwnedActivity) return
             _lastActivity = WeakReference(activity)
 
             if (currentTime != null && ((System.currentTimeMillis() - currentTime!!) > CONST_BACKGROUND_TIME)) {
