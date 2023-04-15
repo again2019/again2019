@@ -9,16 +9,7 @@ import dagger.hilt.android.HiltAndroidApp
 class GoingBackingapplication : BaseApplication() {
 
     init {
-        instance = this
         setCrashHandler()
-    }
-
-    companion object {
-        private var instance: GoingBackingapplication? = null
-
-        fun applicationContext(): Context {
-            return instance!!.applicationContext
-        }
     }
 
 }
