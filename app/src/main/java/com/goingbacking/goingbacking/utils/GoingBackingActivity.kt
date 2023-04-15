@@ -1,0 +1,3 @@
+package com.goingbacking.goingbacking.utils
+
+internal interface GoingBackingActivity
