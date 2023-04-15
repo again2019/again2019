@@ -29,9 +29,9 @@ abstract class BaseActivity<VD: ViewDataBinding>(
 
     init {
 
-        addOnContextAvailableListener {
-            viewDataBinding.notifyChange()
-        }
+//        addOnContextAvailableListener {
+//            viewDataBinding.notifyChange()
+//        }
     }
 
     @StyleRes
