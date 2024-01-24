@@ -65,4 +65,4 @@
 |<img src="https://user-images.githubusercontent.com/63048392/206218909-cd112546-8043-4f3b-9bc1-c1c21bafebeb.jpg" width="250" height="400">|<img src="https://user-images.githubusercontent.com/63048392/206218999-cdc6d87f-b8ab-4f4d-a2ef-de4c9481ae0e.jpg" width="250" height="400">|<img src="https://user-images.githubusercontent.com/63048392/206218758-e1ff2eb1-0d8e-4412-b92f-b221c2b96ea3.png" width="250" height="400">|
 
 ![Smartphones_Mockup_Diagonal_Composition](https://user-images.githubusercontent.com/79246447/204121090-9175c73c-6a65-4252-a1b0-e68f9c044175.png)
-This
+
