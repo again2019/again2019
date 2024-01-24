@@ -14,7 +14,6 @@
  
 > ⏰ 통근/통학 시간 관리 어플
 
-> 버전 업데이트 계획: https://amazing-archeology-5b0.notion.site/c1f5933a244d4a32843dc1a3c45a3a19
 
 ## Explanation
 
